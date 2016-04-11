@@ -16,3 +16,6 @@ doc/*
 # librarys
 *.a
 *.dylib
+
+# cscope files
+cscope.*
