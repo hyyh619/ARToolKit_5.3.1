@@ -1,0 +1,18 @@
+# xcode project
+*.xcscheme
+*.xcodeproj
+*.plist
+
+# vim
+*.swp
+*~
+
+# remove bin
+bin/*
+
+# remove doc
+doc/*
+
+# librarys
+*.a
+*.dylib
