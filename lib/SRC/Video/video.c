@@ -174,7 +174,7 @@ AR_PIXEL_FORMAT arVideoGetPixelFormat(void)
     return ar2VideoGetPixelFormat(vid);
 }
 
-ARUint8*arVideoGetImage(void)
+ARUint8* arVideoGetImage(void)
 {
     AR2VideoBufferT *buffer;
 
@@ -331,7 +331,7 @@ int arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat)
 
 // N.B. This function is duplicated in libAR, so that libAR doesn't need to
 // link to libARvideo. Therefore, if changes are made here they should be duplicated there.
-const char*arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat)
+const char* arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat)
 {
     const char *names[] =
     {
