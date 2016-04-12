@@ -34,7 +34,7 @@
  *  Author(s): Hirokazu Kato, Philip Lamb
  *
  */
-/* 
+/*
  *   author: Hirokazu Kato ( kato@sys.im.hiroshima-cu.ac.jp )
  *
  *   Revision: 6.0   Date: 2003/09/29
@@ -83,33 +83,42 @@ int arVideoGetDefaultDevice( void )
 
 int arVideoOpen( const char *config )
 {
-    if( vid != NULL ) {
+    if (vid != NULL)
+    {
         ARLOGe("arVideoOpen: Error, video device already open.\n");
         return -1;
     }
+
     vid = ar2VideoOpen( config );
-    if( vid == NULL ) return -1;
+
+    if (vid == NULL)
+        return -1;
 
     return 0;
 }
 
-int arVideoOpenAsync(const char *config, void (*callback)(void *), void *userdata)
+int arVideoOpenAsync(const char *config, void (*callback)(void*), void *userdata)
 {
-    if( vid != NULL ) {
+    if (vid != NULL)
+    {
         ARLOGe("arVideoOpenAsync: Error, video device already open.\n");
         return -1;
     }
+
     vid = ar2VideoOpenAsync(config, callback, userdata);
-    if( vid == NULL ) return -1;
-    
+
+    if (vid == NULL)
+        return -1;
+
     return 0;
 }
 
 int arVideoClose( void )
 {
-    int     ret;
+    int ret;
 
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     ret = ar2VideoClose( vid );
     vid = NULL;
@@ -119,149 +128,174 @@ int arVideoClose( void )
 
 int arVideoDispOption( void )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
-    return  ar2VideoDispOption( vid );
+    return ar2VideoDispOption( vid );
 }
 
 int arVideoGetDevice( void )
 {
-    if( vid == NULL ) return -1;
-    
+    if (vid == NULL)
+        return -1;
+
     return ar2VideoGetDevice(vid);
 }
 
 int arVideoGetId( ARUint32 *id0, ARUint32 *id1 )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoGetId( vid, id0, id1 );
 }
 
 int arVideoGetSize( int *x, int *y )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoGetSize( vid, x, y );
 }
 
 int arVideoGetPixelSize( void )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoGetPixelSize( vid );
 }
 
 AR_PIXEL_FORMAT arVideoGetPixelFormat( void )
 {
-    if( vid == NULL ) return ((AR_PIXEL_FORMAT)-1);
+    if (vid == NULL)
+        return ((AR_PIXEL_FORMAT)-1);
 
     return ar2VideoGetPixelFormat( vid );
 }
 
-ARUint8 *arVideoGetImage( void )
+ARUint8*arVideoGetImage( void )
 {
     AR2VideoBufferT *buffer;
 
-    if( vid == NULL ) return NULL;
+    if (vid == NULL)
+        return NULL;
 
     buffer = ar2VideoGetImage(vid);
-	if (buffer == NULL) return (NULL);
-    if( buffer->fillFlag == 0 ) return NULL;
+
+    if (buffer == NULL)
+        return (NULL);
+
+    if (buffer->fillFlag == 0)
+        return NULL;
 
     return buffer->buff;
 }
 
 int arVideoCapStart( void )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoCapStart( vid );
 }
 
 int arVideoCapStartAsync(AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata)
 {
-    if( vid == NULL ) return -1;
-    
+    if (vid == NULL)
+        return -1;
+
     return ar2VideoCapStartAsync(vid, callback, userdata);
 }
 
 int arVideoCapStop( void )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoCapStop( vid );
 }
 
 int   arVideoGetParami( int paramName, int *value )
 {
-    if (paramName == AR_VIDEO_GET_VERSION) return (ar2VideoGetParami(NULL, AR_VIDEO_GET_VERSION, NULL));
-                                                    
-    if( vid == NULL ) return -1;
+    if (paramName == AR_VIDEO_GET_VERSION)
+        return (ar2VideoGetParami(NULL, AR_VIDEO_GET_VERSION, NULL));
+
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoGetParami( vid, paramName, value );
 }
 
-int   arVideoSetParami( int paramName, int  value )
+int   arVideoSetParami( int paramName, int value )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoSetParami( vid, paramName, value );
 }
 
 int   arVideoGetParamd( int paramName, double *value )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoGetParamd( vid, paramName, value );
 }
 
-int   arVideoSetParamd( int paramName, double  value )
+int   arVideoSetParamd( int paramName, double value )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoSetParamd( vid, paramName, value );
 }
 
 int   arVideoSaveParam( char *filename )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoSaveParam( vid, filename );
 }
 
 int   arVideoLoadParam( char *filename )
 {
-    if( vid == NULL ) return -1;
+    if (vid == NULL)
+        return -1;
 
     return ar2VideoLoadParam( vid, filename );
 }
 
 int arVideoSetBufferSize(const int width, const int height)
 {
-    if( vid == NULL ) return -1;
-    
+    if (vid == NULL)
+        return -1;
+
     return ar2VideoSetBufferSize( vid, width, height );
 }
 
 int arVideoGetBufferSize(int *width, int *height)
 {
-    if( vid == NULL ) return -1;
-    
+    if (vid == NULL)
+        return -1;
+
     return ar2VideoGetBufferSize( vid, width, height );
 }
 
 int arVideoGetCParam(ARParam *cparam)
 {
-    if (vid == NULL) return -1;
-    
+    if (vid == NULL)
+        return -1;
+
     return ar2VideoGetCParam(vid, cparam);
 }
 
-int arVideoGetCParamAsync(void (*callback)(const ARParam *, void *), void *userdata)
+int arVideoGetCParamAsync(void (*callback)(const ARParam*, void*), void *userdata)
 {
-    if (vid == NULL) return -1;
-    
+    if (vid == NULL)
+        return -1;
+
     return ar2VideoGetCParamAsync(vid, callback, userdata);;
 }
 
@@ -269,36 +303,38 @@ int arVideoGetCParamAsync(void (*callback)(const ARParam *, void *), void *userd
 // link to libARvideo. Therefore, if changes are made here they should be duplicated there.
 int arVideoUtilGetPixelSize( const AR_PIXEL_FORMAT arPixelFormat )
 {
-    switch( arPixelFormat ) {
-        case AR_PIXEL_FORMAT_RGB:
-        case AR_PIXEL_FORMAT_BGR:
-            return 3;
-        case AR_PIXEL_FORMAT_RGBA:
-        case AR_PIXEL_FORMAT_BGRA:
-        case AR_PIXEL_FORMAT_ABGR:
-        case AR_PIXEL_FORMAT_ARGB:
-            return 4;
-        case AR_PIXEL_FORMAT_MONO:
-        case AR_PIXEL_FORMAT_420v: // Report only size of luma pixels (i.e. plane 0).
-        case AR_PIXEL_FORMAT_420f: // Report only size of luma pixels (i.e. plane 0).
-        case AR_PIXEL_FORMAT_NV21: // Report only size of luma pixels (i.e. plane 0).
-            return 1;
-        case AR_PIXEL_FORMAT_2vuy:
-        case AR_PIXEL_FORMAT_yuvs:
-        case AR_PIXEL_FORMAT_RGB_565:
-        case AR_PIXEL_FORMAT_RGBA_5551:
-        case AR_PIXEL_FORMAT_RGBA_4444:
-            return 2;
-        default:
-            return (0);
+    switch (arPixelFormat)
+    {
+    case AR_PIXEL_FORMAT_RGB:
+    case AR_PIXEL_FORMAT_BGR:
+        return 3;
+    case AR_PIXEL_FORMAT_RGBA:
+    case AR_PIXEL_FORMAT_BGRA:
+    case AR_PIXEL_FORMAT_ABGR:
+    case AR_PIXEL_FORMAT_ARGB:
+        return 4;
+    case AR_PIXEL_FORMAT_MONO:
+    case AR_PIXEL_FORMAT_420v:     // Report only size of luma pixels (i.e. plane 0).
+    case AR_PIXEL_FORMAT_420f:     // Report only size of luma pixels (i.e. plane 0).
+    case AR_PIXEL_FORMAT_NV21:     // Report only size of luma pixels (i.e. plane 0).
+        return 1;
+    case AR_PIXEL_FORMAT_2vuy:
+    case AR_PIXEL_FORMAT_yuvs:
+    case AR_PIXEL_FORMAT_RGB_565:
+    case AR_PIXEL_FORMAT_RGBA_5551:
+    case AR_PIXEL_FORMAT_RGBA_4444:
+        return 2;
+    default:
+        return (0);
     }
 }
 
 // N.B. This function is duplicated in libAR, so that libAR doesn't need to
 // link to libARvideo. Therefore, if changes are made here they should be duplicated there.
-const char *arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat)
+const char*arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat)
 {
-    const char *names[] = {
+    const char *names[] =
+    {
         "AR_PIXEL_FORMAT_RGB",
         "AR_PIXEL_FORMAT_BGR",
         "AR_PIXEL_FORMAT_RGBA",
@@ -315,9 +351,12 @@ const char *arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat)
         "AR_PIXEL_FORMAT_420f",
         "AR_PIXEL_FORMAT_NV21"
     };
-    if ((int)arPixelFormat < 0 || (int)arPixelFormat > AR_PIXEL_FORMAT_MAX) {
+
+    if ((int)arPixelFormat < 0 || (int)arPixelFormat > AR_PIXEL_FORMAT_MAX)
+    {
         ARLOGe("arVideoUtilGetPixelFormatName: Error, unrecognised pixel format (%d).\n", (int)arPixelFormat);
         return (NULL);
     }
+
     return (names[(int)arPixelFormat]);
 }

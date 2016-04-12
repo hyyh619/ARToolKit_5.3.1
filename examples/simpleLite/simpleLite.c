@@ -190,7 +190,8 @@ static void DrawCubeUpdate(float timeDelta)
 static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p, ARHandle **arhandle, AR3DHandle **ar3dhandle)
 {
     ARParam cparam;
-    int xsize, ysize;
+    int     xsize;
+    int     ysize;
     AR_PIXEL_FORMAT pixFormat;
 
     // Open the video path.
