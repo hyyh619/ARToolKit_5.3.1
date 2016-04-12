@@ -91,28 +91,28 @@ static int windowDepth = 32;                                    // Fullscreen mo
 static int windowRefresh = 0;                                   // Fullscreen mode refresh rate. Set to 0 to use default rate.
 
 // Image acquisition.
-static ARUint8          *gARTImage = NULL;
-static int gARTImageSavePlease = FALSE;
+static ARUint8 *gARTImage = NULL;
+static int     gARTImageSavePlease = FALSE;
 
 // Marker detection.
-static ARHandle         *gARHandle = NULL;
-static ARPattHandle     *gARPattHandle = NULL;
-static long gCallCountMarkerDetect = 0;
+static ARHandle     *gARHandle = NULL;
+static ARPattHandle *gARPattHandle = NULL;
+static long         gCallCountMarkerDetect = 0;
 
 // Transformation matrix retrieval.
-static AR3DHandle       *gAR3DHandle = NULL;
-static ARdouble gPatt_width = 80.0;             // Per-marker, but we are using only 1 marker.
-static ARdouble gPatt_trans[3][4];                      // Per-marker, but we are using only 1 marker.
-static int gPatt_found = FALSE;                         // Per-marker, but we are using only 1 marker.
-static int gPatt_id;                                                    // Per-marker, but we are using only 1 marker.
+static AR3DHandle *gAR3DHandle = NULL;
+static ARdouble   gPatt_width = 80.0;           // Per-marker, but we are using only 1 marker.
+static ARdouble   gPatt_trans[3][4];                    // Per-marker, but we are using only 1 marker.
+static int        gPatt_found = FALSE;                  // Per-marker, but we are using only 1 marker.
+static int        gPatt_id;                                             // Per-marker, but we are using only 1 marker.
 
 // Drawing.
-static ARParamLT *gCparamLT = NULL;
+static ARParamLT                 *gCparamLT = NULL;
 static ARGL_CONTEXT_SETTINGS_REF gArglSettings = NULL;
-static int gShowHelp = 1;
-static int gShowMode = 1;
-static int gDrawRotate = FALSE;
-static float gDrawRotateAngle = 0;                      // For use in drawing.
+static int                       gShowHelp = 1;
+static int                       gShowMode = 1;
+static int                       gDrawRotate = FALSE;
+static float                     gDrawRotateAngle = 0;  // For use in drawing.
 
 
 // ============================================================================
@@ -132,8 +132,8 @@ static void printMode();
 static void DrawCube(void)
 {
     // Colour cube data.
-    int i;
-    float fSize = 40.0f;
+    int           i;
+    float         fSize = 40.0f;
     const GLfloat cube_vertices[8][3] =
     {
         /* +z */ {0.5f, 0.5f, 0.5f}, {0.5f, -0.5f, 0.5f}, {-0.5f, -0.5f, 0.5f}, {-0.5f, 0.5f, 0.5f},
@@ -189,12 +189,13 @@ static void DrawCubeUpdate(float timeDelta)
 
 static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p, ARHandle **arhandle, AR3DHandle **ar3dhandle)
 {
-    ARParam cparam;
-    int     xsize;
-    int     ysize;
+    ARParam         cparam;
+    int             xsize;
+    int             ysize;
     AR_PIXEL_FORMAT pixFormat;
 
     // Open the video path.
+    // arVideoOpen saves device handle in g_vid.
     if (arVideoOpen(vconf) < 0)
     {
         ARLOGe("setupCamera(): Unable to open connection to camera.\n");
@@ -213,7 +214,6 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 
     // Get the format in which the camera is returning pixels.
     pixFormat = arVideoGetPixelFormat();
-
     if (pixFormat == AR_PIXEL_FORMAT_INVALID)
     {
         ARLOGe("setupCamera(): Camera is using unsupported pixel format.\n");
@@ -315,7 +315,7 @@ static void cleanup(void)
 
 static void Keyboard(unsigned char key, int x, int y)
 {
-    int mode, threshChange = 0;
+    int                     mode, threshChange = 0;
     AR_LABELING_THRESH_MODE modea;
 
     switch (key)
@@ -420,10 +420,10 @@ static void mainLoop(void)
 {
     static int imageNumber = 0;
     static int ms_prev;
-    int ms;
-    float s_elapsed;
-    ARUint8 *image;
-    ARdouble err;
+    int        ms;
+    float      s_elapsed;
+    ARUint8    *image;
+    ARdouble   err;
 
     int j, k;
 
@@ -690,7 +690,7 @@ int main(int argc, char **argv)
 
 static void print(const char *text, const float x, const float y, int calculateXFromRightEdge, int calculateYFromTopEdge)
 {
-    int i, len;
+    int     i, len;
     GLfloat x0, y0;
 
     if (!text)
@@ -746,8 +746,8 @@ static void drawBackground(const float width, const float height, const float x,
 
 static void printHelpKeys()
 {
-    int i;
-    GLfloat w, bw, bh;
+    int        i;
+    GLfloat    w, bw, bh;
     const char *helpText[] =
     {
         "Keys:\n",
@@ -784,10 +784,10 @@ static void printHelpKeys()
 
 static void printMode()
 {
-    int len, thresh, line, mode, xsize, ysize;
+    int                     len, thresh, line, mode, xsize, ysize;
     AR_LABELING_THRESH_MODE threshMode;
-    ARdouble tempF;
-    char text[256], *text_p;
+    ARdouble                tempF;
+    char                    text[256], *text_p;
 
     glColor3ub(255, 255, 255);
     line = 1;
