@@ -66,8 +66,8 @@ int arVideoGetDefaultDevice(void)
     return AR_VIDEO_DEVICE_GSTREAMER;
 #elif defined(AR_DEFAULT_INPUT_IPHONE)
     return AR_VIDEO_DEVICE_IPHONE;
-#elif defined(AR_DEFAULT_INPUT_QUICKTIME7)
-    return AR_VIDEO_DEVICE_QUICKTIME7;
+#elif defined(AR_DEFAULT_INPUT_QUICKTIME7)      // macbook pro osx10.11.3
+    return AR_VIDEO_DEVICE_QUICKTIME7;          // value is 13.
 #elif defined(AR_DEFAULT_INPUT_IMAGE)
     return AR_VIDEO_DEVICE_IMAGE;
 #elif defined(AR_DEFAULT_INPUT_ANDROID)
