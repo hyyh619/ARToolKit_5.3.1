@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <AR/video.h>
 
-static AR2VideoParamT   *vid = NULL;
+static AR2VideoParamT   *g_vid = NULL;
 
 int arVideoGetDefaultDevice(void)
 {
@@ -83,15 +83,15 @@ int arVideoGetDefaultDevice(void)
 
 int arVideoOpen(const char *config)
 {
-    if (vid != NULL)
+    if (g_vid != NULL)
     {
         ARLOGe("arVideoOpen: Error, video device already open.\n");
         return -1;
     }
 
-    vid = ar2VideoOpen(config);
+    g_vid = ar2VideoOpen(config);
 
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
     return 0;
@@ -99,15 +99,15 @@ int arVideoOpen(const char *config)
 
 int arVideoOpenAsync(const char *config, void (*callback)(void*), void *userdata)
 {
-    if (vid != NULL)
+    if (g_vid != NULL)
     {
         ARLOGe("arVideoOpenAsync: Error, video device already open.\n");
         return -1;
     }
 
-    vid = ar2VideoOpenAsync(config, callback, userdata);
+    g_vid = ar2VideoOpenAsync(config, callback, userdata);
 
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
     return 0;
@@ -117,71 +117,71 @@ int arVideoClose(void)
 {
     int ret;
 
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    ret = ar2VideoClose(vid);
-    vid = NULL;
+    ret = ar2VideoClose(g_vid);
+    g_vid = NULL;
 
     return ret;
 }
 
 int arVideoDispOption(void)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoDispOption(vid);
+    return ar2VideoDispOption(g_vid);
 }
 
 int arVideoGetDevice(void)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetDevice(vid);
+    return ar2VideoGetDevice(g_vid);
 }
 
 int arVideoGetId(ARUint32 *id0, ARUint32 *id1)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetId(vid, id0, id1);
+    return ar2VideoGetId(g_vid, id0, id1);
 }
 
 int arVideoGetSize(int *x, int *y)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetSize(vid, x, y);
+    return ar2VideoGetSize(g_vid, x, y);
 }
 
 int arVideoGetPixelSize(void)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetPixelSize(vid);
+    return ar2VideoGetPixelSize(g_vid);
 }
 
 AR_PIXEL_FORMAT arVideoGetPixelFormat(void)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return ((AR_PIXEL_FORMAT)-1);
 
-    return ar2VideoGetPixelFormat(vid);
+    return ar2VideoGetPixelFormat(g_vid);
 }
 
 ARUint8* arVideoGetImage(void)
 {
     AR2VideoBufferT *buffer;
 
-    if (vid == NULL)
+    if (g_vid == NULL)
         return NULL;
 
-    buffer = ar2VideoGetImage(vid);
+    buffer = ar2VideoGetImage(g_vid);
 
     if (buffer == NULL)
         return (NULL);
@@ -194,26 +194,26 @@ ARUint8* arVideoGetImage(void)
 
 int arVideoCapStart(void)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoCapStart(vid);
+    return ar2VideoCapStart(g_vid);
 }
 
 int arVideoCapStartAsync(AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoCapStartAsync(vid, callback, userdata);
+    return ar2VideoCapStartAsync(g_vid, callback, userdata);
 }
 
 int arVideoCapStop(void)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoCapStop(vid);
+    return ar2VideoCapStop(g_vid);
 }
 
 int   arVideoGetParami(int paramName, int *value)
@@ -221,82 +221,82 @@ int   arVideoGetParami(int paramName, int *value)
     if (paramName == AR_VIDEO_GET_VERSION)
         return (ar2VideoGetParami(NULL, AR_VIDEO_GET_VERSION, NULL));
 
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetParami(vid, paramName, value);
+    return ar2VideoGetParami(g_vid, paramName, value);
 }
 
 int   arVideoSetParami(int paramName, int value)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoSetParami(vid, paramName, value);
+    return ar2VideoSetParami(g_vid, paramName, value);
 }
 
 int   arVideoGetParamd(int paramName, double *value)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetParamd(vid, paramName, value);
+    return ar2VideoGetParamd(g_vid, paramName, value);
 }
 
 int   arVideoSetParamd(int paramName, double value)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoSetParamd(vid, paramName, value);
+    return ar2VideoSetParamd(g_vid, paramName, value);
 }
 
 int   arVideoSaveParam(char *filename)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoSaveParam(vid, filename);
+    return ar2VideoSaveParam(g_vid, filename);
 }
 
 int   arVideoLoadParam(char *filename)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoLoadParam(vid, filename);
+    return ar2VideoLoadParam(g_vid, filename);
 }
 
 int arVideoSetBufferSize(const int width, const int height)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoSetBufferSize(vid, width, height);
+    return ar2VideoSetBufferSize(g_vid, width, height);
 }
 
 int arVideoGetBufferSize(int *width, int *height)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetBufferSize(vid, width, height);
+    return ar2VideoGetBufferSize(g_vid, width, height);
 }
 
 int arVideoGetCParam(ARParam *cparam)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetCParam(vid, cparam);
+    return ar2VideoGetCParam(g_vid, cparam);
 }
 
 int arVideoGetCParamAsync(void (*callback)(const ARParam*, void*), void *userdata)
 {
-    if (vid == NULL)
+    if (g_vid == NULL)
         return -1;
 
-    return ar2VideoGetCParamAsync(vid, callback, userdata);;
+    return ar2VideoGetCParamAsync(g_vid, callback, userdata);;
 }
 
 // N.B. This function is duplicated in libAR, so that libAR doesn't need to
