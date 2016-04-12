@@ -67,7 +67,7 @@ static const char* ar2VideoGetConfig(const char *config_in)
         config = NULL;
         ARLOGi("Using default video config.\n");
 #ifndef _WINRT
-    }
+        }
 #endif // !_WINRT
     }
     else
@@ -82,7 +82,7 @@ static const char* ar2VideoGetConfig(const char *config_in)
 static int ar2VideoGetDeviceWithConfig(const char *config, const char **configStringFollowingDevice_p)
 {
     int device;
-    const char                *a;
+    const char  *a;
     char b[256];
 
     device = arVideoGetDefaultDevice();
