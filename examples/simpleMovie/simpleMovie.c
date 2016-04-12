@@ -139,7 +139,7 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 	int				xsize, ysize;
     AR_PIXEL_FORMAT pixFormat;
 
-    // Open the video path.
+    // Open the video path.
     if (arVideoOpen(vconf) < 0) {
     	ARLOGe("setupCamera(): Unable to open connection to camera.\n");
     	return (FALSE);
