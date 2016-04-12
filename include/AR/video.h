@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato, Atsishi Nakazawa
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *         nakazawa@inolab.sys.es.osaka-u.ac.jp
- *
- * Revision: 4.3
- * Date: 2002/01/01
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato, Atsishi Nakazawa
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*         nakazawa@inolab.sys.es.osaka-u.ac.jp
+*
+* Revision: 4.3
+* Date: 2002/01/01
+*
+*******************************************************/
 
 #ifndef AR_VIDEO_H
 #define AR_VIDEO_H
@@ -73,9 +73,9 @@ extern "C" {
 #define  AR_VIDEO_DEVICE_QUICKTIME7         13
 #define  AR_VIDEO_DEVICE_IMAGE              14
 #define  AR_VIDEO_DEVICE_ANDROID            15
-#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_FOUNDATION 16
-#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_CAPTURE 17
-#define  AR_VIDEO_DEVICE_MAX                17
+#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_FOUNDATION   16
+#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_CAPTURE      17
+#define  AR_VIDEO_DEVICE_MAX                        17
 
 
 #define  AR_VIDEO_1394_BRIGHTNESS                      65
@@ -116,7 +116,7 @@ extern "C" {
 #define  AR_VIDEO_1394_GAMMA_MAX_VAL                  100
 #define  AR_VIDEO_1394_GAMMA_MIN_VAL                  101
 
-#define  AR_VIDEO_WINDS_SHOW_PROPERTIES			      129
+#define  AR_VIDEO_WINDS_SHOW_PROPERTIES               129
 
 #define  AR_VIDEO_FOCUS_MODE                          301 // i
 #define  AR_VIDEO_FOCUS_MANUAL_DISTANCE               302 // d
@@ -146,13 +146,14 @@ extern "C" {
     @field time_usec    Microseconds portion of the time at which buff was filled. Epoch is OS-specific.
     @seealso arVideoGetPixelFormat arVideoGetPixelFormat
  */
-typedef struct {
+typedef struct
+{
     ARUint8            *buff;
     ARUint8           **bufPlanes;
-    unsigned int        bufPlaneCount;
-    int                 fillFlag;
-    ARUint32            time_sec;
-    ARUint32            time_usec;
+    unsigned int bufPlaneCount;
+    int fillFlag;
+    ARUint32 time_sec;
+    ARUint32 time_usec;
 } AR2VideoBufferT;
 
 #define AR_VIDEO_POSITION_UNKNOWN     0x0000 // Camera physical position on device unknown.
@@ -180,26 +181,28 @@ typedef struct {
 #define AR_VIDEO_STEREO_MODE_RESERVED0                   0x0340
 #define AR_VIDEO_STEREO_MODE_RESERVED1                   0x0380
 #define AR_VIDEO_STEREO_MODE_RESERVED2                   0x03C0
-    
+
 #define AR_VIDEO_SOURCE_INFO_FLAG_OFFLINE       0x0001      // 0 = unknown or not offline, 1 = offline.
 #define AR_VIDEO_SOURCE_INFO_FLAG_IN_USE        0x0002      // 0 = unknown or not in use, 1 = in use.
 #define AR_VIDEO_SOURCE_INFO_FLAG_OPEN_ASYNC    0x0004      // 0 = open normally, 1 = open async.
 #define AR_VIDEO_SOURCE_INFO_POSITION_MASK      0x0038      // compare (value & AR_VIDEO_SOURCE_INFO_POSITION_MASK) against enums.
 #define AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK   0x03C0      // compare (value & AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK) against enums.
-    
-typedef struct {
+
+typedef struct
+{
     char *name;             // UTF-8 encoded string.
     char *UID;              // UTF-8 encoded string.
     unsigned int flags;
 } ARVideoSourceInfoT;
 
-typedef struct {
+typedef struct
+{
     int count;
     ARVideoSourceInfoT *info;
 } ARVideoSourceInfoListT;
 
-typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
-    
+typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void*);
+
 #ifdef _WIN32
 #  ifndef LIBARVIDEO_STATIC
 #    ifdef LIBARVIDEO_EXPORTS
@@ -262,9 +265,10 @@ typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void *);
 #ifdef AR_INPUT_WINDOWS_MEDIA_CAPTURE
 #include <AR/sys/videoWindowsMediaCapture.h>
 #endif
-    
 
-typedef union {
+
+typedef union
+{
 #ifdef AR_INPUT_DUMMY
     AR2VideoParamDummyT         *dummy;
 #endif
@@ -315,45 +319,47 @@ typedef union {
 #endif
 } AR2VideoDeviceHandleT;
 
-typedef struct {
-    int                    deviceType;
-    AR2VideoDeviceHandleT  device;
+typedef struct
+{
+    int deviceType;
+    AR2VideoDeviceHandleT device;
 } AR2VideoParamT;
 
 AR_DLL_API int               arVideoGetDefaultDevice(void);
-AR_DLL_API int               arVideoOpen            (const char *config);
-AR_DLL_API int               arVideoOpenAsync       (const char *config, void (*callback)(void *), void *userdata);
-AR_DLL_API int               arVideoClose           (void);
-AR_DLL_API int               arVideoDispOption      (void);
-AR_DLL_API int               arVideoGetDevice       (void);
-AR_DLL_API int               arVideoGetId           (ARUint32 *id0, ARUint32 *id1);
-AR_DLL_API int               arVideoGetSize         (int *x, int *y);
-AR_DLL_API int               arVideoGetPixelSize    (void);
-AR_DLL_API AR_PIXEL_FORMAT   arVideoGetPixelFormat  (void);
-AR_DLL_API ARUint8          *arVideoGetImage        (void);
-AR_DLL_API int               arVideoCapStart        (void);
-AR_DLL_API int               arVideoCapStartAsync   (AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
-AR_DLL_API int               arVideoCapStop         (void);
-AR_DLL_API int               arVideoGetParami       (int paramName, int *value);
-AR_DLL_API int               arVideoSetParami       (int paramName, int  value);
-AR_DLL_API int               arVideoGetParamd       (int paramName, double *value);
-AR_DLL_API int               arVideoSetParamd       (int paramName, double  value);
-AR_DLL_API int               arVideoGetParams       (const int paramName, char *value);
-AR_DLL_API int               arVideoSetParams       (const int paramName, const char  *value);
-AR_DLL_API int               arVideoSaveParam       (char *filename);
-AR_DLL_API int               arVideoLoadParam       (char *filename);
-AR_DLL_API int               arVideoSetBufferSize   (const int width, const int height);
-AR_DLL_API int               arVideoGetBufferSize   (int *width, int *height);
-AR_DLL_API int               arVideoGetCParam       (ARParam *cparam);
-AR_DLL_API int               arVideoGetCParamAsync  (void (*callback)(const ARParam *, void *), void *userdata);
-    
+AR_DLL_API int               arVideoOpen(const char *config);
+AR_DLL_API int               arVideoOpenAsync(const char *config, void (*callback)(void*), void *userdata);
+AR_DLL_API int               arVideoClose(void);
+AR_DLL_API int               arVideoDispOption(void);
+AR_DLL_API int               arVideoGetDevice(void);
+AR_DLL_API int               arVideoGetId(ARUint32 *id0, ARUint32 *id1);
+AR_DLL_API int               arVideoGetSize(int *x, int *y);
+AR_DLL_API int               arVideoGetPixelSize(void);
+AR_DLL_API AR_PIXEL_FORMAT   arVideoGetPixelFormat(void);
+AR_DLL_API ARUint8*          arVideoGetImage(void);
+AR_DLL_API int               arVideoCapStart(void);
+AR_DLL_API int               arVideoCapStartAsync(AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
+AR_DLL_API int               arVideoCapStop(void);
+AR_DLL_API int               arVideoGetParami(int paramName, int *value);
+AR_DLL_API int               arVideoSetParami(int paramName, int value);
+AR_DLL_API int               arVideoGetParamd(int paramName, double *value);
+AR_DLL_API int               arVideoSetParamd(int paramName, double value);
+AR_DLL_API int               arVideoGetParams(const int paramName, char *value);
+AR_DLL_API int               arVideoSetParams(const int paramName, const char  *value);
+AR_DLL_API int               arVideoSaveParam(char *filename);
+AR_DLL_API int               arVideoLoadParam(char *filename);
+AR_DLL_API int               arVideoSetBufferSize(const int width, const int height);
+AR_DLL_API int               arVideoGetBufferSize(int *width, int *height);
+AR_DLL_API int               arVideoGetCParam(ARParam *cparam);
+AR_DLL_API int               arVideoGetCParamAsync(void (*callback)(const ARParam*, void*), void *userdata);
+
 AR_DLL_API int               arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat);
-AR_DLL_API const char       *arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
+AR_DLL_API const char*       arVideoUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
 #if !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 AR_DLL_API int               arVideoSaveImageJPEG(int w, int h, AR_PIXEL_FORMAT pixFormat, ARUint8 *pixels, const char *filename, const int quality /* 0 to 100 */, const int flipV);
 #endif // !AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
 
-typedef enum {
+typedef enum
+{
     AR_VIDEO_ASPECT_RATIO_1_1,       // 1.0:
     AR_VIDEO_ASPECT_RATIO_11_9,      // 1.222: 176x144 (QCIF), 352x288 (CIF)
     AR_VIDEO_ASPECT_RATIO_5_4,       // 1.25:  1280x1024 (SXGA), 2560x2048
@@ -380,7 +386,7 @@ typedef enum {
     @param w Width in pixels
     @param h Height in pixels
     @result If a matching commonly-used aspect ratio can be found, returns symbolic constant for that aspect ratio.
-*/
+ */
 AR_VIDEO_ASPECT_RATIO arVideoUtilFindAspectRatio(int w, int h);
 
 /*!
@@ -393,8 +399,8 @@ AR_VIDEO_ASPECT_RATIO arVideoUtilFindAspectRatio(int w, int h);
     @param w Width in pixels
     @param h Height in pixels
     @result If a matching commonly-used aspect ratio can be found, returns string name for that aspect ratio. This string must be free'd when finished with.
-*/
-char *arVideoUtilFindAspectRatioName(int w, int h);
+ */
+char* arVideoUtilFindAspectRatioName(int w, int h);
 
 /*!
     @function   arVideoGetVersion
@@ -412,16 +418,16 @@ char *arVideoUtilFindAspectRatioName(int w, int h);
     @result
         Returns the full version number of the ARToolKit version corresponding
         to this video library, in binary coded decimal (BCD) format.
- 
+
         BCD format allows simple tests of version number in the caller
         e.g. if ((arGetVersion(NULL) >> 16) > 0x0272) printf("This release is later than 2.72\n");
- 
+
         The major version number is encoded in the most-significant byte
         (bits 31-24), the minor version number in the second-most-significant
         byte (bits 23-16), the tiny version number in the third-most-significant
         byte (bits 15-8), and the build version number in the least-significant
         byte (bits 7-0).
- 
+
         If the returned value is equal to -1, it can be assumed that the actual
         version is in the range 0x04000000 to 0x04040100.
     @availability Available in ARToolKit v4.4.2 and later. The underlying
@@ -431,33 +437,33 @@ char *arVideoUtilFindAspectRatioName(int w, int h);
  */
 #define  arVideoGetVersion() arVideoGetParami(AR_VIDEO_GET_VERSION, NULL)
 
-AR_DLL_API ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config);
+AR_DLL_API ARVideoSourceInfoListT* ar2VideoCreateSourceInfoList(const char *config);
 AR_DLL_API void              ar2VideoDeleteSourceInfoList(ARVideoSourceInfoListT **p);
-AR_DLL_API AR2VideoParamT   *ar2VideoOpen            (const char *config);
-AR_DLL_API AR2VideoParamT   *ar2VideoOpenAsync       (const char *config, void (*callback)(void *), void *userdata);
-AR_DLL_API int               ar2VideoClose           (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoDispOption      (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoGetDevice       (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoGetId           (AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1);
-AR_DLL_API int               ar2VideoGetSize         (AR2VideoParamT *vid, int *x,int *y);
-AR_DLL_API int               ar2VideoGetPixelSize    (AR2VideoParamT *vid);
-AR_DLL_API AR_PIXEL_FORMAT   ar2VideoGetPixelFormat  (AR2VideoParamT *vid);
-AR_DLL_API AR2VideoBufferT  *ar2VideoGetImage        (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoCapStart        (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoCapStartAsync   (AR2VideoParamT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
-AR_DLL_API int               ar2VideoCapStop         (AR2VideoParamT *vid);
-AR_DLL_API int               ar2VideoGetParami       (AR2VideoParamT *vid, int paramName, int *value);
-AR_DLL_API int               ar2VideoSetParami       (AR2VideoParamT *vid, int paramName, int  value);
-AR_DLL_API int               ar2VideoGetParamd       (AR2VideoParamT *vid, int paramName, double *value);
-AR_DLL_API int               ar2VideoSetParamd       (AR2VideoParamT *vid, int paramName, double  value);
-AR_DLL_API int               ar2VideoGetParams       (AR2VideoParamT *vid, const int paramName, char **value);
-AR_DLL_API int               ar2VideoSetParams       (AR2VideoParamT *vid, const int paramName, const char  *value);
-AR_DLL_API int               ar2VideoSaveParam       (AR2VideoParamT *vid, char *filename);
-AR_DLL_API int               ar2VideoLoadParam       (AR2VideoParamT *vid, char *filename);
-AR_DLL_API int               ar2VideoSetBufferSize   (AR2VideoParamT *vid, const int width, const int height);
-AR_DLL_API int               ar2VideoGetBufferSize   (AR2VideoParamT *vid, int *width, int *height);
-AR_DLL_API int               ar2VideoGetCParam       (AR2VideoParamT *vid, ARParam *cparam);
-AR_DLL_API int               ar2VideoGetCParamAsync  (AR2VideoParamT *vid, void (*callback)(const ARParam *, void *), void *userdata);
+AR_DLL_API AR2VideoParamT*   ar2VideoOpen(const char *config);
+AR_DLL_API AR2VideoParamT*   ar2VideoOpenAsync(const char *config, void (*callback)(void*), void *userdata);
+AR_DLL_API int               ar2VideoClose(AR2VideoParamT *vid);
+AR_DLL_API int               ar2VideoDispOption(AR2VideoParamT *vid);
+AR_DLL_API int               ar2VideoGetDevice(AR2VideoParamT *vid);
+AR_DLL_API int               ar2VideoGetId(AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1);
+AR_DLL_API int               ar2VideoGetSize(AR2VideoParamT *vid, int *x, int *y);
+AR_DLL_API int               ar2VideoGetPixelSize(AR2VideoParamT *vid);
+AR_DLL_API AR_PIXEL_FORMAT   ar2VideoGetPixelFormat(AR2VideoParamT *vid);
+AR_DLL_API AR2VideoBufferT*  ar2VideoGetImage(AR2VideoParamT *vid);
+AR_DLL_API int               ar2VideoCapStart(AR2VideoParamT *vid);
+AR_DLL_API int               ar2VideoCapStartAsync(AR2VideoParamT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
+AR_DLL_API int               ar2VideoCapStop(AR2VideoParamT *vid);
+AR_DLL_API int               ar2VideoGetParami(AR2VideoParamT *vid, int paramName, int *value);
+AR_DLL_API int               ar2VideoSetParami(AR2VideoParamT *vid, int paramName, int value);
+AR_DLL_API int               ar2VideoGetParamd(AR2VideoParamT *vid, int paramName, double *value);
+AR_DLL_API int               ar2VideoSetParamd(AR2VideoParamT *vid, int paramName, double value);
+AR_DLL_API int               ar2VideoGetParams(AR2VideoParamT *vid, const int paramName, char **value);
+AR_DLL_API int               ar2VideoSetParams(AR2VideoParamT *vid, const int paramName, const char  *value);
+AR_DLL_API int               ar2VideoSaveParam(AR2VideoParamT *vid, char *filename);
+AR_DLL_API int               ar2VideoLoadParam(AR2VideoParamT *vid, char *filename);
+AR_DLL_API int               ar2VideoSetBufferSize(AR2VideoParamT *vid, const int width, const int height);
+AR_DLL_API int               ar2VideoGetBufferSize(AR2VideoParamT *vid, int *width, int *height);
+AR_DLL_API int               ar2VideoGetCParam(AR2VideoParamT *vid, ARParam *cparam);
+AR_DLL_API int               ar2VideoGetCParamAsync(AR2VideoParamT *vid, void (*callback)(const ARParam*, void*), void *userdata);
 #ifdef  __cplusplus
 }
 #endif
