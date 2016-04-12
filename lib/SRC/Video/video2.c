@@ -79,12 +79,15 @@ static const char* ar2VideoGetConfig(const char *config_in)
     return config;
 }
 
+// Called by ar2VideoOpen
 static int ar2VideoGetDeviceWithConfig(const char *config, const char **configStringFollowingDevice_p)
 {
     int device;
     const char  *a;
     char b[256];
 
+    // Get default video device.
+    // For macbook pro, it's AR_VIDEO_DEVICE_QUICKTIME7.
     device = arVideoGetDefaultDevice();
 
     if (configStringFollowingDevice_p)
