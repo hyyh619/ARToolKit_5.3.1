@@ -158,17 +158,17 @@ void arLogSetLogger(AR_LOG_LOGGER_CALLBACK callback, int callBackOnlyIfOnSameThr
 #define arMalloc(V, T, S)  \
     { \
         if (((V) = (T*)malloc(sizeof(T) * (S))) == NULL) \
-        {\
+        { \
             ARLOGe("Out of memory!!\n"); exit(1); \
-        }\
+        } \
     }
 
 #define arMallocClear(V, T, S)  \
-    {\
+    { \
         if (((V) = (T*)calloc((S), sizeof(T))) == NULL) \
-        {\
-            ARLOGe("Out of memory!!\n"); exit(1);\
-        }\
+        { \
+            ARLOGe("Out of memory!!\n"); exit(1); \
+        } \
     }
 
 typedef char ARInt8;
@@ -226,12 +226,12 @@ typedef enum
  */
 typedef struct
 {
-    int area;
+    int      area;
     ARdouble pos[2];
-    int coord_num;
-    int x_coord[AR_CHAIN_MAX];
-    int y_coord[AR_CHAIN_MAX];
-    int vertex[5];
+    int      coord_num;
+    int      x_coord[AR_CHAIN_MAX];
+    int      y_coord[AR_CHAIN_MAX];
+    int      vertex[5];
 } ARMarkerInfo2;
 
 /*!
@@ -301,23 +301,23 @@ extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHA
  */
 typedef struct
 {
-    int area;
-    int id;
-    int idPatt;
-    int idMatrix;
-    int dir;
-    int dirPatt;
-    int dirMatrix;
-    ARdouble cf;
-    ARdouble cfPatt;
-    ARdouble cfMatrix;
-    ARdouble pos[2];
-    ARdouble line[4][3];
-    ARdouble vertex[4][2];
-    ARMarkerInfo2  *markerInfo2Ptr;
+    int                         area;
+    int                         id;
+    int                         idPatt;
+    int                         idMatrix;
+    int                         dir;
+    int                         dirPatt;
+    int                         dirMatrix;
+    ARdouble                    cf;
+    ARdouble                    cfPatt;
+    ARdouble                    cfMatrix;
+    ARdouble                    pos[2];
+    ARdouble                    line[4][3];
+    ARdouble                    vertex[4][2];
+    ARMarkerInfo2               *markerInfo2Ptr;
     AR_MARKER_INFO_CUTOFF_PHASE cutoffPhase;
-    int errorCorrected;
-    uint64_t globalID;
+    int                         errorCorrected;
+    uint64_t                    globalID;
 } ARMarkerInfo;
 
 /*!
@@ -330,7 +330,7 @@ typedef struct
 typedef struct
 {
     ARMarkerInfo marker;
-    int count;
+    int          count;
 } ARTrackingHistory;
 
 /*!
@@ -350,14 +350,14 @@ typedef struct
 {
     AR_LABELING_LABEL_TYPE *labelImage;
 #if !AR_DISABLE_LABELING_DEBUG_MODE
-    ARUint8        *bwImage;
+    ARUint8 *bwImage;
 #endif
-    int label_num;
-    int area[AR_LABELING_WORK_SIZE];
-    int clip[AR_LABELING_WORK_SIZE][4];
+    int      label_num;
+    int      area[AR_LABELING_WORK_SIZE];
+    int      clip[AR_LABELING_WORK_SIZE][4];
     ARdouble pos[AR_LABELING_WORK_SIZE][2];
-    int work[AR_LABELING_WORK_SIZE];
-    int work2[AR_LABELING_WORK_SIZE * 7];           // area, pos[2], clip[4].
+    int      work[AR_LABELING_WORK_SIZE];
+    int      work2[AR_LABELING_WORK_SIZE * 7];      // area, pos[2], clip[4].
 } ARLabelInfo;
 
 /* --------------------------------------------------*/
@@ -377,13 +377,13 @@ typedef struct
  */
 typedef struct
 {
-    int patt_num;
-    int patt_num_max;
-    int            *pattf;
-    int           **patt;
-    ARdouble       *pattpow;
-    int           **pattBW;
-    ARdouble       *pattpowBW;
+    int      patt_num;
+    int      patt_num_max;
+    int      *pattf;
+    int      **patt;
+    ARdouble *pattpow;
+    int      **pattBW;
+    ARdouble *pattpowBW;
     //ARdouble        pattRatio;
     int pattSize;
 } ARPattHandle;
@@ -433,17 +433,17 @@ extern "C" {
 
 typedef enum
 {
-    AR_MATRIX_CODE_3x3 = 0x03,                                                  // Matrix code in range 0-63.
-    AR_MATRIX_CODE_3x3_PARITY65 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_PARITY,        // Matrix code in range 0-31.
-    AR_MATRIX_CODE_3x3_HAMMING63 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_HAMMING,      // Matrix code in range 0-7.
-    AR_MATRIX_CODE_4x4 = 0x04,                                                  // Matrix code in range 0-8191.
-    AR_MATRIX_CODE_4x4_BCH_13_9_3 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___3,     // Matrix code in range 0-511.
-    AR_MATRIX_CODE_4x4_BCH_13_5_5 = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___5,     // Matrix code in range 0-31.
+    AR_MATRIX_CODE_3x3             = 0x03,                                      // Matrix code in range 0-63.
+    AR_MATRIX_CODE_3x3_PARITY65    = 0x03 | AR_MATRIX_CODE_TYPE_ECC_PARITY,     // Matrix code in range 0-31.
+    AR_MATRIX_CODE_3x3_HAMMING63   = 0x03 | AR_MATRIX_CODE_TYPE_ECC_HAMMING,    // Matrix code in range 0-7.
+    AR_MATRIX_CODE_4x4             = 0x04,                                      // Matrix code in range 0-8191.
+    AR_MATRIX_CODE_4x4_BCH_13_9_3  = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___3,    // Matrix code in range 0-511.
+    AR_MATRIX_CODE_4x4_BCH_13_5_5  = 0x04 | AR_MATRIX_CODE_TYPE_ECC_BCH___5,    // Matrix code in range 0-31.
     AR_MATRIX_CODE_5x5_BCH_22_12_5 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___5,    // Matrix code in range 0-4095.
-    AR_MATRIX_CODE_5x5_BCH_22_7_7 = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___7,     // Matrix code in range 0-127.
-    AR_MATRIX_CODE_5x5 = 0x05,                                                  // Matrix code in range 0-4194303.
-    AR_MATRIX_CODE_6x6 = 0x06,                                                  // Matrix code in range 0-8589934591.
-    AR_MATRIX_CODE_GLOBAL_ID = 0x0e | AR_MATRIX_CODE_TYPE_ECC_BCH___19
+    AR_MATRIX_CODE_5x5_BCH_22_7_7  = 0x05 | AR_MATRIX_CODE_TYPE_ECC_BCH___7,    // Matrix code in range 0-127.
+    AR_MATRIX_CODE_5x5             = 0x05,                                      // Matrix code in range 0-4194303.
+    AR_MATRIX_CODE_6x6             = 0x06,                                      // Matrix code in range 0-8589934591.
+    AR_MATRIX_CODE_GLOBAL_ID       = 0x0e | AR_MATRIX_CODE_TYPE_ECC_BCH___19
 } AR_MATRIX_CODE_TYPE;
 
 /*!
@@ -473,33 +473,33 @@ typedef enum
  */
 typedef struct
 {
-    int arDebug;
-    AR_PIXEL_FORMAT arPixelFormat;
-    int arPixelSize;
-    int arLabelingMode;
-    int arLabelingThresh;
-    int arImageProcMode;
-    int arPatternDetectionMode;
-    int arMarkerExtractionMode;
-    ARParamLT         *arParamLT;
-    int xsize;
-    int ysize;
-    int marker_num;
-    ARMarkerInfo markerInfo[AR_SQUARE_MAX];
-    int marker2_num;
-    ARMarkerInfo2 markerInfo2[AR_SQUARE_MAX];
-    int history_num;
-    ARTrackingHistory history[AR_SQUARE_MAX];
-    ARLabelInfo labelInfo;
-    ARPattHandle      *pattHandle;
+    int                     arDebug;
+    AR_PIXEL_FORMAT         arPixelFormat;
+    int                     arPixelSize;
+    int                     arLabelingMode;
+    int                     arLabelingThresh;
+    int                     arImageProcMode;
+    int                     arPatternDetectionMode;
+    int                     arMarkerExtractionMode;
+    ARParamLT               *arParamLT;
+    int                     xsize;
+    int                     ysize;
+    int                     marker_num;
+    ARMarkerInfo            markerInfo[AR_SQUARE_MAX];
+    int                     marker2_num;
+    ARMarkerInfo2           markerInfo2[AR_SQUARE_MAX];
+    int                     history_num;
+    ARTrackingHistory       history[AR_SQUARE_MAX];
+    ARLabelInfo             labelInfo;
+    ARPattHandle            *pattHandle;
     AR_LABELING_THRESH_MODE arLabelingThreshMode;
-    int arLabelingThreshAutoInterval;
-    int arLabelingThreshAutoIntervalTTL;
-    int arLabelingThreshAutoBracketOver;
-    int arLabelingThreshAutoBracketUnder;
-    ARImageProcInfo   *arImageProcInfo;
-    ARdouble pattRatio;
-    AR_MATRIX_CODE_TYPE matrixCodeType;
+    int                     arLabelingThreshAutoInterval;
+    int                     arLabelingThreshAutoIntervalTTL;
+    int                     arLabelingThreshAutoBracketOver;
+    int                     arLabelingThreshAutoBracketUnder;
+    ARImageProcInfo         *arImageProcInfo;
+    ARdouble                pattRatio;
+    AR_MATRIX_CODE_TYPE     matrixCodeType;
 } ARHandle;
 
 
@@ -513,7 +513,7 @@ typedef struct
  */
 typedef struct
 {
-    ICPHandleT          *icpHandle;
+    ICPHandleT *icpHandle;
 } AR3DHandle;
 
 #define   AR_TRANS_MAT_IDENTITY            ICP_TRANS_MAT_IDENTITY
@@ -526,7 +526,7 @@ typedef struct
  */
 typedef struct
 {
-    ICPStereoHandleT    *icpStereoHandle;
+    ICPStereoHandleT *icpStereoHandle;
 } AR3DStereoHandle;
 
 
@@ -570,7 +570,7 @@ typedef struct
     @seealso arSetPixelFormat arSetPixelFormat
     @seealso arDeleteHandle arDeleteHandle
  */
-ARHandle*arCreateHandle(ARParamLT *paramLT);
+ARHandle*      arCreateHandle(ARParamLT *paramLT);
 
 /*!
     @function
@@ -1055,7 +1055,7 @@ int            arGetMarkerNum(ARHandle *arHandle);
     @seealso ARMarkerInfo ARMarkerInfo
     @seealso arDetectMarker arDetectMarker
  */
-ARMarkerInfo*arGetMarker(ARHandle *arHandle);
+ARMarkerInfo* arGetMarker(ARHandle *arHandle);
 
 /* ------------------------------ */
 
@@ -1124,7 +1124,7 @@ int            arGetLine(int x_coord[], int y_coord[], int coord_num, int vertex
     @seealso    arPattDeleteHandle arPattDeleteHandle
     @result     The created pattern handle, or NULL in case of error.
  */
-ARPattHandle*arPattCreateHandle(void);
+ARPattHandle* arPattCreateHandle(void);
 
 /*!
     @function
@@ -1149,7 +1149,7 @@ ARPattHandle*arPattCreateHandle(void);
     @result     The created pattern handle, or NULL in case of error.
  */
 
-ARPattHandle*arPattCreateHandle2(const int pattSize, const int patternCountMax);
+ARPattHandle* arPattCreateHandle2(const int pattSize, const int patternCountMax);
 
 /*!
     @function
@@ -1427,7 +1427,7 @@ int            arPattGetImage3(ARHandle *arHandle, int markerNo, ARUint8 *image,
     @seealso    ar3DCreateHandle2 ar3DCreateHandle2
     @seealso    ar3DDeleteHandle ar3DDeleteHandle
  */
-AR3DHandle*ar3DCreateHandle(ARParam *arParam);
+AR3DHandle* ar3DCreateHandle(ARParam *arParam);
 
 /*!
     @function
@@ -1441,7 +1441,7 @@ AR3DHandle*ar3DCreateHandle(ARParam *arParam);
     @seealso    ar3DCreateHandle ar3DCreateHandle
     @seealso    ar3DDeleteHandle ar3DDeleteHandle
  */
-AR3DHandle*ar3DCreateHandle2(ARdouble cpara[3][4]);
+AR3DHandle* ar3DCreateHandle2(ARdouble cpara[3][4]);
 
 /*!
     @function
@@ -1566,8 +1566,8 @@ ARdouble         arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4]
         @functiongroup "3D calculation by Stereo".
  */
 
-AR3DStereoHandle*ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR, ARdouble transL[3][4], ARdouble transR[3][4]);
-AR3DStereoHandle*ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4], ARdouble transL[3][4], ARdouble transR[3][4]);
+AR3DStereoHandle* ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR, ARdouble transL[3][4], ARdouble transR[3][4]);
+AR3DStereoHandle* ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4], ARdouble transL[3][4], ARdouble transR[3][4]);
 int                  ar3DStereoDeleteHandle(AR3DStereoHandle **handle);
 int                  ar3DStereoChangeMaxLoopCount(AR3DStereoHandle *handle, int maxLoopCount);
 int                  ar3DStereoChangeLoopBreakThresh(AR3DStereoHandle *handle, ARdouble loopBreakThresh);
@@ -1730,9 +1730,9 @@ int            arUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat);
         The string returned matches the constants used in the definition of the type
         AR_PIXEL_FORMAT, e.g. "AR_PIXEL_FORMAT_RGB".
  */
-const char*arUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
+const char* arUtilGetPixelFormatName(const AR_PIXEL_FORMAT arPixelFormat);
 
-char*arUtilGetMachineType(void);
+char* arUtilGetMachineType(void);
 
 /*
     @function
@@ -1742,7 +1742,7 @@ char*arUtilGetMachineType(void);
         returns a pointer to the first char of the filename
         portion of path.
  */
-const char*arUtilGetFileNameFromPath(const char *path);
+const char* arUtilGetFileNameFromPath(const char *path);
 
 
 /*!
@@ -1760,7 +1760,7 @@ const char*arUtilGetFileNameFromPath(const char *path);
     @result A string with the basename portion of path.
         NB: The returned string must be freed by the caller.
  */
-char*arUtilGetFileBasenameFromPath(const char *path, const int convertToLowercase);
+char* arUtilGetFileBasenameFromPath(const char *path, const int convertToLowercase);
 
 /*!
     @function
@@ -1776,7 +1776,7 @@ char*arUtilGetFileBasenameFromPath(const char *path, const int convertToLowercas
     @result A string with the extension portion of path.
         NB: The returned string must be freed by the caller.
  */
-char*arUtilGetFileExtensionFromPath(const char *path, const int convertToLowercase);
+char* arUtilGetFileExtensionFromPath(const char *path, const int convertToLowercase);
 
 /*
    @function
@@ -1789,7 +1789,7 @@ char*arUtilGetFileExtensionFromPath(const char *path, const int convertToLowerca
     buffer, NULL is returned, otherwise dir is returned.
     The string is terminated by the directory separator if addSeparator != 0.
  */
-char*arUtilGetDirectoryNameFromPath(char *dir, const char *path, const size_t n, const int addSeparator);
+char* arUtilGetDirectoryNameFromPath(char *dir, const char *path, const size_t n, const int addSeparator);
 
 /*!
     @function
@@ -1810,7 +1810,7 @@ char*arUtilGetDirectoryNameFromPath(char *dir, const char *path, const size_t n,
         NB: The returned string must be freed by the caller (by
         calling free() once its use is complete).
  */
-char*arUtilGetFileURI(const char *path);
+char* arUtilGetFileURI(const char *path);
 
 /*!
     @typedef
@@ -1861,9 +1861,9 @@ typedef enum
     @result NULL in the case of error, or the path otherwise. Must be free()d by the caller.
  */
 #ifdef ANDROID
-char*arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
+char* arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext);
 #else
-char*arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
+char* arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior);
 #endif
 
 #ifndef _WINRT

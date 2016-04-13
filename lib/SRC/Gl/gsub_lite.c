@@ -135,11 +135,11 @@
 
 // On Windows, all OpenGL v1.5 and later API must be dynamically resolved against the actual driver.
 #ifdef _WIN32
-PFNGLGENBUFFERSPROC          glGenBuffers = NULL; // (PFNGLGENBUFFERSPROC)wglGetProcAddress("glGenBuffersARB");
-PFNGLDELETEBUFFERSPROC       glDeleteBuffers = NULL;
-PFNGLBINDBUFFERPROC          glBindBuffer = NULL;
-PFNGLBUFFERDATAPROC          glBufferData = NULL;
-PFNGLACTIVETEXTUREPROC       glActiveTexture = NULL;
+PFNGLGENBUFFERSPROC          glGenBuffers          = NULL; // (PFNGLGENBUFFERSPROC)wglGetProcAddress("glGenBuffersARB");
+PFNGLDELETEBUFFERSPROC       glDeleteBuffers       = NULL;
+PFNGLBINDBUFFERPROC          glBindBuffer          = NULL;
+PFNGLBUFFERDATAPROC          glBufferData          = NULL;
+PFNGLACTIVETEXTUREPROC       glActiveTexture       = NULL;
 PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture = NULL;
 #endif
 
@@ -147,33 +147,33 @@ PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture = NULL;
 
 struct _ARGL_CONTEXT_SETTINGS
 {
-    ARParam arParam;
-    ARHandle *arhandle; // Not used except for debug mode.
-    GLuint texture;
-    float *t2;
-    float *v2;
-    GLuint t2bo;      // Vertex buffer object for t2 data.
-    GLuint v2bo;      // Vertex buffer object for v2 data.
-    float zoom;
-    GLint textureSizeMax;
-    GLsizei textureSizeX;
-    GLsizei textureSizeY;
-    GLenum pixIntFormat;
-    GLenum pixFormat;
-    GLenum pixType;
-    GLenum pixSize;
+    ARParam         arParam;
+    ARHandle        *arhandle; // Not used except for debug mode.
+    GLuint          texture;
+    float           *t2;
+    float           *v2;
+    GLuint          t2bo; // Vertex buffer object for t2 data.
+    GLuint          v2bo; // Vertex buffer object for v2 data.
+    float           zoom;
+    GLint           textureSizeMax;
+    GLsizei         textureSizeX;
+    GLsizei         textureSizeY;
+    GLenum          pixIntFormat;
+    GLenum          pixFormat;
+    GLenum          pixType;
+    GLenum          pixSize;
     AR_PIXEL_FORMAT format;
-    int disableDistortionCompensation;
-    int textureGeometryHasBeenSetup;
-    int textureObjectsHaveBeenSetup;
-    int rotate90;
-    int flipH;
-    int flipV;
-    GLsizei bufSizeX;
-    GLsizei bufSizeY;
-    int bufSizeIsTextureSize;
-    int textureDataReady;
-    int arglTexmapMode;
+    int             disableDistortionCompensation;
+    int             textureGeometryHasBeenSetup;
+    int             textureObjectsHaveBeenSetup;
+    int             rotate90;
+    int             flipH;
+    int             flipV;
+    GLsizei         bufSizeX;
+    GLsizei         bufSizeY;
+    int             bufSizeIsTextureSize;
+    int             textureDataReady;
+    int             arglTexmapMode;
 };
 typedef struct _ARGL_CONTEXT_SETTINGS ARGL_CONTEXT_SETTINGS;
 
@@ -214,7 +214,7 @@ static char arglSetupTextureGeometry(ARGL_CONTEXT_SETTINGS_REF contextSettings)
     // Set up the geometry for the surface which we will texture upon.
     imageSizeX = (float)contextSettings->arParam.xsize;
     imageSizeY = (float)contextSettings->arParam.ysize;
-    zoom = contextSettings->zoom;
+    zoom       = contextSettings->zoom;
     if (contextSettings->disableDistortionCompensation)
         vertexCount = 4;
     else
@@ -222,7 +222,7 @@ static char arglSetupTextureGeometry(ARGL_CONTEXT_SETTINGS_REF contextSettings)
 
     contextSettings->t2 = (float*)malloc(sizeof(float) * 2 * vertexCount);
     contextSettings->v2 = (float*)malloc(sizeof(float) * 2 * vertexCount);
-    t2count = v2count = 0;
+    t2count             = v2count = 0;
     if (contextSettings->disableDistortionCompensation)
     {
         contextSettings->t2[t2count++] = 0.0f; // Top-left.
@@ -244,20 +244,20 @@ static char arglSetupTextureGeometry(ARGL_CONTEXT_SETTINGS_REF contextSettings)
     }
     else
     {
-        y = 0.0f;
+        y  = 0.0f;
         ty = 0.0f;
 
         for (j = 1; j <= 20; j++)      // Do 20 rows of triangle strips.
         {
-            y_prev = y;
+            y_prev  = y;
             ty_prev = ty;
-            y = imageSizeY * (float)j / 20.0f;
-            ty = y / (float)contextSettings->textureSizeY;
+            y       = imageSizeY * (float)j / 20.0f;
+            ty      = y / (float)contextSettings->textureSizeY;
 
 
             for (i = 0; i <= 20; i++)   // 21 columns of triangle strip vertices, 2 vertices per column.
             {
-                x = imageSizeX * (float)i / 20.0f;
+                x  = imageSizeX * (float)i / 20.0f;
                 tx = x / (float)contextSettings->textureSizeX;
 
                 arParamObserv2Ideal(contextSettings->arParam.dist_factor, (ARdouble)x, (ARdouble)y_prev, &x1, &y1, contextSettings->arParam.dist_function_version);
@@ -349,7 +349,7 @@ void arglCameraFrustum(const ARParam *cparam, const ARdouble focalmin, const ARd
     int      width, height;
     int      i, j;
 
-    width = cparam->xsize;
+    width  = cparam->xsize;
     height = cparam->ysize;
 
     if (arParamDecompMat(cparam->mat, icpara, trans) < 0)
@@ -416,7 +416,7 @@ void arglCameraFrustumRH(const ARParam *cparam, const ARdouble focalmin, const A
     int      width, height;
     int      i, j;
 
-    width = cparam->xsize;
+    width  = cparam->xsize;
     height = cparam->ysize;
 
     if (arParamDecompMat(cparam->mat, icpara, trans) < 0)
@@ -568,10 +568,10 @@ ARGL_CONTEXT_SETTINGS_REF arglSetupForCurrentContext(ARParam *cparam, AR_PIXEL_F
     }
 #endif
 
-    contextSettings = (ARGL_CONTEXT_SETTINGS_REF)calloc(1, sizeof(ARGL_CONTEXT_SETTINGS));
-    contextSettings->arParam = *cparam; // Copy it.
+    contextSettings           = (ARGL_CONTEXT_SETTINGS_REF)calloc(1, sizeof(ARGL_CONTEXT_SETTINGS));
+    contextSettings->arParam  = *cparam; // Copy it.
     contextSettings->arhandle = NULL;
-    contextSettings->zoom = 1.0f;
+    contextSettings->zoom     = 1.0f;
     // Because of calloc used above, these are redundant.
     //contextSettings->rotate90 = contextSettings->flipH = contextSettings->flipV = FALSE;
     //contextSettings->disableDistortionCompensation = FALSE;
@@ -641,22 +641,22 @@ void arglDispImage(ARGL_CONTEXT_SETTINGS_REF contextSettings)
     if (contextSettings->flipV)
     {
         bottom = (GLdouble)contextSettings->arParam.ysize;
-        top = 0.0;
+        top    = 0.0;
     }
     else
     {
         bottom = 0.0;
-        top = (GLdouble)contextSettings->arParam.ysize;
+        top    = (GLdouble)contextSettings->arParam.ysize;
     }
 
     if (contextSettings->flipH)
     {
-        left = (GLdouble)contextSettings->arParam.xsize;
+        left  = (GLdouble)contextSettings->arParam.xsize;
         right = 0.0;
     }
     else
     {
-        left = 0.0;
+        left  = 0.0;
         right = (GLdouble)contextSettings->arParam.xsize;
     }
 
@@ -808,17 +808,18 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
     {
     case AR_PIXEL_FORMAT_RGBA:
         contextSettings->pixIntFormat = GL_RGBA;
-        contextSettings->pixFormat = GL_RGBA;
-        contextSettings->pixType = GL_UNSIGNED_BYTE;
-        contextSettings->pixSize = 4;
+        contextSettings->pixFormat    = GL_RGBA;
+        contextSettings->pixType      = GL_UNSIGNED_BYTE;
+        contextSettings->pixSize      = 4;
         break;
+
     case AR_PIXEL_FORMAT_ABGR:                  // SGI.
         if (arglGLCapabilityCheck(0, (unsigned char*)"GL_EXT_abgr"))
         {
             contextSettings->pixIntFormat = GL_RGBA;
-            contextSettings->pixFormat = GL_ABGR_EXT;
-            contextSettings->pixType = GL_UNSIGNED_BYTE;
-            contextSettings->pixSize = 4;
+            contextSettings->pixFormat    = GL_ABGR_EXT;
+            contextSettings->pixType      = GL_UNSIGNED_BYTE;
+            contextSettings->pixSize      = 4;
         }
         else
         {
@@ -826,13 +827,14 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     case AR_PIXEL_FORMAT_BGRA:                  // Windows.
         if (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_bgra"))
         {
             contextSettings->pixIntFormat = GL_RGBA;
-            contextSettings->pixFormat = GL_BGRA;
-            contextSettings->pixType = GL_UNSIGNED_BYTE;
-            contextSettings->pixSize = 4;
+            contextSettings->pixFormat    = GL_BGRA;
+            contextSettings->pixType      = GL_UNSIGNED_BYTE;
+            contextSettings->pixSize      = 4;
         }
         else
         {
@@ -840,12 +842,13 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     case AR_PIXEL_FORMAT_ARGB:                  // Mac.
         if (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_bgra")
             && (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_packed_pixels") || arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_APPLE_packed_pixels")))
         {
             contextSettings->pixIntFormat = GL_RGBA;
-            contextSettings->pixFormat = GL_BGRA;
+            contextSettings->pixFormat    = GL_BGRA;
 #ifdef AR_BIG_ENDIAN
             contextSettings->pixType = GL_UNSIGNED_INT_8_8_8_8_REV;
 #else
@@ -859,19 +862,21 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     case AR_PIXEL_FORMAT_RGB:
         contextSettings->pixIntFormat = GL_RGB;
-        contextSettings->pixFormat = GL_RGB;
-        contextSettings->pixType = GL_UNSIGNED_BYTE;
-        contextSettings->pixSize = 3;
+        contextSettings->pixFormat    = GL_RGB;
+        contextSettings->pixType      = GL_UNSIGNED_BYTE;
+        contextSettings->pixSize      = 3;
         break;
+
     case AR_PIXEL_FORMAT_BGR:
         if (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_bgra"))
         {
             contextSettings->pixIntFormat = GL_RGB;
-            contextSettings->pixFormat = GL_BGR;
-            contextSettings->pixType = GL_UNSIGNED_BYTE;
-            contextSettings->pixSize = 3;
+            contextSettings->pixFormat    = GL_BGR;
+            contextSettings->pixType      = GL_UNSIGNED_BYTE;
+            contextSettings->pixSize      = 3;
         }
         else
         {
@@ -879,17 +884,19 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     case AR_PIXEL_FORMAT_MONO:
         contextSettings->pixIntFormat = GL_LUMINANCE;
-        contextSettings->pixFormat = GL_LUMINANCE;
-        contextSettings->pixType = GL_UNSIGNED_BYTE;
-        contextSettings->pixSize = 1;
+        contextSettings->pixFormat    = GL_LUMINANCE;
+        contextSettings->pixType      = GL_UNSIGNED_BYTE;
+        contextSettings->pixSize      = 1;
         break;
+
     case AR_PIXEL_FORMAT_2vuy:
         if (arglGLCapabilityCheck(0, (unsigned char*)"GL_APPLE_ycbcr_422"))
         {
             contextSettings->pixIntFormat = GL_RGB;
-            contextSettings->pixFormat = GL_YCBCR_422_APPLE;
+            contextSettings->pixFormat    = GL_YCBCR_422_APPLE;
 #ifdef AR_BIG_ENDIAN
             contextSettings->pixType = GL_UNSIGNED_SHORT_8_8_REV_APPLE;
 #else
@@ -899,7 +906,7 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         else if (arglGLCapabilityCheck(0, (unsigned char*)"GL_MESA_ycbcr_texture"))
         {
             contextSettings->pixIntFormat = GL_YCBCR_MESA;
-            contextSettings->pixFormat = GL_YCBCR_MESA;
+            contextSettings->pixFormat    = GL_YCBCR_MESA;
 #ifdef AR_BIG_ENDIAN
             contextSettings->pixType = GL_UNSIGNED_SHORT_8_8_REV_MESA;
 #else
@@ -913,11 +920,12 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
 
         contextSettings->pixSize = 2;
         break;
+
     case AR_PIXEL_FORMAT_yuvs:
         if (arglGLCapabilityCheck(0, (unsigned char*)"GL_APPLE_ycbcr_422"))
         {
             contextSettings->pixIntFormat = GL_RGB;
-            contextSettings->pixFormat = GL_YCBCR_422_APPLE;
+            contextSettings->pixFormat    = GL_YCBCR_422_APPLE;
 #ifdef AR_BIG_ENDIAN
             contextSettings->pixType = GL_UNSIGNED_SHORT_8_8_APPLE;
 #else
@@ -927,7 +935,7 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         else if (arglGLCapabilityCheck(0, (unsigned char*)"GL_MESA_ycbcr_texture"))
         {
             contextSettings->pixIntFormat = GL_YCBCR_MESA;
-            contextSettings->pixFormat = GL_YCBCR_MESA;
+            contextSettings->pixFormat    = GL_YCBCR_MESA;
 #ifdef AR_BIG_ENDIAN
             contextSettings->pixType = GL_UNSIGNED_SHORT_8_8_MESA;
 #else
@@ -941,13 +949,14 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
 
         contextSettings->pixSize = 2;
         break;
+
     case AR_PIXEL_FORMAT_RGB_565:
         if (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_packed_pixels") || arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_APPLE_packed_pixels"))
         {
             contextSettings->pixIntFormat = GL_RGB;
-            contextSettings->pixFormat = GL_RGB;
-            contextSettings->pixType = GL_UNSIGNED_SHORT_5_6_5;
-            contextSettings->pixSize = 2;
+            contextSettings->pixFormat    = GL_RGB;
+            contextSettings->pixType      = GL_UNSIGNED_SHORT_5_6_5;
+            contextSettings->pixSize      = 2;
         }
         else
         {
@@ -955,13 +964,14 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     case AR_PIXEL_FORMAT_RGBA_5551:
         if (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_packed_pixels") || arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_APPLE_packed_pixels"))
         {
             contextSettings->pixIntFormat = GL_RGBA;
-            contextSettings->pixFormat = GL_RGBA;
-            contextSettings->pixType = GL_UNSIGNED_SHORT_5_5_5_1;
-            contextSettings->pixSize = 2;
+            contextSettings->pixFormat    = GL_RGBA;
+            contextSettings->pixType      = GL_UNSIGNED_SHORT_5_5_5_1;
+            contextSettings->pixSize      = 2;
         }
         else
         {
@@ -969,13 +979,14 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     case AR_PIXEL_FORMAT_RGBA_4444:
         if (arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_EXT_packed_pixels") || arglGLCapabilityCheck(0x0120, (unsigned char*)"GL_APPLE_packed_pixels"))
         {
             contextSettings->pixIntFormat = GL_RGBA;
-            contextSettings->pixFormat = GL_RGBA;
-            contextSettings->pixType = GL_UNSIGNED_SHORT_4_4_4_4;
-            contextSettings->pixSize = 2;
+            contextSettings->pixFormat    = GL_RGBA;
+            contextSettings->pixType      = GL_UNSIGNED_SHORT_4_4_4_4;
+            contextSettings->pixSize      = 2;
         }
         else
         {
@@ -983,15 +994,17 @@ int arglPixelFormatSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FORMA
         }
 
         break;
+
     // Do mono-only rendering as a better alternative to doing nothing.
     case AR_PIXEL_FORMAT_420v:
     case AR_PIXEL_FORMAT_420f:
     case AR_PIXEL_FORMAT_NV21:
         contextSettings->pixIntFormat = GL_LUMINANCE;
-        contextSettings->pixFormat = GL_LUMINANCE;
-        contextSettings->pixType = GL_UNSIGNED_BYTE;
-        contextSettings->pixSize = 1;
+        contextSettings->pixFormat    = GL_LUMINANCE;
+        contextSettings->pixType      = GL_UNSIGNED_BYTE;
+        contextSettings->pixSize      = 1;
         break;
+
     default:
         return (FALSE);
         break;
@@ -1084,8 +1097,8 @@ char arglPixelBufferSizeSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, int bufWi
 
     if (arglGLCapabilityCheck(0x200u, (const unsigned char*)"GL_ARB_texture_non_power_of_two"))
     {
-        contextSettings->textureSizeX = bufWidth;
-        contextSettings->textureSizeY = bufHeight;
+        contextSettings->textureSizeX         = bufWidth;
+        contextSettings->textureSizeY         = bufHeight;
         contextSettings->bufSizeIsTextureSize = TRUE;
     }
     else
@@ -1100,8 +1113,8 @@ char arglPixelBufferSizeSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, int bufWi
             contextSettings->textureSizeY <<= 1;
 
         contextSettings->bufSizeIsTextureSize = FALSE;
-        contextSettings->bufSizeX = bufWidth;
-        contextSettings->bufSizeY = bufHeight;
+        contextSettings->bufSizeX             = bufWidth;
+        contextSettings->bufSizeY             = bufHeight;
     }
 
     // Changing the size of the data we'll be receiving invalidates the geometry, so set it up.
@@ -1265,7 +1278,7 @@ int arglGLCapabilityCheck(const unsigned short minVersion, const unsigned char *
         {
             if ((strVersion[j] <= '9') && (strVersion[j] >= '0'))
             {
-                version += (strVersion[j] - '0') << shiftVal;
+                version  += (strVersion[j] - '0') << shiftVal;
                 shiftVal -= 4;
             }
 

@@ -240,12 +240,15 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
     arParamDisp(&cparam);
 #endif
 
+    // Create a lookup-table camera parameter from a standard camera parameter
+    // AR_PARAM_LT_DEFAULT_OFFSET is 15.
     if ((*cparamLT_p = arParamLTCreate(&cparam, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL)
     {
         ARLOGe("setupCamera(): Error: arParamLTCreate.\n");
         return (FALSE);
     }
 
+    // Create a handle to hold settings for an ARToolKit tracker instance.
     if ((*arhandle = arCreateHandle(*cparamLT_p)) == NULL)
     {
         ARLOGe("setupCamera(): Error: arCreateHandle.\n");
@@ -264,6 +267,7 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
         return (FALSE);
     }
 
+    // Create handle used for 3D calculation from calibrated camera parameters.
     if ((*ar3dhandle = ar3DCreateHandle(&cparam)) == NULL)
     {
         ARLOGe("setupCamera(): Error: ar3DCreateHandle.\n");
@@ -326,9 +330,11 @@ static void Keyboard(unsigned char key, int x, int y)
         cleanup();
         exit(0);
         break;
+
     case ' ':
         gDrawRotate = !gDrawRotate;
         break;
+
     case 'X':
     case 'x':
         arGetImageProcMode(gARHandle, &mode);
@@ -336,18 +342,21 @@ static void Keyboard(unsigned char key, int x, int y)
         switch (mode)
         {
         case AR_IMAGE_PROC_FRAME_IMAGE:  mode = AR_IMAGE_PROC_FIELD_IMAGE; break;
+
         case AR_IMAGE_PROC_FIELD_IMAGE:
         default: mode = AR_IMAGE_PROC_FRAME_IMAGE; break;
         }
 
         arSetImageProcMode(gARHandle, mode);
         break;
+
     case 'C':
     case 'c':
         ARLOGe("*** Camera - %f (frame/sec)\n", (double)gCallCountMarkerDetect / arUtilTimer());
         gCallCountMarkerDetect = 0;
         arUtilTimerReset();
         break;
+
     case 'a':
     case 'A':
         arGetLabelingThreshMode(gARHandle, &modea);
@@ -364,18 +373,22 @@ static void Keyboard(unsigned char key, int x, int y)
 
         arSetLabelingThreshMode(gARHandle, modea);
         break;
+
     case '-':
         threshChange = -5;
         break;
+
     case '+':
     case '=':
         threshChange = +5;
         break;
+
     case 'D':
     case 'd':
         arGetDebugMode(gARHandle, &mode);
         arSetDebugMode(gARHandle, !mode);
         break;
+
     case 's':
     case 'S':
 
@@ -383,6 +396,7 @@ static void Keyboard(unsigned char key, int x, int y)
             gARTImageSavePlease = TRUE;
 
         break;
+
     case '?':
     case '/':
         gShowHelp++;
@@ -391,10 +405,12 @@ static void Keyboard(unsigned char key, int x, int y)
             gShowHelp = 0;
 
         break;
+
     case 'm':
     case 'M':
         gShowMode = !gShowMode;
         break;
+
     default:
         break;
     }
@@ -811,10 +827,15 @@ static void printMode()
     switch (threshMode)
     {
     case AR_LABELING_THRESH_MODE_MANUAL: text_p = "MANUAL"; break;
+
     case AR_LABELING_THRESH_MODE_AUTO_MEDIAN: text_p = "AUTO_MEDIAN"; break;
+
     case AR_LABELING_THRESH_MODE_AUTO_OTSU: text_p = "AUTO_OTSU"; break;
+
     case AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE: text_p = "AUTO_ADAPTIVE"; break;
+
     case AR_LABELING_THRESH_MODE_AUTO_BRACKETING: text_p = "AUTO_BRACKETING"; break;
+
     default: text_p = "UNKNOWN"; break;
     }
 
@@ -838,10 +859,15 @@ static void printMode()
     switch (mode)
     {
     case AR_TEMPLATE_MATCHING_COLOR: text_p = "Colour template (pattern)"; break;
+
     case AR_TEMPLATE_MATCHING_MONO: text_p = "Mono template (pattern)"; break;
+
     case AR_MATRIX_CODE_DETECTION: text_p = "Matrix (barcode)"; break;
+
     case AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX: text_p = "Colour template + Matrix (2 pass, pattern + barcode)"; break;
+
     case AR_TEMPLATE_MATCHING_MONO_AND_MATRIX: text_p = "Mono template + Matrix (2 pass, pattern + barcode "; break;
+
     default: text_p = "UNKNOWN"; break;
     }
 

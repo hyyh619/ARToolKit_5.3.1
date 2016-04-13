@@ -49,13 +49,13 @@
 
 struct _AR2VideoParamQuickTime7T
 {
-    QTKitVideo        *qtKitVideo;
-    CVImageBufferRef currentFrame;
-    UInt64 currentFrameTimestamp;
-    AR2VideoBufferT buffer;
+    QTKitVideo                                *qtKitVideo;
+    CVImageBufferRef                          currentFrame;
+    UInt64                                    currentFrameTimestamp;
+    AR2VideoBufferT                           buffer;
     videoQuickTime7QTKitVideoGotFrameDelegate *qtKitVideoGotFrameDelegate;
-    void (*gotImageFunc)(AR2VideoBufferT*, void*);
-    void *gotImageFuncUserData;
+    void                                      (*gotImageFunc)(AR2VideoBufferT*, void*);
+    void                                      *gotImageFuncUserData;
 };
 
 int ar2VideoDispOptionQuickTime7(void)
@@ -88,33 +88,33 @@ int ar2VideoDispOptionQuickTime7(void)
 
 AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
 {
-    AR2VideoParamQuickTime7T      *vid;
-    const char                    *a;
-    char line[1024];
-    int width = 0;
-    int height = 0;
-    int showFPS = 0;
-    int showDialog = 1;
-    int singleBuffer = 0;
-    int flipH = 0, flipV = 0;
-    int err_i = 0;
+    AR2VideoParamQuickTime7T *vid;
+    const char               *a;
+    char                     line[1024];
+    int                      width        = 0;
+    int                      height       = 0;
+    int                      showFPS      = 0;
+    int                      showDialog   = 1;
+    int                      singleBuffer = 0;
+    int                      flipH        = 0, flipV = 0;
+    int                      err_i        = 0;
 
 #ifdef AR_BIG_ENDIAN
     OSType pixFormat = k32ARGBPixelFormat;
 #else
     OSType pixFormat = k32BGRAPixelFormat;
 #endif
-    int source = 0;
+    int  source     = 0;
     char *sourceuid = NULL;
     char bufferpow2 = 0;
-    char noMuxed = 0;
-    int i;
+    char noMuxed    = 0;
+    int  i;
 
     arMalloc(vid, AR2VideoParamQuickTime7T, 1);
-    vid->currentFrame = NULL;
+    vid->currentFrame          = NULL;
     vid->currentFrameTimestamp = 0;
-    vid->buffer.buff = NULL;
-    vid->buffer.fillFlag = 0;
+    vid->buffer.buff           = NULL;
+    vid->buffer.fillFlag       = 0;
 
     a = config;
 
@@ -366,7 +366,7 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
            }
          */
 
-        vid->qtKitVideo.pause = TRUE;
+        vid->qtKitVideo.pause           = TRUE;
         vid->qtKitVideoGotFrameDelegate = nil;         // Init.
 
     }
@@ -436,7 +436,7 @@ AR2VideoBufferT* ar2VideoGetImageQuickTime7(AR2VideoParamQuickTime7T *vid)
         if (vid->qtKitVideo)
         {
             @autoreleasepool {
-                UInt64 timestamp;
+                UInt64           timestamp;
                 CVImageBufferRef frame = [vid->qtKitVideo frameTimestamp:&timestamp ifNewerThanTimestamp:vid->currentFrameTimestamp];
 
                 if (frame)
@@ -447,7 +447,7 @@ AR2VideoBufferT* ar2VideoGetImageQuickTime7(AR2VideoParamQuickTime7T *vid)
                         CVBufferRelease(vid->currentFrame);
                     }
 
-                    vid->currentFrame = frame;
+                    vid->currentFrame          = frame;
                     vid->currentFrameTimestamp = timestamp;
                     CVPixelBufferLockBaseAddress(frame, kCVPixelBufferLock_ReadOnly);
 
@@ -456,8 +456,8 @@ AR2VideoBufferT* ar2VideoGetImageQuickTime7(AR2VideoParamQuickTime7T *vid)
                     else
                         vid->buffer.buff = CVPixelBufferGetBaseAddressOfPlane(frame, 0);
 
-                    vid->buffer.fillFlag = 1;
-                    vid->buffer.time_sec = 0;
+                    vid->buffer.fillFlag  = 1;
+                    vid->buffer.time_sec  = 0;
                     vid->buffer.time_usec = 0;
 
                     return &(vid->buffer);
@@ -516,36 +516,47 @@ AR_PIXEL_FORMAT ar2VideoGetPixelFormatQuickTime7(AR2VideoParamQuickTime7T *vid)
         case kCVPixelFormatType_422YpCbCr8:         // (previously k2vuyPixelFormat). Preferred YUV format on iPhone 3G.
             return (AR_PIXEL_FORMAT_2vuy);
             break;
+
         case kCVPixelFormatType_422YpCbCr8_yuvs:         // (previously kyuvsPixelFormat)
             return (AR_PIXEL_FORMAT_yuvs);
             break;
+
         case kCVPixelFormatType_24RGB:         // (previously k24RGBPixelFormat)
             return (AR_PIXEL_FORMAT_RGB);
             break;
+
         case kCVPixelFormatType_24BGR:         // (previously k24BGRPixelFormat)
             return (AR_PIXEL_FORMAT_BGR);
             break;
+
         case kCVPixelFormatType_32ARGB:         // (previously k32ARGBPixelFormat)
             return (AR_PIXEL_FORMAT_ARGB);
             break;
+
         case kCVPixelFormatType_32BGRA:         // (previously k32BGRAPixelFormat)
             return (AR_PIXEL_FORMAT_BGRA);
             break;
+
         case kCVPixelFormatType_32ABGR:         // (previously k32ABGRPixelFormat)
             return (AR_PIXEL_FORMAT_ABGR);
             break;
+
         case kCVPixelFormatType_32RGBA:         // (previously k32RGBAPixelFormat)
             return (AR_PIXEL_FORMAT_RGBA);
             break;
+
         case kCVPixelFormatType_8IndexedGray_WhiteIsZero:         // (previously k8IndexedGrayPixelFormat)
             return (AR_PIXEL_FORMAT_MONO);
             break;
+
         case kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange:
             return (AR_PIXEL_FORMAT_420v);
             break;
+
         case kCVPixelFormatType_420YpCbCr8BiPlanarFullRange:
             return (AR_PIXEL_FORMAT_420f);
             break;
+
         default:
             return (AR_PIXEL_FORMAT_INVALID);
             break;
@@ -698,7 +709,7 @@ void ar2VideoSetGotImageFunctionQuickTime7(AR2VideoParamQuickTime7T *vid, void (
             if (gotImageFunc != vid->gotImageFunc || userData != vid->gotImageFuncUserData)
             {
                 @autoreleasepool {
-                    vid->gotImageFunc = gotImageFunc;
+                    vid->gotImageFunc         = gotImageFunc;
                     vid->gotImageFuncUserData = userData;
 
                     if (gotImageFunc)

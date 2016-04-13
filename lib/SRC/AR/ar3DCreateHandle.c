@@ -35,132 +35,144 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 1.1
- * Date: 03/08/14
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 1.1
+* Date: 03/08/14
+*
+*******************************************************/
 
 #include <AR/ar.h>
 #include <AR/icp.h>
 
-AR3DHandle *ar3DCreateHandle(ARParam *arParam)
+AR3DHandle* ar3DCreateHandle(ARParam *arParam)
 {
-    return ar3DCreateHandle2( arParam->mat );
+    return ar3DCreateHandle2(arParam->mat);
 }
 
-AR3DHandle *ar3DCreateHandle2(ARdouble cpara[3][4])
+AR3DHandle* ar3DCreateHandle2(ARdouble cpara[3][4])
 {
-    AR3DHandle   *handle;
+    AR3DHandle *handle;
 
-    arMalloc( handle, AR3DHandle, 1 );
+    arMalloc(handle, AR3DHandle, 1);
 
-    handle->icpHandle = icpCreateHandle( cpara );
-    if( handle->icpHandle == NULL ) {
-        free( handle );
+    handle->icpHandle = icpCreateHandle(cpara);
+    if (handle->icpHandle == NULL)
+    {
+        free(handle);
         return NULL;
     }
 
     return handle;
 }
 
-int ar3DDeleteHandle( AR3DHandle **handle )
+int ar3DDeleteHandle(AR3DHandle **handle)
 {
-    if( *handle == NULL ) return -1;
+    if (*handle == NULL)
+        return -1;
 
-    icpDeleteHandle( &((*handle)->icpHandle) );
-    free( *handle );
+    icpDeleteHandle(&((*handle)->icpHandle));
+    free(*handle);
     *handle = NULL;
 
     return 0;
 }
 
-int ar3DChangeCpara( AR3DHandle *handle, ARdouble cpara[3][4] )
+int ar3DChangeCpara(AR3DHandle *handle, ARdouble cpara[3][4])
 {
-    return icpSetMatXc2U( handle->icpHandle, cpara );
+    return icpSetMatXc2U(handle->icpHandle, cpara);
 }
 
 
-int ar3DChangeMaxLoopCount( AR3DHandle *handle, int maxLoopCount )
+int ar3DChangeMaxLoopCount(AR3DHandle *handle, int maxLoopCount)
 {
-    return icpSetMaxLoop( handle->icpHandle, maxLoopCount );
+    return icpSetMaxLoop(handle->icpHandle, maxLoopCount);
 }
 
-int ar3DChangeLoopBreakThresh( AR3DHandle *handle, ARdouble loopBreakThresh )
+int ar3DChangeLoopBreakThresh(AR3DHandle *handle, ARdouble loopBreakThresh)
 {
-    return icpSetBreakLoopErrorThresh( handle->icpHandle, loopBreakThresh );
+    return icpSetBreakLoopErrorThresh(handle->icpHandle, loopBreakThresh);
 }
 
-int ar3DChangeLoopBreakThreshRatio( AR3DHandle *handle, ARdouble loopBreakThreshRatio )
+int ar3DChangeLoopBreakThreshRatio(AR3DHandle *handle, ARdouble loopBreakThreshRatio)
 {
-    return icpSetBreakLoopErrorRatioThresh( handle->icpHandle, loopBreakThreshRatio );
+    return icpSetBreakLoopErrorRatioThresh(handle->icpHandle, loopBreakThreshRatio);
 }
 
 
 
 
-AR3DStereoHandle *ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR,
+AR3DStereoHandle* ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR,
                                          ARdouble transL[3][4], ARdouble transR[3][4])
 {
-    return ar3DStereoCreateHandle2( arParamL->mat, arParamR->mat, transL, transR );
+    return ar3DStereoCreateHandle2(arParamL->mat, arParamR->mat, transL, transR);
 }
 
-AR3DStereoHandle *ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4],
+AR3DStereoHandle* ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4],
                                           ARdouble transL[3][4], ARdouble transR[3][4])
 {
-    AR3DStereoHandle   *handle;
+    AR3DStereoHandle *handle;
 
-    arMalloc( handle, AR3DStereoHandle, 1 );
+    arMalloc(handle, AR3DStereoHandle, 1);
 
     handle->icpStereoHandle = icpStereoCreateHandle(cparaL, cparaR, transL, transR);
-    if( handle->icpStereoHandle == NULL ) {
-        free( handle );
+    if (handle->icpStereoHandle == NULL)
+    {
+        free(handle);
         return NULL;
     }
 
     return handle;
 }
 
-int ar3DStereoDeleteHandle( AR3DStereoHandle **handle )
+int ar3DStereoDeleteHandle(AR3DStereoHandle **handle)
 {
-    if( *handle == NULL ) return -1;
+    if (*handle == NULL)
+        return -1;
 
-    icpStereoDeleteHandle( &((*handle)->icpStereoHandle) );
-    free( *handle );
+    icpStereoDeleteHandle(&((*handle)->icpStereoHandle));
+    free(*handle);
     *handle = NULL;
 
     return 0;
 }
 
-int ar3DStereoChangeMaxLoopCount( AR3DStereoHandle *handle, int maxLoopCount )
+int ar3DStereoChangeMaxLoopCount(AR3DStereoHandle *handle, int maxLoopCount)
 {
-    return icpStereoSetMaxLoop( handle->icpStereoHandle, maxLoopCount );
+    return icpStereoSetMaxLoop(handle->icpStereoHandle, maxLoopCount);
 }
 
-int ar3DStereoChangeLoopBreakThresh( AR3DStereoHandle *handle, ARdouble loopBreakThresh )
+int ar3DStereoChangeLoopBreakThresh(AR3DStereoHandle *handle, ARdouble loopBreakThresh)
 {
-    return icpStereoSetBreakLoopErrorThresh( handle->icpStereoHandle, loopBreakThresh );
+    return icpStereoSetBreakLoopErrorThresh(handle->icpStereoHandle, loopBreakThresh);
 }
 
-int ar3DStereoChangeLoopBreakThreshRatio( AR3DStereoHandle *handle, ARdouble loopBreakThreshRatio )
+int ar3DStereoChangeLoopBreakThreshRatio(AR3DStereoHandle *handle, ARdouble loopBreakThreshRatio)
 {
-    return icpStereoSetBreakLoopErrorRatioThresh( handle->icpStereoHandle, loopBreakThreshRatio );
+    return icpStereoSetBreakLoopErrorRatioThresh(handle->icpStereoHandle, loopBreakThreshRatio);
 }
 
-int ar3DStereoChangeCpara( AR3DStereoHandle *handle, ARdouble cparaL[3][4], ARdouble cparaR[3][4] )
+int ar3DStereoChangeCpara(AR3DStereoHandle *handle, ARdouble cparaL[3][4], ARdouble cparaR[3][4])
 {
-    if( icpStereoSetMatXcl2Ul(handle->icpStereoHandle, cparaL) < 0 ) return -1;
-    if( icpStereoSetMatXcr2Ur(handle->icpStereoHandle, cparaR) < 0 ) return -1;
+    if (icpStereoSetMatXcl2Ul(handle->icpStereoHandle, cparaL) < 0)
+        return -1;
+
+    if (icpStereoSetMatXcr2Ur(handle->icpStereoHandle, cparaR) < 0)
+        return -1;
+
     return 0;
 }
 
-int ar3DStereoChangeTransMat( AR3DStereoHandle *handle, ARdouble transL[3][4], ARdouble transR[3][4] )
+int ar3DStereoChangeTransMat(AR3DStereoHandle *handle, ARdouble transL[3][4], ARdouble transR[3][4])
 {
-    if( icpStereoSetMatC2L(handle->icpStereoHandle, transL) < 0 ) return -1;
-    if( icpStereoSetMatC2R(handle->icpStereoHandle, transR) < 0 ) return -1;
+    if (icpStereoSetMatC2L(handle->icpStereoHandle, transL) < 0)
+        return -1;
+
+    if (icpStereoSetMatC2R(handle->icpStereoHandle, transR) < 0)
+        return -1;
+
     return 0;
 }

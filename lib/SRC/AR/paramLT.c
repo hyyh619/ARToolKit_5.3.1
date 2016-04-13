@@ -191,11 +191,12 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
     ARdouble  ox, oy;
     float     *i2of, *o2if;
     int       i, j;
-    //short       *i2oi, *o2ii;
+    //short   *i2oi, *o2ii;
 
     arMalloc(paramLT, ARParamLT, 1);
     paramLT->param = *param;
 
+    // For simpleLite.c, offset is 15.
     paramLT->paramLTf.xsize = param->xsize + offset * 2;
     paramLT->paramLTf.ysize = param->ysize + offset * 2;
     paramLT->paramLTf.xOff = offset;
@@ -210,7 +211,7 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
     //arMalloc(paramLT->paramLTi.i2o, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
     //arMalloc(paramLT->paramLTi.o2i, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
 
-    dist_factor = param->dist_factor;
+    dist_factor = param->dist_factor;  // OpenCV distortion model 
     dist_function_version = param->dist_function_version;
     i2of = paramLT->paramLTf.i2o;
     o2if = paramLT->paramLTf.o2i;
