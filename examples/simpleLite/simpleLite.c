@@ -580,7 +580,6 @@ static void Display(void)
 
     if (gPatt_found)
     {
-
         // Calculate the camera position relative to the marker.
         // Replace VIEW_SCALEFACTOR with 1.0 to make one drawing unit equal to 1.0 ARToolKit units (usually millimeters).
         arglCameraViewRH(gPatt_trans, m, VIEW_SCALEFACTOR);

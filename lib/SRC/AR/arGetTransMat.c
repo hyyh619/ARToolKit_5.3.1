@@ -35,155 +35,162 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 3.1
- * Date: 01/12/07
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 3.1
+* Date: 01/12/07
+*
+*******************************************************/
 
 #include <AR/ar.h>
 #include <AR/icp.h>
 
-
-ARdouble arGetTransMatSquare( AR3DHandle *handle, ARMarkerInfo *marker_info, ARdouble width, ARdouble conv[3][4] )
+ARdouble arGetTransMatSquare(AR3DHandle *handle, ARMarkerInfo *marker_info, ARdouble width, ARdouble conv[3][4])
 {
-    ICP2DCoordT    screenCoord[4];
-    ICP3DCoordT    worldCoord[4];
-    ICPDataT       data;
-    ARdouble         initMatXw2Xc[3][4];
-    ARdouble         err;
-    int            dir;
+    ICP2DCoordT screenCoord[4];
+    ICP3DCoordT worldCoord[4];
+    ICPDataT    data;
+    ARdouble    initMatXw2Xc[3][4];
+    ARdouble    err;
+    int         dir;
 
-    dir = marker_info->dir;
-    screenCoord[0].x = marker_info->vertex[(4-dir)%4][0];
-    screenCoord[0].y = marker_info->vertex[(4-dir)%4][1];
-    screenCoord[1].x = marker_info->vertex[(5-dir)%4][0];
-    screenCoord[1].y = marker_info->vertex[(5-dir)%4][1];
-    screenCoord[2].x = marker_info->vertex[(6-dir)%4][0];
-    screenCoord[2].y = marker_info->vertex[(6-dir)%4][1];
-    screenCoord[3].x = marker_info->vertex[(7-dir)%4][0];
-    screenCoord[3].y = marker_info->vertex[(7-dir)%4][1];
-    worldCoord[0].x = -width/2.0;
-    worldCoord[0].y =  width/2.0;
-    worldCoord[0].z =  0.0;
-    worldCoord[1].x =  width/2.0;
-    worldCoord[1].y =  width/2.0;
-    worldCoord[1].z =  0.0;
-    worldCoord[2].x =  width/2.0;
-    worldCoord[2].y = -width/2.0;
-    worldCoord[2].z =  0.0;
-    worldCoord[3].x = -width/2.0;
-    worldCoord[3].y = -width/2.0;
-    worldCoord[3].z =  0.0;
+    dir              = marker_info->dir;
+    screenCoord[0].x = marker_info->vertex[(4 - dir) % 4][0];
+    screenCoord[0].y = marker_info->vertex[(4 - dir) % 4][1];
+    screenCoord[1].x = marker_info->vertex[(5 - dir) % 4][0];
+    screenCoord[1].y = marker_info->vertex[(5 - dir) % 4][1];
+    screenCoord[2].x = marker_info->vertex[(6 - dir) % 4][0];
+    screenCoord[2].y = marker_info->vertex[(6 - dir) % 4][1];
+    screenCoord[3].x = marker_info->vertex[(7 - dir) % 4][0];
+    screenCoord[3].y = marker_info->vertex[(7 - dir) % 4][1];
+    worldCoord[0].x  = -width / 2.0;
+    worldCoord[0].y  = width / 2.0;
+    worldCoord[0].z  = 0.0;
+    worldCoord[1].x  = width / 2.0;
+    worldCoord[1].y  = width / 2.0;
+    worldCoord[1].z  = 0.0;
+    worldCoord[2].x  = width / 2.0;
+    worldCoord[2].y  = -width / 2.0;
+    worldCoord[2].z  = 0.0;
+    worldCoord[3].x  = -width / 2.0;
+    worldCoord[3].y  = -width / 2.0;
+    worldCoord[3].z  = 0.0;
     data.screenCoord = screenCoord;
     data.worldCoord  = worldCoord;
     data.num         = 4;
 
-    if( icpGetInitXw2Xc_from_PlanarData( handle->icpHandle->matXc2U, data.screenCoord, data.worldCoord, data.num, initMatXw2Xc ) < 0 ) return 100000000.0;
+    if (icpGetInitXw2Xc_from_PlanarData(handle->icpHandle->matXc2U, data.screenCoord, data.worldCoord, data.num, initMatXw2Xc) < 0)
+        return 100000000.0;
 
-
-    if( icpPoint( handle->icpHandle, &data, initMatXw2Xc, conv, &err ) < 0 ) return 100000000.0;
+    if (icpPoint(handle->icpHandle, &data, initMatXw2Xc, conv, &err) < 0)
+        return 100000000.0;
 
     return err;
 }
 
-ARdouble arGetTransMatSquareCont( AR3DHandle *handle, ARMarkerInfo *marker_info, ARdouble initConv[3][4],
-                                ARdouble width, ARdouble conv[3][4] )
+ARdouble arGetTransMatSquareCont(AR3DHandle *handle, ARMarkerInfo *marker_info, ARdouble initConv[3][4],
+                                 ARdouble width, ARdouble conv[3][4])
 {
-    ICP2DCoordT    screenCoord[4];
-    ICP3DCoordT    worldCoord[4];
-    ICPDataT       data;
-    ARdouble         err;
-    int            dir;
+    ICP2DCoordT screenCoord[4];
+    ICP3DCoordT worldCoord[4];
+    ICPDataT    data;
+    ARdouble    err;
+    int         dir;
 
-    dir = marker_info->dir;
-    screenCoord[0].x = marker_info->vertex[(4-dir)%4][0];
-    screenCoord[0].y = marker_info->vertex[(4-dir)%4][1];
-    screenCoord[1].x = marker_info->vertex[(5-dir)%4][0];
-    screenCoord[1].y = marker_info->vertex[(5-dir)%4][1];
-    screenCoord[2].x = marker_info->vertex[(6-dir)%4][0];
-    screenCoord[2].y = marker_info->vertex[(6-dir)%4][1];
-    screenCoord[3].x = marker_info->vertex[(7-dir)%4][0];
-    screenCoord[3].y = marker_info->vertex[(7-dir)%4][1];
-    worldCoord[0].x = -width/2.0;
-    worldCoord[0].y =  width/2.0;
-    worldCoord[0].z =  0.0;
-    worldCoord[1].x =  width/2.0;
-    worldCoord[1].y =  width/2.0;
-    worldCoord[1].z =  0.0;
-    worldCoord[2].x =  width/2.0;
-    worldCoord[2].y = -width/2.0;
-    worldCoord[2].z =  0.0;
-    worldCoord[3].x = -width/2.0;
-    worldCoord[3].y = -width/2.0;
-    worldCoord[3].z =  0.0;
+    dir              = marker_info->dir;
+    screenCoord[0].x = marker_info->vertex[(4 - dir) % 4][0];
+    screenCoord[0].y = marker_info->vertex[(4 - dir) % 4][1];
+    screenCoord[1].x = marker_info->vertex[(5 - dir) % 4][0];
+    screenCoord[1].y = marker_info->vertex[(5 - dir) % 4][1];
+    screenCoord[2].x = marker_info->vertex[(6 - dir) % 4][0];
+    screenCoord[2].y = marker_info->vertex[(6 - dir) % 4][1];
+    screenCoord[3].x = marker_info->vertex[(7 - dir) % 4][0];
+    screenCoord[3].y = marker_info->vertex[(7 - dir) % 4][1];
+    worldCoord[0].x  = -width / 2.0;
+    worldCoord[0].y  = width / 2.0;
+    worldCoord[0].z  = 0.0;
+    worldCoord[1].x  = width / 2.0;
+    worldCoord[1].y  = width / 2.0;
+    worldCoord[1].z  = 0.0;
+    worldCoord[2].x  = width / 2.0;
+    worldCoord[2].y  = -width / 2.0;
+    worldCoord[2].z  = 0.0;
+    worldCoord[3].x  = -width / 2.0;
+    worldCoord[3].y  = -width / 2.0;
+    worldCoord[3].z  = 0.0;
     data.screenCoord = screenCoord;
     data.worldCoord  = worldCoord;
     data.num         = 4;
 
-    if( icpPoint( handle->icpHandle, &data, initConv, conv, &err ) < 0 ) return 100000000.0;
+    if (icpPoint(handle->icpHandle, &data, initConv, conv, &err) < 0)
+        return 100000000.0;
 
     return err;
 }
 
-ARdouble arGetTransMat( AR3DHandle *handle, ARdouble initConv[3][4], ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
-                      ARdouble conv[3][4] )
+ARdouble arGetTransMat(AR3DHandle *handle, ARdouble initConv[3][4], ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
+                       ARdouble conv[3][4])
 {
-    ICPDataT       data;
-    ARdouble         err;
-    int            i;
+    ICPDataT data;
+    ARdouble err;
+    int      i;
 
-    arMalloc( data.screenCoord, ICP2DCoordT, num );
-    arMalloc( data.worldCoord,  ICP3DCoordT, num );
+    arMalloc(data.screenCoord, ICP2DCoordT, num);
+    arMalloc(data.worldCoord,  ICP3DCoordT, num);
 
-    for( i = 0; i < num; i++ ) {
+    for (i = 0; i < num; i++)
+    {
         data.screenCoord[i].x = pos2d[i][0];
         data.screenCoord[i].y = pos2d[i][1];
         data.worldCoord[i].x  = pos3d[i][0];
         data.worldCoord[i].y  = pos3d[i][1];
         data.worldCoord[i].z  = pos3d[i][2];
     }
+
     data.num = num;
 
-    if( icpPoint( handle->icpHandle, &data, initConv, conv, &err ) < 0 ) {
+    if (icpPoint(handle->icpHandle, &data, initConv, conv, &err) < 0)
+    {
         err = 100000000.0;
     }
 
-    free( data.screenCoord );
-    free( data.worldCoord );
+    free(data.screenCoord);
+    free(data.worldCoord);
 
     return err;
 }
 
-ARdouble arGetTransMatRobust( AR3DHandle *handle, ARdouble initConv[3][4], ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
-                            ARdouble conv[3][4] )
+ARdouble arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4], ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
+                             ARdouble conv[3][4])
 {
-    ICPDataT       data;
-    ARdouble         err;
-    int            i;
+    ICPDataT data;
+    ARdouble err;
+    int      i;
 
-    arMalloc( data.screenCoord, ICP2DCoordT, num );
-    arMalloc( data.worldCoord,  ICP3DCoordT, num );
+    arMalloc(data.screenCoord, ICP2DCoordT, num);
+    arMalloc(data.worldCoord,  ICP3DCoordT, num);
 
-    for( i = 0; i < num; i++ ) {
+    for (i = 0; i < num; i++)
+    {
         data.screenCoord[i].x = pos2d[i][0];
         data.screenCoord[i].y = pos2d[i][1];
         data.worldCoord[i].x  = pos3d[i][0];
         data.worldCoord[i].y  = pos3d[i][1];
         data.worldCoord[i].z  = pos3d[i][2];
     }
+
     data.num = num;
 
-    if( icpPointRobust( handle->icpHandle, &data, initConv, conv, &err ) < 0 ) {
+    if (icpPointRobust(handle->icpHandle, &data, initConv, conv, &err) < 0)
+    {
         err = 100000000.0;
     }
 
-    free( data.screenCoord );
-    free( data.worldCoord );
+    free(data.screenCoord);
+    free(data.worldCoord);
 
     return err;
 }

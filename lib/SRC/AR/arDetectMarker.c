@@ -43,7 +43,8 @@
 extern int cnt;
 #endif
 
-const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT] = {
+const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT] =
+{
     "Marker OK.",
     "Pattern extraction failed.",
     "Generic error during matching phase.",
@@ -58,134 +59,202 @@ const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHASE_DESC
 
 static void confidenceCutoff(ARHandle *arHandle);
 
-int arDetectMarker( ARHandle *arHandle, ARUint8 *dataPtr )
+int arDetectMarker(ARHandle *arHandle, ARUint8 *dataPtr)
 {
-    ARdouble    rarea, rlen, rlenmin;
-    ARdouble    diff, diffmin;
-    int         cid, cdir;
-    int         i, j, k;
-    int         detectionIsDone = 0;
+    ARdouble rarea, rlen, rlenmin;
+    ARdouble diff, diffmin;
+    int      cid, cdir;
+    int      i, j, k;
+    int      detectionIsDone = 0;
 
 #if DEBUG_PATT_GETID
-cnt = 0;
+    cnt = 0;
 #endif
 
     arHandle->marker_num = 0;
-    
-    if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_BRACKETING) {
-        if (arHandle->arLabelingThreshAutoIntervalTTL > 0) {
+
+    if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_BRACKETING)
+    {
+        if (arHandle->arLabelingThreshAutoIntervalTTL > 0)
+        {
             arHandle->arLabelingThreshAutoIntervalTTL--;
-        } else {
+        }
+        else
+        {
             int thresholds[3];
             int marker_nums[3];
-            
+
             thresholds[0] = arHandle->arLabelingThresh + arHandle->arLabelingThreshAutoBracketOver;
-            if (thresholds[0] > 255) thresholds[0] = 255;
+            if (thresholds[0] > 255)
+                thresholds[0] = 255;
+
             thresholds[1] = arHandle->arLabelingThresh - arHandle->arLabelingThreshAutoBracketUnder;
-            if (thresholds[1] < 0) thresholds[1] = 0;
+            if (thresholds[1] < 0)
+                thresholds[1] = 0;
+
             thresholds[2] = arHandle->arLabelingThresh;
-            
-            for (i = 0; i < 3; i++) {
-                if (arLabeling(dataPtr, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat, arHandle->arDebug, arHandle->arLabelingMode, thresholds[i], arHandle->arImageProcMode, &(arHandle->labelInfo), NULL) < 0) return -1;
-                if (arDetectMarker2(arHandle->xsize, arHandle->ysize, &(arHandle->labelInfo), arHandle->arImageProcMode, AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH, arHandle->markerInfo2, &(arHandle->marker2_num)) < 0) return -1;
-                if (arGetMarkerInfo(dataPtr, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat, arHandle->markerInfo2, arHandle->marker2_num, arHandle->pattHandle, arHandle->arImageProcMode, arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio, arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0) return -1;
+
+            for (i = 0; i < 3; i++)
+            {
+                if (arLabeling(dataPtr, arHandle->xsize, arHandle->ysize,
+                               arHandle->arPixelFormat, arHandle->arDebug,
+                               arHandle->arLabelingMode, thresholds[i],
+                               arHandle->arImageProcMode, &(arHandle->labelInfo), NULL) < 0)
+                    return -1;
+
+                if (arDetectMarker2(arHandle->xsize, arHandle->ysize,
+                                    &(arHandle->labelInfo), arHandle->arImageProcMode,
+                                    AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH,
+                                    arHandle->markerInfo2, &(arHandle->marker2_num)) < 0)
+                    return -1;
+
+                if (arGetMarkerInfo(dataPtr, arHandle->xsize, arHandle->ysize,
+                                    arHandle->arPixelFormat, arHandle->markerInfo2,
+                                    arHandle->marker2_num, arHandle->pattHandle,
+                                    arHandle->arImageProcMode, arHandle->arPatternDetectionMode,
+                                    &(arHandle->arParamLT->paramLTf), arHandle->pattRatio,
+                                    arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0)
+                    return -1;
+
                 marker_nums[i] = arHandle->marker_num;
             }
 
-            if (arHandle->arDebug == AR_DEBUG_ENABLE) ARLOGe("Auto threshold (bracket) marker counts -[%3d: %3d] [%3d: %3d] [%3d: %3d]+.\n", thresholds[1], marker_nums[1], thresholds[2], marker_nums[2], thresholds[0], marker_nums[0]);
-        
+            if (arHandle->arDebug == AR_DEBUG_ENABLE)
+                ARLOGe("Auto threshold (bracket) marker counts -[%3d: %3d] [%3d: %3d] [%3d: %3d]+.\n",
+                       thresholds[1], marker_nums[1], thresholds[2], marker_nums[2], thresholds[0], marker_nums[0]);
+
             // If neither of the bracketed values was superior, then change the size of the bracket.
-            if (marker_nums[0] <= marker_nums[2] && marker_nums[1] <= marker_nums[2]) {
-                if (arHandle->arLabelingThreshAutoBracketOver < arHandle->arLabelingThreshAutoBracketUnder) {
+            if (marker_nums[0] <= marker_nums[2] && marker_nums[1] <= marker_nums[2])
+            {
+                if (arHandle->arLabelingThreshAutoBracketOver < arHandle->arLabelingThreshAutoBracketUnder)
+                {
                     arHandle->arLabelingThreshAutoBracketOver++;
-                } else if (arHandle->arLabelingThreshAutoBracketOver > arHandle->arLabelingThreshAutoBracketUnder) {
+                }
+                else if (arHandle->arLabelingThreshAutoBracketOver > arHandle->arLabelingThreshAutoBracketUnder)
+                {
                     arHandle->arLabelingThreshAutoBracketUnder++;
-                } else {
+                }
+                else
+                {
                     arHandle->arLabelingThreshAutoBracketOver++;
                     arHandle->arLabelingThreshAutoBracketUnder++;
                 }
-                if ((thresholds[2] + arHandle->arLabelingThreshAutoBracketOver) >= 255) arHandle->arLabelingThreshAutoBracketOver = 1; // If the bracket has hit the end of the range, reset it.
-                if ((thresholds[2] - arHandle->arLabelingThreshAutoBracketOver) <= 0) arHandle->arLabelingThreshAutoBracketUnder = 1; // If a bracket has hit the end of the range, reset it.
+
+                if ((thresholds[2] + arHandle->arLabelingThreshAutoBracketOver) >= 255)
+                    arHandle->arLabelingThreshAutoBracketOver = 1;                           // If the bracket has hit the end of the range, reset it.
+
+                if ((thresholds[2] - arHandle->arLabelingThreshAutoBracketOver) <= 0)
+                    arHandle->arLabelingThreshAutoBracketUnder = 1;                          // If a bracket has hit the end of the range, reset it.
+
                 detectionIsDone = 1;
-            } else {
+            }
+            else
+            {
                 arHandle->arLabelingThresh = (marker_nums[0] >= marker_nums[1] ? thresholds[0] : thresholds[1]);
                 int threshDiff = arHandle->arLabelingThresh - thresholds[2];
-                if (threshDiff > 0) {
-                    arHandle->arLabelingThreshAutoBracketOver = threshDiff;
+                if (threshDiff > 0)
+                {
+                    arHandle->arLabelingThreshAutoBracketOver  = threshDiff;
                     arHandle->arLabelingThreshAutoBracketUnder = 1;
-                } else {
-                    arHandle->arLabelingThreshAutoBracketOver = 1;
+                }
+                else
+                {
+                    arHandle->arLabelingThreshAutoBracketOver  = 1;
                     arHandle->arLabelingThreshAutoBracketUnder = -threshDiff;
                 }
-                if (arHandle->arDebug == AR_DEBUG_ENABLE) ARLOGe("Auto threshold (bracket) adjusted threshold to %d.\n", arHandle->arLabelingThresh);
+
+                if (arHandle->arDebug == AR_DEBUG_ENABLE)
+                    ARLOGe("Auto threshold (bracket) adjusted threshold to %d.\n", arHandle->arLabelingThresh);
             }
+
             arHandle->arLabelingThreshAutoIntervalTTL = arHandle->arLabelingThreshAutoInterval;
         }
     }
-    
-    if (!detectionIsDone) {
+
+    if (!detectionIsDone)
+    {
 #if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
-        if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE) {
-            
+        if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE)
+        {
+
             int ret;
             ret = arImageProcLumaHistAndBoxFilterWithBias(arHandle->arImageProcInfo, dataPtr,  AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT, AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT);
-            if (ret < 0) return (ret);
-            
+            if (ret < 0)
+                return (ret);
+
             ret = arLabeling(arHandle->arImageProcInfo->image, arHandle->arImageProcInfo->imageX, arHandle->arImageProcInfo->imageY,
                              AR_PIXEL_FORMAT_MONO, arHandle->arDebug, arHandle->arLabelingMode,
                              0, AR_IMAGE_PROC_FRAME_IMAGE,
                              &(arHandle->labelInfo), arHandle->arImageProcInfo->image2);
-            if (ret < 0) return (ret);
-            
-        } else { // !adaptive
-#endif
-            
-            if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN || arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_OTSU) {
-                // Do an auto-threshold operation.
-                if (arHandle->arLabelingThreshAutoIntervalTTL > 0) {
-                    arHandle->arLabelingThreshAutoIntervalTTL--;
-                } else {
-                    int ret;
-                    unsigned char value;
-                    if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN) ret = arImageProcLumaHistAndCDFAndMedian(arHandle->arImageProcInfo, dataPtr, &value);
-                    else ret = arImageProcLumaHistAndOtsu(arHandle->arImageProcInfo, dataPtr, &value);
-                    if (ret < 0) return (ret);
-                    if (arHandle->arDebug == AR_DEBUG_ENABLE && arHandle->arLabelingThresh != value) ARLOGe("Auto threshold (%s) adjusted threshold to %d.\n", (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN ? "median" : "Otsu"), value);
-                    arHandle->arLabelingThresh = value;
-                    arHandle->arLabelingThreshAutoIntervalTTL = arHandle->arLabelingThreshAutoInterval;
-                }
-            }
-            
-            if( arLabeling(dataPtr, arHandle->xsize, arHandle->ysize,
-                           arHandle->arPixelFormat, arHandle->arDebug, arHandle->arLabelingMode,
-                           arHandle->arLabelingThresh, arHandle->arImageProcMode,
-                           &(arHandle->labelInfo), NULL) < 0 ) {
-                return -1;
-            }
-            
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
+            if (ret < 0)
+                return (ret);
+
         }
+        else     // !adaptive
+        {
 #endif
-        
-        if( arDetectMarker2( arHandle->xsize, arHandle->ysize,
-                            &(arHandle->labelInfo), arHandle->arImageProcMode,
-                            AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH,
-                            arHandle->markerInfo2, &(arHandle->marker2_num) ) < 0 ) {
+
+        if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN || arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_OTSU)
+        {
+            // Do an auto-threshold operation.
+            if (arHandle->arLabelingThreshAutoIntervalTTL > 0)
+            {
+                arHandle->arLabelingThreshAutoIntervalTTL--;
+            }
+            else
+            {
+                int           ret;
+                unsigned char value;
+                if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN)
+                    ret = arImageProcLumaHistAndCDFAndMedian(arHandle->arImageProcInfo, dataPtr, &value);
+                else
+                    ret = arImageProcLumaHistAndOtsu(arHandle->arImageProcInfo, dataPtr, &value);
+
+                if (ret < 0)
+                    return (ret);
+
+                if (arHandle->arDebug == AR_DEBUG_ENABLE && arHandle->arLabelingThresh != value)
+                    ARLOGe("Auto threshold (%s) adjusted threshold to %d.\n", (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN ? "median" : "Otsu"), value);
+
+                arHandle->arLabelingThresh                = value;
+                arHandle->arLabelingThreshAutoIntervalTTL = arHandle->arLabelingThreshAutoInterval;
+            }
+        }
+
+        if (arLabeling(dataPtr, arHandle->xsize, arHandle->ysize,
+                       arHandle->arPixelFormat, arHandle->arDebug, arHandle->arLabelingMode,
+                       arHandle->arLabelingThresh, arHandle->arImageProcMode,
+                       &(arHandle->labelInfo), NULL) < 0)
+        {
             return -1;
         }
-        
-        if( arGetMarkerInfo(dataPtr, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat,
+
+#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
+    }
+#endif
+
+        if (arDetectMarker2(arHandle->xsize, arHandle->ysize,
+                            &(arHandle->labelInfo), arHandle->arImageProcMode,
+                            AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH,
+                            arHandle->markerInfo2, &(arHandle->marker2_num)) < 0)
+        {
+            return -1;
+        }
+
+        if (arGetMarkerInfo(dataPtr, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat,
                             arHandle->markerInfo2, arHandle->marker2_num,
                             arHandle->pattHandle, arHandle->arImageProcMode,
                             arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio,
                             arHandle->markerInfo, &(arHandle->marker_num),
-                            arHandle->matrixCodeType ) < 0 ) {
+                            arHandle->matrixCodeType) < 0)
+        {
             return -1;
         }
     } // !detectionIsDone
-    
+
     // If history mode is not enabled, just perform a basic confidence cutoff.
-    if (arHandle->arMarkerExtractionMode == AR_NOUSE_TRACKING_HISTORY) {
+    if (arHandle->arMarkerExtractionMode == AR_NOUSE_TRACKING_HISTORY)
+    {
         confidenceCutoff(arHandle);
         return 0;
     }
@@ -196,128 +265,183 @@ cnt = 0;
     // as recorded in the history record is very similar to one of the identified markers.
     // If it is, and the history record has a higher confidence value, then use the  pattern matching
     // information (marker ID, confidence, and direction) info from the history instead.
-    for( i = 0; i < arHandle->history_num; i++ ) {
+    for (i = 0; i < arHandle->history_num; i++)
+    {
         rlenmin = 0.5;
-        cid = -1;
-        for( j = 0; j < arHandle->marker_num; j++ ) {
+        cid     = -1;
+
+        for (j = 0; j < arHandle->marker_num; j++)
+        {
             rarea = (ARdouble)arHandle->history[i].marker.area / (ARdouble)arHandle->markerInfo[j].area;
-            if( rarea < 0.7 || rarea > 1.43 ) continue;
-            rlen = ( (arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
-                   * (arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
-                   + (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1])
-                   * (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1]) )
+            if (rarea < 0.7 || rarea > 1.43)
+                continue;
+
+            rlen = ((arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
+                    * (arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
+                    + (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1])
+                    * (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1]))
                    / arHandle->markerInfo[j].area;
-            if( rlen < rlenmin ) {
+            if (rlen < rlenmin)
+            {
                 rlenmin = rlen;
-                cid = j;
+                cid     = j;
             }
         }
-        if (cid >= 0) {
-            if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO || arHandle->arPatternDetectionMode == AR_MATRIX_CODE_DETECTION) {
-                if (arHandle->markerInfo[cid].cf < arHandle->history[i].marker.cf) {
+
+        if (cid >= 0)
+        {
+            if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO || arHandle->arPatternDetectionMode == AR_MATRIX_CODE_DETECTION)
+            {
+                if (arHandle->markerInfo[cid].cf < arHandle->history[i].marker.cf)
+                {
                     arHandle->markerInfo[cid].cf = arHandle->history[i].marker.cf;
                     arHandle->markerInfo[cid].id = arHandle->history[i].marker.id;
-                    diffmin = 10000.0 * 10000.0;
-                    cdir = -1;
-                    for( j = 0; j < 4; j++ ) {
+                    diffmin                      = 10000.0 * 10000.0;
+                    cdir                         = -1;
+
+                    for (j = 0; j < 4; j++)
+                    {
                         diff = 0;
-                        for( k = 0; k < 4; k++ ) {
-                            diff += (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j+k)%4][0])
-                            * (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j+k)%4][0])
-                            + (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j+k)%4][1])
-                            * (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j+k)%4][1]);
+
+                        for (k = 0; k < 4; k++)
+                        {
+                            diff += (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j + k) % 4][0])
+                                    * (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j + k) % 4][0])
+                                    + (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j + k) % 4][1])
+                                    * (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j + k) % 4][1]);
                         }
-                        if( diff < diffmin ) {
+
+                        if (diff < diffmin)
+                        {
                             diffmin = diff;
-                            cdir = (arHandle->history[i].marker.dir - j + 4) % 4;
+                            cdir    = (arHandle->history[i].marker.dir - j + 4) % 4;
                         }
                     }
+
                     arHandle->markerInfo[cid].dir = cdir;
                     // Copy the id, cf, and dir back to the appropriate mode-dependent values too.
-                    if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO) {
+                    if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO)
+                    {
                         arHandle->markerInfo[cid].idPatt  = arHandle->markerInfo[cid].id;
                         arHandle->markerInfo[cid].cfPatt  = arHandle->markerInfo[cid].cf;
                         arHandle->markerInfo[cid].dirPatt = arHandle->markerInfo[cid].dir;
-                    } else {
+                    }
+                    else
+                    {
                         arHandle->markerInfo[cid].idMatrix  = arHandle->markerInfo[cid].id;
                         arHandle->markerInfo[cid].cfMatrix  = arHandle->markerInfo[cid].cf;
                         arHandle->markerInfo[cid].dirMatrix = arHandle->markerInfo[cid].dir;
                     }
                 }
-            } else if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX) {
-                if (arHandle->markerInfo[cid].cfPatt < arHandle->history[i].marker.cfPatt || arHandle->markerInfo[cid].cfMatrix < arHandle->history[i].marker.cfMatrix) {
-                    arHandle->markerInfo[cid].cfPatt = arHandle->history[i].marker.cfPatt;
-                    arHandle->markerInfo[cid].idPatt = arHandle->history[i].marker.idPatt;
+            }
+            else if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX)
+            {
+                if (arHandle->markerInfo[cid].cfPatt < arHandle->history[i].marker.cfPatt || arHandle->markerInfo[cid].cfMatrix < arHandle->history[i].marker.cfMatrix)
+                {
+                    arHandle->markerInfo[cid].cfPatt   = arHandle->history[i].marker.cfPatt;
+                    arHandle->markerInfo[cid].idPatt   = arHandle->history[i].marker.idPatt;
                     arHandle->markerInfo[cid].cfMatrix = arHandle->history[i].marker.cfMatrix;
                     arHandle->markerInfo[cid].idMatrix = arHandle->history[i].marker.idMatrix;
-                    diffmin = 10000.0 * 10000.0;
-                    cdir = -1;
-                    for( j = 0; j < 4; j++ ) {
+                    diffmin                            = 10000.0 * 10000.0;
+                    cdir                               = -1;
+
+                    for (j = 0; j < 4; j++)
+                    {
                         diff = 0;
-                        for( k = 0; k < 4; k++ ) {
-                            diff += (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j+k)%4][0])
-                            * (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j+k)%4][0])
-                            + (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j+k)%4][1])
-                            * (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j+k)%4][1]);
+
+                        for (k = 0; k < 4; k++)
+                        {
+                            diff += (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j + k) % 4][0])
+                                    * (arHandle->history[i].marker.vertex[k][0] - arHandle->markerInfo[cid].vertex[(j + k) % 4][0])
+                                    + (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j + k) % 4][1])
+                                    * (arHandle->history[i].marker.vertex[k][1] - arHandle->markerInfo[cid].vertex[(j + k) % 4][1]);
                         }
-                        if( diff < diffmin ) {
+
+                        if (diff < diffmin)
+                        {
                             diffmin = diff;
-                            cdir = j;
+                            cdir    = j;
                         }
                     }
-                    arHandle->markerInfo[cid].dirPatt   = (arHandle->history[i].marker.dirPatt   - cdir + 4) % 4;
+
+                    arHandle->markerInfo[cid].dirPatt   = (arHandle->history[i].marker.dirPatt - cdir + 4) % 4;
                     arHandle->markerInfo[cid].dirMatrix = (arHandle->history[i].marker.dirMatrix - cdir + 4) % 4;
                 }
             }
-            else return -1; // Unsupported arPatternDetectionMode.
+            else
+                return -1;  // Unsupported arPatternDetectionMode.
+
         } // cid >= 0
+
     }
 
     confidenceCutoff(arHandle);
 
     // Age all history records (and expire old records, i.e. where count >= 4).
-    for( i = j = 0; i < arHandle->history_num; i++ ) {
+    for (i = j = 0; i < arHandle->history_num; i++)
+    {
         arHandle->history[i].count++;
-        if( arHandle->history[i].count < 4 ) {
-            if (i != j) arHandle->history[j] = arHandle->history[i];
+        if (arHandle->history[i].count < 4)
+        {
+            if (i != j)
+                arHandle->history[j] = arHandle->history[i];
+
             j++;
         }
     }
+
     arHandle->history_num = j;
 
     // Save current marker info in history.
-    for( i = 0; i < arHandle->marker_num; i++ ) {
-        if( arHandle->markerInfo[i].id < 0 ) continue;
+    for (i = 0; i < arHandle->marker_num; i++)
+    {
+        if (arHandle->markerInfo[i].id < 0)
+            continue;
 
         // Check if an ARTrackingHistory record already exists for this marker ID.
-        for( j = 0; j < arHandle->history_num; j++ ) {
-            if( arHandle->history[j].marker.id == arHandle->markerInfo[i].id ) break;
+        for (j = 0; j < arHandle->history_num; j++)
+        {
+            if (arHandle->history[j].marker.id == arHandle->markerInfo[i].id)
+                break;
         }
-        if( j == arHandle->history_num ) { // If a pre-existing ARTrackingHistory record was not found,
-            if( arHandle->history_num == AR_SQUARE_MAX ) break; // exit if we've filled all available history slots,
+
+        if (j == arHandle->history_num)    // If a pre-existing ARTrackingHistory record was not found,
+        {
+            if (arHandle->history_num == AR_SQUARE_MAX)
+                break;                                          // exit if we've filled all available history slots,
+
             arHandle->history_num++; // Otherwise count the newly created record.
         }
+
         arHandle->history[j].marker = arHandle->markerInfo[i]; // Save the marker info.
         arHandle->history[j].count  = 1; // Reset count to indicate info is fresh.
     }
 
-    if( arHandle->arMarkerExtractionMode == AR_USE_TRACKING_HISTORY_V2 ) {
+    if (arHandle->arMarkerExtractionMode == AR_USE_TRACKING_HISTORY_V2)
+    {
         return 0;
     }
 
 
-    for( i = 0; i < arHandle->history_num; i++ ) {
-        for( j = 0; j < arHandle->marker_num; j++ ) {
+    for (i = 0; i < arHandle->history_num; i++)
+    {
+        for (j = 0; j < arHandle->marker_num; j++)
+        {
             rarea = (ARdouble)arHandle->history[i].marker.area / (ARdouble)arHandle->markerInfo[j].area;
-            if( rarea < 0.7 || rarea > 1.43 ) continue;
-            rlen = ( (arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
-                   * (arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
-                   + (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1])
-                   * (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1]) )
+            if (rarea < 0.7 || rarea > 1.43)
+                continue;
+
+            rlen = ((arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
+                    * (arHandle->markerInfo[j].pos[0] - arHandle->history[i].marker.pos[0])
+                    + (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1])
+                    * (arHandle->markerInfo[j].pos[1] - arHandle->history[i].marker.pos[1]))
                    / arHandle->markerInfo[j].area;
-            if( rlen < 0.5 ) break;
+            if (rlen < 0.5)
+                break;
         }
-        if( j == arHandle->marker_num ) {
+
+        if (j == arHandle->marker_num)
+        {
             arHandle->markerInfo[arHandle->marker_num] = arHandle->history[i].marker;
             arHandle->marker_num++;
         }
@@ -329,32 +453,50 @@ cnt = 0;
 static void confidenceCutoff(ARHandle *arHandle)
 {
     int i, cfOK;
-    
-    if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO) {
-        for (i = 0; i < arHandle->marker_num; i++) {
-            if (arHandle->markerInfo[i].id >= 0 && arHandle->markerInfo[i].cf < AR_CONFIDENCE_CUTOFF_DEFAULT) {
-                arHandle->markerInfo[i].id = arHandle->markerInfo[i].idPatt = -1;
+
+    if (arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_COLOR || arHandle->arPatternDetectionMode == AR_TEMPLATE_MATCHING_MONO)
+    {
+        for (i = 0; i < arHandle->marker_num; i++)
+        {
+            if (arHandle->markerInfo[i].id >= 0 && arHandle->markerInfo[i].cf < AR_CONFIDENCE_CUTOFF_DEFAULT)
+            {
+                arHandle->markerInfo[i].id          = arHandle->markerInfo[i].idPatt = -1;
                 arHandle->markerInfo[i].cutoffPhase = AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE;
             }
         }
-    } else if (arHandle->arPatternDetectionMode == AR_MATRIX_CODE_DETECTION ) {
-        for (i = 0; i < arHandle->marker_num; i++) {
-            if (arHandle->markerInfo[i].id >= 0 && arHandle->markerInfo[i].cf < AR_CONFIDENCE_CUTOFF_DEFAULT) {
-                arHandle->markerInfo[i].id = arHandle->markerInfo[i].idMatrix = -1;
+    }
+    else if (arHandle->arPatternDetectionMode == AR_MATRIX_CODE_DETECTION)
+    {
+        for (i = 0; i < arHandle->marker_num; i++)
+        {
+            if (arHandle->markerInfo[i].id >= 0 && arHandle->markerInfo[i].cf < AR_CONFIDENCE_CUTOFF_DEFAULT)
+            {
+                arHandle->markerInfo[i].id          = arHandle->markerInfo[i].idMatrix = -1;
                 arHandle->markerInfo[i].cutoffPhase = AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE;
             }
         }
-    } else {
-        for (i = 0; i < arHandle->marker_num; i++) {
+    }
+    else
+    {
+        for (i = 0; i < arHandle->marker_num; i++)
+        {
             cfOK = 0;
-            if (arHandle->markerInfo[i].idPatt >= 0 && arHandle->markerInfo[i].cfPatt < AR_CONFIDENCE_CUTOFF_DEFAULT) {
+            if (arHandle->markerInfo[i].idPatt >= 0 && arHandle->markerInfo[i].cfPatt < AR_CONFIDENCE_CUTOFF_DEFAULT)
+            {
                 arHandle->markerInfo[i].idPatt = -1;
-            } else cfOK = 1;
-            if (arHandle->markerInfo[i].idMatrix >= 0 && arHandle->markerInfo[i].cfMatrix < AR_CONFIDENCE_CUTOFF_DEFAULT) {
+            }
+            else
+                cfOK = 1;
+
+            if (arHandle->markerInfo[i].idMatrix >= 0 && arHandle->markerInfo[i].cfMatrix < AR_CONFIDENCE_CUTOFF_DEFAULT)
+            {
                 arHandle->markerInfo[i].idMatrix = -1;
-            } else cfOK = 1;
-            if (!cfOK) arHandle->markerInfo[i].cutoffPhase = AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE;
+            }
+            else
+                cfOK = 1;
+
+            if (!cfOK)
+                arHandle->markerInfo[i].cutoffPhase = AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE;
         }
     }
 }
-
