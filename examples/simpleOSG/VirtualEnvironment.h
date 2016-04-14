@@ -81,5 +81,4 @@ void VirtualEnvironmentHandleARViewDrawOverlay(void);
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !__VirtualEnvironment_h__

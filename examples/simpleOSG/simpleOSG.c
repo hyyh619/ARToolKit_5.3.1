@@ -257,7 +257,6 @@ int main(int argc, char **argv)
         i++;
     }
 
-
     //
     // Video setup.
     //
