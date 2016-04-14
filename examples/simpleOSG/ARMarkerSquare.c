@@ -156,13 +156,10 @@ void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHand
             markersSquare[i].valid = markersSquare[i].validPrev = FALSE;
 
             // Read marker width.
-            if (!get_buff(buf1, MAXPATHLEN, fp, 1) || sscanf(buf1,
-#ifdef ARDOUBLE_IS_FLOAT
-                                                             "%f"
-#else
-                                                             "%lf"
-#endif
-                                                             , &tempF) != 1)
+            if (!get_buff(buf1, MAXPATHLEN, fp, 1) ||
+                sscanf(buf1,
+                       ARDOUBLE_FORMAT_STR,
+                       &tempF) != 1)
             {
                 ARLOGe("Error in marker configuration data file; expected marker width.\n");
                 break;
@@ -224,12 +221,8 @@ void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHand
                 if (strlen(buf) != 6)
                 {
                     if (sscanf(&buf[6],
-#ifdef ARDOUBLE_IS_FLOAT
-                               "%f"
-#else
-                               "%lf"
-#endif
-                               , &tempF) == 1)
+                               ARDOUBLE_FORMAT_STR,
+                               &tempF) == 1)
                         markersSquare[i].filterCutoffFrequency = tempF;
                 }
 

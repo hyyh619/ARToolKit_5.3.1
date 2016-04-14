@@ -67,6 +67,12 @@ typedef unsigned char bool;
 extern "C" {
 #endif
 
+#ifdef ARDOUBLE_IS_FLOAT
+#define ARDOUBLE_FORMAT_STR         "%f"
+#else
+#define ARDOUBLE_FORMAT_STR         "%lf"
+#endif
+
 typedef struct
 {
     ARdouble v[3];
