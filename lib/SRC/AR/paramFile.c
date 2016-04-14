@@ -336,7 +336,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
 
     flen = ftell(fp);
     //ARLOGd("Loading a parameter file of length %ld.\n", flen);
-    rewind(fp);
+    rewind(fp);  // reset file pointer to the beginning of file stream.
 
     // Try to determine distortion function version number.
     // Infer distortion function version number from file length.

@@ -1504,8 +1504,8 @@ int            ar3DChangeLoopBreakThreshRatio(AR3DHandle *handle, ARdouble loopB
     @param      conv (description)
     @result     (description)
  */
-ARdouble         arGetTransMatSquare(AR3DHandle *handle, ARMarkerInfo *marker_info,
-                                     ARdouble width, ARdouble conv[3][4]);
+ARdouble       arGetTransMatSquare(AR3DHandle *handle, ARMarkerInfo *marker_info,
+                                   ARdouble width, ARdouble conv[3][4]);
 
 /*!
     @function
@@ -1518,9 +1518,9 @@ ARdouble         arGetTransMatSquare(AR3DHandle *handle, ARMarkerInfo *marker_in
     @param      conv (description)
     @result     (description)
  */
-ARdouble         arGetTransMatSquareCont(AR3DHandle *handle, ARMarkerInfo *marker_info,
-                                         ARdouble initConv[3][4],
-                                         ARdouble width, ARdouble conv[3][4]);
+ARdouble       arGetTransMatSquareCont(AR3DHandle *handle, ARMarkerInfo *marker_info,
+                                       ARdouble initConv[3][4],
+                                       ARdouble width, ARdouble conv[3][4]);
 
 /*!
     @function
@@ -1535,7 +1535,7 @@ ARdouble         arGetTransMatSquareCont(AR3DHandle *handle, ARMarkerInfo *marke
     @param      conv (description)
     @result     (description)
  */
-ARdouble         arGetTransMat(AR3DHandle *handle, ARdouble initConv[3][4],
+ARdouble       arGetTransMat(AR3DHandle *handle, ARdouble initConv[3][4],
                                ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
                                ARdouble conv[3][4]);
 
@@ -1551,7 +1551,7 @@ ARdouble         arGetTransMat(AR3DHandle *handle, ARdouble initConv[3][4],
     @param      conv (description)
     @result     (description)
  */
-ARdouble         arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4],
+ARdouble       arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4],
                                      ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
                                      ARdouble conv[3][4]);
 
@@ -1566,8 +1566,8 @@ ARdouble         arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4]
         @functiongroup "3D calculation by Stereo".
  */
 
-AR3DStereoHandle* ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR, ARdouble transL[3][4], ARdouble transR[3][4]);
-AR3DStereoHandle* ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4], ARdouble transL[3][4], ARdouble transR[3][4]);
+AR3DStereoHandle*    ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR, ARdouble transL[3][4], ARdouble transR[3][4]);
+AR3DStereoHandle*    ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4], ARdouble transL[3][4], ARdouble transR[3][4]);
 int                  ar3DStereoDeleteHandle(AR3DStereoHandle **handle);
 int                  ar3DStereoChangeMaxLoopCount(AR3DStereoHandle *handle, int maxLoopCount);
 int                  ar3DStereoChangeLoopBreakThresh(AR3DStereoHandle *handle, ARdouble loopBreakThresh);
@@ -1659,7 +1659,7 @@ int                  arGetStereoMatching(AR3DStereoHandle *handle,
                 byte (bits 15-8), and the build version number in the least-significant
                 byte (bits 7-0).
  */
-ARUint32 arGetVersion(char **versionStringRef);
+ARUint32       arGetVersion(char **versionStringRef);
 
 int            arUtilMatInv(ARdouble s[3][4], ARdouble d[3][4]);
 int            arUtilMatMul(ARdouble s1[3][4], ARdouble s2[3][4], ARdouble d[3][4]);
