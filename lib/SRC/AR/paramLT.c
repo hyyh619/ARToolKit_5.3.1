@@ -201,6 +201,8 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
     paramLT->paramLTf.ysize = param->ysize + offset * 2;
     paramLT->paramLTf.xOff = offset;
     paramLT->paramLTf.yOff = offset;
+    
+    // we will allocate both x and y values for each pixel.
     arMalloc(paramLT->paramLTf.i2o, float, paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2);
     arMalloc(paramLT->paramLTf.o2i, float, paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2);
 
@@ -218,6 +220,8 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
 
     //i2oi = paramLT->paramLTi.i2o;
     //o2ii = paramLT->paramLTi.o2i;
+    
+    // Traverse each pixel to calculate Ideal2Observ and Observ2Ideal.
     for (j = 0; j < paramLT->paramLTf.ysize; j++)
     {
         for (i = 0; i < paramLT->paramLTf.xsize; i++)
@@ -227,6 +231,7 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
             //*(i2oi++) = (int)(ox+0.5F);
             *(i2of++) = (float)oy;
             //*(i2oi++) = (int)(oy+0.5F);
+            
             arParamObserv2Ideal(dist_factor, (float)(i - offset), (float)(j - offset), &ix, &iy, dist_function_version);
             *(o2if++) = (float)ix;
             //*(o2ii++) = (int)(ix+0.5F);
