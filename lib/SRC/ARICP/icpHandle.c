@@ -42,20 +42,24 @@
 #include <AR/icp.h>
 
 
-ICPHandleT  *icpCreateHandle( ARdouble matXc2U[3][4] )
+ICPHandleT* icpCreateHandle(ARdouble matXc2U[3][4])
 {
     ICPHandleT *handle;
-    int         i, j;
+    int        i, j;
 
-    handle = (ICPHandleT *)malloc(sizeof(ICPHandleT));
-    if( handle == NULL ) return NULL;
+    handle = (ICPHandleT*)malloc(sizeof(ICPHandleT));
+    if (handle == NULL)
+        return NULL;
 
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) {
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+        {
             handle->matXc2U[j][i] = matXc2U[j][i];
         }
     }
-    handle->maxLoop = ICP_MAX_LOOP;
+
+    handle->maxLoop                   = ICP_MAX_LOOP;
     handle->breakLoopErrorThresh      = ICP_BREAK_LOOP_ERROR_THRESH;
     handle->breakLoopErrorRatioThresh = ICP_BREAK_LOOP_ERROR_RATIO_THRESH;
     handle->breakLoopErrorThresh2     = ICP_BREAK_LOOP_ERROR_THRESH2;
@@ -64,117 +68,138 @@ ICPHandleT  *icpCreateHandle( ARdouble matXc2U[3][4] )
     return handle;
 }
 
-int icpDeleteHandle( ICPHandleT **handle )
+int icpDeleteHandle(ICPHandleT **handle)
 {
-    if( *handle == NULL ) return -1;
+    if (*handle == NULL)
+        return -1;
 
-    free( *handle );
+    free(*handle);
     *handle = NULL;
 
     return 0;
 }
 
-int icpSetMatXc2U( ICPHandleT *handle, ARdouble matXc2U[3][4] )
+int icpSetMatXc2U(ICPHandleT *handle, ARdouble matXc2U[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) {
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+        {
             handle->matXc2U[j][i] = matXc2U[j][i];
         }
     }
+
     return 0;
 }
 
-int icpSetMaxLoop( ICPHandleT *handle, int maxLoop )
+int icpSetMaxLoop(ICPHandleT *handle, int maxLoop)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->maxLoop = maxLoop;
     return 0;
 }
 
-int icpSetBreakLoopErrorThresh( ICPHandleT *handle, ARdouble breakLoopErrorThresh )
+int icpSetBreakLoopErrorThresh(ICPHandleT *handle, ARdouble breakLoopErrorThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->breakLoopErrorThresh = breakLoopErrorThresh;
     return 0;
 }
 
-int icpSetBreakLoopErrorRatioThresh( ICPHandleT *handle, ARdouble breakLoopErrorRatioThresh )
+int icpSetBreakLoopErrorRatioThresh(ICPHandleT *handle, ARdouble breakLoopErrorRatioThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->breakLoopErrorRatioThresh = breakLoopErrorRatioThresh;
     return 0;
 }
 
-int icpSetBreakLoopErrorThresh2( ICPHandleT *handle, ARdouble breakLoopErrorThresh2 )
+int icpSetBreakLoopErrorThresh2(ICPHandleT *handle, ARdouble breakLoopErrorThresh2)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->breakLoopErrorThresh2 = breakLoopErrorThresh2;
     return 0;
 }
 
-int icpGetMatXc2U( ICPHandleT *handle, ARdouble matXc2U[3][4] )
+int icpGetMatXc2U(ICPHandleT *handle, ARdouble matXc2U[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) {
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+        {
             matXc2U[j][i] = handle->matXc2U[j][i];
         }
     }
+
     return 0;
 }
 
-int icpGetMaxLoop( ICPHandleT *handle, int *maxLoop )
+int icpGetMaxLoop(ICPHandleT *handle, int *maxLoop)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *maxLoop = handle->maxLoop;
     return 0;
 }
 
-int icpGetBreakLoopErrorThresh( ICPHandleT *handle, ARdouble *breakLoopErrorThresh )
+int icpGetBreakLoopErrorThresh(ICPHandleT *handle, ARdouble *breakLoopErrorThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *breakLoopErrorThresh = handle->breakLoopErrorThresh;
     return 0;
 }
 
-int icpGetBreakLoopErrorRatioThresh( ICPHandleT *handle, ARdouble *breakLoopErrorRatioThresh )
+int icpGetBreakLoopErrorRatioThresh(ICPHandleT *handle, ARdouble *breakLoopErrorRatioThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *breakLoopErrorRatioThresh = handle->breakLoopErrorRatioThresh;
     return 0;
 }
 
-int icpGetBreakLoopErrorThresh2( ICPHandleT *handle, ARdouble *breakLoopErrorThresh2 )
+int icpGetBreakLoopErrorThresh2(ICPHandleT *handle, ARdouble *breakLoopErrorThresh2)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *breakLoopErrorThresh2 = handle->breakLoopErrorThresh2;
     return 0;
 }
 
-int icpSetInlierProbability( ICPHandleT *handle, ARdouble inlierProb )
+int icpSetInlierProbability(ICPHandleT *handle, ARdouble inlierProb)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->inlierProb = inlierProb;
     return 0;
 }
 
-int icpGetInlierProbability( ICPHandleT *handle, ARdouble *inlierProb )
+int icpGetInlierProbability(ICPHandleT *handle, ARdouble *inlierProb)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *inlierProb = handle->inlierProb;
     return 0;
