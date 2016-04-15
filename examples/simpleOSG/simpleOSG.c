@@ -160,7 +160,7 @@ int main(int argc, char **argv)
     int        gotTwoPartOption;
     const char markerConfigDataFilename[] = "Data/markers.dat";
     const char objectDataFilename[] = "Data/objects.dat";
-    // const char objectDataFilename[] = "OSG/cow.dat";
+    //const char objectDataFilename[] = "Data/cow.dat";
 
     //
     // Process command-line options.
