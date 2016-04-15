@@ -236,7 +236,7 @@ int    arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], c
     @abstract   Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero-distortion) coordinates.
     @discussion
         This function is used by ARToolKit to convert for the
-        the effects of lens distortion in images which have been acquired
+        effects of lens distortion in images which have been acquired
         from lens-based optical systems. All lenses introduce some amount
         of lens distortion. ARToolKit includes calibration utilities to
         measure the centre of distortion and the radial distortion factors
@@ -250,7 +250,7 @@ int    arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], c
         same reference point as measured in an image containing no radial
         distortion, e.g. an image rendered using OpenGL's viewing model.)
 
-        This function is the input function of the pair. It's inputs are
+        This function is the input function of the pair. Its inputs are
         distorted coordinates, e.g. taken from an image acquired from a camera
         The outputs are the location where in an idealised image (e.g. generated
         with OpenGL) where the same point would lie.
