@@ -85,6 +85,10 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
         y0 = dist_factor[7];
         s  = dist_factor[8];
 
+        // (x0, y0): Center Coordinates of Distortion.
+        // fx = 1/dx, fy = 1/dy, fx/fy means count of pixels in f(mm).
+        // (ox - x0)/fx means physical position(mm) in axis-x.
+        // (oy - y0)/fy means physical position(mm) in axis-y.
         px = (ox - x0) / fx;
         py = (oy - y0) / fy;
 
@@ -288,6 +292,14 @@ int arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
         y0 = dist_factor[7];
         s  = dist_factor[8];
 
+        // (x0, y0): Center Coordinates of Distortion.
+        // fx = 1/dx, fy = 1/dy, fx/fy means count of pixels in f(mm).
+        // (ix - x0)/fx means physical position(mm) in axis-x.
+        // (iy - y0)/fy means physical position(mm) in axis-y.
+        // r2 = (x*x+y*y)
+        // r4 = r2 * r2
+        // Radial distortion: x' = x * (1+k1*r2+k2*r4, y' = y * (1+k1*r2+k2*r4)
+        // Tangential distortion: x' = x + 2p1*x*y + p2*(r2 + 2*x*x), y' = y + 2p2*x*y + p1 * (r2 + 2*y*y)
         x   = (ix - x0) * s / fx;
         y   = (iy - y0) * s / fy;
         l   = x * x + y * y;
