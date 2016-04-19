@@ -35,22 +35,25 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 5.1
- * Date: 03/08/13
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 5.1
+* Date: 03/08/13
+*
+*******************************************************/
 
 #include <AR/ar.h>
 
-int arPattAttach( ARHandle *arHandle, ARPattHandle *arPattHandle )
+int arPattAttach(ARHandle *arHandle, ARPattHandle *arPattHandle)
 {
-    if (!arHandle) return (-1);
-    if (arHandle->pattHandle) return (-1);
+    if (!arHandle)
+        return (-1);
+
+    if (arHandle->pattHandle)
+        return (-1);
 
     arHandle->pattHandle = arPattHandle;
 
@@ -59,10 +62,13 @@ int arPattAttach( ARHandle *arHandle, ARPattHandle *arPattHandle )
 
 int arPattDetach(ARHandle *arHandle)
 {
-    if (!arHandle) return (-1);
-    if (!arHandle->pattHandle) return (-1);
-	
+    if (!arHandle)
+        return (-1);
+
+    if (!arHandle->pattHandle)
+        return (-1);
+
     arHandle->pattHandle = NULL;
-	
+
     return (0);
 }

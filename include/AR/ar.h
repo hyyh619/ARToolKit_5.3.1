@@ -281,19 +281,19 @@ extern const char *arMarkerInfoCutoffPhaseDescriptions[AR_MARKER_INFO_CUTOFF_PHA
         appropriate id field.
     @field      area Area in pixels of the largest connected region, comprising the marker border and regions connected to it. Note that this is
         not the same as the actual onscreen area inside the marker border.
-        @field      id If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-        @field      idPatt If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+    @field      id If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+    @field      idPatt If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
     @field      idMatrix If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-        @field      dir If pattern detection mode is either pattern mode OR matrix but not both, and id != -1, will be marker direction (range 0 to 3, inclusive).
-        @field      dirPatt If pattern detection mode includes a pattern mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
-        @field      dirMatrix If pattern detection mode includes a matrix mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
-        @field      cf If pattern detection mode is either pattern mode OR matrix but not both, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
-        @field      cfPatt If pattern detection mode includes a pattern mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
-        @field      cfMatrix If pattern detection mode includes a matrix mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
-        @field      pos 2D position (in camera image coordinates, origin at top-left) of the centre of the marker.
-        @field      line Line equations for the 4 sides of the marker.
-        @field      vertex 2D positions (in camera image coordinates, origin at top-left) of the corners of the marker. vertex[(4 - dir)%4][] is the top-left corner of the marker. Other vertices proceed clockwise from this. These are idealised coordinates (i.e. the onscreen position aligns correctly with the undistorted camera image.)
-        @field      markerInfo2Ptr (description)
+    @field      dir If pattern detection mode is either pattern mode OR matrix but not both, and id != -1, will be marker direction (range 0 to 3, inclusive).
+    @field      dirPatt If pattern detection mode includes a pattern mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
+    @field      dirMatrix If pattern detection mode includes a matrix mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
+    @field      cf If pattern detection mode is either pattern mode OR matrix but not both, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
+    @field      cfPatt If pattern detection mode includes a pattern mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
+    @field      cfMatrix If pattern detection mode includes a matrix mode, will be marker matching confidence (range 0.0 to 1.0 inclusive) if marker is valid, or -1.0 if marker is invalid.
+    @field      pos 2D position (in camera image coordinates, origin at top-left) of the centre of the marker.
+    @field      line Line equations for the 4 sides of the marker.
+    @field      vertex 2D positions (in camera image coordinates, origin at top-left) of the corners of the marker. vertex[(4 - dir)%4][] is the top-left corner of the marker. Other vertices proceed clockwise from this. These are idealised coordinates (i.e. the onscreen position aligns correctly with the undistorted camera image.)
+    @field      markerInfo2Ptr (description)
     @field      cutoffPhase If a trapezoidal region is detected, but is eliminated from the candidates for tracking,
         this field is filled out with the tracking phase at which the marker was cut off. An English-language
         description of the phase can be obtained by indexing into the C-string array arMarkerInfoCutoffPhaseDescriptions[].
@@ -369,11 +369,11 @@ typedef struct
         to be supplied to the matching functions. This structure holds such details. It is
         generally setup by loading pattern files from disk.
     @field      patt_num Number of valid patterns in the structure.
-        @field      pattf Flag: 0 = no pattern loaded at this position. 1 = pattern loaded and activated. 2 = pattern loaded but deactivated.
-        @field      patt Array of 4 different orientations of each pattern's colour values, in 1-byte per component BGR order.
-        @field      pattpow Root-mean-square of the pattern intensities.
-        @field      pattBW Array of 4 different orientations of each pattern's 1-byte luminosity values.
-        @field      pattpowBW  Root-mean-square of the pattern intensities.
+    @field      pattf Flag: 0 = no pattern loaded at this position. 1 = pattern loaded and activated. 2 = pattern loaded but deactivated.
+    @field      patt Array of 4 different orientations of each pattern's colour values, in 1-byte per component BGR order.
+    @field      pattpow Root-mean-square of the pattern intensities.
+    @field      pattBW Array of 4 different orientations of each pattern's 1-byte luminosity values.
+    @field      pattpowBW  Root-mean-square of the pattern intensities.
  */
 typedef struct
 {
@@ -1014,8 +1014,8 @@ int            arGetPixelFormat(ARHandle *handle, AR_PIXEL_FORMAT *pixFormat);
         examining the match confidence value) and pose extraction.
 
     @param      arHandle Handle to initialised settings, including camera parameters,
-        incoming video image size and pixel format, markers, detection modes and other information.
-        @param		dataPtr Pointer to the first byte of a block of memory containing pixel
+                incoming video image size and pixel format, markers, detection modes and other information.
+    @param		dataPtr Pointer to the first byte of a block of memory containing pixel
                 data for an image which is to be processed for marker detection. The format of
                 pixels in this image is specified by arSetPixelFormat(). The width and height of
                 the image are specified by the xsize and ysize parameters of the camera parameters

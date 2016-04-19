@@ -59,6 +59,7 @@ AR3DHandle* ar3DCreateHandle2(ARdouble cpara[3][4])
 
     arMalloc(handle, AR3DHandle, 1);
 
+    // arParam->mat: projection matrix
     handle->icpHandle = icpCreateHandle(cpara);
     if (handle->icpHandle == NULL)
     {

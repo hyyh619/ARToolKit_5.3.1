@@ -41,97 +41,108 @@
 #include <AR2/imageSet.h>
 #include <AR2/coord.h>
 
-int ar2MarkerCoord2ScreenCoord2( ARParamLT *cparamLT, float  trans[3][4], float  mx, float  my, float  *sx, float  *sy )
+int ar2MarkerCoord2ScreenCoord2(ARParamLT *cparamLT, float trans[3][4], float mx, float my, float  *sx, float  *sy)
 {
-    float   wtrans[3][4];
-    float   hx, hy, h;
-    float   ix, iy;
-    float   ix1, iy1;
+    float wtrans[3][4];
+    float hx, hy, h;
+    float ix, iy;
+    float ix1, iy1;
 
-    if( cparamLT != NULL ) {
-        arUtilMatMuldff( cparamLT->param.mat, trans, wtrans );
-    hx = wtrans[0][0] * mx
-       + wtrans[0][1] * my
-       + wtrans[0][3];
-    hy = wtrans[1][0] * mx
-       + wtrans[1][1] * my
-       + wtrans[1][3];
-    h  = wtrans[2][0] * mx
-       + wtrans[2][1] * my
-       + wtrans[2][3];
-    ix = hx / h;
-    iy = hy / h;
+    if (cparamLT != NULL)
+    {
+        arUtilMatMuldff(cparamLT->param.mat, trans, wtrans);
+        hx = wtrans[0][0] * mx
+             + wtrans[0][1] * my
+             + wtrans[0][3];
+        hy = wtrans[1][0] * mx
+             + wtrans[1][1] * my
+             + wtrans[1][3];
+        h = wtrans[2][0] * mx
+            + wtrans[2][1] * my
+            + wtrans[2][3];
+        ix = hx / h;
+        iy = hy / h;
     }
-    else {
+    else
+    {
         hx = trans[0][0] * mx
-           + trans[0][1] * my
-           + trans[0][3];
+             + trans[0][1] * my
+             + trans[0][3];
         hy = trans[1][0] * mx
-           + trans[1][1] * my
-           + trans[1][3];
-        h  = trans[2][0] * mx
-           + trans[2][1] * my
-           + trans[2][3];        
+             + trans[1][1] * my
+             + trans[1][3];
+        h = trans[2][0] * mx
+            + trans[2][1] * my
+            + trans[2][3];
         *sx = hx / h;
         *sy = hy / h;
         return 0;
     }
 
-    if( arParamIdeal2ObservLTf( &cparamLT->paramLTf, ix, iy, sx, sy ) < 0 ) return -1;
-    if( arParamObserv2IdealLTf( &cparamLT->paramLTf, *sx, *sy, &ix1, &iy1) < 0 ) return -1;
-    if( (ix-ix1)*(ix-ix1) + (iy-iy1)*(iy-iy1) > 1.0F ) return -1;
-    
+    if (arParamIdeal2ObservLTf(&cparamLT->paramLTf, ix, iy, sx, sy) < 0)
+        return -1;
+
+    if (arParamObserv2IdealLTf(&cparamLT->paramLTf, *sx, *sy, &ix1, &iy1) < 0)
+        return -1;
+
+    if ((ix - ix1) * (ix - ix1) + (iy - iy1) * (iy - iy1) > 1.0F)
+        return -1;
+
     return 0;
 }
 
-int ar2MarkerCoord2ScreenCoord( ARParamLT *cparamLT, float  trans[3][4], float  mx, float  my, float  *sx, float  *sy )
+int ar2MarkerCoord2ScreenCoord(ARParamLT *cparamLT, float trans[3][4], float mx, float my, float  *sx, float  *sy)
 {
-    float   wtrans[3][4];
-    float   hx, hy, h;
-    float   ix, iy;
+    float wtrans[3][4];
+    float hx, hy, h;
+    float ix, iy;
 
-    if( cparamLT != NULL ) {
-        arUtilMatMuldff( cparamLT->param.mat, trans, wtrans );
-    hx = wtrans[0][0] * mx
-       + wtrans[0][1] * my
-       + wtrans[0][3];
-    hy = wtrans[1][0] * mx
-       + wtrans[1][1] * my
-       + wtrans[1][3];
-    h  = wtrans[2][0] * mx
-       + wtrans[2][1] * my
-       + wtrans[2][3];
-    ix = hx / h;
-    iy = hy / h;
+    if (cparamLT != NULL)
+    {
+        arUtilMatMuldff(cparamLT->param.mat, trans, wtrans);
+        hx = wtrans[0][0] * mx
+             + wtrans[0][1] * my
+             + wtrans[0][3];
+        hy = wtrans[1][0] * mx
+             + wtrans[1][1] * my
+             + wtrans[1][3];
+        h = wtrans[2][0] * mx
+            + wtrans[2][1] * my
+            + wtrans[2][3];
+        ix = hx / h;
+        iy = hy / h;
     }
-    else {
+    else
+    {
         hx = trans[0][0] * mx
-           + trans[0][1] * my
-           + trans[0][3];
+             + trans[0][1] * my
+             + trans[0][3];
         hy = trans[1][0] * mx
-           + trans[1][1] * my
-           + trans[1][3];
-        h  = trans[2][0] * mx
-           + trans[2][1] * my
-           + trans[2][3];
+             + trans[1][1] * my
+             + trans[1][3];
+        h = trans[2][0] * mx
+            + trans[2][1] * my
+            + trans[2][3];
         *sx = hx / h;
         *sy = hy / h;
         return 0;
     }
 
-    if( arParamIdeal2ObservLTf( &cparamLT->paramLTf, ix, iy, sx, sy ) < 0 ) return -1;
+    if (arParamIdeal2ObservLTf(&cparamLT->paramLTf, ix, iy, sx, sy) < 0)
+        return -1;
 
     return 0;
 }
 
-int ar2ScreenCoord2MarkerCoord( ARParamLT *cparamLT, float  trans[3][4], float  sx, float  sy, float  *mx, float  *my )
+int ar2ScreenCoord2MarkerCoord(ARParamLT *cparamLT, float trans[3][4], float sx, float sy, float  *mx, float  *my)
 {
-    float   ix, iy;
-    float   wtrans[3][4];
-    float   c11, c12, c21, c22, b1, b2;
-    float   m;
+    float ix, iy;
+    float wtrans[3][4];
+    float c11, c12, c21, c22, b1, b2;
+    float m;
 
-    if( cparamLT == NULL ) {
+    if (cparamLT == NULL)
+    {
         c11 = trans[2][0] * sx - trans[0][0];
         c12 = trans[2][1] * sx - trans[0][1];
         c21 = trans[2][0] * sy - trans[1][0];
@@ -139,9 +150,12 @@ int ar2ScreenCoord2MarkerCoord( ARParamLT *cparamLT, float  trans[3][4], float  
         b1  = trans[0][3] - trans[2][3] * sx;
         b2  = trans[1][3] - trans[2][3] * sy;
     }
-    else {
-        if( arParamObserv2IdealLTf( &cparamLT->paramLTf, sx, sy, &ix, &iy) < 0 ) return -1;
-        arUtilMatMuldff( cparamLT->param.mat, trans, wtrans );
+    else
+    {
+        if (arParamObserv2IdealLTf(&cparamLT->paramLTf, sx, sy, &ix, &iy) < 0)
+            return -1;
+
+        arUtilMatMuldff(cparamLT->param.mat, trans, wtrans);
         c11 = wtrans[2][0] * ix - wtrans[0][0];
         c12 = wtrans[2][1] * ix - wtrans[0][1];
         c21 = wtrans[2][0] * iy - wtrans[1][0];
@@ -151,14 +165,16 @@ int ar2ScreenCoord2MarkerCoord( ARParamLT *cparamLT, float  trans[3][4], float  
     }
 
     m = c11 * c22 - c12 * c21;
-    if( m == 0.0F ) return -1;
+    if (m == 0.0F)
+        return -1;
+
     *mx = (c22 * b1 - c12 * b2) / m;
     *my = (c11 * b2 - c21 * b1) / m;
 
     return 0;
 }
 
-int ar2MarkerCoord2ImageCoord( int xsize, int ysize, float dpi, float  mx, float  my, float  *ix, float  *iy )
+int ar2MarkerCoord2ImageCoord(int xsize, int ysize, float dpi, float mx, float my, float  *ix, float  *iy)
 {
     *ix = mx * dpi / 25.4f;
     *iy = ysize - my * dpi / 25.4f;
@@ -166,7 +182,7 @@ int ar2MarkerCoord2ImageCoord( int xsize, int ysize, float dpi, float  mx, float
     return 0;
 }
 
-int ar2ImageCoord2MarkerCoord2( int xsize, int ysize, float dpi, float  ix, float  iy, float  *mx, float  *my )
+int ar2ImageCoord2MarkerCoord2(int xsize, int ysize, float dpi, float ix, float iy, float  *mx, float  *my)
 {
     *mx = ix * 25.4f / dpi;
     *my = (ysize - iy) * 25.4f / dpi;
@@ -175,65 +191,78 @@ int ar2ImageCoord2MarkerCoord2( int xsize, int ysize, float dpi, float  ix, floa
 }
 
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-int ar2GetImageValue( ARParamLT *cparamLT, float  trans[3][4], AR2ImageT *image,
-                      float  sx, float  sy, int blurLevel, ARUint8 *pBW )
+int ar2GetImageValue(ARParamLT *cparamLT, float trans[3][4], AR2ImageT *image,
+                     float sx, float sy, int blurLevel, ARUint8 *pBW)
 {
-    float   mx, my;
-    float   iix, iiy;
-    int     ix, iy;
+    float mx, my;
+    float iix, iiy;
+    int   ix, iy;
 
-    if( ar2ScreenCoord2MarkerCoord( cparamLT, trans, sx, sy, &mx, &my ) < 0 ) return -1;
-    ar2MarkerCoord2ImageCoord( image->xsize, image->ysize, image->dpi, mx, my, &iix, &iiy );
+    if (ar2ScreenCoord2MarkerCoord(cparamLT, trans, sx, sy, &mx, &my) < 0)
+        return -1;
+
+    ar2MarkerCoord2ImageCoord(image->xsize, image->ysize, image->dpi, mx, my, &iix, &iiy);
     ix = (int)(iix + 0.5F);
     iy = (int)(iiy + 0.5F);
 
-    if( ix < 0 || ix >= image->xsize
-     || iy < 0 || iy >= image->ysize ) return -1;
+    if (ix < 0 || ix >= image->xsize
+        || iy < 0 || iy >= image->ysize)
+        return -1;
 
-    *pBW = image->imgBWBlur[blurLevel][iy*image->xsize+ix];
+    *pBW = image->imgBWBlur[blurLevel][iy * image->xsize + ix];
 
     return 0;
 }
 
-int ar2GetImageValue2( ARParamLT *cparamLT, float  trans[3][4], AR2ImageT *image,
-                       float  sx, float  sy, int blurLevel, ARUint8 *pBW1, ARUint8 *pBW2, ARUint8 *pBW3 )
+int ar2GetImageValue2(ARParamLT *cparamLT, float trans[3][4], AR2ImageT *image,
+                      float sx, float sy, int blurLevel, ARUint8 *pBW1, ARUint8 *pBW2, ARUint8 *pBW3)
 {
-    float   mx, my;
-    float   iix, iiy;
-    int     ix, iy;
+    float mx, my;
+    float iix, iiy;
+    int   ix, iy;
 
-    if( ar2ScreenCoord2MarkerCoord( cparamLT, trans, sx, sy, &mx, &my ) < 0 ) return -1;
-    ar2MarkerCoord2ImageCoord( image->xsize, image->ysize, image->dpi, mx, my, &iix, &iiy );
+    if (ar2ScreenCoord2MarkerCoord(cparamLT, trans, sx, sy, &mx, &my) < 0)
+        return -1;
+
+    ar2MarkerCoord2ImageCoord(image->xsize, image->ysize, image->dpi, mx, my, &iix, &iiy);
     ix = (int)(iix + 0.5);
     iy = (int)(iiy + 0.5);
 
-    if( ix < 0 || ix >= image->xsize
-     || iy < 0 || iy >= image->ysize ) return -1;
+    if (ix < 0 || ix >= image->xsize
+        || iy < 0 || iy >= image->ysize)
+        return -1;
 
-    if( blurLevel < 1 ) blurLevel = 1;
-    if( blurLevel >= AR2_BLUR_IMAGE_MAX-1 ) blurLevel = AR2_BLUR_IMAGE_MAX-2;
-    *pBW1 = image->imgBWBlur[blurLevel-1][iy*image->xsize+ix];
-    *pBW2 = image->imgBWBlur[blurLevel  ][iy*image->xsize+ix];
-    *pBW3 = image->imgBWBlur[blurLevel+1][iy*image->xsize+ix];
+    if (blurLevel < 1)
+        blurLevel = 1;
+
+    if (blurLevel >= AR2_BLUR_IMAGE_MAX - 1)
+        blurLevel = AR2_BLUR_IMAGE_MAX - 2;
+
+    *pBW1 = image->imgBWBlur[blurLevel - 1][iy * image->xsize + ix];
+    *pBW2 = image->imgBWBlur[blurLevel][iy * image->xsize + ix];
+    *pBW3 = image->imgBWBlur[blurLevel + 1][iy * image->xsize + ix];
 
     return 0;
 }
 #else
-int ar2GetImageValue( ARParamLT *cparamLT, float trans[3][4], AR2ImageT *image,
-                      float sx, float sy, ARUint8 *pBW )
+int ar2GetImageValue(ARParamLT *cparamLT, float trans[3][4], AR2ImageT *image,
+                     float sx, float sy, ARUint8 *pBW)
 {
-    float   mx, my;
-    int     ix, iy;
+    float mx, my;
+    int   ix, iy;
 
-    if( ar2ScreenCoord2MarkerCoord( cparamLT, trans, sx, sy, &mx, &my ) < 0 ) return -1;
-    
+    if (ar2ScreenCoord2MarkerCoord(cparamLT, trans, sx, sy, &mx, &my) < 0)
+        return -1;
+
     ix = (int)(mx * image->dpi / 25.4F + 0.5F);
-    if( ix < 0 || ix >= image->xsize ) return -1;
+    if (ix < 0 || ix >= image->xsize)
+        return -1;
 
     iy = (int)(image->ysize - my * image->dpi / 25.4F + 0.5F);
-    if( iy < 0 || iy >= image->ysize ) return -1;
+    if (iy < 0 || iy >= image->ysize)
+        return -1;
 
-    *pBW = image->imgBW[iy*image->xsize+ix];
+    *pBW = image->imgBW[iy * image->xsize + ix];
 
     return 0;
 }
