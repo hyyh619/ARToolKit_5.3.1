@@ -459,7 +459,8 @@ void arglCameraFrustumRH(const ARParam *cparam, const ARdouble focalmin, const A
     q[3][3] = 0.0;
 
     for (i = 0; i < 4; i++)   // Row.
-    {           // First 3 columns of the current row.
+    {
+        // First 3 columns of the current row.
         for (j = 0; j < 3; j++)   // Column.
         {
             m_projection[i + j * 4] = q[i][0] * trans[0][j] +
