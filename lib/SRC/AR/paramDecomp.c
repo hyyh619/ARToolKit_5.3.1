@@ -77,6 +77,7 @@ int  arParamDecomp(const ARParam *source, ARParam *icpara, ARdouble trans[3][4])
     return arParamDecompMat(source->mat, icpara->mat, trans);
 }
 
+// Matrix decomposition: SVD.
 int  arParamDecompMat(const ARdouble source[3][4], ARdouble cpara[3][4], ARdouble trans[3][4])
 {
     int      r, c;

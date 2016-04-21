@@ -341,6 +341,8 @@ static char arglSetupTextureObjects(ARGL_CONTEXT_SETTINGS_REF contextSettings)
 //
 // Convert a camera parameter structure into an OpenGL projection matrix.
 //
+// arglCameraFrustum for left-handed coordinate system.
+// arglCameraFrustumRH for right-handed coordinate system.
 void arglCameraFrustum(const ARParam *cparam, const ARdouble focalmin, const ARdouble focalmax, ARdouble m_projection[16])
 {
     ARdouble icpara[3][4];
@@ -408,6 +410,7 @@ void arglCameraFrustum(const ARParam *cparam, const ARdouble focalmin, const ARd
     }
 }
 
+// RH means right-handed coordinate system
 void arglCameraFrustumRH(const ARParam *cparam, const ARdouble focalmin, const ARdouble focalmax, ARdouble m_projection[16])
 {
     ARdouble icpara[3][4];
@@ -504,6 +507,7 @@ void arglCameraView(const ARdouble para[3][4], ARdouble m_modelview[16], const A
 }
 
 // para's type is also equivalent to (double(*)[4]).
+// Because openGL's matrix is column-major, we should transpose this matrix to row-major.
 void arglCameraViewRH(const ARdouble para[3][4], ARdouble m_modelview[16], const ARdouble scale)
 {
     m_modelview[0 + 0 * 4] = para[0][0];   // R1C1
