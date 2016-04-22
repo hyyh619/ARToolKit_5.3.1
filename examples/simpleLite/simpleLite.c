@@ -589,6 +589,9 @@ static void Display(void)
         glLoadMatrixd(m);
 #endif
 
+        // benet-add for test
+        // glScalef(0.5f, 0.5f, 0.5f);
+
         // All lighting and geometry to be drawn relative to the marker goes here.
         DrawCube();
 
