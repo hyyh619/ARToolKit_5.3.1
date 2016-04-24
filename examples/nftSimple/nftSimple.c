@@ -84,11 +84,11 @@
 //	Constants
 // ============================================================================
 
-#define PAGES_MAX               10          // Maximum number of pages expected. You can change this down (to save memory) or up (to accomodate more pages.)
+#define PAGES_MAX 10                        // Maximum number of pages expected. You can change this down (to save memory) or up (to accomodate more pages.)
 
-#define VIEW_SCALEFACTOR                1.0                     // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
-#define VIEW_DISTANCE_MIN               10.0            // Objects closer to the camera than this will not be displayed. OpenGL units.
-#define VIEW_DISTANCE_MAX               10000.0         // Objects further away from the camera than this will not be displayed. OpenGL units.
+#define VIEW_SCALEFACTOR  1.0                           // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
+#define VIEW_DISTANCE_MIN 10.0                          // Objects closer to the camera than this will not be displayed. OpenGL units.
+#define VIEW_DISTANCE_MAX 10000.0                       // Objects further away from the camera than this will not be displayed. OpenGL units.
 
 // ============================================================================
 //	Global variables
@@ -96,10 +96,10 @@
 
 // Preferences.
 static int prefWindowed = TRUE;
-static int prefWidth    = 640;                                  // Fullscreen mode width.
+static int prefWidth    = 640;                          // Fullscreen mode width.
 static int prefHeight   = 480;                          // Fullscreen mode height.
-static int prefDepth    = 32;                                   // Fullscreen mode bit depth.
-static int prefRefresh  = 0;                                    // Fullscreen mode refresh rate. Set to 0 to use default rate.
+static int prefDepth    = 32;                           // Fullscreen mode bit depth.
+static int prefRefresh  = 0;                            // Fullscreen mode refresh rate. Set to 0 to use default rate.
 
 
 // Image acquisition.
@@ -148,9 +148,10 @@ static void Display(void);
 int main(int argc, char **argv)
 {
     char       glutGamemode[32];
-    const char *cparam_name               = "Data2/camera_para.dat";
-    char       vconf[]                    = "";
-    const char markerConfigDataFilename[] = "Data2/markers.dat";
+    const char *cparam_name = "Data2/camera_para.dat";
+    char       vconf[]      = "";
+    // const char markerConfigDataFilename[] = "Data2/markers.dat";
+    const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
 
 #ifdef DEBUG
     arLogLevel = AR_LOG_LEVEL_DEBUG;
@@ -397,7 +398,7 @@ static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
         return (FALSE);
     }
 
-    //kpmSetProcMode( kpmHandle, KpmProcHalfSize );
+    // kpmSetProcMode( kpmHandle, KpmProcHalfSize );
 
     // AR2 init.
     if ((ar2Handle = ar2CreateHandle(cparamLT, pixFormat, AR2_TRACKING_DEFAULT_THREAD_NUM)) == NULL)
@@ -818,6 +819,11 @@ static void Display(void)
 #endif
             // All lighting and geometry to be drawn relative to the marker goes here.
             // --->
+
+            // benet-add for test
+            glScalef(15.0f, 20.0f, 4.0f);
+            glTranslatef(20.0, 20.0f, 0.0f);
+
             DrawCube();
         }
     }
