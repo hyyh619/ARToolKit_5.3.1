@@ -1,30 +1,30 @@
 /*
- *	Video capture subrutine for Linux/libdc1394 devices
- *	author: Kiyoshi Kiyokawa ( kiyo@crl.go.jp )
- *	        Hirokazu Kato ( kato@sys.im.hiroshima-cu.ac.jp )
+ *  Video capture subrutine for Linux/libdc1394 devices
+ *  author: Kiyoshi Kiyokawa ( kiyo@crl.go.jp )
+ *          Hirokazu Kato ( kato@sys.im.hiroshima-cu.ac.jp )
  *
- *	Revision: 1.0   Date: 2002/01/01
+ *  Revision: 1.0   Date: 2002/01/01
  *
  */
 /*
- *	Copyright (c) 2003-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
+ *  Copyright (c) 2003-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
  *
- *	Rev		Date		Who		Changes
- *	1.1.0	2003-09-09	PRL		Based on Apple "Son of MungGrab" sample code for QuickTime 6.
- *								Added config option "-fps" to superimpose frame counter on video.
- *								Returns aligned data in ARGB pixel format.
- *  1.2.0   2004-04-28  PRL		Now one thread per video source. Versions of QuickTime
- *								prior to 6.4 are NOT thread safe, and with these earlier
- *								versions, QuickTime toolbox access will be serialised.
- *	1.2.1   2004-06-28  PRL		Support for 2vuy and yuvs pixel formats.
- *  1.3.0   2004-07-13  PRL		Code from Daniel Heckenberg to directly access vDig.
- *  1.3.1   2004-12-07  PRL		Added config option "-pixelformat=" to support pixel format
- *								specification at runtime, with default determined at compile time.
- *	1.4.0	2005-03-08	PRL		Video input settings now saved and restored.
- *  1.4.1   2005-03-15  PRL     QuickTime 6.4 or newer is now required by default. In order
- *								to allow earlier versions, AR_VIDEO_SUPPORT_OLD_QUICKTIME must
- *								be uncommented at compile time.
- *  1.4.2   2007-09-26  GALEOTTI   Made -pixelformat work for format 40 and for Intel Macs.
+ *  Rev     Date            Who             Changes
+ *  1.1.0   2003-09-09      PRL             Based on Apple "Son of MungGrab" sample code for QuickTime 6.
+ *                                          Added config option "-fps" to superimpose frame counter on video.
+ *                                          Returns aligned data in ARGB pixel format.
+ *  1.2.0   2004-04-28      PRL             Now one thread per video source. Versions of QuickTime
+ *                                          prior to 6.4 are NOT thread safe, and with these earlier
+ *                                          versions, QuickTime toolbox access will be serialised.
+ *  1.2.1   2004-06-28      PRL             Support for 2vuy and yuvs pixel formats.
+ *  1.3.0   2004-07-13      PRL             Code from Daniel Heckenberg to directly access vDig.
+ *  1.3.1   2004-12-07      PRL             Added config option "-pixelformat=" to support pixel format
+ *                                                              specification at runtime, with default determined at compile time.
+ *  1.4.0   2005-03-08      PRL             Video input settings now saved and restored.
+ *  1.4.1   2005-03-15      PRL             QuickTime 6.4 or newer is now required by default. In order
+ *                                          to allow earlier versions, AR_VIDEO_SUPPORT_OLD_QUICKTIME must
+ *                                          be uncommented at compile time.
+ *  1.4.2   2007-09-26      GALEOTTI        Made -pixelformat work for format 40 and for Intel Macs.
  *
  */
 /*
@@ -57,7 +57,7 @@
  */
 
 // ============================================================================
-//	Private includes
+//  Private includes
 // ============================================================================
 
 
@@ -70,17 +70,17 @@
 #pragma comment(lib,"pthreadVC2.lib")
 #endif
 
-#include <pthread.h>                // Use pthreads-win32 on Windows.
+#include <pthread.h>                    // Use pthreads-win32 on Windows.
 #include <string.h>                     // memcpy()
 #ifdef __APPLE__
 #  include <Carbon/Carbon.h>
 #  include <QuickTime/QuickTime.h>
-#  include <CoreServices/CoreServices.h>                        // Gestalt()
-#  include <unistd.h>           // usleep(), valloc()
-#  include <sys/types.h>        // sysctlbyname()
-#  include <sys/sysctl.h>       // sysctlbyname()
+#  include <CoreServices/CoreServices.h>                // Gestalt()
+#  include <unistd.h>                                   // usleep(), valloc()
+#  include <sys/types.h>                                // sysctlbyname()
+#  include <sys/sysctl.h>                               // sysctlbyname()
 #  include "videoQuickTimePrivateMacOSX.h"
-#  include "QuickDrawCompatibility.h" // As of Mac OS X 10.7 SDK, a bunch of QuickDraw functions are private.
+#  include "QuickDrawCompatibility.h"                   // As of Mac OS X 10.7 SDK, a bunch of QuickDraw functions are private.
 #elif defined(_WIN32)
 #  ifndef __MOVIES__
 #    include <Movies.h>
@@ -103,14 +103,14 @@
 
 
 // ============================================================================
-//	Private definitions
+//  Private definitions
 // ============================================================================
 #ifdef _WIN32
 #  define valloc malloc
 #  define usleep(t) Sleep((DWORD)(t / 1000u));
 #  define AR_VIDEO_SUPPORT_OLD_QUICKTIME // QuickTime for Windows is not-thread safe.
 #else
-// #  define AR_VIDEO_SUPPORT_OLD_QUICKTIME		// Uncomment to allow use of non-thread safe QuickTime (pre-6.4).
+// #  define AR_VIDEO_SUPPORT_OLD_QUICKTIME             // Uncomment to allow use of non-thread safe QuickTime (pre-6.4).
 #endif
 
 
@@ -144,7 +144,7 @@
 #endif
 
 // ============================================================================
-//	Private types
+//  Private types
 // ============================================================================
 
 struct _VdigGrab
@@ -192,32 +192,32 @@ struct _AR2VideoParamQuickTimeT
     TimeValue              lastTime;
     long                   frameCount;
     TimeScale              timeScale;
-    pthread_t              thread;                                      // PRL.
+    pthread_t              thread;                              // PRL.
     pthread_mutex_t        bufMutex;                            // PRL.
     pthread_cond_t         condition;                           // PRL.
-    int                    threadRunning;                               // PRL.
-    OSType                 pixFormat;                                   // PRL.
-    long                   rowBytes;                                    // PRL.
-    long                   bufSize;                                     // PRL.
-    ARUint8                *bufPixels;                                  // PRL.
-    int                    bufCopyFlag;                                 // PRL
+    int                    threadRunning;                       // PRL.
+    OSType                 pixFormat;                           // PRL.
+    long                   rowBytes;                            // PRL.
+    long                   bufSize;                             // PRL.
+    ARUint8                *bufPixels;                          // PRL.
+    int                    bufCopyFlag;                         // PRL
     ARUint8                *bufPixelsCopy1;                     // PRL.
     ARUint8                *bufPixelsCopy2;                     // PRL.
-    int                    grabber;                                             // PRL.
-    MatrixRecordPtr        scaleMatrixPtr;              // PRL.
-    VdigGrabRef            pVdg;                                        // DH (seeSaw).
-    long                   milliSecPerTimer;                      // DH (seeSaw).
-    long                   milliSecPerFrame;                      // DH (seeSaw).
-    Fixed                  frameRate;                                   // DH (seeSaw).
+    int                    grabber;                             // PRL.
+    MatrixRecordPtr        scaleMatrixPtr;                      // PRL.
+    VdigGrabRef            pVdg;                                // DH (seeSaw).
+    long                   milliSecPerTimer;                    // DH (seeSaw).
+    long                   milliSecPerFrame;                    // DH (seeSaw).
+    Fixed                  frameRate;                           // DH (seeSaw).
     long                   bytesPerSecond;                      // DH (seeSaw).
-    ImageDescriptionHandle vdImageDesc;         // DH (seeSaw).
+    ImageDescriptionHandle vdImageDesc;                         // DH (seeSaw).
     // Parameters for input based on movies.
     AR_VIDEO_QUICKTIME_MOVIE_t movie;
 };
 typedef struct _AR2VideoParamQuickTimeT*AR2VideoParamQuickTimeTRef;
 
 // ============================================================================
-//	Private global variables
+//      Private global variables
 // ============================================================================
 
 static unsigned int gGrabberActiveCount = 0;
@@ -229,7 +229,7 @@ static unsigned int gMoviesActiveCount = 0;
 #pragma mark -
 
 // ============================================================================
-//	Private functions
+//      Private functions
 // ============================================================================
 
 // --------------------
@@ -444,8 +444,8 @@ endFunc:
 /*static VideoDigitizerError vdgGetDeviceNameAndFlags(VdigGrab* pVdg, char* szName, long* pBuffSize, UInt32* pVdFlags)
    {
         VideoDigitizerError err;
-        Str255	vdName; // Pascal string (first byte is string length).
-    UInt32	vdFlags;
+        Str255  vdName; // Pascal string (first byte is string length).
+    UInt32      vdFlags;
 
         if (!pBuffSize) {
                 ARLOGe("vdgGetDeviceName: NULL pointer error\n");
@@ -685,8 +685,8 @@ static OSErr vdgDecompressionSequenceBegin(VdigGrab *pVdg,
 {
     OSErr err;
 
-    //  Rect				   sourceRect = pMungData->bounds;
-    //	MatrixRecord		   scaleMatrix;
+    //  Rect                               sourceRect = pMungData->bounds;
+    //  MatrixRecord               scaleMatrix;
 
     // !HACK! Different conversions are used for these two equivalent types
     // so we force the cType so that the more efficient path is used
@@ -694,9 +694,9 @@ static OSErr vdgDecompressionSequenceBegin(VdigGrab *pVdg,
         (*pVdg->vdImageDesc)->cType = FOUR_CHAR_CODE('yuvu');         // kYUVUPixelFormat
 
     // make a scaling matrix for the sequence
-    //	sourceRect.right = (*pVdg->vdImageDesc)->width;
-    //	sourceRect.bottom = (*pVdg->vdImageDesc)->height;
-    //	RectMatrix(&scaleMatrix, &sourceRect, &pMungData->bounds);
+    //  sourceRect.right = (*pVdg->vdImageDesc)->width;
+    //  sourceRect.bottom = (*pVdg->vdImageDesc)->height;
+    //  RectMatrix(&scaleMatrix, &sourceRect, &pMungData->bounds);
 
     // begin the process of decompressing a sequence of frames
     // this is a set-up call and is only called once for the sequence - the ICM will interrogate different codecs
@@ -808,13 +808,13 @@ static VideoDigitizerError vdgStopGrabbing(VdigGrab *pVdg)
     if ((err = VDSetCompressionOnOff(pVdg->vdCompInst, 0)))
     {
         ARLOGe("VDSetCompressionOnOff err=%ld\n", err);
-        //		goto endFunc;
+        //              goto endFunc;
     }
 
     if ((err = (VideoDigitizerError)vdgDecompressionSequenceEnd(pVdg)))
     {
         ARLOGe("vdgDecompressionSequenceEnd err=%ld\n", err);
-        //		goto endFunc;
+        //              goto endFunc;
     }
 
     pVdg->isGrabbing = 0;
@@ -912,14 +912,14 @@ static VideoDigitizerError vdgIdle(VdigGrab *pVdg, int *pIsUpdated)
                                                                      dataSize)))
         {
             ARLOGe("vdgDecompressionSequenceWhen err=%ld\n", err);
-            //			goto endFunc;
+            //                  goto endFunc;
         }
 
         // return the buffer
         if ((err = vdgReleaseBuffer(pVdg, theData)))
         {
             ARLOGe("vdgReleaseBuffer err=%ld\n", err);
-            //			goto endFunc;
+            //                  goto endFunc;
         }
     }
 
@@ -1134,8 +1134,8 @@ static void* ar2VideoInternalThread(void *arg)
                 {
 
                     // Variables for fps counter.
-                    // float				fps = 0;
-                    // float				averagefps = 0;
+                    // float                            fps = 0;
+                    // float                            averagefps = 0;
                     char status[64];
 
                     // Reset frame and time counters after a stop/start.
@@ -1685,8 +1685,8 @@ AR2VideoParamQuickTimeT* ar2VideoOpenQuickTime(const char *config)
     vid->status     = 0;
     vid->showFPS    = showFPS;
     vid->frameCount = 0;
-    // vid->lastTime		= 0;
-    // vid->timeScale	= 0;
+    // vid->lastTime            = 0;
+    // vid->timeScale   = 0;
     vid->grabber     = grabber;
     vid->bufCopyFlag = !singleBuffer;
     vid->pixFormat   = pixFormat;
