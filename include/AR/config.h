@@ -249,7 +249,7 @@ enum {
 #undef  AR_INPUT_DV
 #undef  AR_INPUT_1394CAM
 #undef  AR_INPUT_GSTREAMER
-#undef  AR_INPUT_IMAGE
+#define AR_INPUT_IMAGE
 #define AR_INPUT_DUMMY
 
 // Default input module. This is edited by the configure script.
@@ -327,6 +327,7 @@ enum {
 #include <windows.h>
 
 #define AR_CALLBACK __stdcall
+#define strdup _strdup
 
 // Define _WINRT for support Windows Runtime platforms.
 #if defined(WINAPI_FAMILY)
@@ -335,7 +336,6 @@ enum {
 #      define _WINRT
 #      define LIBARVIDEO_STATIC
 #      define ARDOUBLE_IS_FLOAT
-#      define strdup _strdup
 #    else
 #      error ARToolKit for Windows Phone requires Windows Phone 8.1 or later. Please compile with Visual Studio 2013 or later with Windows Phone 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
 #    endif
@@ -344,7 +344,6 @@ enum {
 #      define _WINRT
 #      define LIBARVIDEO_STATIC
 #      define ARDOUBLE_IS_FLOAT
-#      define strdup _strdup
 #    else
 #      error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
 #    endif
@@ -358,22 +357,22 @@ enum {
 
 // Input modules. This is edited by the configure script.
 #define AR_INPUT_DUMMY
-#undef  AR_INPUT_IMAGE
-#undef  AR_INPUT_WINDOWS_DIRECTSHOW
+#define AR_INPUT_IMAGE
+#define AR_INPUT_WINDOWS_DIRECTSHOW
 #if !defined(_WIN64) || _MSC_VER >= 1800 // DSVideoLib 64-bit only on release for Visual Studio 2013 and later.
-#undef  AR_INPUT_WINDOWS_DSVIDEOLIB
+#define AR_INPUT_WINDOWS_DSVIDEOLIB
 #endif
 #ifndef _WIN64 // QuickTime is not available for 64-bit.
-#undef  AR_INPUT_QUICKTIME
+//#define AR_INPUT_QUICKTIME
 #endif
 #undef  AR_INPUT_WINDOWS_DRAGONFLY
-#undef  AR_INPUT_WINDOWS_MEDIA_FOUNDATION
+#define AR_INPUT_WINDOWS_MEDIA_FOUNDATION
 #undef  AR_INPUT_WINDOWS_MEDIA_CAPTURE
 
 // Default input module. This is edited by the configure script.
 #undef  AR_DEFAULT_INPUT_DUMMY
 #undef  AR_DEFAULT_INPUT_IMAGE
-#undef  AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW
+#define AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW
 #if !defined(_WIN64) || _MSC_VER >= 1800 // DSVideoLib 64-bit only on release for Visual Studio 2013 and later.
 #undef  AR_DEFAULT_INPUT_WINDOWS_DSVIDEOLIB
 #endif
@@ -420,7 +419,7 @@ enum {
 #define ARDOUBLE_IS_FLOAT
 #undef  AR_INPUT_DUMMY
 #define AR_INPUT_ANDROID
-#undef  AR_INPUT_IMAGE
+#define AR_INPUT_IMAGE
 #undef  AR_DEFAULT_INPUT_DUMMY
 #define AR_DEFAULT_INPUT_ANDROID
 #undef  AR_DEFAULT_INPUT_IMAGE
@@ -467,7 +466,7 @@ enum {
 #define ARDOUBLE_IS_FLOAT
 #undef  AR_INPUT_DUMMY
 #define AR_INPUT_IPHONE
-#undef  AR_INPUT_IMAGE
+#define AR_INPUT_IMAGE
 #undef  AR_DEFAULT_INPUT_DUMMY
 #define AR_DEFAULT_INPUT_IPHONE
 #undef  AR_DEFAULT_INPUT_IMAGE
@@ -577,3 +576,4 @@ enum {
 #endif
 
 #endif // !AR_CONFIG0_H
+

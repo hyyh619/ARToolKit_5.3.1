@@ -75,43 +75,43 @@
 //	Constants
 // ============================================================================
 
-#define VIEW_SCALEFACTOR                1.0         // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
-#define VIEW_DISTANCE_MIN               40.0        // Objects closer to the camera than this will not be displayed. OpenGL units.
-#define VIEW_DISTANCE_MAX               10000.0     // Objects further away from the camera than this will not be displayed. OpenGL units.
+#define VIEW_SCALEFACTOR  1.0                       // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
+#define VIEW_DISTANCE_MIN 40.0                      // Objects closer to the camera than this will not be displayed. OpenGL units.
+#define VIEW_DISTANCE_MAX 10000.0                   // Objects further away from the camera than this will not be displayed. OpenGL units.
 
 // ============================================================================
 //	Global variables
 // ============================================================================
 
 // Preferences.
-static int windowed = TRUE;                     // Use windowed (TRUE) or fullscreen mode (FALSE) on launch.
-static int windowWidth = 640;                                   // Initial window width, also updated during program execution.
-static int windowHeight = 480;                  // Initial window height, also updated during program execution.
-static int windowDepth = 32;                                    // Fullscreen mode bit depth.
-static int windowRefresh = 0;                                   // Fullscreen mode refresh rate. Set to 0 to use default rate.
+static int windowed      = TRUE;                // Use windowed (TRUE) or fullscreen mode (FALSE) on launch.
+static int windowWidth   = 640;                 // Initial window width, also updated during program execution.
+static int windowHeight  = 480;                 // Initial window height, also updated during program execution.
+static int windowDepth   = 32;                  // Fullscreen mode bit depth.
+static int windowRefresh = 0;                   // Fullscreen mode refresh rate. Set to 0 to use default rate.
 
 // Image acquisition.
-static ARUint8 *gARTImage = NULL;
+static ARUint8 *gARTImage          = NULL;
 static int     gARTImageSavePlease = FALSE;
 
 // Marker detection.
-static ARHandle     *gARHandle = NULL;
-static ARPattHandle *gARPattHandle = NULL;
+static ARHandle     *gARHandle             = NULL;
+static ARPattHandle *gARPattHandle         = NULL;
 static long         gCallCountMarkerDetect = 0;
 
 // Transformation matrix retrieval.
 static AR3DHandle *gAR3DHandle = NULL;
-static ARdouble   gPatt_width = 80.0;           // Per-marker, but we are using only 1 marker.
-static ARdouble   gPatt_trans[3][4];                    // Per-marker, but we are using only 1 marker.
-static int        gPatt_found = FALSE;                  // Per-marker, but we are using only 1 marker.
-static int        gPatt_id;                                             // Per-marker, but we are using only 1 marker.
+static ARdouble   gPatt_width  = 80.0;          // Per-marker, but we are using only 1 marker.
+static ARdouble   gPatt_trans[3][4];            // Per-marker, but we are using only 1 marker.
+static int        gPatt_found = FALSE;          // Per-marker, but we are using only 1 marker.
+static int        gPatt_id;                     // Per-marker, but we are using only 1 marker.
 
 // Drawing.
-static ARParamLT                 *gCparamLT = NULL;
-static ARGL_CONTEXT_SETTINGS_REF gArglSettings = NULL;
-static int                       gShowHelp = 1;
-static int                       gShowMode = 1;
-static int                       gDrawRotate = FALSE;
+static ARParamLT                 *gCparamLT       = NULL;
+static ARGL_CONTEXT_SETTINGS_REF gArglSettings    = NULL;
+static int                       gShowHelp        = 1;
+static int                       gShowMode        = 1;
+static int                       gDrawRotate      = FALSE;
 static float                     gDrawRotateAngle = 0;  // For use in drawing.
 
 
@@ -133,7 +133,7 @@ static void DrawCube(void)
 {
     // Colour cube data.
     int           i;
-    float         fSize = 40.0f;
+    float         fSize               = 40.0f;
     const GLfloat cube_vertices[8][3] =
     {
         /* +z */ {0.5f, 0.5f, 0.5f}, {0.5f, -0.5f, 0.5f}, {-0.5f, -0.5f, 0.5f}, {-0.5f, 0.5f, 0.5f},
@@ -214,6 +214,7 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 
     // Get the format in which the camera is returning pixels.
     pixFormat = arVideoGetPixelFormat();
+
     if (pixFormat == AR_PIXEL_FORMAT_INVALID)
     {
         ARLOGe("setupCamera(): Camera is using unsupported pixel format.\n");
@@ -364,9 +365,13 @@ static void Keyboard(unsigned char key, int x, int y)
         switch (modea)
         {
         case AR_LABELING_THRESH_MODE_MANUAL:        modea = AR_LABELING_THRESH_MODE_AUTO_MEDIAN; break;
+
         case AR_LABELING_THRESH_MODE_AUTO_MEDIAN:   modea = AR_LABELING_THRESH_MODE_AUTO_OTSU; break;
+
         case AR_LABELING_THRESH_MODE_AUTO_OTSU:     modea = AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE; break;
+
         case AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE: modea = AR_LABELING_THRESH_MODE_AUTO_BRACKETING; break;
+
         case AR_LABELING_THRESH_MODE_AUTO_BRACKETING:
         default: modea = AR_LABELING_THRESH_MODE_MANUAL; break;
         }
@@ -444,7 +449,7 @@ static void mainLoop(void)
     int j, k;
 
     // Find out how long since mainLoop() last ran.
-    ms = glutGet(GLUT_ELAPSED_TIME);
+    ms        = glutGet(GLUT_ELAPSED_TIME);
     s_elapsed = (float)(ms - ms_prev) * 0.001f;
 
     if (s_elapsed < 0.01f)
@@ -500,7 +505,7 @@ static void mainLoop(void)
         if (k != -1)
         {
             // Get the transformation between the marker and the real camera into gPatt_trans.
-            err = arGetTransMatSquare(gAR3DHandle, &(gARHandle->markerInfo[k]), gPatt_width, gPatt_trans);
+            err         = arGetTransMatSquare(gAR3DHandle, &(gARHandle->markerInfo[k]), gPatt_width, gPatt_trans);
             gPatt_found = TRUE;
         }
         else
@@ -535,7 +540,7 @@ static void Visibility(int visible)
 //
 static void Reshape(int w, int h)
 {
-    windowWidth = w;
+    windowWidth  = w;
     windowHeight = h;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -576,7 +581,7 @@ static void Display(void)
     glLoadIdentity();
     // Lighting and geometry that moves with the camera should go here.
     // (I.e. must be specified before viewing transformations.)
-    //none
+    // none
 
     if (gPatt_found)
     {
@@ -629,8 +634,8 @@ int main(int argc, char **argv)
 {
     char glutGamemode[32];
     char cparam_name[] = "Data/camera_para.dat";
-    char vconf[] = "";
-    char patt_name[] = "Data/patt.hiro";
+    char vconf[]       = "";
+    char patt_name[]   = "Data/patt.hiro";
 
     //
     // Library inits.
@@ -648,7 +653,7 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    //
+    // 
     // Graphics setup.
     //
 
@@ -756,8 +761,8 @@ static void drawBackground(const float width, const float height, const float x,
     glColor4f(0.0f, 0.0f, 0.0f, 0.5f);  // 50% transparent black.
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Opaque white.
-    //glLineWidth(1.0f);
-    //glDrawArrays(GL_LINE_LOOP, 0, 4);
+    // glLineWidth(1.0f);
+    // glDrawArrays(GL_LINE_LOOP, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisable(GL_BLEND);
 }

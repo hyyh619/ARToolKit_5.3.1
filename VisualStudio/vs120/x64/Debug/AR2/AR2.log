@@ -1,0 +1,44 @@
+﻿Build started 2016/4/24 23:24:15.
+     1>Project "C:\development\hy_code\VR_AR\ARToolKit_5.3.1\VisualStudio\vs120\AR2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\development\hy_code\VR_AR\ARToolKit_5.3.1\VisualStudio\vs120\..\..\include\win64-x64" /IC:\development\hy_code\VR_AR\ARToolKit_5.3.1\VisualStudio\vs120\..\..\include /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _LIB /D _CRT_SECURE_NO_DEPRECATE /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\AR2\\" /Fd"x64\Debug\AR2\vc120.pdb" /Gd /TC /errorReport:prompt ..\..\lib\SRC\AR2\coord.c ..\..\lib\SRC\AR2\featureMap.c ..\..\lib\SRC\AR2\featureSet.c ..\..\lib\SRC\AR2\handle.c ..\..\lib\SRC\AR2\imageSet.c ..\..\lib\SRC\AR2\jpeg.c ..\..\lib\SRC\AR2\marker.c ..\..\lib\SRC\AR2\matching.c ..\..\lib\SRC\AR2\matching2.c ..\..\lib\SRC\AR2\searchPoint.c ..\..\lib\SRC\AR2\selectTemplate.c ..\..\lib\SRC\AR2\surface.c ..\..\lib\SRC\AR2\template.c ..\..\lib\SRC\AR2\tracking.c ..\..\lib\SRC\AR2\tracking2d.c ..\..\lib\SRC\AR2\util.c
+         coord.c
+         featureMap.c
+         featureSet.c
+         handle.c
+         imageSet.c
+         jpeg.c
+         marker.c
+         matching.c
+         matching2.c
+         searchPoint.c
+         selectTemplate.c
+         surface.c
+         template.c
+         tracking.c
+         tracking2d.c
+         util.c
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\Lib.exe /OUT:"C:\development\hy_code\VR_AR\ARToolKit_5.3.1\VisualStudio\vs120\..\..\lib\win64-x64\AR2d.lib" /NOLOGO /MACHINE:X64 x64\Debug\AR2\coord.obj
+         x64\Debug\AR2\featureMap.obj
+         x64\Debug\AR2\featureSet.obj
+         x64\Debug\AR2\handle.obj
+         x64\Debug\AR2\imageSet.obj
+         x64\Debug\AR2\jpeg.obj
+         x64\Debug\AR2\marker.obj
+         x64\Debug\AR2\matching.obj
+         x64\Debug\AR2\matching2.obj
+         x64\Debug\AR2\searchPoint.obj
+         x64\Debug\AR2\selectTemplate.obj
+         x64\Debug\AR2\surface.obj
+         x64\Debug\AR2\template.obj
+         x64\Debug\AR2\tracking.obj
+         x64\Debug\AR2\tracking2d.obj
+         x64\Debug\AR2\util.obj
+         AR2.vcxproj -> C:\development\hy_code\VR_AR\ARToolKit_5.3.1\VisualStudio\vs120\..\..\lib\win64-x64\AR2d.lib
+     1>Done Building Project "C:\development\hy_code\VR_AR\ARToolKit_5.3.1\VisualStudio\vs120\AR2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.81

@@ -23,3 +23,23 @@ cscope.*
 # ctags
 tags
 ctags.files
+
+# vs
+*.sdf
+*.opensdf
+*.user
+*.suo
+*.obj
+*.pdb
+*.idb
+*.dll
+*.lib
+*.exe
+*.xml
+*.vbs
+*.txt
+*.exp
+*.gif
+*.avi
+VisualStudio/vs120/Debug/*
+VisualStudio/vs120/Release/*
