@@ -249,7 +249,7 @@ enum {
 #undef  AR_INPUT_DV
 #undef  AR_INPUT_1394CAM
 #undef  AR_INPUT_GSTREAMER
-#define AR_INPUT_IMAGE
+#undef  AR_INPUT_IMAGE
 #define AR_INPUT_DUMMY
 
 // Default input module. This is edited by the configure script.
@@ -357,22 +357,22 @@ enum {
 
 // Input modules. This is edited by the configure script.
 #define AR_INPUT_DUMMY
-#define AR_INPUT_IMAGE
-#define AR_INPUT_WINDOWS_DIRECTSHOW
+#undef  AR_INPUT_IMAGE
+#undef  AR_INPUT_WINDOWS_DIRECTSHOW
 #if !defined(_WIN64) || _MSC_VER >= 1800 // DSVideoLib 64-bit only on release for Visual Studio 2013 and later.
-#define AR_INPUT_WINDOWS_DSVIDEOLIB
+#undef  AR_INPUT_WINDOWS_DSVIDEOLIB
 #endif
 #ifndef _WIN64 // QuickTime is not available for 64-bit.
-//#define AR_INPUT_QUICKTIME
+#undef  AR_INPUT_QUICKTIME
 #endif
 #undef  AR_INPUT_WINDOWS_DRAGONFLY
-#define AR_INPUT_WINDOWS_MEDIA_FOUNDATION
+#undef  AR_INPUT_WINDOWS_MEDIA_FOUNDATION
 #undef  AR_INPUT_WINDOWS_MEDIA_CAPTURE
 
 // Default input module. This is edited by the configure script.
 #undef  AR_DEFAULT_INPUT_DUMMY
 #undef  AR_DEFAULT_INPUT_IMAGE
-#define AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW
+#undef  AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW
 #if !defined(_WIN64) || _MSC_VER >= 1800 // DSVideoLib 64-bit only on release for Visual Studio 2013 and later.
 #undef  AR_DEFAULT_INPUT_WINDOWS_DSVIDEOLIB
 #endif
@@ -419,7 +419,7 @@ enum {
 #define ARDOUBLE_IS_FLOAT
 #undef  AR_INPUT_DUMMY
 #define AR_INPUT_ANDROID
-#define AR_INPUT_IMAGE
+#undef  AR_INPUT_IMAGE
 #undef  AR_DEFAULT_INPUT_DUMMY
 #define AR_DEFAULT_INPUT_ANDROID
 #undef  AR_DEFAULT_INPUT_IMAGE
@@ -466,7 +466,7 @@ enum {
 #define ARDOUBLE_IS_FLOAT
 #undef  AR_INPUT_DUMMY
 #define AR_INPUT_IPHONE
-#define AR_INPUT_IMAGE
+#undef  AR_INPUT_IMAGE
 #undef  AR_DEFAULT_INPUT_DUMMY
 #define AR_DEFAULT_INPUT_IPHONE
 #undef  AR_DEFAULT_INPUT_IMAGE
@@ -576,4 +576,3 @@ enum {
 #endif
 
 #endif // !AR_CONFIG0_H
-
