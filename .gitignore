@@ -1,3 +1,5 @@
+include/AR/config.h
+
 # xcode project
 *.xcscheme
 *.xcodeproj
