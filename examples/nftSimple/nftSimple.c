@@ -158,7 +158,7 @@ int main(int argc, char **argv)
 #endif
 
     //
-    // Library inits.
+    // Library init.
     //
 
     glutInit(&argc, argv);
