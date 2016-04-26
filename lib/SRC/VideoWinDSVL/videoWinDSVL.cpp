@@ -35,27 +35,27 @@
  *
  *  Author(s): Thomas Pintaric, Philip Lamb
  *
- *	Rev		Date		Who		Changes
- *	2.68.2	2004-07-20	PRL		Rewrite for ARToolKit 2.68.2
- *	2.71.0	2005-08-05	PRL		Incorporate DSVL-0.0.8b
+ *      Rev             Date            Who             Changes
+ *      2.68.2  2004-07-20      PRL             Rewrite for ARToolKit 2.68.2
+ *      2.71.0  2005-08-05      PRL             Incorporate DSVL-0.0.8b
  *
  */
 /*
-	========================================================================
-	PROJECT: DirectShow Video Processing Library
-	Version: 0.0.8 (05/04/2005)
-	========================================================================
-	Author:  Thomas Pintaric, Vienna University of Technology
-	Contact: pintaric@ims.tuwien.ac.at http://ims.tuwien.ac.at/~thomas
-	=======================================================================
-	
-	Copyright (C) 2005  Vienna University of Technology
-	
-	For further information please contact Thomas Pintaric under
-	<pintaric@ims.tuwien.ac.at> or write to Thomas Pintaric,
-	Vienna University of Technology, Favoritenstr. 9-11/E188/2, A-1040
-	Vienna, Austria.
-	========================================================================
+        ========================================================================
+        PROJECT: DirectShow Video Processing Library
+        Version: 0.0.8 (05/04/2005)
+        ========================================================================
+        Author:  Thomas Pintaric, Vienna University of Technology
+        Contact: pintaric@ims.tuwien.ac.at http://ims.tuwien.ac.at/~thomas
+        =======================================================================
+
+        Copyright (C) 2005  Vienna University of Technology
+
+        For further information please contact Thomas Pintaric under
+        <pintaric@ims.tuwien.ac.at> or write to Thomas Pintaric,
+        Vienna University of Technology, Favoritenstr. 9-11/E188/2, A-1040
+        Vienna, Austria.
+        ========================================================================
  */
 
 #include <AR/video.h>
@@ -74,133 +74,165 @@
 
 // -----------------------------------------------------------------------------------------------------------------
 
-struct _AR2VideoParamWinDSVLT {
-	DSVL_VideoSource	*graphManager;
-	MemoryBufferHandle  g_Handle;
-	__int64				g_Timestamp; // deprecated, use (g_Handle.t) instead.
-	//bool flip_horizontal = false; // deprecated.
-	//bool flip_vertical = false;   // deprecated.
-	AR2VideoBufferT		vidBuff;
+struct _AR2VideoParamWinDSVLT
+{
+    DSVL_VideoSource   *graphManager;
+    MemoryBufferHandle g_Handle;
+    __int64            g_Timestamp;                  // deprecated, use (g_Handle.t) instead.
+    // bool flip_horizontal = false; // deprecated.
+    // bool flip_vertical = false;   // deprecated.
+    AR2VideoBufferT vidBuff;
 };
 
 // -----------------------------------------------------------------------------------------------------------------
 
 #ifdef FLIPPED // compatibility with videoLinux*
-static const bool		FLIPPED_defined =  true;		// deprecated
+static const bool FLIPPED_defined = true;                               // deprecated
 #else
-static const bool		FLIPPED_defined =  false;		// deprecated
+static const bool FLIPPED_defined = false;                              // deprecated
 #endif
-const long				frame_timeout_ms = 0L;	// set to INFINITE if arVideoGetImage()
-														// is called from a separate worker thread
+const long frame_timeout_ms = 0L;                               // set to INFINITE if arVideoGetImage()
+// is called from a separate worker thread
 
 // -----------------------------------------------------------------------------------------------------------------
 
 
 int ar2VideoDispOptionWinDSVL(void)
 {
-	ARLOG("parameter is a file name (e.g. 'config.XML') conforming to the DSVideoLib XML Schema (DsVideoLib.xsd).\n");
+    ARLOG("parameter is a file name (e.g. 'config.XML') conforming to the DSVideoLib XML Schema (DsVideoLib.xsd).\n");
     return (0);
 }
 
-AR2VideoParamWinDSVLT *ar2VideoOpenWinDSVL(const char *config)
+AR2VideoParamWinDSVLT* ar2VideoOpenWinDSVL(const char *config)
 {
-	AR2VideoParamWinDSVLT *vid = NULL;
-	const char config_default[] = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dsvl_input><camera show_format_dialog=\"true\" friendly_name=\"\"><pixel_format><RGB32 flip_h=\"false\" flip_v=\"true\"/></pixel_format></camera></dsvl_input>";
-	char *config0;
+    AR2VideoParamWinDSVLT *vid             = NULL;
+    const char            config_default[] = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><dsvl_input><camera show_format_dialog=\"true\" friendly_name=\"\"><pixel_format><RGB32 flip_h=\"false\" flip_v=\"true\"/></pixel_format></camera></dsvl_input>";
+    char                  *config0;
 
-	// Allocate the parameters structure and fill it in.
-	arMallocClear(vid, AR2VideoParamWinDSVLT, 1);
-	if (!config || !config[0]) {
-		config0 = _strdup(config_default);
-	} else {
-		config0 = _strdup(config);
-	}
+    // Allocate the parameters structure and fill it in.
+    arMallocClear(vid, AR2VideoParamWinDSVLT, 1);
+    if (!config || !config[0])
+    {
+        config0 = _strdup(config_default);
+    }
+    else
+    {
+        config0 = _strdup(config);
+    }
 
-	CoInitialize(NULL);
-	vid->graphManager = new DSVL_VideoSource();
+    CoInitialize(NULL);
+    vid->graphManager = new DSVL_VideoSource();
 
-	if (strncmp(config0, "<?xml", 5) == 0) {
-		if (FAILED(vid->graphManager->BuildGraphFromXMLString(config0))) goto bail;
-	} else {
-		if (FAILED(vid->graphManager->BuildGraphFromXMLFile(config0))) goto bail;
-	}
-	if (FAILED(vid->graphManager->EnableMemoryBuffer())) goto bail;
+    if (strncmp(config0, "<?xml", 5) == 0)
+    {
+        if (FAILED(vid->graphManager->BuildGraphFromXMLString(config0)))
+            goto bail;
+    }
+    else
+    {
+        if (FAILED(vid->graphManager->BuildGraphFromXMLFile(config0)))
+            goto bail;
+    }
 
-	free(config0);
-	return (vid);
+    if (FAILED(vid->graphManager->EnableMemoryBuffer()))
+        goto bail;
+
+    free(config0);
+    return (vid);
 
 bail:
-	delete vid->graphManager;
-	free(config0);
-	free(vid);
-	return (NULL);
+    delete vid->graphManager;
+    free(config0);
+    free(vid);
+    return (NULL);
 }
 
 
 int ar2VideoCloseWinDSVL(AR2VideoParamWinDSVLT *vid)
 {
-	if (vid == NULL) return (-1);
-	if (vid->graphManager == NULL) return (-1);
-	
-	vid->graphManager->CheckinMemoryBuffer(vid->g_Handle, true);
-	vid->graphManager->Stop();
-	delete vid->graphManager;
-	vid->graphManager = NULL;
-	free (vid);
-	
+    if (vid == NULL)
+        return (-1);
+
+    if (vid->graphManager == NULL)
+        return (-1);
+
+    vid->graphManager->CheckinMemoryBuffer(vid->g_Handle, true);
+    vid->graphManager->Stop();
+    delete vid->graphManager;
+    vid->graphManager = NULL;
+    free (vid);
+
     return(0);
 }
 
-AR2VideoBufferT *ar2VideoGetImageWinDSVL(AR2VideoParamWinDSVLT *vid)
+AR2VideoBufferT* ar2VideoGetImageWinDSVL(AR2VideoParamWinDSVLT *vid)
 {
-	DWORD wait_result;
-	
-	if (vid == NULL) return (NULL);
-	if (vid->graphManager == NULL) return (NULL);
-	
-	// Ideally, we'd check this in earlier.
-	if (vid->vidBuff.fillFlag) {
-		if (FAILED(vid->graphManager->CheckinMemoryBuffer(vid->g_Handle)) ) return (NULL);
-	}
-	vid->vidBuff.fillFlag = 0;
-	
-	wait_result = vid->graphManager->WaitForNextSample(INFINITE);
-	if (wait_result == WAIT_OBJECT_0) {
-		if (SUCCEEDED(vid->graphManager->CheckoutMemoryBuffer(&(vid->g_Handle), &(vid->vidBuff.buff), NULL, NULL, NULL, &(vid->g_Timestamp)))) {
-			vid->vidBuff.fillFlag = 1;
-			return (&(vid->vidBuff));
-		}
-	}
+    DWORD wait_result;
 
-	return(NULL);
+    if (vid == NULL)
+        return (NULL);
+
+    if (vid->graphManager == NULL)
+        return (NULL);
+
+    // Ideally, we'd check this in earlier.
+    if (vid->vidBuff.fillFlag)
+    {
+        if (FAILED(vid->graphManager->CheckinMemoryBuffer(vid->g_Handle)))
+            return (NULL);
+    }
+
+    vid->vidBuff.fillFlag = 0;
+
+    wait_result = vid->graphManager->WaitForNextSample(INFINITE);
+    if (wait_result == WAIT_OBJECT_0)
+    {
+        if (SUCCEEDED(vid->graphManager->CheckoutMemoryBuffer(&(vid->g_Handle), &(vid->vidBuff.buff), NULL, NULL, NULL, &(vid->g_Timestamp))))
+        {
+            vid->vidBuff.fillFlag = 1;
+            return (&(vid->vidBuff));
+        }
+    }
+
+    return(NULL);
 }
 
 int ar2VideoCapStartWinDSVL(AR2VideoParamWinDSVLT *vid)
 {
-	if (vid == NULL) return (-1);
-	if (vid->graphManager == NULL) return (-1);
-	
-	HRESULT result = vid->graphManager->Run();
-	if (FAILED(result)) {
-		if (result == HRESULT_FROM_WIN32(ERROR_NO_SYSTEM_RESOURCES)) return -2;
-		else return -1;
-	}
-	return (0);
+    if (vid == NULL)
+        return (-1);
+
+    if (vid->graphManager == NULL)
+        return (-1);
+
+    HRESULT result = vid->graphManager->Run();
+    if (FAILED(result))
+    {
+        if (result == HRESULT_FROM_WIN32(ERROR_NO_SYSTEM_RESOURCES))
+            return -2;
+        else
+            return -1;
+    }
+
+    return (0);
 }
 
 int ar2VideoCapStopWinDSVL(AR2VideoParamWinDSVLT *vid)
 {
-	if (vid == NULL) return (-1);
-	if (vid->graphManager == NULL) return (-1);
+    if (vid == NULL)
+        return (-1);
 
-	vid->graphManager->CheckinMemoryBuffer(vid->g_Handle, true);
+    if (vid->graphManager == NULL)
+        return (-1);
 
-	// PRL 2005-09-21: Commented out due to issue where stopping the
-	// media stream cuts off glut's periodic tasks, including functions
-	// registered with glutIdleFunc() and glutDisplayFunc();
-	//if(FAILED(vid->graphManager->Stop())) return (-1);
+    vid->graphManager->CheckinMemoryBuffer(vid->g_Handle, true);
 
-	return (0);
+    // PRL 2005-09-21: Commented out due to issue where stopping the
+    // media stream cuts off glut's periodic tasks, including functions
+    // registered with glutIdleFunc() and glutDisplayFunc();
+    // if(FAILED(vid->graphManager->Stop())) return (-1);
+
+    return (0);
 }
 
 // -----------------------------------------------------------------------------------------------------------------
@@ -208,49 +240,60 @@ int ar2VideoCapStopWinDSVL(AR2VideoParamWinDSVLT *vid)
 #if 0
 int ar2VideoInqFlipping(AR2VideoParamT *vid, int *flipH, int *flipV)
 {
-	// DEPRECATED
-	// image flipping can be specified in the XML config file, but can
+    // DEPRECATED
+    // image flipping can be specified in the XML config file, but can
 
-	// no longer be queried via arVideoInqFlipping()
+    // no longer be queried via arVideoInqFlipping()
 
-	return (-1); // not implemented
+    return (-1);     // not implemented
 }
 
 int ar2VideoInqFreq(AR2VideoParamT *vid, float *fps)
 {
-	if (vid == NULL) return (-1);
-	if (vid->graphManager == NULL) return(-1);
+    if (vid == NULL)
+        return (-1);
 
-	double frames_per_second;
+    if (vid->graphManager == NULL)
+        return(-1);
 
-	vid->graphManager->GetCurrentMediaFormat(NULL,NULL,&frames_per_second,NULL);
+    double frames_per_second;
 
-	*fps = (float) frames_per_second;
+    vid->graphManager->GetCurrentMediaFormat(NULL, NULL, &frames_per_second, NULL);
+
+    *fps = (float) frames_per_second;
 
 
     return (0);
 }
 
-unsigned char *ar2VideoLockBuffer(AR2VideoParamT *vid, MemoryBufferHandle* pHandle)
+unsigned char* ar2VideoLockBuffer(AR2VideoParamT *vid, MemoryBufferHandle *pHandle)
 {
-	unsigned char *pixelBuffer;
-	
-	if (vid == NULL) return (NULL);
-	if (vid->graphManager == NULL) return (NULL);
-	
-	if (FAILED(vid->graphManager->CheckoutMemoryBuffer(pHandle, &pixelBuffer))) return (NULL);
-	
-	return (pixelBuffer);
+    unsigned char *pixelBuffer;
+
+    if (vid == NULL)
+        return (NULL);
+
+    if (vid->graphManager == NULL)
+        return (NULL);
+
+    if (FAILED(vid->graphManager->CheckoutMemoryBuffer(pHandle, &pixelBuffer)))
+        return (NULL);
+
+    return (pixelBuffer);
 }
 
 int ar2VideoUnlockBuffer(AR2VideoParamT *vid, MemoryBufferHandle Handle)
 {
-	if (vid == NULL) return (-1);
-	if (vid->graphManager == NULL) return(-1);
-	
-	if (FAILED(vid->graphManager->CheckinMemoryBuffer(Handle))) return(-1);
-	
-	return (0);
+    if (vid == NULL)
+        return (-1);
+
+    if (vid->graphManager == NULL)
+        return(-1);
+
+    if (FAILED(vid->graphManager->CheckinMemoryBuffer(Handle)))
+        return(-1);
+
+    return (0);
 }
 #endif
 
@@ -258,47 +301,49 @@ int ar2VideoUnlockBuffer(AR2VideoParamT *vid, MemoryBufferHandle Handle)
 
 int ar2VideoGetSizeWinDSVL(AR2VideoParamWinDSVLT *vid, int *x, int *y)
 {
-	if (vid == NULL) return (-1);
-	if (vid->graphManager == NULL) return(-1);
-	
-	long frame_width;
-	long frame_height;
+    if (vid == NULL)
+        return (-1);
 
-	vid->graphManager->GetCurrentMediaFormat(&frame_width, &frame_height,NULL,NULL);
-	*x = (int) frame_width;
-	*y = (int) frame_height;
-	
+    if (vid->graphManager == NULL)
+        return(-1);
+
+    long frame_width;
+    long frame_height;
+
+    vid->graphManager->GetCurrentMediaFormat(&frame_width, &frame_height, NULL, NULL);
+    *x = (int) frame_width;
+    *y = (int) frame_height;
+
     return (0);
 }
 
-AR_PIXEL_FORMAT ar2VideoGetPixelFormatWinDSVL( AR2VideoParamWinDSVLT *wvid )
+AR_PIXEL_FORMAT ar2VideoGetPixelFormatWinDSVL(AR2VideoParamWinDSVLT *wvid)
 {
     return AR_INPUT_WINDOWS_DSVIDEOLIB_PIXEL_FORMAT;
 }
 
-int ar2VideoGetIdWinDSVL( AR2VideoParamWinDSVLT *wvid, ARUint32 *id0, ARUint32 *id1 )
+int ar2VideoGetIdWinDSVL(AR2VideoParamWinDSVLT *wvid, ARUint32 *id0, ARUint32 *id1)
 {
     return -1;
 }
 
-int ar2VideoGetParamiWinDSVL( AR2VideoParamWinDSVLT *wvid, int paramName, int *value )
+int ar2VideoGetParamiWinDSVL(AR2VideoParamWinDSVLT *wvid, int paramName, int *value)
 {
     return -1;
 }
 
-int ar2VideoSetParamiWinDSVL( AR2VideoParamWinDSVLT *wvid, int paramName, int  value )
+int ar2VideoSetParamiWinDSVL(AR2VideoParamWinDSVLT *wvid, int paramName, int value)
 {
     return -1;
 }
 
-int ar2VideoGetParamdWinDSVL( AR2VideoParamWinDSVLT *wvid, int paramName, double *value )
+int ar2VideoGetParamdWinDSVL(AR2VideoParamWinDSVLT *wvid, int paramName, double *value)
 {
     return -1;
 }
 
-int ar2VideoSetParamdWinDSVL( AR2VideoParamWinDSVLT *wvid, int paramName, double  value )
+int ar2VideoSetParamdWinDSVL(AR2VideoParamWinDSVLT *wvid, int paramName, double value)
 {
     return -1;
 }
-
 #endif // AR_INPUT_WINDOWS_DSVIDEOLIB
