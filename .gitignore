@@ -38,7 +38,7 @@ ctags.files
 *.lib
 *.exe
 *.xml
-*.vbs
+
 *.txt
 *.exp
 *.gif
