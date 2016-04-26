@@ -292,8 +292,10 @@ static void DrawCube(void)
         {255, 0, 255, 255}, {255, 0, 0, 255}, {0, 0, 0, 255}, {0, 0, 255, 255}
     };
     const GLubyte cube_faces[6][4] =    /* counter-clockwise-winding */
-    { /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
-      /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
+    {
+        /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
+        /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7}
+    };
 
     glPushMatrix(); // Save world coordinate system.
     glRotatef(gDrawRotateAngle, 0.0f, 0.0f, 1.0f); // Rotate about z axis.
@@ -707,14 +709,12 @@ static void mainLoop(void)
                 for (j = 0; j < 3; j++)
                     for (k = 0; k < 4; k++)
                         markersNFT[i].trans[j][k] = trackingTrans[j][k];
-
             }
             else
                 markersNFT[i].valid = FALSE;
 
             if (markersNFT[i].valid)
             {
-
                 // Filter the pose estimate.
                 if (markersNFT[i].ftmi)
                 {
@@ -734,11 +734,9 @@ static void mainLoop(void)
                 arglCameraViewRH(markersNFT[i].trans, markersNFT[i].pose.T, VIEW_SCALEFACTOR);
                 // Tell any dependent objects about the update.
                 // --->
-
             }
             else
             {
-
                 if (markersNFT[i].validPrev)
                 {
                     // Marker has ceased to be visible, tell any dependent objects.
@@ -818,10 +816,8 @@ static void Display(void)
 
     for (i = 0; i < markersNFTCount; i++)
     {
-
         if (markersNFT[i].valid)
         {
-
 #ifdef ARDOUBLE_IS_FLOAT
             glLoadMatrixf(markersNFT[i].pose.T);
 #else
