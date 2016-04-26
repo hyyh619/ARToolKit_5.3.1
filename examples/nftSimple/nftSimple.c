@@ -1,8 +1,8 @@
 /*
- *	nftSimple.c
+ *  nftSimple.c
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit NFT. Renders a colour cube.
+ *  Demonstration of ARToolKit NFT. Renders a colour cube.
  *
  *  Press '?' while running for help on available key commands.
  *
@@ -53,7 +53,7 @@
 
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 
 #ifdef _WIN32
@@ -81,7 +81,7 @@
 #include "trackingSub.h"
 
 // ============================================================================
-//	Constants
+//      Constants
 // ============================================================================
 
 #define PAGES_MAX 10                        // Maximum number of pages expected. You can change this down (to save memory) or up (to accomodate more pages.)
@@ -91,7 +91,7 @@
 #define VIEW_DISTANCE_MAX 10000.0                       // Objects further away from the camera than this will not be displayed. OpenGL units.
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // Preferences.
@@ -129,7 +129,7 @@ static ARdouble                  cameraLens[16];
 
 
 // ============================================================================
-//	Function prototypes
+//      Function prototypes
 // ============================================================================
 
 static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p);
@@ -142,7 +142,7 @@ static void Reshape(int w, int h);
 static void Display(void);
 
 // ============================================================================
-//	Functions
+//      Functions
 // ============================================================================
 
 int main(int argc, char **argv)
@@ -743,8 +743,8 @@ static void mainLoop(void)
 }
 
 //
-//	This function is called on events when the visibility of the
-//	GLUT window changes (including when it first becomes visible).
+//      This function is called on events when the visibility of the
+//      GLUT window changes (including when it first becomes visible).
 //
 static void Visibility(int visible)
 {
@@ -759,8 +759,8 @@ static void Visibility(int visible)
 }
 
 //
-//	This function is called when the
-//	GLUT window is resized.
+//      This function is called when the
+//      GLUT window is resized.
 //
 static void Reshape(int w, int h)
 {
