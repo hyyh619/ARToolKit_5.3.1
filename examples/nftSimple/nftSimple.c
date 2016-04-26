@@ -148,10 +148,17 @@ static void Display(void);
 int main(int argc, char **argv)
 {
     char       glutGamemode[32];
-    const char *cparam_name = "Data2/camera_para.dat";
-    char       vconf[]      = "";
-    // const char markerConfigDataFilename[] = "Data2/markers.dat";
+    const char *cparam_name               = "Data2/camera_para.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
+    char       vconf[]                    = "-device=WinMF -format=BGRA -width=640 -height=480 -devNum=0";
+
+    // char       vconf[]      = "-device=WinMF -format=BGRA -width=640 -height=480 -devNum=0";   // WinMF tracking is OK.
+    // char       vconf[]      = "-device=WinHD";   // WinHD cannot initialize camera.
+    // char       vconf[]      = "-device=WinDF";   // WinDF cannot initialize camera.
+    // char       vconf[]      = "-device=WinDSVL"; // WinDSVL only works in 640x480, but tracking doesn't work well.
+    // char       vconf[]      = "-device=WinDS";   // WinDS cannot track marker.
+
+    // const char markerConfigDataFilename[] = "Data2/markers.dat";
 
 #ifdef DEBUG
     arLogLevel = AR_LOG_LEVEL_DEBUG;
@@ -625,9 +632,7 @@ static void mainLoop(void)
     if ((image = arVideoGetImage()) != NULL)
     {
         gARTImage = image;              // Save the fetched image.
-
-        gCallCountMarkerDetect++;         // Increment ARToolKit FPS counter.
-
+        gCallCountMarkerDetect++;       // Increment ARToolKit FPS counter.
 
         // Run marker detection on frame
         if (threadHandle)
