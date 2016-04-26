@@ -1,5 +1,5 @@
 /*
- *	param.h
+ *      param.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -84,7 +84,7 @@ extern "C" {
     @abstract   Default padding added around a lookup-table based camera parameter.
     @discussion See function arParamLTCreate() for discussion.
  */
-#define   AR_PARAM_LT_DEFAULT_OFFSET  15
+#define   AR_PARAM_LT_DEFAULT_OFFSET 15
 
 /*!
     @typedef
@@ -134,14 +134,14 @@ typedef struct
     int   yOff;
 } ARParamLTf;
 
-//typedef struct {
+// typedef struct {
 //    short   *i2o;
 //    short   *o2i;
 //    int      xsize;
 //    int      ysize;
 //    int      xOff;
 //    int      yOff;
-//} ARParamLTi;
+// } ARParamLTi;
 
 /*!
     @typedef
@@ -163,7 +163,7 @@ typedef struct
 {
     ARParam    param;
     ARParamLTf paramLTf;
-    //ARParamLTi   paramLTi;
+    // ARParamLTi   paramLTi;
 } ARParamLT;
 
 int    arParamDisp(const ARParam *param);
@@ -187,18 +187,18 @@ int    arParamDisp(const ARParam *param);
  */
 int    arParamClear(ARParam *param, int xsize, int ysize, int dist_function_version);
 
-int    arParamDistFactorClear(ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xsize, int ysize, int dist_function_version);
+int arParamDistFactorClear(ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xsize, int ysize, int dist_function_version);
 
 int    arParamChangeSize(ARParam *source, int xsize, int ysize, ARParam *newparam);
 
-int    arParamDecomp(const ARParam *source, ARParam *icpara, ARdouble trans[3][4]);
+int arParamDecomp(const ARParam * source, ARParam * icpara, ARdouble trans[3][4]);
 
-int    arParamDecompMat(const ARdouble source[3][4], ARdouble cpara[3][4], ARdouble trans[3][4]);
+int arParamDecompMat(const ARdouble source[3][4], ARdouble cpara[3][4], ARdouble trans[3][4]);
 
 #ifdef ARDOUBLE_IS_FLOAT
 #define arParamDecompMatf arParamDecompMat
 #else
-int    arParamDecompMatf(const ARdouble source[3][4], float cpara[3][4], float trans[3][4]);
+int arParamDecompMatf(const ARdouble source[3][4], float cpara[3][4], float trans[3][4]);
 #endif
 
 /*!
@@ -328,16 +328,16 @@ int    arParamLoad(const char *filename, int num, ARParam *param, ...);
  */
 int    arParamLoadFromBuffer(const void *buffer, size_t bufsize, ARParam *param);
 
-int    arParamGetPerspectiveMat(ARdouble global[][3], ARdouble idealScreen[][2], int data_num, ARdouble mat[3][4]);
+int arParamGetPerspectiveMat(ARdouble global[][3], ARdouble idealScreen[][2], int data_num, ARdouble mat[3][4]);
 
-int    arParamSaveExt(const char *filename, ARdouble para[3][4]);
-int    arParamLoadExt(const char *filename, ARdouble para[3][4]);
-int    arParamLoadExtFromBuffer(const void *buffer, size_t bufsize, ARdouble para[3][4]);
-int    arParamDispExt(ARdouble para[3][4]);
+int arParamSaveExt(const char *filename, ARdouble para[3][4]);
+int arParamLoadExt(const char *filename, ARdouble para[3][4]);
+int arParamLoadExtFromBuffer(const void *buffer, size_t bufsize, ARdouble para[3][4]);
+int arParamDispExt(ARdouble para[3][4]);
 
 int arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble aspect, const ARdouble m[16]);
-int arParamLoadOptical(const char *filename, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16]);
-int arParamLoadOpticalFromBuffer(const void *buffer, size_t bufsize, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16]);
+int arParamLoadOptical(const char *filename, ARdouble * fovy_p, ARdouble * aspect_p, ARdouble m[16]);
+int arParamLoadOpticalFromBuffer(const void *buffer, size_t bufsize, ARdouble * fovy_p, ARdouble * aspect_p, ARdouble m[16]);
 int arParamDispOptical(const ARdouble fovy, const ARdouble aspect, const ARdouble m[16]);
 
 int         arParamLTSave(char *filename, char *ext, ARParamLT *paramLT);
@@ -443,9 +443,9 @@ int         arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, flo
  */
 int         arParamObserv2IdealLTf(ARParamLTf *paramLTf, float ox, float oy, float  *ix, float  *iy);
 
-//int         arParamIdeal2ObservLTi( ARParamLTi *paramLTi, int    ix, int    iy, int    *ox, int    *oy);
+// int         arParamIdeal2ObservLTi( ARParamLTi *paramLTi, int    ix, int    iy, int    *ox, int    *oy);
 
-//int         arParamObserv2IdealLTi( ARParamLTi *paramLTi, int    ox, int    oy, int    *ix, int    *iy);
+// int         arParamObserv2IdealLTi( ARParamLTi *paramLTi, int    ox, int    oy, int    *ix, int    *iy);
 
 #ifdef __cplusplus
 }

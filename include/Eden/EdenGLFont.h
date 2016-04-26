@@ -3,9 +3,9 @@
 //  The Eden Library
 //
 //  Copyright (c) 2001-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
-//	Some portions of font loading code based on code by Jeff Molofee, 1999, http://nehe.gamedev.net/
+//      Some portions of font loading code based on code by Jeff Molofee, 1999, http://nehe.gamedev.net/
 //
-//	Rev		Date		Who		Changes
+//      Rev             Date            Who             Changes
 //
 
 // @@BEGIN_EDEN_LICENSE_HEADER@@
@@ -58,32 +58,34 @@ extern "C" {
 #endif
 
 // ============================================================================
-//	Includes.
+//      Includes.
 // ============================================================================
 #ifndef __Eden_h__
 #  include <Eden/Eden.h>
 #endif
 
-#include <Eden/EdenError.h>		// EDEN_E_t
+#include <Eden/EdenError.h>             // EDEN_E_t
 
 // ============================================================================
 //  Defines and types.
 // ============================================================================
-    
+
 typedef struct _EDEN_GL_FONT_INFO_t EDEN_GL_FONT_INFO_t;
 
-extern EDEN_GL_FONT_INFO_t *const EDEN_GL_FONT_ID_Stroke_Roman;
-extern EDEN_GL_FONT_INFO_t *const EDEN_GL_FONT_ID_Stroke_MonoRoman;
-extern EDEN_GL_FONT_INFO_t *const EDEN_GL_FONT_ID_Bitmap16_Geneva;
-extern EDEN_GL_FONT_INFO_t *const EDEN_GL_FONT_ID_Bitmap16_OCR_B_10;
+extern EDEN_GL_FONT_INFO_t* const EDEN_GL_FONT_ID_Stroke_Roman;
+extern EDEN_GL_FONT_INFO_t* const EDEN_GL_FONT_ID_Stroke_MonoRoman;
+extern EDEN_GL_FONT_INFO_t* const EDEN_GL_FONT_ID_Bitmap16_Geneva;
+extern EDEN_GL_FONT_INFO_t* const EDEN_GL_FONT_ID_Bitmap16_OCR_B_10;
 
-typedef enum {
+typedef enum
+{
     H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE,
     H_OFFSET_TEXT_RIGHT_EDGE_TO_VIEW_RIGHT_EDGE,
     H_OFFSET_VIEW_CENTER_TO_TEXT_CENTER
 } H_OFFSET_TYPE;
 
-typedef enum {
+typedef enum
+{
     V_OFFSET_VIEW_TEXT_TOP_TO_VIEW_TOP,
     V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE,
     V_OFFSET_VIEW_CENTER_TO_TEXT_CENTER
@@ -94,53 +96,53 @@ typedef enum {
 // ============================================================================
 
 /*!
-    @function 
+    @function
     @abstract   Initialise the font library.
     @discussion
-		Must be called before any access to EdenGLFont*() functions.
+                Must be called before any access to EdenGLFont*() functions.
     @param      contextsActiveCount Maximum number of OpenGL contexts.
     @result     TRUE if succcessful, FALSE in case of error.
-*/
+ */
 EDEN_BOOL EdenGLFontInit(const int contextsActiveCount);
 
 /*!
-    @function 
+    @function
     @abstract   Finalise the font library.
     @discussion
-		Should be called after no more EdenGLFont*() functions need be called.
-	@result     TRUE if succcessful, FALSE in case of error.
-*/
+                Should be called after no more EdenGLFont*() functions need be called.
+        @result     TRUE if succcessful, FALSE in case of error.
+ */
 EDEN_BOOL EdenGLFontFinal(void);
 
 /*!
-    @function 
-	@abstract   Create a texture font for later use.
+    @function
+        @abstract   Create a texture font for later use.
     @discussion
-		Creates font info required to use the font contained in the texture file
+                Creates font info required to use the font contained in the texture file
         named at pathname.
- 
-		Each character in the texture occupies 16 pixels x 16 pixels. Its width
-		and height should be stretched to 16 even if this introduces perspective
-		distortion- this will guarantee the best onscreen resolution.
-		Each character from the font will be scaled to naturalWidth pixels wide,
-		naturalHeight pixels tall.
- 
+
+                Each character in the texture occupies 16 pixels x 16 pixels. Its width
+                and height should be stretched to 16 even if this introduces perspective
+                distortion- this will guarantee the best onscreen resolution.
+                Each character from the font will be scaled to naturalWidth pixels wide,
+                naturalHeight pixels tall.
+
         Note that this function does not load the actual texture resources into
         OpenGL and does not require a valid OpenGL context. OpenGL resource
         loading is achieved by calling EdenGLFontLoadTextureFontForContext().
     @param      fontName A short descriptive name for the font, suitable for presentation to a user, e.g. in a font menu.
     @param      naturalHeight The height in pixels at which each character, drawn unscaled, will occupy.
     @param      naturalWidth The width in pixels at which each character, drawn unscaled, will occupy.
-	@param      pathname Pathname (absolute, or relative to current working directory) to font texture file.
-	@result     Pointer to a EDEN_GL_FONT_INFO_t opaque structure. This pointer can be used with other
+        @param      pathname Pathname (absolute, or relative to current working directory) to font texture file.
+        @result     Pointer to a EDEN_GL_FONT_INFO_t opaque structure. This pointer can be used with other
         EdenGLFont functions just as if it was a built-in font.
     @seealso EdenGLFontDeleteTextureFont EdenGLFontDeleteTextureFont
     @seealso EdenGLFontLoadTextureFontForContext EdenGLFontLoadTextureFontForContext
-*/
-EDEN_GL_FONT_INFO_t *EdenGLFontNewTextureFont(const char *fontName, const char *pathname, const float naturalHeight, const float naturalWidth);
+ */
+EDEN_GL_FONT_INFO_t* EdenGLFontNewTextureFont(const char *fontName, const char *pathname, const float naturalHeight, const float naturalWidth);
 
 /*!
-    @function 
+    @function
     @abstract   Delete a previously created texture font.
     @discussion (description)
     @param      fontInfo_p Pointer to a pointer to EDEN_GL_FONT_INFO_t opaque structure
@@ -153,11 +155,11 @@ EDEN_GL_FONT_INFO_t *EdenGLFontNewTextureFont(const char *fontName, const char *
         to calling this function.
     @seealso EdenGLFontNewTextureFont EdenGLFontNewTextureFont
     @seealso EdenGLFontUnloadTextureFontForContext EdenGLFontUnloadTextureFontForContext
-*/
+ */
 void EdenGLFontDeleteTextureFont(EDEN_GL_FONT_INFO_t **fontInfo_p);
 
 /*!
-    @function 
+    @function
     @abstract   Set the font to be used for subsequent draw calls.
     @discussion
         Drawing by default uses the font EDEN_GL_FONT_ID_Stroke_MonoRoman.
@@ -176,12 +178,12 @@ void EdenGLFontSetFont(EDEN_GL_FONT_INFO_t *font);
     @result Pointer to a EDEN_GL_FONT_INFO_t opaque structure, either for one
         of the built-in fonts, or previously returned from EdenGLFontNewTextureFont()
  */
-EDEN_GL_FONT_INFO_t * EdenGLFontGetFont(void);
+EDEN_GL_FONT_INFO_t* EdenGLFontGetFont(void);
 
 /*!
     @function
     @abstract Set the font size.
-    @discussion 
+    @discussion
     @param points Font size in points. Default is 16 point.
  */
 void EdenGLFontSetSize(const float points);
@@ -189,11 +191,11 @@ void EdenGLFontSetSize(const float points);
 /*!
     @function
     @abstract Get the currently set font size.
-    @discussion 
+    @discussion
     @result Font size in points. Default is 16 point.
  */
 float EdenGLFontGetSize(void);
-    
+
 /*!
     @function
     @abstract Set character spacing (i.e. "kerning").
@@ -246,7 +248,7 @@ void EdenGLFontSetWordSpacing(const float spacing);
     @abstract Get word spacing (i.e. adjust width of the space character).
     @discussion
         Word spacing is the spacing between adjacent words.
- 
+
         This adjustment applies only to non-monospaced fonts.
     @result pacing expressed as a percentage of the normal width of the space character size. Default is 1.0.
  */
@@ -273,19 +275,19 @@ void EdenGLFontSetDisplayResolution(const float pixelsPerInch); // Pixels per in
 float EdenGLFontGetDisplayResolution(void); // Pixels per inch.
 
 /*!
-    @function 
+    @function
     @abstract   Tell the font library about the view size.
     @discussion
-		Normally, this will be called during the windowing system's reshape callback.
+                Normally, this will be called during the windowing system's reshape callback.
     @param      widthInPixels Width of the view, in pixels.
-	@param      heightInPixels Height of the view, in pixels.
-*/
+        @param      heightInPixels Height of the view, in pixels.
+ */
 void EdenGLFontSetViewSize(const float widthInPixels, const float heightInPixels);
-    
+
 /*!
     @function
     @abstract Gets the height (in pixels) of the currently selected font.
-    @discussion 
+    @discussion
         Takes into account font size (in points) and display resolution (in pixels per inch).
     @result Height in pixels.
  */
@@ -316,7 +318,7 @@ float EdenGLFontGetLineWidth(const unsigned char *line);
 /*!
     @function
     @abstract Calculate the width of a block of text (i.e. the width of the widest line) in pixels.
-    @discussion 
+    @discussion
         Includes inter-character spacing.
     @param lines An array of C strings (i.e. an array of (char *)). Each item in the array points to a null-terminated C string.
     @param lineCount Number of strings in array 'lines'.
@@ -337,20 +339,20 @@ float EdenGLFontGetBlockHeight(const unsigned char **lines, const unsigned int l
 
 /*!
     @function
-    @abstract 
+    @abstract
     @discussion
         Requires a valid OpenGL context at the time of the call.
         Make sure EdenSurfacesInit() has been previously called with a valid number of contexts.
     @param contextIndex
     @param fontInfo
-    @result 
+    @result
  */
 EDEN_BOOL EdenGLFontLoadTextureFontForContext(const int contextIndex, EDEN_GL_FONT_INFO_t *fontInfo);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
         Requires a valid OpenGL context at the time of the call.
     @param contextIndex
     @param fontInfo
@@ -359,10 +361,10 @@ EDEN_BOOL EdenGLFontLoadTextureFontForContext(const int contextIndex, EDEN_GL_FO
 EDEN_BOOL EdenGLFontUnloadTextureFontForContext(const int contextIndex, EDEN_GL_FONT_INFO_t *fontInfo);
 
 /*!
-    @function 
+    @function
     @abstract   Draw a single line of text into the framebuffer.
     @discussion
-		Should be called once per frame, generally after all other drawing is complete.
+                Should be called once per frame, generally after all other drawing is complete.
         Requires a valid OpenGL context at the time of the call.
 
         Drawing functions respect current projection and modelview matrices,
@@ -382,28 +384,28 @@ EDEN_BOOL EdenGLFontUnloadTextureFontForContext(const int contextIndex, EDEN_GL_
         and normal arrays. It also leaves texture matrix indeterminate on return.
     @param      contextIndex (description)
     @param      line null-terminated string of characters to draw.
-	@param      hOffset Horizontal offset (in OpenGL coordinates) between the reference points
+        @param      hOffset Horizontal offset (in OpenGL coordinates) between the reference points
         specified in hOffsetType.
- 
-		E.g. when hOffsetType = H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, passing 0.0f
+
+                E.g. when hOffsetType = H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, passing 0.0f
         will place the text against the left-hand edge of the window.
-	@param      vOffset Vertical offset (in OpenGL coordinates) between the reference points
+        @param      vOffset Vertical offset (in OpenGL coordinates) between the reference points
         specified in vOffsetType.
- 
-		E.g. when vOffsetType = V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE, passing 0.0f
+
+                E.g. when vOffsetType = V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE, passing 0.0f
         will place the text against the bottom edge of the window.
     @param hOffsetType Specifies left, centered, or right alignment horizontal alignment.
     @param vOffsetType Specifies top, centered, or bottom alignment vertical alignment.
-*/
+ */
 void EdenGLFontDrawLine(const int contextIndex, const unsigned char *line, const float hOffset, const float vOffset, H_OFFSET_TYPE hOffsetType, V_OFFSET_TYPE vOffsetType);
 
 /*!
-    @function 
+    @function
     @abstract   Draw a block of multiple lines of text into the framebuffer.
     @discussion
-		Should be called once per frame, generally after all other drawing is complete.
+                Should be called once per frame, generally after all other drawing is complete.
         Requires a valid OpenGL context at the time of the call.
- 
+
         Drawing functions respect current projection and modelview matrices,
         and depth mode and lighting/color settings, and these are unmodified on return.
         Typically however, the aim is to draw window-aligned text, and this function
@@ -419,24 +421,24 @@ void EdenGLFontDrawLine(const int contextIndex, const unsigned char *line, const
         Texture font use modifies blend settings, texturing enable settings,
         and vertex, texture coordinate pointers, and enabled client state of vertex, texture
         and normal arrays. It also leaves texture matrix indeterminate on return.
-	@param      contextIndex (description)
+        @param      contextIndex (description)
     @param      lines Array of null-terminated string of characters to draw.
     @param      lineCount Number of strings in array 'lines'.
     @param      hOffset Horizontal offset (in OpenGL coordinates) between the reference points
         specified in hOffsetType.
- 
-		E.g. when hOffsetType = H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, passing 0.0f
+
+                E.g. when hOffsetType = H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, passing 0.0f
         will place the text against the left-hand edge of the window.
-	@param      vOffset Vertical offset (in OpenGL coordinates) between the reference points
+        @param      vOffset Vertical offset (in OpenGL coordinates) between the reference points
         specified in vOffsetType.
- 
-		E.g. when vOffsetType = V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE, passing 0.0f
+
+                E.g. when vOffsetType = V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE, passing 0.0f
         will place the text against the bottom edge of the window.
     @param hOffsetType Specifies left, centered, or right alignment horizontal alignment.
     @param vOffsetType Specifies top, centered, or bottom alignment vertical alignment.
-*/
+ */
 void EdenGLFontDrawBlock(const int contextIndex, const unsigned char **lines, const unsigned int lineCount, const float hOffset, const float vOffset, H_OFFSET_TYPE hOffsetType, V_OFFSET_TYPE vOffsetType);
-    
+
 #ifdef __cplusplus
 }
 #endif

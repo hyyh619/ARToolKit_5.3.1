@@ -45,31 +45,33 @@ extern "C" {
 #endif
 
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-#define    AR2_BLUR_IMAGE_MAX  5
+#define    AR2_BLUR_IMAGE_MAX 5
 #endif
 
 
-typedef struct {
+typedef struct
+{
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-    ARUint8      *imgBWBlur[AR2_BLUR_IMAGE_MAX];
+    ARUint8 *imgBWBlur[AR2_BLUR_IMAGE_MAX];
 #else
-    ARUint8      *imgBW;
+    ARUint8 *imgBW;
 #endif
-    int           xsize;
-    int           ysize;
-    float         dpi;
+    int   xsize;
+    int   ysize;
+    float dpi;
 } AR2ImageT;
 
-typedef struct {
-    AR2ImageT   **scale;
-    int32_t       num;
+typedef struct
+{
+    AR2ImageT **scale;
+    int32_t   num;
 } AR2ImageSetT;
 
 /*   image.c   */
-AR2ImageSetT   *ar2GenImageSet   ( ARUint8 *image, int xsize, int ysize, int nc, float dpi, float dpi_list[], int dpi_num );
-AR2ImageSetT   *ar2ReadImageSet  ( char *filename );
-int             ar2WriteImageSet ( char *filename, AR2ImageSetT *imageSet );
-int             ar2FreeImageSet  ( AR2ImageSetT **imageSet );
+AR2ImageSetT* ar2GenImageSet(ARUint8 *image, int xsize, int ysize, int nc, float dpi, float dpi_list[], int dpi_num);
+AR2ImageSetT* ar2ReadImageSet(char *filename);
+int             ar2WriteImageSet(char *filename, AR2ImageSetT *imageSet);
+int             ar2FreeImageSet(AR2ImageSetT **imageSet);
 
 #ifdef __cplusplus
 }

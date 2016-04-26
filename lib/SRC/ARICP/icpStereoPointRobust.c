@@ -41,16 +41,16 @@
 #include <AR/ar.h>
 #include <AR/icp.h>
 
-#define     K2_FACTOR     4.0
+#define     K2_FACTOR 4.0
 
-static void   icpStereoGetXw2XcCleanup( char *message, ARdouble *J_U_S, ARdouble *dU, ARdouble *E, ARdouble *E2 );
-static int    compE( const void *a, const void *b );
+static void   icpStereoGetXw2XcCleanup(char *message, ARdouble *J_U_S, ARdouble *dU, ARdouble *E, ARdouble *E2);
+static int    compE(const void *a, const void *b);
 
-int icpStereoPointRobust( ICPStereoHandleT *handle,
-                          ICPStereoDataT   *data,
-                          ARdouble         initMatXw2Xc[3][4],
-                          ARdouble         matXw2Xc[3][4],
-                          ARdouble         *err )
+int icpStereoPointRobust(ICPStereoHandleT *handle,
+                         ICPStereoDataT   *data,
+                         ARdouble initMatXw2Xc[3][4],
+                         ARdouble matXw2Xc[3][4],
+                         ARdouble         *err)
 {
     ICP2DCoordT U;
     ARdouble    *J_U_S;
@@ -64,178 +64,226 @@ int icpStereoPointRobust( ICPStereoHandleT *handle,
     ARdouble    err0, err1;
     int         inlierNum;
     int         i, j, k;
+
 #if ICP_DEBUG
-    int         l;
+    int l;
 #endif
 
-    if( data->numL + data->numR < 4 ) return -1;
+    if (data->numL + data->numR < 4)
+        return -1;
 
     inlierNum = (int)((data->numL + data->numR) * handle->inlierProb) - 1;
-    if( inlierNum < 3 ) inlierNum = 3;
+    if (inlierNum < 3)
+        inlierNum = 3;
 
-    if( (J_U_S = (ARdouble *)malloc( sizeof(ARdouble)*12*(data->numL + data->numR) )) == NULL ) {
+    if ((J_U_S = (ARdouble*)malloc(sizeof(ARdouble) * 12 * (data->numL + data->numR))) == NULL)
+    {
         ARLOGe("Error: malloc\n");
         return -1;
     }
-    if( (dU = (ARdouble *)malloc( sizeof(ARdouble)*2*(data->numL + data->numR) )) == NULL ) {
+
+    if ((dU = (ARdouble*)malloc(sizeof(ARdouble) * 2 * (data->numL + data->numR))) == NULL)
+    {
         ARLOGe("Error: malloc\n");
         free(J_U_S);
         return -1;
     }
-    if( (E = (ARdouble *)malloc( sizeof(ARdouble)*(data->numL + data->numR) )) == NULL ) {
+
+    if ((E = (ARdouble*)malloc(sizeof(ARdouble) * (data->numL + data->numR))) == NULL)
+    {
         ARLOGe("Error: malloc\n");
         free(J_U_S);
         free(dU);
         return -1;
     }
-    if( (E2 = (ARdouble *)malloc( sizeof(ARdouble)*(data->numL + data->numR) )) == NULL ) {
+
+    if ((E2 = (ARdouble*)malloc(sizeof(ARdouble) * (data->numL + data->numR))) == NULL)
+    {
         ARLOGe("Error: malloc\n");
         free(J_U_S);
         free(dU);
         free(E);
         return -1;
     }
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) matXw2Xc[j][i] = initMatXw2Xc[j][i];
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            matXw2Xc[j][i] = initMatXw2Xc[j][i];
     }
 
-    arUtilMatMul( handle->matXcl2Ul, handle->matC2L, matXc2Ul );
-    arUtilMatMul( handle->matXcr2Ur, handle->matC2R, matXc2Ur );
+    arUtilMatMul(handle->matXcl2Ul, handle->matC2L, matXc2Ul);
+    arUtilMatMul(handle->matXcr2Ur, handle->matC2R, matXc2Ur);
 
-    for( i = 0;; i++ ) {
+    for (i = 0;; i++)
+    {
 #if ICP_DEBUG
-        icpDispMat( "matXw2Xc", &(matXw2Xc[0][0]), 3, 4 );
+        icpDispMat("matXw2Xc", &(matXw2Xc[0][0]), 3, 4);
 #endif
-        arUtilMatMul( matXc2Ul, matXw2Xc, matXw2Ul );
-        arUtilMatMul( matXc2Ur, matXw2Xc, matXw2Ur );
+        arUtilMatMul(matXc2Ul, matXw2Xc, matXw2Ul);
+        arUtilMatMul(matXc2Ur, matXw2Xc, matXw2Ur);
 
-        for( j = 0; j < data->numL; j++ ) {
-            if( icpGetU_from_X_by_MatX2U( &U, matXw2Ul, &(data->worldCoordL[j]) ) < 0 ) {
-                icpStereoGetXw2XcCleanup("icpGetU_from_X_by_MatX2U",J_U_S,dU,E,E2);
+        for (j = 0; j < data->numL; j++)
+        {
+            if (icpGetU_from_X_by_MatX2U(&U, matXw2Ul, &(data->worldCoordL[j])) < 0)
+            {
+                icpStereoGetXw2XcCleanup("icpGetU_from_X_by_MatX2U", J_U_S, dU, E, E2);
                 return -1;
             }
-            dx = data->screenCoordL[j].x - U.x;
-            dy = data->screenCoordL[j].y - U.y;
-            dU[j*2+0] = dx;
-            dU[j*2+1] = dy;
-            E[j] = E2[j] = dx*dx + dy*dy;
-        }   
-        for( j = 0; j < data->numR; j++ ) {
-            if( icpGetU_from_X_by_MatX2U( &U, matXw2Ur, &(data->worldCoordR[j]) ) < 0 ) {
-                icpStereoGetXw2XcCleanup("icpGetU_from_X_by_MatX2U",J_U_S,dU,E,E2);
-                return -1;
-            }
-            dx = data->screenCoordR[j].x - U.x;
-            dy = data->screenCoordR[j].y - U.y;
-            dU[(data->numL+j)*2+0] = dx;
-            dU[(data->numL+j)*2+1] = dy;
-            E[data->numL+j] = E2[data->numL+j] = dx*dx + dy*dy;
+
+            dx            = data->screenCoordL[j].x - U.x;
+            dy            = data->screenCoordL[j].y - U.y;
+            dU[j * 2 + 0] = dx;
+            dU[j * 2 + 1] = dy;
+            E[j]          = E2[j] = dx * dx + dy * dy;
         }
+
+        for (j = 0; j < data->numR; j++)
+        {
+            if (icpGetU_from_X_by_MatX2U(&U, matXw2Ur, &(data->worldCoordR[j])) < 0)
+            {
+                icpStereoGetXw2XcCleanup("icpGetU_from_X_by_MatX2U", J_U_S, dU, E, E2);
+                return -1;
+            }
+
+            dx                           = data->screenCoordR[j].x - U.x;
+            dy                           = data->screenCoordR[j].y - U.y;
+            dU[(data->numL + j) * 2 + 0] = dx;
+            dU[(data->numL + j) * 2 + 1] = dy;
+            E[data->numL + j]            = E2[data->numL + j] = dx * dx + dy * dy;
+        }
+
         qsort(E2, (data->numL + data->numR), sizeof(ARdouble), compE);
         K2 = E2[inlierNum] * K2_FACTOR;
-        if( K2 < 16.0 ) K2 = 16.0;
+        if (K2 < 16.0)
+            K2 = 16.0;
 
         err1 = 0.0;
-        for( j = 0; j < data->numL + data->numR; j++ ) {
-            if( E2[j] > K2 ) err1 += K2/6.0;
-            else err1 += K2/6.0 * (1.0 - (1.0-E2[j]/K2)*(1.0-E2[j]/K2)*(1.0-E2[j]/K2));
+
+        for (j = 0; j < data->numL + data->numR; j++)
+        {
+            if (E2[j] > K2)
+                err1 += K2 / 6.0;
+            else
+                err1 += K2 / 6.0 * (1.0 - (1.0 - E2[j] / K2) * (1.0 - E2[j] / K2) * (1.0 - E2[j] / K2));
         }
+
         err1 /= (data->numL + data->numR);
 #if ICP_DEBUG
         ARLOG("Loop[%d]: k^2 = %f, err = %15.10f\n", i, K2, err1);
 #endif
 
-        if( err1 < handle->breakLoopErrorThresh ) break;
-        if( i > 0 && err1 < ICP_BREAK_LOOP_ERROR_THRESH2 && err1/err0 > handle->breakLoopErrorRatioThresh ) break;
-        if( i == handle->maxLoop ) break;
+        if (err1 < handle->breakLoopErrorThresh)
+            break;
+
+        if (i > 0 && err1 < ICP_BREAK_LOOP_ERROR_THRESH2 && err1 / err0 > handle->breakLoopErrorRatioThresh)
+            break;
+
+        if (i == handle->maxLoop)
+            break;
+
         err0 = err1;
 
         k = 0;
 #if ICP_DEBUG
         l = 0;
-#endif                        
-        for( j = 0; j < data->numL; j++ ) {
-            if( E[j] <= K2 ) {
-                if( icpGetJ_U_S( (ARdouble (*)[6])(&J_U_S[6*k]), matXc2Ul, matXw2Xc, &(data->worldCoordL[j]) ) < 0 ) {
-                    icpStereoGetXw2XcCleanup("icpGetJ_U_S",J_U_S,dU,E,E2);
-                    return -1; 
+#endif
+
+        for (j = 0; j < data->numL; j++)
+        {
+            if (E[j] <= K2)
+            {
+                if (icpGetJ_U_S((ARdouble (*)[6])(&J_U_S[6 * k]), matXc2Ul, matXw2Xc, &(data->worldCoordL[j])) < 0)
+                {
+                    icpStereoGetXw2XcCleanup("icpGetJ_U_S", J_U_S, dU, E, E2);
+                    return -1;
                 }
+
 #if ICP_DEBUG
-                icpDispMat( "J_U_S", (ARdouble *)(&J_U_S[6*k]), 2, 6 );
-#endif                        
-                W = (1.0 - E[j]/K2)*(1.0 - E[j]/K2);
-                J_U_S[k*6+0] *= W;
-                J_U_S[k*6+1] *= W;
-                J_U_S[k*6+2] *= W;
-                J_U_S[k*6+3] *= W;
-                J_U_S[k*6+4] *= W;
-                J_U_S[k*6+5] *= W;
-                J_U_S[k*6+6] *= W;
-                J_U_S[k*6+7] *= W;
-                J_U_S[k*6+8] *= W;
-                J_U_S[k*6+9] *= W;
-                J_U_S[k*6+10] *= W;
-                J_U_S[k*6+11] *= W;
-                dU[k+0] = dU[j*2+0] * W;
-                dU[k+1] = dU[j*2+1] * W;
-                k+=2;
+                icpDispMat("J_U_S", (ARdouble*)(&J_U_S[6 * k]), 2, 6);
+#endif
+                W                  = (1.0 - E[j] / K2) * (1.0 - E[j] / K2);
+                J_U_S[k * 6 + 0]  *= W;
+                J_U_S[k * 6 + 1]  *= W;
+                J_U_S[k * 6 + 2]  *= W;
+                J_U_S[k * 6 + 3]  *= W;
+                J_U_S[k * 6 + 4]  *= W;
+                J_U_S[k * 6 + 5]  *= W;
+                J_U_S[k * 6 + 6]  *= W;
+                J_U_S[k * 6 + 7]  *= W;
+                J_U_S[k * 6 + 8]  *= W;
+                J_U_S[k * 6 + 9]  *= W;
+                J_U_S[k * 6 + 10] *= W;
+                J_U_S[k * 6 + 11] *= W;
+                dU[k + 0]          = dU[j * 2 + 0] * W;
+                dU[k + 1]          = dU[j * 2 + 1] * W;
+                k                 += 2;
 #if ICP_DEBUG
                 l++;
-#endif                        
+#endif
             }
-        }   
+        }
+
 #if ICP_DEBUG
-        ARLOG("LEFT   IN: %2d, OUT: %2d\n", l, data->numL-l);
+        ARLOG("LEFT   IN: %2d, OUT: %2d\n", l, data->numL - l);
 #endif
 #if ICP_DEBUG
         l = 0;
-#endif                        
-        for( j = 0; j < data->numR; j++ ) {
-            if( E[data->numL+j] <= K2 ) {
-                if( icpGetJ_U_S( (ARdouble (*)[6])(&J_U_S[6*k]), matXc2Ur, matXw2Xc, &(data->worldCoordR[j]) ) < 0 ) {
-                    icpStereoGetXw2XcCleanup("icpGetJ_U_S",J_U_S,dU,E,E2);
-                    return -1; 
-                }
-#if ICP_DEBUG
-                icpDispMat( "J_U_S", (ARdouble *)(&J_U_S[6*k]), 2, 6 );
-#endif                        
-                W = (1.0 - E[data->numL+j]/K2)*(1.0 - E[data->numL+j]/K2);
-                J_U_S[k*6+0] *= W;
-                J_U_S[k*6+1] *= W;
-                J_U_S[k*6+2] *= W;
-                J_U_S[k*6+3] *= W;
-                J_U_S[k*6+4] *= W;
-                J_U_S[k*6+5] *= W;
-                J_U_S[k*6+6] *= W;
-                J_U_S[k*6+7] *= W;
-                J_U_S[k*6+8] *= W;
-                J_U_S[k*6+9] *= W;
-                J_U_S[k*6+10] *= W;
-                J_U_S[k*6+11] *= W;
-                dU[k+0] = dU[(data->numL+j)*2+0] * W;
-                dU[k+1] = dU[(data->numL+j)*2+1] * W;
-                k+=2;
-#if ICP_DEBUG
-                l++;
-#endif                        
-            }
-        }   
-#if ICP_DEBUG
-        ARLOG("RIGHT  IN: %2d, OUT: %2d\n", l, data->numR-l);
 #endif
 
-        if( k < 6 ) {
-            //COVHI10425, COVHI10406, COVHI10393, COVHI10325
+        for (j = 0; j < data->numR; j++)
+        {
+            if (E[data->numL + j] <= K2)
+            {
+                if (icpGetJ_U_S((ARdouble (*)[6])(&J_U_S[6 * k]), matXc2Ur, matXw2Xc, &(data->worldCoordR[j])) < 0)
+                {
+                    icpStereoGetXw2XcCleanup("icpGetJ_U_S", J_U_S, dU, E, E2);
+                    return -1;
+                }
+
+#if ICP_DEBUG
+                icpDispMat("J_U_S", (ARdouble*)(&J_U_S[6 * k]), 2, 6);
+#endif
+                W                  = (1.0 - E[data->numL + j] / K2) * (1.0 - E[data->numL + j] / K2);
+                J_U_S[k * 6 + 0]  *= W;
+                J_U_S[k * 6 + 1]  *= W;
+                J_U_S[k * 6 + 2]  *= W;
+                J_U_S[k * 6 + 3]  *= W;
+                J_U_S[k * 6 + 4]  *= W;
+                J_U_S[k * 6 + 5]  *= W;
+                J_U_S[k * 6 + 6]  *= W;
+                J_U_S[k * 6 + 7]  *= W;
+                J_U_S[k * 6 + 8]  *= W;
+                J_U_S[k * 6 + 9]  *= W;
+                J_U_S[k * 6 + 10] *= W;
+                J_U_S[k * 6 + 11] *= W;
+                dU[k + 0]          = dU[(data->numL + j) * 2 + 0] * W;
+                dU[k + 1]          = dU[(data->numL + j) * 2 + 1] * W;
+                k                 += 2;
+#if ICP_DEBUG
+                l++;
+#endif
+            }
+        }
+
+#if ICP_DEBUG
+        ARLOG("RIGHT  IN: %2d, OUT: %2d\n", l, data->numR - l);
+#endif
+
+        if (k < 6)
+        {
+            // COVHI10425, COVHI10406, COVHI10393, COVHI10325
             icpStereoGetXw2XcCleanup("icpStereoPointRobust(), if (k < 6)", J_U_S, dU, E, E2);
             return -1;
         }
 
-        if( icpGetDeltaS( dS, dU, (ARdouble (*)[6])J_U_S, k ) < 0 ) {
-            icpStereoGetXw2XcCleanup("icpGetS",J_U_S,dU,E,E2);
+        if (icpGetDeltaS(dS, dU, (ARdouble (*)[6])J_U_S, k) < 0)
+        {
+            icpStereoGetXw2XcCleanup("icpGetS", J_U_S, dU, E, E2);
             return -1;
         }
 
-        icpUpdateMat( matXw2Xc, dS );
+        icpUpdateMat(matXw2Xc, dS);
     }
 
 #if ICP_DEBUG
@@ -252,7 +300,7 @@ int icpStereoPointRobust( ICPStereoHandleT *handle,
     return 0;
 }
 
-static void icpStereoGetXw2XcCleanup( char *message, ARdouble *J_U_S, ARdouble *dU, ARdouble *E, ARdouble *E2 )
+static void icpStereoGetXw2XcCleanup(char *message, ARdouble *J_U_S, ARdouble *dU, ARdouble *E, ARdouble *E2)
 {
     ARLOGd("Error: %s\n", message);
     free(J_U_S);
@@ -261,11 +309,16 @@ static void icpStereoGetXw2XcCleanup( char *message, ARdouble *J_U_S, ARdouble *
     free(E2);
 }
 
-static int compE( const void *a, const void *b )
+static int compE(const void *a, const void *b)
 {
-    ARdouble  c;
-    c = *(ARdouble *)a - *(ARdouble *)b;
-    if( c < 0.0 ) return -1;
-    if( c > 0.0 ) return  1;
+    ARdouble c;
+
+    c = *(ARdouble*)a - *(ARdouble*)b;
+    if (c < 0.0)
+        return -1;
+
+    if (c > 0.0)
+        return 1;
+
     return 0;
 }

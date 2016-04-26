@@ -42,59 +42,72 @@
 #  include <opencv2/opencv.hpp>
 #endif
 
-namespace vision {
+namespace vision
+{
+class ImageUtils
+{
+public:
+static bool convertType(Image&dst, const Image&src, float scale)
+{
+    if (src.type() == IMAGE_F32 && dst.type() == IMAGE_UINT8)
+    {
+        for (int i = 0; i < src.height(); i++)
+        {
+            for (int j = 0; j < src.width(); j++)
+            {
+                dst.get<unsigned char>(i)[j] = (unsigned char)(std::abs(src.get<float>(i)[j]) * scale);
+            }
+        }
 
-    class ImageUtils{
-        
-    public:
-        static bool convertType(Image& dst, const Image& src, float scale) {
-            if(src.type() == IMAGE_F32 && dst.type() == IMAGE_UINT8) {
-                for(int i = 0; i < src.height(); i++) {
-                    for(int j = 0; j < src.width(); j++) {
-                        dst.get<unsigned char>(i)[j] = (unsigned char)(std::abs(src.get<float>(i)[j])*scale);
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
-        
+        return true;
+    }
+
+    return false;
+}
+
 #ifdef USE_OPENCV
-        static cv::Mat toOpenCV(Image& im) {
-            int type = -1;
-            
-            switch(im.type()) {
-                case vision::IMAGE_UINT8:
-                    type = CV_8UC((int)im.channels());
-                    break;
-                case vision::IMAGE_F32:
-                    type = CV_32FC((int)im.channels());
-                    break;
-                default:
-                    return cv::Mat();
-            }
-            
-            cv::Mat opencv_im((int)im.height(),
-                              (int)im.width(),
-                              type,
-                              im.get(),
-                              im.step());
-            
-            return opencv_im;
-        }
-        
-        static Image toImage(cv::Mat& im) {
-            switch(im.type()) {
-                case CV_8U:
-                    break;
-                default:
-                    return Image();
-            };
-            
-            return Image(im.data, IMAGE_UINT8, im.cols, im.rows, (int)im.step, im.channels());
-        }
+static cv::Mat toOpenCV(Image&im)
+{
+    int type = -1;
+
+    switch (im.type())
+    {
+    case vision::IMAGE_UINT8:
+        type = CV_8UC((int)im.channels());
+        break;
+
+    case vision::IMAGE_F32:
+        type = CV_32FC((int)im.channels());
+        break;
+
+    default:
+        return cv::Mat();
+    }
+
+    cv::Mat opencv_im((int)im.height(),
+                      (int)im.width(),
+                      type,
+                      im.get(),
+                      im.step());
+
+    return opencv_im;
+}
+
+static Image toImage(cv::Mat&im)
+{
+    switch (im.type())
+    {
+    case CV_8U:
+        break;
+
+    default:
+        return Image();
+    }
+
+    ;
+
+    return Image(im.data, IMAGE_UINT8, im.cols, im.rows, (int)im.step, im.channels());
+}
 #endif
-        
-    };
-    
+};
 } // vision

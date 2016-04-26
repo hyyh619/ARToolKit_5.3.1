@@ -1,5 +1,5 @@
 /*
- *	VirtualEnvironment.h
+ *      VirtualEnvironment.h
  *  ARToolKit5
  *
  *  Disclaimer: IMPORTANT:  This Daqri software is supplied to you by Daqri
@@ -67,7 +67,7 @@ void VirtualEnvironmentHandleARMarkerDisappeared(int markerIndex);
 
 // ARView notification handlers.
 void VirtualEnvironmentHandleARViewUpdatedCameraLens(ARdouble *projection_in);
-//void VirtualEnvironmentHandleARViewUpdatedCameraPose(GLfloat *modelview_in);
+// void VirtualEnvironmentHandleARViewUpdatedCameraPose(GLfloat *modelview_in);
 void VirtualEnvironmentHandleARViewUpdatedViewport(int *viewPort_in);
 void VirtualEnvironmentHandleARViewDrawPreCamera(void);
 void VirtualEnvironmentHandleARViewDrawPostCamera(void);
@@ -76,5 +76,4 @@ void VirtualEnvironmentHandleARViewDrawOverlay(void);
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !__VirtualEnvironment_h__

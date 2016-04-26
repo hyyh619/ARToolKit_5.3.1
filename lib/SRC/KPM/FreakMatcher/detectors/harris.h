@@ -38,104 +38,102 @@
 #include <vector>
 #include "utils/point.h"
 
-namespace vision {
+namespace vision
+{
+/**
+ * Allocate memory for Harris interest point detection.
+ */
+void AllocHarris(float **S,
+                 short **Ixx,
+                 short **Iyy,
+                 short **Ixy,
+                 int **Gxx,
+                 int **Gyy,
+                 int **Gxy,
+                 int chunk_size,
+                 int width,
+                 int height);
 
-    /**
-     * Allocate memory for Harris interest point detection.
-     */
-    void AllocHarris(float** S,
-                     short** Ixx,
-                     short** Iyy,
-                     short** Ixy,
-                     int** Gxx,
-                     int** Gyy,
-                     int** Gxy,
-                     int chunk_size,
-                     int width,
-                     int height);
-    
-    /**
-     * Release Harris memory.
-     */
-    void ReleaseHarris(float** S, int** Gxx);
-    
-    /**
-     * Compute the Harris stength image.
-     */
-    void ComputeHarrisStengthImage(float* S,
-                                   const unsigned char* src,
-                                   short* Ixx,
-                                   short* Iyy,
-                                   short* Ixy,
-                                   int* Gxx,
-                                   int* Gyy,
-                                   int* Gxy,
-                                   int width,
-                                   int height,
-                                   int step,
-                                   int chunk_size,
-                                   float k);
-    
+/**
+ * Release Harris memory.
+ */
+void ReleaseHarris(float **S, int **Gxx);
+
+/**
+ * Compute the Harris stength image.
+ */
+void ComputeHarrisStengthImage(float *S,
+                               const unsigned char *src,
+                               short *Ixx,
+                               short *Iyy,
+                               short *Ixy,
+                               int *Gxx,
+                               int *Gyy,
+                               int *Gxy,
+                               int width,
+                               int height,
+                               int step,
+                               int chunk_size,
+                               float k);
+
 #if __ARM_NEON__
-    
-    /**
-     * Compute the Harris strength image.
-     * This function contains NEON-optimized code that provide better performance than 'regular' version.
-     */
-    void ComputeHarrisStrengthImageNeon(float* S,
-                                       const unsigned char* src,
-                                       short* Ixx,
-                                       short* Iyy,
-                                       short* Ixy,
-                                       int* Gxx,
-                                       int* Gyy,
-                                       int* Gxy,
-                                       int width,
-                                       int height,
-                                       int step,
-                                       int chunk_size,
-                                       float k);
+/**
+ * Compute the Harris strength image.
+ * This function contains NEON-optimized code that provide better performance than 'regular' version.
+ */
+void ComputeHarrisStrengthImageNeon(float *S,
+                                    const unsigned char *src,
+                                    short *Ixx,
+                                    short *Iyy,
+                                    short *Ixy,
+                                    int *Gxx,
+                                    int *Gyy,
+                                    int *Gxy,
+                                    int width,
+                                    int height,
+                                    int step,
+                                    int chunk_size,
+                                    float k);
 #endif
-    
-    /**
-     * Prune Harris corners to a maximum number.
-     */
-    void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > >& buckets,
-                            std::vector<Point2d<int> >& outPoints,
-                            const std::vector<Point2d<int> >& inPoints,
-                            const std::vector<float>& scores,
-                            int num_buckets_X,
-                            int num_buckets_Y,
-                            int width,
-                            int height,
-                            int max_points);
-    
-    /**
-     * Perform non-max suppression on the Harris strength image.
-     */
-    void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> >& points,
-                                    std::vector<float>& scores,
-                                    const float* S,
-                                    int width,
-                                    int height,
-                                    int step,
-                                    float tr);
-    void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >& points,
-                                    std::vector<float>& scores,
-                                    const float* S,
-                                    int width,
-                                    int height,
-                                    int step,
-                                    float tr);
 
-    /**
-     * Refine corners.
-     */
-    void RefineHarrisCorners(std::vector<Point2d<float> >& outPoints,
-                             const std::vector<Point2d<int> >& inPoints,
-                             const float* S,
-                             int width,
-                             int height,
-                             int step);
+/**
+ * Prune Harris corners to a maximum number.
+ */
+void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > >&buckets,
+                        std::vector<Point2d<int> >&outPoints,
+                        const std::vector<Point2d<int> >&inPoints,
+                        const std::vector<float>&scores,
+                        int num_buckets_X,
+                        int num_buckets_Y,
+                        int width,
+                        int height,
+                        int max_points);
 
+/**
+ * Perform non-max suppression on the Harris strength image.
+ */
+void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> >&points,
+                                std::vector<float>&scores,
+                                const float *S,
+                                int width,
+                                int height,
+                                int step,
+                                float tr);
+void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >&points,
+                                std::vector<float>&scores,
+                                const float *S,
+                                int width,
+                                int height,
+                                int step,
+                                float tr);
+
+/**
+ * Refine corners.
+ */
+void RefineHarrisCorners(std::vector<Point2d<float> >&outPoints,
+                         const std::vector<Point2d<int> >&inPoints,
+                         const float *S,
+                         int width,
+                         int height,
+                         int step);
 } // vision

@@ -37,21 +37,23 @@
 
 #include "math_utils.h"
 
-namespace vision {
+namespace vision
+{
+template<typename T>
+inline T CauchyCost(T x, T one_over_scale2)
+{
+    return std::log(1. + sqr(x) * one_over_scale2);
+}
 
-    template<typename T>
-    inline T CauchyCost(T x, T one_over_scale2) {
-        return std::log(1.+sqr(x)*one_over_scale2);
-    }
-    
-    template<typename T>
-    inline T CauchyCost(T x0, T x1, T one_over_scale2) {
-        return std::log(1+(x0*x0+x1*x1)*one_over_scale2);
-    }
-    
-    template<typename T>
-    inline T CauchyCost(const T x[2], T one_over_scale2) {
-        return CauchyCost(x[0], x[1], one_over_scale2);
-    }
-    
+template<typename T>
+inline T CauchyCost(T x0, T x1, T one_over_scale2)
+{
+    return std::log(1 + (x0 * x0 + x1 * x1) * one_over_scale2);
+}
+
+template<typename T>
+inline T CauchyCost(const T x[2], T one_over_scale2)
+{
+    return CauchyCost(x[0], x[1], one_over_scale2);
+}
 } // vision

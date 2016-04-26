@@ -37,66 +37,67 @@
 
 #include <string>
 
-namespace vision {
+namespace vision
+{
+/**
+ * Implements a simple start/stop timer.
+ */
+class Timer
+{
+public:
 
-    /**
-     * Implements a simple start/stop timer.
-     */
-    class Timer {
-    public:
-        
-        Timer();
-        ~Timer();
-        
-        /**
-         * Start the timer.
-         */
-        void start();
-        
-        /**
-         * Stop the timer.
-         */
-        void stop();
-        
-        /**
-         * Get the timer in seconds.
-         */
-        double duration_in_seconds() const;
-        
-        /**
-         * Get the timer in milliseconds.
-         */
-        double duration_in_milliseconds() const;
-        
-    private:
-        
-        // Start/Stop time
-        double mStartTime;
-        double mStopTime;
-    }; // Timer
-    
-    /**
-     * Implements a scoped timer.
-     */
-    class ScopedTimer {
-    public:
-        
-        ScopedTimer(const char* str);
-        ~ScopedTimer();
-        
-        operator bool() {
-            return true;
-        }
-        
-    private:
-        
-        // The actual timer
-        Timer mTimer;
-        // Description
-        std::string mStr;
-        
-    }; // ScopedTimer
-    
-#define TIMED(X) if(ScopedTimer _ScopedTimer = X)
-    
+Timer();
+~Timer();
+
+/**
+ * Start the timer.
+ */
+void start();
+
+/**
+ * Stop the timer.
+ */
+void stop();
+
+/**
+ * Get the timer in seconds.
+ */
+double duration_in_seconds() const;
+
+/**
+ * Get the timer in milliseconds.
+ */
+double duration_in_milliseconds() const;
+
+private:
+
+// Start/Stop time
+double mStartTime;
+double mStopTime;
+};     // Timer
+
+/**
+ * Implements a scoped timer.
+ */
+class ScopedTimer
+{
+public:
+
+ScopedTimer(const char *str);
+~ScopedTimer();
+
+operator bool()
+{
+    return true;
+}
+
+private:
+
+// The actual timer
+Timer mTimer;
+// Description
+std::string mStr;
+};     // ScopedTimer
+
+#define TIMED(X) if (ScopedTimer _ScopedTimer = X)
 } // vision

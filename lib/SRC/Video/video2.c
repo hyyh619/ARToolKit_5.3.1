@@ -63,12 +63,12 @@ static const char* ar2VideoGetConfig(const char *config_in)
         }
         else
         {
-#endif // !_WINRT
+#endif  // !_WINRT
         config = NULL;
         ARLOGi("Using default video config.\n");
 #ifndef _WINRT
-        }
-#endif // !_WINRT
+    }
+#endif  // !_WINRT
     }
     else
     {
@@ -334,7 +334,7 @@ AR2VideoParamT* ar2VideoOpen(const char *config_in)
     const char                *configStringFollowingDevice = NULL;
 
     arMalloc(vid, AR2VideoParamT, 1);
-    config = ar2VideoGetConfig(config_in);
+    config          = ar2VideoGetConfig(config_in);
     vid->deviceType = ar2VideoGetDeviceWithConfig(config, &configStringFollowingDevice);
 
     if (vid->deviceType == AR_VIDEO_DEVICE_DUMMY)
@@ -526,7 +526,7 @@ AR2VideoParamT* ar2VideoOpenAsync(const char *config_in, void (*callback)(void*)
     const char                *configStringFollowingDevice = NULL;
 
     arMalloc(vid, AR2VideoParamT, 1);
-    config = ar2VideoGetConfig(config_in);
+    config          = ar2VideoGetConfig(config_in);
     vid->deviceType = ar2VideoGetDeviceWithConfig(config, &configStringFollowingDevice);
 
     if (vid->deviceType == AR_VIDEO_DEVICE_IPHONE)
@@ -2009,7 +2009,7 @@ int ar2VideoSetBufferSize(AR2VideoParamT *vid, const int width, const int height
 #ifdef AR_INPUT_QUICKTIME7
     if (vid->deviceType == AR_VIDEO_DEVICE_QUICKTIME7)
     {
-        //return ar2VideoSetBufferSizeQuickTime7( vid->device.quickTime7, width, height );
+        // return ar2VideoSetBufferSizeQuickTime7( vid->device.quickTime7, width, height );
     }
 #endif
 #ifdef AR_INPUT_IMAGE
@@ -2041,7 +2041,7 @@ int ar2VideoGetBufferSize(AR2VideoParamT *vid, int *width, int *height)
 #ifdef AR_INPUT_QUICKTIME7
     if (vid->deviceType == AR_VIDEO_DEVICE_QUICKTIME7)
     {
-        //return ar2VideoGetBufferSizeQuickTime7( vid->device.quickTime7, width, height );
+        // return ar2VideoGetBufferSizeQuickTime7( vid->device.quickTime7, width, height );
     }
 #endif
 #ifdef AR_INPUT_IMAGE

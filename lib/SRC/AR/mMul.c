@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -53,81 +53,107 @@
 int arMatrixMul(ARMat *dest, ARMat *a, ARMat *b)
 {
 #if 0
-	int r, c, i;
+    int r, c, i;
 
-	if(a->clm != b->row || dest->row != a->row || dest->clm != b->clm) return -1;
+    if (a->clm != b->row || dest->row != a->row || dest->clm != b->clm)
+        return -1;
 
-	for(r = 0; r < dest->row; r++) {
-		for(c = 0; c < dest->clm; c++) {
-			ARELEM0(dest, r, c) = 0.0;
-			for(i = 0; i < a->clm; i++) {
-				ARELEM0(dest, r, c) += ARELEM0(a, r, i) * ARELEM0(b, i, c);
-			}
-		}
-	}
+    for (r = 0; r < dest->row; r++)
+    {
+        for (c = 0; c < dest->clm; c++)
+        {
+            ARELEM0(dest, r, c) = 0.0;
+
+            for (i = 0; i < a->clm; i++)
+            {
+                ARELEM0(dest, r, c) += ARELEM0(a, r, i) * ARELEM0(b, i, c);
+            }
+        }
+    }
+
 #else
-    int       r, c, i;
+    int      r, c, i;
     ARdouble *p1, *p2, *p3;
-    
-    if(a->clm != b->row || dest->row != a->row || dest->clm != b->clm) return -1;
-    
+
+    if (a->clm != b->row || dest->row != a->row || dest->clm != b->clm)
+        return -1;
+
     p3 = dest->m;
-    for(r = 0; r < dest->row; r++) {
-        for(c = 0; c < dest->clm; c++) {
+
+    for (r = 0; r < dest->row; r++)
+    {
+        for (c = 0; c < dest->clm; c++)
+        {
             *p3 = 0.0;
-            p1 = &a->m[r*a->clm];
-            p2 = &b->m[c];
-            for(i = 0; i < a->clm; i++) {
+            p1  = &a->m[r * a->clm];
+            p2  = &b->m[c];
+
+            for (i = 0; i < a->clm; i++)
+            {
                 *p3 += *p1 * *p2;
                 p1++;
                 p2 += b->clm;
             }
+
             p3++;
         }
     }
 #endif
 
-	return 0;
+    return 0;
 }
 
 #ifndef ARDOUBLE_IS_FLOAT
 int arMatrixMulf(ARMatf *dest, ARMatf *a, ARMatf *b)
 {
 #if 0
-	int r, c, i;
+    int r, c, i;
 
-	if(a->clm != b->row || dest->row != a->row || dest->clm != b->clm) return -1;
+    if (a->clm != b->row || dest->row != a->row || dest->clm != b->clm)
+        return -1;
 
-	for(r = 0; r < dest->row; r++) {
-		for(c = 0; c < dest->clm; c++) {
-			ARELEM0(dest, r, c) = 0.0;
-			for(i = 0; i < a->clm; i++) {
-				ARELEM0(dest, r, c) += ARELEM0(a, r, i) * ARELEM0(b, i, c);
-			}
-		}
-	}
+    for (r = 0; r < dest->row; r++)
+    {
+        for (c = 0; c < dest->clm; c++)
+        {
+            ARELEM0(dest, r, c) = 0.0;
+
+            for (i = 0; i < a->clm; i++)
+            {
+                ARELEM0(dest, r, c) += ARELEM0(a, r, i) * ARELEM0(b, i, c);
+            }
+        }
+    }
+
 #else
-    int       r, c, i;
-    float    *p1, *p2, *p3;
-    
-    if(a->clm != b->row || dest->row != a->row || dest->clm != b->clm) return -1;
-    
+    int   r, c, i;
+    float *p1, *p2, *p3;
+
+    if (a->clm != b->row || dest->row != a->row || dest->clm != b->clm)
+        return -1;
+
     p3 = dest->m;
-    for(r = 0; r < dest->row; r++) {
-        for(c = 0; c < dest->clm; c++) {
+
+    for (r = 0; r < dest->row; r++)
+    {
+        for (c = 0; c < dest->clm; c++)
+        {
             *p3 = 0.0f;
-            p1 = &a->m[r*a->clm];
-            p2 = &b->m[c];
-            for(i = 0; i < a->clm; i++) {
+            p1  = &a->m[r * a->clm];
+            p2  = &b->m[c];
+
+            for (i = 0; i < a->clm; i++)
+            {
                 *p3 += *p1 * *p2;
                 p1++;
                 p2 += b->clm;
             }
+
             p3++;
         }
     }
 #endif
 
-	return 0;
+    return 0;
 }
 #endif

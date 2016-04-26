@@ -33,8 +33,8 @@
  *
  *  Author(s): Philip Lamb
  *
- *	Rev		Date		Who		Changes
- *	1.0.0	2010-07-01	PRL		Written.
+ *      Rev             Date            Who             Changes
+ *      1.0.0   2010-07-01      PRL             Written.
  *
  */
 
@@ -44,7 +44,7 @@
 
 @protocol QTKitVideoGotFrameDelegate<NSObject>
 @required
-- (void) QTKitVideoGotFrame:(id)sender userData:(void *)data;
+- (void) QTKitVideoGotFrame:(id)sender userData:(void*)data;
 @end
 
 
@@ -52,27 +52,27 @@
 
 @interface QTKitVideo : NSObject
 {
-    QTCaptureSession *captureSession;
-    QTCaptureDevice *captureDevice;
-    QTCaptureDeviceInput *captureDeviceInput;
+    QTCaptureSession                 *captureSession;
+    QTCaptureDevice                  *captureDevice;
+    QTCaptureDeviceInput             *captureDeviceInput;
     QTCaptureDecompressedVideoOutput *captureVideoDataOutput;
-    CVImageBufferRef latestFrame;
-    UInt64 latestFrameHostTime;
+    CVImageBufferRef                 latestFrame;
+    UInt64                           latestFrameHostTime;
 
-    BOOL running;
-    int preferredDevice;
-    NSString *preferredDeviceUID;
-    size_t width;
-    size_t height;
-    OSType pixelFormat;
-    size_t bytesPerRow;
-    id <QTKitVideoGotFrameDelegate> gotFrameDelegate;
-    void *gotFrameDelegateUserData;
-    BOOL willSaveNextFrame;
-    BOOL pause;
-    BOOL showDialogs;
-    BOOL acceptMuxedVideo;
-    
+    BOOL                           running;
+    int                            preferredDevice;
+    NSString                       *preferredDeviceUID;
+    size_t                         width;
+    size_t                         height;
+    OSType                         pixelFormat;
+    size_t                         bytesPerRow;
+    id<QTKitVideoGotFrameDelegate> gotFrameDelegate;
+    void                           *gotFrameDelegateUserData;
+    BOOL                           willSaveNextFrame;
+    BOOL                           pause;
+    BOOL                           showDialogs;
+    BOOL                           acceptMuxedVideo;
+
 #ifdef QTKIT_VIDEO_MULTITHREADED
     pthread_mutex_t frameLock_pthread_mutex;
 #endif
@@ -83,25 +83,25 @@
 - (void) startWithRequestedWidth:(size_t)width height:(size_t)height pixelFormat:(OSType)pixelFormat;
 
 // Returns a retained CVImageBufferRef. The caller must call CVBufferRelease when finished with the frame.
-- (CVImageBufferRef) frameTimestamp:(UInt64 *)timestampOut;
+- (CVImageBufferRef) frameTimestamp:(UInt64*)timestampOut;
 
 // Returns a retained CVImageBufferRef. The caller must call CVBufferRelease when finished with the frame.
-- (CVImageBufferRef) frameTimestamp:(UInt64 *)timestampOut ifNewerThanTimestamp:(UInt64)timestamp;
+- (CVImageBufferRef) frameTimestamp:(UInt64*)timestampOut ifNewerThanTimestamp:(UInt64)timestamp;
 
 - (void) stop;
 
 
-@property(nonatomic, assign) id <QTKitVideoGotFrameDelegate> gotFrameDelegate; // Called when a new frame is ready. Typically, will be called on secondary thread.
-@property(nonatomic) void *gotFrameDelegateUserData; // Passed back to delegate.
-@property(nonatomic, readonly) size_t width;
-@property(nonatomic, readonly) size_t height;
-@property(nonatomic, readonly) OSType pixelFormat;
-@property(nonatomic, readonly) size_t bytesPerRow;
-@property(nonatomic) int preferredDevice; // Zero-indexed. Should be set prior to -startWithRequestedWidth:height:pixelFormat:.
-@property(nonatomic, retain) NSString *preferredDeviceUID; // Overrides preferredDevice. Should be set prior to -startWithRequestedWidth:height:pixelFormat:.
-@property(nonatomic, readonly) BOOL running;
-@property(nonatomic) BOOL pause;
-@property(nonatomic) BOOL showDialogs; // Defaults to TRUE. Set to FALSE to disable display of user dialogs.
-@property(nonatomic) BOOL acceptMuxedVideo; // Defaults to TRUE. Set to FALSE to disable use of video from multiplexed video/audio sources (e.g. DV cameras).
+@property(nonatomic, assign) id<QTKitVideoGotFrameDelegate> gotFrameDelegate;  // Called when a new frame is ready. Typically, will be called on secondary thread.
+@property(nonatomic) void                                   *gotFrameDelegateUserData; // Passed back to delegate.
+@property(nonatomic, readonly) size_t                       width;
+@property(nonatomic, readonly) size_t                       height;
+@property(nonatomic, readonly) OSType                       pixelFormat;
+@property(nonatomic, readonly) size_t                       bytesPerRow;
+@property(nonatomic) int                                    preferredDevice; // Zero-indexed. Should be set prior to -startWithRequestedWidth:height:pixelFormat:.
+@property(nonatomic, retain) NSString                       *preferredDeviceUID; // Overrides preferredDevice. Should be set prior to -startWithRequestedWidth:height:pixelFormat:.
+@property(nonatomic, readonly) BOOL                         running;
+@property(nonatomic) BOOL                                   pause;
+@property(nonatomic) BOOL                                   showDialogs; // Defaults to TRUE. Set to FALSE to disable display of user dialogs.
+@property(nonatomic) BOOL                                   acceptMuxedVideo; // Defaults to TRUE. Set to FALSE to disable use of video from multiplexed video/audio sources (e.g. DV cameras).
 
 @end

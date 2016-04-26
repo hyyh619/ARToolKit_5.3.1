@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -52,17 +52,23 @@
 
 int arMatrixDisp(ARMat *m)
 {
-	int r, c;
+    int r, c;
 
-	ARLOG(" === matrix (%d,%d) ===\n", m->row, m->clm);
-	for(r = 0; r < m->row; r++) {
-		ARLOG(" |");
-		for(c = 0; c < m->clm; c++) {
-			ARLOG(" %10g", ARELEM0(m, r, c));
-		}
-		ARLOG(" |\n");
-	}
-	ARLOG(" ======================\n");
+    ARLOG(" === matrix (%d,%d) ===\n", m->row, m->clm);
 
-	return 0;
+    for (r = 0; r < m->row; r++)
+    {
+        ARLOG(" |");
+
+        for (c = 0; c < m->clm; c++)
+        {
+            ARLOG(" %10g", ARELEM0(m, r, c));
+        }
+
+        ARLOG(" |\n");
+    }
+
+    ARLOG(" ======================\n");
+
+    return 0;
 }

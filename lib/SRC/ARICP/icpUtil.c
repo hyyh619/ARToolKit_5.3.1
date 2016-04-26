@@ -271,9 +271,9 @@ int icpGetInitXw2Xc_from_PlanarData(ARdouble matXc2U[3][4],
     initMatXw2Xc[2][3] = t[2];
 
 #if 0
-//ARLOGe("   %f %f %f --->", t[0], t[1], t[2]);
+// ARLOGe("   %f %f %f --->", t[0], t[1], t[2]);
     icpGetInitXw2XcSub(initMatXw2Xc, screenCoord, worldCoord, num, matXc2U, initMatXw2Xc);
-//ARLOGe("%f %f %f\n", initMatXw2Xc[0][3], initMatXw2Xc[1][3], initMatXw2Xc[2][3]);
+// ARLOGe("%f %f %f\n", initMatXw2Xc[0][3], initMatXw2Xc[1][3], initMatXw2Xc[2][3]);
 #endif
 
     return 0;

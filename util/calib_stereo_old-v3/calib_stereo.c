@@ -56,77 +56,77 @@
 #include <AR/video.h>
 #include <AR/gsub.h>
 
-#define          CALIB_STEREO_MARKER_CONFIG    "Data/calibStereoMarkerConfig.dat"
-#define          CPARAL_NAME                   "Data/cparaL.dat"
-#define          CPARAR_NAME                   "Data/cparaR.dat"
-#define          TRANSL2R_NAME                 "Data/transL2R.dat"
+#define          CALIB_STEREO_MARKER_CONFIG "Data/calibStereoMarkerConfig.dat"
+#define          CPARAL_NAME                "Data/cparaL.dat"
+#define          CPARAR_NAME                "Data/cparaR.dat"
+#define          TRANSL2R_NAME              "Data/transL2R.dat"
 
 #if defined(AR_DEFAULT_INPUT_SGI)
-#define          VCONFL                        "-device=0 -size=FULL"
-#define          VCONFR                        "-device=1 -size=FULL"
+#define          VCONFL "-device=0 -size=FULL"
+#define          VCONFR "-device=1 -size=FULL"
 #elif defined(AR_DEFAULT_INPUT_V4L)
-#define          VCONFL                        "-dev=/dev/video0 -width=640 -height=480"
-#define          VCONFR                        "-dev=/dev/video1 -width=640 -height=480"
+#define          VCONFL "-dev=/dev/video0 -width=640 -height=480"
+#define          VCONFR "-dev=/dev/video1 -width=640 -height=480"
 #elif defined(AR_DEFAULT_INPUT_1394CAM)
 #if AR_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT == AR_PIXEL_FORMAT_MONO
-#define          VCONFR                        "-mode=640x480_MONO"
-#define          VCONFR                        "-mode=640x480_MONO"
+#define          VCONFR "-mode=640x480_MONO"
+#define          VCONFR "-mode=640x480_MONO"
 #elif defined(AR_INPUT_1394CAM_USE_DRAGONFLY)
-#define          VCONFR                        "-mode=640x480_MONO_COLOR"
-#define          VCONFR                        "-mode=640x480_MONO_COLOR"
+#define          VCONFR "-mode=640x480_MONO_COLOR"
+#define          VCONFR "-mode=640x480_MONO_COLOR"
 #else
-#define          VCONFL                        "-mode=640x480_YUV411"
-#define          VCONFR                        "-mode=640x480_YUV411"
+#define          VCONFL "-mode=640x480_YUV411"
+#define          VCONFR "-mode=640x480_YUV411"
 #endif
 #elif defined(AR_DEFAULT_INPUT_DV)
-#define          VCONFL                        ""
-#define          VCONFR                        ""
+#define          VCONFL ""
+#define          VCONFR ""
 #elif defined(AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW)
-#define          VCONFL                        "-showDialog"
-#define          VCONFR                        "-showDialog"
+#define          VCONFL "-showDialog"
+#define          VCONFR "-showDialog"
 #elif defined(AR_DEFAULT_INPUT_WINDOWS_DSVIDEOLIB)
-#define          VCONFL                        "Data\\WDM_camera_flipV.xml"
-#define          VCONFR                        "Data\\WDM_camera_flipV-2.xml"
+#define          VCONFL "Data\\WDM_camera_flipV.xml"
+#define          VCONFR "Data\\WDM_camera_flipV-2.xml"
 #else
-#define          VCONFL                        ""
-#define          VCONFR                        ""
-#endif 
+#define          VCONFL ""
+#define          VCONFR ""
+#endif
 
 
-AR2VideoParamT      *vidL;
-AR2VideoParamT      *vidR;
-ARParam              paramL;
-ARParam              paramR;
-ARParamLT           *paramLTL;
-ARParamLT           *paramLTR;
-ARHandle            *arHandleL;
-ARHandle            *arHandleR;
-AR3DHandle          *ar3DHandleL;
-AR3DHandle          *ar3DHandleR;
-ARGViewportHandle   *vpL;
-ARGViewportHandle   *vpR;
-ARMultiMarkerInfoT  *configL;
-ARMultiMarkerInfoT  *configR;
-int                  pixelFormatL;
-int                  pixelFormatR;
-ARdouble             transL2R[3][4];
-int                  debugMode = 0;
-int                  saveFlag = 0;
-
-
-
-static void          usage    ( char *com );
-static void          init     ( int argc, char *argv[] );
-static void          keyboard ( unsigned char key, int x, int y );
-static void          mouse    ( int button, int state, int x, int y );
-static void          dispImage( void );
-static void          cleanup  ( void );
+AR2VideoParamT     *vidL;
+AR2VideoParamT     *vidR;
+ARParam            paramL;
+ARParam            paramR;
+ARParamLT          *paramLTL;
+ARParamLT          *paramLTR;
+ARHandle           *arHandleL;
+ARHandle           *arHandleR;
+AR3DHandle         *ar3DHandleL;
+AR3DHandle         *ar3DHandleR;
+ARGViewportHandle  *vpL;
+ARGViewportHandle  *vpR;
+ARMultiMarkerInfoT *configL;
+ARMultiMarkerInfoT *configR;
+int                pixelFormatL;
+int                pixelFormatR;
+ARdouble           transL2R[3][4];
+int                debugMode = 0;
+int                saveFlag  = 0;
 
 
 
-int main( int argc, char *argv[] )
+static void          usage(char *com);
+static void          init(int argc, char *argv[]);
+static void          keyboard(unsigned char key, int x, int y);
+static void          mouse(int button, int state, int x, int y);
+static void          dispImage(void);
+static void          cleanup(void);
+
+
+
+int main(int argc, char *argv[])
 {
-	glutInit(&argc, argv);
+    glutInit(&argc, argv);
     init(argc, argv);
 
     argSetMouseFunc(mouse);
@@ -136,11 +136,11 @@ int main( int argc, char *argv[] )
     ar2VideoCapStart(vidL);
     ar2VideoCapStart(vidR);
     argMainLoop();
-	
-	return (0);
+
+    return (0);
 }
 
-static void usage( char *com )
+static void usage(char *com)
 {
     ARLOG("Usage: %s [parameters]\n", com);
     ARLOG("            -vonfL=<video parameter for the Left camera>\n");
@@ -150,141 +150,191 @@ static void usage( char *com )
 
 static void init(int argc, char *argv[])
 {
-    ARGViewport        viewport;
-    ARParam            wparam;
-    char               line[256], line2[256];
-    char               vconfL[256], vconfR[256];
-    int                xsizeL, ysizeL;
-    int                xsizeR, ysizeR;
-    int                i;
+    ARGViewport viewport;
+    ARParam     wparam;
+    char        line[256], line2[256];
+    char        vconfL[256], vconfR[256];
+    int         xsizeL, ysizeL;
+    int         xsizeR, ysizeR;
+    int         i;
 
-    strcpy( vconfL, VCONFL );
-    strcpy( vconfR, VCONFR );
-    for( i = 1; i < argc; i++ ) {
-        if( strncmp(argv[i], "-vconfL=", 8) == 0 ) {
+    strcpy(vconfL, VCONFL);
+    strcpy(vconfR, VCONFR);
+
+    for (i = 1; i < argc; i++)
+    {
+        if (strncmp(argv[i], "-vconfL=", 8) == 0)
+        {
             strcat(vconfL, " ");
             strcat(vconfL, &argv[i][8]);
         }
-        else if( strncmp(argv[i], "-vconfR=", 8) == 0 ) {
+        else if (strncmp(argv[i], "-vconfR=", 8) == 0)
+        {
             strcat(vconfR, " ");
             strcat(vconfR, &argv[i][8]);
         }
-        else {
-            usage( argv[0] );
+        else
+        {
+            usage(argv[0]);
         }
     }
 
-    if( (vidL=ar2VideoOpen(vconfL)) < 0 ) exit(0);
-    if( (vidR=ar2VideoOpen(vconfR)) < 0 ) exit(0);
-    if( ar2VideoGetSize(vidL, &xsizeL, &ysizeL) < 0 ) exit(0);
-    if( ar2VideoGetSize(vidR, &xsizeR, &ysizeR) < 0 ) exit(0);
-    if( (pixelFormatL=ar2VideoGetPixelFormat(vidL)) < 0 ) exit(0);
-    if( (pixelFormatR=ar2VideoGetPixelFormat(vidR)) < 0 ) exit(0);
+    if ((vidL = ar2VideoOpen(vconfL)) < 0)
+        exit(0);
+
+    if ((vidR = ar2VideoOpen(vconfR)) < 0)
+        exit(0);
+
+    if (ar2VideoGetSize(vidL, &xsizeL, &ysizeL) < 0)
+        exit(0);
+
+    if (ar2VideoGetSize(vidR, &xsizeR, &ysizeR) < 0)
+        exit(0);
+
+    if ((pixelFormatL = ar2VideoGetPixelFormat(vidL)) < 0)
+        exit(0);
+
+    if ((pixelFormatR = ar2VideoGetPixelFormat(vidR)) < 0)
+        exit(0);
+
     ARLOG("Image size for the left camera  = (%d,%d)\n", xsizeL, ysizeL);
     ARLOG("Image size for the right camera = (%d,%d)\n", xsizeR, ysizeR);
 
     ARLOG("Left camera parameter [%s]: ", CPARAL_NAME);
-    if (!fgets( line, 256, stdin )) exit(-1);
-    if( sscanf(line, "%s", line2) != 1 ) {
-        strcpy( line2, CPARAL_NAME );
+    if (!fgets(line, 256, stdin))
+        exit(-1);
+
+    if (sscanf(line, "%s", line2) != 1)
+    {
+        strcpy(line2, CPARAL_NAME);
     }
-    if( arParamLoad(line2, 1, &wparam) < 0 ) {
+
+    if (arParamLoad(line2, 1, &wparam) < 0)
+    {
         ARLOGe("Camera parameter load error !!\n");
-        exit(0);  
+        exit(0);
     }
-    arParamChangeSize( &wparam, xsizeL, ysizeL, &paramL );
+
+    arParamChangeSize(&wparam, xsizeL, ysizeL, &paramL);
     ARLOG("*** Camera Parameter for the left camera ***\n");
-    arParamDisp( &paramL );
-    if ((paramLTL = arParamLTCreate(&paramL, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL) {
+    arParamDisp(&paramL);
+    if ((paramLTL = arParamLTCreate(&paramL, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL)
+    {
         ARLOGe("Error: arParamLTCreate.\n");
         exit(-1);
     }
-    if( (arHandleL=arCreateHandle(paramLTL)) == NULL ) {
+
+    if ((arHandleL = arCreateHandle(paramLTL)) == NULL)
+    {
         ARLOGe("Error: arCreateHandle.\n");
         exit(0);
     }
-    if( (ar3DHandleL=ar3DCreateHandle(&paramL)) == NULL ) {
+
+    if ((ar3DHandleL = ar3DCreateHandle(&paramL)) == NULL)
+    {
         ARLOGe("Error: ar3DCreateHandle.\n");
         exit(0);
     }
 
     ARLOG("Right camera parameter [%s]: ", CPARAR_NAME);
-    if (!fgets( line, 256, stdin )) exit(-1);
-    if( sscanf(line, "%s", line2) != 1 ) {
-        strcpy( line2, CPARAR_NAME );
+    if (!fgets(line, 256, stdin))
+        exit(-1);
+
+    if (sscanf(line, "%s", line2) != 1)
+    {
+        strcpy(line2, CPARAR_NAME);
     }
-    if( arParamLoad(line2, 1, &wparam) < 0 ) {
+
+    if (arParamLoad(line2, 1, &wparam) < 0)
+    {
         ARLOGe("Camera parameter load error !!\n");
-        exit(0);  
+        exit(0);
     }
-    arParamChangeSize( &wparam, xsizeR, ysizeR, &paramR );
+
+    arParamChangeSize(&wparam, xsizeR, ysizeR, &paramR);
     ARLOG("*** Camera Parameter for the right camera ***\n");
-    arParamDisp( &paramR );
-    if ((paramLTR = arParamLTCreate(&paramR, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL) {
+    arParamDisp(&paramR);
+    if ((paramLTR = arParamLTCreate(&paramR, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL)
+    {
         ARLOGe("Error: arParamLTCreate.\n");
         exit(-1);
     }
-    if( (arHandleR=arCreateHandle(paramLTR)) == NULL ) {
+
+    if ((arHandleR = arCreateHandle(paramLTR)) == NULL)
+    {
         ARLOGe("Error: arCreateHandle.\n");
         exit(0);
     }
-    if( (ar3DHandleR=ar3DCreateHandle(&paramR)) == NULL ) {
+
+    if ((ar3DHandleR = ar3DCreateHandle(&paramR)) == NULL)
+    {
         ARLOGe("Error: ar3DCreateHandle.\n");
         exit(0);
     }
 
-    if((configL=arMultiReadConfigFile(CALIB_STEREO_MARKER_CONFIG, NULL)) == NULL ) {
+    if ((configL = arMultiReadConfigFile(CALIB_STEREO_MARKER_CONFIG, NULL)) == NULL)
+    {
         ARLOGe("Error: arMultiReadConfigFile.\n");
         exit(0);
     }
-    if((configR=arMultiReadConfigFile(CALIB_STEREO_MARKER_CONFIG, NULL)) == NULL ) {
+
+    if ((configR = arMultiReadConfigFile(CALIB_STEREO_MARKER_CONFIG, NULL)) == NULL)
+    {
         ARLOGe("Error: arMultiReadConfigFile.\n");
         exit(0);
     }
 
     /* open the graphics window */
-    if( argCreateWindow(xsizeL + xsizeR, (ysizeL > ysizeR)? ysizeL: ysizeR) < 0 ) {
+    if (argCreateWindow(xsizeL + xsizeR, (ysizeL > ysizeR) ? ysizeL : ysizeR) < 0)
+    {
         ARLOGe("Error: argCreateWindow.\n");
         exit(0);
     }
-    viewport.sx = 0;
-    viewport.sy = 0;
+
+    viewport.sx    = 0;
+    viewport.sy    = 0;
     viewport.xsize = xsizeL;
     viewport.ysize = ysizeL;
-    if( (vpL=argCreateViewport(&viewport)) == NULL ) {
+    if ((vpL = argCreateViewport(&viewport)) == NULL)
+    {
         ARLOGe("Error: argCreateViewport.\n");
         exit(0);
     }
-    viewport.sx = xsizeL;
-    viewport.sy = 0;
+
+    viewport.sx    = xsizeL;
+    viewport.sy    = 0;
     viewport.xsize = xsizeR;
     viewport.ysize = ysizeR;
-    if( (vpR=argCreateViewport(&viewport)) == NULL ) {
+    if ((vpR = argCreateViewport(&viewport)) == NULL)
+    {
         ARLOGe("Error: argCreateViewport.\n");
         exit(0);
     }
-    argViewportSetPixFormat( vpL, pixelFormatL );
-    argViewportSetPixFormat( vpR, pixelFormatR );
-    argViewportSetCparam( vpL, &paramL );
-    argViewportSetCparam( vpR, &paramR );
-    argViewportSetDispMethod( vpL, AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME );
-    argViewportSetDispMethod( vpR, AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME );
 
-    arSetPixelFormat( arHandleL, pixelFormatL );
-    arSetPixelFormat( arHandleR, pixelFormatR );
-    arSetImageProcMode( arHandleL, AR_IMAGE_PROC_FRAME_IMAGE );
-    arSetImageProcMode( arHandleR, AR_IMAGE_PROC_FRAME_IMAGE );
-    arSetPatternDetectionMode( arHandleL, AR_MATRIX_CODE_DETECTION );
-    arSetPatternDetectionMode( arHandleR, AR_MATRIX_CODE_DETECTION );
-    arSetMarkerExtractionMode( arHandleL, AR_USE_TRACKING_HISTORY_V2 );
-    arSetMarkerExtractionMode( arHandleR, AR_USE_TRACKING_HISTORY_V2 );
-    if( debugMode == 0 ) {
-        arSetDebugMode( arHandleL, AR_DEBUG_DISABLE );
-        arSetDebugMode( arHandleR, AR_DEBUG_DISABLE );
+    argViewportSetPixFormat(vpL, pixelFormatL);
+    argViewportSetPixFormat(vpR, pixelFormatR);
+    argViewportSetCparam(vpL, &paramL);
+    argViewportSetCparam(vpR, &paramR);
+    argViewportSetDispMethod(vpL, AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME);
+    argViewportSetDispMethod(vpR, AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME);
+
+    arSetPixelFormat(arHandleL, pixelFormatL);
+    arSetPixelFormat(arHandleR, pixelFormatR);
+    arSetImageProcMode(arHandleL, AR_IMAGE_PROC_FRAME_IMAGE);
+    arSetImageProcMode(arHandleR, AR_IMAGE_PROC_FRAME_IMAGE);
+    arSetPatternDetectionMode(arHandleL, AR_MATRIX_CODE_DETECTION);
+    arSetPatternDetectionMode(arHandleR, AR_MATRIX_CODE_DETECTION);
+    arSetMarkerExtractionMode(arHandleL, AR_USE_TRACKING_HISTORY_V2);
+    arSetMarkerExtractionMode(arHandleR, AR_USE_TRACKING_HISTORY_V2);
+    if (debugMode == 0)
+    {
+        arSetDebugMode(arHandleL, AR_DEBUG_DISABLE);
+        arSetDebugMode(arHandleR, AR_DEBUG_DISABLE);
     }
-    else {
-        arSetDebugMode( arHandleL, AR_DEBUG_ENABLE );
-        arSetDebugMode( arHandleR, AR_DEBUG_ENABLE );
+    else
+    {
+        arSetDebugMode(arHandleL, AR_DEBUG_ENABLE);
+        arSetDebugMode(arHandleR, AR_DEBUG_ENABLE);
     }
 
     return;
@@ -292,29 +342,33 @@ static void init(int argc, char *argv[])
 
 static void mouse(int button, int state, int x, int y)
 {
-    if( button == GLUT_LEFT_BUTTON  && state == GLUT_DOWN ) {
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
         saveFlag = 1;
     }
 }
 
 static void keyboard(unsigned char key, int x, int y)
 {
-    if( key == 'd' ) {
+    if (key == 'd')
+    {
         debugMode = 1 - debugMode;
-        if( debugMode == 0 ) {
-            arSetDebugMode( arHandleL, AR_DEBUG_DISABLE );
-            arSetDebugMode( arHandleR, AR_DEBUG_DISABLE );
+        if (debugMode == 0)
+        {
+            arSetDebugMode(arHandleL, AR_DEBUG_DISABLE);
+            arSetDebugMode(arHandleR, AR_DEBUG_DISABLE);
         }
-        else {
-            arSetDebugMode( arHandleL, AR_DEBUG_ENABLE );
-            arSetDebugMode( arHandleR, AR_DEBUG_ENABLE );
+        else
+        {
+            arSetDebugMode(arHandleL, AR_DEBUG_ENABLE);
+            arSetDebugMode(arHandleR, AR_DEBUG_ENABLE);
         }
     }
 
-    argDefaultKeyFunc( key, x, y );
+    argDefaultKeyFunc(key, x, y);
 }
 
-static void dispImage( void )
+static void dispImage(void)
 {
     AR2VideoBufferT *videoBuffL;
     AR2VideoBufferT *videoBuffR;
@@ -322,129 +376,185 @@ static void dispImage( void )
     ARUint8         *dataPtrR;
     ARMarkerInfo    *markerInfoL;
     ARMarkerInfo    *markerInfoR;
-    ARdouble         errL;
-    ARdouble         errR;
-    ARdouble         transL2M[3][4];
-    int              numL;
-    int              numR;
-    int              i, j;
-    char             line[256], line2[256];
+    ARdouble        errL;
+    ARdouble        errR;
+    ARdouble        transL2M[3][4];
+    int             numL;
+    int             numR;
+    int             i, j;
+    char            line[256], line2[256];
 
 
     videoBuffL = videoBuffR = NULL;
-    for(;;) {
-        if( videoBuffL == NULL || videoBuffL->fillFlag == 0 ) {
+
+    for (;;)
+    {
+        if (videoBuffL == NULL || videoBuffL->fillFlag == 0)
+        {
             videoBuffL = ar2VideoGetImage(vidL);
         }
-        if( videoBuffR == NULL || videoBuffR->fillFlag == 0 ) {
+
+        if (videoBuffR == NULL || videoBuffR->fillFlag == 0)
+        {
             videoBuffR = ar2VideoGetImage(vidR);
         }
-        if( videoBuffL->fillFlag && videoBuffR->fillFlag ) {
+
+        if (videoBuffL->fillFlag && videoBuffR->fillFlag)
+        {
             i = ((int)videoBuffR->time_sec - (int)videoBuffL->time_sec) * 1000
-              + ((int)videoBuffR->time_usec - (int)videoBuffL->time_usec) / 1000;
-            if( i > 20 ) {
+                + ((int)videoBuffR->time_usec - (int)videoBuffL->time_usec) / 1000;
+            if (i > 20)
+            {
                 videoBuffL = NULL;
                 ARLOG("Time diff = %d[msec]\n", i);
             }
-            else if( i < -20 ) {
+            else if (i < -20)
+            {
                 videoBuffR = NULL;
                 ARLOG("Time diff = %d[msec]\n", i);
             }
-            else break;
+            else
+                break;
         }
-        else {
+        else
+        {
             arUtilSleep(2);
         }
     }
+
     dataPtrL = videoBuffL->buff;
     dataPtrR = videoBuffR->buff;
 
-    if( arDetectMarker(arHandleL, dataPtrL) < 0 ) {
+    if (arDetectMarker(arHandleL, dataPtrL) < 0)
+    {
         cleanup();
         exit(0);
     }
-    if( arDetectMarker(arHandleR, dataPtrR) < 0 ) {
+
+    if (arDetectMarker(arHandleR, dataPtrR) < 0)
+    {
         cleanup();
-        exit(0);    
+        exit(0);
     }
 
-    if( (markerInfoL = arGetMarker(arHandleL)) != NULL ) {
+    if ((markerInfoL = arGetMarker(arHandleL)) != NULL)
+    {
         numL = arGetMarkerNum(arHandleL);
         errL = arGetTransMatMultiSquare(ar3DHandleL, markerInfoL, numL, configL);
     }
-    else {
-        numL = 0;
+    else
+    {
+        numL           = 0;
         configL->prevF = 0;
     }
-    if( (markerInfoR = arGetMarker(arHandleR)) != NULL ) {
+
+    if ((markerInfoR = arGetMarker(arHandleR)) != NULL)
+    {
         numR = arGetMarkerNum(arHandleR);
         errR = arGetTransMatMultiSquare(ar3DHandleR, markerInfoR, numR, configR);
     }
-    else {
-        numR = 0;
+    else
+    {
+        numR           = 0;
         configR->prevF = 0;
     }
-    if( configL->prevF == 0 ) ARLOG("Left: NG ");
-    else                      ARLOG("Left: %f ", errL);
-    if( configR->prevF == 0 ) ARLOG("Right: NG\n");
-    else                      ARLOG("Right: %f\n", errR);
 
-    argDrawMode2D( vpL );
-    if( debugMode == 0 ) argDrawImage( dataPtrL );
-    else                 argDrawImage( arHandleL->labelInfo.bwImage );
-    if( configL->prevF ) {
-        for( i = 0; i < numL; i++ ) {
-            for( j = 0; j < configL->marker_num; j++ ) {
-                if( configL->marker[j].visible == i ) break;
+    if (configL->prevF == 0)
+        ARLOG("Left: NG ");
+    else
+        ARLOG("Left: %f ", errL);
+
+    if (configR->prevF == 0)
+        ARLOG("Right: NG\n");
+    else
+        ARLOG("Right: %f\n", errR);
+
+    argDrawMode2D(vpL);
+    if (debugMode == 0)
+        argDrawImage(dataPtrL);
+    else
+        argDrawImage(arHandleL->labelInfo.bwImage);
+
+    if (configL->prevF)
+    {
+        for (i = 0; i < numL; i++)
+        {
+            for (j = 0; j < configL->marker_num; j++)
+            {
+                if (configL->marker[j].visible == i)
+                    break;
             }
-            if( j < configL->marker_num ) glColor3f( 1.0f, 0.0f, 0.0f );
-            else                         glColor3f( 0.0f, 1.0f, 0.0f );
-            argDrawSquareByIdealPos( markerInfoL[i].vertex );
+
+            if (j < configL->marker_num)
+                glColor3f(1.0f, 0.0f, 0.0f);
+            else
+                glColor3f(0.0f, 1.0f, 0.0f);
+
+            argDrawSquareByIdealPos(markerInfoL[i].vertex);
         }
     }
 
-    argDrawMode2D( vpR );
-    if( debugMode == 0 ) argDrawImage( dataPtrR );
-    else                 argDrawImage( arHandleR->labelInfo.bwImage );
-    if( configR->prevF ) {
-        for( i = 0; i < numR; i++ ) {
-            for( j = 0; j < configR->marker_num; j++ ) {
-                if( configR->marker[j].visible == i ) break;
+    argDrawMode2D(vpR);
+    if (debugMode == 0)
+        argDrawImage(dataPtrR);
+    else
+        argDrawImage(arHandleR->labelInfo.bwImage);
+
+    if (configR->prevF)
+    {
+        for (i = 0; i < numR; i++)
+        {
+            for (j = 0; j < configR->marker_num; j++)
+            {
+                if (configR->marker[j].visible == i)
+                    break;
             }
-            if( j < configR->marker_num ) glColor3f( 1.0f, 0.0f, 0.0f );
-            else                         glColor3f( 0.0f, 1.0f, 0.0f );
-            argDrawSquareByIdealPos( markerInfoR[i].vertex );
+
+            if (j < configR->marker_num)
+                glColor3f(1.0f, 0.0f, 0.0f);
+            else
+                glColor3f(0.0f, 1.0f, 0.0f);
+
+            argDrawSquareByIdealPos(markerInfoR[i].vertex);
         }
     }
 
     argSwapBuffers();
 
-    if( saveFlag == 1 ) {
-        if( configL->prevF == 0 || configR->prevF == 0 ) {
+    if (saveFlag == 1)
+    {
+        if (configL->prevF == 0 || configR->prevF == 0)
+        {
             ARLOGe("Cannot calc parameters!!\n");
         }
-        else {
-            arUtilMatInv( configL->trans, transL2M );
-            arUtilMatMul( configR->trans, transL2M, transL2R );
-            arParamDispExt( transL2R );
+        else
+        {
+            arUtilMatInv(configL->trans, transL2M);
+            arUtilMatMul(configR->trans, transL2M, transL2R);
+            arParamDispExt(transL2R);
 
             printf("save filename[%s]: ", TRANSL2R_NAME);
-            if (!fgets( line, 256, stdin )) exit(-1);
-            if( sscanf(line, "%s", line2) != 1 ) {
-                strcpy( line2, TRANSL2R_NAME );
+            if (!fgets(line, 256, stdin))
+                exit(-1);
+
+            if (sscanf(line, "%s", line2) != 1)
+            {
+                strcpy(line2, TRANSL2R_NAME);
             }
-            arParamSaveExt( line2, transL2R );
+
+            arParamSaveExt(line2, transL2R);
             ARLOG("  Saved.\n");
         }
     }
+
     saveFlag = 0;
 }
 
 static void cleanup(void)
-{    
+{
     ar2VideoCapStop(vidL);
     ar2VideoCapStop(vidR);
     ar2VideoClose(vidL);
     ar2VideoClose(vidR);
-    argCleanup();     
+    argCleanup();
 }

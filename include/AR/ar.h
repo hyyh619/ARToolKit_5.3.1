@@ -82,9 +82,9 @@ extern "C" {
 //
 
 #ifdef __ANDROID__
-#  define ARLOG(...)  __android_log_print(ANDROID_LOG_INFO, "libar", __VA_ARGS__)
+#  define ARLOG(...) __android_log_print(ANDROID_LOG_INFO, "libar", __VA_ARGS__)
 #else
-#  define ARLOG(...)  printf(__VA_ARGS__)
+#  define ARLOG(...) printf(__VA_ARGS__)
 #endif
 
 /*!
@@ -149,26 +149,26 @@ void arLogSetLogger(AR_LOG_LOGGER_CALLBACK callback, int callBackOnlyIfOnSameThr
 #else
 #  define ARLOGd(...)
 #endif
-#define ARLOGi(...) arLog(AR_LOG_LEVEL_INFO, __VA_ARGS__)
-#define ARLOGw(...) arLog(AR_LOG_LEVEL_WARN, __VA_ARGS__)
-#define ARLOGe(...) arLog(AR_LOG_LEVEL_ERROR, __VA_ARGS__)
+#define ARLOGi(...)    arLog(AR_LOG_LEVEL_INFO, __VA_ARGS__)
+#define ARLOGw(...)    arLog(AR_LOG_LEVEL_WARN, __VA_ARGS__)
+#define ARLOGe(...)    arLog(AR_LOG_LEVEL_ERROR, __VA_ARGS__)
 #define ARLOGperror(s) arLog(AR_LOG_LEVEL_ERROR, (s ? "%s: %s\n" : "%s%s\n"), (s ? s : ""), strerror(errno))
 
 
-#define arMalloc(V, T, S)  \
-    { \
+#define arMalloc(V, T, S)                                \
+    {                                                    \
         if (((V) = (T*)malloc(sizeof(T) * (S))) == NULL) \
-        { \
-            ARLOGe("Out of memory!!\n"); exit(1); \
-        } \
+        {                                                \
+            ARLOGe("Out of memory!!\n"); exit(1);        \
+        }                                                \
     }
 
-#define arMallocClear(V, T, S)  \
-    { \
+#define arMallocClear(V, T, S)                          \
+    {                                                   \
         if (((V) = (T*)calloc((S), sizeof(T))) == NULL) \
-        { \
-            ARLOGe("Out of memory!!\n"); exit(1); \
-        } \
+        {                                               \
+            ARLOGe("Out of memory!!\n"); exit(1);       \
+        }                                               \
     }
 
 typedef char ARInt8;
@@ -384,7 +384,7 @@ typedef struct
     ARdouble *pattpow;
     int      **pattBW;
     ARdouble *pattpowBW;
-    //ARdouble        pattRatio;
+    // ARdouble        pattRatio;
     int pattSize;
 } ARPattHandle;
 
@@ -420,14 +420,14 @@ typedef struct
 extern "C" {
 #endif
 
-#define AR_MATRIX_CODE_TYPE_SIZE_MASK 0x000000ff
-#define AR_MATRIX_CODE_TYPE_ECC_NONE 0x00000000
-#define AR_MATRIX_CODE_TYPE_ECC_PARITY 0x00000100 // Single-bit parity.
-#define AR_MATRIX_CODE_TYPE_ECC_HAMMING 0x00000200 // Hamming code with Hamming distance of 3.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___3 0x00000300 // BCH code with Hamming distance of 3.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___5 0x00000400 // BCH code with Hamming distance of 5.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___7 0x00000500 // BCH code with Hamming distance of 7.
-#define AR_MATRIX_CODE_TYPE_ECC_BCH___9 0x00000600 // BCH code with Hamming distance of 9.
+#define AR_MATRIX_CODE_TYPE_SIZE_MASK    0x000000ff
+#define AR_MATRIX_CODE_TYPE_ECC_NONE     0x00000000
+#define AR_MATRIX_CODE_TYPE_ECC_PARITY   0x00000100 // Single-bit parity.
+#define AR_MATRIX_CODE_TYPE_ECC_HAMMING  0x00000200 // Hamming code with Hamming distance of 3.
+#define AR_MATRIX_CODE_TYPE_ECC_BCH___3  0x00000300 // BCH code with Hamming distance of 3.
+#define AR_MATRIX_CODE_TYPE_ECC_BCH___5  0x00000400 // BCH code with Hamming distance of 5.
+#define AR_MATRIX_CODE_TYPE_ECC_BCH___7  0x00000500 // BCH code with Hamming distance of 7.
+#define AR_MATRIX_CODE_TYPE_ECC_BCH___9  0x00000600 // BCH code with Hamming distance of 9.
 #define AR_MATRIX_CODE_TYPE_ECC_BCH___11 0x00000700 // BCH code with Hamming distance of 11.
 #define AR_MATRIX_CODE_TYPE_ECC_BCH___19 0x00000b00 // BCH code with Hamming distance of 19.
 
@@ -450,24 +450,24 @@ typedef enum
     @typedef ARHandle
     @abstract   (description)
     @discussion (description)
-        @field		arDebug (description)
-        @field		arPixelFormat (description)
-        @field		arPixelSize (description)
-        @field		arLabelingMode (description)
-        @field		arLabelingThresh (description)
-        @field		arImageProcMode
+        @field          arDebug (description)
+        @field          arPixelFormat (description)
+        @field          arPixelSize (description)
+        @field          arLabelingMode (description)
+        @field          arLabelingThresh (description)
+        @field          arImageProcMode
                 To query this value, call arGetImageProcMode(). To set this value, call arSetImageProcMode().
-        @field		arPatternDetectionMode (description)
-        @field		arMarkerExtractionMode (description)
-        @field		arParamLT (description)
-        @field		marker_num (description)
-        @field		markerInfo (description)
-        @field		marker2_num (description)
-        @field		markerInfo2 (description)
-        @field		history_num (description)
-        @field		history (description)
-        @field		labelInfo (description)
-        @field		pattHandle (description)
+        @field          arPatternDetectionMode (description)
+        @field          arMarkerExtractionMode (description)
+        @field          arParamLT (description)
+        @field          marker_num (description)
+        @field          markerInfo (description)
+        @field          marker2_num (description)
+        @field          markerInfo2 (description)
+        @field          history_num (description)
+        @field          history (description)
+        @field          labelInfo (description)
+        @field          pattHandle (description)
     @field      pattRatio A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
     @field      matrixCodeType When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
  */
@@ -516,7 +516,7 @@ typedef struct
     ICPHandleT *icpHandle;
 } AR3DHandle;
 
-#define   AR_TRANS_MAT_IDENTITY            ICP_TRANS_MAT_IDENTITY
+#define   AR_TRANS_MAT_IDENTITY ICP_TRANS_MAT_IDENTITY
 
 /*!
     @typedef
@@ -609,7 +609,7 @@ int            arSetDebugMode(ARHandle *handle, int mode);
     @discussion See arSetDebugMode() for more info.
     @param      handle An ARHandle referring to the current AR tracker
                 to be queried for its mode.
-        @param		mode Pointer into which will be placed the
+        @param          mode Pointer into which will be placed the
                 value representing the mode.
     @result     0 if no error occured.
  */
@@ -642,7 +642,7 @@ int            arSetLabelingMode(ARHandle *handle, int mode);
     @discussion See discussion for arSetLabelingMode.
     @param      handle An ARHandle referring to the current AR tracker
                 to be queried for its labeling mode.
-        @param		mode Pointer into which will be placed the
+        @param          mode Pointer into which will be placed the
                 value representing the mode.
     @result     0 if no error occured.
  */
@@ -693,7 +693,7 @@ int            arSetLabelingThresh(ARHandle *handle, int thresh);
         AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE.
     @param      handle An ARHandle referring to the current AR tracker
                 to be queried for its labeling threshold value.
-        @param		thresh Pointer into which will be placed the
+        @param          thresh Pointer into which will be placed the
                 value of the labeling threshhold.
                 An integer in the range [0,255] (inclusive)
     @result     0 if no error occured.
@@ -707,7 +707,7 @@ int            arGetLabelingThresh(ARHandle *handle, int *thresh);
     @discussion
     @param      handle An ARHandle referring to the current AR tracker
         to be queried for its labeling threshold mode.
-    @param		mode An integer specifying the mode. One of:
+    @param              mode An integer specifying the mode. One of:
         AR_LABELING_THRESH_MODE_MANUAL,
         AR_LABELING_THRESH_MODE_AUTO_MEDIAN,
         AR_LABELING_THRESH_MODE_AUTO_OTSU,
@@ -724,7 +724,7 @@ int arSetLabelingThreshMode(ARHandle *handle, const AR_LABELING_THRESH_MODE mode
     @discussion
     @param      handle An ARHandle referring to the current AR tracker
         to be queried for its labeling threshold value.
-    @param		mode_p Pointer into which will be placed the
+    @param              mode_p Pointer into which will be placed the
         value of the labeling threshold mode, one of:
         AR_LABELING_THRESH_MODE_MANUAL,
         AR_LABELING_THRESH_MODE_AUTO_MEDIAN,
@@ -744,7 +744,7 @@ int arGetLabelingThreshMode(const ARHandle *handle, AR_LABELING_THRESH_MODE *mod
         calculation occurs every (interval + 1) frames.
     @param      handle An ARHandle referring to the current AR tracker
         for which the labeling threshold auto interval will be set.
-    @param		interval The interval, specifying the number of frames between
+    @param              interval The interval, specifying the number of frames between
         automatic updates to the threshold.
         An integer in the range [0,INT_MAX] (inclusive). Default
         value is AR_LABELING_THRESH_AUTO_INTERVAL_DEFAULT.
@@ -761,7 +761,7 @@ int arSetLabelingThreshModeAutoInterval(ARHandle *handle, const int interval);
         calculation occurs every (interval + 1) frames.
     @param      handle An ARHandle referring to the current AR tracker
         to be queried for its labeling threshold auto interval value.
-    @param		interval_p Pointer into which will be placed the
+    @param              interval_p Pointer into which will be placed the
         value of the labeling threshhold auto interval.
         An integer in the range [0,INT_MAX] (inclusive)
     @result     0 if no error occured.
@@ -801,7 +801,7 @@ int            arSetImageProcMode(ARHandle *handle, int mode);
                 See arSetImageProcMode() for a complete description.
     @param      handle An ARHandle referring to the current AR tracker
                 to be queried for its mode.
-        @param		mode Pointer into which will be placed the
+        @param          mode Pointer into which will be placed the
                 value representing the current image processing mode.
     @result     0 if no error occured.
  */
@@ -840,7 +840,7 @@ int            arSetPatternDetectionMode(ARHandle *handle, int mode);
         See arSetPatternDetectionMode() for a complete description.
     @param      handle An ARHandle referring to the current AR tracker
                 to be queried for its mode.
-        @param		mode Pointer into which will be placed the
+        @param          mode Pointer into which will be placed the
                 value representing the mode.
     @result     0 if no error occured.
  */
@@ -876,7 +876,7 @@ int            arSetMatrixCodeType(ARHandle *handle, const AR_MATRIX_CODE_TYPE t
     @abstract   Get the size and ECC algorithm being used for matrix code (2D barcode) marker detection.
     @discussion See the description for arSetMatrixCodeType().
     @param      handle An ARHandle referring to the current AR tracker to be queried for its mode.
-    @param		type_p Pointer into which will be placed the value representing the mode.
+    @param              type_p Pointer into which will be placed the value representing the mode.
     @seealso    arGetPatternDetectionMode arGetPatternDetectionMode
     @seealso    arSetMatrixCodeType arSetMatrixCodeType
     @result     0 if no error occured.
@@ -903,7 +903,7 @@ int            arSetMarkerExtractionMode(ARHandle *handle, int mode);
     @abstract   Get the marker extraction mode
     @discussion (description)
     @param      handle An ARHandle referring to the current AR tracker to be queried for its mode.
-        @param		mode Pointer into which will be placed the value representing the mode.
+        @param          mode Pointer into which will be placed the value representing the mode.
     @result     0 if no error occured.
  */
 int            arGetMarkerExtractionMode(ARHandle *handle, int *mode);
@@ -929,7 +929,7 @@ int            arSetBorderSize(ARHandle *handle, const ARdouble borderSize);
         backwards compatibility.
     @param      handle An ARHandle referring to the current AR tracker
         to be queried for its border size.
-    @param		borderSize Pointer into which will be placed the
+    @param              borderSize Pointer into which will be placed the
         value representing the border size. The default border size for newly-created
         ARHandle structures is AR_BORDER_SIZE_DEFAULT.
     @result     0 if no error occured.
@@ -941,7 +941,7 @@ int            arGetBorderSize(ARHandle *handle, ARdouble *borderSize);
     @abstract   Set the width/height of the marker pattern space, as a proportion of marker width/height.
     @discussion N.B. Supercedes arSetBorderSize().
     @param      handle An ARHandle referring to the current AR tracker to be modified.
-    @param		pattRatio The the width/height of the marker pattern space, as a proportion of marker
+    @param              pattRatio The the width/height of the marker pattern space, as a proportion of marker
         width/height. To set the default, pass AR_PATT_RATIO.
         If compatibility with ARToolKit verions 1.0 through 4.4 is required, this value
         must be 0.5.
@@ -954,7 +954,7 @@ int            arSetPattRatio(ARHandle *handle, const ARdouble pattRatio);
     @abstract   Get the width/height of the marker pattern space, as a proportion of marker width/height.
     @discussion N.B. Supercedes arGetBorderSize().
     @param      handle An ARHandle referring to the current AR tracker to be queried.
-    @param		pattRatio Pointer into which will be placed the
+    @param              pattRatio Pointer into which will be placed the
         value representing the width/height of the marker pattern space, as a proportion of marker
         width/height. The default border size for newly-created ARHandle structures is AR_PATT_RATIO.
     @result     0 if no error occured.
@@ -987,7 +987,7 @@ int            arSetPixelFormat(ARHandle *handle, AR_PIXEL_FORMAT pixFormat);
     @discussion
         See discussion for arSetPixelFormat().
     @param      handle Handle to AR settings structure from which to retrieve the pixel format.
-        @param		pixFormat Pointer into which will be placed the
+        @param          pixFormat Pointer into which will be placed the
                 value representing the format of pixels being
                 processed by the ARToolKit detection routines. See AR_PIXEL_FORMAT
                 reference for more information.
@@ -1015,7 +1015,7 @@ int            arGetPixelFormat(ARHandle *handle, AR_PIXEL_FORMAT *pixFormat);
 
     @param      arHandle Handle to initialised settings, including camera parameters,
                 incoming video image size and pixel format, markers, detection modes and other information.
-    @param		dataPtr Pointer to the first byte of a block of memory containing pixel
+    @param              dataPtr Pointer to the first byte of a block of memory containing pixel
                 data for an image which is to be processed for marker detection. The format of
                 pixels in this image is specified by arSetPixelFormat(). The width and height of
                 the image are specified by the xsize and ysize parameters of the camera parameters
@@ -1095,10 +1095,10 @@ int            arGetMarkerInfo(ARUint8 *image, int xsize, int ysize, int pixelFo
                                ARMarkerInfo *markerInfo, int *marker_num,
                                const AR_MATRIX_CODE_TYPE matrixCodeType);
 
-int            arGetContour(AR_LABELING_LABEL_TYPE *lImage, int xsize, int ysize, int *label_ref, int label,
-                            int clip[4], ARMarkerInfo2 *marker_info2);
-int            arGetLine(int x_coord[], int y_coord[], int coord_num, int vertex[], ARParamLTf *paramLTf,
-                         ARdouble line[4][3], ARdouble v[4][2]);
+int arGetContour(AR_LABELING_LABEL_TYPE * lImage, int xsize, int ysize, int *label_ref, int label,
+                 int clip[4], ARMarkerInfo2 * marker_info2);
+int arGetLine(int x_coord[], int y_coord[], int coord_num, int vertex[], ARParamLTf * paramLTf,
+              ARdouble line[4][3], ARdouble v[4][2]);
 
 
 /***********************************/
@@ -1219,7 +1219,7 @@ int            arPattSave(ARUint8 *image, int xsize, int ysize, int pixelFormat,
     @discussion Unloads a pattern from a pattern handle, freeing that
                 slot for another pattern to be loaded, if necessary.
     @param      pattHandle The pattern handle to unload from.
-        @param		patno The index into the pattern handle's array of
+        @param          patno The index into the pattern handle's array of
                 patterns to the pattern to be unloaded.
     @result     0 if the pattern was successfully unloaded, or -1
                 if there was no pattern loaded.
@@ -1235,7 +1235,7 @@ int            arPattFree(ARPattHandle *pattHandle, int patno);
                 for a loaded pattern.
     @param      pattHandle The handle holding the loaded pattern
                 which is to be reactivated.
-        @param		patno The index into the pattern handle's array of
+        @param          patno The index into the pattern handle's array of
                 patterns to the pattern to be reactivated.
         @result     0 on success, or -1 if the pattern was already
                 activated or no pattern was loaded.
@@ -1253,7 +1253,7 @@ int            arPattActivate(ARPattHandle *pattHandle, int patno);
                 controlling interactivity in a scene.
         @param      pattHandle The handle holding the loaded pattern
                 which is to be deactivated.
-        @param		patno The index into the pattern handle's array of
+        @param          patno The index into the pattern handle's array of
                 patterns to the pattern to be deactivated.
     @result     0 on success, or -1 if the pattern was already
                 deactivated or no pattern was loaded.
@@ -1263,7 +1263,7 @@ int            arPattDeactivate(ARPattHandle *pattHandle, int patno);
 
 /*!
     @function
-    @abstract	Associate a set of patterns with an ARHandle.
+    @abstract   Associate a set of patterns with an ARHandle.
     @discussion Associating a set of patterns with an ARHandle makes
                 the patterns the set which will be searched when marker
                 identification is performed on an image associated with the
@@ -1287,8 +1287,8 @@ int            arPattAttach(ARHandle *arHandle, ARPattHandle *pattHandle);
  */
 int            arPattDetach(ARHandle *arHandle);
 
-//int            arPattGetPattRatio( ARPattHandle *pattHandle, float *ratio );
-//int            arPattSetPattRatio( ARPattHandle *pattHandle, float  ratio );
+// int            arPattGetPattRatio( ARPattHandle *pattHandle, float *ratio );
+// int            arPattSetPattRatio( ARPattHandle *pattHandle, float  ratio );
 
 /* ------------------------------ */
 
@@ -1326,10 +1326,10 @@ int            arPattGetImage(int imageProcMode, int pattDetectMode, int patt_si
     @result     0 if the function was able to correctly match, or -1 in case of error or no match.
     @seealso    arParamLTCreate arParamLTCreate
  */
-int            arPattGetID2(ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                            ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
-                            int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
-                            const AR_MATRIX_CODE_TYPE matrixCodeType);
+int arPattGetID2(ARPattHandle * pattHandle, int imageProcMode, int pattDetectMode,
+                 ARUint8 * image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf * arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
+                 int *codePatt, int *dirPatt, ARdouble * cfPatt, int *codeMatrix, int *dirMatrix, ARdouble * cfMatrix,
+                 const AR_MATRIX_CODE_TYPE matrixCodeType);
 #endif // !AR_DISABLE_NON_CORE_FNS
 
 /*!
@@ -1358,10 +1358,10 @@ int            arPattGetID2(ARPattHandle *pattHandle, int imageProcMode, int pat
     @result     0 if the function was able to correctly match, or -1 in case of error or no match.
     @seealso    arParamLTCreate arParamLTCreate
  */
-int arPattGetIDGlobal(ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                      ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
-                      int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
-                      const AR_MATRIX_CODE_TYPE matrixCodeType, int *errorCorrected, uint64_t *codeGlobalID_p);
+int arPattGetIDGlobal(ARPattHandle * pattHandle, int imageProcMode, int pattDetectMode,
+                      ARUint8 * image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf * arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
+                      int *codePatt, int *dirPatt, ARdouble * cfPatt, int *codeMatrix, int *dirMatrix, ARdouble * cfMatrix,
+                      const AR_MATRIX_CODE_TYPE matrixCodeType, int *errorCorrected, uint64_t * codeGlobalID_p);
 
 /*!
     @function
@@ -1382,9 +1382,9 @@ int arPattGetIDGlobal(ARPattHandle *pattHandle, int imageProcMode, int pattDetec
     @result     0 if the function was able to correctly get the image, or -1 in case of error or no match.
     @seealso    arParamLTCreate arParamLTCreate
  */
-int            arPattGetImage2(int imageProcMode, int pattDetectMode, int patt_size, int sample_size,
-                               ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf,
-                               ARdouble vertex[4][2], ARdouble pattRatio, ARUint8 *ext_patt);
+int arPattGetImage2(int imageProcMode, int pattDetectMode, int patt_size, int sample_size,
+                    ARUint8 * image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf * arParamLTf,
+                    ARdouble vertex[4][2], ARdouble pattRatio, ARUint8 * ext_patt);
 
 /*!
     @function
@@ -1441,7 +1441,7 @@ AR3DHandle* ar3DCreateHandle(ARParam *arParam);
     @seealso    ar3DCreateHandle ar3DCreateHandle
     @seealso    ar3DDeleteHandle ar3DDeleteHandle
  */
-AR3DHandle* ar3DCreateHandle2(ARdouble cpara[3][4]);
+AR3DHandle*ar3DCreateHandle2(ARdouble cpara[3][4]);
 
 /*!
     @function
@@ -1462,7 +1462,7 @@ int            ar3DDeleteHandle(AR3DHandle **handle);
     @param      cpara (description)
     @result     (description)
  */
-int            ar3DChangeCpara(AR3DHandle *handle, ARdouble cpara[3][4]);
+int ar3DChangeCpara(AR3DHandle * handle, ARdouble cpara[3][4]);
 
 /*!
     @function
@@ -1504,8 +1504,8 @@ int            ar3DChangeLoopBreakThreshRatio(AR3DHandle *handle, ARdouble loopB
     @param      conv (description)
     @result     (description)
  */
-ARdouble       arGetTransMatSquare(AR3DHandle *handle, ARMarkerInfo *marker_info,
-                                   ARdouble width, ARdouble conv[3][4]);
+ARdouble arGetTransMatSquare(AR3DHandle * handle, ARMarkerInfo * marker_info,
+                             ARdouble width, ARdouble conv[3][4]);
 
 /*!
     @function
@@ -1518,9 +1518,9 @@ ARdouble       arGetTransMatSquare(AR3DHandle *handle, ARMarkerInfo *marker_info
     @param      conv (description)
     @result     (description)
  */
-ARdouble       arGetTransMatSquareCont(AR3DHandle *handle, ARMarkerInfo *marker_info,
-                                       ARdouble initConv[3][4],
-                                       ARdouble width, ARdouble conv[3][4]);
+ARdouble arGetTransMatSquareCont(AR3DHandle * handle, ARMarkerInfo * marker_info,
+                                 ARdouble initConv[3][4],
+                                 ARdouble width, ARdouble conv[3][4]);
 
 /*!
     @function
@@ -1535,9 +1535,9 @@ ARdouble       arGetTransMatSquareCont(AR3DHandle *handle, ARMarkerInfo *marker_
     @param      conv (description)
     @result     (description)
  */
-ARdouble       arGetTransMat(AR3DHandle *handle, ARdouble initConv[3][4],
-                               ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
-                               ARdouble conv[3][4]);
+ARdouble arGetTransMat(AR3DHandle * handle, ARdouble initConv[3][4],
+                       ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
+                       ARdouble conv[3][4]);
 
 /*!
     @function
@@ -1551,9 +1551,9 @@ ARdouble       arGetTransMat(AR3DHandle *handle, ARdouble initConv[3][4],
     @param      conv (description)
     @result     (description)
  */
-ARdouble       arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4],
-                                     ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
-                                     ARdouble conv[3][4]);
+ARdouble arGetTransMatRobust(AR3DHandle * handle, ARdouble initConv[3][4],
+                             ARdouble pos2d[][2], ARdouble pos3d[][3], int num,
+                             ARdouble conv[3][4]);
 
 
 /***********************************/
@@ -1566,38 +1566,38 @@ ARdouble       arGetTransMatRobust(AR3DHandle *handle, ARdouble initConv[3][4],
         @functiongroup "3D calculation by Stereo".
  */
 
-AR3DStereoHandle*    ar3DStereoCreateHandle(ARParam *arParamL, ARParam *arParamR, ARdouble transL[3][4], ARdouble transR[3][4]);
-AR3DStereoHandle*    ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4], ARdouble transL[3][4], ARdouble transR[3][4]);
+AR3DStereoHandle*ar3DStereoCreateHandle(ARParam * arParamL, ARParam * arParamR, ARdouble transL[3][4], ARdouble transR[3][4]);
+AR3DStereoHandle*ar3DStereoCreateHandle2(ARdouble cparaL[3][4], ARdouble cparaR[3][4], ARdouble transL[3][4], ARdouble transR[3][4]);
 int                  ar3DStereoDeleteHandle(AR3DStereoHandle **handle);
 int                  ar3DStereoChangeMaxLoopCount(AR3DStereoHandle *handle, int maxLoopCount);
 int                  ar3DStereoChangeLoopBreakThresh(AR3DStereoHandle *handle, ARdouble loopBreakThresh);
 int                  ar3DStereoChangeLoopBreakThreshRatio(AR3DStereoHandle *handle, ARdouble loopBreakThreshRatio);
-int                  ar3DStereoChangeCpara(AR3DStereoHandle *handle, ARdouble cparaL[3][4], ARdouble cparaR[3][4]);
-int                  ar3DStereoChangeTransMat(AR3DStereoHandle *handle, ARdouble transL[3][4], ARdouble transR[3][4]);
+int ar3DStereoChangeCpara(AR3DStereoHandle * handle, ARdouble cparaL[3][4], ARdouble cparaR[3][4]);
+int ar3DStereoChangeTransMat(AR3DStereoHandle * handle, ARdouble transL[3][4], ARdouble transR[3][4]);
 
-ARdouble             arGetTransMatSquareStereo(AR3DStereoHandle *handle,
-                                               ARMarkerInfo *marker_infoL, ARMarkerInfo *marker_infoR,
-                                               ARdouble width, ARdouble conv[3][4]);
-ARdouble             arGetTransMatSquareContStereo(AR3DStereoHandle *handle,
-                                                   ARMarkerInfo *marker_infoL, ARMarkerInfo *marker_infoR,
-                                                   ARdouble prev_conv[3][4],
-                                                   ARdouble width, ARdouble conv[3][4]);
-ARdouble             arGetTransMatStereo(AR3DStereoHandle *handle, ARdouble initConv[3][4],
-                                         ARdouble pos2dL[][2], ARdouble pos3dL[][3], int numL,
-                                         ARdouble pos2dR[][2], ARdouble pos3dR[][3], int numR,
-                                         ARdouble conv[3][4]);
-ARdouble             arGetTransMatStereoRobust(AR3DStereoHandle *handle, ARdouble initConv[3][4],
-                                               ARdouble pos2dL[][2], ARdouble pos3dL[][3], int numL,
-                                               ARdouble pos2dR[][2], ARdouble pos3dR[][3], int numR,
-                                               ARdouble conv[3][4]);
+ARdouble arGetTransMatSquareStereo(AR3DStereoHandle * handle,
+                                   ARMarkerInfo * marker_infoL, ARMarkerInfo * marker_infoR,
+                                   ARdouble width, ARdouble conv[3][4]);
+ARdouble arGetTransMatSquareContStereo(AR3DStereoHandle * handle,
+                                       ARMarkerInfo * marker_infoL, ARMarkerInfo * marker_infoR,
+                                       ARdouble prev_conv[3][4],
+                                       ARdouble width, ARdouble conv[3][4]);
+ARdouble arGetTransMatStereo(AR3DStereoHandle * handle, ARdouble initConv[3][4],
+                             ARdouble pos2dL[][2], ARdouble pos3dL[][3], int numL,
+                             ARdouble pos2dR[][2], ARdouble pos3dR[][3], int numR,
+                             ARdouble conv[3][4]);
+ARdouble arGetTransMatStereoRobust(AR3DStereoHandle * handle, ARdouble initConv[3][4],
+                                   ARdouble pos2dL[][2], ARdouble pos3dL[][3], int numL,
+                                   ARdouble pos2dR[][2], ARdouble pos3dR[][3], int numR,
+                                   ARdouble conv[3][4]);
 
 ARdouble             arGetStereoMatchingErrorSquare(AR3DStereoHandle *handle,
                                                     ARMarkerInfo *marker_infoL,
                                                     ARMarkerInfo *marker_infoR);
-ARdouble             arGetStereoMatchingError(AR3DStereoHandle *handle,
-                                              ARdouble pos2dL[2], ARdouble pos2dR[2]);
-int                  arGetStereoMatching(AR3DStereoHandle *handle,
-                                         ARdouble pos2dL[2], ARdouble pos2dR[2], ARdouble pos3d[3]);
+ARdouble arGetStereoMatchingError(AR3DStereoHandle * handle,
+                                  ARdouble pos2dL[2], ARdouble pos2dR[2]);
+int arGetStereoMatching(AR3DStereoHandle * handle,
+                        ARdouble pos2dL[2], ARdouble pos2dR[2], ARdouble pos3d[3]);
 
 
 
@@ -1661,21 +1661,21 @@ int                  arGetStereoMatching(AR3DStereoHandle *handle,
  */
 ARUint32       arGetVersion(char **versionStringRef);
 
-int            arUtilMatInv(ARdouble s[3][4], ARdouble d[3][4]);
-int            arUtilMatMul(ARdouble s1[3][4], ARdouble s2[3][4], ARdouble d[3][4]);
+int arUtilMatInv(ARdouble s[3][4], ARdouble d[3][4]);
+int arUtilMatMul(ARdouble s1[3][4], ARdouble s2[3][4], ARdouble d[3][4]);
 
 #ifdef ARDOUBLE_IS_FLOAT
-#define arUtilMatInvf arUtilMatInv
-#define arUtilMatMulf arUtilMatMul
+#define arUtilMatInvf   arUtilMatInv
+#define arUtilMatMulf   arUtilMatMul
 #define arUtilMatMuldff arUtilMatMul
 #else
-int            arUtilMatInvf(float s[3][4], float d[3][4]);
-int            arUtilMatMulf(float s1[3][4], float s2[3][4], float d[3][4]);
-int            arUtilMatMuldff(ARdouble s1[3][4], float s2[3][4], float d[3][4]);
+int arUtilMatInvf(float s[3][4], float d[3][4]);
+int arUtilMatMulf(float s1[3][4], float s2[3][4], float d[3][4]);
+int arUtilMatMuldff(ARdouble s1[3][4], float s2[3][4], float d[3][4]);
 #endif
-int            arUtilMat2QuatPos(ARdouble m[3][4], ARdouble q[4], ARdouble p[3]);
-int            arUtilQuatPos2Mat(ARdouble q[4], ARdouble p[3], ARdouble m[3][4]);
-int            arUtilQuatNorm(ARdouble q[4]);
+int arUtilMat2QuatPos(ARdouble m[3][4], ARdouble q[4], ARdouble p[3]);
+int arUtilQuatPos2Mat(ARdouble q[4], ARdouble p[3], ARdouble m[3][4]);
+int arUtilQuatNorm(ARdouble q[4]);
 
 double         arUtilTimer(void);
 void           arUtilTimerReset(void);
@@ -1697,13 +1697,13 @@ int            arUtilReplaceExt(char *filename, int n, char *ext);
 int            arUtilRemoveExt(char *filename);
 int            arUtilDivideExt(const char *filename, char *s1, char *s2);
 
-int            arUtilGetSquareCenter(ARdouble vertex[4][2], ARdouble *x, ARdouble *y);
+int arUtilGetSquareCenter(ARdouble vertex[4][2], ARdouble * x, ARdouble * y);
 
-int            arUtilSortLabel(int mask[], int m, int n,
-                               ARdouble pos[][2], int area[], int label_num,
-                               int l1, int x1, int y1,
-                               int l2, int x2, int y2,
-                               int label[]);
+int arUtilSortLabel(int mask[], int m, int n,
+                    ARdouble pos[][2], int area[], int label_num,
+                    int l1, int x1, int y1,
+                    int l2, int x2, int y2,
+                    int label[]);
 
 /*!
     @function

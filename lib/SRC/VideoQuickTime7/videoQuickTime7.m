@@ -33,8 +33,8 @@
  *
  *  Author(s): Philip Lamb
  *
- *	Rev		Date		Who		Changes
- *	1.0.0	2010-07-01	PRL		Written.
+ *      Rev             Date            Who             Changes
+ *      1.0.0   2010-07-01      PRL             Written.
  *
  */
 
@@ -79,8 +79,8 @@ int ar2VideoDispOptionQuickTime7(void)
     ARLOG("    Acquire video from connected source device with index N (default = 0).\n");
     ARLOG(" -nomuxed");
     ARLOG("    Do not search for video from multiplexed video/audio devices (e.g. DV cams).\n");
-    //ARLOG(" -bufferpow2\n");
-    //ARLOG("    requests that images are returned in a buffer which has power-of-two dimensions.\n");
+    // ARLOG(" -bufferpow2\n");
+    // ARLOG("    requests that images are returned in a buffer which has power-of-two dimensions.\n");
     ARLOG("\n");
 
     return 0;
@@ -302,7 +302,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
 
     // Calling Objective-C from C necessitates an autorelease pool.
     @autoreleasepool {
-
         // Init the QTKitVideo object.
         vid->qtKitVideo = [[QTKitVideo alloc] init];
 
@@ -368,7 +367,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
 
         vid->qtKitVideo.pause           = TRUE;
         vid->qtKitVideoGotFrameDelegate = nil;         // Init.
-
     }
     return (vid);
 }

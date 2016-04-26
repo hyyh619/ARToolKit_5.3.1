@@ -38,18 +38,17 @@
 #ifndef PROFILE_H
 #define PROFILE_H
 
-#define MAX_PROF_NUM     20
+#define MAX_PROF_NUM 20
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void profileClear (void);
-void profileSet   (int n);
-void profilePrint (void);
+void profileClear(void);
+void profileSet(int n);
+void profilePrint(void);
 
 #ifdef __cplusplus
 }
 #endif
-
 #endif

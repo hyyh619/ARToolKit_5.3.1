@@ -43,52 +43,54 @@
 #endif
 
 #if !BINARY_FEATURE
-typedef struct {
-    SurfSubSkipRegion    *region;
-    int                   regionNum;
-    int                   regionMax;
+typedef struct
+{
+    SurfSubSkipRegion *region;
+    int               regionNum;
+    int               regionMax;
 } KpmSkipRegionSet;
 
-typedef struct {
-    void                     *ann;
-    int                      *annCoordIndex;
-    int                       pageID;
-    int                       imageID;
+typedef struct
+{
+    void *ann;
+    int  *annCoordIndex;
+    int  pageID;
+    int  imageID;
 } KpmAnnInfo;
 #endif
 
-struct _KpmHandle {
+struct _KpmHandle
+{
 #if !BINARY_FEATURE
-    SurfSubHandleT           *surfHandle;
-    void                     *ann2;
+    SurfSubHandleT *surfHandle;
+    void           *ann2;
 #else
     vision::VisualDatabaseFacade *freakMatcher;
-    //vision::VisualDatabaseOpencvFacade *freakMatcherOpencv;
+    // vision::VisualDatabaseOpencvFacade *freakMatcherOpencv;
 #endif
-    
-    ARParamLT                *cparamLT;
-    int                       poseMode;
-    int                       xsize, ysize;
-    AR_PIXEL_FORMAT           pixFormat;
-    KPM_PROC_MODE             procMode;
-    int                       detectedMaxFeature;
-#if !BINARY_FEATURE
-    int                       surfThreadNum;
-#endif
-    
-    KpmRefDataSet             refDataSet;
-    KpmInputDataSet           inDataSet;
-#if !BINARY_FEATURE
-    KpmMatchResult            preRANSAC;
-    KpmMatchResult            aftRANSAC;
-#endif
-    
-#if !BINARY_FEATURE
-    KpmSkipRegionSet          skipRegion;
-#endif
-    
-    KpmResult                *result;
-    int                       resultNum;
-};
 
+    ARParamLT       *cparamLT;
+    int             poseMode;
+    int             xsize, ysize;
+    AR_PIXEL_FORMAT pixFormat;
+    KPM_PROC_MODE   procMode;
+    int             detectedMaxFeature;
+#if !BINARY_FEATURE
+    int surfThreadNum;
+#endif
+
+    KpmRefDataSet   refDataSet;
+    KpmInputDataSet inDataSet;
+#if !BINARY_FEATURE
+    KpmMatchResult preRANSAC;
+    KpmMatchResult aftRANSAC;
+#endif
+
+#if !BINARY_FEATURE
+    KpmSkipRegionSet skipRegion;
+#endif
+
+    KpmResult *result;
+    int       resultNum;
+};
 #endif // !__kpmPrivate_h__

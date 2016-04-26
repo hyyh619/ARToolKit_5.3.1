@@ -1,8 +1,8 @@
 /*
- *	simpleOSG.c
+ *      simpleOSG.c
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit with models rendered in OSG,
+ *      Demonstration of ARToolKit with models rendered in OSG,
  *  and marker pose estimates filtered to reduce jitter.
  *
  *  Press '?' while running for help on available key commands.
@@ -53,7 +53,7 @@
  */
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 
 #ifdef _WIN32
@@ -80,18 +80,18 @@
 #include "VirtualEnvironment.h"
 
 // ============================================================================
-//	Constants
+//      Constants
 // ============================================================================
 
-#define VIEW_SCALEFACTOR                1.0         // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
-#define VIEW_DISTANCE_MIN               40.0        // Objects closer to the camera than this will not be displayed. OpenGL units.
-#define VIEW_DISTANCE_MAX               10000.0     // Objects further away from the camera than this will not be displayed. OpenGL units.
+#define VIEW_SCALEFACTOR  1.0                       // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
+#define VIEW_DISTANCE_MIN 40.0                      // Objects closer to the camera than this will not be displayed. OpenGL units.
+#define VIEW_DISTANCE_MAX 10000.0                   // Objects further away from the camera than this will not be displayed. OpenGL units.
 
-#define FONT_SIZE 10.0f
+#define FONT_SIZE         10.0f
 #define FONT_LINE_SPACING 2.0f
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // Preferences.
@@ -131,7 +131,7 @@ static int                       gShowMode = 1;
 
 
 // ============================================================================
-//	Function prototypes
+//      Function prototypes
 // ============================================================================
 
 static void usage(char *com);
@@ -147,7 +147,7 @@ static void printHelpKeys();
 static void printMode();
 
 // ============================================================================
-//	Functions
+//      Functions
 // ============================================================================
 
 int main(int argc, char **argv)
@@ -159,8 +159,9 @@ int main(int argc, char **argv)
     int        i;
     int        gotTwoPartOption;
     const char markerConfigDataFilename[] = "Data/markers.dat";
-    const char objectDataFilename[] = "Data/objects.dat";
-    //const char objectDataFilename[] = "Data/cow.dat";
+    const char objectDataFilename[]       = "Data/objects.dat";
+
+    // const char objectDataFilename[] = "Data/cow.dat";
 
     //
     // Process command-line options.
@@ -314,8 +315,8 @@ int main(int argc, char **argv)
     //
 
     arSetMarkerExtractionMode(gARHandle, AR_USE_TRACKING_HISTORY_V2);
-    //arSetMarkerExtractionMode(gARHandle, AR_NOUSE_TRACKING_HISTORY);
-    //arSetLabelingThreshMode(gARHandle, AR_LABELING_THRESH_MODE_MANUAL); // Uncomment to force manual thresholding.
+    // arSetMarkerExtractionMode(gARHandle, AR_NOUSE_TRACKING_HISTORY);
+    // arSetLabelingThreshMode(gARHandle, AR_LABELING_THRESH_MODE_MANUAL); // Uncomment to force manual thresholding.
 
     // Set the pattern detection mode (template (pictorial) vs. matrix (barcode) based on
     // the marker types as defined in the marker config. file.
@@ -325,9 +326,9 @@ int main(int argc, char **argv)
     // If you are using standard ARToolKit picture (template) markers, leave commented to use the defaults.
     // If you are usign a different marker design (see http://www.artoolworks.com/support/app/marker.php )
     // then uncomment and edit as instructed by the marker design application.
-    //arSetLabelingMode(gARHandle, AR_LABELING_BLACK_REGION); // Default = AR_LABELING_BLACK_REGION
-    //arSetBorderSize(gARHandle, 0.25f); // Default = 0.25f
-    //arSetMatrixCodeType(gARHandle, AR_MATRIX_CODE_3x3); // Default = AR_MATRIX_CODE_3x3
+    // arSetLabelingMode(gARHandle, AR_LABELING_BLACK_REGION); // Default = AR_LABELING_BLACK_REGION
+    // arSetBorderSize(gARHandle, 0.25f); // Default = 0.25f
+    // arSetMatrixCodeType(gARHandle, AR_MATRIX_CODE_3x3); // Default = AR_MATRIX_CODE_3x3
 
     //
     // Graphics setup.
@@ -633,7 +634,6 @@ static void Keyboard(unsigned char key, int x, int y)
 
         arSetLabelingThresh(gARHandle, threshhold);
     }
-
 }
 
 static void mainLoop(void)
@@ -688,11 +688,9 @@ static void mainLoop(void)
                         {
                             if (markerInfo[j].cfPatt >= markersSquare[i].matchingThreshold)
                                 k = j;                                                                                         // First marker detected.
-
                         }
                         else if (markerInfo[j].cfPatt > markerInfo[k].cfPatt)
                             k = j;                                                                             // Higher confidence marker detected.
-
                     }
                 }
 
@@ -713,11 +711,9 @@ static void mainLoop(void)
                         {
                             if (markerInfo[j].cfMatrix >= markersSquare[i].matchingThreshold)
                                 k = j;                                                                                           // First marker detected.
-
                         }
                         else if (markerInfo[j].cfMatrix > markerInfo[k].cfMatrix)
                             k = j;                                                                                 // Higher confidence marker detected.
-
                     }
                 }
 
@@ -750,7 +746,6 @@ static void mainLoop(void)
 
             if (markersSquare[i].valid)
             {
-
                 // Filter the pose estimate.
                 if (markersSquare[i].ftmi)
                 {
@@ -770,11 +765,9 @@ static void mainLoop(void)
                 arglCameraViewRH(markersSquare[i].trans, markersSquare[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
                 // Tell any dependent objects about the update.
                 VirtualEnvironmentHandleARMarkerWasUpdated(i, markersSquare[i].pose);
-
             }
             else
             {
-
                 if (markersSquare[i].validPrev)
                 {
                     // Marker has ceased to be visible, tell any dependent objects.
@@ -790,12 +783,11 @@ static void mainLoop(void)
     {
         arUtilSleep(2);
     }
-
 }
 
 //
-//	This function is called on events when the visibility of the
-//	GLUT window changes (including when it first becomes visible).
+//      This function is called on events when the visibility of the
+//      GLUT window changes (including when it first becomes visible).
 //
 static void Visibility(int visible)
 {
@@ -810,8 +802,8 @@ static void Visibility(int visible)
 }
 
 //
-//	This function is called when the
-//	GLUT window is resized.
+//      This function is called when the
+//      GLUT window is resized.
 //
 static void Reshape(int w, int h)
 {
@@ -863,7 +855,6 @@ static void Display(void)
 
     if (cameraPoseValid)
     {
-
 #ifdef ARDOUBLE_IS_FLOAT
         glMultMatrixf(cameraPose);
 #else
@@ -964,8 +955,8 @@ static void drawBackground(const float width, const float height, const float x,
     glColor4f(0.0f, 0.0f, 0.0f, 0.5f);  // 50% transparent black.
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Opaque white.
-    //glLineWidth(1.0f);
-    //glDrawArrays(GL_LINE_LOOP, 0, 4);
+    // glLineWidth(1.0f);
+    // glDrawArrays(GL_LINE_LOOP, 0, 4);
     glPopClientAttrib();
     glDisable(GL_BLEND);
 }
@@ -1089,5 +1080,4 @@ static void printMode()
     snprintf(text, sizeof(text), "Drawing into %dx%d window", gWindowW, gWindowH);
     print(text, hMargin,  (line - 1) * (FONT_SIZE + FONT_LINE_SPACING) + vMargin, 0, 1);
     line++;
-
 }

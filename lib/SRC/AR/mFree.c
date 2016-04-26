@@ -35,44 +35,46 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
 #ifndef __APPLE__
 #include <malloc.h>
-#else 
+#else
 #include <stdlib.h>
-#endif  
+#endif
 #include <AR/ar.h>
 
 int arMatrixFree(ARMat *m)
 {
-    if (m) {
+    if (m)
+    {
         free(m->m);
-	    free(m);
+        free(m);
     }
 
-	return 0;
+    return 0;
 }
 
 #ifndef ARDOUBLE_IS_FLOAT
 int arMatrixFreef(ARMatf *m)
 {
-    if (m) {
+    if (m)
+    {
         free(m->m);
-	    free(m);
+        free(m);
     }
 
-	return 0;
+    return 0;
 }
 #endif

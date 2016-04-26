@@ -34,7 +34,7 @@
 //
 
 #include "logger.h"
-//#include "filesystem_utils.h"
+// #include "filesystem_utils.h"
 
 #include <iostream>
 #include <sstream>
@@ -48,18 +48,21 @@ BackendSinkFilter::BackendSinkFilter() {}
 
 BackendSinkFilter::~BackendSinkFilter() {}
 
-void BackendSinkFilter::write(const std::string& str) {
+void BackendSinkFilter::write(const std::string&str)
+{
     std::cerr << str << std::endl;
 }
 
-FrontendSinkFilter::FrontendSinkFilter(BackendSinkFilterPtr& backendFilter)
-: mPriorityMask(LOGGER_DISABLE)
-, mBackendSinkFilter(backendFilter) {}
+FrontendSinkFilter::FrontendSinkFilter(BackendSinkFilterPtr&backendFilter)
+    : mPriorityMask(LOGGER_DISABLE)
+    , mBackendSinkFilter(backendFilter) {}
 
 FrontendSinkFilter::~FrontendSinkFilter() {}
 
-void FrontendSinkFilter::write(LoggerPriorityLevel level, const std::string& str) {
-    if(allow(level)) {
+void FrontendSinkFilter::write(LoggerPriorityLevel level, const std::string&str)
+{
+    if (allow(level))
+    {
         mBackendSinkFilter->write(str);
     }
 }
@@ -68,19 +71,24 @@ Logger::Logger() {}
 
 Logger::~Logger() {}
 
-void Logger::write(LoggerPriorityLevel level, const std::string& str) {
-    for(size_t i = 0; i < mFrontendSinkFilters.size(); i++) {
+void Logger::write(LoggerPriorityLevel level, const std::string&str)
+{
+    for (size_t i = 0; i < mFrontendSinkFilters.size(); i++)
+    {
         mFrontendSinkFilters[i]->write(level, str);
     }
 }
 
-void Logger::write(LoggerPriorityLevel level, const char* fmt, ...) {
+void Logger::write(LoggerPriorityLevel level, const char *fmt, ...)
+{
     va_list arg_list;
+
     va_start(arg_list, fmt);
     write(level, detail::create_formatted_string(std::string(fmt), arg_list));
     va_end(arg_list);
 }
 
-void Logger::addSinkFilter(FrontendSinkFilterPtr& f) {
+void Logger::addSinkFilter(FrontendSinkFilterPtr&f)
+{
     mFrontendSinkFilters.push_back(f);
 }

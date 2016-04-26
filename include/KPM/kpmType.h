@@ -40,70 +40,76 @@
 #include <KPM/surfSub.h>
 #endif
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 // Corner points
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
-#define   MAX_CORNER_POINTS   2000
+#define   MAX_CORNER_POINTS 2000
 
-typedef struct _Point2f {
-	float x;
-	float y;
+typedef struct _Point2f
+{
+    float x;
+    float y;
 } Point2f;
 
-typedef struct _Point2i {
-	int x;
-	int y;
+typedef struct _Point2i
+{
+    int x;
+    int y;
 } Point2i;
 
-typedef struct _CornerPoints {
-        int      num;
-        Point2i  pt[MAX_CORNER_POINTS];
+typedef struct _CornerPoints
+{
+    int     num;
+    Point2i pt[MAX_CORNER_POINTS];
 } CornerPoints;
 
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 // Correspondence
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
-typedef struct _MatchPoint {
-	float       x1, y1; // Coordinates of corner points in an input image
-	float       x2, y2; // Coordinates of corner points in a reference image
+typedef struct _MatchPoint
+{
+    float x1, y1;           // Coordinates of corner points in an input image
+    float x2, y2;           // Coordinates of corner points in a reference image
 } MatchPoint;
 
-typedef struct _CorspMap {
-	int          num; // Same as the number of corner points in the input image
-	MatchPoint  *mp;
+typedef struct _CorspMap
+{
+    int        num;       // Same as the number of corner points in the input image
+    MatchPoint *mp;
 } CorspMap;
 
 #if BINARY_FEATURE
 
-#define    FREAK_SUB_DIMENSION             96
+#define    FREAK_SUB_DIMENSION 96
 
-//FREAK feature vector
-typedef struct _FreakFeature {
-    unsigned char    v[FREAK_SUB_DIMENSION];
-    float              angle;
-    float              scale;
-    int               maxima;
+// FREAK feature vector
+typedef struct _FreakFeature
+{
+    unsigned char v[FREAK_SUB_DIMENSION];
+    float         angle;
+    float         scale;
+    int           maxima;
 } FreakFeature;
 #else
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 // Surf feature vector
-//-------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
-typedef struct _SurfFeature {
-	float            v[SURF_SUB_DIMENSION];
-    int              l;
+typedef struct _SurfFeature
+{
+    float v[SURF_SUB_DIMENSION];
+    int   l;
 } SurfFeature;
 #endif
 
-typedef struct _FeatureVector {
-	int              num;
+typedef struct _FeatureVector
+{
+    int num;
 #if BINARY_FEATURE
     FreakFeature *sf;
 #else
-    SurfFeature     *sf;
+    SurfFeature *sf;
 #endif
-    
 } FeatureVector;
-

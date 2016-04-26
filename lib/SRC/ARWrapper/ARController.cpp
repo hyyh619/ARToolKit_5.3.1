@@ -107,8 +107,8 @@ ARController::ARController() :
     m_error(ARW_ERROR_NONE)
 {
 #ifdef __APPLE__
-    //openlog("ARController C++", LOG_CONS, LOG_USER);
-    //syslog(LOG_ERR, "Hello world!\n");
+    // openlog("ARController C++", LOG_CONS, LOG_USER);
+    // syslog(LOG_ERR, "Hello world!\n");
 #endif
 #if HAVE_NFT
     for (int i = 0; i < PAGES_MAX; i++)
@@ -122,7 +122,7 @@ ARController::~ARController()
     shutdown();
     pthread_mutex_destroy(&m_videoSourceLock);
 #ifdef __APPLE__
-    //closelog();
+    // closelog();
 #endif
     if (versionString)
         free(versionString);
@@ -304,7 +304,7 @@ bool ARController::startRunningStereo(const char *vconfL, const char *cparaNameL
         return false;
     }
 
-    //arUtilMatInv(m_transL2R, transR2L);
+    // arUtilMatInv(m_transL2R, transR2L);
     arParamDispExt(m_transL2R);
 
     lockVideoSource();
@@ -428,7 +428,6 @@ done:
     unlockVideoSource();
 
     return ret;
-
 }
 #endif
 
@@ -514,7 +513,6 @@ bool ARController::updateTextureGL(const int videoSourceIndex, const int texture
 
 bool ARController::update()
 {
-
     if (state != DETECTION_RUNNING)
     {
         if (state != WAITING_FOR_VIDEO)
@@ -522,11 +520,9 @@ bool ARController::update()
             // State is NOTHING_INITIALISED or BASE_INITIALISED.
             logv(AR_LOG_LEVEL_ERROR, "ARWrap::ARController::update(): Error-if (state != WAITING_FOR_VIDEO) true, exiting returning false");
             return false;
-
         }
         else
         {
-
             // First check there is a video source and it's open.
             if (!m_videoSource0 || !m_videoSource0->isOpen() || (m_videoSourceIsStereo && (!m_videoSource1 || !m_videoSource1->isOpen())))
             {
@@ -539,7 +535,6 @@ bool ARController::update()
             // If it's not running, return to caller now.
             if (!m_videoSource0->isRunning() || (m_videoSourceIsStereo && !m_videoSource1->isRunning()))
             {
-
                 if (!stateWaitingMessageLogged)
                 {
                     logv(AR_LOG_LEVEL_DEBUG, "ARWrap::ARController::update(): \"Waiting for video\" message logged, exiting returning true");
@@ -610,7 +605,7 @@ bool ARController::update()
     }
 
     m_videoSourceFrameStamp0 = frameStamp0;
-    //logv("ARController::update() gotFrame");
+    // logv("ARController::update() gotFrame");
 
     //
     // Detect markers.
@@ -711,7 +706,6 @@ bool ARController::update()
 
         if (trackingThreadHandle)
         {
-
             // Do KPM tracking.
             float err;
             float trackingTrans[3][4];
@@ -737,7 +731,7 @@ bool ARController::update()
                             {
                                 if (surfaceSet[pageNo]->contNum < 1)
                                 {
-                                    //logv("Detected page %d.\n", pageNo);
+                                    // logv("Detected page %d.\n", pageNo);
                                     ar2SetInitTrans(surfaceSet[pageNo], trackingTrans);                                     // Sets surfaceSet[page]->contNum = 1.
                                 }
                             }
@@ -748,7 +742,7 @@ bool ARController::update()
                         }
                         else   /*if (ret < 0)*/
                         {
-                            //logv("No page detected.");
+                            // logv("No page detected.");
                         }
                     }
                 }
@@ -764,17 +758,16 @@ bool ARController::update()
             {
                 if ((*it)->type == ARMarker::NFT)
                 {
-
                     if (surfaceSet[page]->contNum > 0)
                     {
                         if (ar2Tracking(m_ar2Handle, surfaceSet[page], image0, trackingTrans, &err) < 0)
                         {
-                            //logv("Tracking lost on page %d.", page);
+                            // logv("Tracking lost on page %d.", page);
                             success &= ((ARMarkerNFT*)(*it))->updateWithNFTResults(-1, NULL, NULL);
                         }
                         else
                         {
-                            //logv("Tracked page %d (pos = {% 4f, % 4f, % 4f}).\n", page, trackingTrans[0][3], trackingTrans[1][3], trackingTrans[2][3]);
+                            // logv("Tracked page %d (pos = {% 4f, % 4f, % 4f}).\n", page, trackingTrans[0][3], trackingTrans[1][3], trackingTrans[2][3]);
                             success &= ((ARMarkerNFT*)(*it))->updateWithNFTResults(page, trackingTrans, (ARdouble (*)[4])transL2R);
                             pagesTracked++;
                         }
@@ -785,9 +778,7 @@ bool ARController::update()
             }
 
             m_kpmRequired = (pagesTracked < (m_nftMultiMode ? page : 1));
-
         } // trackingThreadHandle
-
     } // doNFTMarkerDetection
 #endif // HAVE_NFT
     logv(AR_LOG_LEVEL_DEBUG, "ARWrap::ARController::update(): exiting, returning true");
@@ -903,7 +894,7 @@ bool ARController::initNFT(void)
         return (false);
     }
 
-    //kpmSetProcMode( m_kpmHandle, KpmProcHalfSize );
+    // kpmSetProcMode( m_kpmHandle, KpmProcHalfSize );
 
     // AR2 init.
     if ((m_ar2Handle = ar2CreateHandle(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), AR2_TRACKING_DEFAULT_THREAD_NUM)) == NULL)
@@ -1093,7 +1084,7 @@ bool ARController::stopRunning()
 
 #if HAVE_NFT
     // NFT cleanup.
-    //logv("Cleaning up ARToolKit NFT handles.");
+    // logv("Cleaning up ARToolKit NFT handles.");
     if (m_ar2Handle)
     {
         logv(AR_LOG_LEVEL_DEBUG, "ARWrap::ARController::stopRunning(): calling ar2DeleteHandle(&m_ar2Handle)");
@@ -1107,7 +1098,7 @@ bool ARController::stopRunning()
     }
 #endif
 
-    //logv("Cleaning up ARToolKit handles.");
+    // logv("Cleaning up ARToolKit handles.");
     if (m_ar3DHandle)
     {
         logv(AR_LOG_LEVEL_DEBUG, "ARWrap::ARController::stopRunning(): calling ar3DDeleteHandle(&m_ar3DHandle)");
@@ -1528,7 +1519,6 @@ bool ARController::updateDebugTexture(const int videoSourceIndex, Color *buffer)
                 src++;
             }
         }
-
     }
     else
     {
@@ -1613,7 +1603,6 @@ bool ARController::updateDebugTexture32(const int videoSourceIndex, uint32_t *bu
                 dest++;
             }
         }
-
     }
     return true;
 #endif
@@ -1804,7 +1793,6 @@ unsigned int ARController::countMarkers()
 
 ARMarker* ARController::findMarker(int UID)
 {
-
     std::vector<ARMarker*>::const_iterator it = markers.begin();
 
     while (it != markers.end())

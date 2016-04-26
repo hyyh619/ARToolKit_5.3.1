@@ -41,45 +41,45 @@
 #include <opencv2/nonfree/features2d.hpp>
 #include <opencv2/legacy/legacy.hpp>
 #include <matchers/matcher_types.h>
-namespace vision {
+namespace vision
+{
+class VisualDatabaseOpencvFacadeImpl;
 
-    class VisualDatabaseOpencvFacadeImpl;
-    
-    class VisualDatabaseOpencvFacade {
-    public:
-        
-        VisualDatabaseOpencvFacade();
-        ~VisualDatabaseOpencvFacade();
-        
-        void addImage(unsigned char* grayImage, size_t width, size_t height, int image_id);
-        
-        bool query(unsigned char* grayImage, size_t width, size_t height) ;
-        
-        
-        bool erase(int image_id);
-        
-        const size_t databaseCount();
-        
-        int matchedId() ;
-        
-        const float* matchedGeometry();
-        
-        const std::vector<cv::KeyPoint>& getFeaturePoints(int image_id) const;
-        
-        const cv::Mat& getDescriptors(int image_id) const;
-        
-        int getWidth(int image_id) const;
-        int getHeight(int image_id) const;
-        
-        
-        const std::vector<cv::KeyPoint>& getQueryFeaturePoints() const;
-        
-        const cv::Mat& getQueryDescriptors() const;
-        
-        const matches_t& inliers() const;
-        
-    private:
-        std::unique_ptr<VisualDatabaseOpencvFacadeImpl> mVisualDbImpl;
-    }; // VisualDatabaseFacade
-    
+class VisualDatabaseOpencvFacade
+{
+public:
+
+VisualDatabaseOpencvFacade();
+~VisualDatabaseOpencvFacade();
+
+void addImage(unsigned char *grayImage, size_t width, size_t height, int image_id);
+
+bool query(unsigned char *grayImage, size_t width, size_t height);
+
+
+bool erase(int image_id);
+
+const size_t databaseCount();
+
+int matchedId();
+
+const float* matchedGeometry();
+
+const std::vector<cv::KeyPoint>&getFeaturePoints(int image_id) const;
+
+const cv::Mat&getDescriptors(int image_id) const;
+
+int getWidth(int image_id) const;
+int getHeight(int image_id) const;
+
+
+const std::vector<cv::KeyPoint>&getQueryFeaturePoints() const;
+
+const cv::Mat&getQueryDescriptors() const;
+
+const matches_t&inliers() const;
+
+private:
+std::unique_ptr<VisualDatabaseOpencvFacadeImpl> mVisualDbImpl;
+};     // VisualDatabaseFacade
 } // vision

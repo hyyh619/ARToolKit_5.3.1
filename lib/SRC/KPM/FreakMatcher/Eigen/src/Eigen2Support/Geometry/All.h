@@ -22,15 +22,15 @@
 
 
 #define RotationBase eigen2_RotationBase
-#define Rotation2D eigen2_Rotation2D
-#define Rotation2Df eigen2_Rotation2Df
-#define Rotation2Dd eigen2_Rotation2Dd
+#define Rotation2D   eigen2_Rotation2D
+#define Rotation2Df  eigen2_Rotation2Df
+#define Rotation2Dd  eigen2_Rotation2Dd
 
 #define Quaternion  eigen2_Quaternion
 #define Quaternionf eigen2_Quaternionf
 #define Quaterniond eigen2_Quaterniond
 
-#define AngleAxis eigen2_AngleAxis
+#define AngleAxis  eigen2_AngleAxis
 #define AngleAxisf eigen2_AngleAxisf
 #define AngleAxisd eigen2_AngleAxisd
 
@@ -40,13 +40,13 @@
 #define Transform3f eigen2_Transform3f
 #define Transform3d eigen2_Transform3d
 
-#define Translation eigen2_Translation
+#define Translation   eigen2_Translation
 #define Translation2f eigen2_Translation2f
 #define Translation2d eigen2_Translation2d
 #define Translation3f eigen2_Translation3f
 #define Translation3d eigen2_Translation3d
 
-#define Scaling eigen2_Scaling
+#define Scaling   eigen2_Scaling
 #define Scaling2f eigen2_Scaling2f
 #define Scaling2d eigen2_Scaling2d
 #define Scaling3f eigen2_Scaling3f
@@ -54,10 +54,10 @@
 
 #define AlignedBox eigen2_AlignedBox
 
-#define Hyperplane eigen2_Hyperplane
+#define Hyperplane       eigen2_Hyperplane
 #define ParametrizedLine eigen2_ParametrizedLine
 
-#define ei_toRotationMatrix eigen2_ei_toRotationMatrix
+#define ei_toRotationMatrix       eigen2_ei_toRotationMatrix
 #define ei_quaternion_assign_impl eigen2_ei_quaternion_assign_impl
 #define ei_transform_product_impl eigen2_ei_transform_product_impl
 
@@ -111,5 +111,4 @@
 
 #undef Hyperplane
 #undef ParametrizedLine
-
 #endif // EIGEN2_GEOMETRY_MODULE_H

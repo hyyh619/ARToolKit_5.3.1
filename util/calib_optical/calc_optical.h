@@ -38,4 +38,4 @@
 #include <AR/ar.h>
 
 int calc_optical(ARdouble global[][3], ARdouble IdealScreen[][2], const int numPoints,
-				 ARdouble *fovy, ARdouble *aspect, ARdouble m[16]);
+                 ARdouble * fovy, ARdouble * aspect, ARdouble m[16]);

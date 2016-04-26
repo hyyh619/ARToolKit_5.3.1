@@ -1,5 +1,5 @@
 /*
- *	videoWindowsDirectShow.h
+ *      videoWindowsDirectShow.h
  *  ARToolKit5
  *
  *  DirectShow video capture module.
@@ -37,15 +37,15 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.es.osaka-u.ac.jp
- *
- * Revision: 4.1
- * Date: 2005/08/26
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.es.osaka-u.ac.jp
+*
+* Revision: 4.1
+* Date: 2005/08/26
+*
+*******************************************************/
 
 #ifndef AR_VIDEO_WIN_DS_H
 #define AR_VIDEO_WIN_DS_H
@@ -63,22 +63,22 @@ extern "C" {
 
 typedef void AR2VideoParamWinDST;
 
-int                    ar2VideoDispOptionWinDS     ( void );
-ARVideoSourceInfoListT *ar2VideoCreateSourceInfoListWinDS(const char *config);
-AR2VideoParamWinDST   *ar2VideoOpenWinDS           ( const char *config );
-int                    ar2VideoCloseWinDS          ( AR2VideoParamWinDST *vid );
-int                    ar2VideoGetIdWinDS          ( AR2VideoParamWinDST *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeWinDS        ( AR2VideoParamWinDST *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinDS ( AR2VideoParamWinDST *vid );
-AR2VideoBufferT       *ar2VideoGetImageWinDS       ( AR2VideoParamWinDST *vid );
-int                    ar2VideoCapStartWinDS       ( AR2VideoParamWinDST *vid );
-int                    ar2VideoCapStopWinDS        ( AR2VideoParamWinDST *vid );
+int                    ar2VideoDispOptionWinDS(void);
+ARVideoSourceInfoListT* ar2VideoCreateSourceInfoListWinDS(const char *config);
+AR2VideoParamWinDST* ar2VideoOpenWinDS(const char *config);
+int                    ar2VideoCloseWinDS(AR2VideoParamWinDST *vid);
+int                    ar2VideoGetIdWinDS(AR2VideoParamWinDST *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeWinDS(AR2VideoParamWinDST *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinDS(AR2VideoParamWinDST *vid);
+AR2VideoBufferT* ar2VideoGetImageWinDS(AR2VideoParamWinDST *vid);
+int                    ar2VideoCapStartWinDS(AR2VideoParamWinDST *vid);
+int                    ar2VideoCapStopWinDS(AR2VideoParamWinDST *vid);
 
-int                    ar2VideoGetParamiWinDS      ( AR2VideoParamWinDST *vid, int paramName, int *value );
-int                    ar2VideoSetParamiWinDS      ( AR2VideoParamWinDST *vid, int paramName, int  value );
-int                    ar2VideoGetParamdWinDS      ( AR2VideoParamWinDST *vid, int paramName, double *value );
-int                    ar2VideoSetParamdWinDS      ( AR2VideoParamWinDST *vid, int paramName, double  value );
- 
+int                    ar2VideoGetParamiWinDS(AR2VideoParamWinDST *vid, int paramName, int *value);
+int                    ar2VideoSetParamiWinDS(AR2VideoParamWinDST *vid, int paramName, int value);
+int                    ar2VideoGetParamdWinDS(AR2VideoParamWinDST *vid, int paramName, double *value);
+int                    ar2VideoSetParamdWinDS(AR2VideoParamWinDST *vid, int paramName, double value);
+
 #ifdef  __cplusplus
 }
 #endif

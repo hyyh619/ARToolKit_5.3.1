@@ -43,14 +43,14 @@
         optical tracking systems like ARToolKit. These functions implement a
         first-order low-pass filter for both the position and orientation
         components of the pose estimate transformation matrices.
- 
+
         Usage:<br>
         For each pose estimate which is to be filtered, an ARFilterTransMatInfo
         structure should be allocated by calling arFilterTransMatInit(). Samples
         are then added to the filter and the filtered value returned by calling
         arFilterTransMat(). At the end of operations, the filter should be
         disposed of by calling arFilterTransMatFinal().
-*/
+ */
 
 #ifndef AR_FILTERTRANSMAT_H
 #define AR_FILTERTRANSMAT_H
@@ -61,19 +61,19 @@
 extern "C" {
 #endif
 
-    
+
 typedef struct _ARFilterTransMatInfo ARFilterTransMatInfo;
 
 /*!
-    @defined 
+    @defined
     @abstract   Default sample rate (in Hertz).
     @discussion This value provides a default value for the
         sampleRate parameter in arFilterTransMatInit().
-*/
+ */
 #define AR_FILTER_TRANS_MAT_SAMPLE_RATE_DEFAULT 30.0
-    
+
 /*!
-    @defined 
+    @defined
     @abstract   Default cutoff frequency (in Hertz).
     @discussion This value provides a default value for the
         cutoffFreq parameter in arFilterTransMatInit().
@@ -86,11 +86,11 @@ typedef struct _ARFilterTransMatInfo ARFilterTransMatInfo;
     @discussion
         In order to filter a pose estimate, this function should be called to setup
         filter data structures.
- 
+
         Each ARFilterTransMatInfo structure should be used only with a single transformation
         matrix. For example, if you have 5 pose estimates to filter, you would call this
         function 5 times, once for each pose, and keep the pose data and filter data paired.
- 
+
         The structure produced should be passed to other filter functions dealing with
         the same transformation matrix.
     @param      sampleRate This value partially determines the filter properties.
@@ -106,8 +106,8 @@ typedef struct _ARFilterTransMatInfo ARFilterTransMatInfo;
     @result     Pointer to an ARFilterTransMatInfo structure, which should be passed
         to other filter functions dealing with the same transformation matrix, or NULL
         in case of error.
-*/
-ARFilterTransMatInfo *arFilterTransMatInit(const ARdouble sampleRate, const ARdouble cutoffFreq);
+ */
+ARFilterTransMatInfo* arFilterTransMatInit(const ARdouble sampleRate, const ARdouble cutoffFreq);
 
 /*!
     @function
@@ -129,7 +129,7 @@ ARFilterTransMatInfo *arFilterTransMatInit(const ARdouble sampleRate, const ARdo
         0 The filter parameters were set without error.<br>
         -1   Invalid parameter.<br>
         -2   One of the parameters was 0.0.
-*/
+ */
 int arFilterTransMatSetParams(ARFilterTransMatInfo *ftmi, const ARdouble sampleRate, const ARdouble cutoffFreq);
 
 /*!
@@ -150,8 +150,8 @@ int arFilterTransMatSetParams(ARFilterTransMatInfo *ftmi, const ARdouble sampleR
         0   No error.<br>
         -1   Invalid parameter.<br>
         -2   Invalid transformation matrix.
-*/
-int arFilterTransMat(ARFilterTransMatInfo *ftmi, ARdouble m[3][4], const int reset);
+ */
+int arFilterTransMat(ARFilterTransMatInfo * ftmi, ARdouble m[3][4], const int reset);
 
 /*!
     @function
@@ -160,12 +160,11 @@ int arFilterTransMat(ARFilterTransMatInfo *ftmi, ARdouble m[3][4], const int res
         When all filter use has completed, this function should be called to dispose
         of the filter structure.
     @param      ftmi Filter settings to dispose of.
-*/
+ */
 void arFilterTransMatFinal(ARFilterTransMatInfo *ftmi);
-    
-    
+
+
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !AR_FILTERTRANSMAT_H

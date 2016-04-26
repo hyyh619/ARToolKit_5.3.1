@@ -51,7 +51,7 @@
  */
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 
 #include <stdio.h>
@@ -72,7 +72,7 @@
 #include <AR/gsub_lite.h>
 
 // ============================================================================
-//	Constants
+//      Constants
 // ============================================================================
 
 #define VIEW_SCALEFACTOR  1.0                       // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
@@ -80,7 +80,7 @@
 #define VIEW_DISTANCE_MAX 10000.0                   // Objects further away from the camera than this will not be displayed. OpenGL units.
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // Preferences.
@@ -116,7 +116,7 @@ static float                     gDrawRotateAngle = 0;  // For use in drawing.
 
 
 // ============================================================================
-//	Function prototypes.
+//      Function prototypes.
 // ============================================================================
 
 static void print(const char *text, const float x, const float y, int calculateXFromRightEdge, int calculateYFromTopEdge);
@@ -125,7 +125,7 @@ static void printHelpKeys();
 static void printMode();
 
 // ============================================================================
-//	Functions
+//      Functions
 // ============================================================================
 
 // Something to look at, draw a rotating colour cube.
@@ -434,7 +434,6 @@ static void Keyboard(unsigned char key, int x, int y)
 
         arSetLabelingThresh(gARHandle, threshhold);
     }
-
 }
 
 static void mainLoop(void)
@@ -498,7 +497,6 @@ static void mainLoop(void)
                     k = j;                          // First marker detected.
                 else if (gARHandle->markerInfo[j].cf > gARHandle->markerInfo[k].cf)
                     k = j;                                                                                 // Higher confidence marker detected.
-
             }
         }
 
@@ -519,8 +517,8 @@ static void mainLoop(void)
 }
 
 //
-//	This function is called on events when the visibility of the
-//	GLUT window changes (including when it first becomes visible).
+//      This function is called on events when the visibility of the
+//      GLUT window changes (including when it first becomes visible).
 //
 static void Visibility(int visible)
 {
@@ -535,8 +533,8 @@ static void Visibility(int visible)
 }
 
 //
-//	This function is called when the
-//	GLUT window is resized.
+//      This function is called when the
+//      GLUT window is resized.
 //
 static void Reshape(int w, int h)
 {
@@ -599,7 +597,6 @@ static void Display(void)
 
         // All lighting and geometry to be drawn relative to the marker goes here.
         DrawCube();
-
     }     // gPatt_found
 
     // Any 2D overlays go here.
@@ -887,5 +884,4 @@ static void printMode()
     snprintf(text, sizeof(text), "Drawing into %dx%d window", windowWidth, windowHeight);
     print(text, 2.0f,  (line - 1) * 12.0f + 2.0f, 0, 1);
     line++;
-
 }

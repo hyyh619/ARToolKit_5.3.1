@@ -55,10 +55,10 @@
 
 typedef struct
 {
-    int xsize, ysize;
+    int    xsize, ysize;
     double mat[3][4];                               // Forced to double instead of ARdouble.
     double dist_factor[AR_DIST_FACTOR_NUM_MAX];     // Forced to double instead of ARdouble.
-    int dist_function_version;          // Must be last field in structure (as will not be written to disk).
+    int    dist_function_version;       // Must be last field in structure (as will not be written to disk).
 } ARParamd;
 
 const arParamVersionInfo_t arParamVersionInfo[AR_DIST_FUNCTION_VERSION_MAX] =
@@ -72,26 +72,26 @@ const arParamVersionInfo_t arParamVersionInfo[AR_DIST_FUNCTION_VERSION_MAX] =
 #ifdef AR_LITTLE_ENDIAN
 typedef union
 {
-    int x;
+    int           x;
     unsigned char y[4];
 } SwapIntT;
 
 typedef union
 {
-    float x;
+    float         x;
     unsigned char y[4];
 } SwapFloatT;
 
 typedef union
 {
-    double x;
+    double        x;
     unsigned char y[8];
 } SwapDoubleT;
 
 static void byteSwapInt(const int *from, int *to)
 {
-    SwapIntT   *w1, *w2;
-    int i;
+    SwapIntT *w1, *w2;
+    int      i;
 
     w1 = (SwapIntT*)from;
     w2 = (SwapIntT*)to;
@@ -120,8 +120,8 @@ static void byteSwapInt(const int *from, int *to)
 
 static void byteSwapDouble(const double *from, double *to)
 {
-    SwapDoubleT   *w1, *w2;
-    int i;
+    SwapDoubleT *w1, *w2;
+    int         i;
 
     w1 = (SwapDoubleT*)from;
     w2 = (SwapDoubleT*)to;
@@ -137,7 +137,7 @@ static void byteSwapDouble(const double *from, double *to)
 static void byteswap(ARParamd *param)
 {
     ARParamd wparam;
-    int i, j;
+    int      i, j;
 
     byteSwapInt(&(param->xsize), &(wparam.xsize));
     byteSwapInt(&(param->ysize), &(wparam.ysize));
@@ -167,7 +167,7 @@ static void byteswap(ARParamd *param)
 // where floating point values are always stored as doubles.
 static ARParamd paramftod(const ARParam *param)
 {
-    int i, j;
+    int      i, j;
     ARParamd paramd;
 
     paramd.xsize = param->xsize;
@@ -192,7 +192,7 @@ static ARParamd paramftod(const ARParam *param)
 
 static ARParam paramdtof(const ARParamd *paramd)
 {
-    int i, j;
+    int     i, j;
     ARParam param;
 
     param.xsize = paramd->xsize;
@@ -218,12 +218,12 @@ static ARParam paramdtof(const ARParamd *paramd)
 
 int    arParamSave(const char *filename, const int num, const ARParam *param, ...)
 {
-    FILE        *fp;
-    va_list ap;
-    ARParam     *param1;
-    int i;
+    FILE     *fp;
+    va_list  ap;
+    ARParam  *param1;
+    int      i;
     ARParamd param_toWrite;
-    double temp;
+    double   temp;
 
     if (num < 1 || !filename || !param)
         return -1;
@@ -245,7 +245,7 @@ int    arParamSave(const char *filename, const int num, const ARParam *param, ..
 
     if (param_toWrite.dist_function_version == 1)       // Ensure that version 1 files are compatible with the structure layout in ARToolKit 2.x.
     {
-        temp = param_toWrite.dist_factor[2];
+        temp                         = param_toWrite.dist_factor[2];
         param_toWrite.dist_factor[2] = param_toWrite.dist_factor[3];
         param_toWrite.dist_factor[3] = temp;
     }
@@ -274,7 +274,7 @@ int    arParamSave(const char *filename, const int num, const ARParam *param, ..
 
         if (param_toWrite.dist_function_version == 1)
         {
-            temp = param_toWrite.dist_factor[2];
+            temp                         = param_toWrite.dist_factor[2];
             param_toWrite.dist_factor[2] = param_toWrite.dist_factor[3];
             param_toWrite.dist_factor[3] = temp;
         }
@@ -298,15 +298,15 @@ int    arParamSave(const char *filename, const int num, const ARParam *param, ..
 int arParamLoad(const char *filename, int num, ARParam *param, ...)
 {
     // COVHI10334
-    int         ret = 0;
-    FILE        *fp = NULL;
-    int         i = 0;
-    va_list     ap;
-    ARParam     *param1;
-    int         dist_function_version;
-    long        flen;
-    ARParamd    param_wasRead;
-    double      temp;
+    int      ret = 0;
+    FILE     *fp = NULL;
+    int      i   = 0;
+    va_list  ap;
+    ARParam  *param1;
+    int      dist_function_version;
+    long     flen;
+    ARParamd param_wasRead;
+    double   temp;
 
     if (num < 1 || !filename || !param)
     {
@@ -335,7 +335,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
     }
 
     flen = ftell(fp);
-    //ARLOGd("Loading a parameter file of length %ld.\n", flen);
+    // ARLOGd("Loading a parameter file of length %ld.\n", flen);
     rewind(fp);  // reset file pointer to the beginning of file stream.
 
     // Try to determine distortion function version number.
@@ -374,7 +374,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
 
     if (dist_function_version == 1)       // Ensure that file layout in ARToolKit 2.x.version is modified for ARToolKit 4.x and later.
     {
-        temp = param_wasRead.dist_factor[2];
+        temp                         = param_wasRead.dist_factor[2];
         param_wasRead.dist_factor[2] = param_wasRead.dist_factor[3];
         param_wasRead.dist_factor[3] = temp;
     }
@@ -389,7 +389,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
 
     for (i = 1; i < num; i++)
     {
-        param1 = va_arg(ap, ARParam*);
+        param1                        = va_arg(ap, ARParam*);
         param1->dist_function_version = param->dist_function_version;
 
         if (fread((void*)&param_wasRead, arParamVersionInfo[param->dist_function_version - 1].ARParam_size, 1, fp) != 1)
@@ -405,7 +405,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
 
         if (dist_function_version == 1)   // Ensure that file layout in ARToolKit 2.x.version is modified for ARToolKit 4.x and later.
         {
-            temp = param_wasRead.dist_factor[2];
+            temp                         = param_wasRead.dist_factor[2];
             param_wasRead.dist_factor[2] = param_wasRead.dist_factor[3];
             param_wasRead.dist_factor[3] = temp;
         }
@@ -429,10 +429,10 @@ done:
 
 int    arParamLoadFromBuffer(const void *buffer, size_t bufsize, ARParam *param)
 {
-    int i;
-    int dist_function_version;
+    int      i;
+    int      dist_function_version;
     ARParamd param_wasRead;
-    double temp;
+    double   temp;
 
     if (!buffer || !param)
         return -1;
@@ -452,7 +452,7 @@ int    arParamLoadFromBuffer(const void *buffer, size_t bufsize, ARParam *param)
     if (i == AR_DIST_FUNCTION_VERSION_MAX)
     {
         ARLOGe("Error: supplied buffer does not appear to be ARToolKit camera parameters.\n");
-        //fclose(fp);  // don't need to close file anymore
+        // fclose(fp);  // don't need to close file anymore
         return -1;
     }
 
@@ -468,7 +468,7 @@ int    arParamLoadFromBuffer(const void *buffer, size_t bufsize, ARParam *param)
 
     if (dist_function_version == 1)       // Ensure that file layout in ARToolKit 2.x.version is modified for ARToolKit 4.x and later.
     {
-        temp = param_wasRead.dist_factor[2];
+        temp                         = param_wasRead.dist_factor[2];
         param_wasRead.dist_factor[2] = param_wasRead.dist_factor[3];
         param_wasRead.dist_factor[3] = temp;
     }
@@ -484,7 +484,7 @@ int    arParamLoadFromBuffer(const void *buffer, size_t bufsize, ARParam *param)
 
 int arParamSaveExt(const char *filename, ARdouble para[3][4])
 {
-    FILE        *fp;
+    FILE   *fp;
     double para0[3][4];
 
 #ifdef AR_LITTLE_ENDIAN
@@ -542,7 +542,7 @@ int arParamSaveExt(const char *filename, ARdouble para[3][4])
 
 int arParamLoadExt(const char *filename, ARdouble para[3][4])
 {
-    FILE        *fp;
+    FILE   *fp;
     double para0[3][4];
 
 #ifdef AR_LITTLE_ENDIAN
@@ -638,7 +638,7 @@ int arParamLoadExtFromBuffer(const void *buffer, size_t bufsize, ARdouble para[3
 
 int arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble aspect, const ARdouble m[16])
 {
-    FILE        *fp;
+    FILE   *fp;
     double fovy0, aspect0, m0[16];
 
 #ifdef AR_LITTLE_ENDIAN
@@ -658,7 +658,7 @@ int arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble
         return -1;
     }
 
-    fovy0 = (double)fovy;
+    fovy0   = (double)fovy;
     aspect0 = (double)aspect;
 
     for (i = 0; i < 16; i++)
@@ -714,7 +714,7 @@ bail:
 
 int arParamLoadOptical(const char *filename, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16])
 {
-    FILE        *fp;
+    FILE   *fp;
     double fovy0, aspect0, m0[16];
 
 #ifdef AR_LITTLE_ENDIAN
@@ -774,7 +774,7 @@ int arParamLoadOptical(const char *filename, ARdouble *fovy_p, ARdouble *aspect_
     }
 #endif
 
-    *fovy_p = (ARdouble)fovy0;
+    *fovy_p   = (ARdouble)fovy0;
     *aspect_p = (ARdouble)aspect0;
 
     for (i = 0; i < 16; i++)
@@ -816,7 +816,7 @@ int arParamLoadOpticalFromBuffer(const void *buffer, size_t bufsize, ARdouble *f
     memcpy(m0, (unsigned char*)buffer + 2 * sizeof(double), 16 * sizeof(double));
 #endif
 
-    *fovy_p = (ARdouble)fovy0;
+    *fovy_p   = (ARdouble)fovy0;
     *aspect_p = (ARdouble)aspect0;
 
     for (i = 0; i < 16; i++)

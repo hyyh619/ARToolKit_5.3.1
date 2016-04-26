@@ -1,5 +1,5 @@
 /*
- *	videoImage.h
+ *      videoImage.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -49,22 +49,22 @@ extern "C" {
 typedef struct _AR2VideoParamImageT AR2VideoParamImageT;
 
 
-int                    ar2VideoDispOptionImage     ( void );
-AR2VideoParamImageT   *ar2VideoOpenImage           ( const char *config );
-int                    ar2VideoCloseImage          ( AR2VideoParamImageT *vid );
-int                    ar2VideoGetIdImage          ( AR2VideoParamImageT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeImage        ( AR2VideoParamImageT *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatImage ( AR2VideoParamImageT *vid );
-AR2VideoBufferT       *ar2VideoGetImageImage       ( AR2VideoParamImageT *vid );
-int                    ar2VideoCapStartImage       ( AR2VideoParamImageT *vid );
-int                    ar2VideoCapStopImage        ( AR2VideoParamImageT *vid );
+int                    ar2VideoDispOptionImage(void);
+AR2VideoParamImageT* ar2VideoOpenImage(const char *config);
+int                    ar2VideoCloseImage(AR2VideoParamImageT *vid);
+int                    ar2VideoGetIdImage(AR2VideoParamImageT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeImage(AR2VideoParamImageT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatImage(AR2VideoParamImageT *vid);
+AR2VideoBufferT* ar2VideoGetImageImage(AR2VideoParamImageT *vid);
+int                    ar2VideoCapStartImage(AR2VideoParamImageT *vid);
+int                    ar2VideoCapStopImage(AR2VideoParamImageT *vid);
 
-int                    ar2VideoGetParamiImage      ( AR2VideoParamImageT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiImage      ( AR2VideoParamImageT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdImage      ( AR2VideoParamImageT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdImage      ( AR2VideoParamImageT *vid, int paramName, double  value );
-int                    ar2VideoGetParamsImage      ( AR2VideoParamImageT *vid, const int paramName, char **value );
-int                    ar2VideoSetParamsImage      ( AR2VideoParamImageT *vid, const int paramName, const char  *value );
+int                    ar2VideoGetParamiImage(AR2VideoParamImageT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiImage(AR2VideoParamImageT *vid, int paramName, int value);
+int                    ar2VideoGetParamdImage(AR2VideoParamImageT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdImage(AR2VideoParamImageT *vid, int paramName, double value);
+int                    ar2VideoGetParamsImage(AR2VideoParamImageT *vid, const int paramName, char **value);
+int                    ar2VideoSetParamsImage(AR2VideoParamImageT *vid, const int paramName, const char  *value);
 
 int ar2VideoSetBufferSizeImage(AR2VideoParamImageT *vid, const int width, const int height);
 int ar2VideoGetBufferSizeImage(AR2VideoParamImageT *vid, int *width, int *height);

@@ -1,8 +1,8 @@
 /*
- *	ARMarkerSquare.c
+ *      ARMarkerSquare.c
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit NFT with models rendered in OSG,
+ *      Demonstration of ARToolKit NFT with models rendered in OSG,
  *  and marker pose estimates filtered to reduce jitter.
  *
  *  Press '?' while running for help on available key commands.
@@ -135,7 +135,6 @@ void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHand
 
     for (i = 0; i < markersSquareCount; i++)
     {
-
         // Read marker name.
         if (!get_buff(buf, MAXPATHLEN, fp, 1))
         {
@@ -196,7 +195,6 @@ void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHand
                 markersSquare[i].patt_type       = AR_PATTERN_TYPE_MATRIX;
                 patt_type                       |= 0x02;
             }
-
         }
         else if (strcmp(buf1, "MULTI") == 0)
         {
@@ -238,7 +236,6 @@ void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHand
     // If not all markers were read, an error occurred.
     if (i < markersSquareCount)
     {
-
         // Clean up.
         for (; i >= 0; i--)
         {

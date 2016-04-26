@@ -37,16 +37,15 @@
 
 #include <string>
 
-namespace vision {
-    
-    /**
-     * Database ID type
-     */
-    typedef std::string db_id_t;
-    
-    /**
-     * Frame ID type
-     */
-    typedef int frame_id_t;
-    
+namespace vision
+{
+/**
+ * Database ID type
+ */
+typedef std::string db_id_t;
+
+/**
+ * Frame ID type
+ */
+typedef int frame_id_t;
 } // vision

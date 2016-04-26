@@ -1,5 +1,5 @@
 /* readtex.h */
-/* 
+/*
  * Read an SGI .rgb image file and generate a mipmap texture set.
  */
 
@@ -47,14 +47,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 #ifndef __Eden_h__
 #  include <Eden/Eden.h>
 #endif
 
 #include <stdio.h>
-    
-#ifdef EDEN_HAVE_LIBJPEG     
+
+#ifdef EDEN_HAVE_LIBJPEG
 /*!
     @function
     @abstract Read a JPEG file and return it as a raw buffer.
@@ -74,9 +74,9 @@ extern "C" {
         leftmost pixel of the uppermost scanline, and continuing by component, pixel, and line.
         This buffer must be free()d when finished with.
  */
-unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi);
+unsigned char* jpgread(FILE *fp, int *w, int *h, int *nc, float *dpi);
 #endif // EDEN_HAVE_LIBJPEG
-    
+
 /*!
     @function
     @abstract Read an image file and return it as a raw buffer.
@@ -93,10 +93,9 @@ unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi);
         leftmost pixel of the uppermost scanline, and continuing by component, pixel, and line.
         This buffer must be free()d when finished with.
  */
-extern unsigned char *ReadTex(const char *imageFile, int *w, int *h, int *nc);
+extern unsigned char* ReadTex(const char *imageFile, int *w, int *h, int *nc);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif	/* !READTEX_H */
+#endif  /* !READTEX_H */

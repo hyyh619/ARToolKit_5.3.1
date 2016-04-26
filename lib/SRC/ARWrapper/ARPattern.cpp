@@ -46,24 +46,24 @@
 #endif
 
 ARPattern::ARPattern() :
-	m_width(0.0f),
+    m_width(0.0f),
     m_height(0.0f),
     m_imageSizeX(0),
     m_imageSizeY(0),
-	m_image(NULL),
+    m_image(NULL),
     m_pattType(PATTERN_TYPE_NONE),
     m_patternID(-1)
 {
-    m_matrix[ 0] = _1_0;
-    m_matrix[ 1] = _0_0;
-    m_matrix[ 2] = _0_0;
-    m_matrix[ 3] = _0_0;
-    m_matrix[ 4] = _0_0;
-    m_matrix[ 5] = _1_0;
-    m_matrix[ 6] = _0_0;
-    m_matrix[ 7] = _0_0;
-    m_matrix[ 8] = _0_0;
-    m_matrix[ 9] = _0_0;
+    m_matrix[0]  = _1_0;
+    m_matrix[1]  = _0_0;
+    m_matrix[2]  = _0_0;
+    m_matrix[3]  = _0_0;
+    m_matrix[4]  = _0_0;
+    m_matrix[5]  = _1_0;
+    m_matrix[6]  = _0_0;
+    m_matrix[7]  = _0_0;
+    m_matrix[8]  = _0_0;
+    m_matrix[9]  = _0_0;
     m_matrix[10] = _1_0;
     m_matrix[11] = _0_0;
     m_matrix[12] = _0_0;
@@ -74,28 +74,33 @@ ARPattern::ARPattern() :
 
 ARPattern::~ARPattern()
 {
-	freeImage();
+    freeImage();
 }
 
 bool ARPattern::loadTemplate(int patternID, const ARPattHandle *arPattHandle, float width)
 {
-    if (!arPattHandle) return false;
-    if (!arPattHandle->pattf[patternID]) return false;
-    
+    if (!arPattHandle)
+        return false;
+
+    if (!arPattHandle->pattf[patternID])
+        return false;
+
     m_patternID = patternID;
-    m_width = m_height = width;
-    
+    m_width     = m_height = width;
+
     // Create the image.
     m_imageSizeX = m_imageSizeY = arPattHandle->pattSize;
-    m_image = new Color[m_imageSizeX * m_imageSizeY];
-    
+    m_image      = new Color[m_imageSizeX * m_imageSizeY];
+
     const int *arr = arPattHandle->patt[m_patternID * 4];
-    for (int y = 0; y < m_imageSizeY; y++) {
-        for (int x = 0; x < m_imageSizeX; x++) {
-            
-            int pattIdx = (m_imageSizeY - 1 - y)*m_imageSizeX + x; // Flip pattern in Y.
-            int buffIdx = y*m_imageSizeX + x;
-            
+
+    for (int y = 0; y < m_imageSizeY; y++)
+    {
+        for (int x = 0; x < m_imageSizeX; x++)
+        {
+            int pattIdx = (m_imageSizeY - 1 - y) * m_imageSizeX + x; // Flip pattern in Y.
+            int buffIdx = y * m_imageSizeX + x;
+
             Color *c = &m_image[buffIdx];
             c->b = 1.0f - (float)arr[pattIdx * 3 + 0] / 255.0f;
             c->g = 1.0f - (float)arr[pattIdx * 3 + 1] / 255.0f;
@@ -103,17 +108,17 @@ bool ARPattern::loadTemplate(int patternID, const ARPattHandle *arPattHandle, fl
             c->a = 1.0f;
         }
     }
-    
-	return true;
+
+    return true;
 }
 
 bool ARPattern::loadMatrix(int barcodeID, AR_MATRIX_CODE_TYPE type, float width)
 {
     m_patternID = barcodeID;
-    m_width = m_height = width;
+    m_width     = m_height = width;
 
     // TODO: implement matrix code to image.
-    
+
     return true;
 }
 
@@ -121,19 +126,22 @@ bool ARPattern::loadMatrix(int barcodeID, AR_MATRIX_CODE_TYPE type, float width)
 bool ARPattern::loadISet(const AR2ImageSetT *imageSet, float nftScale)
 {
     // TODO: implement imageset code to imag.
-    if (imageSet && imageSet->scale) {
+    if (imageSet && imageSet->scale)
+    {
         AR2ImageT *image = imageSet->scale[0]; // Assume best scale (largest image) is first entry in array scale[index] (index is in range [0, imageSet->num - 1]).
-        m_width = image->xsize * 25.4f / image->dpi * nftScale;
+        m_width  = image->xsize * 25.4f / image->dpi * nftScale;
         m_height = image->ysize * 25.4f / image->dpi * nftScale;
     }
+
     return true;
 }
 #endif
 
 void ARPattern::freeImage()
 {
-	if (m_image) {
-		delete[] m_image;
-		m_image = NULL;
-	}
+    if (m_image)
+    {
+        delete[] m_image;
+        m_image = NULL;
+    }
 }

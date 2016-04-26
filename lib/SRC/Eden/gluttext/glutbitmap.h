@@ -1,8 +1,8 @@
 /* Copyright (c) Mark J. Kilgard, 1994. */
 
 /* This program is freely distributable without licensing fees
- and is provided without guarantee or warrantee expressed or
- implied. This program is -not- in the public domain. */
+   and is provided without guarantee or warrantee expressed or
+   implied. This program is -not- in the public domain. */
 
 #ifndef __glutbitmap_h__
 #define __glutbitmap_h__
@@ -29,7 +29,8 @@
 #  endif
 #endif
 
-typedef struct {
+typedef struct
+{
     const GLsizei width;
     const GLsizei height;
     const GLfloat xorig;
@@ -38,13 +39,13 @@ typedef struct {
     const GLubyte *bitmap;
 } BitmapCharRec, *BitmapCharPtr;
 
-typedef struct _BitmapFontRec {
-    const char *name;
-    const int num_chars;
-    const int first;
-    const BitmapCharRec * const *ch;
+typedef struct _BitmapFontRec
+{
+    const char                 *name;
+    const int                  num_chars;
+    const int                  first;
+    const BitmapCharRec* const *ch;
 } BitmapFontRec, *BitmapFontPtr;
 
-typedef void *GLUTbitmapFont;
-
+typedef void*GLUTbitmapFont;
 #endif /* __glutbitmap_h__ */

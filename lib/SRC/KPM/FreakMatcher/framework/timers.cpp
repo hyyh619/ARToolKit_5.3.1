@@ -38,60 +38,66 @@
 #include "logger.h"
 
 #ifdef _WIN32
-#  include <sys/timeb.h>				// struct _timeb, _ftime
+#  include <sys/timeb.h>                                // struct _timeb, _ftime
 #else
-#  include <sys/time.h>					// gettimeofday(), struct timeval
+#  include <sys/time.h>                                 // gettimeofday(), struct timeval
 #endif
 
 using namespace vision;
 
 Timer::Timer()
-: mStartTime(-1)
-, mStopTime(-1) {}
+    : mStartTime(-1)
+    , mStopTime(-1) {}
 
 Timer::~Timer() {}
 
-void Timer::start() {
+void Timer::start()
+{
 #ifdef _WIN32
-	struct _timeb sys_time;
-	_ftime(&sys_time);
-	mStartTime = (double)sys_time.time + (double)sys_time.millitm*1e-3;
+    struct _timeb sys_time;
+    _ftime(&sys_time);
+    mStartTime = (double)sys_time.time + (double)sys_time.millitm * 1e-3;
 #else
     timeval t;
     gettimeofday(&t, NULL);
-    mStartTime = (double)t.tv_sec + (double)t.tv_usec*1e-6;
+    mStartTime = (double)t.tv_sec + (double)t.tv_usec * 1e-6;
 #endif
 }
 
-void Timer::stop() {
+void Timer::stop()
+{
     ASSERT(mStartTime >= 0, "Clock has not been started");
 #ifdef _WIN32
-	struct _timeb sys_time;
-	_ftime(&sys_time);
-	mStopTime = (double)sys_time.time + (double)sys_time.millitm*1e-3;
+    struct _timeb sys_time;
+    _ftime(&sys_time);
+    mStopTime = (double)sys_time.time + (double)sys_time.millitm * 1e-3;
 #else
-	timeval t;
-	gettimeofday(&t, NULL);
-	mStopTime = (double)t.tv_sec + (double)t.tv_usec*1e-6;
+    timeval t;
+    gettimeofday(&t, NULL);
+    mStopTime = (double)t.tv_sec + (double)t.tv_usec * 1e-6;
 #endif
 }
 
-double Timer::duration_in_seconds() const {
+double Timer::duration_in_seconds() const
+{
     ASSERT(mStartTime >= 0, "Clock has not been started");
     ASSERT(mStopTime >= 0, "Clock has not been stopped");
     return mStopTime - mStartTime;
 }
 
-double Timer::duration_in_milliseconds() const {
-    return duration_in_seconds()*1000;
+double Timer::duration_in_milliseconds() const
+{
+    return duration_in_seconds() * 1000;
 }
 
-ScopedTimer::ScopedTimer(const char* str)
-: mStr(str) {
+ScopedTimer::ScopedTimer(const char *str)
+    : mStr(str)
+{
     mTimer.start();
 }
 
-ScopedTimer::~ScopedTimer() {
+ScopedTimer::~ScopedTimer()
+{
     mTimer.stop();
     LOG_INFO("%s: %f ms", mStr.c_str(), mTimer.duration_in_milliseconds());
 }

@@ -57,15 +57,15 @@ typedef struct _THREAD_HANDLE_T THREAD_HANDLE_T;
 //
 
 // Setup.
-THREAD_HANDLE_T *threadInit( int ID, void *arg, void *(*start_routine)(THREAD_HANDLE_T*) ); // Create a new thread, and launch start_routine() on it. Returns NULL in case of failure.
-int threadFree( THREAD_HANDLE_T **flag ); // Frees structures associated with the thread handle pointed to by the location pointed to by flag. Thread should already have terminated (i.e. threadWaitQuit() has returned). Location pointed to by flag is set to NULL. 
+THREAD_HANDLE_T* threadInit(int ID, void *arg, void*(*start_routine)(THREAD_HANDLE_T*));    // Create a new thread, and launch start_routine() on it. Returns NULL in case of failure.
+int threadFree(THREAD_HANDLE_T **flag);   // Frees structures associated with the thread handle pointed to by the location pointed to by flag. Thread should already have terminated (i.e. threadWaitQuit() has returned). Location pointed to by flag is set to NULL.
 
 // Communication.
-int threadStartSignal( THREAD_HANDLE_T *flag ); // Send the worker thread the "start processing" request.
-int threadGetStatus( THREAD_HANDLE_T *flag );   // Find out (without waiting) whether a worker has ended. 0 = not started or started but not yet ended, 1 = ended.
-int threadGetBusyStatus( THREAD_HANDLE_T *flag ); // Find out if a worker is currently busy. 0 = worker not started or worker ended, 1 = worker started but not yet ended.
-int threadEndWait( THREAD_HANDLE_T *flag );     // Wait for thread to end processing.
-int threadWaitQuit( THREAD_HANDLE_T *flag );    // Tell a thread waiting for the "start processing" request to quit (exit), and wait until this has happened.
+int threadStartSignal(THREAD_HANDLE_T *flag);   // Send the worker thread the "start processing" request.
+int threadGetStatus(THREAD_HANDLE_T *flag);     // Find out (without waiting) whether a worker has ended. 0 = not started or started but not yet ended, 1 = ended.
+int threadGetBusyStatus(THREAD_HANDLE_T *flag);   // Find out if a worker is currently busy. 0 = worker not started or worker ended, 1 = worker started but not yet ended.
+int threadEndWait(THREAD_HANDLE_T *flag);       // Wait for thread to end processing.
+int threadWaitQuit(THREAD_HANDLE_T *flag);      // Tell a thread waiting for the "start processing" request to quit (exit), and wait until this has happened.
 
 // Example client structure:
 //
@@ -88,11 +88,11 @@ int threadWaitQuit( THREAD_HANDLE_T *flag );    // Tell a thread waiting for the
 //
 // Worker-side.
 //
-    
-int threadStartWait( THREAD_HANDLE_T *flag );   // Wait for the "start processing" request. Returns 0 if worker should start, or -1 if worker should quit (exit).
-int threadEndSignal( THREAD_HANDLE_T *flag );   // Notify anyone waiting that the worker has ended.
-int threadGetID( THREAD_HANDLE_T *flag );       // Get the 'ID' value passed to the thread's start routine.
-void *threadGetArg( THREAD_HANDLE_T *flag );    // Get the 'arg' value passed to the thread's start routine.
+
+int threadStartWait(THREAD_HANDLE_T *flag);     // Wait for the "start processing" request. Returns 0 if worker should start, or -1 if worker should quit (exit).
+int threadEndSignal(THREAD_HANDLE_T *flag);     // Notify anyone waiting that the worker has ended.
+int threadGetID(THREAD_HANDLE_T *flag);         // Get the 'ID' value passed to the thread's start routine.
+void* threadGetArg(THREAD_HANDLE_T *flag);      // Get the 'arg' value passed to the thread's start routine.
 
 // Example worker structure:
 //

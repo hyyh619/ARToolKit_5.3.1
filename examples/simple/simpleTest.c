@@ -67,30 +67,30 @@
 #include <AR/gsub.h>
 #include <AR/video.h>
 
-#define             CPARA_NAME       "Data/camera_para.dat"
-#define             VPARA_NAME       "Data/cameraSetting-%08x%08x.dat"
-#define             PATT_NAME        "Data/patt.hiro"
+#define             CPARA_NAME "Data/camera_para.dat"
+#define             VPARA_NAME "Data/cameraSetting-%08x%08x.dat"
+#define             PATT_NAME  "Data/patt.hiro"
 
-ARHandle           *arHandle;
-ARPattHandle       *arPattHandle;
-AR3DHandle         *ar3DHandle;
-ARGViewportHandle  *vp;
-int xsize, ysize;
-int flipMode = 0;
-int patt_id;
-double patt_width = 80.0;
-int count = 0;
-char fps[256];
-char errValue[256];
-int distF = 0;
-int contF = 0;
-ARParamLT          *gCparamLT = NULL;
+ARHandle          *arHandle;
+ARPattHandle      *arPattHandle;
+AR3DHandle        *ar3DHandle;
+ARGViewportHandle *vp;
+int               xsize, ysize;
+int               flipMode = 0;
+int               patt_id;
+double            patt_width = 80.0;
+int               count      = 0;
+char              fps[256];
+char              errValue[256];
+int               distF      = 0;
+int               contF      = 0;
+ARParamLT         *gCparamLT = NULL;
 
 static void   init(int argc, char *argv[]);
-static void   keyFunc( unsigned char key, int x, int y );
+static void   keyFunc(unsigned char key, int x, int y);
 static void   cleanup(void);
 static void   mainLoop(void);
-static void   draw( ARdouble trans[3][4] );
+static void   draw(ARdouble trans[3][4]);
 
 // Test git-plus
 int main(int argc, char *argv[])
@@ -98,15 +98,15 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv);
     init(argc, argv);
 
-    argSetDispFunc( mainLoop, 1 );
-    argSetKeyFunc( keyFunc );
-    count = 0;
+    argSetDispFunc(mainLoop, 1);
+    argSetKeyFunc(keyFunc);
+    count  = 0;
     fps[0] = '\0';
     arUtilTimerReset();
     argMainLoop();
     return (0);
 }
-static void keyFunc( unsigned char key, int x, int y )
+static void keyFunc(unsigned char key, int x, int y)
 {
     int value;
 
@@ -116,34 +116,38 @@ static void keyFunc( unsigned char key, int x, int y )
         cleanup();
         exit(0);
         break;
+
     case '1':
     case '-':
-        arGetLabelingThresh( arHandle, &value );
+        arGetLabelingThresh(arHandle, &value);
         value -= 5;
 
         if (value < 0)
             value = 0;
 
-        arSetLabelingThresh( arHandle, value );
+        arSetLabelingThresh(arHandle, value);
         ARLOG("thresh = %d\n", value);
         break;
+
     case '2':
     case '+':
-        arGetLabelingThresh( arHandle, &value );
+        arGetLabelingThresh(arHandle, &value);
         value += 5;
 
         if (value > 255)
             value = 255;
 
-        arSetLabelingThresh( arHandle, value );
+        arSetLabelingThresh(arHandle, value);
         ARLOG("thresh = %d\n", value);
         break;
+
     case 'd':
     case 'D':
-        arGetDebugMode( arHandle, &value );
+        arGetDebugMode(arHandle, &value);
         value = 1 - value;
-        arSetDebugMode( arHandle, value );
+        arSetDebugMode(arHandle, value);
         break;
+
     case 'h':
     case 'H':
 
@@ -152,8 +156,9 @@ static void keyFunc( unsigned char key, int x, int y )
         else
             flipMode = flipMode | AR_GL_FLIP_H;
 
-        argViewportSetFlipMode( vp, flipMode );
+        argViewportSetFlipMode(vp, flipMode);
         break;
+
     case 'v':
     case 'V':
 
@@ -162,24 +167,27 @@ static void keyFunc( unsigned char key, int x, int y )
         else
             flipMode = flipMode | AR_GL_FLIP_V;
 
-        argViewportSetFlipMode( vp, flipMode );
+        argViewportSetFlipMode(vp, flipMode);
         break;
+
     case ' ':
         distF = 1 - distF;
 
         if (distF)
         {
-            argViewportSetDistortionMode( vp, AR_GL_DISTORTION_COMPENSATE_ENABLE );
+            argViewportSetDistortionMode(vp, AR_GL_DISTORTION_COMPENSATE_ENABLE);
         }
         else
         {
-            argViewportSetDistortionMode( vp, AR_GL_DISTORTION_COMPENSATE_DISABLE );
+            argViewportSetDistortionMode(vp, AR_GL_DISTORTION_COMPENSATE_DISABLE);
         }
 
         break;
+
     case 'c':
         contF = 1 - contF;
         break;
+
     case '?':
     case '/':
         ARLOG("Keys:\n");
@@ -192,6 +200,7 @@ static void keyFunc( unsigned char key, int x, int y )
         ARLOG("\nAdditionally, the ARVideo library supplied the following help text:\n");
         arVideoDispOption();
         break;
+
     default:
         break;
     }
@@ -199,15 +208,15 @@ static void keyFunc( unsigned char key, int x, int y )
 
 static void mainLoop(void)
 {
-    static int contF2 = 0;
+    static int      contF2 = 0;
     static ARdouble patt_trans[3][4];
-    static ARUint8 *dataPtr = NULL;
-    ARMarkerInfo   *markerInfo;
-    int markerNum;
-    ARdouble err;
-    int imageProcMode;
-    int debugMode;
-    int j, k;
+    static ARUint8  *dataPtr = NULL;
+    ARMarkerInfo    *markerInfo;
+    int             markerNum;
+    ARdouble        err;
+    int             imageProcMode;
+    int             debugMode;
+    int             j, k;
 
     /* grab a video frame */
     if ((dataPtr = (ARUint8*)arVideoGetImage()) == NULL)
@@ -217,11 +226,11 @@ static void mainLoop(void)
     }
 
     argDrawMode2D(vp);
-    arGetDebugMode( arHandle, &debugMode );
+    arGetDebugMode(arHandle, &debugMode);
 
     if (debugMode == 0)
     {
-        argDrawImage( dataPtr );
+        argDrawImage(dataPtr);
     }
     else
     {
@@ -229,11 +238,11 @@ static void mainLoop(void)
 
         if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE)
         {
-            argDrawImage( arHandle->labelInfo.bwImage );
+            argDrawImage(arHandle->labelInfo.bwImage);
         }
         else
         {
-            argDrawImageHalf( arHandle->labelInfo.bwImage );
+            argDrawImageHalf(arHandle->labelInfo.bwImage);
         }
     }
 
@@ -254,7 +263,7 @@ static void mainLoop(void)
     glColor3f(0.0f, 1.0f, 0.0f);
     argDrawStringsByIdealPos(fps, 10, ysize - 30);
 
-    markerNum = arGetMarkerNum( arHandle );
+    markerNum = arGetMarkerNum(arHandle);
 
     if (markerNum == 0)
     {
@@ -263,8 +272,8 @@ static void mainLoop(void)
     }
 
     /* check for object visibility */
-    markerInfo = arGetMarker( arHandle );
-    k = -1;
+    markerInfo = arGetMarker(arHandle);
+    k          = -1;
 
     for (j = 0; j < markerNum; j++)
     {
@@ -302,7 +311,7 @@ static void mainLoop(void)
     glColor3f(0.0f, 1.0f, 0.0f);
     argDrawStringsByIdealPos(fps, 10, ysize - 30);
     argDrawStringsByIdealPos(errValue, 10, ysize - 60);
-    //ARLOG("err = %f\n", err);
+    // ARLOG("err = %f\n", err);
 
     contF2 = 1;
     draw(patt_trans);
@@ -312,18 +321,18 @@ static void mainLoop(void)
 
 static void   init(int argc, char *argv[])
 {
-    ARParam cparam;
-    ARGViewport viewport;
-    char vconf[512];
+    ARParam         cparam;
+    ARGViewport     viewport;
+    char            vconf[512];
     AR_PIXEL_FORMAT pixFormat;
-    ARUint32 id0, id1;
-    int i;
+    ARUint32        id0, id1;
+    int             i;
 
     if (argc == 1)
         vconf[0] = '\0';
     else
     {
-        strcpy( vconf, argv[1] );
+        strcpy(vconf, argv[1]);
 
         for (i = 2; i < argc; i++)
         {
@@ -334,7 +343,7 @@ static void   init(int argc, char *argv[])
     /* open the video path */
     ARLOGi("Using video configuration '%s'.\n", vconf);
 
-    if (arVideoOpen( vconf ) < 0)
+    if (arVideoOpen(vconf) < 0)
         exit(0);
 
     if (arVideoGetSize(&xsize, &ysize) < 0)
@@ -345,7 +354,7 @@ static void   init(int argc, char *argv[])
     if ((pixFormat = arVideoGetPixelFormat()) < 0)
         exit(0);
 
-    if (arVideoGetId( &id0, &id1 ) == 0)
+    if (arVideoGetId(&id0, &id1) == 0)
     {
         ARLOGi("Camera ID = (%08x, %08x)\n", id1, id0);
         sprintf(vconf, VPARA_NAME, id1, id0);
@@ -363,9 +372,9 @@ static void   init(int argc, char *argv[])
         exit(0);
     }
 
-    arParamChangeSize( &cparam, xsize, ysize, &cparam );
+    arParamChangeSize(&cparam, xsize, ysize, &cparam);
     ARLOG("*** Camera Parameter ***\n");
-    arParamDisp( &cparam );
+    arParamDisp(&cparam);
 
     if ((gCparamLT = arParamLTCreate(&cparam, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL)
     {
@@ -403,7 +412,7 @@ static void   init(int argc, char *argv[])
         exit(0);
     }
 
-    arPattAttach( arHandle, arPattHandle );
+    arPattAttach(arHandle, arPattHandle);
 
     /* open the graphics window */
 /*
@@ -415,18 +424,18 @@ static void   init(int argc, char *argv[])
     viewport.xsize = winSizeX;
     viewport.ysize = winSizeY;
  */
-    viewport.sx = 0;
-    viewport.sy = 0;
+    viewport.sx    = 0;
+    viewport.sy    = 0;
     viewport.xsize = xsize;
     viewport.ysize = ysize;
 
     if ((vp = argCreateViewport(&viewport)) == NULL)
         exit(0);
 
-    argViewportSetCparam( vp, &cparam );
-    argViewportSetPixFormat( vp, pixFormat );
-    //argViewportSetDispMethod( vp, AR_GL_DISP_METHOD_GL_DRAW_PIXELS );
-    argViewportSetDistortionMode( vp, AR_GL_DISTORTION_COMPENSATE_DISABLE );
+    argViewportSetCparam(vp, &cparam);
+    argViewportSetPixFormat(vp, pixFormat);
+    // argViewportSetDispMethod( vp, AR_GL_DISP_METHOD_GL_DRAW_PIXELS );
+    argViewportSetDistortionMode(vp, AR_GL_DISTORTION_COMPENSATE_DISABLE);
 
     if (arVideoCapStart() != 0)
     {
@@ -448,18 +457,18 @@ static void cleanup(void)
     arVideoClose();
 }
 
-static void draw( ARdouble trans[3][4] )
+static void draw(ARdouble trans[3][4])
 {
     ARdouble gl_para[16];
-    GLfloat mat_diffuse[] = {0.0f, 0.0f, 1.0f, 0.0f};
-    GLfloat mat_flash[] = {1.0f, 1.0f, 1.0f, 0.0f};
-    GLfloat mat_flash_shiny[] = {50.0f};
-    GLfloat light_position[] = {100.0f, -200.0f, 200.0f, 0.0f};
-    GLfloat light_ambi[] = {0.1f, 0.1f, 0.1f, 0.0f};
-    GLfloat light_color[] = {1.0f, 1.0f, 1.0f, 0.0f};
+    GLfloat  mat_diffuse[]     = {0.0f, 0.0f, 1.0f, 0.0f};
+    GLfloat  mat_flash[]       = {1.0f, 1.0f, 1.0f, 0.0f};
+    GLfloat  mat_flash_shiny[] = {50.0f};
+    GLfloat  light_position[]  = {100.0f, -200.0f, 200.0f, 0.0f};
+    GLfloat  light_ambi[]      = {0.1f, 0.1f, 0.1f, 0.0f};
+    GLfloat  light_color[]     = {1.0f, 1.0f, 1.0f, 0.0f};
 
     argDrawMode3D(vp);
-    glClearDepth( 1.0 );
+    glClearDepth(1.0);
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
@@ -468,9 +477,9 @@ static void draw( ARdouble trans[3][4] )
     argConvGlpara(trans, gl_para);
     glMatrixMode(GL_MODELVIEW);
 #ifdef ARDOUBLE_IS_FLOAT
-    glLoadMatrixf( gl_para );
+    glLoadMatrixf(gl_para);
 #else
-    glLoadMatrixd( gl_para );
+    glLoadMatrixd(gl_para);
 #endif
 
     glEnable(GL_LIGHTING);
@@ -486,15 +495,15 @@ static void draw( ARdouble trans[3][4] )
     glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_diffuse);
 
 #if 1
-    glTranslatef( 0.0f, 0.0f, 40.0f );
+    glTranslatef(0.0f, 0.0f, 40.0f);
     glutSolidCube(80.0);
 #else
-    glTranslatef( 0.0f, 0.0f, 20.0f );
+    glTranslatef(0.0f, 0.0f, 20.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glutSolidTeapot(40.0);
 #endif
     glDisable(GL_LIGHT0);
-    glDisable( GL_LIGHTING );
+    glDisable(GL_LIGHTING);
 
-    glDisable( GL_DEPTH_TEST );
+    glDisable(GL_DEPTH_TEST);
 }

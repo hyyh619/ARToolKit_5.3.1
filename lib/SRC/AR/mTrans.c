@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -53,63 +53,81 @@
 int arMatrixTrans(ARMat *dest, ARMat *source)
 {
 #if 0
-	int r, c;
+    int r, c;
 
-	if(dest->row != source->clm || dest->clm != source->row) return -1;
+    if (dest->row != source->clm || dest->clm != source->row)
+        return -1;
 
-	for(r = 0; r < dest->row; r++) {
-		for(c = 0; c < dest->clm; c++) {
-			ARELEM0(dest, r, c) = ARELEM0(source, c, r);
-		}
-	}
+    for (r = 0; r < dest->row; r++)
+    {
+        for (c = 0; c < dest->clm; c++)
+        {
+            ARELEM0(dest, r, c) = ARELEM0(source, c, r);
+        }
+    }
+
 #else
     int      r, c;
-    ARdouble   *p1, *p2;
-    
-    if(dest->row != source->clm || dest->clm != source->row) return -1;
-    
+    ARdouble *p1, *p2;
+
+    if (dest->row != source->clm || dest->clm != source->row)
+        return -1;
+
     p2 = dest->m;
-    for(r = 0; r < dest->row; r++) {
+
+    for (r = 0; r < dest->row; r++)
+    {
         p1 = &source->m[r];
-        for(c = 0; c < dest->clm; c++) {
+
+        for (c = 0; c < dest->clm; c++)
+        {
             *(p2++) = *p1;
-            p1 += dest->row;
+            p1     += dest->row;
         }
     }
 #endif
 
-	return 0;
+    return 0;
 }
 
 #ifndef ARDOUBLE_IS_FLOAT
 int arMatrixTransf(ARMatf *dest, ARMatf *source)
 {
 #if 0
-	int r, c;
-    
-	if(dest->row != source->clm || dest->clm != source->row) return -1;
-    
-	for(r = 0; r < dest->row; r++) {
-		for(c = 0; c < dest->clm; c++) {
-			ARELEM0(dest, r, c) = ARELEM0(source, c, r);
-		}
-	}
+    int r, c;
+
+    if (dest->row != source->clm || dest->clm != source->row)
+        return -1;
+
+    for (r = 0; r < dest->row; r++)
+    {
+        for (c = 0; c < dest->clm; c++)
+        {
+            ARELEM0(dest, r, c) = ARELEM0(source, c, r);
+        }
+    }
+
 #else
-    int      r, c;
-    float   *p1, *p2;
-    
-    if(dest->row != source->clm || dest->clm != source->row) return -1;
-    
+    int   r, c;
+    float *p1, *p2;
+
+    if (dest->row != source->clm || dest->clm != source->row)
+        return -1;
+
     p2 = dest->m;
-    for(r = 0; r < dest->row; r++) {
+
+    for (r = 0; r < dest->row; r++)
+    {
         p1 = &source->m[r];
-        for(c = 0; c < dest->clm; c++) {
+
+        for (c = 0; c < dest->clm; c++)
+        {
             *(p2++) = *p1;
-            p1 += dest->row;
+            p1     += dest->row;
         }
     }
 #endif
-    
-	return 0;
+
+    return 0;
 }
 #endif

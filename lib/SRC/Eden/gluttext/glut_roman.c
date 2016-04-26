@@ -7,12 +7,14 @@
 
 /* char: 33 '!' */
 
-static const CoordRec char33_stroke0[] = {
+static const CoordRec char33_stroke0[] =
+{
     { 13.3819, 100 },
     { 13.3819, 33.3333 },
 };
 
-static const CoordRec char33_stroke1[] = {
+static const CoordRec char33_stroke1[] =
+{
     { 13.3819, 9.5238 },
     { 8.62, 4.7619 },
     { 13.3819, 0 },
@@ -20,70 +22,82 @@ static const CoordRec char33_stroke1[] = {
     { 13.3819, 9.5238 },
 };
 
-static const StrokeRec char33[] = {
-   { 2, char33_stroke0 },
-   { 5, char33_stroke1 },
+static const StrokeRec char33[] =
+{
+    { 2, char33_stroke0 },
+    { 5, char33_stroke1 },
 };
 
 /* char: 34 '"' */
 
-static const CoordRec char34_stroke0[] = {
+static const CoordRec char34_stroke0[] =
+{
     { 4.02, 100 },
     { 4.02, 66.6667 },
 };
 
-static const CoordRec char34_stroke1[] = {
+static const CoordRec char34_stroke1[] =
+{
     { 42.1152, 100 },
     { 42.1152, 66.6667 },
 };
 
-static const StrokeRec char34[] = {
-   { 2, char34_stroke0 },
-   { 2, char34_stroke1 },
+static const StrokeRec char34[] =
+{
+    { 2, char34_stroke0 },
+    { 2, char34_stroke1 },
 };
 
 /* char: 35 '#' */
 
-static const CoordRec char35_stroke0[] = {
+static const CoordRec char35_stroke0[] =
+{
     { 41.2952, 119.048 },
     { 7.9619, -33.3333 },
 };
 
-static const CoordRec char35_stroke1[] = {
+static const CoordRec char35_stroke1[] =
+{
     { 69.8667, 119.048 },
     { 36.5333, -33.3333 },
 };
 
-static const CoordRec char35_stroke2[] = {
+static const CoordRec char35_stroke2[] =
+{
     { 7.9619, 57.1429 },
     { 74.6286, 57.1429 },
 };
 
-static const CoordRec char35_stroke3[] = {
+static const CoordRec char35_stroke3[] =
+{
     { 3.2, 28.5714 },
     { 69.8667, 28.5714 },
 };
 
-static const StrokeRec char35[] = {
-   { 2, char35_stroke0 },
-   { 2, char35_stroke1 },
-   { 2, char35_stroke2 },
-   { 2, char35_stroke3 },
+static const StrokeRec char35[] =
+{
+    { 2, char35_stroke0 },
+    { 2, char35_stroke1 },
+    { 2, char35_stroke2 },
+    { 2, char35_stroke3 },
 };
 
 /* char: 36 '$' */
 
-static const CoordRec char36_stroke0[] = {
+static const CoordRec char36_stroke0[] =
+{
     { 28.6295, 119.048 },
     { 28.6295, -19.0476 },
 };
 
-static const CoordRec char36_stroke1[] = {
+static const CoordRec char36_stroke1[] =
+{
     { 47.6771, 119.048 },
     { 47.6771, -19.0476 },
 };
 
-static const CoordRec char36_stroke2[] = {
+static const CoordRec char36_stroke2[] =
+{
     { 71.4867, 85.7143 },
     { 61.9629, 95.2381 },
     { 47.6771, 100 },
@@ -106,20 +120,23 @@ static const CoordRec char36_stroke2[] = {
     { 4.82, 14.2857 },
 };
 
-static const StrokeRec char36[] = {
-   { 2, char36_stroke0 },
-   { 2, char36_stroke1 },
-   { 20, char36_stroke2 },
+static const StrokeRec char36[] =
+{
+    { 2, char36_stroke0 },
+    { 2, char36_stroke1 },
+    { 20, char36_stroke2 },
 };
 
 /* char: 37 '%' */
 
-static const CoordRec char37_stroke0[] = {
+static const CoordRec char37_stroke0[] =
+{
     { 92.0743, 100 },
     { 6.36, 0 },
 };
 
-static const CoordRec char37_stroke1[] = {
+static const CoordRec char37_stroke1[] =
+{
     { 30.1695, 100 },
     { 39.6933, 90.4762 },
     { 39.6933, 80.9524 },
@@ -138,7 +155,8 @@ static const CoordRec char37_stroke1[] = {
     { 92.0743, 100 },
 };
 
-static const CoordRec char37_stroke2[] = {
+static const CoordRec char37_stroke2[] =
+{
     { 73.0267, 33.3333 },
     { 63.5029, 28.5714 },
     { 58.741, 19.0476 },
@@ -152,15 +170,17 @@ static const CoordRec char37_stroke2[] = {
     { 73.0267, 33.3333 },
 };
 
-static const StrokeRec char37[] = {
-   { 2, char37_stroke0 },
-   { 16, char37_stroke1 },
-   { 11, char37_stroke2 },
+static const StrokeRec char37[] =
+{
+    { 2, char37_stroke0 },
+    { 16, char37_stroke1 },
+    { 11, char37_stroke2 },
 };
 
 /* char: 38 '&' */
 
-static const CoordRec char38_stroke0[] = {
+static const CoordRec char38_stroke0[] =
+{
     { 101.218, 57.1429 },
     { 101.218, 61.9048 },
     { 96.4562, 66.6667 },
@@ -197,24 +217,28 @@ static const CoordRec char38_stroke0[] = {
     { 101.218, 9.5238 },
 };
 
-static const StrokeRec char38[] = {
-   { 34, char38_stroke0 },
+static const StrokeRec char38[] =
+{
+    { 34, char38_stroke0 },
 };
 
 /* char: 39 ''' */
 
-static const CoordRec char39_stroke0[] = {
+static const CoordRec char39_stroke0[] =
+{
     { 4.44, 100 },
     { 4.44, 66.6667 },
 };
 
-static const StrokeRec char39[] = {
-   { 2, char39_stroke0 },
+static const StrokeRec char39[] =
+{
+    { 2, char39_stroke0 },
 };
 
 /* char: 40 '(' */
 
-static const CoordRec char40_stroke0[] = {
+static const CoordRec char40_stroke0[] =
+{
     { 40.9133, 119.048 },
     { 31.3895, 109.524 },
     { 21.8657, 95.2381 },
@@ -227,13 +251,15 @@ static const CoordRec char40_stroke0[] = {
     { 40.9133, -33.3333 },
 };
 
-static const StrokeRec char40[] = {
-   { 10, char40_stroke0 },
+static const StrokeRec char40[] =
+{
+    { 10, char40_stroke0 },
 };
 
 /* char: 41 ')' */
 
-static const CoordRec char41_stroke0[] = {
+static const CoordRec char41_stroke0[] =
+{
     { 5.28, 119.048 },
     { 14.8038, 109.524 },
     { 24.3276, 95.2381 },
@@ -246,53 +272,62 @@ static const CoordRec char41_stroke0[] = {
     { 5.28, -33.3333 },
 };
 
-static const StrokeRec char41[] = {
-   { 10, char41_stroke0 },
+static const StrokeRec char41[] =
+{
+    { 10, char41_stroke0 },
 };
 
 /* char: 42 '*' */
 
-static const CoordRec char42_stroke0[] = {
+static const CoordRec char42_stroke0[] =
+{
     { 30.7695, 71.4286 },
     { 30.7695, 14.2857 },
 };
 
-static const CoordRec char42_stroke1[] = {
+static const CoordRec char42_stroke1[] =
+{
     { 6.96, 57.1429 },
     { 54.579, 28.5714 },
 };
 
-static const CoordRec char42_stroke2[] = {
+static const CoordRec char42_stroke2[] =
+{
     { 54.579, 57.1429 },
     { 6.96, 28.5714 },
 };
 
-static const StrokeRec char42[] = {
-   { 2, char42_stroke0 },
-   { 2, char42_stroke1 },
-   { 2, char42_stroke2 },
+static const StrokeRec char42[] =
+{
+    { 2, char42_stroke0 },
+    { 2, char42_stroke1 },
+    { 2, char42_stroke2 },
 };
 
 /* char: 43 '+' */
 
-static const CoordRec char43_stroke0[] = {
+static const CoordRec char43_stroke0[] =
+{
     { 48.8371, 85.7143 },
     { 48.8371, 0 },
 };
 
-static const CoordRec char43_stroke1[] = {
+static const CoordRec char43_stroke1[] =
+{
     { 5.98, 42.8571 },
     { 91.6943, 42.8571 },
 };
 
-static const StrokeRec char43[] = {
-   { 2, char43_stroke0 },
-   { 2, char43_stroke1 },
+static const StrokeRec char43[] =
+{
+    { 2, char43_stroke0 },
+    { 2, char43_stroke1 },
 };
 
 /* char: 44 ',' */
 
-static const CoordRec char44_stroke0[] = {
+static const CoordRec char44_stroke0[] =
+{
     { 18.2838, 4.7619 },
     { 13.5219, 0 },
     { 8.76, 4.7619 },
@@ -303,24 +338,28 @@ static const CoordRec char44_stroke0[] = {
     { 8.76, -19.0476 },
 };
 
-static const StrokeRec char44[] = {
-   { 8, char44_stroke0 },
+static const StrokeRec char44[] =
+{
+    { 8, char44_stroke0 },
 };
 
 /* char: 45 '-' */
 
-static const CoordRec char45_stroke0[] = {
+static const CoordRec char45_stroke0[] =
+{
     { 7.38, 42.8571 },
     { 93.0943, 42.8571 },
 };
 
-static const StrokeRec char45[] = {
-   { 2, char45_stroke0 },
+static const StrokeRec char45[] =
+{
+    { 2, char45_stroke0 },
 };
 
 /* char: 46 '.' */
 
-static const CoordRec char46_stroke0[] = {
+static const CoordRec char46_stroke0[] =
+{
     { 13.1019, 9.5238 },
     { 8.34, 4.7619 },
     { 13.1019, 0 },
@@ -328,24 +367,28 @@ static const CoordRec char46_stroke0[] = {
     { 13.1019, 9.5238 },
 };
 
-static const StrokeRec char46[] = {
-   { 5, char46_stroke0 },
+static const StrokeRec char46[] =
+{
+    { 5, char46_stroke0 },
 };
 
 /* char: 47 '/' */
 
-static const CoordRec char47_stroke0[] = {
+static const CoordRec char47_stroke0[] =
+{
     { 7.24, -14.2857 },
     { 73.9067, 100 },
 };
 
-static const StrokeRec char47[] = {
-   { 2, char47_stroke0 },
+static const StrokeRec char47[] =
+{
+    { 2, char47_stroke0 },
 };
 
 /* char: 48 '0' */
 
-static const CoordRec char48_stroke0[] = {
+static const CoordRec char48_stroke0[] =
+{
     { 33.5514, 100 },
     { 19.2657, 95.2381 },
     { 9.7419, 80.9524 },
@@ -365,26 +408,30 @@ static const CoordRec char48_stroke0[] = {
     { 33.5514, 100 },
 };
 
-static const StrokeRec char48[] = {
-   { 17, char48_stroke0 },
+static const StrokeRec char48[] =
+{
+    { 17, char48_stroke0 },
 };
 
 /* char: 49 '1' */
 
-static const CoordRec char49_stroke0[] = {
+static const CoordRec char49_stroke0[] =
+{
     { 11.82, 80.9524 },
     { 21.3438, 85.7143 },
     { 35.6295, 100 },
     { 35.6295, 0 },
 };
 
-static const StrokeRec char49[] = {
-   { 4, char49_stroke0 },
+static const StrokeRec char49[] =
+{
+    { 4, char49_stroke0 },
 };
 
 /* char: 50 '2' */
 
-static const CoordRec char50_stroke0[] = {
+static const CoordRec char50_stroke0[] =
+{
     { 10.1819, 76.1905 },
     { 10.1819, 80.9524 },
     { 14.9438, 90.4762 },
@@ -401,13 +448,15 @@ static const CoordRec char50_stroke0[] = {
     { 72.0867, 0 },
 };
 
-static const StrokeRec char50[] = {
-   { 14, char50_stroke0 },
+static const StrokeRec char50[] =
+{
+    { 14, char50_stroke0 },
 };
 
 /* char: 51 '3' */
 
-static const CoordRec char51_stroke0[] = {
+static const CoordRec char51_stroke0[] =
+{
     { 14.5238, 100 },
     { 66.9048, 100 },
     { 38.3333, 61.9048 },
@@ -425,31 +474,36 @@ static const CoordRec char51_stroke0[] = {
     { 5, 19.0476 },
 };
 
-static const StrokeRec char51[] = {
-   { 15, char51_stroke0 },
+static const StrokeRec char51[] =
+{
+    { 15, char51_stroke0 },
 };
 
 /* char: 52 '4' */
 
-static const CoordRec char52_stroke0[] = {
+static const CoordRec char52_stroke0[] =
+{
     { 51.499, 100 },
     { 3.88, 33.3333 },
     { 75.3086, 33.3333 },
 };
 
-static const CoordRec char52_stroke1[] = {
+static const CoordRec char52_stroke1[] =
+{
     { 51.499, 100 },
     { 51.499, 0 },
 };
 
-static const StrokeRec char52[] = {
-   { 3, char52_stroke0 },
-   { 2, char52_stroke1 },
+static const StrokeRec char52[] =
+{
+    { 3, char52_stroke0 },
+    { 2, char52_stroke1 },
 };
 
 /* char: 53 '5' */
 
-static const CoordRec char53_stroke0[] = {
+static const CoordRec char53_stroke0[] =
+{
     { 62.0029, 100 },
     { 14.3838, 100 },
     { 9.6219, 57.1429 },
@@ -469,13 +523,15 @@ static const CoordRec char53_stroke0[] = {
     { 4.86, 19.0476 },
 };
 
-static const StrokeRec char53[] = {
-   { 17, char53_stroke0 },
+static const StrokeRec char53[] =
+{
+    { 17, char53_stroke0 },
 };
 
 /* char: 54 '6' */
 
-static const CoordRec char54_stroke0[] = {
+static const CoordRec char54_stroke0[] =
+{
     { 62.7229, 85.7143 },
     { 57.961, 95.2381 },
     { 43.6752, 100 },
@@ -501,30 +557,35 @@ static const CoordRec char54_stroke0[] = {
     { 5.58, 33.3333 },
 };
 
-static const StrokeRec char54[] = {
-   { 23, char54_stroke0 },
+static const StrokeRec char54[] =
+{
+    { 23, char54_stroke0 },
 };
 
 /* char: 55 '7' */
 
-static const CoordRec char55_stroke0[] = {
+static const CoordRec char55_stroke0[] =
+{
     { 72.2267, 100 },
     { 24.6076, 0 },
 };
 
-static const CoordRec char55_stroke1[] = {
+static const CoordRec char55_stroke1[] =
+{
     { 5.56, 100 },
     { 72.2267, 100 },
 };
 
-static const StrokeRec char55[] = {
-   { 2, char55_stroke0 },
-   { 2, char55_stroke1 },
+static const StrokeRec char55[] =
+{
+    { 2, char55_stroke0 },
+    { 2, char55_stroke1 },
 };
 
 /* char: 56 '8' */
 
-static const CoordRec char56_stroke0[] = {
+static const CoordRec char56_stroke0[] =
+{
     { 29.4095, 100 },
     { 15.1238, 95.2381 },
     { 10.3619, 85.7143 },
@@ -556,13 +617,15 @@ static const CoordRec char56_stroke0[] = {
     { 29.4095, 100 },
 };
 
-static const StrokeRec char56[] = {
-   { 29, char56_stroke0 },
+static const StrokeRec char56[] =
+{
+    { 29, char56_stroke0 },
 };
 
 /* char: 57 '9' */
 
-static const CoordRec char57_stroke0[] = {
+static const CoordRec char57_stroke0[] =
+{
     { 68.5048, 66.6667 },
     { 63.7429, 52.381 },
     { 54.219, 42.8571 },
@@ -588,13 +651,15 @@ static const CoordRec char57_stroke0[] = {
     { 11.3619, 14.2857 },
 };
 
-static const StrokeRec char57[] = {
-   { 23, char57_stroke0 },
+static const StrokeRec char57[] =
+{
+    { 23, char57_stroke0 },
 };
 
 /* char: 58 ':' */
 
-static const CoordRec char58_stroke0[] = {
+static const CoordRec char58_stroke0[] =
+{
     { 14.0819, 66.6667 },
     { 9.32, 61.9048 },
     { 14.0819, 57.1429 },
@@ -602,7 +667,8 @@ static const CoordRec char58_stroke0[] = {
     { 14.0819, 66.6667 },
 };
 
-static const CoordRec char58_stroke1[] = {
+static const CoordRec char58_stroke1[] =
+{
     { 14.0819, 9.5238 },
     { 9.32, 4.7619 },
     { 14.0819, 0 },
@@ -610,14 +676,16 @@ static const CoordRec char58_stroke1[] = {
     { 14.0819, 9.5238 },
 };
 
-static const StrokeRec char58[] = {
-   { 5, char58_stroke0 },
-   { 5, char58_stroke1 },
+static const StrokeRec char58[] =
+{
+    { 5, char58_stroke0 },
+    { 5, char58_stroke1 },
 };
 
 /* char: 59 ';' */
 
-static const CoordRec char59_stroke0[] = {
+static const CoordRec char59_stroke0[] =
+{
     { 12.9619, 66.6667 },
     { 8.2, 61.9048 },
     { 12.9619, 57.1429 },
@@ -625,7 +693,8 @@ static const CoordRec char59_stroke0[] = {
     { 12.9619, 66.6667 },
 };
 
-static const CoordRec char59_stroke1[] = {
+static const CoordRec char59_stroke1[] =
+{
     { 17.7238, 4.7619 },
     { 12.9619, 0 },
     { 8.2, 4.7619 },
@@ -636,55 +705,64 @@ static const CoordRec char59_stroke1[] = {
     { 8.2, -19.0476 },
 };
 
-static const StrokeRec char59[] = {
-   { 5, char59_stroke0 },
-   { 8, char59_stroke1 },
+static const StrokeRec char59[] =
+{
+    { 5, char59_stroke0 },
+    { 8, char59_stroke1 },
 };
 
 /* char: 60 '<' */
 
-static const CoordRec char60_stroke0[] = {
+static const CoordRec char60_stroke0[] =
+{
     { 79.2505, 85.7143 },
     { 3.06, 42.8571 },
     { 79.2505, 0 },
 };
 
-static const StrokeRec char60[] = {
-   { 3, char60_stroke0 },
+static const StrokeRec char60[] =
+{
+    { 3, char60_stroke0 },
 };
 
 /* char: 61 '=' */
 
-static const CoordRec char61_stroke0[] = {
+static const CoordRec char61_stroke0[] =
+{
     { 5.7, 57.1429 },
     { 91.4143, 57.1429 },
 };
 
-static const CoordRec char61_stroke1[] = {
+static const CoordRec char61_stroke1[] =
+{
     { 5.7, 28.5714 },
     { 91.4143, 28.5714 },
 };
 
-static const StrokeRec char61[] = {
-   { 2, char61_stroke0 },
-   { 2, char61_stroke1 },
+static const StrokeRec char61[] =
+{
+    { 2, char61_stroke0 },
+    { 2, char61_stroke1 },
 };
 
 /* char: 62 '>' */
 
-static const CoordRec char62_stroke0[] = {
+static const CoordRec char62_stroke0[] =
+{
     { 2.78, 85.7143 },
     { 78.9705, 42.8571 },
     { 2.78, 0 },
 };
 
-static const StrokeRec char62[] = {
-   { 3, char62_stroke0 },
+static const StrokeRec char62[] =
+{
+    { 3, char62_stroke0 },
 };
 
 /* char: 63 '?' */
 
-static const CoordRec char63_stroke0[] = {
+static const CoordRec char63_stroke0[] =
+{
     { 8.42, 76.1905 },
     { 8.42, 80.9524 },
     { 13.1819, 90.4762 },
@@ -701,7 +779,8 @@ static const CoordRec char63_stroke0[] = {
     { 36.9914, 33.3333 },
 };
 
-static const CoordRec char63_stroke1[] = {
+static const CoordRec char63_stroke1[] =
+{
     { 36.9914, 9.5238 },
     { 32.2295, 4.7619 },
     { 36.9914, 0 },
@@ -709,14 +788,16 @@ static const CoordRec char63_stroke1[] = {
     { 36.9914, 9.5238 },
 };
 
-static const StrokeRec char63[] = {
-   { 14, char63_stroke0 },
-   { 5, char63_stroke1 },
+static const StrokeRec char63[] =
+{
+    { 14, char63_stroke0 },
+    { 5, char63_stroke1 },
 };
 
 /* char: 64 '@' */
 
-static const CoordRec char64_stroke0[] = {
+static const CoordRec char64_stroke0[] =
+{
     { 49.2171, 52.381 },
     { 39.6933, 57.1429 },
     { 30.1695, 57.1429 },
@@ -727,7 +808,8 @@ static const CoordRec char64_stroke0[] = {
     { 49.2171, 38.0952 },
 };
 
-static const CoordRec char64_stroke1[] = {
+static const CoordRec char64_stroke1[] =
+{
     { 49.2171, 57.1429 },
     { 49.2171, 38.0952 },
     { 53.979, 33.3333 },
@@ -749,42 +831,49 @@ static const CoordRec char64_stroke1[] = {
     { 53.979, 19.0476 },
 };
 
-static const StrokeRec char64[] = {
-   { 8, char64_stroke0 },
-   { 19, char64_stroke1 },
+static const StrokeRec char64[] =
+{
+    { 8, char64_stroke0 },
+    { 19, char64_stroke1 },
 };
 
 /* char: 65 'A' */
 
-static const CoordRec char65_stroke0[] = {
+static const CoordRec char65_stroke0[] =
+{
     { 40.5952, 100 },
     { 2.5, 0 },
 };
 
-static const CoordRec char65_stroke1[] = {
+static const CoordRec char65_stroke1[] =
+{
     { 40.5952, 100 },
     { 78.6905, 0 },
 };
 
-static const CoordRec char65_stroke2[] = {
+static const CoordRec char65_stroke2[] =
+{
     { 16.7857, 33.3333 },
     { 64.4048, 33.3333 },
 };
 
-static const StrokeRec char65[] = {
-   { 2, char65_stroke0 },
-   { 2, char65_stroke1 },
-   { 2, char65_stroke2 },
+static const StrokeRec char65[] =
+{
+    { 2, char65_stroke0 },
+    { 2, char65_stroke1 },
+    { 2, char65_stroke2 },
 };
 
 /* char: 66 'B' */
 
-static const CoordRec char66_stroke0[] = {
+static const CoordRec char66_stroke0[] =
+{
     { 11.42, 100 },
     { 11.42, 0 },
 };
 
-static const CoordRec char66_stroke1[] = {
+static const CoordRec char66_stroke1[] =
+{
     { 11.42, 100 },
     { 54.2771, 100 },
     { 68.5629, 95.2381 },
@@ -796,7 +885,8 @@ static const CoordRec char66_stroke1[] = {
     { 54.2771, 52.381 },
 };
 
-static const CoordRec char66_stroke2[] = {
+static const CoordRec char66_stroke2[] =
+{
     { 11.42, 52.381 },
     { 54.2771, 52.381 },
     { 68.5629, 47.619 },
@@ -809,15 +899,17 @@ static const CoordRec char66_stroke2[] = {
     { 11.42, 0 },
 };
 
-static const StrokeRec char66[] = {
-   { 2, char66_stroke0 },
-   { 9, char66_stroke1 },
-   { 10, char66_stroke2 },
+static const StrokeRec char66[] =
+{
+    { 2, char66_stroke0 },
+    { 9, char66_stroke1 },
+    { 10, char66_stroke2 },
 };
 
 /* char: 67 'C' */
 
-static const CoordRec char67_stroke0[] = {
+static const CoordRec char67_stroke0[] =
+{
     { 78.0886, 76.1905 },
     { 73.3267, 85.7143 },
     { 63.8029, 95.2381 },
@@ -838,18 +930,21 @@ static const CoordRec char67_stroke0[] = {
     { 78.0886, 23.8095 },
 };
 
-static const StrokeRec char67[] = {
-   { 18, char67_stroke0 },
+static const StrokeRec char67[] =
+{
+    { 18, char67_stroke0 },
 };
 
 /* char: 68 'D' */
 
-static const CoordRec char68_stroke0[] = {
+static const CoordRec char68_stroke0[] =
+{
     { 11.96, 100 },
     { 11.96, 0 },
 };
 
-static const CoordRec char68_stroke1[] = {
+static const CoordRec char68_stroke1[] =
+{
     { 11.96, 100 },
     { 45.2933, 100 },
     { 59.579, 95.2381 },
@@ -864,66 +959,77 @@ static const CoordRec char68_stroke1[] = {
     { 11.96, 0 },
 };
 
-static const StrokeRec char68[] = {
-   { 2, char68_stroke0 },
-   { 12, char68_stroke1 },
+static const StrokeRec char68[] =
+{
+    { 2, char68_stroke0 },
+    { 12, char68_stroke1 },
 };
 
 /* char: 69 'E' */
 
-static const CoordRec char69_stroke0[] = {
+static const CoordRec char69_stroke0[] =
+{
     { 11.42, 100 },
     { 11.42, 0 },
 };
 
-static const CoordRec char69_stroke1[] = {
+static const CoordRec char69_stroke1[] =
+{
     { 11.42, 100 },
     { 73.3248, 100 },
 };
 
-static const CoordRec char69_stroke2[] = {
+static const CoordRec char69_stroke2[] =
+{
     { 11.42, 52.381 },
     { 49.5152, 52.381 },
 };
 
-static const CoordRec char69_stroke3[] = {
+static const CoordRec char69_stroke3[] =
+{
     { 11.42, 0 },
     { 73.3248, 0 },
 };
 
-static const StrokeRec char69[] = {
-   { 2, char69_stroke0 },
-   { 2, char69_stroke1 },
-   { 2, char69_stroke2 },
-   { 2, char69_stroke3 },
+static const StrokeRec char69[] =
+{
+    { 2, char69_stroke0 },
+    { 2, char69_stroke1 },
+    { 2, char69_stroke2 },
+    { 2, char69_stroke3 },
 };
 
 /* char: 70 'F' */
 
-static const CoordRec char70_stroke0[] = {
+static const CoordRec char70_stroke0[] =
+{
     { 11.42, 100 },
     { 11.42, 0 },
 };
 
-static const CoordRec char70_stroke1[] = {
+static const CoordRec char70_stroke1[] =
+{
     { 11.42, 100 },
     { 73.3248, 100 },
 };
 
-static const CoordRec char70_stroke2[] = {
+static const CoordRec char70_stroke2[] =
+{
     { 11.42, 52.381 },
     { 49.5152, 52.381 },
 };
 
-static const StrokeRec char70[] = {
-   { 2, char70_stroke0 },
-   { 2, char70_stroke1 },
-   { 2, char70_stroke2 },
+static const StrokeRec char70[] =
+{
+    { 2, char70_stroke0 },
+    { 2, char70_stroke1 },
+    { 2, char70_stroke2 },
 };
 
 /* char: 71 'G' */
 
-static const CoordRec char71_stroke0[] = {
+static const CoordRec char71_stroke0[] =
+{
     { 78.4886, 76.1905 },
     { 73.7267, 85.7143 },
     { 64.2029, 95.2381 },
@@ -945,53 +1051,62 @@ static const CoordRec char71_stroke0[] = {
     { 78.4886, 38.0952 },
 };
 
-static const CoordRec char71_stroke1[] = {
+static const CoordRec char71_stroke1[] =
+{
     { 54.679, 38.0952 },
     { 78.4886, 38.0952 },
 };
 
-static const StrokeRec char71[] = {
-   { 19, char71_stroke0 },
-   { 2, char71_stroke1 },
+static const StrokeRec char71[] =
+{
+    { 19, char71_stroke0 },
+    { 2, char71_stroke1 },
 };
 
 /* char: 72 'H' */
 
-static const CoordRec char72_stroke0[] = {
+static const CoordRec char72_stroke0[] =
+{
     { 11.42, 100 },
     { 11.42, 0 },
 };
 
-static const CoordRec char72_stroke1[] = {
+static const CoordRec char72_stroke1[] =
+{
     { 78.0867, 100 },
     { 78.0867, 0 },
 };
 
-static const CoordRec char72_stroke2[] = {
+static const CoordRec char72_stroke2[] =
+{
     { 11.42, 52.381 },
     { 78.0867, 52.381 },
 };
 
-static const StrokeRec char72[] = {
-   { 2, char72_stroke0 },
-   { 2, char72_stroke1 },
-   { 2, char72_stroke2 },
+static const StrokeRec char72[] =
+{
+    { 2, char72_stroke0 },
+    { 2, char72_stroke1 },
+    { 2, char72_stroke2 },
 };
 
 /* char: 73 'I' */
 
-static const CoordRec char73_stroke0[] = {
+static const CoordRec char73_stroke0[] =
+{
     { 10.86, 100 },
     { 10.86, 0 },
 };
 
-static const StrokeRec char73[] = {
-   { 2, char73_stroke0 },
+static const StrokeRec char73[] =
+{
+    { 2, char73_stroke0 },
 };
 
 /* char: 74 'J' */
 
-static const CoordRec char74_stroke0[] = {
+static const CoordRec char74_stroke0[] =
+{
     { 50.119, 100 },
     { 50.119, 23.8095 },
     { 45.3571, 9.5238 },
@@ -1004,105 +1119,123 @@ static const CoordRec char74_stroke0[] = {
     { 2.5, 33.3333 },
 };
 
-static const StrokeRec char74[] = {
-   { 10, char74_stroke0 },
+static const StrokeRec char74[] =
+{
+    { 10, char74_stroke0 },
 };
 
 /* char: 75 'K' */
 
-static const CoordRec char75_stroke0[] = {
+static const CoordRec char75_stroke0[] =
+{
     { 11.28, 100 },
     { 11.28, 0 },
 };
 
-static const CoordRec char75_stroke1[] = {
+static const CoordRec char75_stroke1[] =
+{
     { 77.9467, 100 },
     { 11.28, 33.3333 },
 };
 
-static const CoordRec char75_stroke2[] = {
+static const CoordRec char75_stroke2[] =
+{
     { 35.0895, 57.1429 },
     { 77.9467, 0 },
 };
 
-static const StrokeRec char75[] = {
-   { 2, char75_stroke0 },
-   { 2, char75_stroke1 },
-   { 2, char75_stroke2 },
+static const StrokeRec char75[] =
+{
+    { 2, char75_stroke0 },
+    { 2, char75_stroke1 },
+    { 2, char75_stroke2 },
 };
 
 /* char: 76 'L' */
 
-static const CoordRec char76_stroke0[] = {
+static const CoordRec char76_stroke0[] =
+{
     { 11.68, 100 },
     { 11.68, 0 },
 };
 
-static const CoordRec char76_stroke1[] = {
+static const CoordRec char76_stroke1[] =
+{
     { 11.68, 0 },
     { 68.8229, 0 },
 };
 
-static const StrokeRec char76[] = {
-   { 2, char76_stroke0 },
-   { 2, char76_stroke1 },
+static const StrokeRec char76[] =
+{
+    { 2, char76_stroke0 },
+    { 2, char76_stroke1 },
 };
 
 /* char: 77 'M' */
 
-static const CoordRec char77_stroke0[] = {
+static const CoordRec char77_stroke0[] =
+{
     { 10.86, 100 },
     { 10.86, 0 },
 };
 
-static const CoordRec char77_stroke1[] = {
+static const CoordRec char77_stroke1[] =
+{
     { 10.86, 100 },
     { 48.9552, 0 },
 };
 
-static const CoordRec char77_stroke2[] = {
+static const CoordRec char77_stroke2[] =
+{
     { 87.0505, 100 },
     { 48.9552, 0 },
 };
 
-static const CoordRec char77_stroke3[] = {
+static const CoordRec char77_stroke3[] =
+{
     { 87.0505, 100 },
     { 87.0505, 0 },
 };
 
-static const StrokeRec char77[] = {
-   { 2, char77_stroke0 },
-   { 2, char77_stroke1 },
-   { 2, char77_stroke2 },
-   { 2, char77_stroke3 },
+static const StrokeRec char77[] =
+{
+    { 2, char77_stroke0 },
+    { 2, char77_stroke1 },
+    { 2, char77_stroke2 },
+    { 2, char77_stroke3 },
 };
 
 /* char: 78 'N' */
 
-static const CoordRec char78_stroke0[] = {
+static const CoordRec char78_stroke0[] =
+{
     { 11.14, 100 },
     { 11.14, 0 },
 };
 
-static const CoordRec char78_stroke1[] = {
+static const CoordRec char78_stroke1[] =
+{
     { 11.14, 100 },
     { 77.8067, 0 },
 };
 
-static const CoordRec char78_stroke2[] = {
+static const CoordRec char78_stroke2[] =
+{
     { 77.8067, 100 },
     { 77.8067, 0 },
 };
 
-static const StrokeRec char78[] = {
-   { 2, char78_stroke0 },
-   { 2, char78_stroke1 },
-   { 2, char78_stroke2 },
+static const StrokeRec char78[] =
+{
+    { 2, char78_stroke0 },
+    { 2, char78_stroke1 },
+    { 2, char78_stroke2 },
 };
 
 /* char: 79 'O' */
 
-static const CoordRec char79_stroke0[] = {
+static const CoordRec char79_stroke0[] =
+{
     { 34.8114, 100 },
     { 25.2876, 95.2381 },
     { 15.7638, 85.7143 },
@@ -1126,18 +1259,21 @@ static const CoordRec char79_stroke0[] = {
     { 34.8114, 100 },
 };
 
-static const StrokeRec char79[] = {
-   { 21, char79_stroke0 },
+static const StrokeRec char79[] =
+{
+    { 21, char79_stroke0 },
 };
 
 /* char: 80 'P' */
 
-static const CoordRec char80_stroke0[] = {
+static const CoordRec char80_stroke0[] =
+{
     { 12.1, 100 },
     { 12.1, 0 },
 };
 
-static const CoordRec char80_stroke1[] = {
+static const CoordRec char80_stroke1[] =
+{
     { 12.1, 100 },
     { 54.9571, 100 },
     { 69.2429, 95.2381 },
@@ -1150,14 +1286,16 @@ static const CoordRec char80_stroke1[] = {
     { 12.1, 47.619 },
 };
 
-static const StrokeRec char80[] = {
-   { 2, char80_stroke0 },
-   { 10, char80_stroke1 },
+static const StrokeRec char80[] =
+{
+    { 2, char80_stroke0 },
+    { 10, char80_stroke1 },
 };
 
 /* char: 81 'Q' */
 
-static const CoordRec char81_stroke0[] = {
+static const CoordRec char81_stroke0[] =
+{
     { 33.8714, 100 },
     { 24.3476, 95.2381 },
     { 14.8238, 85.7143 },
@@ -1181,24 +1319,28 @@ static const CoordRec char81_stroke0[] = {
     { 33.8714, 100 },
 };
 
-static const CoordRec char81_stroke1[] = {
+static const CoordRec char81_stroke1[] =
+{
     { 48.1571, 19.0476 },
     { 76.7286, -9.5238 },
 };
 
-static const StrokeRec char81[] = {
-   { 21, char81_stroke0 },
-   { 2, char81_stroke1 },
+static const StrokeRec char81[] =
+{
+    { 21, char81_stroke0 },
+    { 2, char81_stroke1 },
 };
 
 /* char: 82 'R' */
 
-static const CoordRec char82_stroke0[] = {
+static const CoordRec char82_stroke0[] =
+{
     { 11.68, 100 },
     { 11.68, 0 },
 };
 
-static const CoordRec char82_stroke1[] = {
+static const CoordRec char82_stroke1[] =
+{
     { 11.68, 100 },
     { 54.5371, 100 },
     { 68.8229, 95.2381 },
@@ -1211,20 +1353,23 @@ static const CoordRec char82_stroke1[] = {
     { 11.68, 52.381 },
 };
 
-static const CoordRec char82_stroke2[] = {
+static const CoordRec char82_stroke2[] =
+{
     { 45.0133, 52.381 },
     { 78.3467, 0 },
 };
 
-static const StrokeRec char82[] = {
-   { 2, char82_stroke0 },
-   { 10, char82_stroke1 },
-   { 2, char82_stroke2 },
+static const StrokeRec char82[] =
+{
+    { 2, char82_stroke0 },
+    { 10, char82_stroke1 },
+    { 2, char82_stroke2 },
 };
 
 /* char: 83 'S' */
 
-static const CoordRec char83_stroke0[] = {
+static const CoordRec char83_stroke0[] =
+{
     { 74.6667, 85.7143 },
     { 65.1429, 95.2381 },
     { 50.8571, 100 },
@@ -1247,30 +1392,35 @@ static const CoordRec char83_stroke0[] = {
     { 8, 14.2857 },
 };
 
-static const StrokeRec char83[] = {
-   { 20, char83_stroke0 },
+static const StrokeRec char83[] =
+{
+    { 20, char83_stroke0 },
 };
 
 /* char: 84 'T' */
 
-static const CoordRec char84_stroke0[] = {
+static const CoordRec char84_stroke0[] =
+{
     { 35.6933, 100 },
     { 35.6933, 0 },
 };
 
-static const CoordRec char84_stroke1[] = {
+static const CoordRec char84_stroke1[] =
+{
     { 2.36, 100 },
     { 69.0267, 100 },
 };
 
-static const StrokeRec char84[] = {
-   { 2, char84_stroke0 },
-   { 2, char84_stroke1 },
+static const StrokeRec char84[] =
+{
+    { 2, char84_stroke0 },
+    { 2, char84_stroke1 },
 };
 
 /* char: 85 'U' */
 
-static const CoordRec char85_stroke0[] = {
+static const CoordRec char85_stroke0[] =
+{
     { 11.54, 100 },
     { 11.54, 28.5714 },
     { 16.3019, 14.2857 },
@@ -1283,203 +1433,238 @@ static const CoordRec char85_stroke0[] = {
     { 78.2067, 100 },
 };
 
-static const StrokeRec char85[] = {
-   { 10, char85_stroke0 },
+static const StrokeRec char85[] =
+{
+    { 10, char85_stroke0 },
 };
 
 /* char: 86 'V' */
 
-static const CoordRec char86_stroke0[] = {
+static const CoordRec char86_stroke0[] =
+{
     { 2.36, 100 },
     { 40.4552, 0 },
 };
 
-static const CoordRec char86_stroke1[] = {
+static const CoordRec char86_stroke1[] =
+{
     { 78.5505, 100 },
     { 40.4552, 0 },
 };
 
-static const StrokeRec char86[] = {
-   { 2, char86_stroke0 },
-   { 2, char86_stroke1 },
+static const StrokeRec char86[] =
+{
+    { 2, char86_stroke0 },
+    { 2, char86_stroke1 },
 };
 
 /* char: 87 'W' */
 
-static const CoordRec char87_stroke0[] = {
+static const CoordRec char87_stroke0[] =
+{
     { 2.22, 100 },
     { 26.0295, 0 },
 };
 
-static const CoordRec char87_stroke1[] = {
+static const CoordRec char87_stroke1[] =
+{
     { 49.839, 100 },
     { 26.0295, 0 },
 };
 
-static const CoordRec char87_stroke2[] = {
+static const CoordRec char87_stroke2[] =
+{
     { 49.839, 100 },
     { 73.6486, 0 },
 };
 
-static const CoordRec char87_stroke3[] = {
+static const CoordRec char87_stroke3[] =
+{
     { 97.4581, 100 },
     { 73.6486, 0 },
 };
 
-static const StrokeRec char87[] = {
-   { 2, char87_stroke0 },
-   { 2, char87_stroke1 },
-   { 2, char87_stroke2 },
-   { 2, char87_stroke3 },
+static const StrokeRec char87[] =
+{
+    { 2, char87_stroke0 },
+    { 2, char87_stroke1 },
+    { 2, char87_stroke2 },
+    { 2, char87_stroke3 },
 };
 
 /* char: 88 'X' */
 
-static const CoordRec char88_stroke0[] = {
+static const CoordRec char88_stroke0[] =
+{
     { 2.5, 100 },
     { 69.1667, 0 },
 };
 
-static const CoordRec char88_stroke1[] = {
+static const CoordRec char88_stroke1[] =
+{
     { 69.1667, 100 },
     { 2.5, 0 },
 };
 
-static const StrokeRec char88[] = {
-   { 2, char88_stroke0 },
-   { 2, char88_stroke1 },
+static const StrokeRec char88[] =
+{
+    { 2, char88_stroke0 },
+    { 2, char88_stroke1 },
 };
 
 /* char: 89 'Y' */
 
-static const CoordRec char89_stroke0[] = {
+static const CoordRec char89_stroke0[] =
+{
     { 1.52, 100 },
     { 39.6152, 52.381 },
     { 39.6152, 0 },
 };
 
-static const CoordRec char89_stroke1[] = {
+static const CoordRec char89_stroke1[] =
+{
     { 77.7105, 100 },
     { 39.6152, 52.381 },
 };
 
-static const StrokeRec char89[] = {
-   { 3, char89_stroke0 },
-   { 2, char89_stroke1 },
+static const StrokeRec char89[] =
+{
+    { 3, char89_stroke0 },
+    { 2, char89_stroke1 },
 };
 
 /* char: 90 'Z' */
 
-static const CoordRec char90_stroke0[] = {
+static const CoordRec char90_stroke0[] =
+{
     { 69.1667, 100 },
     { 2.5, 0 },
 };
 
-static const CoordRec char90_stroke1[] = {
+static const CoordRec char90_stroke1[] =
+{
     { 2.5, 100 },
     { 69.1667, 100 },
 };
 
-static const CoordRec char90_stroke2[] = {
+static const CoordRec char90_stroke2[] =
+{
     { 2.5, 0 },
     { 69.1667, 0 },
 };
 
-static const StrokeRec char90[] = {
-   { 2, char90_stroke0 },
-   { 2, char90_stroke1 },
-   { 2, char90_stroke2 },
+static const StrokeRec char90[] =
+{
+    { 2, char90_stroke0 },
+    { 2, char90_stroke1 },
+    { 2, char90_stroke2 },
 };
 
 /* char: 91 '[' */
 
-static const CoordRec char91_stroke0[] = {
+static const CoordRec char91_stroke0[] =
+{
     { 7.78, 119.048 },
     { 7.78, -33.3333 },
 };
 
-static const CoordRec char91_stroke1[] = {
+static const CoordRec char91_stroke1[] =
+{
     { 12.5419, 119.048 },
     { 12.5419, -33.3333 },
 };
 
-static const CoordRec char91_stroke2[] = {
+static const CoordRec char91_stroke2[] =
+{
     { 7.78, 119.048 },
     { 41.1133, 119.048 },
 };
 
-static const CoordRec char91_stroke3[] = {
+static const CoordRec char91_stroke3[] =
+{
     { 7.78, -33.3333 },
     { 41.1133, -33.3333 },
 };
 
-static const StrokeRec char91[] = {
-   { 2, char91_stroke0 },
-   { 2, char91_stroke1 },
-   { 2, char91_stroke2 },
-   { 2, char91_stroke3 },
+static const StrokeRec char91[] =
+{
+    { 2, char91_stroke0 },
+    { 2, char91_stroke1 },
+    { 2, char91_stroke2 },
+    { 2, char91_stroke3 },
 };
 
 /* char: 92 '\' */
 
-static const CoordRec char92_stroke0[] = {
+static const CoordRec char92_stroke0[] =
+{
     { 5.84, 100 },
     { 72.5067, -14.2857 },
 };
 
-static const StrokeRec char92[] = {
-   { 2, char92_stroke0 },
+static const StrokeRec char92[] =
+{
+    { 2, char92_stroke0 },
 };
 
 /* char: 93 ']' */
 
-static const CoordRec char93_stroke0[] = {
+static const CoordRec char93_stroke0[] =
+{
     { 33.0114, 119.048 },
     { 33.0114, -33.3333 },
 };
 
-static const CoordRec char93_stroke1[] = {
+static const CoordRec char93_stroke1[] =
+{
     { 37.7733, 119.048 },
     { 37.7733, -33.3333 },
 };
 
-static const CoordRec char93_stroke2[] = {
+static const CoordRec char93_stroke2[] =
+{
     { 4.44, 119.048 },
     { 37.7733, 119.048 },
 };
 
-static const CoordRec char93_stroke3[] = {
+static const CoordRec char93_stroke3[] =
+{
     { 4.44, -33.3333 },
     { 37.7733, -33.3333 },
 };
 
-static const StrokeRec char93[] = {
-   { 2, char93_stroke0 },
-   { 2, char93_stroke1 },
-   { 2, char93_stroke2 },
-   { 2, char93_stroke3 },
+static const StrokeRec char93[] =
+{
+    { 2, char93_stroke0 },
+    { 2, char93_stroke1 },
+    { 2, char93_stroke2 },
+    { 2, char93_stroke3 },
 };
 
 /* char: 94 '^' */
 
-static const CoordRec char94_stroke0[] = {
+static const CoordRec char94_stroke0[] =
+{
     { 44.0752, 109.524 },
     { 5.98, 42.8571 },
 };
 
-static const CoordRec char94_stroke1[] = {
+static const CoordRec char94_stroke1[] =
+{
     { 44.0752, 109.524 },
     { 82.1705, 42.8571 },
 };
 
-static const StrokeRec char94[] = {
-   { 2, char94_stroke0 },
-   { 2, char94_stroke1 },
+static const StrokeRec char94[] =
+{
+    { 2, char94_stroke0 },
+    { 2, char94_stroke1 },
 };
 
 /* char: 95 '_' */
 
-static const CoordRec char95_stroke0[] = {
+static const CoordRec char95_stroke0[] =
+{
     { -1.1, -33.3333 },
     { 103.662, -33.3333 },
     { 103.662, -28.5714 },
@@ -1487,36 +1672,42 @@ static const CoordRec char95_stroke0[] = {
     { -1.1, -33.3333 },
 };
 
-static const StrokeRec char95[] = {
-   { 5, char95_stroke0 },
+static const StrokeRec char95[] =
+{
+    { 5, char95_stroke0 },
 };
 
 /* char: 96 '`' */
 
-static const CoordRec char96_stroke0[] = {
+static const CoordRec char96_stroke0[] =
+{
     { 33.0219, 100 },
     { 56.8314, 71.4286 },
 };
 
-static const CoordRec char96_stroke1[] = {
+static const CoordRec char96_stroke1[] =
+{
     { 33.0219, 100 },
     { 28.26, 95.2381 },
     { 56.8314, 71.4286 },
 };
 
-static const StrokeRec char96[] = {
-   { 2, char96_stroke0 },
-   { 3, char96_stroke1 },
+static const StrokeRec char96[] =
+{
+    { 2, char96_stroke0 },
+    { 3, char96_stroke1 },
 };
 
 /* char: 97 'a' */
 
-static const CoordRec char97_stroke0[] = {
+static const CoordRec char97_stroke0[] =
+{
     { 63.8229, 66.6667 },
     { 63.8229, 0 },
 };
 
-static const CoordRec char97_stroke1[] = {
+static const CoordRec char97_stroke1[] =
+{
     { 63.8229, 52.381 },
     { 54.299, 61.9048 },
     { 44.7752, 66.6667 },
@@ -1533,19 +1724,22 @@ static const CoordRec char97_stroke1[] = {
     { 63.8229, 14.2857 },
 };
 
-static const StrokeRec char97[] = {
-   { 2, char97_stroke0 },
-   { 14, char97_stroke1 },
+static const StrokeRec char97[] =
+{
+    { 2, char97_stroke0 },
+    { 14, char97_stroke1 },
 };
 
 /* char: 98 'b' */
 
-static const CoordRec char98_stroke0[] = {
+static const CoordRec char98_stroke0[] =
+{
     { 8.76, 100 },
     { 8.76, 0 },
 };
 
-static const CoordRec char98_stroke1[] = {
+static const CoordRec char98_stroke1[] =
+{
     { 8.76, 52.381 },
     { 18.2838, 61.9048 },
     { 27.8076, 66.6667 },
@@ -1562,14 +1756,16 @@ static const CoordRec char98_stroke1[] = {
     { 8.76, 14.2857 },
 };
 
-static const StrokeRec char98[] = {
-   { 2, char98_stroke0 },
-   { 14, char98_stroke1 },
+static const StrokeRec char98[] =
+{
+    { 2, char98_stroke0 },
+    { 14, char98_stroke1 },
 };
 
 /* char: 99 'c' */
 
-static const CoordRec char99_stroke0[] = {
+static const CoordRec char99_stroke0[] =
+{
     { 62.6629, 52.381 },
     { 53.139, 61.9048 },
     { 43.6152, 66.6667 },
@@ -1586,18 +1782,21 @@ static const CoordRec char99_stroke0[] = {
     { 62.6629, 14.2857 },
 };
 
-static const StrokeRec char99[] = {
-   { 14, char99_stroke0 },
+static const StrokeRec char99[] =
+{
+    { 14, char99_stroke0 },
 };
 
 /* char: 100 'd' */
 
-static const CoordRec char100_stroke0[] = {
+static const CoordRec char100_stroke0[] =
+{
     { 61.7829, 100 },
     { 61.7829, 0 },
 };
 
-static const CoordRec char100_stroke1[] = {
+static const CoordRec char100_stroke1[] =
+{
     { 61.7829, 52.381 },
     { 52.259, 61.9048 },
     { 42.7352, 66.6667 },
@@ -1614,14 +1813,16 @@ static const CoordRec char100_stroke1[] = {
     { 61.7829, 14.2857 },
 };
 
-static const StrokeRec char100[] = {
-   { 2, char100_stroke0 },
-   { 14, char100_stroke1 },
+static const StrokeRec char100[] =
+{
+    { 2, char100_stroke0 },
+    { 14, char100_stroke1 },
 };
 
 /* char: 101 'e' */
 
-static const CoordRec char101_stroke0[] = {
+static const CoordRec char101_stroke0[] =
+{
     { 5.72, 38.0952 },
     { 62.8629, 38.0952 },
     { 62.8629, 47.619 },
@@ -1641,13 +1842,15 @@ static const CoordRec char101_stroke0[] = {
     { 62.8629, 14.2857 },
 };
 
-static const StrokeRec char101[] = {
-   { 17, char101_stroke0 },
+static const StrokeRec char101[] =
+{
+    { 17, char101_stroke0 },
 };
 
 /* char: 102 'f' */
 
-static const CoordRec char102_stroke0[] = {
+static const CoordRec char102_stroke0[] =
+{
     { 38.7752, 100 },
     { 29.2514, 100 },
     { 19.7276, 95.2381 },
@@ -1655,19 +1858,22 @@ static const CoordRec char102_stroke0[] = {
     { 14.9657, 0 },
 };
 
-static const CoordRec char102_stroke1[] = {
+static const CoordRec char102_stroke1[] =
+{
     { 0.68, 66.6667 },
     { 34.0133, 66.6667 },
 };
 
-static const StrokeRec char102[] = {
-   { 5, char102_stroke0 },
-   { 2, char102_stroke1 },
+static const StrokeRec char102[] =
+{
+    { 5, char102_stroke0 },
+    { 2, char102_stroke1 },
 };
 
 /* char: 103 'g' */
 
-static const CoordRec char103_stroke0[] = {
+static const CoordRec char103_stroke0[] =
+{
     { 62.5029, 66.6667 },
     { 62.5029, -9.5238 },
     { 57.741, -23.8095 },
@@ -1677,7 +1883,8 @@ static const CoordRec char103_stroke0[] = {
     { 19.6457, -28.5714 },
 };
 
-static const CoordRec char103_stroke1[] = {
+static const CoordRec char103_stroke1[] =
+{
     { 62.5029, 52.381 },
     { 52.979, 61.9048 },
     { 43.4552, 66.6667 },
@@ -1694,19 +1901,22 @@ static const CoordRec char103_stroke1[] = {
     { 62.5029, 14.2857 },
 };
 
-static const StrokeRec char103[] = {
-   { 7, char103_stroke0 },
-   { 14, char103_stroke1 },
+static const StrokeRec char103[] =
+{
+    { 7, char103_stroke0 },
+    { 14, char103_stroke1 },
 };
 
 /* char: 104 'h' */
 
-static const CoordRec char104_stroke0[] = {
+static const CoordRec char104_stroke0[] =
+{
     { 9.6, 100 },
     { 9.6, 0 },
 };
 
-static const CoordRec char104_stroke1[] = {
+static const CoordRec char104_stroke1[] =
+{
     { 9.6, 47.619 },
     { 23.8857, 61.9048 },
     { 33.4095, 66.6667 },
@@ -1716,14 +1926,16 @@ static const CoordRec char104_stroke1[] = {
     { 61.981, 0 },
 };
 
-static const StrokeRec char104[] = {
-   { 2, char104_stroke0 },
-   { 7, char104_stroke1 },
+static const StrokeRec char104[] =
+{
+    { 2, char104_stroke0 },
+    { 7, char104_stroke1 },
 };
 
 /* char: 105 'i' */
 
-static const CoordRec char105_stroke0[] = {
+static const CoordRec char105_stroke0[] =
+{
     { 10.02, 100 },
     { 14.7819, 95.2381 },
     { 19.5438, 100 },
@@ -1731,19 +1943,22 @@ static const CoordRec char105_stroke0[] = {
     { 10.02, 100 },
 };
 
-static const CoordRec char105_stroke1[] = {
+static const CoordRec char105_stroke1[] =
+{
     { 14.7819, 66.6667 },
     { 14.7819, 0 },
 };
 
-static const StrokeRec char105[] = {
-   { 5, char105_stroke0 },
-   { 2, char105_stroke1 },
+static const StrokeRec char105[] =
+{
+    { 5, char105_stroke0 },
+    { 2, char105_stroke1 },
 };
 
 /* char: 106 'j' */
 
-static const CoordRec char106_stroke0[] = {
+static const CoordRec char106_stroke0[] =
+{
     { 17.3876, 100 },
     { 22.1495, 95.2381 },
     { 26.9114, 100 },
@@ -1751,7 +1966,8 @@ static const CoordRec char106_stroke0[] = {
     { 17.3876, 100 },
 };
 
-static const CoordRec char106_stroke1[] = {
+static const CoordRec char106_stroke1[] =
+{
     { 22.1495, 66.6667 },
     { 22.1495, -14.2857 },
     { 17.3876, -28.5714 },
@@ -1759,53 +1975,62 @@ static const CoordRec char106_stroke1[] = {
     { -1.66, -33.3333 },
 };
 
-static const StrokeRec char106[] = {
-   { 5, char106_stroke0 },
-   { 5, char106_stroke1 },
+static const StrokeRec char106[] =
+{
+    { 5, char106_stroke0 },
+    { 5, char106_stroke1 },
 };
 
 /* char: 107 'k' */
 
-static const CoordRec char107_stroke0[] = {
+static const CoordRec char107_stroke0[] =
+{
     { 9.6, 100 },
     { 9.6, 0 },
 };
 
-static const CoordRec char107_stroke1[] = {
+static const CoordRec char107_stroke1[] =
+{
     { 57.219, 66.6667 },
     { 9.6, 19.0476 },
 };
 
-static const CoordRec char107_stroke2[] = {
+static const CoordRec char107_stroke2[] =
+{
     { 28.6476, 38.0952 },
     { 61.981, 0 },
 };
 
-static const StrokeRec char107[] = {
-   { 2, char107_stroke0 },
-   { 2, char107_stroke1 },
-   { 2, char107_stroke2 },
+static const StrokeRec char107[] =
+{
+    { 2, char107_stroke0 },
+    { 2, char107_stroke1 },
+    { 2, char107_stroke2 },
 };
 
 /* char: 108 'l' */
 
-static const CoordRec char108_stroke0[] = {
+static const CoordRec char108_stroke0[] =
+{
     { 10.02, 100 },
     { 10.02, 0 },
 };
 
-static const StrokeRec char108[] = {
-   { 2, char108_stroke0 },
+static const StrokeRec char108[] =
+{
+    { 2, char108_stroke0 },
 };
 
 /* char: 109 'm' */
 
-static const CoordRec char109_stroke0[] = {
+static const CoordRec char109_stroke0[] =
+{
     { 9.6, 66.6667 },
     { 9.6, 0 },
 };
 
-static const CoordRec char109_stroke1[] = {
+static const CoordRec char109_stroke1[] =
+{
     { 9.6, 47.619 },
     { 23.8857, 61.9048 },
     { 33.4095, 66.6667 },
@@ -1815,7 +2040,8 @@ static const CoordRec char109_stroke1[] = {
     { 61.981, 0 },
 };
 
-static const CoordRec char109_stroke2[] = {
+static const CoordRec char109_stroke2[] =
+{
     { 61.981, 47.619 },
     { 76.2667, 61.9048 },
     { 85.7905, 66.6667 },
@@ -1825,20 +2051,23 @@ static const CoordRec char109_stroke2[] = {
     { 114.362, 0 },
 };
 
-static const StrokeRec char109[] = {
-   { 2, char109_stroke0 },
-   { 7, char109_stroke1 },
-   { 7, char109_stroke2 },
+static const StrokeRec char109[] =
+{
+    { 2, char109_stroke0 },
+    { 7, char109_stroke1 },
+    { 7, char109_stroke2 },
 };
 
 /* char: 110 'n' */
 
-static const CoordRec char110_stroke0[] = {
+static const CoordRec char110_stroke0[] =
+{
     { 9.18, 66.6667 },
     { 9.18, 0 },
 };
 
-static const CoordRec char110_stroke1[] = {
+static const CoordRec char110_stroke1[] =
+{
     { 9.18, 47.619 },
     { 23.4657, 61.9048 },
     { 32.9895, 66.6667 },
@@ -1848,14 +2077,16 @@ static const CoordRec char110_stroke1[] = {
     { 61.561, 0 },
 };
 
-static const StrokeRec char110[] = {
-   { 2, char110_stroke0 },
-   { 7, char110_stroke1 },
+static const StrokeRec char110[] =
+{
+    { 2, char110_stroke0 },
+    { 7, char110_stroke1 },
 };
 
 /* char: 111 'o' */
 
-static const CoordRec char111_stroke0[] = {
+static const CoordRec char111_stroke0[] =
+{
     { 28.7895, 66.6667 },
     { 19.2657, 61.9048 },
     { 9.7419, 52.381 },
@@ -1875,18 +2106,21 @@ static const CoordRec char111_stroke0[] = {
     { 28.7895, 66.6667 },
 };
 
-static const StrokeRec char111[] = {
-   { 17, char111_stroke0 },
+static const StrokeRec char111[] =
+{
+    { 17, char111_stroke0 },
 };
 
 /* char: 112 'p' */
 
-static const CoordRec char112_stroke0[] = {
+static const CoordRec char112_stroke0[] =
+{
     { 9.46, 66.6667 },
     { 9.46, -33.3333 },
 };
 
-static const CoordRec char112_stroke1[] = {
+static const CoordRec char112_stroke1[] =
+{
     { 9.46, 52.381 },
     { 18.9838, 61.9048 },
     { 28.5076, 66.6667 },
@@ -1903,19 +2137,22 @@ static const CoordRec char112_stroke1[] = {
     { 9.46, 14.2857 },
 };
 
-static const StrokeRec char112[] = {
-   { 2, char112_stroke0 },
-   { 14, char112_stroke1 },
+static const StrokeRec char112[] =
+{
+    { 2, char112_stroke0 },
+    { 14, char112_stroke1 },
 };
 
 /* char: 113 'q' */
 
-static const CoordRec char113_stroke0[] = {
+static const CoordRec char113_stroke0[] =
+{
     { 61.9829, 66.6667 },
     { 61.9829, -33.3333 },
 };
 
-static const CoordRec char113_stroke1[] = {
+static const CoordRec char113_stroke1[] =
+{
     { 61.9829, 52.381 },
     { 52.459, 61.9048 },
     { 42.9352, 66.6667 },
@@ -1932,19 +2169,22 @@ static const CoordRec char113_stroke1[] = {
     { 61.9829, 14.2857 },
 };
 
-static const StrokeRec char113[] = {
-   { 2, char113_stroke0 },
-   { 14, char113_stroke1 },
+static const StrokeRec char113[] =
+{
+    { 2, char113_stroke0 },
+    { 14, char113_stroke1 },
 };
 
 /* char: 114 'r' */
 
-static const CoordRec char114_stroke0[] = {
+static const CoordRec char114_stroke0[] =
+{
     { 9.46, 66.6667 },
     { 9.46, 0 },
 };
 
-static const CoordRec char114_stroke1[] = {
+static const CoordRec char114_stroke1[] =
+{
     { 9.46, 38.0952 },
     { 14.2219, 52.381 },
     { 23.7457, 61.9048 },
@@ -1952,14 +2192,16 @@ static const CoordRec char114_stroke1[] = {
     { 47.5552, 66.6667 },
 };
 
-static const StrokeRec char114[] = {
-   { 2, char114_stroke0 },
-   { 5, char114_stroke1 },
+static const StrokeRec char114[] =
+{
+    { 2, char114_stroke0 },
+    { 5, char114_stroke1 },
 };
 
 /* char: 115 's' */
 
-static const CoordRec char115_stroke0[] = {
+static const CoordRec char115_stroke0[] =
+{
     { 57.081, 52.381 },
     { 52.319, 61.9048 },
     { 38.0333, 66.6667 },
@@ -1979,13 +2221,15 @@ static const CoordRec char115_stroke0[] = {
     { 4.7, 14.2857 },
 };
 
-static const StrokeRec char115[] = {
-   { 17, char115_stroke0 },
+static const StrokeRec char115[] =
+{
+    { 17, char115_stroke0 },
 };
 
 /* char: 116 't' */
 
-static const CoordRec char116_stroke0[] = {
+static const CoordRec char116_stroke0[] =
+{
     { 14.8257, 100 },
     { 14.8257, 19.0476 },
     { 19.5876, 4.7619 },
@@ -1993,19 +2237,22 @@ static const CoordRec char116_stroke0[] = {
     { 38.6352, 0 },
 };
 
-static const CoordRec char116_stroke1[] = {
+static const CoordRec char116_stroke1[] =
+{
     { 0.54, 66.6667 },
     { 33.8733, 66.6667 },
 };
 
-static const StrokeRec char116[] = {
-   { 5, char116_stroke0 },
-   { 2, char116_stroke1 },
+static const StrokeRec char116[] =
+{
+    { 5, char116_stroke0 },
+    { 2, char116_stroke1 },
 };
 
 /* char: 117 'u' */
 
-static const CoordRec char117_stroke0[] = {
+static const CoordRec char117_stroke0[] =
+{
     { 9.46, 66.6667 },
     { 9.46, 19.0476 },
     { 14.2219, 4.7619 },
@@ -2015,87 +2262,102 @@ static const CoordRec char117_stroke0[] = {
     { 61.841, 19.0476 },
 };
 
-static const CoordRec char117_stroke1[] = {
+static const CoordRec char117_stroke1[] =
+{
     { 61.841, 66.6667 },
     { 61.841, 0 },
 };
 
-static const StrokeRec char117[] = {
-   { 7, char117_stroke0 },
-   { 2, char117_stroke1 },
+static const StrokeRec char117[] =
+{
+    { 7, char117_stroke0 },
+    { 2, char117_stroke1 },
 };
 
 /* char: 118 'v' */
 
-static const CoordRec char118_stroke0[] = {
+static const CoordRec char118_stroke0[] =
+{
     { 1.8, 66.6667 },
     { 30.3714, 0 },
 };
 
-static const CoordRec char118_stroke1[] = {
+static const CoordRec char118_stroke1[] =
+{
     { 58.9429, 66.6667 },
     { 30.3714, 0 },
 };
 
-static const StrokeRec char118[] = {
-   { 2, char118_stroke0 },
-   { 2, char118_stroke1 },
+static const StrokeRec char118[] =
+{
+    { 2, char118_stroke0 },
+    { 2, char118_stroke1 },
 };
 
 /* char: 119 'w' */
 
-static const CoordRec char119_stroke0[] = {
+static const CoordRec char119_stroke0[] =
+{
     { 2.5, 66.6667 },
     { 21.5476, 0 },
 };
 
-static const CoordRec char119_stroke1[] = {
+static const CoordRec char119_stroke1[] =
+{
     { 40.5952, 66.6667 },
     { 21.5476, 0 },
 };
 
-static const CoordRec char119_stroke2[] = {
+static const CoordRec char119_stroke2[] =
+{
     { 40.5952, 66.6667 },
     { 59.6429, 0 },
 };
 
-static const CoordRec char119_stroke3[] = {
+static const CoordRec char119_stroke3[] =
+{
     { 78.6905, 66.6667 },
     { 59.6429, 0 },
 };
 
-static const StrokeRec char119[] = {
-   { 2, char119_stroke0 },
-   { 2, char119_stroke1 },
-   { 2, char119_stroke2 },
-   { 2, char119_stroke3 },
+static const StrokeRec char119[] =
+{
+    { 2, char119_stroke0 },
+    { 2, char119_stroke1 },
+    { 2, char119_stroke2 },
+    { 2, char119_stroke3 },
 };
 
 /* char: 120 'x' */
 
-static const CoordRec char120_stroke0[] = {
+static const CoordRec char120_stroke0[] =
+{
     { 1.66, 66.6667 },
     { 54.041, 0 },
 };
 
-static const CoordRec char120_stroke1[] = {
+static const CoordRec char120_stroke1[] =
+{
     { 54.041, 66.6667 },
     { 1.66, 0 },
 };
 
-static const StrokeRec char120[] = {
-   { 2, char120_stroke0 },
-   { 2, char120_stroke1 },
+static const StrokeRec char120[] =
+{
+    { 2, char120_stroke0 },
+    { 2, char120_stroke1 },
 };
 
 /* char: 121 'y' */
 
-static const CoordRec char121_stroke0[] = {
+static const CoordRec char121_stroke0[] =
+{
     { 6.5619, 66.6667 },
     { 35.1333, 0 },
 };
 
-static const CoordRec char121_stroke1[] = {
+static const CoordRec char121_stroke1[] =
+{
     { 63.7048, 66.6667 },
     { 35.1333, 0 },
     { 25.6095, -19.0476 },
@@ -2104,37 +2366,43 @@ static const CoordRec char121_stroke1[] = {
     { 1.8, -33.3333 },
 };
 
-static const StrokeRec char121[] = {
-   { 2, char121_stroke0 },
-   { 6, char121_stroke1 },
+static const StrokeRec char121[] =
+{
+    { 2, char121_stroke0 },
+    { 6, char121_stroke1 },
 };
 
 /* char: 122 'z' */
 
-static const CoordRec char122_stroke0[] = {
+static const CoordRec char122_stroke0[] =
+{
     { 56.821, 66.6667 },
     { 4.44, 0 },
 };
 
-static const CoordRec char122_stroke1[] = {
+static const CoordRec char122_stroke1[] =
+{
     { 4.44, 66.6667 },
     { 56.821, 66.6667 },
 };
 
-static const CoordRec char122_stroke2[] = {
+static const CoordRec char122_stroke2[] =
+{
     { 4.44, 0 },
     { 56.821, 0 },
 };
 
-static const StrokeRec char122[] = {
-   { 2, char122_stroke0 },
-   { 2, char122_stroke1 },
-   { 2, char122_stroke2 },
+static const StrokeRec char122[] =
+{
+    { 2, char122_stroke0 },
+    { 2, char122_stroke1 },
+    { 2, char122_stroke2 },
 };
 
 /* char: 123 '{' */
 
-static const CoordRec char123_stroke0[] = {
+static const CoordRec char123_stroke0[] =
+{
     { 31.1895, 119.048 },
     { 21.6657, 114.286 },
     { 16.9038, 109.524 },
@@ -2147,7 +2415,8 @@ static const CoordRec char123_stroke0[] = {
     { 16.9038, 47.619 },
 };
 
-static const CoordRec char123_stroke1[] = {
+static const CoordRec char123_stroke1[] =
+{
     { 21.6657, 114.286 },
     { 16.9038, 104.762 },
     { 16.9038, 95.2381 },
@@ -2167,7 +2436,8 @@ static const CoordRec char123_stroke1[] = {
     { 21.6657, -28.5714 },
 };
 
-static const CoordRec char123_stroke2[] = {
+static const CoordRec char123_stroke2[] =
+{
     { 16.9038, 38.0952 },
     { 26.4276, 28.5714 },
     { 26.4276, 19.0476 },
@@ -2180,26 +2450,30 @@ static const CoordRec char123_stroke2[] = {
     { 31.1895, -33.3333 },
 };
 
-static const StrokeRec char123[] = {
-   { 10, char123_stroke0 },
-   { 17, char123_stroke1 },
-   { 10, char123_stroke2 },
+static const StrokeRec char123[] =
+{
+    { 10, char123_stroke0 },
+    { 17, char123_stroke1 },
+    { 10, char123_stroke2 },
 };
 
 /* char: 124 '|' */
 
-static const CoordRec char124_stroke0[] = {
+static const CoordRec char124_stroke0[] =
+{
     { 11.54, 119.048 },
     { 11.54, -33.3333 },
 };
 
-static const StrokeRec char124[] = {
-   { 2, char124_stroke0 },
+static const StrokeRec char124[] =
+{
+    { 2, char124_stroke0 },
 };
 
 /* char: 125 '}' */
 
-static const CoordRec char125_stroke0[] = {
+static const CoordRec char125_stroke0[] =
+{
     { 9.18, 119.048 },
     { 18.7038, 114.286 },
     { 23.4657, 109.524 },
@@ -2212,7 +2486,8 @@ static const CoordRec char125_stroke0[] = {
     { 23.4657, 47.619 },
 };
 
-static const CoordRec char125_stroke1[] = {
+static const CoordRec char125_stroke1[] =
+{
     { 18.7038, 114.286 },
     { 23.4657, 104.762 },
     { 23.4657, 95.2381 },
@@ -2232,7 +2507,8 @@ static const CoordRec char125_stroke1[] = {
     { 18.7038, -28.5714 },
 };
 
-static const CoordRec char125_stroke2[] = {
+static const CoordRec char125_stroke2[] =
+{
     { 23.4657, 38.0952 },
     { 13.9419, 28.5714 },
     { 13.9419, 19.0476 },
@@ -2245,15 +2521,17 @@ static const CoordRec char125_stroke2[] = {
     { 9.18, -33.3333 },
 };
 
-static const StrokeRec char125[] = {
-   { 10, char125_stroke0 },
-   { 17, char125_stroke1 },
-   { 10, char125_stroke2 },
+static const StrokeRec char125[] =
+{
+    { 10, char125_stroke0 },
+    { 17, char125_stroke1 },
+    { 10, char125_stroke2 },
 };
 
 /* char: 126 '~' */
 
-static const CoordRec char126_stroke0[] = {
+static const CoordRec char126_stroke0[] =
+{
     { 2.92, 28.5714 },
     { 2.92, 38.0952 },
     { 7.6819, 52.381 },
@@ -2267,7 +2545,8 @@ static const CoordRec char126_stroke0[] = {
     { 88.6343, 47.619 },
 };
 
-static const CoordRec char126_stroke1[] = {
+static const CoordRec char126_stroke1[] =
+{
     { 2.92, 38.0952 },
     { 7.6819, 47.619 },
     { 17.2057, 52.381 },
@@ -2281,19 +2560,22 @@ static const CoordRec char126_stroke1[] = {
     { 88.6343, 57.1429 },
 };
 
-static const StrokeRec char126[] = {
-   { 11, char126_stroke0 },
-   { 11, char126_stroke1 },
+static const StrokeRec char126[] =
+{
+    { 11, char126_stroke0 },
+    { 11, char126_stroke1 },
 };
 
 /* char: 127 */
 
-static const CoordRec char127_stroke0[] = {
+static const CoordRec char127_stroke0[] =
+{
     { 52.381, 100 },
     { 14.2857, -33.3333 },
 };
 
-static const CoordRec char127_stroke1[] = {
+static const CoordRec char127_stroke1[] =
+{
     { 28.5714, 66.6667 },
     { 14.2857, 61.9048 },
     { 4.7619, 52.381 },
@@ -2313,12 +2595,14 @@ static const CoordRec char127_stroke1[] = {
     { 28.5714, 66.6667 },
 };
 
-static const StrokeRec char127[] = {
-   { 2, char127_stroke0 },
-   { 17, char127_stroke1 },
+static const StrokeRec char127[] =
+{
+    { 2, char127_stroke0 },
+    { 17, char127_stroke1 },
 };
 
-static const StrokeCharRec chars[] = {
+static const StrokeCharRec chars[] =
+{
     { 0, /* char0 */ 0, 0, 0 },
     { 0, /* char1 */ 0, 0, 0 },
     { 0, /* char2 */ 0, 0, 0 },
@@ -2450,6 +2734,4 @@ static const StrokeCharRec chars[] = {
 };
 
 const StrokeFontRec glutStrokeRoman = { "Roman", 128, chars, 119.048, -33.3333 };
-
 #endif
-

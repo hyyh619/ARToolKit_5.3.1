@@ -36,26 +36,32 @@
 #include "math_io.h"
 #include "indexing.h"
 
-namespace vision {
+namespace vision
+{
+void PrintBinaryString(const unsigned char *bitstring, int size, const char *str)
+{
+    printf("%s = [", str);
 
-    void PrintBinaryString(const unsigned char* bitstring, int size, const char* str) {
-        printf("%s = [", str);
-        for(int i = 0; i < size; i++) {
-            printf("%d ", bitstring_get_bit(&bitstring[i], 0));
-            printf("%d ", bitstring_get_bit(&bitstring[i], 1));
-            printf("%d ", bitstring_get_bit(&bitstring[i], 2));
-            printf("%d ", bitstring_get_bit(&bitstring[i], 3));
-            printf("%d ", bitstring_get_bit(&bitstring[i], 4));
-            printf("%d ", bitstring_get_bit(&bitstring[i], 5));
-            printf("%d ", bitstring_get_bit(&bitstring[i], 6));
-            
-            if(i == size-1) {
-                printf("%d", bitstring_get_bit(&bitstring[i], 7));
-            } else {
-                printf("%d ", bitstring_get_bit(&bitstring[i], 7));
-            }
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d ", bitstring_get_bit(&bitstring[i], 0));
+        printf("%d ", bitstring_get_bit(&bitstring[i], 1));
+        printf("%d ", bitstring_get_bit(&bitstring[i], 2));
+        printf("%d ", bitstring_get_bit(&bitstring[i], 3));
+        printf("%d ", bitstring_get_bit(&bitstring[i], 4));
+        printf("%d ", bitstring_get_bit(&bitstring[i], 5));
+        printf("%d ", bitstring_get_bit(&bitstring[i], 6));
+
+        if (i == size - 1)
+        {
+            printf("%d", bitstring_get_bit(&bitstring[i], 7));
         }
-        printf("]\n");
+        else
+        {
+            printf("%d ", bitstring_get_bit(&bitstring[i], 7));
+        }
     }
-    
+
+    printf("]\n");
+}
 } // vision

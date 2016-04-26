@@ -176,7 +176,6 @@ int arDetectMarker(ARHandle *arHandle, ARUint8 *dataPtr)
 #if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
         if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE)
         {
-
             int ret;
             ret = arImageProcLumaHistAndBoxFilterWithBias(arHandle->arImageProcInfo, dataPtr,  AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT, AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT);
             if (ret < 0)
@@ -188,7 +187,6 @@ int arDetectMarker(ARHandle *arHandle, ARUint8 *dataPtr)
                              &(arHandle->labelInfo), arHandle->arImageProcInfo->image2);
             if (ret < 0)
                 return (ret);
-
         }
         else     // !adaptive
         {
@@ -370,9 +368,7 @@ int arDetectMarker(ARHandle *arHandle, ARUint8 *dataPtr)
             }
             else
                 return -1;  // Unsupported arPatternDetectionMode.
-
         } // cid >= 0
-
     }
 
     confidenceCutoff(arHandle);

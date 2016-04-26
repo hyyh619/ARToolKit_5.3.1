@@ -35,31 +35,30 @@
 
 #pragma once
 
-namespace vision {
-    
-    template<typename T>
-    class Point2d {
-    public:
-        
-        Point2d() : x(0), y(0) {}
-        Point2d(T _x, T _y) : x(_x), y(_y) {}
-        
-        T x;
-        T y;
-        
-    }; // Point
-    
-    template<typename T>
-    class Point3d {
-    public:
-        
-        Point3d() : x(0), y(0), z(0) {}
-        Point3d(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
-        
-        T x;
-        T y;
-        T z;
-        
-    }; // Point
-    
+namespace vision
+{
+template<typename T>
+class Point2d
+{
+public:
+
+Point2d() : x(0), y(0) {}
+Point2d(T _x, T _y) : x(_x), y(_y) {}
+
+T x;
+T y;
+};     // Point
+
+template<typename T>
+class Point3d
+{
+public:
+
+Point3d() : x(0), y(0), z(0) {}
+Point3d(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
+
+T x;
+T y;
+T z;
+};     // Point
 } // vision

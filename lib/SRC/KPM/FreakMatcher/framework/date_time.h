@@ -37,11 +37,10 @@
 
 #include <string>
 
-namespace vision {
-    
-    /**
-     * Get string representation of the current time as a pretty string.
-     */
-    std::string get_pretty_time();
-
+namespace vision
+{
+/**
+ * Get string representation of the current time as a pretty string.
+ */
+std::string get_pretty_time();
 } // vision

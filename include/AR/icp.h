@@ -1,5 +1,5 @@
 /*
- *	icp.h
+ *      icp.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -45,7 +45,7 @@
 extern "C" {
 #endif
 
-#define   ICP_TRANS_MAT_IDENTITY        NULL
+#define   ICP_TRANS_MAT_IDENTITY NULL
 
 
 /*
@@ -100,10 +100,10 @@ int icpGetInitXw2Xc_from_PlanarData(ARdouble matXc2U[3][4], ICP2DCoordT screenCo
 
 
 /*------------ icpPoint.c --------------*/
-ICPHandleT* icpCreateHandle(ARdouble matXc2U[3][4]);
+ICPHandleT*icpCreateHandle(ARdouble matXc2U[3][4]);
 int                icpDeleteHandle(ICPHandleT **handle);
-int                icpSetMatXc2U(ICPHandleT *handle, ARdouble matXc2U[3][4]);
-int                icpGetMatXc2U(ICPHandleT *handle, ARdouble matXc2U[3][4]);
+int icpSetMatXc2U(ICPHandleT * handle, ARdouble matXc2U[3][4]);
+int icpGetMatXc2U(ICPHandleT * handle, ARdouble matXc2U[3][4]);
 int                icpSetMaxLoop(ICPHandleT *handle, int maxLoop);
 int                icpGetMaxLoop(ICPHandleT *handle, int *maxLoop);
 int                icpSetBreakLoopErrorThresh(ICPHandleT *handle, ARdouble breakLoopErrorThresh);
@@ -114,21 +114,21 @@ int                icpSetBreakLoopErrorThresh2(ICPHandleT *handle, ARdouble brea
 int                icpGetBreakLoopErrorThresh2(ICPHandleT *handle, ARdouble *breakLoopErrorThresh2);
 int                icpSetInlierProbability(ICPHandleT *handle, ARdouble inlierProbability);
 int                icpGetInlierProbability(ICPHandleT *handle, ARdouble *inlierProbability);
-int                icpPoint(ICPHandleT *handle, ICPDataT *data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble *err);
-int                icpPointRobust(ICPHandleT *handle, ICPDataT *data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble *err);
+int icpPoint(ICPHandleT * handle, ICPDataT * data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble * err);
+int icpPointRobust(ICPHandleT * handle, ICPDataT * data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble * err);
 
 
 /*------------ icpPointStereo.c --------------*/
-ICPStereoHandleT* icpStereoCreateHandle(ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble matC2L[3][4], ARdouble matC2R[3][4]);
+ICPStereoHandleT*icpStereoCreateHandle(ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble matC2L[3][4], ARdouble matC2R[3][4]);
 int                icpStereoDeleteHandle(ICPStereoHandleT **handle);
-int                icpStereoSetMatXcl2Ul(ICPStereoHandleT *handle, ARdouble matXcl2Ul[3][4]);
-int                icpStereoSetMatXcr2Ur(ICPStereoHandleT *handle, ARdouble matXcr2Ur[3][4]);
-int                icpStereoGetMatXcl2Ul(ICPStereoHandleT *handle, ARdouble matXcl2Ul[3][4]);
-int                icpStereoGetMatXcr2Ur(ICPStereoHandleT *handle, ARdouble matXcr2Ur[3][4]);
-int                icpStereoSetMatC2L(ICPStereoHandleT *handle, ARdouble matC2L[3][4]);
-int                icpStereoSetMatC2R(ICPStereoHandleT *handle, ARdouble matC2R[3][4]);
-int                icpStereoGetMatC2L(ICPStereoHandleT *handle, ARdouble matC2L[3][4]);
-int                icpStereoGetMatC2R(ICPStereoHandleT *handle, ARdouble matC2R[3][4]);
+int icpStereoSetMatXcl2Ul(ICPStereoHandleT * handle, ARdouble matXcl2Ul[3][4]);
+int icpStereoSetMatXcr2Ur(ICPStereoHandleT * handle, ARdouble matXcr2Ur[3][4]);
+int icpStereoGetMatXcl2Ul(ICPStereoHandleT * handle, ARdouble matXcl2Ul[3][4]);
+int icpStereoGetMatXcr2Ur(ICPStereoHandleT * handle, ARdouble matXcr2Ur[3][4]);
+int icpStereoSetMatC2L(ICPStereoHandleT * handle, ARdouble matC2L[3][4]);
+int icpStereoSetMatC2R(ICPStereoHandleT * handle, ARdouble matC2R[3][4]);
+int icpStereoGetMatC2L(ICPStereoHandleT * handle, ARdouble matC2L[3][4]);
+int icpStereoGetMatC2R(ICPStereoHandleT * handle, ARdouble matC2R[3][4]);
 int                icpStereoSetMaxLoop(ICPStereoHandleT *handle, int maxLoop);
 int                icpStereoGetMaxLoop(ICPStereoHandleT *handle, int *maxLoop);
 int                icpStereoSetBreakLoopErrorThresh(ICPStereoHandleT *handle, ARdouble breakLoopErrorThresh);
@@ -139,37 +139,37 @@ int                icpStereoSetBreakLoopErrorThresh2(ICPStereoHandleT *handle, A
 int                icpStereoGetBreakLoopErrorThresh2(ICPStereoHandleT *handle, ARdouble *breakLoopErrorThresh2);
 int                icpStereoSetInlierProbability(ICPStereoHandleT *handle, ARdouble inlierProbability);
 int                icpStereoGetInlierProbability(ICPStereoHandleT *handle, ARdouble *inlierProbability);
-int                icpStereoPoint(ICPStereoHandleT *handle, ICPStereoDataT *data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble *err);
-int                icpStereoPointRobust(ICPStereoHandleT *handle, ICPStereoDataT *data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble *err);
+int icpStereoPoint(ICPStereoHandleT * handle, ICPStereoDataT * data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble * err);
+int icpStereoPointRobust(ICPStereoHandleT * handle, ICPStereoDataT * data, ARdouble initMatXw2Xc[3][4], ARdouble matXw2Xc[3][4], ARdouble * err);
 
 
 #if 0
-int                icpRobustGetXw2Xc(ICPHandleT   *handle,
-                                     ICPDataT     *data,
-                                     ARdouble initMatXw2Xc[3][4],
-                                     ARdouble matXw2Xc[3][4],
-                                     ARdouble       *err);
+int icpRobustGetXw2Xc(ICPHandleT * handle,
+                      ICPDataT * data,
+                      ARdouble initMatXw2Xc[3][4],
+                      ARdouble matXw2Xc[3][4],
+                      ARdouble * err);
 
-int                icpGetXw2XcFromLineAndPoint(ICPHandleT       *handle,
-                                               ICPLinesDataT    *linesData,
-                                               ICPDataT         *pointData,
-                                               ARdouble initMatXw2Xc[3][4],
-                                               ARdouble matXw2Xc[3][4],
-                                               ARdouble           *err);
-
-
-int                icpStereoCheckErr(ARdouble S[6], ARdouble matXcl2Ul[3][4], ARdouble matXcl2Ur[3][4], ICPStereoDataT *data, ARdouble *err);
-int                icpRobustCheckErr(ARdouble S[6], ARdouble matXc2U[3][4], ICPDataT *data, ARdouble *weight, ARdouble *err);
-int                icpRobustUpdateWeight(ARdouble S[6], ARdouble matXc2U[3][4], ICPDataT *data, ARdouble sd2, ARdouble *weight);
+int icpGetXw2XcFromLineAndPoint(ICPHandleT * handle,
+                                ICPLinesDataT * linesData,
+                                ICPDataT * pointData,
+                                ARdouble initMatXw2Xc[3][4],
+                                ARdouble matXw2Xc[3][4],
+                                ARdouble * err);
 
 
-int                icpGetJ_E_S(ARdouble J_E_S[6], ICP2DLineT *line, ICP2DLineSegT *lineSeg, ARdouble matXc2U[3][4], ARdouble q[7], ARdouble s[6],
-                               ICP3DLineSegT *cameraCoord, ICP3DLineSegT *worldCoord, ICP2DCoordT *observedScreenCoord);
-int                icpGetJ_E_L(ARdouble J_E_L[3], ICP2DLineT *line, ICP2DCoordT *screenCoord);
-int                icpGetJ_L_X(ARdouble J_L_X[3][4], ICP2DLineSegT *lineSeg);
+int icpStereoCheckErr(ARdouble S[6], ARdouble matXcl2Ul[3][4], ARdouble matXcl2Ur[3][4], ICPStereoDataT * data, ARdouble * err);
+int icpRobustCheckErr(ARdouble S[6], ARdouble matXc2U[3][4], ICPDataT * data, ARdouble * weight, ARdouble * err);
+int icpRobustUpdateWeight(ARdouble S[6], ARdouble matXc2U[3][4], ICPDataT * data, ARdouble sd2, ARdouble * weight);
+
+
+int icpGetJ_E_S(ARdouble J_E_S[6], ICP2DLineT * line, ICP2DLineSegT * lineSeg, ARdouble matXc2U[3][4], ARdouble q[7], ARdouble s[6],
+                ICP3DLineSegT * cameraCoord, ICP3DLineSegT * worldCoord, ICP2DCoordT * observedScreenCoord);
+int icpGetJ_E_L(ARdouble J_E_L[3], ICP2DLineT * line, ICP2DCoordT * screenCoord);
+int icpGetJ_L_X(ARdouble J_L_X[3][4], ICP2DLineSegT * lineSeg);
 int                icpGetLine(ICP2DLineT *line, ICP2DLineSegT *lineSeg);
 int                icpGetdE(ARdouble *dE, ICP2DLineT *line, ICP2DCoordT *screenCoord);
-int                icpLineCheckErr(ARdouble S[6], ARdouble matXc2U[3][4], ICPLinesDataT *data,  ARdouble *err);
+int icpLineCheckErr(ARdouble S[6], ARdouble matXc2U[3][4], ICPLinesDataT * data,  ARdouble * err);
 #endif
 
 #ifdef __cplusplus

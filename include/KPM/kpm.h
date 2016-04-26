@@ -35,9 +35,9 @@
  */
 
 /*!
-	@header kpm
-	@abstract libKPM NFT image recognition and tracking initialisation routines.
-	@discussion
+        @header kpm
+        @abstract libKPM NFT image recognition and tracking initialisation routines.
+        @discussion
         This header declares types and API for an NFT tracker,
         in particular those routines involved in recognising a texture page and
         initialising the tracking for use by the texture tracker.
@@ -47,7 +47,7 @@
 #ifndef KPM_H
 #define KPM_H
 
-#define     BINARY_FEATURE    1
+#define     BINARY_FEATURE 1
 
 #include <AR/ar.h>
 #include <KPM/kpmType.h>
@@ -55,53 +55,58 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
-#define   KpmPose6DOF            1
-#define   KpmPoseHomography      2
 
-typedef enum {
-    KpmProcFullSize        = 1,
-    KpmProcHalfSize        = 2,
-    KpmProcQuatSize        = 3,
-    KpmProcOneThirdSize    = 4,
-    KpmProcTwoThirdSize    = 5
+#define   KpmPose6DOF       1
+#define   KpmPoseHomography 2
+
+typedef enum
+{
+    KpmProcFullSize     = 1,
+    KpmProcHalfSize     = 2,
+    KpmProcQuatSize     = 3,
+    KpmProcOneThirdSize = 4,
+    KpmProcTwoThirdSize = 5
 } KPM_PROC_MODE;
-#define   KpmDefaultProcMode     KpmProcFullSize
+#define   KpmDefaultProcMode KpmProcFullSize
 
-#define   KpmCompNull            0
-#define   KpmCompX               1
-#define   KpmCompY               2
-#define   KpmDefaultComp         KpmCompNull
+#define   KpmCompNull    0
+#define   KpmCompX       1
+#define   KpmCompY       2
+#define   KpmDefaultComp KpmCompNull
 
 #define   KpmChangePageNoAllPages (-1)
 
-typedef struct {
-    float             x;
-    float             y;
+typedef struct
+{
+    float x;
+    float y;
 } KpmCoord2D;
 
-typedef struct {
-    int               width;
-    int               height;
-    int               imageNo;
+typedef struct
+{
+    int width;
+    int height;
+    int imageNo;
 } KpmImageInfo;
 
-typedef struct {
-    KpmImageInfo     *imageInfo;
-    int               imageNum;
-    int               pageNo;
+typedef struct
+{
+    KpmImageInfo *imageInfo;
+    int          imageNum;
+    int          pageNo;
 } KpmPageInfo;
 
-typedef struct _KpmRefData {
-    KpmCoord2D        coord2D;
-    KpmCoord2D        coord3D;      // millimetres.
+typedef struct _KpmRefData
+{
+    KpmCoord2D coord2D;
+    KpmCoord2D coord3D;             // millimetres.
 #if BINARY_FEATURE
-    FreakFeature      featureVec;
+    FreakFeature featureVec;
 #else
-    SurfFeature       featureVec;
+    SurfFeature featureVec;
 #endif
-    int               pageNo;
-    int               refImageNo;
+    int pageNo;
+    int refImageNo;
 } KpmRefData;
 
 /*!
@@ -109,16 +114,17 @@ typedef struct _KpmRefData {
     @abstract   A loaded dataset for KPM tracking.
     @discussion
         Key point matching takes as input a reference data set of points. This structure holds a set of points in memory prior to loading into the tracker.
-	@field		refPoint Tracking reference points.
-	@field		num Number of refPoints in the dataset.
-	@field		pageInfo Array of info about each page in the dataset. One entry per page.
-	@field		pageNum Number of pages in the dataset (i.e. a count, not an index).
+        @field          refPoint Tracking reference points.
+        @field          num Number of refPoints in the dataset.
+        @field          pageInfo Array of info about each page in the dataset. One entry per page.
+        @field          pageNum Number of pages in the dataset (i.e. a count, not an index).
  */
-typedef struct {
-    KpmRefData       *refPoint;
-    int               num;
-    KpmPageInfo      *pageInfo;
-    int               pageNum;
+typedef struct
+{
+    KpmRefData  *refPoint;
+    int         num;
+    KpmPageInfo *pageInfo;
+    int         pageNum;
 } KpmRefDataSet;
 
 /*!
@@ -128,33 +134,37 @@ typedef struct {
         Key point matching occurs between a loaded data set and a set of keypoints extracted from an input image. This structure
         holds the number and pixel location of keypoints in the input image. The keypoints themselves are an array of 'num'
         KpmRefData structures.
-	@field		coord Array of pixel locations of the keypoints in an input image.
-	@field		num Number of coords in the array.
-  */
-typedef struct {
-    KpmCoord2D       *coord;
-    int               num;
+        @field          coord Array of pixel locations of the keypoints in an input image.
+        @field          num Number of coords in the array.
+ */
+typedef struct
+{
+    KpmCoord2D *coord;
+    int        num;
 } KpmInputDataSet;
 
 #if !BINARY_FEATURE
-typedef struct {
-    int               refIndex;
-    int               inIndex;
+typedef struct
+{
+    int refIndex;
+    int inIndex;
 } KpmMatchData;
 
-typedef struct {
-    KpmMatchData     *match;
-    int               num;
+typedef struct
+{
+    KpmMatchData *match;
+    int          num;
 } KpmMatchResult;
 #endif
 
-typedef struct {
-    float                     camPose[3][4];
-    int                       pageNo;
-    float                     error;
-    int                       inlierNum;
-    int                       camPoseF;
-    int                       skipF;
+typedef struct
+{
+    float camPose[3][4];
+    int   pageNo;
+    float error;
+    int   inlierNum;
+    int   camPoseF;
+    int   skipF;
 } KpmResult;
 
 typedef struct _KpmHandle KpmHandle;
@@ -163,7 +173,7 @@ typedef struct _KpmHandle KpmHandle;
 /*!
     @function
     @abstract Allocate and initialise essential structures for KPM tracking, using full six degree-of-freedom tracking.
-    @discussion 
+    @discussion
     @param cparamLT Pointer to an ARParamLT structure holding camera parameters in lookup-table form.
         The pointer only is copied, and the ARParamLT structure itself is NOT copied, and must remain
         valid for the lifetime of the KpmHandle.
@@ -175,10 +185,10 @@ typedef struct _KpmHandle KpmHandle;
     @seealso kpmCreateHandleHomography kpmCreateHandleHomography
     @seealso kpmDeleteHandle kpmDeleteHandle
  */
-KpmHandle  *kpmCreateHandle ( ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat );
+KpmHandle* kpmCreateHandle(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
 #define     kpmCreatHandle kpmCreateHandle
 
-KpmHandle  *kpmCreateHandle2( int xsize, int ysize, AR_PIXEL_FORMAT pixFormat );
+KpmHandle* kpmCreateHandle2(int xsize, int ysize, AR_PIXEL_FORMAT pixFormat);
 #define     kpmCreatHandle2 kpmCreateHandle2
 
 /*!
@@ -196,7 +206,7 @@ KpmHandle  *kpmCreateHandle2( int xsize, int ysize, AR_PIXEL_FORMAT pixFormat );
     @seealso kpmCreateHandle kpmCreateHandle
     @seealso kpmDeleteHandle kpmDeleteHandle
  */
-KpmHandle  *kpmCreateHandleHomography( int xsize, int ysize, AR_PIXEL_FORMAT pixFormat );
+KpmHandle* kpmCreateHandleHomography(int xsize, int ysize, AR_PIXEL_FORMAT pixFormat);
 #define     kpmCreatHandleHomography kpmCreateHandleHomography
 
 /*!
@@ -211,17 +221,17 @@ KpmHandle  *kpmCreateHandleHomography( int xsize, int ysize, AR_PIXEL_FORMAT pix
     @seealso kpmCreateHandle kpmCreateHandle
     @seealso kpmCreateHandleHomography kpmCreateHandleHomography
  */
-int         kpmDeleteHandle( KpmHandle **kpmHandle );
+int         kpmDeleteHandle(KpmHandle **kpmHandle);
 
 int         kpmHandleGetXSize(const KpmHandle *kpmHandle);
 int         kpmHandleGetYSize(const KpmHandle *kpmHandle);
 AR_PIXEL_FORMAT kpmHandleGetPixelFormat(const KpmHandle *kpmHandle);
-    
-int         kpmSetProcMode( KpmHandle *kpmHandle, KPM_PROC_MODE  procMode );
-int         kpmGetProcMode( KpmHandle *kpmHandle, KPM_PROC_MODE *procMode );
-int         kpmSetDetectedFeatureMax( KpmHandle *kpmHandle, int  detectedMaxFeature );
-int         kpmGetDetectedFeatureMax( KpmHandle *kpmHandle, int *detectedMaxFeature );
-int         kpmSetSurfThreadNum( KpmHandle *kpmHandle, int surfThreadNum );
+
+int         kpmSetProcMode(KpmHandle *kpmHandle, KPM_PROC_MODE procMode);
+int         kpmGetProcMode(KpmHandle *kpmHandle, KPM_PROC_MODE *procMode);
+int         kpmSetDetectedFeatureMax(KpmHandle *kpmHandle, int detectedMaxFeature);
+int         kpmGetDetectedFeatureMax(KpmHandle *kpmHandle, int *detectedMaxFeature);
+int         kpmSetSurfThreadNum(KpmHandle *kpmHandle, int surfThreadNum);
 
 /*!
     @function
@@ -239,7 +249,7 @@ int         kpmSetSurfThreadNum( KpmHandle *kpmHandle, int surfThreadNum );
     @seealso kpmCreateHandleHomography kpmCreateHandleHomography
     @seealso kpmDeleteRefDataSet kpmDeleteRefDataSet
  */
-int         kpmSetRefDataSet( KpmHandle *kpmHandle, KpmRefDataSet *refDataSet );
+int         kpmSetRefDataSet(KpmHandle *kpmHandle, KpmRefDataSet *refDataSet);
 
 /*!
     @function
@@ -259,14 +269,14 @@ int         kpmSetRefDataSet( KpmHandle *kpmHandle, KpmRefDataSet *refDataSet );
     @seealso kpmSetRefDataSet kpmSetRefDataSet
     @seealso kpmDeleteRefDataSet kpmDeleteRefDataSet
  */
-int         kpmSetRefDataSetFile( KpmHandle *kpmHandle, const char *filename, const char *ext );
+int         kpmSetRefDataSetFile(KpmHandle *kpmHandle, const char *filename, const char *ext);
 
-int         kpmSetRefDataSetFileOld( KpmHandle *kpmHandle, const char *filename, const char *ext );
+int         kpmSetRefDataSetFileOld(KpmHandle *kpmHandle, const char *filename, const char *ext);
 
 /*!
     @function
     @abstract Perform key-point matching on an image.
-    @discussion 
+    @discussion
     @param kpmHandle
     @param inImage Source image containing the pixels which will be searched for features.
         Typically, this is one frame from a video stream. The dimensions and pixel format
@@ -275,26 +285,26 @@ int         kpmSetRefDataSetFileOld( KpmHandle *kpmHandle, const char *filename,
     @seealso kpmCreateHandle kpmCreateHandle
     @seealso kpmCreateHandleHomography kpmCreateHandleHomography
  */
-int         kpmMatching( KpmHandle *kpmHandle, ARUint8 *inImage );
+int         kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImage);
 
-int         kpmSetMatchingSkipPage( KpmHandle *kpmHandle, int *skipPages, int num );
+int         kpmSetMatchingSkipPage(KpmHandle *kpmHandle, int *skipPages, int num);
 #if !BINARY_FEATURE
-int         kpmSetMatchingSkipRegion( KpmHandle *kpmHandle, SurfSubRect *skipRegion, int regionNum);
+int         kpmSetMatchingSkipRegion(KpmHandle *kpmHandle, SurfSubRect *skipRegion, int regionNum);
 #endif
 
-int         kpmGetRefDataSet( KpmHandle *kpmHandle, KpmRefDataSet **refDataSet );
-int         kpmGetInDataSet( KpmHandle *kpmHandle, KpmInputDataSet **inDataSet );
+int         kpmGetRefDataSet(KpmHandle *kpmHandle, KpmRefDataSet **refDataSet);
+int         kpmGetInDataSet(KpmHandle *kpmHandle, KpmInputDataSet **inDataSet);
 #if !BINARY_FEATURE
-int         kpmGetMatchingResult( KpmHandle *kpmHandle, KpmMatchResult **preRANSAC, KpmMatchResult **aftRANSAC );
+int         kpmGetMatchingResult(KpmHandle *kpmHandle, KpmMatchResult **preRANSAC, KpmMatchResult **aftRANSAC);
 #endif
-int         kpmGetPose( KpmHandle *kpmHandle, float  pose[3][4], int *pageNo, float  *error );
-int         kpmGetResult( KpmHandle *kpmHandle, KpmResult **result, int *resultNum );
+int kpmGetPose(KpmHandle * kpmHandle, float pose[3][4], int *pageNo, float  *error);
+int         kpmGetResult(KpmHandle *kpmHandle, KpmResult **result, int *resultNum);
 
 
-int         kpmGenRefDataSet ( ARUint8 *refImage, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, float  dpi, int procMode, int compMode, int maxFeatureNum,
-                               int pageNo, int imageNo, KpmRefDataSet **refDataSet );
-int         kpmAddRefDataSet ( ARUint8 *refImage, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, float  dpi, int procMode, int compMode, int maxFeatureNum,
-                               int pageNo, int imageNo, KpmRefDataSet **refDataSet );
+int         kpmGenRefDataSet(ARUint8 *refImage, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, float dpi, int procMode, int compMode, int maxFeatureNum,
+                             int pageNo, int imageNo, KpmRefDataSet **refDataSet);
+int         kpmAddRefDataSet(ARUint8 *refImage, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, float dpi, int procMode, int compMode, int maxFeatureNum,
+                             int pageNo, int imageNo, KpmRefDataSet **refDataSet);
 
 /*!
     @function
@@ -309,9 +319,9 @@ int         kpmAddRefDataSet ( ARUint8 *refImage, AR_PIXEL_FORMAT pixFormat, int
         merge, the dataset pointed to will be deleted and the location pointed to set to NULL.
     @result 0 if the merge succeeded, or a value &lt; 0 in case of error.
  */
-int         kpmMergeRefDataSet  ( KpmRefDataSet **refDataSetPtr1, KpmRefDataSet **refDataSetPtr2 );
+int         kpmMergeRefDataSet(KpmRefDataSet **refDataSetPtr1, KpmRefDataSet **refDataSetPtr2);
 #define     kpmMargeRefDataSet kpmMergeRefDataSet
-    
+
 /*!
     @function
     @abstract Dispose of a reference data set and its allocated memory.
@@ -324,18 +334,18 @@ int         kpmMergeRefDataSet  ( KpmRefDataSet **refDataSetPtr1, KpmRefDataSet 
     @result 0 if the delete succeeded, or a value &lt; 0 in case of error.
     @seealso kpmLoadRefDataSet kpmLoadRefDataSet
  */
-int         kpmDeleteRefDataSet ( KpmRefDataSet **refDataSetPtr );
+int         kpmDeleteRefDataSet(KpmRefDataSet **refDataSetPtr);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param filename
     @param ext
     @param refDataSet
-    @result 
+    @result
  */
-int         kpmSaveRefDataSet   ( const char *filename, const char *ext, KpmRefDataSet  *refDataSet );
+int         kpmSaveRefDataSet(const char *filename, const char *ext, KpmRefDataSet  *refDataSet);
 
 /*!
     @function
@@ -357,48 +367,48 @@ int         kpmSaveRefDataSet   ( const char *filename, const char *ext, KpmRefD
     @seealso kpmMergeRefDataSet kpmMergeRefDataSet
     @seealso kpmDeleteRefDataSet kpmDeleteRefDataSet
  */
-int         kpmLoadRefDataSet   ( const char *filename, const char *ext, KpmRefDataSet **refDataSetPtr );
+int         kpmLoadRefDataSet(const char *filename, const char *ext, KpmRefDataSet **refDataSetPtr);
 
-int         kpmLoadRefDataSetOld( const char *filename, const char *ext, KpmRefDataSet **refDataSetPtr );
+int         kpmLoadRefDataSetOld(const char *filename, const char *ext, KpmRefDataSet **refDataSetPtr);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param refDataSet
     @param oldPageNo
     @param newPageNo
-    @result 
+    @result
  */
-int         kpmChangePageNoOfRefDataSet ( KpmRefDataSet *refDataSet, int oldPageNo, int newPageNo );
+int         kpmChangePageNoOfRefDataSet(KpmRefDataSet *refDataSet, int oldPageNo, int newPageNo);
 
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param image Source image, as an unpadded pixel buffer beginning with the leftmost pixel of the top row.
     @param pixFormat Layout of pixel data in 'image'.
     @param xsize Layout of pixel data in 'image'.
     @param ysize Layout of pixel data in 'image'.
     @param procMode
-    @result 
+    @result
  */
-ARUint8    *kpmUtilGenBWImage( ARUint8 *image, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, int procMode, int *newXsize, int *newYsize );
+ARUint8* kpmUtilGenBWImage(ARUint8 *image, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, int procMode, int *newXsize, int *newYsize);
 
 #if !BINARY_FEATURE
-int         kpmUtilGetPose ( ARParamLT *cparamLT, KpmMatchResult *matchData, KpmRefDataSet *refDataSet, KpmInputDataSet *inputDataSet, float  camPose[3][4], float  *err );
-    
-int         kpmUtilGetPose2( ARParamLT *cparamLT, KpmMatchResult *matchData, KpmRefDataSet *refDataSet, int *redDataIndex, KpmInputDataSet *inputDataSet, float  camPose[3][4], float  *error );
-int         kpmUtilGetPoseHomography( KpmMatchResult *matchData, KpmRefDataSet *refDataSet, KpmInputDataSet *inputDataSet, float  camPose[3][4], float  *err );
+int kpmUtilGetPose (ARParamLT * cparamLT, KpmMatchResult * matchData, KpmRefDataSet * refDataSet, KpmInputDataSet * inputDataSet, float camPose[3][4], float  *err);
+
+int kpmUtilGetPose2(ARParamLT * cparamLT, KpmMatchResult * matchData, KpmRefDataSet * refDataSet, int *redDataIndex, KpmInputDataSet * inputDataSet, float camPose[3][4], float  *error);
+int kpmUtilGetPoseHomography(KpmMatchResult * matchData, KpmRefDataSet * refDataSet, KpmInputDataSet * inputDataSet, float camPose[3][4], float  *err);
 #endif
-int         kpmUtilGetCorner( ARUint8 *inImagePtr, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, int procMode, int maxPointNum, CornerPoints *cornerPoints );
+int         kpmUtilGetCorner(ARUint8 *inImagePtr, AR_PIXEL_FORMAT pixFormat, int xsize, int ysize, int procMode, int maxPointNum, CornerPoints *cornerPoints);
 
 
 double wallclock();
-    
+
 int kpmLoadImageDb(const char *filename);
-    
+
 #ifdef __cplusplus
 }
 #endif

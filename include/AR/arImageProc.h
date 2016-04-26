@@ -57,27 +57,28 @@ extern "C" {
 #  endif
 #endif
 
-struct _ARImageProcInfo {
-    unsigned char *__restrict image; // Buffer holds result of conversion to luminance image (8 bit grayscale).
-    unsigned char *__restrict image2; // Extra buffer, allocated as required.
-    int imageX; // Width of image buffer.
-    int imageY; // Height of image buffer.
-    unsigned long histBins[256]; // Luminance histogram.
-    unsigned long cdfBins[256]; // Luminance cumulative density function.
-    unsigned char min; // Minimum luminance.
-    unsigned char max; // Maximum luminance.
+struct _ARImageProcInfo
+{
+    unsigned char* __restrict image; // Buffer holds result of conversion to luminance image (8 bit grayscale).
+    unsigned char* __restrict image2; // Extra buffer, allocated as required.
+    int                       imageX; // Width of image buffer.
+    int                       imageY; // Height of image buffer.
+    unsigned long             histBins[256]; // Luminance histogram.
+    unsigned long             cdfBins[256]; // Luminance cumulative density function.
+    unsigned char             min; // Minimum luminance.
+    unsigned char             max; // Maximum luminance.
 #if AR_IMAGEPROC_USE_VIMAGE
     void *tempBuffer;
 #endif
     AR_PIXEL_FORMAT pixFormat; // Expected pixel format of incoming images.
-    int alwaysCopy;
-    int imageWasAllocated;
+    int             alwaysCopy;
+    int             imageWasAllocated;
 #ifdef HAVE_ARM_NEON
     int fastPath;
 #endif
 };
 typedef struct _ARImageProcInfo ARImageProcInfo;
-    
+
 #ifdef __cplusplus
 }
 #endif
@@ -88,22 +89,21 @@ typedef struct _ARImageProcInfo ARImageProcInfo;
 extern "C" {
 #endif
 
-ARImageProcInfo *arImageProcInit(const int xsize, const int ysize, const AR_PIXEL_FORMAT pixFormat, int alwaysCopy);
+ARImageProcInfo* arImageProcInit(const int xsize, const int ysize, const AR_PIXEL_FORMAT pixFormat, int alwaysCopy);
 void arImageProcFinal(ARImageProcInfo *ipi);
-int arImageProcLuma(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr);
-int arImageProcLumaHist(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr);
-unsigned char *arImageProcGetHistImage(ARImageProcInfo *ipi);
-int arImageProcLumaHistAndCDF(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr);
-int arImageProcLumaHistAndCDFAndPercentile(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, const float percentile, unsigned char *value_p);
-int arImageProcLumaHistAndCDFAndMedian(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, unsigned char *value_p);
-int arImageProcLumaHistAndOtsu(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, unsigned char *value_p);
+int arImageProcLuma(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr);
+int arImageProcLumaHist(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr);
+unsigned char* arImageProcGetHistImage(ARImageProcInfo *ipi);
+int arImageProcLumaHistAndCDF(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr);
+int arImageProcLumaHistAndCDFAndPercentile(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr, const float percentile, unsigned char *value_p);
+int arImageProcLumaHistAndCDFAndMedian(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr, unsigned char *value_p);
+int arImageProcLumaHistAndOtsu(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr, unsigned char *value_p);
 #if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
-int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, const int boxSize, const int bias);
+int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr, const int boxSize, const int bias);
 #endif
-int arImageProcLumaHistAndCDFAndLevels(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr);
+int arImageProcLumaHistAndCDFAndLevels(ARImageProcInfo *ipi, const ARUint8* __restrict dataPtr);
 
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !AR_IMAGEPROC_H

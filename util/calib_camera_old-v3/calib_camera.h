@@ -39,49 +39,50 @@
 #define CALIB_DIST_H
 
 #if defined(AR_DEFAULT_INPUT_SGI)
-#define  VCONF  "-size=FULL"
+#define  VCONF "-size=FULL"
 #elif defined(AR_DEFAULT_INPUT_V4L)
-#define  VCONF  "-width=640 -height=480"
+#define  VCONF "-width=640 -height=480"
 #elif defined(AR_DEFAULT_INPUT_1394CAM)
 #if AR_INPUT_1394CAM_DEFAULT_PIXEL_FORMAT == AR_PIXEL_FORMAT_MONO
-#define  VCONF  "-mode=640x480_MONO"
+#define  VCONF "-mode=640x480_MONO"
 #elif defined(AR_INPUT_1394CAM_USE_DRAGONFLY)
-#define  VCONF  "-mode=640x480_MONO_COLOR"
+#define  VCONF "-mode=640x480_MONO_COLOR"
 #else
-#define  VCONF  "-mode=640x480_YUV411"
+#define  VCONF "-mode=640x480_YUV411"
 #endif
 #elif defined(AR_DEFAULT_INPUT_DV)
-#define  VCONF  ""
+#define  VCONF ""
 #elif defined(AR_DEFAULT_INPUT_WINDOWS)
-#define  VCONF  ""
+#define  VCONF ""
 #else
-#define  VCONF  ""
+#define  VCONF ""
 #endif
 
 
 
 
 
-#define  H_NUM        6
-#define  V_NUM        4
-#define  LOOP_MAX    20
-#define  THRESH     100
+#define  H_NUM    6
+#define  V_NUM    4
+#define  LOOP_MAX 20
+#define  THRESH   100
 
-typedef struct {
-    ARdouble   x_coord;
-    ARdouble   y_coord;
+typedef struct
+{
+    ARdouble x_coord;
+    ARdouble y_coord;
 } CALIB_COORD_T;
 
-typedef struct patt {
-    unsigned char  *savedImage[LOOP_MAX];
-    CALIB_COORD_T  *world_coord;
-    CALIB_COORD_T  *point[LOOP_MAX];
-    int            h_num;
-    int            v_num;
-    int            loop_num;
+typedef struct patt
+{
+    unsigned char *savedImage[LOOP_MAX];
+    CALIB_COORD_T *world_coord;
+    CALIB_COORD_T *point[LOOP_MAX];
+    int           h_num;
+    int           v_num;
+    int           loop_num;
 } CALIB_PATT_T;
 
-void calc_distortion( CALIB_PATT_T *patt, int xsize, int ysize, ARdouble aspect_ratio, ARdouble dist_factor[], int dist_function_version );
-int  calc_inp( CALIB_PATT_T *patt, ARdouble dist_factor[], int xsize, int ysize, ARdouble mat[3][4], int dist_function_version );
-
+void calc_distortion(CALIB_PATT_T *patt, int xsize, int ysize, ARdouble aspect_ratio, ARdouble dist_factor[], int dist_function_version);
+int calc_inp(CALIB_PATT_T * patt, ARdouble dist_factor[], int xsize, int ysize, ARdouble mat[3][4], int dist_function_version);
 #endif

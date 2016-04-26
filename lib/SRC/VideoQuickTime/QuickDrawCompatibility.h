@@ -36,24 +36,24 @@
 extern "C" {
 #endif
 
-#define MacSetRect SetRect
+#define MacSetRect    SetRect
 #define MacOffsetRect OffsetRect
 #define MacSetRectRgn SetRectRgn
-#define MacUnionRgn UnionRgn
+#define MacUnionRgn   UnionRgn
 
-extern Boolean EmptyRgn(RgnHandle);
-extern OSStatus CreateCGContextForPort(CGrafPtr, CGContextRef*);
-extern OSStatus SyncCGContextOriginWithPort(CGContextRef, CGrafPtr);
+extern Boolean      EmptyRgn(RgnHandle);
+extern OSStatus     CreateCGContextForPort(CGrafPtr, CGContextRef*);
+extern OSStatus     SyncCGContextOriginWithPort(CGContextRef, CGrafPtr);
 extern PixMapHandle GetPortPixMap(CGrafPtr);
-extern QDErr NewGWorldFromPtr(GWorldPtr*, UInt32, const Rect*, CTabHandle, GDHandle, GWorldFlags, Ptr, SInt32);
-extern QDErr NewGWorld(GWorldPtr*, short, const Rect*, CTabHandle, GDHandle, GWorldFlags);
+extern QDErr        NewGWorldFromPtr(GWorldPtr*, UInt32, const Rect*, CTabHandle, GDHandle, GWorldFlags, Ptr, SInt32);
+extern QDErr        NewGWorld(GWorldPtr*, short, const Rect*, CTabHandle, GDHandle, GWorldFlags);
 extern PixMapHandle GetGWorldPixMap(GWorldPtr);
-extern Boolean LockPixels(PixMapHandle);
-extern void UnlockPixels(PixMapHandle);
-extern Rect* GetPortBounds(CGrafPtr, Rect*);
-extern Rect* GetRegionBounds(RgnHandle, Rect*);
-extern RgnHandle GetPortClipRegion(CGrafPtr, RgnHandle);
-extern RgnHandle GetPortVisibleRegion(CGrafPtr, RgnHandle);
+extern Boolean      LockPixels(PixMapHandle);
+extern void         UnlockPixels(PixMapHandle);
+extern Rect         *GetPortBounds(CGrafPtr, Rect*);
+extern Rect         *GetRegionBounds(RgnHandle, Rect*);
+extern RgnHandle    GetPortClipRegion(CGrafPtr, RgnHandle);
+extern RgnHandle    GetPortVisibleRegion(CGrafPtr, RgnHandle);
 extern RgnHandle NewRgn();
 extern void BackColor(long);
 extern void RGBBackColor(const RGBColor *color);
@@ -77,77 +77,76 @@ extern void RectRgn(RgnHandle, const Rect*);
 extern void SectRgn(RgnHandle, RgnHandle, RgnHandle);
 extern void SetGWorld(CGrafPtr, GDHandle);
 extern void SetOrigin(short, short);
-extern void SetPort(GrafPtr);
-extern void SetPortClipRegion(CGrafPtr, RgnHandle);
-extern void SetPortVisibleRegion(CGrafPtr, RgnHandle);
+extern void     SetPort(GrafPtr);
+extern void     SetPortClipRegion(CGrafPtr, RgnHandle);
+extern void     SetPortVisibleRegion(CGrafPtr, RgnHandle);
 extern OSStatus QDBeginCGContext(CGrafPtr, CGContextRef*);
 extern OSStatus QDEndCGContext(CGrafPtr, CGContextRef*);
 
-enum {
-    blackColor = 33,
-    whiteColor = 30,
-    redColor = 205,
-    greenColor = 341,
-    blueColor = 409,
-    cyanColor = 273,
+enum
+{
+    blackColor   = 33,
+    whiteColor   = 30,
+    redColor     = 205,
+    greenColor   = 341,
+    blueColor    = 409,
+    cyanColor    = 273,
     magentaColor = 137,
-    yellowColor = 69
+    yellowColor  = 69
 };
 
-enum {
+enum
+{
     // Graphics Transfer Modes.
     // Boolean modes
     // src modes are used with bitmaps and text;
     // pat modes are used with lines and shapes
-    //srcCopy               =0, // "Copy"
-    srcOr                 =1, // "Or" (Deprecated)
-    srcXor                =2, // "Xor" (Deprecated)
-    srcBic                =3, // "Replace Black" (Deprecated)
-    notSrcCopy            =4, // "Inverse Copy" (Deprecated)
-    notSrcOr              =5, // "Inverse Or" (Deprecated)
-    notSrcXor             =6, // "Inverse Xor" (Deprecated)
-    notSrcBic             =7, // "Inverse Replace Black" (Deprecated)
-    patCopy               =8, // "Pattern Copy" (Deprecated)
-    patOr                 =9, // "Pattern Or" (Deprecated)
-    patXor                =10, // "Pattern Xor" (Deprecated)
-    patBic                =11, // "Pattern Replace Black" (Deprecated)
-    notPatCopy            =12, // "Inverse Pattern Copy" (Deprecated)
-    notPatOr              =13, // "Inverse Pattern Or" (Deprecated)
-    notPatXor             =14, // "Inverse Pattern Xor" (Deprecated)
-    notPatBic             =15, // "Inverse Pattern Replace Black" (Deprecated)
+    // srcCopy               =0, // "Copy"
+    srcOr      = 1,           // "Or" (Deprecated)
+    srcXor     = 2,           // "Xor" (Deprecated)
+    srcBic     = 3,           // "Replace Black" (Deprecated)
+    notSrcCopy = 4,           // "Inverse Copy" (Deprecated)
+    notSrcOr   = 5,           // "Inverse Or" (Deprecated)
+    notSrcXor  = 6,           // "Inverse Xor" (Deprecated)
+    notSrcBic  = 7,           // "Inverse Replace Black" (Deprecated)
+    patCopy    = 8,           // "Pattern Copy" (Deprecated)
+    patOr      = 9,           // "Pattern Or" (Deprecated)
+    patXor     = 10,           // "Pattern Xor" (Deprecated)
+    patBic     = 11,           // "Pattern Replace Black" (Deprecated)
+    notPatCopy = 12,           // "Inverse Pattern Copy" (Deprecated)
+    notPatOr   = 13,           // "Inverse Pattern Or" (Deprecated)
+    notPatXor  = 14,           // "Inverse Pattern Xor" (Deprecated)
+    notPatBic  = 15,           // "Inverse Pattern Replace Black" (Deprecated)
     // Text dimming
-    grayishTextOr         =49, // "Grayish Text Or" (Deprecated)
+    grayishTextOr = 49,        // "Grayish Text Or" (Deprecated)
     // Highlighting
-    hilite                =50, // "Hilite" (Takes OpColor, Deprecated)
-    hilitetransfermode    =50,
+    hilite             = 50,   // "Hilite" (Takes OpColor, Deprecated)
+    hilitetransfermode = 50,
     // Arithmetic modes
-    blend                 =32, // "Blend" (Transparent, Takes OpColor)
-    addPin                =33, // "Add Pin" (Takes OpColor, Deprecated)
-    addOver               =34, // "Add Over" (Deprecated)
-    subPin                =35, // "Subtract Pin" (Takes OpColor, Deprecated)
-    addMax                =37, // "Add Max" (Deprecated)
-    adMax                 =37,
-    subOver               =38, // "Subtract Over" (Deprecated)
-    adMin                 =39, // "Add Min" (Deprecated)
-    ditherCopy            =64, // "Dither Copy"
+    blend      = 32,           // "Blend" (Transparent, Takes OpColor)
+    addPin     = 33,           // "Add Pin" (Takes OpColor, Deprecated)
+    addOver    = 34,           // "Add Over" (Deprecated)
+    subPin     = 35,           // "Subtract Pin" (Takes OpColor, Deprecated)
+    addMax     = 37,           // "Add Max" (Deprecated)
+    adMax      = 37,
+    subOver    = 38,           // "Subtract Over" (Deprecated)
+    adMin      = 39,           // "Add Min" (Deprecated)
+    ditherCopy = 64,           // "Dither Copy"
     // Transparent mode
-    transparent           =36, // "Transparent" (Transparent, Takes OpColor, Deprecated)
+    transparent = 36,          // "Transparent" (Transparent, Takes OpColor, Deprecated)
     // Other modes
-    //graphicsModeStraightAlpha     = 256, // "Straight Alpha"
-    //graphicsModePreWhiteAlpha     = 257, // "Premultiplied White Alpha"
-    //graphicsModePreBlackAlpha     = 258, // "Premultiplied Black Alpha"
-    //graphicsModeComposition       = 259, // "Composition"
-    //graphicsModeStraightAlphaBlend = 260, // "Straight Alpha Blend" (Transparent, Takes OpColor)
-    //graphicsModePreMulColorAlpha  = 261, // "Premultiplied Color Alpha" (Takes OpColor, Deprecated)
-    //graphicsModePerComponentAlpha = 272 // "Per Component Alpha" (Deprecated)
+    // graphicsModeStraightAlpha     = 256, // "Straight Alpha"
+    // graphicsModePreWhiteAlpha     = 257, // "Premultiplied White Alpha"
+    // graphicsModePreBlackAlpha     = 258, // "Premultiplied Black Alpha"
+    // graphicsModeComposition       = 259, // "Composition"
+    // graphicsModeStraightAlphaBlend = 260, // "Straight Alpha Blend" (Transparent, Takes OpColor)
+    // graphicsModePreMulColorAlpha  = 261, // "Premultiplied Color Alpha" (Takes OpColor, Deprecated)
+    // graphicsModePerComponentAlpha = 272 // "Per Component Alpha" (Deprecated)
 };
 
 #ifdef __cplusplus
 }
 #endif
-
 #endif // defined(QD_HEADERS_ARE_PRIVATE) && QD_HEADERS_ARE_PRIVATE
-
 #endif // __LP64__
-
 #endif // QuickDrawCompatibility_h

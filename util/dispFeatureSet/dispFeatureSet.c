@@ -202,7 +202,7 @@ static int init(int argc, char *argv[])
         vp[i]          = argCreateViewport(&viewport);
         argViewportSetImageSize(vp[i], imageSet->scale[i]->xsize, imageSet->scale[i]->ysize);
         argViewportSetDispMethod(vp[i], AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME);
-        //argViewportSetDispMethod( vp[i], AR_GL_DISP_METHOD_GL_DRAW_PIXELS );
+        // argViewportSetDispMethod( vp[i], AR_GL_DISP_METHOD_GL_DRAW_PIXELS );
         argViewportSetDispMode(vp[i], AR_GL_DISP_MODE_FIT_TO_VIEWPORT);
         argViewportSetDistortionMode(vp[i], AR_GL_DISTORTION_COMPENSATE_DISABLE);
     }

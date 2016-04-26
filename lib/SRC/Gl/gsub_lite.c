@@ -2,7 +2,7 @@
  *  gsub_lite.c
  *  ARToolKit5
  *
- *	Graphics Subroutines (Lite) for ARToolKit.
+ *      Graphics Subroutines (Lite) for ARToolKit.
  *
  *  This file is part of ARToolKit.
  *
@@ -38,7 +38,7 @@
  */
 
 // ============================================================================
-//	Private includes.
+//      Private includes.
 // ============================================================================
 #include <AR/gsub_lite.h>
 
@@ -60,7 +60,7 @@
 #endif
 
 // ============================================================================
-//	Private types and defines.
+//      Private types and defines.
 // ============================================================================
 #ifdef _MSC_VER
 #  pragma warning (disable:4068)        // Disable MSVC warnings about unknown pragmas.
@@ -78,59 +78,59 @@
 // Define constants for extensions which became core in OpenGL 1.2
 #ifndef GL_VERSION_1_2
 #  if GL_EXT_bgra
-#    define GL_BGR                                                      GL_BGR_EXT
-#    define GL_BGRA                                                     GL_BGRA_EXT
+#    define GL_BGR  GL_BGR_EXT
+#    define GL_BGRA GL_BGRA_EXT
 #  else
-#    define GL_BGR                                                      0x80E0
-#    define GL_BGRA                                                     0x80E1
+#    define GL_BGR  0x80E0
+#    define GL_BGRA 0x80E1
 #  endif
 #  ifndef GL_APPLE_packed_pixels
-#    define GL_UNSIGNED_SHORT_4_4_4_4       0x8033
-#    define GL_UNSIGNED_SHORT_5_5_5_1       0x8034
-#    define GL_UNSIGNED_INT_8_8_8_8         0x8035
-#    define GL_UNSIGNED_SHORT_5_6_5         0x8363
-#    define GL_UNSIGNED_SHORT_5_6_5_REV     0x8364
-#    define GL_UNSIGNED_SHORT_4_4_4_4_REV   0x8365
-#    define GL_UNSIGNED_SHORT_1_5_5_5_REV   0x8366
-#    define GL_UNSIGNED_INT_8_8_8_8_REV     0x8367
+#    define GL_UNSIGNED_SHORT_4_4_4_4     0x8033
+#    define GL_UNSIGNED_SHORT_5_5_5_1     0x8034
+#    define GL_UNSIGNED_INT_8_8_8_8       0x8035
+#    define GL_UNSIGNED_SHORT_5_6_5       0x8363
+#    define GL_UNSIGNED_SHORT_5_6_5_REV   0x8364
+#    define GL_UNSIGNED_SHORT_4_4_4_4_REV 0x8365
+#    define GL_UNSIGNED_SHORT_1_5_5_5_REV 0x8366
+#    define GL_UNSIGNED_INT_8_8_8_8_REV   0x8367
 #  endif
 #  if GL_SGIS_texture_edge_clamp
-#    define GL_CLAMP_TO_EDGE                            GL_CLAMP_TO_EDGE_SGIS
+#    define GL_CLAMP_TO_EDGE GL_CLAMP_TO_EDGE_SGIS
 #  else
-#    define GL_CLAMP_TO_EDGE                            0x812F
+#    define GL_CLAMP_TO_EDGE 0x812F
 #  endif
 #endif
 
 // Define constants for extensions which became core in OpenGL 3.1
 #ifndef GL_VERSION_3_1
 #  if GL_NV_texture_rectangle
-#    define GL_TEXTURE_RECTANGLE            GL_TEXTURE_RECTANGLE_NV
-#    define GL_PROXY_TEXTURE_RECTANGLE          GL_PROXY_TEXTURE_RECTANGLE_NV
-#    define GL_MAX_RECTANGLE_TEXTURE_SIZE   GL_MAX_RECTANGLE_TEXTURE_SIZE_NV
+#    define GL_TEXTURE_RECTANGLE          GL_TEXTURE_RECTANGLE_NV
+#    define GL_PROXY_TEXTURE_RECTANGLE    GL_PROXY_TEXTURE_RECTANGLE_NV
+#    define GL_MAX_RECTANGLE_TEXTURE_SIZE GL_MAX_RECTANGLE_TEXTURE_SIZE_NV
 #  elif GL_EXT_texture_rectangle
-#    define GL_TEXTURE_RECTANGLE            GL_TEXTURE_RECTANGLE_EXT
-#    define GL_PROXY_TEXTURE_RECTANGLE      GL_PROXY_TEXTURE_RECTANGLE_EXT
-#    define GL_MAX_RECTANGLE_TEXTURE_SIZE   GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
+#    define GL_TEXTURE_RECTANGLE          GL_TEXTURE_RECTANGLE_EXT
+#    define GL_PROXY_TEXTURE_RECTANGLE    GL_PROXY_TEXTURE_RECTANGLE_EXT
+#    define GL_MAX_RECTANGLE_TEXTURE_SIZE GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
 #  else
-#    define GL_TEXTURE_RECTANGLE            0x84F5
-#    define GL_PROXY_TEXTURE_RECTANGLE      0x84F7
-#    define GL_MAX_RECTANGLE_TEXTURE_SIZE   0x84F8
+#    define GL_TEXTURE_RECTANGLE          0x84F5
+#    define GL_PROXY_TEXTURE_RECTANGLE    0x84F7
+#    define GL_MAX_RECTANGLE_TEXTURE_SIZE 0x84F8
 #  endif
 #endif
 
 // Define constants for extensions (not yet core).
 #ifndef GL_APPLE_ycbcr_422
-#  define GL_YCBCR_422_APPLE                            0x85B9
-#  define GL_UNSIGNED_SHORT_8_8_APPLE           0x85BA
-#  define GL_UNSIGNED_SHORT_8_8_REV_APPLE       0x85BB
+#  define GL_YCBCR_422_APPLE              0x85B9
+#  define GL_UNSIGNED_SHORT_8_8_APPLE     0x85BA
+#  define GL_UNSIGNED_SHORT_8_8_REV_APPLE 0x85BB
 #endif
 #ifndef GL_EXT_abgr
-#  define GL_ABGR_EXT                                           0x8000
+#  define GL_ABGR_EXT 0x8000
 #endif
 #ifndef GL_MESA_ycbcr_texture
-#  define GL_YCBCR_MESA                                         0x8757
-#  define GL_UNSIGNED_SHORT_8_8_MESA            0x85BA
-#  define GL_UNSIGNED_SHORT_8_8_REV_MESA        0x85BB
+#  define GL_YCBCR_MESA                  0x8757
+#  define GL_UNSIGNED_SHORT_8_8_MESA     0x85BA
+#  define GL_UNSIGNED_SHORT_8_8_REV_MESA 0x85BB
 #endif
 
 // On Windows, all OpenGL v1.5 and later API must be dynamically resolved against the actual driver.
@@ -143,7 +143,7 @@ PFNGLACTIVETEXTUREPROC       glActiveTexture       = NULL;
 PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture = NULL;
 #endif
 
-//#define ARGL_DEBUG
+// #define ARGL_DEBUG
 
 struct _ARGL_CONTEXT_SETTINGS
 {
@@ -179,13 +179,13 @@ typedef struct _ARGL_CONTEXT_SETTINGS ARGL_CONTEXT_SETTINGS;
 
 
 // ============================================================================
-//	Private globals.
+//      Private globals.
 // ============================================================================
 
 
 #pragma mark -
 // ============================================================================
-//	Private functions.
+//      Private functions.
 // ============================================================================
 
 #if !ARGL_DISABLE_DISP_IMAGE
@@ -277,9 +277,7 @@ static char arglSetupTextureGeometry(ARGL_CONTEXT_SETTINGS_REF contextSettings)
                 contextSettings->v2[v2count++] = xx2;
                 contextSettings->v2[v2count++] = yy2;
             } // columns.
-
         } // rows.
-
     }
 
     // Now setup VBOs.
@@ -335,7 +333,7 @@ static char arglSetupTextureObjects(ARGL_CONTEXT_SETTINGS_REF contextSettings)
 
 #pragma mark -
 // ============================================================================
-//	Public functions.
+//      Public functions.
 // ============================================================================
 
 //
@@ -578,11 +576,11 @@ ARGL_CONTEXT_SETTINGS_REF arglSetupForCurrentContext(ARParam *cparam, AR_PIXEL_F
     contextSettings->arhandle = NULL;
     contextSettings->zoom     = 1.0f;
     // Because of calloc used above, these are redundant.
-    //contextSettings->rotate90 = contextSettings->flipH = contextSettings->flipV = FALSE;
-    //contextSettings->disableDistortionCompensation = FALSE;
-    //contextSettings->textureGeometryHasBeenSetup = FALSE;
-    //contextSettings->textureObjectsHaveBeenSetup = FALSE;
-    //contextSettings->textureDataReady = FALSE;
+    // contextSettings->rotate90 = contextSettings->flipH = contextSettings->flipV = FALSE;
+    // contextSettings->disableDistortionCompensation = FALSE;
+    // contextSettings->textureGeometryHasBeenSetup = FALSE;
+    // contextSettings->textureObjectsHaveBeenSetup = FALSE;
+    // contextSettings->textureDataReady = FALSE;
 
     // This sets pixIntFormat, pixFormat, pixType, pixSize, and resets textureDataReady.
     arglPixelFormatSet(contextSettings, pixelFormat);
@@ -701,7 +699,6 @@ void arglDispImage(ARGL_CONTEXT_SETTINGS_REF contextSettings)
         ARLOGe("ARGL: GL error 0x%04X\n", (int)err);
     }
 #endif // ARGL_DEBUG
-
 }
 
 void arglDispImageStateful(ARGL_CONTEXT_SETTINGS_REF contextSettings)
@@ -763,7 +760,6 @@ void arglDispImageStateful(ARGL_CONTEXT_SETTINGS_REF contextSettings)
     glDisable(GL_TEXTURE_2D);
     if (texEnvModeSave != GL_REPLACE)
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, texEnvModeSave);                               // Restore GL texture environment mode.
-
 }
 
 int arglDistortionCompensationSet(ARGL_CONTEXT_SETTINGS_REF contextSettings, int enable)
@@ -1241,7 +1237,7 @@ GLboolean arglGluCheckExtension(const GLubyte *extName, const GLubyte *extString
         return GL_FALSE;
 
     // It takes a bit of care to be fool-proof about parsing the
-    //	OpenGL extensions string. Don't be fooled by sub-strings, etc.
+    //  OpenGL extensions string. Don't be fooled by sub-strings, etc.
     start = extString;
 
     for (;;)

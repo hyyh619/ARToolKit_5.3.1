@@ -41,59 +41,59 @@
 #include <utils/point.h>
 #include <matchers/matcher_types.h>
 
-namespace vision {
+namespace vision
+{
+class VisualDatabaseImpl;
 
-    class VisualDatabaseImpl;
-    
-    class VisualDatabaseFacade {
-    public:
-        
-        VisualDatabaseFacade();
-        ~VisualDatabaseFacade();
-        
-        void addImage(unsigned char* grayImage, size_t width, size_t height, int image_id);
-        
-        void addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint>& featurePoints,
-                                            const std::vector<unsigned char>& descriptors,
-                                            const std::vector<vision::Point3d<float> >& points3D,
-                                            size_t width,
-                                            size_t height,
-                                            int image_id);
-        
-        void computeFreakFeaturesAndDescriptors(unsigned char* grayImage,
-                                                size_t width, size_t height,
-                                                std::vector<FeaturePoint>& featurePoints,
-                                                std::vector<unsigned char>& descriptors);
-        
-        bool query(unsigned char* grayImage, size_t width, size_t height) ;
-        
-        
-        bool erase(int image_id);
-        
-        const size_t databaseCount();
-        
-        int matchedId() ;
-        
-        const float* matchedGeometry();
-        
-        const std::vector<FeaturePoint>& getFeaturePoints(int image_id) const;
-        
-        const std::vector<unsigned char>& getDescriptors(int image_id) const;
-        
-        const std::vector<vision::Point3d<float> >& get3DFeaturePoints(int image_id) const;
-        
-        int getWidth(int image_id) const;
-        int getHeight(int image_id) const;
-        
-        
-        const std::vector<FeaturePoint>& getQueryFeaturePoints() const;
-        
-        const std::vector<unsigned char>& getQueryDescriptors() const;
-        
-        const matches_t& inliers() const;
-        
-    private:
-        std::unique_ptr<VisualDatabaseImpl> mVisualDbImpl;
-    }; // VisualDatabaseFacade
-    
+class VisualDatabaseFacade
+{
+public:
+
+VisualDatabaseFacade();
+~VisualDatabaseFacade();
+
+void addImage(unsigned char *grayImage, size_t width, size_t height, int image_id);
+
+void addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint>&featurePoints,
+                                    const std::vector<unsigned char>&descriptors,
+                                    const std::vector<vision::Point3d<float> >&points3D,
+                                    size_t width,
+                                    size_t height,
+                                    int image_id);
+
+void computeFreakFeaturesAndDescriptors(unsigned char *grayImage,
+                                        size_t width, size_t height,
+                                        std::vector<FeaturePoint>&featurePoints,
+                                        std::vector<unsigned char>&descriptors);
+
+bool query(unsigned char *grayImage, size_t width, size_t height);
+
+
+bool erase(int image_id);
+
+const size_t databaseCount();
+
+int matchedId();
+
+const float* matchedGeometry();
+
+const std::vector<FeaturePoint>&getFeaturePoints(int image_id) const;
+
+const std::vector<unsigned char>&getDescriptors(int image_id) const;
+
+const std::vector<vision::Point3d<float> >&get3DFeaturePoints(int image_id) const;
+
+int getWidth(int image_id) const;
+int getHeight(int image_id) const;
+
+
+const std::vector<FeaturePoint>&getQueryFeaturePoints() const;
+
+const std::vector<unsigned char>&getQueryDescriptors() const;
+
+const matches_t&inliers() const;
+
+private:
+std::unique_ptr<VisualDatabaseImpl> mVisualDbImpl;
+};     // VisualDatabaseFacade
 } // vision

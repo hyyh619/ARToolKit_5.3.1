@@ -1,5 +1,5 @@
 /*
- *	MovieVideo.h
+ *      MovieVideo.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -40,8 +40,8 @@
 #import <AR/config.h> // AR_PIXEL_FORMAT
 
 // Notifications.
-extern NSString *const MovieVideoMediaLoadedNofication;
-extern NSString *const MovieVideoPlaybackEndedNofication;
+extern NSString* const MovieVideoMediaLoadedNofication;
+extern NSString* const MovieVideoPlaybackEndedNofication;
 
 @interface MovieVideo : NSObject
 
@@ -66,26 +66,26 @@ extern NSString *const MovieVideoPlaybackEndedNofication;
 //
 
 
--(id) initWithURL:(NSURL *)url config:(char *)conf;
+-(id) initWithURL:(NSURL*)url config:(char*)conf;
 -(bool) start;
--(unsigned char *)getFrame;
+-(unsigned char*)getFrame;
 -(void) stop;
 
-@property(nonatomic, getter=isPaused) BOOL paused;
-@property(nonatomic, readonly, getter=isLoaded) BOOL loaded;
-@property(readonly) NSInteger contentWidth;
-@property(readonly) NSInteger contentHeight;
-@property(nonatomic, readonly) AR_PIXEL_FORMAT ARPixelFormat;
-@property(readonly) OSType pixFormat;
-@property(readonly) size_t bufWidth;
-@property(readonly) size_t bufHeight;
-@property(readonly) size_t bufRowBytes;
-@property(nonatomic, readonly) unsigned char *bufDataPtr;
+@property(nonatomic, getter = isPaused) BOOL           paused;
+@property(nonatomic, readonly, getter = isLoaded) BOOL loaded;
+@property(readonly) NSInteger                          contentWidth;
+@property(readonly) NSInteger                          contentHeight;
+@property(nonatomic, readonly) AR_PIXEL_FORMAT         ARPixelFormat;
+@property(readonly) OSType                             pixFormat;
+@property(readonly) size_t                             bufWidth;
+@property(readonly) size_t                             bufHeight;
+@property(readonly) size_t                             bufRowBytes;
+@property(nonatomic, readonly) unsigned char           *bufDataPtr;
 
 @property(nonatomic, readonly) BOOL transparent;
--(BOOL) transparencyByTransparentRGBA:(uint32_t *)rgba;
+-(BOOL) transparencyByTransparentRGBA:(uint32_t*)rgba;
 -(void) setTransparencyByTransparent:(BOOL)on RGBA:(uint32_t)rgba;
--(BOOL) transparencyByChromaKeyHueMinAngle:(float *)hueMinAngle hueMaxAngle:(float *)hueMaxAngle;
+-(BOOL) transparencyByChromaKeyHueMinAngle:(float*)hueMinAngle hueMaxAngle:(float*)hueMaxAngle;
 -(void) setTransparencyByChromaKey:(BOOL)on hueMinAngle:(float)hueMinAngle hueMaxAngle:(float)hueMaxAngle;
 
 @end

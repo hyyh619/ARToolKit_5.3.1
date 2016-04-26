@@ -40,21 +40,21 @@
 #include <cmath>
 
 #ifndef NDEBUG
-#   define ASSERT(condition, message) \
-    do { \
-        if(!(condition)) { \
-            std::cerr << "Assertion `" #condition "` failed in " << __FILE__ \
-            << " line " << __LINE__ << ": " << message << std::endl; \
-            std::abort(); \
-        } \
+#   define ASSERT(condition, message)                                          \
+    do {                                                                       \
+        if (!(condition)) {                                                    \
+            std::cerr << "Assertion `" #condition "` failed in " << __FILE__   \
+                      << " line " << __LINE__ << ": " << message << std::endl; \
+            std::abort();                                                      \
+        }                                                                      \
     } while (false)
 #else
 #   define ASSERT(condition, message) do { } while (false)
 #endif
 
 #define CHECK_TRUE(condition, message) \
-    if(!(condition)) { \
-        ASSERT(false, message); \
+    if (!(condition)) {                \
+        ASSERT(false, message);        \
     }
 
 #ifndef NDEBUG

@@ -40,24 +40,23 @@
 
 namespace vision
 {
-    
-    class Exception : public std::exception {
-    public:
-        
-        Exception(const std::string& str) : mStr(str) {}
-        virtual ~Exception() throw() {}
-        
-        virtual const char* what() const throw() {
-            return mStr.c_str();
-        }
-        
-    private:
-        
-        // String containing the message
-        std::string mStr;
-        
-    }; // Exception
-    
+class Exception : public std::exception
+{
+public:
+
+Exception(const std::string&str) : mStr(str) {}
+virtual ~Exception() throw() {}
+
+virtual const char* what() const throw()
+{
+    return mStr.c_str();
+}
+
+private:
+
+// String containing the message
+std::string mStr;
+};     // Exception
+
 #define EXCEPTION(X) (Exception(X));
-    
 } // vision

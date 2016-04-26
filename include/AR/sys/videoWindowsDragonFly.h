@@ -1,5 +1,5 @@
 /*
- *	videoWindowsDragonFly.h
+ *      videoWindowsDragonFly.h
  *  ARToolKit5
  *
  *  DragonFly/FlyCapture video capture module.
@@ -37,16 +37,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 2004/01/01
- * Revised 2012-08-05, Philip Lamb.
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 2004/01/01
+* Revised 2012-08-05, Philip Lamb.
+*
+*******************************************************/
 
 #ifndef AR_VIDEO_WINDOWS_DRAGON_FLY_H
 #define AR_VIDEO_WINDOWS_DRAGON_FLY_H
@@ -62,34 +62,35 @@
 extern "C" {
 #endif
 
-#define   AR2VIDEO_WINDF_STATUS_IDLE    0
-#define   AR2VIDEO_WINDF_STATUS_RUN     1
-#define   AR2VIDEO_WINDF_STATUS_STOP    2
-#define   AR2VIDEO_WINDF_STATUS_STOP2   3
+#define   AR2VIDEO_WINDF_STATUS_IDLE  0
+#define   AR2VIDEO_WINDF_STATUS_RUN   1
+#define   AR2VIDEO_WINDF_STATUS_STOP  2
+#define   AR2VIDEO_WINDF_STATUS_STOP2 3
 
-typedef struct {
-    AR2VideoBufferT     in;
-    AR2VideoBufferT     wait;
-    AR2VideoBufferT     out;
-	HANDLE              buffMutex;
+typedef struct
+{
+    AR2VideoBufferT in;
+    AR2VideoBufferT wait;
+    AR2VideoBufferT out;
+    HANDLE          buffMutex;
 } AR2VideoBufferWinDFT;
 
 typedef struct _AR2VideoParamWinDFT AR2VideoParamWinDFT;
 
-int                   ar2VideoDispOptionWinDF     ( void );
-AR2VideoParamWinDFT   *ar2VideoOpenWinDF           ( const char *config );
-int                   ar2VideoCloseWinDF          ( AR2VideoParamWinDFT *vid );
-int                   ar2VideoGetIdWinDF          ( AR2VideoParamWinDFT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                   ar2VideoGetSizeWinDF        ( AR2VideoParamWinDFT *vid, int *x,int *y );
-AR_PIXEL_FORMAT       ar2VideoGetPixelFormatWinDF ( AR2VideoParamWinDFT *vid );
-AR2VideoBufferT      *ar2VideoGetImageWinDF       ( AR2VideoParamWinDFT *vid );
-int                   ar2VideoCapStartWinDF       ( AR2VideoParamWinDFT *vid );
-int                   ar2VideoCapStopWinDF        ( AR2VideoParamWinDFT *vid );
+int                   ar2VideoDispOptionWinDF(void);
+AR2VideoParamWinDFT* ar2VideoOpenWinDF(const char *config);
+int                   ar2VideoCloseWinDF(AR2VideoParamWinDFT *vid);
+int                   ar2VideoGetIdWinDF(AR2VideoParamWinDFT *vid, ARUint32 *id0, ARUint32 *id1);
+int                   ar2VideoGetSizeWinDF(AR2VideoParamWinDFT *vid, int *x, int *y);
+AR_PIXEL_FORMAT       ar2VideoGetPixelFormatWinDF(AR2VideoParamWinDFT *vid);
+AR2VideoBufferT* ar2VideoGetImageWinDF(AR2VideoParamWinDFT *vid);
+int                   ar2VideoCapStartWinDF(AR2VideoParamWinDFT *vid);
+int                   ar2VideoCapStopWinDF(AR2VideoParamWinDFT *vid);
 
-int                    ar2VideoGetParamiWinDF     ( AR2VideoParamWinDFT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiWinDF     ( AR2VideoParamWinDFT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdWinDF     ( AR2VideoParamWinDFT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdWinDF     ( AR2VideoParamWinDFT *vid, int paramName, double  value );
+int                    ar2VideoGetParamiWinDF(AR2VideoParamWinDFT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiWinDF(AR2VideoParamWinDFT *vid, int paramName, int value);
+int                    ar2VideoGetParamdWinDF(AR2VideoParamWinDFT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdWinDF(AR2VideoParamWinDFT *vid, int paramName, double value);
 
 #ifdef  __cplusplus
 }

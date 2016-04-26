@@ -42,40 +42,61 @@
 #include <AR/icp.h>
 
 
-ICPStereoHandleT *icpStereoCreateHandle( ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble matC2L[3][4], ARdouble matC2R[3][4] )
+ICPStereoHandleT* icpStereoCreateHandle(ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble matC2L[3][4], ARdouble matC2R[3][4])
 {
     ICPStereoHandleT *handle;
-    int               i, j;
+    int              i, j;
 
-    handle = (ICPStereoHandleT *)malloc(sizeof(ICPStereoHandleT));
-    if( handle == NULL ) return NULL;
+    handle = (ICPStereoHandleT*)malloc(sizeof(ICPStereoHandleT));
+    if (handle == NULL)
+        return NULL;
 
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) handle->matXcl2Ul[j][i] = matXcl2Ul[j][i];
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            handle->matXcl2Ul[j][i] = matXcl2Ul[j][i];
     }
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) handle->matXcr2Ur[j][i] = matXcr2Ur[j][i];
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            handle->matXcr2Ur[j][i] = matXcr2Ur[j][i];
     }
-    if( matC2L != ICP_TRANS_MAT_IDENTITY ) {
-        for( j = 0; j < 3; j++ ) {
-            for( i = 0; i < 4; i++ ) handle->matC2L[j][i] = matC2L[j][i];
+
+    if (matC2L != ICP_TRANS_MAT_IDENTITY)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            for (i = 0; i < 4; i++)
+                handle->matC2L[j][i] = matC2L[j][i];
         }
     }
-    else {
-        for( j = 0; j < 3; j++ ) {
-            for( i = 0; i < 4; i++ ) handle->matC2L[j][i] = (i == j)? 1.0: 0.0;
+    else
+    {
+        for (j = 0; j < 3; j++)
+        {
+            for (i = 0; i < 4; i++)
+                handle->matC2L[j][i] = (i == j) ? 1.0 : 0.0;
         }
     }
-    if( matC2R != ICP_TRANS_MAT_IDENTITY ) {
-        for( j = 0; j < 3; j++ ) {
-            for( i = 0; i < 4; i++ ) handle->matC2R[j][i] = matC2R[j][i];
+
+    if (matC2R != ICP_TRANS_MAT_IDENTITY)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            for (i = 0; i < 4; i++)
+                handle->matC2R[j][i] = matC2R[j][i];
         }
     }
-    else {
-        for( j = 0; j < 3; j++ ) {
-            for( i = 0; i < 4; i++ ) handle->matC2R[j][i] = (i == j)? 1.0: 0.0;
+    else
+    {
+        for (j = 0; j < 3; j++)
+        {
+            for (i = 0; i < 4; i++)
+                handle->matC2R[j][i] = (i == j) ? 1.0 : 0.0;
         }
     }
+
     handle->maxLoop                   = ICP_MAX_LOOP;
     handle->breakLoopErrorThresh      = ICP_BREAK_LOOP_ERROR_THRESH;
     handle->breakLoopErrorRatioThresh = ICP_BREAK_LOOP_ERROR_RATIO_THRESH;
@@ -85,164 +106,213 @@ ICPStereoHandleT *icpStereoCreateHandle( ARdouble matXcl2Ul[3][4], ARdouble matX
     return handle;
 }
 
-int icpStereoDeleteHandle( ICPStereoHandleT **handle )
+int icpStereoDeleteHandle(ICPStereoHandleT **handle)
 {
-    if( *handle == NULL ) return -1;
+    if (*handle == NULL)
+        return -1;
 
-    free( *handle );
+    free(*handle);
     *handle = NULL;
 
     return 0;
 }
 
 
-int icpStereoSetMatXcl2Ul( ICPStereoHandleT *handle, ARdouble matXcl2Ul[3][4] )
+int icpStereoSetMatXcl2Ul(ICPStereoHandleT *handle, ARdouble matXcl2Ul[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) handle->matXcl2Ul[j][i] = matXcl2Ul[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            handle->matXcl2Ul[j][i] = matXcl2Ul[j][i];
     }
+
     return 0;
 }
 
-int icpStereoSetMatXcr2Ur( ICPStereoHandleT *handle, ARdouble matXcr2Ur[3][4] )
+int icpStereoSetMatXcr2Ur(ICPStereoHandleT *handle, ARdouble matXcr2Ur[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) handle->matXcr2Ur[j][i] = matXcr2Ur[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            handle->matXcr2Ur[j][i] = matXcr2Ur[j][i];
     }
+
     return 0;
 }
 
-int icpStereoSetMatC2L( ICPStereoHandleT *handle, ARdouble matC2L[3][4] )
+int icpStereoSetMatC2L(ICPStereoHandleT *handle, ARdouble matC2L[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) handle->matC2L[j][i] = matC2L[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            handle->matC2L[j][i] = matC2L[j][i];
     }
+
     return 0;
 }
 
-int icpStereoSetMatC2R( ICPStereoHandleT *handle, ARdouble matC2R[3][4] )
+int icpStereoSetMatC2R(ICPStereoHandleT *handle, ARdouble matC2R[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) handle->matC2R[j][i] = matC2R[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            handle->matC2R[j][i] = matC2R[j][i];
     }
+
     return 0;
 }
 
-int icpStereoSetMaxLoop( ICPStereoHandleT *handle, int maxLoop )
+int icpStereoSetMaxLoop(ICPStereoHandleT *handle, int maxLoop)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->maxLoop = maxLoop;
     return 0;
 }
 
-int icpStereoSetBreakLoopErrorThresh( ICPStereoHandleT *handle, ARdouble breakLoopErrorThresh )
+int icpStereoSetBreakLoopErrorThresh(ICPStereoHandleT *handle, ARdouble breakLoopErrorThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->breakLoopErrorThresh = breakLoopErrorThresh;
     return 0;
 }
 
-int icpStereoSetBreakLoopErrorRatioThresh( ICPStereoHandleT *handle, ARdouble breakLoopErrorRatioThresh )
+int icpStereoSetBreakLoopErrorRatioThresh(ICPStereoHandleT *handle, ARdouble breakLoopErrorRatioThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->breakLoopErrorRatioThresh = breakLoopErrorRatioThresh;
     return 0;
 }
 
-int icpStereoGetMatXcl2Ul( ICPStereoHandleT *handle, ARdouble matXcl2Ul[3][4] )
+int icpStereoGetMatXcl2Ul(ICPStereoHandleT *handle, ARdouble matXcl2Ul[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) matXcl2Ul[j][i] = handle->matXcl2Ul[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            matXcl2Ul[j][i] = handle->matXcl2Ul[j][i];
     }
+
     return 0;
 }
 
-int icpStereoGetMatXcr2Ur( ICPStereoHandleT *handle, ARdouble matXcr2Ur[3][4] )
+int icpStereoGetMatXcr2Ur(ICPStereoHandleT *handle, ARdouble matXcr2Ur[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) matXcr2Ur[j][i] = handle->matXcr2Ur[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            matXcr2Ur[j][i] = handle->matXcr2Ur[j][i];
     }
+
     return 0;
 }
 
-int icpStereoGetMatC2L( ICPStereoHandleT *handle, ARdouble matC2L[3][4] )
+int icpStereoGetMatC2L(ICPStereoHandleT *handle, ARdouble matC2L[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) matC2L[j][i] = handle->matC2L[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            matC2L[j][i] = handle->matC2L[j][i];
     }
+
     return 0;
 }
 
-int icpStereoGetMatC2R( ICPStereoHandleT *handle, ARdouble matC2R[3][4] )
+int icpStereoGetMatC2R(ICPStereoHandleT *handle, ARdouble matC2R[3][4])
 {
-    int     i, j;
+    int i, j;
 
-    if( handle == NULL ) return -1;
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) matC2R[j][i] = handle->matC2R[j][i];
+    if (handle == NULL)
+        return -1;
+
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            matC2R[j][i] = handle->matC2R[j][i];
     }
+
     return 0;
 }
 
-int icpStereoGetMaxLoop( ICPStereoHandleT *handle, int *maxLoop )
+int icpStereoGetMaxLoop(ICPStereoHandleT *handle, int *maxLoop)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *maxLoop = handle->maxLoop;
     return 0;
 }
 
-int icpStereoGetBreakLoopErrorThresh( ICPStereoHandleT *handle, ARdouble *breakLoopErrorThresh )
+int icpStereoGetBreakLoopErrorThresh(ICPStereoHandleT *handle, ARdouble *breakLoopErrorThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *breakLoopErrorThresh = handle->breakLoopErrorThresh;
     return 0;
 }
 
-int icpStereoGetBreakLoopErrorRatioThresh( ICPStereoHandleT *handle, ARdouble *breakLoopErrorRatioThresh )
+int icpStereoGetBreakLoopErrorRatioThresh(ICPStereoHandleT *handle, ARdouble *breakLoopErrorRatioThresh)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *breakLoopErrorRatioThresh = handle->breakLoopErrorRatioThresh;
     return 0;
 }
 
-int icpStereoGetInlierProbability( ICPStereoHandleT *handle, ARdouble *inlierProb )
+int icpStereoGetInlierProbability(ICPStereoHandleT *handle, ARdouble *inlierProb)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     *inlierProb = handle->inlierProb;
     return 0;
 }
 
-int icpStereoSetInlierProbability( ICPStereoHandleT *handle, ARdouble inlierProb )
+int icpStereoSetInlierProbability(ICPStereoHandleT *handle, ARdouble inlierProb)
 {
-    if( handle == NULL ) return -1;
+    if (handle == NULL)
+        return -1;
 
     handle->inlierProb = inlierProb;
     return 0;

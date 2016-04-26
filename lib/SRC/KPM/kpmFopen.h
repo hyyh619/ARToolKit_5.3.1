@@ -43,7 +43,7 @@
 extern "C" {
 #endif
 
-FILE *kpmFopen( const char *filename, const char *ext, const char *mode );
+FILE* kpmFopen(const char *filename, const char *ext, const char *mode);
 
 #ifdef __cplusplus
 }

@@ -39,14 +39,15 @@
 
 using namespace vision;
 
-FREAKExtractor::FREAKExtractor() {
+FREAKExtractor::FREAKExtractor()
+{
     CopyVector(mPointRing0, freak84_points_ring0, 12);
     CopyVector(mPointRing1, freak84_points_ring1, 12);
     CopyVector(mPointRing2, freak84_points_ring2, 12);
     CopyVector(mPointRing3, freak84_points_ring3, 12);
     CopyVector(mPointRing4, freak84_points_ring4, 12);
     CopyVector(mPointRing5, freak84_points_ring5, 12);
-    
+
     mSigmaCenter = freak84_sigma_center;
     mSigmaRing0  = freak84_sigma_ring0;
     mSigmaRing1  = freak84_sigma_ring1;
@@ -54,9 +55,9 @@ FREAKExtractor::FREAKExtractor() {
     mSigmaRing3  = freak84_sigma_ring3;
     mSigmaRing4  = freak84_sigma_ring4;
     mSigmaRing5  = freak84_sigma_ring5;
-    
+
     mExpansionFactor = 7;
-    
+
     ASSERT(sizeof(freak84_points_ring0) == 48, "Size should be 48 bytes");
     ASSERT(sizeof(freak84_points_ring1) == 48, "Size should be 48 bytes");
     ASSERT(sizeof(freak84_points_ring2) == 48, "Size should be 48 bytes");
@@ -65,75 +66,88 @@ FREAKExtractor::FREAKExtractor() {
     ASSERT(sizeof(freak84_points_ring5) == 48, "Size should be 48 bytes");
 }
 
-void FREAKExtractor::layout84(std::vector<receptor>& receptors,
-                              std::vector<std::vector<int> >& tests) {
+void FREAKExtractor::layout84(std::vector<receptor>&receptors,
+                              std::vector<std::vector<int> >&tests)
+{
     const int ring_size = 6;
     const int num_rings = 6;
 
     const float radius_m = 4;
     const float radius_b = 2;
-    
+
     const float sigma_m = 2;
     const float sigma_b = std::sqrt(2);
-    
+
     float max_radius = -1;
-    float max_sigma = -1;
-    
-    float delta_theta = (2.f*PI)/ring_size;
-    for(int i = 0; i < num_rings+1; i++) {
-        float sigma = std::log(sigma_m*i+sigma_b);
-        
-        if(i == 0) {
+    float max_sigma  = -1;
+
+    float delta_theta = (2.f * PI) / ring_size;
+
+    for (int i = 0; i < num_rings + 1; i++)
+    {
+        float sigma = std::log(sigma_m * i + sigma_b);
+
+        if (i == 0)
+        {
             receptor r;
             r.x = 0;
             r.y = 0;
             r.s = sigma;
-            
+
             receptors.push_back(r);
-        } else {
-            float radius = std::log(radius_m*i+radius_b);
-            
-            for(int j = 0; j < ring_size; j++) {
-                
-                float theta = j*delta_theta+i*PI/2.f;
-                
+        }
+        else
+        {
+            float radius = std::log(radius_m * i + radius_b);
+
+            for (int j = 0; j < ring_size; j++)
+            {
+                float theta = j * delta_theta + i * PI / 2.f;
+
                 receptor r;
-                r.x = radius*std::cos(theta);
-                r.y = radius*std::sin(theta);
+                r.x = radius * std::cos(theta);
+                r.y = radius * std::sin(theta);
                 r.s = sigma;
-                
+
                 receptors.push_back(r);
             }
-            
-            if(radius > max_radius) {
+
+            if (radius > max_radius)
+            {
                 max_radius = radius;
             }
         }
-        
-        if(sigma > max_sigma) {
+
+        if (sigma > max_sigma)
+        {
             max_sigma = sigma;
         }
     }
-    
+
     // Normalize
-    for(size_t i = 0; i < receptors.size(); i++) {
+    for (size_t i = 0; i < receptors.size(); i++)
+    {
         receptors[i].x /= max_radius;
         receptors[i].y /= max_radius;
         receptors[i].s /= max_sigma;
     }
-    
+
     // Generate tests
     tests.resize(receptors.size());
-    for(size_t i = 0; i < receptors.size(); i++) {
-        for(size_t j = i+1; j < receptors.size(); j++) {
+
+    for (size_t i = 0; i < receptors.size(); i++)
+    {
+        for (size_t j = i + 1; j < receptors.size(); j++)
+        {
             tests[i].push_back((int)j);
         }
     }
 }
 
-void FREAKExtractor::extract(BinaryFeatureStore& store,
-                             const GaussianScaleSpacePyramid* pyramid,
-                             const std::vector<FeaturePoint>& points) {
+void FREAKExtractor::extract(BinaryFeatureStore&store,
+                             const GaussianScaleSpacePyramid *pyramid,
+                             const std::vector<FeaturePoint>&points)
+{
 #ifdef FREAK_DEBUG
     mMappedPoints0.clear();
     mMappedPoints1.clear();
@@ -150,7 +164,7 @@ void FREAKExtractor::extract(BinaryFeatureStore& store,
     mMappedS5.clear();
     mMappedSC.clear();
 #endif
-    
+
     store.setNumBytesPerFeature(96);
     store.resize(points.size());
     ExtractFREAK84(store,

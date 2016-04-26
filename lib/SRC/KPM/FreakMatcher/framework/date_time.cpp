@@ -37,20 +37,20 @@
 #include "error.h"
 #include <ctime>
 
-namespace vision {
-    
-    std::string get_pretty_time() {
-        const char* const format = "%m-%d-%Y-%H-%M-%S";
-		time_t t;
-		struct std::tm* timeinfo;
-		
-		time(&t);
-		timeinfo = localtime(&t);
-		
-		char str[256];
-        std::strftime(str, sizeof(str), format, timeinfo);
-        
-        return std::string(str);
-    }
-    
+namespace vision
+{
+std::string get_pretty_time()
+{
+    const char* const format = "%m-%d-%Y-%H-%M-%S";
+    time_t            t;
+    struct            std::tm *timeinfo;
+
+    time(&t);
+    timeinfo = localtime(&t);
+
+    char str[256];
+    std::strftime(str, sizeof(str), format, timeinfo);
+
+    return std::string(str);
+}
 } // vision

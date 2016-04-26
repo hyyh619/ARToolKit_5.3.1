@@ -35,15 +35,15 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 1.0
- * Date: 01/09/05
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 1.0
+* Date: 01/09/05
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,12 +51,11 @@
 #include <AR/ar.h>
 #include <AR/arMulti.h>
 
-int arMultiFreeConfig( ARMultiMarkerInfoT *config )
+int arMultiFreeConfig(ARMultiMarkerInfoT *config)
 {
-    free( config->marker );
-    free( config );
+    free(config->marker);
+    free(config);
     config = NULL;
 
     return 0;
 }
-

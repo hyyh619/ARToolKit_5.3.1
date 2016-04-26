@@ -2,9 +2,9 @@
 //  EdenTime.c
 //
 //  Copyright (c) 2001-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
-//	
-//	Rev		Date		Who		Changes
-//	1.0.0	20011126	PRL		Initial version for The SRMS simulator.
+//
+//      Rev             Date            Who             Changes
+//      1.0.0   20011126        PRL             Initial version for The SRMS simulator.
 //
 
 // @@BEGIN_EDEN_LICENSE_HEADER@@
@@ -38,41 +38,41 @@
 // @@END_EDEN_LICENSE_HEADER@@
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 #include <Eden/EdenTime.h>
-#include <stdio.h>						// NULL, sprintf()
-#include <time.h>						// ctime(), time_t
-#include <string.h>						// strncpy()
+#include <stdio.h>                                              // NULL, sprintf()
+#include <time.h>                                               // ctime(), time_t
+#include <string.h>                                             // strncpy()
 #if defined(EDEN_UNIX)
-#  include <sys/time.h>					// gettimeofday(), struct timeval
-#  include <unistd.h>					// sleep(), usleep()
+#  include <sys/time.h>                                 // gettimeofday(), struct timeval
+#  include <unistd.h>                                   // sleep(), usleep()
 #elif defined(_WIN32)
-#  include <windows.h>					// FILETIME, GetSystemTimeAsFileTime(), <winbase.h> Sleep()
+#  include <windows.h>                                  // FILETIME, GetSystemTimeAsFileTime(), <winbase.h> Sleep()
 #elif defined(EDEN_MACOS)
-#  include <Timer.h>					// <CoreServices/CarbonCore/Timer.h> Microseconds()
-#  include <OSUtils.h>					// <CoreServices/CarbonCore/OSUtils.h> Delay()
+#  include <Timer.h>                                    // <CoreServices/CarbonCore/Timer.h> Microseconds()
+#  include <OSUtils.h>                                  // <CoreServices/CarbonCore/OSUtils.h> Delay()
 #else
 #  include <GL/glut.h>
 #endif
 
 // ============================================================================
-//	Private defines
+//      Private defines
 // ============================================================================
 #ifdef _WIN32
 #  define FILETIME_TO_EPOCH_OFFSET (((LONGLONG)27111902 << 32) + (LONGLONG)3577643008)
 #endif // _WIN32
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // ============================================================================
-//	Private functions
+//      Private functions
 // ============================================================================
 
 // ============================================================================
-//	Public functions
+//      Public functions
 // ============================================================================
 
 
@@ -84,28 +84,28 @@
 double EdenTimeInSeconds(void)
 {
 #if defined(EDEN_UNIX)
-	struct timeval tv;  // Seconds and microseconds since Jan 1, 1970.
+    struct timeval tv;      // Seconds and microseconds since Jan 1, 1970.
 #elif defined(_WIN32)
-	FILETIME ft;	// Hundreds of nanoseconds since Jan 1, 1601.
+    FILETIME ft;        // Hundreds of nanoseconds since Jan 1, 1601.
 #elif defined(EDEN_MACOS)
-	UnsignedWide _time;
+    UnsignedWide _time;
 #else
-	int ms;
+    int ms;
 #endif
 
-	
+
 #if defined(EDEN_UNIX)
-	gettimeofday(&tv, NULL);
-	return ((double)tv.tv_sec + (double)tv.tv_usec * 0.000001);
+    gettimeofday(&tv, NULL);
+    return ((double)tv.tv_sec + (double)tv.tv_usec * 0.000001);
 #elif defined(_WIN32)
-	GetSystemTimeAsFileTime(&ft);
-	return ((double)(*((LONGLONG *)&ft) - FILETIME_TO_EPOCH_OFFSET) * 0.0000001);
+    GetSystemTimeAsFileTime(&ft);
+    return ((double)(*((LONGLONG*)&ft) - FILETIME_TO_EPOCH_OFFSET) * 0.0000001);
 #elif defined(EDEN_MACOS)
-	Microseconds(&_time);
-	return (4294.967296 * (double)_time.hi + 0.000001 * (double)_time.lo); // 2^32 = 4294967296.
+    Microseconds(&_time);
+    return (4294.967296 * (double)_time.hi + 0.000001 * (double)_time.lo);     // 2^32 = 4294967296.
 #else
-	ms = glutGet(GLUT_ELAPSED_TIME);
-	return ((double)ms / 1000.0);
+    ms = glutGet(GLUT_ELAPSED_TIME);
+    return ((double)ms / 1000.0);
 #endif
 }
 
@@ -118,73 +118,76 @@ double EdenTimeInSeconds(void)
 //
 void EdenTimeAbsolutePlusOffset(struct timespec *result, const long microseconds)
 {
-	long overflow;
+    long overflow;
+
 #if defined(EDEN_UNIX)
-	struct timeval tv;  // Seconds and microseconds elapsed since Jan 1, 1970.
+    struct timeval tv;      // Seconds and microseconds elapsed since Jan 1, 1970.
 #elif defined(_WIN32)
-	FILETIME ft;	// Number of hundred-nanosecond intervals elapsed since Jan 1, 1601.
-	LONGLONG epocht; // Number of hundred-nanosecond intervals elapsed since Jan 1, 1970.
+    FILETIME ft;        // Number of hundred-nanosecond intervals elapsed since Jan 1, 1601.
+    LONGLONG epocht;     // Number of hundred-nanosecond intervals elapsed since Jan 1, 1970.
 #else
 #  error "Don't know how to get the time on this platform."
 #endif
-	
+
 #if defined(EDEN_UNIX)
-	gettimeofday(&tv, NULL);
-	result->tv_sec = (long)tv.tv_sec;
-	result->tv_nsec = ((long)tv.tv_usec + microseconds) * 1000l;
+    gettimeofday(&tv, NULL);
+    result->tv_sec  = (long)tv.tv_sec;
+    result->tv_nsec = ((long)tv.tv_usec + microseconds) * 1000l;
 #elif defined(_WIN32)
-	GetSystemTimeAsFileTime(&ft);
-	epocht = *((LONGLONG *)&ft) - FILETIME_TO_EPOCH_OFFSET;
-	result->tv_sec = (long)(epocht / (LONGLONG)10000000l); // 10e6.
-	result->tv_nsec = (long)(epocht - ((LONGLONG)(result->tv_sec) * (LONGLONG)10000000l)) * 100l + microseconds * 1000l;
+    GetSystemTimeAsFileTime(&ft);
+    epocht          = *((LONGLONG*)&ft) - FILETIME_TO_EPOCH_OFFSET;
+    result->tv_sec  = (long)(epocht / (LONGLONG)10000000l);    // 10e6.
+    result->tv_nsec = (long)(epocht - ((LONGLONG)(result->tv_sec) * (LONGLONG)10000000l)) * 100l + microseconds * 1000l;
 #endif
-	overflow = result->tv_nsec / 1000000000l; // 1e9.
-	if (overflow) {
-		result->tv_sec += overflow;
-		result->tv_nsec -= overflow * 1000000000l; // 1e9.
-	}	
+    overflow = result->tv_nsec / 1000000000l;     // 1e9.
+    if (overflow)
+    {
+        result->tv_sec  += overflow;
+        result->tv_nsec -= overflow * 1000000000l;         // 1e9.
+    }
 }
 
 //
 //  Put character string with a human-readable representation of the
 //  time passed in parameter 'seconds' into 's'. Returns 's'.
 //
-char *EdenTimeInSecondsToText(const double seconds, char s[25])
+char* EdenTimeInSecondsToText(const double seconds, char s[25])
 {
-	static char buf[64];
+    static char buf[64];
+
 #if defined(EDEN_UNIX) || defined(_WIN32)
-	time_t time;
+    time_t time;
 #endif
 
 #if defined(EDEN_UNIX) || defined(_WIN32)
-	// Get 24-char-wide time & date string, plus \n and \0 for total of 26 bytes.
-	time = (time_t)seconds; // Truncate to integer.
+    // Get 24-char-wide time & date string, plus \n and \0 for total of 26 bytes.
+    time = (time_t)seconds;     // Truncate to integer.
 #ifdef EDEN_HAVE_CTIME_R_IN_TIME_H
-	ctime_r(&time, buf);   // Use reentrant ctime if it's available.
+    ctime_r(&time, buf);       // Use reentrant ctime if it's available.
 #else
-	strcpy(buf, ctime(&time));
+    strcpy(buf, ctime(&time));
 #endif // EDEN_HAVE_CTIME_R_IN_TIME_H
-	buf[24] = '\0'; // Nuke the newline.
+    buf[24] = '\0';     // Nuke the newline.
 #else
-	// No way of knowing what seconds is measured relative to.
-	// so just write seconds as number out to string to 3 decimal places.
-	sprintf(buf, "%.3f");
+    // No way of knowing what seconds is measured relative to.
+    // so just write seconds as number out to string to 3 decimal places.
+    sprintf(buf, "%.3f");
 #endif // EDEN_UNIX || _WIN32
-	strncpy(s, buf, 24);
-	s[24] = '\0';   // Make sure that s is null-terminated even if buf was 24 or more characters long.
-	return (s);
+    strncpy(s, buf, 24);
+    s[24] = '\0';       // Make sure that s is null-terminated even if buf was 24 or more characters long.
+    return (s);
 }
 
 #ifndef _WINRT
 void EdenTime_usleep(const unsigned int microseconds)
 {
 #if defined(EDEN_UNIX)
-	usleep(microseconds);
+    usleep(microseconds);
 #elif defined(_WIN32)
-	Sleep((DWORD)(microseconds/1000u));
+    Sleep((DWORD)(microseconds / 1000u));
 #elif defined(EDEN_MACOS)
-	UInt32 finalCount;
-	Delay((unsigned long)((float)microseconds*(60.0f/1000000.0f)), &finalCount);
+    UInt32 finalCount;
+    Delay((unsigned long)((float)microseconds * (60.0f / 1000000.0f)), &finalCount);
 #else
 #  error sleep not defined on this platform.
 #endif
@@ -194,12 +197,12 @@ void EdenTime_usleep(const unsigned int microseconds)
 void EdenTime_sleep(const unsigned int seconds)
 {
 #if defined(EDEN_UNIX)
-	sleep(seconds);
+    sleep(seconds);
 #elif defined(_WIN32)
-	Sleep((DWORD)(seconds*1000u));
+    Sleep((DWORD)(seconds * 1000u));
 #elif defined(EDEN_MACOS)
-	UInt32 finalCount;
-	Delay((unsigned long)(seconds*60u), &finalCount);
+    UInt32 finalCount;
+    Delay((unsigned long)(seconds * 60u), &finalCount);
 #else
 #  error sleep not defined on this platform.
 #endif

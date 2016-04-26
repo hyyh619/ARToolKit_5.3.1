@@ -1,5 +1,5 @@
 /*
- *	videoDummy.h
+ *      videoDummy.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -35,15 +35,15 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 4.4
- * Date: 2004/01/01
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 4.4
+* Date: 2004/01/01
+*
+*******************************************************/
 
 #ifndef AR_VIDEO_DUMMY_H
 #define AR_VIDEO_DUMMY_H
@@ -56,32 +56,33 @@
 extern "C" {
 #endif
 
-typedef struct {
-    AR2VideoBufferT    buffer;
-    int                width;
-    int                height;
-    AR_PIXEL_FORMAT    format;
-    int                bufWidth;
-    int                bufHeight;
+typedef struct
+{
+    AR2VideoBufferT buffer;
+    int             width;
+    int             height;
+    AR_PIXEL_FORMAT format;
+    int             bufWidth;
+    int             bufHeight;
 } AR2VideoParamDummyT;
 
 
-int                    ar2VideoDispOptionDummy     ( void );
-AR2VideoParamDummyT   *ar2VideoOpenDummy           ( const char *config );
-int                    ar2VideoCloseDummy          ( AR2VideoParamDummyT *vid );
-int                    ar2VideoGetIdDummy          ( AR2VideoParamDummyT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeDummy        ( AR2VideoParamDummyT *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatDummy ( AR2VideoParamDummyT *vid );
-AR2VideoBufferT       *ar2VideoGetImageDummy       ( AR2VideoParamDummyT *vid );
-int                    ar2VideoCapStartDummy       ( AR2VideoParamDummyT *vid );
-int                    ar2VideoCapStopDummy        ( AR2VideoParamDummyT *vid );
+int                    ar2VideoDispOptionDummy(void);
+AR2VideoParamDummyT* ar2VideoOpenDummy(const char *config);
+int                    ar2VideoCloseDummy(AR2VideoParamDummyT *vid);
+int                    ar2VideoGetIdDummy(AR2VideoParamDummyT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeDummy(AR2VideoParamDummyT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatDummy(AR2VideoParamDummyT *vid);
+AR2VideoBufferT* ar2VideoGetImageDummy(AR2VideoParamDummyT *vid);
+int                    ar2VideoCapStartDummy(AR2VideoParamDummyT *vid);
+int                    ar2VideoCapStopDummy(AR2VideoParamDummyT *vid);
 
-int                    ar2VideoGetParamiDummy      ( AR2VideoParamDummyT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiDummy      ( AR2VideoParamDummyT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdDummy      ( AR2VideoParamDummyT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdDummy      ( AR2VideoParamDummyT *vid, int paramName, double  value );
-int                    ar2VideoGetParamsDummy      ( AR2VideoParamDummyT *vid, const int paramName, char **value );
-int                    ar2VideoSetParamsDummy      ( AR2VideoParamDummyT *vid, const int paramName, const char  *value );
+int                    ar2VideoGetParamiDummy(AR2VideoParamDummyT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiDummy(AR2VideoParamDummyT *vid, int paramName, int value);
+int                    ar2VideoGetParamdDummy(AR2VideoParamDummyT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdDummy(AR2VideoParamDummyT *vid, int paramName, double value);
+int                    ar2VideoGetParamsDummy(AR2VideoParamDummyT *vid, const int paramName, char **value);
+int                    ar2VideoSetParamsDummy(AR2VideoParamDummyT *vid, const int paramName, const char  *value);
 
 int ar2VideoSetBufferSizeDummy(AR2VideoParamDummyT *vid, const int width, const int height);
 int ar2VideoGetBufferSizeDummy(AR2VideoParamDummyT *vid, int *width, int *height);

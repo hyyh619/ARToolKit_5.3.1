@@ -4,29 +4,32 @@
 /* Copyright (c) Mark J. Kilgard, 1994. */
 
 /* This program is freely distributable without licensing fees
- and is provided without guarantee or warrantee expressed or
- implied. This program is -not- in the public domain. */
+   and is provided without guarantee or warrantee expressed or
+   implied. This program is -not- in the public domain. */
 
-//#include "glutint.h"
+// #include "glutint.h"
 #include "glutbitmap.h"
 
 void glutBitmapCharacter(GLUTbitmapFont font, int c)
 {
     const BitmapCharRec *ch;
-    BitmapFontPtr fontinfo;
+    BitmapFontPtr       fontinfo;
+
 #if 0
     GLint swapbytes, lsbfirst, rowlength;
     GLint skiprows, skippixels;
 #endif
     GLint alignment;
-    
+
     fontinfo = (BitmapFontPtr) font;
-    
+
     if (c < fontinfo->first ||
         c >= fontinfo->first + fontinfo->num_chars)
         return;
+
     ch = fontinfo->ch[c - fontinfo->first];
-    if (ch) {
+    if (ch)
+    {
         /* Save current modes. */
 #if 0
         glGetIntegerv(GL_UNPACK_SWAP_BYTES, &swapbytes);
@@ -37,9 +40,9 @@ void glutBitmapCharacter(GLUTbitmapFont font, int c)
 #endif
         glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
         /* Little endian machines (DEC Alpha for example) could
-         benefit from setting GL_UNPACK_LSB_FIRST to GL_TRUE
-         instead of GL_FALSE, but this would require changing the
-         generated bitmaps too. */
+           benefit from setting GL_UNPACK_LSB_FIRST to GL_TRUE
+           instead of GL_FALSE, but this would require changing the
+           generated bitmaps too. */
 #if 0
         glPixelStorei(GL_UNPACK_SWAP_BYTES, GL_FALSE);
         glPixelStorei(GL_UNPACK_LSB_FIRST, GL_FALSE);
@@ -61,5 +64,4 @@ void glutBitmapCharacter(GLUTbitmapFont font, int c)
         glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
     }
 }
-
 #endif

@@ -40,12 +40,12 @@
 #include <string.h>
 #include "argPrivate.h"
 
-int argCleanup( void )
+int argCleanup(void)
 {
     return 0;
 }
 
-int argSwapBuffers( void )
+int argSwapBuffers(void)
 {
     glutSwapBuffers();
 

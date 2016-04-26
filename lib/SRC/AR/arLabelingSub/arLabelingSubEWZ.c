@@ -55,6 +55,5 @@
 #define AR_LABELING_ADAPTIVE
 
 #include "arLabelingSub.h"
-
 #endif
 #endif

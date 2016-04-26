@@ -38,97 +38,98 @@
 #include <vector>
 #include "gaussian_scale_space_pyramid.h"
 
-namespace vision {
-    
-    /**
-     * Allocate the temporary memory space for binomial decimation.
-     */
-    unsigned short* BinomialDecimateAllocTemp(int chunk_size);
-    
-    /**
-     * Decimate the source image by a factor of 2 with a [1,4,6,4,1] kernel.
-     */
-    void BinomialDecimate8u(unsigned char* dst,
-                            const unsigned char* src,
-                            unsigned short* tmp,
-                            int src_width,
-                            int src_height,
-                            int src_step,
-                            int dst_width,
-                            int dst_step,
-                            int chunk_size);
-    
-    /**
-     * Decimate the source image by a factor of 2 with a box filter.
-     *
-     * How to calculate size of destination image:
-     *
-     * dst_width = CEIL((src_width-1)/2.)
-     * dst_height = CEIL((src_height-1)/2.);
-     */
-    void BoxFilterDecimate(unsigned char* dst,
-                           const unsigned char* src,
-                           int src_width,
-                           int src_height,
-                           int src_step,
-                           int dst_step);
-    
-    /**
-     * Implements a [1 4 6 4 1] Binomial filter pyramid for image reduction. Each octave has
-     * one scale.
-     */
-    class BinomialPyramid8u : public GaussianScaleSpacePyramid {
-    public:
-        
-        BinomialPyramid8u();
-        ~BinomialPyramid8u();
-        
-        /**
-         * Initialize memory for the pyramid.
-         */
-        void init(int width, int height, int num_octaves, bool copy_fine);
-        
-        /**
-         * Build the pyramid.
-         */
-        void build(const Image& image);
-        
-    private:
-        
-        // Temporary memory for downsampling
-        std::auto_ptr<unsigned short> mTmp;
-        
-        // True if the fine image should be copied
-        bool mCopyFine;
-        
-        // Chunk size for columns
-        int mChunkSize;
-    };
-    
-    /**
-     * Implements a box filter pyramid for image reduction. Each octave has
-     * one scale.
-     */
-    class BoxFilterPyramid8u : public GaussianScaleSpacePyramid {
-    public:
-        
-        BoxFilterPyramid8u();
-        ~BoxFilterPyramid8u();
-        
-        /**
-         * Initialize memory for the pyramid.
-         */
-        void init(int width, int height, int num_octaves, bool copy_fine);
-        
-        /**
-         * Build the pyramid.
-         */
-        void build(const Image& image);
-        
-    private:
-        
-        // True if the fine image should be copied
-        bool mCopyFine;
-    };
-    
+namespace vision
+{
+/**
+ * Allocate the temporary memory space for binomial decimation.
+ */
+unsigned short* BinomialDecimateAllocTemp(int chunk_size);
+
+/**
+ * Decimate the source image by a factor of 2 with a [1,4,6,4,1] kernel.
+ */
+void BinomialDecimate8u(unsigned char *dst,
+                        const unsigned char *src,
+                        unsigned short *tmp,
+                        int src_width,
+                        int src_height,
+                        int src_step,
+                        int dst_width,
+                        int dst_step,
+                        int chunk_size);
+
+/**
+ * Decimate the source image by a factor of 2 with a box filter.
+ *
+ * How to calculate size of destination image:
+ *
+ * dst_width = CEIL((src_width-1)/2.)
+ * dst_height = CEIL((src_height-1)/2.);
+ */
+void BoxFilterDecimate(unsigned char *dst,
+                       const unsigned char *src,
+                       int src_width,
+                       int src_height,
+                       int src_step,
+                       int dst_step);
+
+/**
+ * Implements a [1 4 6 4 1] Binomial filter pyramid for image reduction. Each octave has
+ * one scale.
+ */
+class BinomialPyramid8u : public GaussianScaleSpacePyramid
+{
+public:
+
+BinomialPyramid8u();
+~BinomialPyramid8u();
+
+/**
+ * Initialize memory for the pyramid.
+ */
+void init(int width, int height, int num_octaves, bool copy_fine);
+
+/**
+ * Build the pyramid.
+ */
+void build(const Image&image);
+
+private:
+
+// Temporary memory for downsampling
+std::auto_ptr<unsigned short> mTmp;
+
+// True if the fine image should be copied
+bool mCopyFine;
+
+// Chunk size for columns
+int mChunkSize;
+};
+
+/**
+ * Implements a box filter pyramid for image reduction. Each octave has
+ * one scale.
+ */
+class BoxFilterPyramid8u : public GaussianScaleSpacePyramid
+{
+public:
+
+BoxFilterPyramid8u();
+~BoxFilterPyramid8u();
+
+/**
+ * Initialize memory for the pyramid.
+ */
+void init(int width, int height, int num_octaves, bool copy_fine);
+
+/**
+ * Build the pyramid.
+ */
+void build(const Image&image);
+
+private:
+
+// True if the fine image should be copied
+bool mCopyFine;
+};
 } // vision

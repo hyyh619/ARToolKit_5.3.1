@@ -47,22 +47,23 @@
 extern "C" {
 #endif
 
-    enum {
-        ARW_ERROR_NONE                  =    0,
-        ARW_ERROR_GENERIC               =   -1,
-        ARW_ERROR_OUT_OF_MEMORY         =   -2,
-        ARW_ERROR_OVERFLOW              =   -3,
-        ARW_ERROR_NODATA				=   -4,
-        ARW_ERROR_IOERROR               =   -5,
-        ARW_ERROR_EOF                   =	-6,
-        ARW_ERROR_TIMEOUT               =   -7,
-        ARW_ERROR_INVALID_COMMAND       =   -8,
-        ARW_ERROR_INVALID_ENUM          =   -9,
-        ARW_ERROR_THREADS               =   -10,
-        ARW_ERROR_FILE_NOT_FOUND		=   -11,
-        ARW_ERROR_LENGTH_UNAVAILABLE	=	-12,
-        ARW_ERROR_DEVICE_UNAVAILABLE    =   -13
-    };
+enum
+{
+    ARW_ERROR_NONE               = 0,
+    ARW_ERROR_GENERIC            = -1,
+    ARW_ERROR_OUT_OF_MEMORY      = -2,
+    ARW_ERROR_OVERFLOW           = -3,
+    ARW_ERROR_NODATA             = -4,
+    ARW_ERROR_IOERROR            = -5,
+    ARW_ERROR_EOF                = -6,
+    ARW_ERROR_TIMEOUT            = -7,
+    ARW_ERROR_INVALID_COMMAND    = -8,
+    ARW_ERROR_INVALID_ENUM       = -9,
+    ARW_ERROR_THREADS            = -10,
+    ARW_ERROR_FILE_NOT_FOUND     = -11,
+    ARW_ERROR_LENGTH_UNAVAILABLE = -12,
+    ARW_ERROR_DEVICE_UNAVAILABLE = -13
+};
 
 #ifdef __cplusplus
 }

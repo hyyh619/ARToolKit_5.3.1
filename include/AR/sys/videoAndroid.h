@@ -1,5 +1,5 @@
 /*
- *	videoAndroid.h
+ *      videoAndroid.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -47,7 +47,8 @@
 extern "C" {
 #endif
 
-enum {
+enum
+{
     AR_VIDEO_PARAM_ANDROID_DEVICEID,        // s, readonly
 #if !AR_VIDEO_ANDROID_ENABLE_NATIVE_CAMERA
     AR_VIDEO_PARAM_ANDROID_WIDTH,           // i
@@ -60,7 +61,8 @@ enum {
     AR_VIDEO_PARAM_ANDROID_INTERNET_STATE   // i
 };
 
-enum {
+enum
+{
     AR_VIDEO_ANDROID_CAMERA_FACE_REAR = 0,
     AR_VIDEO_ANDROID_CAMERA_FACE_FRONT,
 };
@@ -76,31 +78,31 @@ typedef struct _AR2VideoParamAndroidT AR2VideoParamAndroidT;
 // For Native (NDK) Android apps, the classes are in the 'CameraSurface' class (part of the example code).
 //
 
-int                    ar2VideoDispOptionAndroid     ( void );
-AR2VideoParamAndroidT *ar2VideoOpenAndroid           ( const char *config );
-int                    ar2VideoCloseAndroid          ( AR2VideoParamAndroidT *vid );
-int                    ar2VideoGetIdAndroid          ( AR2VideoParamAndroidT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeAndroid        ( AR2VideoParamAndroidT *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatAndroid ( AR2VideoParamAndroidT *vid );
+int                    ar2VideoDispOptionAndroid(void);
+AR2VideoParamAndroidT* ar2VideoOpenAndroid(const char *config);
+int                    ar2VideoCloseAndroid(AR2VideoParamAndroidT *vid);
+int                    ar2VideoGetIdAndroid(AR2VideoParamAndroidT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeAndroid(AR2VideoParamAndroidT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatAndroid(AR2VideoParamAndroidT *vid);
 
 #if AR_VIDEO_ANDROID_ENABLE_NATIVE_CAMERA
-AR2VideoBufferT       *ar2VideoGetImageAndroid       ( AR2VideoParamAndroidT *vid );
-int                    ar2VideoCapStartAndroid       ( AR2VideoParamAndroidT *vid );
-int                    ar2VideoCapStartAsyncAndroid  ( AR2VideoParamAndroidT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata );
-int                    ar2VideoCapStopAndroid        ( AR2VideoParamAndroidT *vid );
+AR2VideoBufferT* ar2VideoGetImageAndroid(AR2VideoParamAndroidT *vid);
+int                    ar2VideoCapStartAndroid(AR2VideoParamAndroidT *vid);
+int                    ar2VideoCapStartAsyncAndroid(AR2VideoParamAndroidT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
+int                    ar2VideoCapStopAndroid(AR2VideoParamAndroidT *vid);
 #endif
 
-int                    ar2VideoGetParamiAndroid      ( AR2VideoParamAndroidT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiAndroid      ( AR2VideoParamAndroidT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdAndroid      ( AR2VideoParamAndroidT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdAndroid      ( AR2VideoParamAndroidT *vid, int paramName, double  value );
-int                    ar2VideoGetParamsAndroid      ( AR2VideoParamAndroidT *vid, const int paramName, char **value );
-int                    ar2VideoSetParamsAndroid      ( AR2VideoParamAndroidT *vid, const int paramName, const char  *value );
+int                    ar2VideoGetParamiAndroid(AR2VideoParamAndroidT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiAndroid(AR2VideoParamAndroidT *vid, int paramName, int value);
+int                    ar2VideoGetParamdAndroid(AR2VideoParamAndroidT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdAndroid(AR2VideoParamAndroidT *vid, int paramName, double value);
+int                    ar2VideoGetParamsAndroid(AR2VideoParamAndroidT *vid, const int paramName, char **value);
+int                    ar2VideoSetParamsAndroid(AR2VideoParamAndroidT *vid, const int paramName, const char  *value);
 
-//int ar2VideoSetBufferSizeAndroid(AR2VideoParamAndroidT *vid, const int width, const int height);
-//int ar2VideoGetBufferSizeAndroid(AR2VideoParamAndroidT *vid, int *width, int *height);
+// int ar2VideoSetBufferSizeAndroid(AR2VideoParamAndroidT *vid, const int width, const int height);
+// int ar2VideoGetBufferSizeAndroid(AR2VideoParamAndroidT *vid, int *width, int *height);
 
-int                    ar2VideoGetCParamAsyncAndroid (AR2VideoParamAndroidT *vid, void (*callback)(const ARParam *, void *), void *userdata);
+int                    ar2VideoGetCParamAsyncAndroid(AR2VideoParamAndroidT *vid, void (*callback)(const ARParam*, void*), void *userdata);
 
 #ifdef  __cplusplus
 }

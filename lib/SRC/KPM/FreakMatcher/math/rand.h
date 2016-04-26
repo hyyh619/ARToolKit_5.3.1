@@ -37,42 +37,45 @@
 
 #include <algorithm>
 
-namespace vision {
-    
+namespace vision
+{
 #define FAST_RAND_MAX 32767
-    
-    /**
-     * Implements a fast random number generator. 
-     *
-     * http://software.intel.com/en-us/articles/fast-random-number-generator-on-the-intel-pentiumr-4-processor/
-     */
-    inline int FastRandom(int& seed) {
-        seed = (214013*seed+2531011);
-        return (seed>>16)&0x7FFF;
+
+/**
+ * Implements a fast random number generator.
+ *
+ * http://software.intel.com/en-us/articles/fast-random-number-generator-on-the-intel-pentiumr-4-processor/
+ */
+inline int FastRandom(int&seed)
+{
+    seed = (214013 * seed + 2531011);
+    return (seed >> 16) & 0x7FFF;
+}
+
+/**
+ * Get a float between [0,1].
+ */
+template<typename T>
+inline T FastRandomFloat(int&seed)
+{
+    return FastRandom(seed) / (T)FAST_RAND_MAX;
+}
+
+/**
+ * Shuffle the elements of an array.
+ *
+ * @param[in/out] v Array of elements
+ * @param[in] pop_size Population size, or size of the array v
+ * @param[in] sample_size The first SAMPLE_SIZE samples of v will be shuffled
+ * @param[in] seed Seed for random number generator
+ */
+template<typename T>
+inline void ArrayShuffle(T *v, int pop_size, int sample_size, int&seed)
+{
+    for (int i = 0; i < sample_size; i++)
+    {
+        int k = FastRandom(seed) % pop_size;
+        std::swap(v[i], v[k]);
     }
-    
-    /**
-     * Get a float between [0,1].
-     */
-    template<typename T>
-    inline T FastRandomFloat(int& seed) {
-        return FastRandom(seed)/(T)FAST_RAND_MAX;
-    }
-    
-    /**
-     * Shuffle the elements of an array.
-     *
-     * @param[in/out] v Array of elements
-     * @param[in] pop_size Population size, or size of the array v
-     * @param[in] sample_size The first SAMPLE_SIZE samples of v will be shuffled
-     * @param[in] seed Seed for random number generator
-     */
-    template<typename T>
-    inline void ArrayShuffle(T* v, int pop_size, int sample_size, int& seed) {
-        for(int i = 0; i < sample_size; i++) {
-            int k = FastRandom(seed)%pop_size;
-            std::swap(v[i], v[k]);
-        }
-    }
-    
+}
 } // vision

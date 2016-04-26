@@ -40,63 +40,75 @@
 #include <string.h>
 #include "argPrivate.h"
 
-static void argConvGLcpara( const ARParam *cparam, ARGClipPlane clipPlane, ARdouble m[16] );
+static void argConvGLcpara(const ARParam *cparam, ARGClipPlane clipPlane, ARdouble m[16]);
 
 
-int argDrawMode2D( ARGViewportHandle *vp )
+int argDrawMode2D(ARGViewportHandle *vp)
 {
-    ARGViewport     *viewport;
-    int              winXsize, winYsize;
+    ARGViewport *viewport;
+    int         winXsize, winYsize;
 
     argSetCurrentVPHandle(vp);
 
     viewport = &(vp->viewport);
-    argGetWindowSize( &winXsize, &winYsize );
+    argGetWindowSize(&winXsize, &winYsize);
 
-    glViewport(viewport->sx, winYsize-viewport->sy-viewport->ysize, viewport->xsize, viewport->ysize);
+    glViewport(viewport->sx, winYsize - viewport->sy - viewport->ysize, viewport->xsize, viewport->ysize);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    switch( vp->flipMode ) {
-      case AR_GL_FLIP_H | AR_GL_FLIP_V:
-        glOrtho(viewport->xsize-0.5, -0.5, -0.5, viewport->ysize-0.5, 1.0, -1.0);
+
+    switch (vp->flipMode)
+    {
+    case AR_GL_FLIP_H | AR_GL_FLIP_V:
+        glOrtho(viewport->xsize - 0.5, -0.5, -0.5, viewport->ysize - 0.5, 1.0, -1.0);
         break;
-      case AR_GL_FLIP_H:
-        glOrtho(viewport->xsize-0.5, -0.5, viewport->ysize-0.5, -0.5, 1.0, -1.0);
+
+    case AR_GL_FLIP_H:
+        glOrtho(viewport->xsize - 0.5, -0.5, viewport->ysize - 0.5, -0.5, 1.0, -1.0);
         break;
-      case AR_GL_FLIP_V:
-        glOrtho(-0.5, viewport->xsize-0.5, -0.5, viewport->ysize-0.5, 1.0, -1.0);
+
+    case AR_GL_FLIP_V:
+        glOrtho(-0.5, viewport->xsize - 0.5, -0.5, viewport->ysize - 0.5, 1.0, -1.0);
         break;
-      default:
-        glOrtho(-0.5, viewport->xsize-0.5, viewport->ysize-0.5, -0.5,  1.0, -1.0);
+
+    default:
+        glOrtho(-0.5, viewport->xsize - 0.5, viewport->ysize - 0.5, -0.5,  1.0, -1.0);
         break;
     }
+
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
     return 0;
 }
 
-int argDrawMode3D( ARGViewportHandle *vp )
+int argDrawMode3D(ARGViewportHandle *vp)
 {
-    ARGViewport     *viewport;
-    int              winXsize, winYsize;
-    ARdouble           sx, sy, offx, offy;
-    ARdouble           ix, iy;
-    ARdouble           m[16];
+    ARGViewport *viewport;
+    int         winXsize, winYsize;
+    ARdouble    sx, sy, offx, offy;
+    ARdouble    ix, iy;
+    ARdouble    m[16];
 
     argSetCurrentVPHandle(vp);
 
-    if( argGetCurrentScale(vp, &sx, &sy, &offx, &offy) < 0 ) return -1;
+    if (argGetCurrentScale(vp, &sx, &sy, &offx, &offy) < 0)
+        return -1;
+
     ix = vp->cparam->xsize;
     iy = vp->cparam->ysize;
 
     viewport = &(vp->viewport);
-    argGetWindowSize( &winXsize, &winYsize );
+    argGetWindowSize(&winXsize, &winYsize);
 
-    if( vp->cparam == NULL ) return -1;
-    argConvGLcpara( vp->cparam, vp->clipPlane, m );
-    switch( vp->flipMode ) {
-      case AR_GL_FLIP_H | AR_GL_FLIP_V:
+    if (vp->cparam == NULL)
+        return -1;
+
+    argConvGLcpara(vp->cparam, vp->clipPlane, m);
+
+    switch (vp->flipMode)
+    {
+    case AR_GL_FLIP_H | AR_GL_FLIP_V:
         m[0]  *= -1.0;
         m[4]  *= -1.0;
         m[8]  *= -1.0;
@@ -106,13 +118,15 @@ int argDrawMode3D( ARGViewportHandle *vp )
         m[9]  *= -1.0;
         m[13] *= -1.0;
         break;
-      case AR_GL_FLIP_H:
+
+    case AR_GL_FLIP_H:
         m[0]  *= -1.0;
         m[4]  *= -1.0;
         m[8]  *= -1.0;
         m[12] *= -1.0;
         break;
-      case AR_GL_FLIP_V:
+
+    case AR_GL_FLIP_V:
         m[1]  *= -1.0;
         m[5]  *= -1.0;
         m[9]  *= -1.0;
@@ -120,13 +134,13 @@ int argDrawMode3D( ARGViewportHandle *vp )
         break;
     }
 
-    //glViewport(viewport->sx, winYsize-viewport->sy-viewport->ysize, viewport->xsize, viewport->ysize);
-    glViewport(viewport->sx + (int)offx, winYsize - viewport->sy - (GLint)(iy*sy) - (GLint)offy, (GLint)(ix*sx), (GLint)(iy*sy));
+    // glViewport(viewport->sx, winYsize-viewport->sy-viewport->ysize, viewport->xsize, viewport->ysize);
+    glViewport(viewport->sx + (int)offx, winYsize - viewport->sy - (GLint)(iy * sy) - (GLint)offy, (GLint)(ix * sx), (GLint)(iy * sy));
     glMatrixMode(GL_PROJECTION);
 #ifdef ARDOUBLE_IS_FLOAT
-    glLoadMatrixf( m );
+    glLoadMatrixf(m);
 #else
-    glLoadMatrixd( m );
+    glLoadMatrixd(m);
 #endif
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -134,60 +148,69 @@ int argDrawMode3D( ARGViewportHandle *vp )
     return 0;
 }
 
-void argConvGlpara( ARdouble para[3][4], ARdouble gl_para[16] )
+void argConvGlpara(ARdouble para[3][4], ARdouble gl_para[16])
 {
-    int     i, j;
+    int i, j;
 
-    for( j = 0; j < 3; j++ ) { 
-        for( i = 0; i < 4; i++ ) {
-            gl_para[i*4+j] = para[j][i];
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            gl_para[i * 4 + j] = para[j][i];
         }
     }
-    gl_para[0*4+3] = gl_para[1*4+3] = gl_para[2*4+3] = 0.0;
-    gl_para[3*4+3] = 1.0;
+
+    gl_para[0 * 4 + 3] = gl_para[1 * 4 + 3] = gl_para[2 * 4 + 3] = 0.0;
+    gl_para[3 * 4 + 3] = 1.0;
 }
 
-static void argConvGLcpara( const ARParam *cparam, ARGClipPlane clipPlane, ARdouble m[16] )
+static void argConvGLcpara(const ARParam *cparam, ARGClipPlane clipPlane, ARdouble m[16])
 {
-    ARdouble   icpara[3][4];
-    ARdouble   trans[3][4];
-    ARdouble   p[3][3], q[4][4];
-    ARdouble   farClip, nearClip;
+    ARdouble icpara[3][4];
+    ARdouble trans[3][4];
+    ARdouble p[3][3], q[4][4];
+    ARdouble farClip, nearClip;
     int      width, height;
     int      i, j;
 
-    width  = cparam->xsize;
-    height = cparam->ysize;
-    farClip    = clipPlane.farClip;
-    nearClip   = clipPlane.nearClip;
+    width    = cparam->xsize;
+    height   = cparam->ysize;
+    farClip  = clipPlane.farClip;
+    nearClip = clipPlane.nearClip;
 
-    if( arParamDecompMat(cparam->mat, icpara, trans) < 0 ) {
+    if (arParamDecompMat(cparam->mat, icpara, trans) < 0)
+    {
         ARLOGe("gConvGLcpara: Parameter error!!\n");
         exit(0);
     }
-    for( i = 0; i < 4; i++ ) {
-        icpara[1][i] = (height-1)*(icpara[2][i]) - icpara[1][i];
+
+    for (i = 0; i < 4; i++)
+    {
+        icpara[1][i] = (height - 1) * (icpara[2][i]) - icpara[1][i];
     }
 
 
-    for( i = 0; i < 3; i++ ) {
-        for( j = 0; j < 3; j++ ) {
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
             p[i][j] = icpara[i][j] / icpara[2][2];
         }
     }
-    q[0][0] = (2.0 * p[0][0] / (width-1));
-    q[0][1] = (2.0 * p[0][1] / (width-1));
-    q[0][2] = ((2.0 * p[0][2] / (width-1))  - 1.0);
+
+    q[0][0] = (2.0 * p[0][0] / (width - 1));
+    q[0][1] = (2.0 * p[0][1] / (width - 1));
+    q[0][2] = ((2.0 * p[0][2] / (width - 1)) - 1.0);
     q[0][3] = 0.0;
 
     q[1][0] = 0.0;
-    q[1][1] = (2.0 * p[1][1] / (height-1));
-    q[1][2] = ((2.0 * p[1][2] / (height-1)) - 1.0);
+    q[1][1] = (2.0 * p[1][1] / (height - 1));
+    q[1][2] = ((2.0 * p[1][2] / (height - 1)) - 1.0);
     q[1][3] = 0.0;
 
     q[2][0] = 0.0;
     q[2][1] = 0.0;
-    q[2][2] = (farClip + nearClip)/(farClip - nearClip);
+    q[2][2] = (farClip + nearClip) / (farClip - nearClip);
     q[2][3] = -2.0 * farClip * nearClip / (farClip - nearClip);
 
     q[3][0] = 0.0;
@@ -195,15 +218,18 @@ static void argConvGLcpara( const ARParam *cparam, ARGClipPlane clipPlane, ARdou
     q[3][2] = 1.0;
     q[3][3] = 0.0;
 
-    for( i = 0; i < 4; i++ ) {
-        for( j = 0; j < 3; j++ ) {
-            m[i+j*4] = q[i][0] * trans[0][j]
-                     + q[i][1] * trans[1][j]
-                     + q[i][2] * trans[2][j];
+    for (i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            m[i + j * 4] = q[i][0] * trans[0][j]
+                           + q[i][1] * trans[1][j]
+                           + q[i][2] * trans[2][j];
         }
-        m[i+3*4] = q[i][0] * trans[0][3]
-                 + q[i][1] * trans[1][3]
-                 + q[i][2] * trans[2][3]
-                 + q[i][3];
+
+        m[i + 3 * 4] = q[i][0] * trans[0][3]
+                       + q[i][1] * trans[1][3]
+                       + q[i][2] * trans[2][3]
+                       + q[i][3];
     }
 }

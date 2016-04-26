@@ -26,8 +26,8 @@
 #ifndef EIGEN_FORWARDDECLARATIONS_H
 #define EIGEN_FORWARDDECLARATIONS_H
 
-namespace internal {
-
+namespace internal
+{
 template<typename T> struct traits;
 
 // here we say once and for all that traits<const T> == traits<T>
@@ -38,18 +38,16 @@ template<typename T> struct traits<const T> : traits<T> {};
 
 template<typename Derived> struct has_direct_access
 {
-  enum { ret = (traits<Derived>::Flags & DirectAccessBit) ? 1 : 0 };
+    enum { ret = (traits<Derived>::Flags & DirectAccessBit) ? 1 : 0 };
 };
 
 template<typename Derived> struct accessors_level
 {
-  enum { has_direct_access = (traits<Derived>::Flags & DirectAccessBit) ? 1 : 0,
-         has_write_access = (traits<Derived>::Flags & LvalueBit) ? 1 : 0,
-         value = has_direct_access ? (has_write_access ? DirectWriteAccessors : DirectAccessors)
-                                   : (has_write_access ? WriteAccessors       : ReadOnlyAccessors)
-  };
+    enum { has_direct_access = (traits<Derived>::Flags & DirectAccessBit) ? 1 : 0,
+           has_write_access  = (traits<Derived>::Flags & LvalueBit) ? 1 : 0,
+           value             = has_direct_access ? (has_write_access ? DirectWriteAccessors : DirectAccessors)
+                               : (has_write_access ? WriteAccessors       : ReadOnlyAccessors)};
 };
-
 } // end namespace internal
 
 template<typename T> struct NumTraits;
@@ -60,42 +58,42 @@ template<typename Derived> class PlainObjectBase;
 
 
 template<typename Derived,
-         int Level = internal::accessors_level<Derived>::value >
+         int Level = internal::accessors_level<Derived>::value>
 class DenseCoeffsBase;
 
 template<typename _Scalar, int _Rows, int _Cols,
          int _Options = AutoAlign |
-#if defined(__GNUC__) && __GNUC__==3 && __GNUC_MINOR__==4
-    // workaround a bug in at least gcc 3.4.6
-    // the innermost ?: ternary operator is misparsed. We write it slightly
-    // differently and this makes gcc 3.4.6 happy, but it's ugly.
-    // The error would only show up with EIGEN_DEFAULT_TO_ROW_MAJOR is defined
-    // (when EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION is RowMajor)
-                          ( (_Rows==1 && _Cols!=1) ? RowMajor
-                          : !(_Cols==1 && _Rows!=1) ?  EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION
-                          : ColMajor ),
+#if defined(__GNUC__) && __GNUC__ == 3 && __GNUC_MINOR__ == 4
+                        // workaround a bug in at least gcc 3.4.6
+                        // the innermost ?: ternary operator is misparsed. We write it slightly
+                        // differently and this makes gcc 3.4.6 happy, but it's ugly.
+                        // The error would only show up with EIGEN_DEFAULT_TO_ROW_MAJOR is defined
+                        // (when EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION is RowMajor)
+                        ((_Rows == 1 && _Cols != 1) ? RowMajor
+                         : !(_Cols == 1 && _Rows != 1) ?  EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION
+                         : ColMajor),
 #else
-                          ( (_Rows==1 && _Cols!=1) ? RowMajor
-                          : (_Cols==1 && _Rows!=1) ? ColMajor
-                          : EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION ),
+                        ((_Rows == 1 && _Cols != 1) ? RowMajor
+                         : (_Cols == 1 && _Rows != 1) ? ColMajor
+                         : EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION),
 #endif
          int _MaxRows = _Rows,
          int _MaxCols = _Cols
-> class Matrix;
+         > class Matrix;
 
 template<typename Derived> class MatrixBase;
 template<typename Derived> class ArrayBase;
 
 template<typename ExpressionType, unsigned int Added, unsigned int Removed> class Flagged;
-template<typename ExpressionType, template <typename> class StorageBase > class NoAlias;
+template<typename ExpressionType, template<typename> class StorageBase> class NoAlias;
 template<typename ExpressionType> class NestByValue;
 template<typename ExpressionType> class ForceAlignedAccess;
 template<typename ExpressionType> class SwapWrapper;
 
-template<typename XprType, int BlockRows=Dynamic, int BlockCols=Dynamic, bool InnerPanel = false,
-         bool HasDirectAccess = internal::has_direct_access<XprType>::ret> class Block;
+template<typename XprType, int BlockRows = Dynamic, int BlockCols = Dynamic, bool InnerPanel = false,
+         bool HasDirectAccess            = internal::has_direct_access<XprType>::ret> class Block;
 
-template<typename MatrixType, int Size=Dynamic> class VectorBlock;
+template<typename MatrixType, int Size = Dynamic> class VectorBlock;
 template<typename MatrixType> class Transpose;
 template<typename MatrixType> class Conjugate;
 template<typename NullaryOp, typename MatrixType>         class CwiseNullaryOp;
@@ -109,11 +107,11 @@ template<typename Lhs, typename Rhs, int NestingFlags>    class CoeffBasedProduc
 
 template<typename Derived> class DiagonalBase;
 template<typename _DiagonalVectorType> class DiagonalWrapper;
-template<typename _Scalar, int SizeAtCompileTime, int MaxSizeAtCompileTime=SizeAtCompileTime> class DiagonalMatrix;
+template<typename _Scalar, int SizeAtCompileTime, int MaxSizeAtCompileTime = SizeAtCompileTime> class DiagonalMatrix;
 template<typename MatrixType, typename DiagonalType, int ProductOrder> class DiagonalProduct;
-template<typename MatrixType, int Index = 0> class Diagonal;
-template<int SizeAtCompileTime, int MaxSizeAtCompileTime = SizeAtCompileTime, typename IndexType=int> class PermutationMatrix;
-template<int SizeAtCompileTime, int MaxSizeAtCompileTime = SizeAtCompileTime, typename IndexType=int> class Transpositions;
+template<typename MatrixType, int Index                  = 0> class Diagonal;
+template<int SizeAtCompileTime, int MaxSizeAtCompileTime = SizeAtCompileTime, typename IndexType = int> class PermutationMatrix;
+template<int SizeAtCompileTime, int MaxSizeAtCompileTime = SizeAtCompileTime, typename IndexType = int> class Transpositions;
 template<typename Derived> class PermutationBase;
 template<typename Derived> class TranspositionsBase;
 template<typename _IndicesType> class PermutationWrapper;
@@ -121,9 +119,9 @@ template<typename _IndicesType> class TranspositionsWrapper;
 
 template<typename Derived,
          int Level = internal::accessors_level<Derived>::has_write_access ? WriteAccessors : ReadOnlyAccessors
-> class MapBase;
+         > class MapBase;
 template<int InnerStrideAtCompileTime, int OuterStrideAtCompileTime> class Stride;
-template<typename MatrixType, int MapOptions=Unaligned, typename StrideType = Stride<0,0> > class Map;
+template<typename MatrixType, int MapOptions = Unaligned, typename StrideType = Stride<0, 0> > class Map;
 
 template<typename Derived> class TriangularBase;
 template<typename MatrixType, unsigned int Mode> class TriangularView;
@@ -134,7 +132,8 @@ template<typename MatrixType> struct CommaInitializer;
 template<typename Derived> class ReturnByValue;
 template<typename ExpressionType> class ArrayWrapper;
 
-namespace internal {
+namespace internal
+{
 template<typename DecompositionType, typename Rhs> struct solve_retval_base;
 template<typename DecompositionType, typename Rhs> struct solve_retval;
 template<typename DecompositionType> struct kernel_retval_base;
@@ -143,30 +142,32 @@ template<typename DecompositionType> struct image_retval_base;
 template<typename DecompositionType> struct image_retval;
 } // end namespace internal
 
-namespace internal {
-template<typename _Scalar, int Rows=Dynamic, int Cols=Dynamic, int Supers=Dynamic, int Subs=Dynamic, int Options=0> class BandMatrix;
+namespace internal
+{
+template<typename _Scalar, int Rows = Dynamic, int Cols = Dynamic, int Supers = Dynamic, int Subs = Dynamic, int Options = 0> class BandMatrix;
 }
 
-namespace internal {
+namespace internal
+{
 template<typename Lhs, typename Rhs> struct product_type;
 }
 
 template<typename Lhs, typename Rhs,
-         int ProductType = internal::product_type<Lhs,Rhs>::value>
+         int ProductType = internal::product_type<Lhs, Rhs>::value>
 struct ProductReturnType;
 
 // this is a workaround for sun CC
 template<typename Lhs, typename Rhs> struct LazyProductReturnType;
 
-namespace internal {
-
+namespace internal
+{
 // Provides scalar/packet-wise product and product with accumulation
 // with optional conjugation of the arguments.
-template<typename LhsScalar, typename RhsScalar, bool ConjLhs=false, bool ConjRhs=false> struct conj_helper;
+template<typename LhsScalar, typename RhsScalar, bool ConjLhs = false, bool ConjRhs = false> struct conj_helper;
 
 template<typename Scalar> struct scalar_sum_op;
 template<typename Scalar> struct scalar_difference_op;
-template<typename LhsScalar,typename RhsScalar> struct scalar_conj_product_op;
+template<typename LhsScalar, typename RhsScalar> struct scalar_conj_product_op;
 template<typename Scalar> struct scalar_quotient_op;
 template<typename Scalar> struct scalar_opposite_op;
 template<typename Scalar> struct scalar_conjugate_op;
@@ -196,9 +197,8 @@ template<typename Scalar> struct scalar_add_op;
 template<typename Scalar> struct scalar_constant_op;
 template<typename Scalar> struct scalar_identity_op;
 
-template<typename LhsScalar,typename RhsScalar=LhsScalar> struct scalar_product_op;
-template<typename LhsScalar,typename RhsScalar> struct scalar_multiple2_op;
-
+template<typename LhsScalar, typename RhsScalar = LhsScalar> struct scalar_product_op;
+template<typename LhsScalar, typename RhsScalar> struct scalar_multiple2_op;
 } // end namespace internal
 
 struct IOFormat;
@@ -206,39 +206,40 @@ struct IOFormat;
 // Array module
 template<typename _Scalar, int _Rows, int _Cols,
          int _Options = AutoAlign |
-#if defined(__GNUC__) && __GNUC__==3 && __GNUC_MINOR__==4
-    // workaround a bug in at least gcc 3.4.6
-    // the innermost ?: ternary operator is misparsed. We write it slightly
-    // differently and this makes gcc 3.4.6 happy, but it's ugly.
-    // The error would only show up with EIGEN_DEFAULT_TO_ROW_MAJOR is defined
-    // (when EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION is RowMajor)
-                          ( (_Rows==1 && _Cols!=1) ? RowMajor
-                          : !(_Cols==1 && _Rows!=1) ?  EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION
-                          : ColMajor ),
+#if defined(__GNUC__) && __GNUC__ == 3 && __GNUC_MINOR__ == 4
+                        // workaround a bug in at least gcc 3.4.6
+                        // the innermost ?: ternary operator is misparsed. We write it slightly
+                        // differently and this makes gcc 3.4.6 happy, but it's ugly.
+                        // The error would only show up with EIGEN_DEFAULT_TO_ROW_MAJOR is defined
+                        // (when EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION is RowMajor)
+                        ((_Rows == 1 && _Cols != 1) ? RowMajor
+                         : !(_Cols == 1 && _Rows != 1) ?  EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION
+                         : ColMajor),
 #else
-                          ( (_Rows==1 && _Cols!=1) ? RowMajor
-                          : (_Cols==1 && _Rows!=1) ? ColMajor
-                          : EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION ),
+                        ((_Rows == 1 && _Cols != 1) ? RowMajor
+                         : (_Cols == 1 && _Rows != 1) ? ColMajor
+                         : EIGEN_DEFAULT_MATRIX_STORAGE_ORDER_OPTION),
 #endif
          int _MaxRows = _Rows, int _MaxCols = _Cols> class Array;
 template<typename ConditionMatrixType, typename ThenMatrixType, typename ElseMatrixType> class Select;
 template<typename MatrixType, typename BinaryOp, int Direction> class PartialReduxExpr;
 template<typename ExpressionType, int Direction> class VectorwiseOp;
-template<typename MatrixType,int RowFactor,int ColFactor> class Replicate;
+template<typename MatrixType, int RowFactor, int ColFactor> class Replicate;
 template<typename MatrixType, int Direction = BothDirections> class Reverse;
 
 template<typename MatrixType> class FullPivLU;
 template<typename MatrixType> class PartialPivLU;
-namespace internal {
+namespace internal
+{
 template<typename MatrixType> struct inverse_impl;
 }
 template<typename MatrixType> class HouseholderQR;
 template<typename MatrixType> class ColPivHouseholderQR;
 template<typename MatrixType> class FullPivHouseholderQR;
-template<typename MatrixType, int QRPreconditioner = ColPivHouseholderQRPreconditioner> class JacobiSVD;
-template<typename MatrixType, int UpLo = Lower> class LLT;
-template<typename MatrixType, int UpLo = Lower> class LDLT;
-template<typename VectorsType, typename CoeffsType, int Side=OnTheLeft> class HouseholderSequence;
+template<typename MatrixType, int QRPreconditioner           = ColPivHouseholderQRPreconditioner> class JacobiSVD;
+template<typename MatrixType, int UpLo                       = Lower> class LLT;
+template<typename MatrixType, int UpLo                       = Lower> class LDLT;
+template<typename VectorsType, typename CoeffsType, int Side = OnTheLeft> class HouseholderSequence;
 template<typename Scalar>     class JacobiRotation;
 
 // Geometry module:
@@ -247,7 +248,7 @@ template<typename Lhs, typename Rhs> class Cross;
 template<typename Derived> class QuaternionBase;
 template<typename Scalar> class Rotation2D;
 template<typename Scalar> class AngleAxis;
-template<typename Scalar,int Dim> class Translation;
+template<typename Scalar, int Dim> class Translation;
 
 #ifdef EIGEN2_SUPPORT
 template<typename Derived, int _Dim> class eigen2_RotationBase;
@@ -255,40 +256,41 @@ template<typename Lhs, typename Rhs> class eigen2_Cross;
 template<typename Scalar> class eigen2_Quaternion;
 template<typename Scalar> class eigen2_Rotation2D;
 template<typename Scalar> class eigen2_AngleAxis;
-template<typename Scalar,int Dim> class eigen2_Transform;
-template <typename _Scalar, int _AmbientDim> class eigen2_ParametrizedLine;
-template <typename _Scalar, int _AmbientDim> class eigen2_Hyperplane;
-template<typename Scalar,int Dim> class eigen2_Translation;
-template<typename Scalar,int Dim> class eigen2_Scaling;
+template<typename Scalar, int Dim> class eigen2_Transform;
+template<typename _Scalar, int _AmbientDim> class eigen2_ParametrizedLine;
+template<typename _Scalar, int _AmbientDim> class eigen2_Hyperplane;
+template<typename Scalar, int Dim> class eigen2_Translation;
+template<typename Scalar, int Dim> class eigen2_Scaling;
 #endif
 
 #if EIGEN2_SUPPORT_STAGE < STAGE20_RESOLVE_API_CONFLICTS
 template<typename Scalar> class Quaternion;
-template<typename Scalar,int Dim> class Transform;
-template <typename _Scalar, int _AmbientDim> class ParametrizedLine;
-template <typename _Scalar, int _AmbientDim> class Hyperplane;
-template<typename Scalar,int Dim> class Scaling;
+template<typename Scalar, int Dim> class Transform;
+template<typename _Scalar, int _AmbientDim> class ParametrizedLine;
+template<typename _Scalar, int _AmbientDim> class Hyperplane;
+template<typename Scalar, int Dim> class Scaling;
 #endif
 
 #if EIGEN2_SUPPORT_STAGE > STAGE20_RESOLVE_API_CONFLICTS
-template<typename Scalar, int Options = AutoAlign> class Quaternion;
-template<typename Scalar,int Dim,int Mode,int _Options=AutoAlign> class Transform;
-template <typename _Scalar, int _AmbientDim, int Options=AutoAlign> class ParametrizedLine;
-template <typename _Scalar, int _AmbientDim, int Options=AutoAlign> class Hyperplane;
+template<typename Scalar, int Options                     = AutoAlign> class Quaternion;
+template<typename Scalar, int Dim, int Mode, int _Options = AutoAlign> class Transform;
+template<typename _Scalar, int _AmbientDim, int Options   = AutoAlign> class ParametrizedLine;
+template<typename _Scalar, int _AmbientDim, int Options   = AutoAlign> class Hyperplane;
 template<typename Scalar> class UniformScaling;
-template<typename MatrixType,int Direction> class Homogeneous;
+template<typename MatrixType, int Direction> class Homogeneous;
 #endif
 
 // MatrixFunctions module
 template<typename Derived> struct MatrixExponentialReturnValue;
 template<typename Derived> class MatrixFunctionReturnValue;
 
-namespace internal {
-template <typename Scalar>
+namespace internal
+{
+template<typename Scalar>
 struct stem_function
 {
-  typedef std::complex<typename NumTraits<Scalar>::Real> ComplexScalar;
-  typedef ComplexScalar type(ComplexScalar, int);
+    typedef std::complex<typename NumTraits<Scalar>::Real> ComplexScalar;
+    typedef ComplexScalar type (ComplexScalar, int);
 };
 }
 
@@ -299,9 +301,9 @@ template<typename MatrixType> class Minor;
 template<typename MatrixType> class LU;
 template<typename MatrixType> class QR;
 template<typename MatrixType> class SVD;
-namespace internal {
+namespace internal
+{
 template<typename MatrixType, unsigned int Mode> struct eigen2_part_return_type;
 }
 #endif
-
 #endif // EIGEN_FORWARDDECLARATIONS_H

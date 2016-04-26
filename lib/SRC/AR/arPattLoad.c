@@ -118,7 +118,7 @@ int arPattLoadFromBuffer(ARPattHandle *pattHandle, const char *buffer)
                     j       = atoi(buffPtr);
                     buffPtr = strtok(NULL, delims);
 
-                    j = 255 - j;
+                    j                                                                          = 255 - j;
                     pattHandle->patt[patno * 4 + h][(i2 * pattHandle->pattSize + i1) * 3 + i3] = j;
                     if (i3 == 0)
                         pattHandle->pattBW[patno * 4 + h][i2 * pattHandle->pattSize + i1] = j;
@@ -140,7 +140,7 @@ int arPattLoadFromBuffer(ARPattHandle *pattHandle, const char *buffer)
         for (i = 0; i < pattHandle->pattSize * pattHandle->pattSize * 3; i++)
         {
             pattHandle->patt[patno * 4 + h][i] -= l;
-            m += (pattHandle->patt[patno * 4 + h][i] * pattHandle->patt[patno * 4 + h][i]);
+            m                                  += (pattHandle->patt[patno * 4 + h][i] * pattHandle->patt[patno * 4 + h][i]);
         }
 
         pattHandle->pattpow[patno * 4 + h] = sqrt((ARdouble)m);
@@ -152,7 +152,7 @@ int arPattLoadFromBuffer(ARPattHandle *pattHandle, const char *buffer)
         for (i = 0; i < pattHandle->pattSize * pattHandle->pattSize; i++)
         {
             pattHandle->pattBW[patno * 4 + h][i] -= l;
-            m += (pattHandle->pattBW[patno * 4 + h][i] * pattHandle->pattBW[patno * 4 + h][i]);
+            m                                    += (pattHandle->pattBW[patno * 4 + h][i] * pattHandle->pattBW[patno * 4 + h][i]);
         }
 
         pattHandle->pattpowBW[patno * 4 + h] = sqrt((ARdouble)m);
@@ -201,7 +201,7 @@ int arPattLoad(ARPattHandle *pattHandle, const char *filename)
     pos = ftell(fp);
     fseek(fp, 0L, SEEK_SET);
 
-    //ARLOGd("Pattern file is %ld bytes\n", pos);
+    // ARLOGd("Pattern file is %ld bytes\n", pos);
 
     /* Allocate buffer */
     bytes = (char*)malloc(pos + 1);

@@ -1,5 +1,5 @@
 /*
- *	videoGStreamer.h
+ *      videoGStreamer.h
  *  ARToolKit5
  *
  *  Video capture module utilising the GStreamer pipeline for AR Toolkit
@@ -51,20 +51,20 @@ extern "C" {
 
 typedef struct _AR2VideoParamGStreamerT AR2VideoParamGStreamerT;
 
-int                    ar2VideoDispOptionGStreamer     ( void );
-AR2VideoParamGStreamerT *ar2VideoOpenGStreamer         ( const char *config_in );
-int                    ar2VideoCloseGStreamer          ( AR2VideoParamGStreamerT *vid );
-int                    ar2VideoGetIdGStreamer          ( AR2VideoParamGStreamerT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeGStreamer        ( AR2VideoParamGStreamerT *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatGStreamer ( AR2VideoParamGStreamerT *vid );
-AR2VideoBufferT       *ar2VideoGetImageGStreamer       ( AR2VideoParamGStreamerT *vid );
-int                    ar2VideoCapStartGStreamer       ( AR2VideoParamGStreamerT *vid );
-int                    ar2VideoCapStopGStreamer        ( AR2VideoParamGStreamerT *vid );
+int                    ar2VideoDispOptionGStreamer(void);
+AR2VideoParamGStreamerT* ar2VideoOpenGStreamer(const char *config_in);
+int                    ar2VideoCloseGStreamer(AR2VideoParamGStreamerT *vid);
+int                    ar2VideoGetIdGStreamer(AR2VideoParamGStreamerT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeGStreamer(AR2VideoParamGStreamerT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatGStreamer(AR2VideoParamGStreamerT *vid);
+AR2VideoBufferT* ar2VideoGetImageGStreamer(AR2VideoParamGStreamerT *vid);
+int                    ar2VideoCapStartGStreamer(AR2VideoParamGStreamerT *vid);
+int                    ar2VideoCapStopGStreamer(AR2VideoParamGStreamerT *vid);
 
-int                    ar2VideoGetParamiGStreamer      ( AR2VideoParamGStreamerT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiGStreamer      ( AR2VideoParamGStreamerT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdGStreamer      ( AR2VideoParamGStreamerT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdGStreamer      ( AR2VideoParamGStreamerT *vid, int paramName, double  value );
+int                    ar2VideoGetParamiGStreamer(AR2VideoParamGStreamerT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiGStreamer(AR2VideoParamGStreamerT *vid, int paramName, int value);
+int                    ar2VideoGetParamdGStreamer(AR2VideoParamGStreamerT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdGStreamer(AR2VideoParamGStreamerT *vid, int paramName, double value);
 
 
 #ifdef  __cplusplus

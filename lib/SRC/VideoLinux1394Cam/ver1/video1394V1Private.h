@@ -44,16 +44,16 @@ extern "C" {
 
 typedef struct __arVideo1394
 {
-    int                     isOpen;
-    raw1394handle_t         handle;
-    int                     numNodes;
-    int                     numCameras;
-    nodeid_t               *camera_nodes;
-    int                    *activeFlag;
+    int             isOpen;
+    raw1394handle_t handle;
+    int             numNodes;
+    int             numCameras;
+    nodeid_t        *camera_nodes;
+    int             *activeFlag;
 } ARVideo1394;
 
-ARVideo1394  *ar2VideoGetPortParam         ( int portNum );
-void          ar2Video1394FormatConversion ( ARUint8 *src, ARUint8 *dst, int mode, int width, int height );
+ARVideo1394* ar2VideoGetPortParam(int portNum);
+void          ar2Video1394FormatConversion(ARUint8 *src, ARUint8 *dst, int mode, int width, int height);
 
 #ifdef  __cplusplus
 }

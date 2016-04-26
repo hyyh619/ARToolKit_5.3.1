@@ -43,67 +43,79 @@
 #include <AR/icpCalib.h>
 
 
-static int  icp2GetTS( ARdouble TS[], ARdouble dU[], ARdouble J[], int dataNum, int paramNum );
+static int  icp2GetTS(ARdouble TS[], ARdouble dU[], ARdouble J[], int dataNum, int paramNum);
 
 
-int icpCalibStereo( ICPCalibDataT data[], int num,
-                    ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble initMatL2R[3][4],
-                    ARdouble matL2R[3][4],
-                    ARdouble *err )
+int icpCalibStereo(ICPCalibDataT data[], int num,
+                   ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble initMatL2R[3][4],
+                   ARdouble matL2R[3][4],
+                   ARdouble *err)
 {
-    ARdouble       *J, *dU, *dTS;
-    ARdouble       *matXw2Xcl;
-    ARdouble        matXw2Ul[3][4];
-    ARdouble        matXw2Ur[3][4];
-    ARdouble        matXcl2Ur[3][4];
-    ARdouble        J_UL_S[2][6];
-    ARdouble        oldErr;
-    ICP3DCoordT   cameraCoordL;
-    ICP2DCoordT   screenCoord;
-    int           Jrow, Jclm;
-    int           dataNum;
-    int           i, j, k, l;
-    int           i1;
-    int           ret = 0;
+    ARdouble    *J, *dU, *dTS;
+    ARdouble    *matXw2Xcl;
+    ARdouble    matXw2Ul[3][4];
+    ARdouble    matXw2Ur[3][4];
+    ARdouble    matXcl2Ur[3][4];
+    ARdouble    J_UL_S[2][6];
+    ARdouble    oldErr;
+    ICP3DCoordT cameraCoordL;
+    ICP2DCoordT screenCoord;
+    int         Jrow, Jclm;
+    int         dataNum;
+    int         i, j, k, l;
+    int         i1;
+    int         ret = 0;
 
-    if( num <= 0 ) {
+    if (num <= 0)
+    {
         ARLOGe("Data num error!!\n");
         return -1;
     }
 
     dataNum = 0;
-    for( i = 0; i < num; i++ ) {
-        if( data[i].numL <= 0 || data[i].numR <= 0 ) {
+
+    for (i = 0; i < num; i++)
+    {
+        if (data[i].numL <= 0 || data[i].numR <= 0)
+        {
             ARLOGe("Data num error!!\n");
             return -1;
         }
+
         dataNum += data[i].numL;
         dataNum += data[i].numR;
     }
 
     Jrow = dataNum * 2;
     Jclm = (num + 1) * 6;
-    //ARLOGe("Jrow = %d, Jclm = %d\n", Jrow, Jclm );
-    J = (ARdouble *)malloc(sizeof(ARdouble)*Jrow*Jclm);
-    if( J == NULL ) {
+    // ARLOGe("Jrow = %d, Jclm = %d\n", Jrow, Jclm );
+    J = (ARdouble*)malloc(sizeof(ARdouble) * Jrow * Jclm);
+    if (J == NULL)
+    {
         ARLOGe("Out of memory!!\n");
         return -1;
     }
-    dU = (ARdouble *)malloc(sizeof(ARdouble)*Jrow);
-    if( dU == NULL ) {
+
+    dU = (ARdouble*)malloc(sizeof(ARdouble) * Jrow);
+    if (dU == NULL)
+    {
         ARLOGe("Out of memory!!\n");
         free(J);
         return -1;
     }
-    dTS = (ARdouble *)malloc(sizeof(ARdouble)*Jclm);
-    if( dTS == NULL ) {
+
+    dTS = (ARdouble*)malloc(sizeof(ARdouble) * Jclm);
+    if (dTS == NULL)
+    {
         ARLOGe("Out of memory!!\n");
         free(J);
         free(dU);
         return -1;
     }
-    matXw2Xcl = (ARdouble *)malloc(sizeof(ARdouble)*3*4*num);
-    if( matXw2Xcl == NULL ) {
+
+    matXw2Xcl = (ARdouble*)malloc(sizeof(ARdouble) * 3 * 4 * num);
+    if (matXw2Xcl == NULL)
+    {
         ARLOGe("Out of memory!!\n");
         free(J);
         free(dU);
@@ -111,106 +123,151 @@ int icpCalibStereo( ICPCalibDataT data[], int num,
         return -1;
     }
 
-    for( j = 0; j < 3; j++ ) {
-        for( i = 0; i < 4; i++ ) matL2R[j][i] = initMatL2R[j][i];
+    for (j = 0; j < 3; j++)
+    {
+        for (i = 0; i < 4; i++)
+            matL2R[j][i] = initMatL2R[j][i];
     }
-    for( k = 0; k < num; k++ ) {
-        for( j = 0; j < 3; j++ ) {
-            for( i = 0; i < 4; i++ ) {
-                matXw2Xcl[k*12+j*4+i] = data[k].initMatXw2Xcl[j][i];
+
+    for (k = 0; k < num; k++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            for (i = 0; i < 4; i++)
+            {
+                matXw2Xcl[k * 12 + j * 4 + i] = data[k].initMatXw2Xcl[j][i];
             }
         }
     }
 
-    for( l = 0; l < ICP_CALIB_STEREO_MAX_LOOP; l++ ) {
+    for (l = 0; l < ICP_CALIB_STEREO_MAX_LOOP; l++)
+    {
         k = 0;
-        for( i = 0; i < Jrow*Jclm; i++ )  J[i] = 0.0;
-        for( i = 0; i < Jrow;      i++ ) dU[i] = 0.0;
-        arUtilMatMul( matXcr2Ur, matL2R, matXcl2Ur );
+
+        for (i = 0; i < Jrow * Jclm; i++)
+            J[i] = 0.0;
+
+        for (i = 0; i < Jrow; i++)
+            dU[i] = 0.0;
+
+        arUtilMatMul(matXcr2Ur, matL2R, matXcl2Ur);
 
         *err = 0.0;
-        for( j = 0; j < num; j++ ) {
-            arUtilMatMul( matXcl2Ul, (ARdouble (*)[4])&(matXw2Xcl[j*12]), matXw2Ul );
-            arUtilMatMul( matXcl2Ur, (ARdouble (*)[4])&(matXw2Xcl[j*12]), matXw2Ur );
 
-            for( i = 0; i <  data[j].numL; i++ ) {
-                if( icpGetJ_U_S( J_UL_S, matXcl2Ul, (ARdouble (*)[4])&(matXw2Xcl[j*12]), &(data[j].worldCoordL[i]) ) < 0 ) {
+        for (j = 0; j < num; j++)
+        {
+            arUtilMatMul(matXcl2Ul, (ARdouble (*)[4]) & (matXw2Xcl[j * 12]), matXw2Ul);
+            arUtilMatMul(matXcl2Ur, (ARdouble (*)[4]) & (matXw2Xcl[j * 12]), matXw2Ur);
+
+            for (i = 0; i < data[j].numL; i++)
+            {
+                if (icpGetJ_U_S(J_UL_S, matXcl2Ul, (ARdouble (*)[4]) & (matXw2Xcl[j * 12]), &(data[j].worldCoordL[i])) < 0)
+                {
                     ARLOGe("Error icpGetJ_U_S\n");
                     ret = -1;
                     break;
                 }
-                for( i1 = 0; i1 < 6; i1++ ) {
-                    J[(k*2  )*Jclm+(1+j)*6+i1] = J_UL_S[0][i1];
-                    J[(k*2+1)*Jclm+(1+j)*6+i1] = J_UL_S[1][i1];
+
+                for (i1 = 0; i1 < 6; i1++)
+                {
+                    J[(k * 2) * Jclm + (1 + j) * 6 + i1]     = J_UL_S[0][i1];
+                    J[(k * 2 + 1) * Jclm + (1 + j) * 6 + i1] = J_UL_S[1][i1];
                 }
 
-                if( icpGetU_from_X_by_MatX2U( &screenCoord, matXw2Ul, &(data[j].worldCoordL[i]) ) < 0 ) {
+                if (icpGetU_from_X_by_MatX2U(&screenCoord, matXw2Ul, &(data[j].worldCoordL[i])) < 0)
+                {
                     ARLOGe("Error icpGetU_from_X_by_MatX2U\n");
                     ret = -1;
                     break;
                 }
-                dU[k*2  ] = data[j].screenCoordL[i].x - screenCoord.x;
-                dU[k*2+1] = data[j].screenCoordL[i].y - screenCoord.y;
-                *err += dU[k*2]*dU[k*2] + dU[k*2+1]*dU[k*2+1];
+
+                dU[k * 2]     = data[j].screenCoordL[i].x - screenCoord.x;
+                dU[k * 2 + 1] = data[j].screenCoordL[i].y - screenCoord.y;
+                *err         += dU[k * 2] * dU[k * 2] + dU[k * 2 + 1] * dU[k * 2 + 1];
                 k++;
             }
-            if( ret == -1 ) break;
 
-            for( i = 0; i <  data[j].numR; i++ ) {
-                if( icpGetJ_U_S( J_UL_S, matXcl2Ur, (ARdouble (*)[4])&(matXw2Xcl[j*12]), &(data[j].worldCoordR[i]) ) < 0 ) {
+            if (ret == -1)
+                break;
+
+            for (i = 0; i < data[j].numR; i++)
+            {
+                if (icpGetJ_U_S(J_UL_S, matXcl2Ur, (ARdouble (*)[4]) & (matXw2Xcl[j * 12]), &(data[j].worldCoordR[i])) < 0)
+                {
                     ARLOGe("Error icpGetJ_U_S\n");
                     ret = -1;
                     break;
                 }
-                for( i1 = 0; i1 < 6; i1++ ) {
-                    J[(k*2  )*Jclm+(1+j)*6+i1] = J_UL_S[0][i1];
-                    J[(k*2+1)*Jclm+(1+j)*6+i1] = J_UL_S[1][i1];
+
+                for (i1 = 0; i1 < 6; i1++)
+                {
+                    J[(k * 2) * Jclm + (1 + j) * 6 + i1]     = J_UL_S[0][i1];
+                    J[(k * 2 + 1) * Jclm + (1 + j) * 6 + i1] = J_UL_S[1][i1];
                 }
 
-                if( icpGetU_from_X_by_MatX2U( &screenCoord, matXw2Ur, &(data[j].worldCoordR[i]) ) < 0 ) {
+                if (icpGetU_from_X_by_MatX2U(&screenCoord, matXw2Ur, &(data[j].worldCoordR[i])) < 0)
+                {
                     ARLOGe("Error icpGetU_from_X_by_MatX2U\n");
                     ret = -1;
                     break;
                 }
-                dU[k*2  ] = data[j].screenCoordR[i].x - screenCoord.x;
-                dU[k*2+1] = data[j].screenCoordR[i].y - screenCoord.y;
-                *err += dU[k*2]*dU[k*2] + dU[k*2+1]*dU[k*2+1];
 
-                if( icpGetXc_from_Xw_by_MatXw2Xc( &cameraCoordL, (ARdouble (*)[4])&(matXw2Xcl[j*12]), &(data[j].worldCoordR[i]) ) < 0 ) {
+                dU[k * 2]     = data[j].screenCoordR[i].x - screenCoord.x;
+                dU[k * 2 + 1] = data[j].screenCoordR[i].y - screenCoord.y;
+                *err         += dU[k * 2] * dU[k * 2] + dU[k * 2 + 1] * dU[k * 2 + 1];
+
+                if (icpGetXc_from_Xw_by_MatXw2Xc(&cameraCoordL, (ARdouble (*)[4]) & (matXw2Xcl[j * 12]), &(data[j].worldCoordR[i])) < 0)
+                {
                     ARLOGe("Error icpGetXc_from_Xw_by_MatXw2Xc\n");
                     ret = -1;
                     break;
                 }
-                if( icpGetJ_U_S( J_UL_S, matXcr2Ur, matL2R, &cameraCoordL ) < 0 ) {
+
+                if (icpGetJ_U_S(J_UL_S, matXcr2Ur, matL2R, &cameraCoordL) < 0)
+                {
                     ARLOGe("Error icpGetJ_U_S\n");
                     ret = -1;
                     break;
                 }
-                for( i1 = 0; i1 < 6; i1++ ) {
-                    J[(k*2  )*Jclm+i1] = J_UL_S[0][i1];
-                    J[(k*2+1)*Jclm+i1] = J_UL_S[1][i1];
+
+                for (i1 = 0; i1 < 6; i1++)
+                {
+                    J[(k * 2) * Jclm + i1]     = J_UL_S[0][i1];
+                    J[(k * 2 + 1) * Jclm + i1] = J_UL_S[1][i1];
                 }
+
                 k++;
             }
-            if( ret == -1 ) break;
+
+            if (ret == -1)
+                break;
         }
-        if( ret == -1 ) break;
+
+        if (ret == -1)
+            break;
 
         *err /= dataNum;
         ARLOGe("Error = %f\n", *err);
-        if( *err < ICP_CALIB_STEREO_BREAK_LOOP_ERROR_THRESH ) break;
-        if( l > 0 && *err/oldErr > ICP_CALIB_STEREO_BREAK_LOOP_ERROR_RATIO_THRESH ) break;
+        if (*err < ICP_CALIB_STEREO_BREAK_LOOP_ERROR_THRESH)
+            break;
+
+        if (l > 0 && *err / oldErr > ICP_CALIB_STEREO_BREAK_LOOP_ERROR_RATIO_THRESH)
+            break;
+
         oldErr = *err;
 
-        if( icp2GetTS( dTS, dU, J, Jrow, Jclm ) < 0 ) {
+        if (icp2GetTS(dTS, dU, J, Jrow, Jclm) < 0)
+        {
             ARLOGe("Error icp2GetTS\n");
             ret = -1;
             break;
         }
 
-        icpUpdateMat( matL2R, &(dTS[0]) );
-        for( j = 0; j < num; j++ ) {
-            icpUpdateMat( (ARdouble (*)[4])&(matXw2Xcl[j*12]), &(dTS[6*(j+1)]) );
+        icpUpdateMat(matL2R, &(dTS[0]));
+
+        for (j = 0; j < num; j++)
+        {
+            icpUpdateMat((ARdouble (*)[4]) & (matXw2Xcl[j * 12]), &(dTS[6 * (j + 1)]));
         }
     }
 
@@ -222,14 +279,14 @@ int icpCalibStereo( ICPCalibDataT data[], int num,
     return ret;
 }
 
-static int icp2GetTS( ARdouble TS[], ARdouble dU[], ARdouble J[], int dataNum, int paramNum )
+static int icp2GetTS(ARdouble TS[], ARdouble dU[], ARdouble J[], int dataNum, int paramNum)
 {
-    ARMat   matTS, matU, matJ;
-    ARMat  *matJt, *matJtJ, *matJtU;   
+    ARMat matTS, matU, matJ;
+    ARMat *matJt, *matJtJ, *matJtU;
 
     matTS.row = paramNum;
     matTS.clm = 1;
-    matTS.m   = TS; 
+    matTS.m   = TS;
 
     matU.row = dataNum;
     matU.clm = 1;
@@ -239,30 +296,37 @@ static int icp2GetTS( ARdouble TS[], ARdouble dU[], ARdouble J[], int dataNum, i
     matJ.clm = paramNum;
     matJ.m   = J;
 
-    matJt = arMatrixAllocTrans( &matJ );
-    if( matJt == NULL ) return -1;
-    matJtJ = arMatrixAllocMul( matJt, &matJ );
-    if( matJtJ == NULL ) {    
-        arMatrixFree( matJt );
-        return -1;  
-    }
-    matJtU = arMatrixAllocMul( matJt, &matU );
-    if( matJtJ == NULL ) {
-        arMatrixFree( matJt );
-        arMatrixFree( matJtJ );
+    matJt = arMatrixAllocTrans(&matJ);
+    if (matJt == NULL)
         return -1;
-    }
-    if( arMatrixSelfInv(matJtJ) < 0 ) {
-        arMatrixFree( matJt );
-        arMatrixFree( matJtJ );
-        arMatrixFree( matJtU );
+
+    matJtJ = arMatrixAllocMul(matJt, &matJ);
+    if (matJtJ == NULL)
+    {
+        arMatrixFree(matJt);
         return -1;
     }
 
-    arMatrixMul( &matTS, matJtJ, matJtU );
-    arMatrixFree( matJt );
-    arMatrixFree( matJtJ );
-    arMatrixFree( matJtU );
+    matJtU = arMatrixAllocMul(matJt, &matU);
+    if (matJtJ == NULL)
+    {
+        arMatrixFree(matJt);
+        arMatrixFree(matJtJ);
+        return -1;
+    }
+
+    if (arMatrixSelfInv(matJtJ) < 0)
+    {
+        arMatrixFree(matJt);
+        arMatrixFree(matJtJ);
+        arMatrixFree(matJtU);
+        return -1;
+    }
+
+    arMatrixMul(&matTS, matJtJ, matJtU);
+    arMatrixFree(matJt);
+    arMatrixFree(matJtJ);
+    arMatrixFree(matJtU);
 
     return 0;
 }

@@ -41,8 +41,8 @@
 // Color conversion
 // ----------------------------------------------------------------------------------------------------
 
-#define MAX(X,Y) ((X) > (Y) ? (X) : (Y))
-#define MIN(X,Y) ((X) < (Y) ? (X) : (Y))
+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
 
 
 /*
@@ -56,47 +56,46 @@
    V (Cr) Sample Period 2 2
  */
 
-void color_convert_common(unsigned char *pY, unsigned char *pUV, int width, int height, unsigned char *buffer)  {
-	
-	int nR, nG, nB, nY, nU, nV, i, j, id2, jd2, offset;	
+void color_convert_common(unsigned char *pY, unsigned char *pUV, int width, int height, unsigned char *buffer)
+{
+    int nR, nG, nB, nY, nU, nV, i, j, id2, jd2, offset;
 
-	offset = 0;
-	
-	// YUV 4:2:0
-	for (i = 0; i < height; i++) {
+    offset = 0;
 
-		id2 = i >> 1; // Divide by two
+    // YUV 4:2:0
+    for (i = 0; i < height; i++)
+    {
+        id2 = i >> 1;         // Divide by two
 
-	    for (j = 0; j < width; j++) {
-		
-			jd2 = j >> 1; // Divide by two
-		
-			nY = *(pY + i*width + j);
-			nV = *(pUV + id2*width + 2*jd2);
-			nU = *(pUV + id2*width + 2*jd2 + 1);
-	    
-			// Yuv Convert
-			nY = MAX(nY - 16, 0);
-			nU -= 128;
-			nV -= 128;		
-			
-			nB = 1192 * nY + 2066 * nU;
-			nG = 1192 * nY - 833 * nV - 400 * nU;
-			nR = 1192 * nY + 1634 * nV;
-			
-			nR = MIN(262143, MAX(0, nR));
-			nG = MIN(262143, MAX(0, nG));
-			nB = MIN(262143, MAX(0, nB));
-			
-			nR >>= 10; nR &= 0xff;
-			nG >>= 10; nG &= 0xff;
-			nB >>= 10; nB &= 0xff;
-			
-			buffer[offset++] = (unsigned char)nR;
-			buffer[offset++] = (unsigned char)nG;
-			buffer[offset++] = (unsigned char)nB;
-			buffer[offset++] = (unsigned char)255;
-	    }
-	    
-	}
+        for (j = 0; j < width; j++)
+        {
+            jd2 = j >> 1;             // Divide by two
+
+            nY = *(pY + i * width + j);
+            nV = *(pUV + id2 * width + 2 * jd2);
+            nU = *(pUV + id2 * width + 2 * jd2 + 1);
+
+            // Yuv Convert
+            nY  = MAX(nY - 16, 0);
+            nU -= 128;
+            nV -= 128;
+
+            nB = 1192 * nY + 2066 * nU;
+            nG = 1192 * nY - 833 * nV - 400 * nU;
+            nR = 1192 * nY + 1634 * nV;
+
+            nR = MIN(262143, MAX(0, nR));
+            nG = MIN(262143, MAX(0, nG));
+            nB = MIN(262143, MAX(0, nB));
+
+            nR >>= 10; nR &= 0xff;
+            nG >>= 10; nG &= 0xff;
+            nB >>= 10; nB &= 0xff;
+
+            buffer[offset++] = (unsigned char)nR;
+            buffer[offset++] = (unsigned char)nG;
+            buffer[offset++] = (unsigned char)nB;
+            buffer[offset++] = (unsigned char)255;
+        }
+    }
 }

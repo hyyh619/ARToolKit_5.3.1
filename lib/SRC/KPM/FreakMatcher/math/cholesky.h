@@ -35,40 +35,51 @@
 
 #pragma once
 
-namespace vision {
+namespace vision
+{
+/**
+ * Compute the Cholesky decomposition of the square matrix A.
+ */
+template<typename T>
+bool Cholesky(T *L, int strideL, const T *A, int strideA, int n, T threshold = 0)
+{
+    int i, j, k;
+    T   s;
 
-    /**
-     * Compute the Cholesky decomposition of the square matrix A.
-     */
-    template<typename T>
-    bool Cholesky(T* L, int strideL, const T* A, int strideA, int n, T threshold = 0) {
-        int i, j, k;
-        T s;
-        
-        for(i = 0; i < n; i++) {
-            T* Li = &L[i*strideL];
-            const T* Ai = &A[i*strideA];
-            for(j = 0; j <= i; j++) {
-                T* Lj = &L[j*strideL];
-                for(s = Ai[j], k = 0; k < j; k++) {
-                    s -= Li[k]*Lj[k];
-                }
-                if(i == j) {
-                    if(s < 0) {
-                        return false;
-                    }
-                    Li[j] = std::sqrt(s);
-                }
-                else if(std::abs(Lj[j]) > threshold) {
-                    Li[j] = s/Lj[j];
-                }
-                else {
+    for (i = 0; i < n; i++)
+    {
+        T       *Li = &L[i * strideL];
+        const T *Ai = &A[i * strideA];
+
+        for (j = 0; j <= i; j++)
+        {
+            T *Lj = &L[j * strideL];
+
+            for (s = Ai[j], k = 0; k < j; k++)
+            {
+                s -= Li[k] * Lj[k];
+            }
+
+            if (i == j)
+            {
+                if (s < 0)
+                {
                     return false;
                 }
+
+                Li[j] = std::sqrt(s);
+            }
+            else if (std::abs(Lj[j]) > threshold)
+            {
+                Li[j] = s / Lj[j];
+            }
+            else
+            {
+                return false;
             }
         }
-        
-        return true;
     }
-    
+
+    return true;
+}
 } // vision

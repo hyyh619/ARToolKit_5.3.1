@@ -37,15 +37,15 @@
 
 #include <vector>
 
-namespace vision {
+namespace vision
+{
+struct match_t
+{
+    match_t() : ins(-1), ref(-1) {}
+    match_t(int _ins, int _ref) : ins(_ins), ref(_ref) {}
+    int ins;
+    int ref;
+};     // match_t
 
-    struct match_t {
-        match_t() : ins(-1), ref(-1) {}
-        match_t(int _ins, int _ref) : ins(_ins), ref(_ref) {}
-        int ins;
-        int ref;
-    }; // match_t
-    
-    typedef std::vector<match_t> matches_t;
-    
+typedef std::vector<match_t> matches_t;
 } // vision

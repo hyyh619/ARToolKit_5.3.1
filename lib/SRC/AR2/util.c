@@ -41,17 +41,17 @@
 #include <string.h>
 #include <AR2/util.h>
 
-int ar2UtilReplaceExt( char *filename, int n, char *ext )
+int ar2UtilReplaceExt(char *filename, int n, char *ext)
 {
-    return arUtilReplaceExt( filename, n, ext );
+    return arUtilReplaceExt(filename, n, ext);
 }
 
-int ar2UtilRemoveExt( char *filename )
+int ar2UtilRemoveExt(char *filename)
 {
-    return arUtilRemoveExt( filename );
+    return arUtilRemoveExt(filename);
 }
 
-int ar2UtilDivideExt( const char *filename, char *s1, char *s2 )
+int ar2UtilDivideExt(const char *filename, char *s1, char *s2)
 {
-    return arUtilDivideExt( filename, s1, s2 );
+    return arUtilDivideExt(filename, s1, s2);
 }

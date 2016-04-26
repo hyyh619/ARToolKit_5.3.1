@@ -42,12 +42,10 @@
 
 #if TARGET_PLATFORM_ANDROID
 
-#	include <jni.h>
-#	include <android/log.h>
-#	include <time.h>
+#       include <jni.h>
+#       include <android/log.h>
+#       include <time.h>
 
 long nanoTime();
-
 #endif
-
 #endif // !ANDROIDFEATURES_H

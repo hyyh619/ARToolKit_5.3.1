@@ -1,5 +1,5 @@
 /*
- *	VirtualEnvironment2.h
+ *      VirtualEnvironment2.h
  *  ARToolKit5
  *
  *  Disclaimer: IMPORTANT:  This Daqri software is supplied to you by Daqri
@@ -59,7 +59,7 @@ extern "C" {
 
 typedef struct _VirtualEnvironment2 VirtualEnvironment2;
 
-VirtualEnvironment2 *VirtualEnvironment2Init(const char *objectListFile);
+VirtualEnvironment2* VirtualEnvironment2Init(const char *objectListFile);
 void VirtualEnvironment2Final(VirtualEnvironment2 **ve2_p);
 
 // ARMarker notification handlers.
@@ -69,7 +69,7 @@ void VirtualEnvironment2HandleARMarkerDisappeared(VirtualEnvironment2 *ve2, int 
 
 // ARView notification handlers.
 void VirtualEnvironment2HandleARViewUpdatedCameraLens(VirtualEnvironment2 *ve2, ARdouble *projection_in);
-//void VirtualEnvironment2HandleARViewUpdatedCameraPose(VirtualEnvironment2 *ve2, GLfloat *modelview_in);
+// void VirtualEnvironment2HandleARViewUpdatedCameraPose(VirtualEnvironment2 *ve2, GLfloat *modelview_in);
 void VirtualEnvironment2HandleARViewUpdatedViewport(VirtualEnvironment2 *ve2, int *viewPort_in);
 void VirtualEnvironment2HandleARViewDrawPreCamera(VirtualEnvironment2 *ve2);
 void VirtualEnvironment2HandleARViewDrawPostCamera(VirtualEnvironment2 *ve2);
@@ -78,5 +78,4 @@ void VirtualEnvironment2HandleARViewDrawOverlay(VirtualEnvironment2 *ve2);
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !__VirtualEnvironment2_h__

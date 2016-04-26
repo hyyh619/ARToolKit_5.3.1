@@ -1,5 +1,5 @@
 /*
- *	icpCore.h
+ *      icpCore.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -43,51 +43,56 @@ extern "C" {
 #endif
 
 #ifndef  M_PI
-#define  M_PI    3.14159265358979323846F
+#define  M_PI 3.14159265358979323846F
 #endif
 
-#define      ICP_DEBUG                           0
-#define      ICP_MAX_LOOP                        10
-#define      ICP_BREAK_LOOP_ERROR_THRESH         0.1F
-#define      ICP_BREAK_LOOP_ERROR_RATIO_THRESH   0.99F
-#define      ICP_BREAK_LOOP_ERROR_THRESH2        4.0F
-#define      ICP_INLIER_PROBABILITY              0.50F
+#define      ICP_DEBUG                         0
+#define      ICP_MAX_LOOP                      10
+#define      ICP_BREAK_LOOP_ERROR_THRESH       0.1F
+#define      ICP_BREAK_LOOP_ERROR_RATIO_THRESH 0.99F
+#define      ICP_BREAK_LOOP_ERROR_THRESH2      4.0F
+#define      ICP_INLIER_PROBABILITY            0.50F
 
-typedef struct {
-    ARdouble    x;
-    ARdouble    y;
+typedef struct
+{
+    ARdouble x;
+    ARdouble y;
 } ICP2DCoordT;
 
-typedef struct {
-    ARdouble    x;
-    ARdouble    y;
-    ARdouble    z;
+typedef struct
+{
+    ARdouble x;
+    ARdouble y;
+    ARdouble z;
 } ICP3DCoordT;
 
-typedef struct {
-    ARdouble    a;
-    ARdouble    b;
-    ARdouble    c;
+typedef struct
+{
+    ARdouble a;
+    ARdouble b;
+    ARdouble c;
 } ICP2DLineT;
 
-typedef struct {
-    ICP2DCoordT  p1;
-    ICP2DCoordT  p2;
+typedef struct
+{
+    ICP2DCoordT p1;
+    ICP2DCoordT p2;
 } ICP2DLineSegT;
 
-typedef struct {
-    ICP3DCoordT  p1;
-    ICP3DCoordT  p2;
+typedef struct
+{
+    ICP3DCoordT p1;
+    ICP3DCoordT p2;
 } ICP3DLineSegT;
 
 
-int        icpGetXc_from_Xw_by_MatXw2Xc( ICP3DCoordT *Xc, ARdouble matXw2Xc[3][4], ICP3DCoordT *Xw );
-int        icpGetU_from_X_by_MatX2U( ICP2DCoordT *u, ARdouble matX2U[3][4], ICP3DCoordT *coord3d );
-int        icpGetJ_U_S( ARdouble J_U_S[2][6], ARdouble matXc2U[3][4], ARdouble matXw2Xc[3][4], ICP3DCoordT *worldCoord );
-int        icpGetDeltaS( ARdouble S[6], ARdouble dU[], ARdouble J_U_S[][6], int n );
-int        icpUpdateMat( ARdouble matXw2Xc[3][4], ARdouble dS[6] );
+int icpGetXc_from_Xw_by_MatXw2Xc(ICP3DCoordT * Xc, ARdouble matXw2Xc[3][4], ICP3DCoordT * Xw);
+int icpGetU_from_X_by_MatX2U(ICP2DCoordT * u, ARdouble matX2U[3][4], ICP3DCoordT * coord3d);
+int icpGetJ_U_S(ARdouble J_U_S[2][6], ARdouble matXc2U[3][4], ARdouble matXw2Xc[3][4], ICP3DCoordT * worldCoord);
+int icpGetDeltaS(ARdouble S[6], ARdouble dU[], ARdouble J_U_S[][6], int n);
+int icpUpdateMat(ARdouble matXw2Xc[3][4], ARdouble dS[6]);
 
-void       icpDispMat( char *title, ARdouble *mat, int row, int clm );
+void       icpDispMat(char *title, ARdouble *mat, int row, int clm);
 
 #ifdef __cplusplus
 }

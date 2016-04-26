@@ -49,8 +49,8 @@
 #include <math.h>
 #include <AR/ar.h>
 
-#define  PD_LOOP   3
-#define  PD_LOOP2  4
+#define  PD_LOOP  3
+#define  PD_LOOP2 4
 
 #ifdef ARDOUBLE_IS_FLOAT
 #  define SQRT sqrtf
@@ -68,7 +68,6 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     // ----------------------------------------
     if (dist_function_version == 4)
     {
-
         // OpenCV distortion model, with addition of a scale factor so that
         // entire image fits onscreen.
         ARdouble k1, k2, p1, p2, fx, fy, x0, y0, s;
@@ -104,14 +103,14 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
                      ((1.0 + k1 * (x02 + y02) + k2 * (x02 + y02) * (x02 + y02)) * px + 2.0 * p1 * px * py + p2 * (x02 + y02 + 2.0 * x02) - ((ox - x0) / fx))
                      /
                      (1.0 + k1 * (3.0 * x02 + y02) + k2 * (5.0 * x02 * x02 + 3.0 * x02 * y02 + y02 * y02) + 2.0 * p1 * py + 6.0 * p2 * px);
-                //px = px - ((1.0 + k1*(x02+y02) + k2*(x02+y02)*(x02+y02))*px + 2.0*p1*px*py + p2*(x02 + y02 + 2.0*x02)-((ox - x0)/fx))/(1.0+k1*(3.0*x02+y02)+k2*(5.0*x02*x02+6.0*x02*y02+y02*y02)+2.0*p1*py+6.0*p2*px);
+                // px = px - ((1.0 + k1*(x02+y02) + k2*(x02+y02)*(x02+y02))*px + 2.0*p1*px*py + p2*(x02 + y02 + 2.0*x02)-((ox - x0)/fx))/(1.0+k1*(3.0*x02+y02)+k2*(5.0*x02*x02+6.0*x02*y02+y02*y02)+2.0*p1*py+6.0*p2*px);
 
                 py = py
                      -
                      ((1.0 + k1 * (x02 + y02) + k2 * (x02 + y02) * (x02 + y02)) * py + p1 * (x02 + y02 + 2.0 * y02) + 2.0 * p2 * px * py - ((oy - y0) / fy))
                      /
                      (1.0 + k1 * (x02 + 3.0 * y02) + k2 * (x02 * x02 + 3.0 * x02 * y02 + 5.0 * y02 * y02) + 6.0 * p1 * py + 2.0 * p2 * px);
-                //py = py - ((1.0 + k1*(x02+y02) + k2*(x02+y02)*(x02+y02))*py + p1*(x02 + y02 + 2.0*y02) + 2.0*p2*px*py-((oy - y0)/fy))/(1.0+k1*(x02+3.0*y02)+k2*(x02*x02+6.0*x02*y02+5.0*y02*y02)+6.0*p1*py+2.0*p2*px);
+                // py = py - ((1.0 + k1*(x02+y02) + k2*(x02+y02)*(x02+y02))*py + p1*(x02 + y02 + 2.0*y02) + 2.0*p2*px*py-((oy - y0)/fy))/(1.0+k1*(x02+3.0*y02)+k2*(x02*x02+6.0*x02*y02+5.0*y02*y02)+6.0*p1*py+2.0*p2*px);
             }
             else
             {
@@ -136,7 +135,6 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else if (dist_function_version == 3)
     {
-
         ARdouble z02, z0, p1, p2, q, z, px, py, ar;
         int      i;
 
@@ -179,7 +177,6 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else if (dist_function_version == 2)
     {
-
         ARdouble z02, z0, p1, p2, q, z, px, py;
         int      i;
 
@@ -221,7 +218,6 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else if (dist_function_version == 1)
     {
-
         ARdouble z02, z0, p, q, z, px, py;
         int      i;
 
@@ -262,9 +258,7 @@ int arParamObserv2Ideal(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else
     {
-
         return -1;
-
     }
 }
 
@@ -278,7 +272,6 @@ int arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     // ----------------------------------------
     if (dist_function_version == 4)
     {
-
         ARdouble k1, k2, p1, p2, fx, fy, x0, y0, s;
         ARdouble l, x, y;
 
@@ -312,7 +305,6 @@ int arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else if (dist_function_version == 3)
     {
-
         ARdouble x, y, l, d, ar;
 
         ar = dist_factor[3];
@@ -337,7 +329,6 @@ int arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else if (dist_function_version == 2)
     {
-
         ARdouble x, y, l, d;
 
         x = (ix - dist_factor[0]) * dist_factor[2];
@@ -361,7 +352,6 @@ int arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else if (dist_function_version == 1)
     {
-
         ARdouble x, y, d;
 
         x = (ix - dist_factor[0]) * dist_factor[2];
@@ -383,8 +373,6 @@ int arParamIdeal2Observ(const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX],
     }
     else
     {
-
         return -1;
-
     }
 }

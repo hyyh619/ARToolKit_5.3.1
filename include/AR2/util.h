@@ -44,9 +44,9 @@ extern "C" {
 #include <AR2/config.h>
 
 /*   util.c   */
-int ar2UtilReplaceExt( char *filename, int n, char *ext );
-int ar2UtilRemoveExt ( char *filename );
-int ar2UtilDivideExt ( const char *filename, char *s1, char *s2 );
+int ar2UtilReplaceExt(char *filename, int n, char *ext);
+int ar2UtilRemoveExt(char *filename);
+int ar2UtilDivideExt(const char *filename, char *s1, char *s2);
 
 #ifdef __cplusplus
 }

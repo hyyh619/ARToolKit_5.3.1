@@ -39,44 +39,43 @@
 #define AR_GSUB_CONFIG_H
 
 /*   NUM of TEXTURE MESH   */
-#define  AR_GL_TEXTURE_MESH_NUM                   40
+#define  AR_GL_TEXTURE_MESH_NUM 40
 
 /*   MIN_LINE_SEGMENT      */
-#define  AR_GL_MIN_LINE_SEGMENT                   10
+#define  AR_GL_MIN_LINE_SEGMENT 10
 
 /*   dispMethod    */
-#define  AR_GL_DISP_METHOD_GL_DRAW_PIXELS          0
-#define  AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME   1
-#define  AR_GL_DISP_METHOD_TEXTURE_MAPPING_FIELD   2
-#define  AR_GL_DEFAULT_DISP_METHOD                 AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME
+#define  AR_GL_DISP_METHOD_GL_DRAW_PIXELS        0
+#define  AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME 1
+#define  AR_GL_DISP_METHOD_TEXTURE_MAPPING_FIELD 2
+#define  AR_GL_DEFAULT_DISP_METHOD               AR_GL_DISP_METHOD_TEXTURE_MAPPING_FRAME
 
 /*    dispMode     */
-#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT                            0
-#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT_KEEP_ASPECT_RATIO          1
-#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT_HEIGHT_KEEP_ASPECT_RATIO   2
-#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT_WIDTH_KEEP_ASPECT_RATIO    3
-#define  AR_GL_DISP_MODE_USE_SPECIFIED_SCALE                        4 
-#define  AR_GL_DEFAULT_DISP_MODE                                    AR_GL_DISP_MODE_FIT_TO_VIEWPORT
+#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT                          0
+#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT_KEEP_ASPECT_RATIO        1
+#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT_HEIGHT_KEEP_ASPECT_RATIO 2
+#define  AR_GL_DISP_MODE_FIT_TO_VIEWPORT_WIDTH_KEEP_ASPECT_RATIO  3
+#define  AR_GL_DISP_MODE_USE_SPECIFIED_SCALE                      4
+#define  AR_GL_DEFAULT_DISP_MODE                                  AR_GL_DISP_MODE_FIT_TO_VIEWPORT
 
 #ifndef AR_IOS
 /*    flipMode     */
-#define  AR_GL_FLIP_H                              1
-#define  AR_GL_FLIP_V                              2
-#define  AR_GL_FLIP_DISABLE                        0
-#define  AR_GL_DEFAULT_FLIP_MODE                   AR_GL_FLIP_DISABLE
+#define  AR_GL_FLIP_H            1
+#define  AR_GL_FLIP_V            2
+#define  AR_GL_FLIP_DISABLE      0
+#define  AR_GL_DEFAULT_FLIP_MODE AR_GL_FLIP_DISABLE
 #endif
 
 /*    distortionMode    */
-#define   AR_GL_DISTORTION_COMPENSATE_DISABLE      0
-#define   AR_GL_DISTORTION_COMPENSATE_ENABLE       1
-#define   AR_GL_DEFAULT_DISTORTION_MODE            AR_GL_DISTORTION_COMPENSATE_ENABLE
+#define   AR_GL_DISTORTION_COMPENSATE_DISABLE 0
+#define   AR_GL_DISTORTION_COMPENSATE_ENABLE  1
+#define   AR_GL_DEFAULT_DISTORTION_MODE       AR_GL_DISTORTION_COMPENSATE_ENABLE
 
 /*    clipPlane  */
-#define   AR_GL_DEFAULT_CLIP_NEAR               50.0
-#define   AR_GL_DEFAULT_CLIP_FAR              5000.0
+#define   AR_GL_DEFAULT_CLIP_NEAR 50.0
+#define   AR_GL_DEFAULT_CLIP_FAR  5000.0
 
 /*    scaleLimit */
-#define   AR_GL_DISP_SCALE_MAX                  5.0
-#define   AR_GL_DISP_SCALE_MIN                  0.3
-
+#define   AR_GL_DISP_SCALE_MAX 5.0
+#define   AR_GL_DISP_SCALE_MIN 0.3
 #endif

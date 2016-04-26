@@ -1,8 +1,8 @@
 /*
- *	Copyright (c) 2005-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
- *	
- *	Rev		Date		Who		Changes
- *	1.0.0	2005-03-08	PRL		Written.
+ *      Copyright (c) 2005-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
+ *
+ *      Rev             Date            Who             Changes
+ *      1.0.0   2005-03-08      PRL             Written.
  *
  */
 
@@ -21,5 +21,4 @@ OSStatus RequestSGSettings(const int inputIndex, SeqGrabComponent seqGrab, SGCha
 #ifdef __cplusplus
 }
 #endif
-
 #endif // __videoQuickTimePrivateMacOSX_h__

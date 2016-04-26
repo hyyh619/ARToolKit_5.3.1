@@ -52,51 +52,53 @@ static void vkeyFunc(unsigned char key, int x, int y);
 static void vmouseFunc(int button, int state, int x, int y);
 static void vmotionFunc(int x, int y);
 
-int argSetDispFunc( void (*mainFunc)(void), int idleFlag )
+int argSetDispFunc(void (*mainFunc)(void), int idleFlag)
 {
-    glutDisplayFunc( vmainFunc );
+    glutDisplayFunc(vmainFunc);
     wmainFunc = mainFunc;
 
-    if( idleFlag ) {
-        glutIdleFunc( vidleFunc );
+    if (idleFlag)
+    {
+        glutIdleFunc(vidleFunc);
         widleFunc = mainFunc;
     }
 
     return 0;
 }
 
-int argSetKeyFunc( void (*keyFunc)(unsigned char key, int x, int y) )
+int argSetKeyFunc(void (*keyFunc)(unsigned char key, int x, int y))
 {
-    glutKeyboardFunc( vkeyFunc );
+    glutKeyboardFunc(vkeyFunc);
     wkeyFunc = keyFunc;
 
     return 0;
 }
 
-int argSetMouseFunc( void (*mouseFunc)(int button, int state, int x, int y) )
+int argSetMouseFunc(void (*mouseFunc)(int button, int state, int x, int y))
 {
-    glutMouseFunc( vmouseFunc );
+    glutMouseFunc(vmouseFunc);
     wmouseFunc = mouseFunc;
 
     return 0;
 }
 
-int argSetMotionFunc( void (*motionFunc)(int x, int y) )
+int argSetMotionFunc(void (*motionFunc)(int x, int y))
 {
-    glutMotionFunc( vmotionFunc );
+    glutMotionFunc(vmotionFunc);
     wmotionFunc = motionFunc;
 
     return 0;
 }
 
-void argMainLoop( void )
+void argMainLoop(void)
 {
     glutMainLoop();
 }
 
-void argDefaultKeyFunc( unsigned char key, int x, int y )
+void argDefaultKeyFunc(unsigned char key, int x, int y)
 {
-    if( key == 0x1b ) {
+    if (key == 0x1b)
+    {
         argCleanup();
         exit(0);
     }
@@ -106,25 +108,30 @@ void argDefaultKeyFunc( unsigned char key, int x, int y )
 
 static void vmainFunc(void)
 {
-    if( wmainFunc != NULL ) (*wmainFunc)();
+    if (wmainFunc != NULL)
+        (*wmainFunc)();
 }
 
 static void vidleFunc(void)
 {
-    if( widleFunc != NULL ) (*widleFunc)();
+    if (widleFunc != NULL)
+        (*widleFunc)();
 }
 
 static void vkeyFunc(unsigned char key, int x, int y)
 {
-    if( wkeyFunc != NULL ) (*wkeyFunc)(key, x, y);
+    if (wkeyFunc != NULL)
+        (*wkeyFunc)(key, x, y);
 }
 
 static void vmouseFunc(int button, int state, int x, int y)
 {
-    if( wmouseFunc != NULL ) (*wmouseFunc)(button, state, x, y);
+    if (wmouseFunc != NULL)
+        (*wmouseFunc)(button, state, x, y);
 }
 
 static void vmotionFunc(int x, int y)
 {
-    if( wmotionFunc != NULL ) (*wmotionFunc)(x, y);
+    if (wmotionFunc != NULL)
+        (*wmotionFunc)(x, y);
 }
