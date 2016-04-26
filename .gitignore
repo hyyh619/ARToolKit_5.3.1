@@ -10,7 +10,7 @@ include/AR/config.h
 *~
 
 # remove bin
-bin/*
+
 
 # remove doc
 doc/*
@@ -34,7 +34,7 @@ ctags.files
 *.obj
 *.pdb
 *.idb
-*.dll
+AR*.dll
 AR*.lib
 *.exe
 *.xml
