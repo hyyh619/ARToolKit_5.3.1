@@ -150,13 +150,13 @@ int main(int argc, char **argv)
     char       glutGamemode[32];
     const char *cparam_name               = "Data2/camera_para.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
-    char       vconf[]                    = "-device=WinMF -format=BGRA -width=640 -height=480 -devNum=0";
+    char       vconf[]                    = "-device=WinDS -showDialog  -flipV";
 
     // char       vconf[]      = "-device=WinMF -format=BGRA -width=640 -height=480 -devNum=0";   // WinMF tracking is OK.
-    // char       vconf[]      = "-device=WinHD";   // WinHD cannot initialize camera.
-    // char       vconf[]      = "-device=WinDF";   // WinDF cannot initialize camera.
-    // char       vconf[]      = "-device=WinDSVL"; // WinDSVL only works in 640x480, but tracking doesn't work well.
-    // char       vconf[]      = "-device=WinDS";   // WinDS cannot track marker.
+    // char       vconf[]      = "-device=WinHD";                        // WinHD cannot initialize camera.
+    // char       vconf[]      = "-device=WinDF";                        // WinDF cannot initialize camera.
+    // char       vconf[]      = "-device=WinDSVL";                      // WinDSVL only works in 640x480, but tracking doesn't work well.
+    // char       vconf[]      = "-device=WinDS -showDialog  -flipV";    // WinDS tracks marker well.
 
     // const char markerConfigDataFilename[] = "Data2/markers.dat";
 
