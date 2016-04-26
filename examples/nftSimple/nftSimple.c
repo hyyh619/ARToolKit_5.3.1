@@ -2,7 +2,7 @@
  *  nftSimple.c
  *  ARToolKit5
  *
- *  Demonstration of ARToolKit NFT. Renders a colour cube.
+ *  Demonstration of ARToolKit NFT. Renders a color cube.
  *
  *  Press '?' while running for help on available key commands.
  *
@@ -148,9 +148,13 @@ static void Display(void);
 int main(int argc, char **argv)
 {
     char       glutGamemode[32];
-    const char *cparam_name               = "Data2/camera_para.dat";
+    const char *cparam_name               = "Data2/camera_para_640x480.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
     char       vconf[]                    = "-device=WinDS -showDialog  -flipV";
+
+    // If using 1280x720, we should use 1280x720 camera parameter file.
+    // const char *cparam_name = "Data2/camera_para_640x480.dat";
+    // const char *cparam_name = "Data2/Logitech_camera_para_1280x720.dat";
 
     // char       vconf[]      = "-device=WinMF -format=BGRA -width=640 -height=480 -devNum=0";   // WinMF tracking is OK.
     // char       vconf[]      = "-device=WinHD";                        // WinHD cannot initialize camera.
@@ -271,10 +275,10 @@ int main(int argc, char **argv)
     return (0);
 }
 
-// Something to look at, draw a rotating colour cube.
+// Something to look at, draw a rotating color cube.
 static void DrawCube(void)
 {
-    // Colour cube data.
+    // Color cube data.
     int           i;
     float         fSize               = 40.0f;
     const GLfloat cube_vertices[8][3] =
@@ -287,9 +291,9 @@ static void DrawCube(void)
         {255, 255, 255, 255}, {255, 255, 0, 255}, {0, 255, 0, 255}, {0, 255, 255, 255},
         {255, 0, 255, 255}, {255, 0, 0, 255}, {0, 0, 0, 255}, {0, 0, 255, 255}
     };
-    const GLubyte cube_faces[6][4] =    /* ccw-winding */
+    const GLubyte cube_faces[6][4] =    /* counter-clockwise-winding */
     { /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
-               /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
+      /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
 
     glPushMatrix(); // Save world coordinate system.
     glRotatef(gDrawRotateAngle, 0.0f, 0.0f, 1.0f); // Rotate about z axis.
@@ -393,6 +397,7 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
 {
     ARLOGd("Initialising NFT.\n");
+
     //
     // NFT init.
     //
