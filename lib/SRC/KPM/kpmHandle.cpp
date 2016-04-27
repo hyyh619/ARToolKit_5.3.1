@@ -76,7 +76,6 @@ static KpmHandle* kpmCreateHandleCore(ARParamLT *cparamLT, int xsize, int ysize,
     arMallocClear(kpmHandle, KpmHandle, 1);
 
 #if BINARY_FEATURE
-    // kpmHandle->freakMatcherOpencv       = new vision::VisualDatabaseOpencvFacade;
     kpmHandle->freakMatcher = new vision::VisualDatabaseFacade;
 #else
     kpmHandle->ann2 = NULL;
@@ -271,7 +270,6 @@ int kpmDeleteHandle(KpmHandle **kpmHandle)
         return -1;
 
 #if BINARY_FEATURE
-    // delete (*kpmHandle)->freakMatcherOpencv;
     delete (*kpmHandle)->freakMatcher;
 #else
     CAnnMatch2 *ann2 = (CAnnMatch2*)((*kpmHandle)->ann2);

@@ -905,7 +905,7 @@ static void Display(void)
             showMErr[k] = FALSE;
             if (gMultiConfigs[k]->prevF != 0)
             {
-                arglCameraViewRH(gMultiConfigs[k]->trans, m, 1.0);
+                arglCameraViewRH((const ARdouble (*)[4])gMultiConfigs[k]->trans, m, 1.0);
 #ifdef ARDOUBLE_IS_FLOAT
                 glLoadMatrixf(m);
 #else

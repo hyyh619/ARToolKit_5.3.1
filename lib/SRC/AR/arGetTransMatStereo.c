@@ -126,7 +126,7 @@ ARdouble arGetTransMatSquareStereo(AR3DStereoHandle *handle,
     if (marker_infoL != NULL
         && icpGetInitXw2Xc_from_PlanarData(handle->icpStereoHandle->matXcl2Ul, screenCoordL, worldCoord, 4, matXw2Xc) == 0)
     {
-        arUtilMatInv(handle->icpStereoHandle->matC2L, matXc2C);
+        arUtilMatInv((const ARdouble (*)[4])handle->icpStereoHandle->matC2L, matXc2C);
 
         for (j = 0; j < 3; j++)
         {
@@ -143,7 +143,7 @@ ARdouble arGetTransMatSquareStereo(AR3DStereoHandle *handle,
     else if (marker_infoR != NULL
              && icpGetInitXw2Xc_from_PlanarData(handle->icpStereoHandle->matXcr2Ur, screenCoordR, worldCoord, 4, matXw2Xc) == 0)
     {
-        arUtilMatInv(handle->icpStereoHandle->matC2R, matXc2C);
+        arUtilMatInv((const ARdouble (*)[4])(handle->icpStereoHandle->matC2R), matXc2C);
 
         for (j = 0; j < 3; j++)
         {

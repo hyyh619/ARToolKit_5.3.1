@@ -51,7 +51,6 @@
 #  include <OpenGLES/ES2/gl.h>
 #  include <OpenGLES/ES2/glext.h>
 #endif
-
 #endif
 
 #ifdef __cplusplus
@@ -136,5 +135,4 @@ void glStateCachePixelStoreUnpackAlignment(GLint param);
 #ifdef __cplusplus
 }
 #endif
-        
 #endif // !__glStateCache2_h__

@@ -28,7 +28,7 @@
  *  are not obligated to do so. If you do not wish to do so, delete this exception
  *  statement from your version.
  *
- *  Copyright 2015 Daqri, LLC.
+ *  Copyright 2015-2016 Daqri, LLC.
  *  Copyright 2002-2015 ARToolworks, Inc.
  *
  *  Author(s): Hirokazu Kato, Philip Lamb
@@ -37,9 +37,9 @@
 /*!
 	@header config.h
 	@abstract ARToolKit core configuration.
-	@version 5.3
+	@version 5.3.2
 	@discussion
-	@copyright 2015 Daqri, LLC.
+	@copyright 2015-2016 Daqri, LLC.
  */
 
 
@@ -64,7 +64,7 @@
 
 // The TINY version number defines bug-fixes to existing
 // functionality. Range: [0-99].
-#define AR_HEADER_VERSION_TINY		1
+#define AR_HEADER_VERSION_TINY		2
 
 // The BUILD version number will always be zero in releases,
 // but may be non-zero in internal builds or in version-control
@@ -73,7 +73,7 @@
 
 // The string representation below must match the major, minor
 // and tiny release numbers.
-#define AR_HEADER_VERSION_STRING	"5.3.1"
+#define AR_HEADER_VERSION_STRING	"5.3.2"
 
 // The macros below are convenience macros to enable use
 // of certain ARToolKit header functionality by the release
@@ -224,21 +224,26 @@ enum {
 /*                                                            */
 /*  For Linux                                                 */
 /*    AR_INPUT_V4L:     use of standard Video4Linux Library   */
+/*    AR_INPUT_V4L2:    use of standard Video4Linux2 Library  */
 /*    AR_INPUT_DV:      use of DV Camera                      */
 /*    AR_INPUT_1394CAM: use of 1394 Digital Camara            */
 /*    AR_INPUT_GSTREAMER: use of GStreamer library            */
 /*                                                            */
 /*------------------------------------------------------------*/
+#ifdef EMSCRIPTEN
+#  define __linux
+#endif
+
 #ifdef __linux
 
 #define AR_CALLBACK
 
-// Endianness.
-#  if defined(__BIG_ENDIAN__) // Check architecture endianess using gcc's macro, or assume little-endian by default.
+// Determine architecture endianess using gcc's macro, or assume little-endian by default.
+#  if (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) || defined(__BIG_ENDIAN__)
 #    define  AR_BIG_ENDIAN  // Most Significant Byte has greatest address in memory (ppc).
 #    undef   AR_LITTLE_ENDIAN
-#  elif defined (__LITTLE_ENDIAN__)
-#    undef   AR_BIG_ENDIAN   // Least significant Byte has greatest address in memory (i386).
+#  elif (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) || defined (__LITTLE_ENDIAN__)
+#    undef   AR_BIG_ENDIAN   // Least significant Byte has greatest address in memory (x86).
 #    define  AR_LITTLE_ENDIAN
 #  else
 #    define  AR_LITTLE_ENDIAN
@@ -246,6 +251,7 @@ enum {
 
 // Input modules. This is edited by the configure script.
 #undef  AR_INPUT_V4L
+#undef  AR_INPUT_V4L2
 #undef  AR_INPUT_DV
 #undef  AR_INPUT_1394CAM
 #undef  AR_INPUT_GSTREAMER
@@ -254,6 +260,7 @@ enum {
 
 // Default input module. This is edited by the configure script.
 #undef  AR_DEFAULT_INPUT_V4L
+#undef  AR_DEFAULT_INPUT_V4L2
 #undef  AR_DEFAULT_INPUT_DV
 #undef  AR_DEFAULT_INPUT_1394CAM
 #undef  AR_DEFAULT_INPUT_GSTREAMER
@@ -271,6 +278,12 @@ enum {
 /* #define  AR_INPUT_V4L_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR  */
 /* #define  AR_INPUT_V4L_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA */
 #define AR_INPUT_V4L_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR
+#endif
+
+#ifdef AR_INPUT_V4L2
+/* #define  AR_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR  */
+/* #define  AR_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGRA */
+#define AR_INPUT_V4L2_DEFAULT_PIXEL_FORMAT   AR_PIXEL_FORMAT_BGR
 #endif
 
 #ifdef  AR_INPUT_DV
@@ -412,6 +425,7 @@ enum {
 
 /*------------------------------------------------------------*/
 /*  For Android                                               */
+/*    Note that Android NDK also defines __linux              */
 /*------------------------------------------------------------*/
 
 #if defined ANDROID
@@ -510,6 +524,15 @@ enum {
 #endif
 
 /*------------------------------------------------------------*/
+/*  Emscripten input                                          */
+/*------------------------------------------------------------*/
+
+#ifdef EMSCRIPTEN
+#define AR_DEFAULT_INPUT_EMSCRIPTEN
+#define AR_INPUT_EMSCRIPTEN_PIXEL_FORMAT   AR_PIXEL_FORMAT_RGBA
+#endif
+
+/*------------------------------------------------------------*/
 /*  Multi-platform inputs                                     */
 /*------------------------------------------------------------*/
 
@@ -533,6 +556,8 @@ enum {
 #  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_DUMMY_DEFAULT_PIXEL_FORMAT
 #elif defined(AR_DEFAULT_INPUT_V4L)
 #  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_V4L_DEFAULT_PIXEL_FORMAT
+#elif defined(AR_DEFAULT_INPUT_V4L2)
+#  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_V4L2_DEFAULT_PIXEL_FORMAT
 #elif defined(AR_DEFAULT_INPUT_DV)
 #  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_DV_DEFAULT_PIXEL_FORMAT
 #elif defined(AR_DEFAULT_INPUT_1394CAM)
@@ -561,6 +586,8 @@ enum {
 #  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_WINDOWS_MEDIA_FOUNDATION_PIXEL_FORMAT
 #elif defined(AR_DEFAULT_INPUT_WINDOWS_MEDIA_CAPTURE)
 #  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_WINDOWS_MEDIA_CAPTURE_PIXEL_FORMAT
+#elif defined(AR_DEFAULT_INPUT_EMSCRIPTEN)
+#  define AR_DEFAULT_PIXEL_FORMAT   AR_INPUT_EMSCRIPTEN_PIXEL_FORMAT
 #else
 #  error
 #endif

@@ -55,7 +55,7 @@ static float  ar2GetTransMatHomography(float initConv[3][4], float pos2d[][2], f
                                        float conv[3][4], int robustMode, float inlierProb);
 static float  ar2GetTransMatHomography2(float initConv[3][4], float pos2d[][2], float pos3d[][3], int num, float conv[3][4]);
 static float  ar2GetTransMatHomographyRobust(float initConv[3][4], float pos2d[][2], float pos3d[][3], int num, float conv[3][4], float inlierProb);
-static int    extractVisibleFeatures(ARParamLT *cparamLT, float trans1[][3][4], AR2SurfaceSetT *surfaceSet,
+static int    extractVisibleFeatures(const ARParamLT *cparamLT, const float trans1[][3][4], AR2SurfaceSetT *surfaceSet,
                                      AR2TemplateCandidateT candidate[],
                                      AR2TemplateCandidateT candidate2[]);
 static int    extractVisibleFeaturesHomography(int xsize, int ysize, float trans1[][3][4], AR2SurfaceSetT *surfaceSet,
@@ -88,12 +88,12 @@ int ar2Tracking(AR2HandleT *ar2Handle, AR2SurfaceSetT *surfaceSet, ARUint8 *data
 
     for (i = 0; i < surfaceSet->num; i++)
     {
-        arUtilMatMulf(surfaceSet->trans1, surfaceSet->surface[i].trans, ar2Handle->wtrans1[i]);
+        arUtilMatMulf((const float (*)[4])surfaceSet->trans1, (const float (*)[4])surfaceSet->surface[i].trans, ar2Handle->wtrans1[i]);
         if (surfaceSet->contNum > 1)
-            arUtilMatMulf(surfaceSet->trans2, surfaceSet->surface[i].trans, ar2Handle->wtrans2[i]);
+            arUtilMatMulf((const float (*)[4])surfaceSet->trans2, (const float (*)[4])surfaceSet->surface[i].trans, ar2Handle->wtrans2[i]);
 
         if (surfaceSet->contNum > 2)
-            arUtilMatMulf(surfaceSet->trans3, surfaceSet->surface[i].trans, ar2Handle->wtrans3[i]);
+            arUtilMatMulf((const float (*)[4])surfaceSet->trans3, (const float (*)[4])surfaceSet->surface[i].trans, ar2Handle->wtrans3[i]);
     }
 
     if (ar2Handle->trackingMode == AR2_TRACKING_6DOF)
@@ -328,7 +328,7 @@ int ar2Tracking(AR2HandleT *ar2Handle, AR2SurfaceSetT *surfaceSet, ARUint8 *data
     return 0;
 }
 
-static int extractVisibleFeatures(ARParamLT *cparamLT, float trans1[][3][4], AR2SurfaceSetT *surfaceSet,
+static int extractVisibleFeatures(const ARParamLT *cparamLT, const float trans1[][3][4], AR2SurfaceSetT *surfaceSet,
                                   AR2TemplateCandidateT candidate[],  // candidates inside DPI range of [mindpi, maxdpi].
                                   AR2TemplateCandidateT candidate2[]) // candidates inside DPI range of [mindpi/2, maxdpi*2].
 {
@@ -354,7 +354,7 @@ static int extractVisibleFeatures(ARParamLT *cparamLT, float trans1[][3][4], AR2
         {
             for (k = 0; k < surfaceSet->surface[i].featureSet->list[j].num; k++)
             {
-                if (ar2MarkerCoord2ScreenCoord2(cparamLT, trans2,
+                if (ar2MarkerCoord2ScreenCoord2(cparamLT, (const float (*)[4])trans2,
                                                 surfaceSet->surface[i].featureSet->list[j].coord[k].mx,
                                                 surfaceSet->surface[i].featureSet->list[j].coord[k].my,
                                                 &sx, &sy) < 0)
@@ -384,7 +384,7 @@ static int extractVisibleFeatures(ARParamLT *cparamLT, float trans1[][3][4], AR2
 
                 wpos[0] = surfaceSet->surface[i].featureSet->list[j].coord[k].mx;
                 wpos[1] = surfaceSet->surface[i].featureSet->list[j].coord[k].my;
-                ar2GetResolution(cparamLT, trans2, wpos, w);
+                ar2GetResolution(cparamLT, (const float (*)[4])trans2, wpos, w);
                 // if( w[0] <= surfaceSet->surface[i].featureSet->list[j].maxdpi
                 // && w[0] >= surfaceSet->surface[i].featureSet->list[j].mindpi ) {
                 if (w[1] <= surfaceSet->surface[i].featureSet->list[j].maxdpi
@@ -455,7 +455,7 @@ static int extractVisibleFeaturesHomography(int xsize, int ysize, float trans1[]
         {
             for (k = 0; k < surfaceSet->surface[i].featureSet->list[j].num; k++)
             {
-                if (ar2MarkerCoord2ScreenCoord2(NULL, trans2,
+                if (ar2MarkerCoord2ScreenCoord2(NULL, (const float (*)[4])trans2,
                                                 surfaceSet->surface[i].featureSet->list[j].coord[k].mx,
                                                 surfaceSet->surface[i].featureSet->list[j].coord[k].my,
                                                 &sx, &sy) < 0)
@@ -486,7 +486,7 @@ static int extractVisibleFeaturesHomography(int xsize, int ysize, float trans1[]
 
                 wpos[0] = surfaceSet->surface[i].featureSet->list[j].coord[k].mx;
                 wpos[1] = surfaceSet->surface[i].featureSet->list[j].coord[k].my;
-                ar2GetResolution(NULL, trans2, wpos, w);
+                ar2GetResolution(NULL, (const float (*)[4])trans2, wpos, w);
                 // if( w[0] <= surfaceSet->surface[i].featureSet->list[j].maxdpi
                 // && w[0] >= surfaceSet->surface[i].featureSet->list[j].mindpi ) {
                 if (w[1] <= surfaceSet->surface[i].featureSet->list[j].maxdpi

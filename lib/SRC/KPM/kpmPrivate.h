@@ -41,7 +41,7 @@
 #else
 #include <KPM/surfSub.h>
 #endif
-
+#define DB_IMAGE_MAX 1024
 #if !BINARY_FEATURE
 typedef struct
 {
@@ -66,7 +66,6 @@ struct _KpmHandle
     void           *ann2;
 #else
     vision::VisualDatabaseFacade *freakMatcher;
-    // vision::VisualDatabaseOpencvFacade *freakMatcherOpencv;
 #endif
 
     ARParamLT       *cparamLT;
@@ -92,5 +91,6 @@ struct _KpmHandle
 
     KpmResult *result;
     int       resultNum;
+    int       pageIDs[DB_IMAGE_MAX];
 };
 #endif // !__kpmPrivate_h__

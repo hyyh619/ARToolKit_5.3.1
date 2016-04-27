@@ -255,8 +255,6 @@ bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t *
         {
             FindHoughMatches(hough_matches,
                              mHoughSimilarityVoting,
-                             query_points,
-                             ref_points,
                              mMatcher.matches(),
                              max_hough_index,
                              kHoughBinDelta);
@@ -273,7 +271,6 @@ bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t *
                                     query_points,
                                     ref_points,
                                     hough_matches,
-                                    mHomographyInlierThreshold,
                                     mRobustHomography,
                                     it->second->width(),
                                     it->second->height()))
@@ -335,8 +332,6 @@ bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t *
         {
             FindHoughMatches(hough_matches,
                              mHoughSimilarityVoting,
-                             query_points,
-                             ref_points,
                              mMatcher.matches(),
                              max_hough_index,
                              kHoughBinDelta);
@@ -352,7 +347,6 @@ bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t *
                                     query_points,
                                     ref_points,
                                     hough_matches,
-                                    mHomographyInlierThreshold,
                                     mRobustHomography,
                                     it->second->width(),
                                     it->second->height()))

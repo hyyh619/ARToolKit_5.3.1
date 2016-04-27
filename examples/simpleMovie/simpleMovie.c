@@ -634,7 +634,7 @@ int main(int argc, char **argv)
     char glutGamemode[32];
     char cparam_name[] = "Data/camera_para.dat";
     char vconf[]       = "";
-    char patt_name[]   = "Data/patt.hiro";
+    char patt_name[]   = "Data/hiro.patt";
 
     char movieFileName[] = "Data/sample.mov";
     char *movieURI;

@@ -61,6 +61,8 @@ virtual const char* getName();
 
 virtual bool open();
 
+bool open2();
+
 virtual bool captureFrame();
 
 virtual bool close();

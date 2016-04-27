@@ -181,7 +181,6 @@ static void DrawCubeUpdate(float timeDelta)
     if (gDrawRotate)
     {
         gDrawRotateAngle += timeDelta * 45.0f;         // Rotate cube at 45 degrees per second.
-
         if (gDrawRotateAngle > 360.0f)
             gDrawRotateAngle -= 360.0f;
     }
@@ -214,7 +213,6 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 
     // Get the format in which the camera is returning pixels.
     pixFormat = arVideoGetPixelFormat();
-
     if (pixFormat == AR_PIXEL_FORMAT_INVALID)
     {
         ARLOGe("setupCamera(): Camera is using unsupported pixel format.\n");
@@ -423,7 +421,6 @@ static void Keyboard(unsigned char key, int x, int y)
         int threshhold;
         arGetLabelingThresh(gARHandle, &threshhold);
         threshhold += threshChange;
-
         if (threshhold < 0)
             threshhold = 0;
 
@@ -628,7 +625,7 @@ int main(int argc, char **argv)
     char glutGamemode[32];
     char cparam_name[] = "Data/camera_para.dat";
     char vconf[]       = "";
-    char patt_name[]   = "Data/patt.hiro";
+    char patt_name[]   = "Data/hiro.patt";
 
     //
     // Library inits.
@@ -652,7 +649,6 @@ int main(int argc, char **argv)
 
     // Set up GL context(s) for OpenGL to draw into.
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-
     if (!windowed)
     {
         if (windowRefresh)
@@ -784,7 +780,6 @@ static void printHelpKeys()
     for (i = 0; i < helpTextLineCount; i++)
     {
         w = (float)glutBitmapLength(GLUT_BITMAP_HELVETICA_10, (unsigned char*)helpText[i]);
-
         if (w > bw)
             bw = w;
     }
@@ -811,7 +806,6 @@ static void printMode()
     // Image size and processing mode.
     arVideoGetSize(&xsize, &ysize);
     arGetImageProcMode(gARHandle, &mode);
-
     if (mode == AR_IMAGE_PROC_FRAME_IMAGE)
         text_p = "full frame";
     else
@@ -840,7 +834,6 @@ static void printMode()
     }
 
     snprintf(text, sizeof(text), "Threshold mode: %s", text_p);
-
     if (threshMode != AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE)
     {
         arGetLabelingThresh(gARHandle, &thresh);

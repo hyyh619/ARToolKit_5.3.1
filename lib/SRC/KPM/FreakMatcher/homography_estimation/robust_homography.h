@@ -105,7 +105,7 @@ bool PreemptiveRobustHomography(T H[9],
                                 const T *test_points,
                                 int num_test_points,
                                 std::vector<T>&hyp /* 9*max_num_hypotheses */,
-                                std::vector<int>&tmp_i /* 2*num_points */,
+                                std::vector<int>&tmp_i /* num_points */,
                                 std::vector<std::pair<T, int> >&hyp_costs /* max_num_hypotheses */,
                                 T scale = HOMOGRAPHY_DEFAULT_CAUCHY_SCALE,
                                 int max_num_hypotheses = HOMOGRAPHY_DEFAULT_NUM_HYPOTHESES,
@@ -113,17 +113,16 @@ bool PreemptiveRobustHomography(T H[9],
                                 int chunk_size = HOMOGRAPHY_DEFAULT_CHUNK_SIZE)
 {
     int *hyp_perm;
-    int *point_perm;
     T   one_over_scale2;
     T   min_cost;
     int num_hypotheses, num_hypotheses_remaining, min_index;
-    int cur_chunk_size, next_chunk, this_chunk_end;
+    int cur_chunk_size, this_chunk_end;
     int trial;
     int seed;
     int sample_size = 4;
 
     ASSERT(hyp.size() >= 9 * max_num_hypotheses, "hyp vector should be of size 9*max_num_hypotheses");
-    ASSERT(tmp_i.size() >= 2 * num_points, "tmp_i vector should be of size 2*num_points");
+    ASSERT(tmp_i.size() >= num_points, "tmp_i vector should be of size num_points");
     ASSERT(hyp_costs.size() >= max_num_hypotheses, "hyp_costs vector should be of size max_num_hypotheses");
 
     // We need at least SAMPLE_SIZE points to sample from
@@ -134,20 +133,16 @@ bool PreemptiveRobustHomography(T H[9],
 
     seed = 1234;
 
-    hyp_perm   = &tmp_i[0];
-    point_perm = &tmp_i[num_points];
+    hyp_perm = &tmp_i[0];
 
     one_over_scale2 = 1 / sqr(scale);
     chunk_size      = min2(chunk_size, num_points);
-    next_chunk      = 0;
 
-    // Fill two arrays from [0,num_points)
+    // Fill arrays from [0)
     SequentialVector(hyp_perm, num_points, 0);
-    SequentialVector(point_perm, num_points, 0);
 
     // Shuffle the indices
     ArrayShuffle(hyp_perm, num_points, num_points, seed);
-    ArrayShuffle(point_perm, num_points, num_points, seed);
 
     // Compute a set of hypotheses
     for (trial = 0, num_hypotheses = 0;
@@ -230,8 +225,8 @@ bool PreemptiveRobustHomography(T H[9],
             for (int k = i; k < this_chunk_end; k++)
             {
                 hyp_costs[j].first += CauchyProjectiveReprojectionCost(H_cur,
-                                                                       &p[point_perm[k] << 1],
-                                                                       &q[point_perm[k] << 1],
+                                                                       &p[hyp_perm[k] << 1],
+                                                                       &q[hyp_perm[k] << 1],
                                                                        one_over_scale2);
             }
         }
@@ -679,7 +674,7 @@ void RobustHomography<T>::init(T cauchyScale,
 template<typename T>
 bool RobustHomography<T>::find(float H[9], const T *p, const T *q, int num_points)
 {
-    mTmpi.resize(2 * num_points);
+    mTmpi.resize(num_points);
     if (!PreemptiveRobustHomography<T>(H,
                                        p,
                                        q,
@@ -703,7 +698,7 @@ bool RobustHomography<T>::find(float H[9], const T *p, const T *q, int num_point
 template<typename T>
 bool RobustHomography<T>::find(float H[9], const T *p, const T *q, int num_points, const T *test_points, int num_test_points)
 {
-    mTmpi.resize(2 * num_points);
+    mTmpi.resize(num_points);
     return PreemptiveRobustHomography<T>(H,
                                          p,
                                          q,

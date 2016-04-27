@@ -273,7 +273,7 @@ std::vector<ARMarker*> ARMarker::newFromConfigDataFile(const char *markersConfig
 }
 
 
-// single;data/patt.hiro;80
+// single;data/hiro.patt;80
 // single_buffer;80;buffer=234 221 237...
 // single_barcode;0;80
 // multi;data/multi/marker.dat
@@ -416,13 +416,13 @@ ARMarker* ARMarker::newWithConfig(const char *cfg, ARPattHandle *arPattHandle)
             }
 
 #else
-            ARController::logv("Error: NFT markers not supported in this build/platform.\n");
+            ARController::logv(AR_LOG_LEVEL_ERROR, "Error: NFT markers not supported in this build/platform.\n");
 #endif      // HAVE_NFT
         }
         else
         {
             // Unknown marker type
-            ARController::logv("Error: Unknown marker type '%s' in config '%s'", markerTypePtr, cfg);
+            ARController::logv(AR_LOG_LEVEL_ERROR, "Error: Unknown marker type '%s' in config '%s'.", markerTypePtr, cfg);
         }
     }
 
@@ -516,7 +516,7 @@ ARdouble ARMarker::positionScalefactor()
     return m_positionScaleFactor;
 }
 
-bool ARMarker::update(ARdouble transL2R[3][4])
+bool ARMarker::update(const ARdouble transL2R[3][4])
 {
     // Subclasses will have already determined visibility and set/cleared 'visible' and 'visiblePrev',
     // as well as setting 'trans'.
@@ -527,13 +527,13 @@ bool ARMarker::update(ARdouble transL2R[3][4])
         {
             if (arFilterTransMat(m_ftmi, trans, !visiblePrev) < 0)
             {
-                ARController::logv("arFilterTransMat error with marker %d.\n", UID);
+                ARController::logv(AR_LOG_LEVEL_ERROR, "arFilterTransMat error with marker %d.\n", UID);
             }
         }
 
         if (!visiblePrev)
         {
-            ARController::logv("Marker %d now visible", UID);
+            ARController::logv(AR_LOG_LEVEL_INFO, "Marker %d now visible", UID);
         }
 
         // Convert to GL matrix.
@@ -560,7 +560,7 @@ bool ARMarker::update(ARdouble transL2R[3][4])
     {
         if (visiblePrev)
         {
-            ARController::logv("Marker %d no longer visible", UID);
+            ARController::logv(AR_LOG_LEVEL_INFO, "Marker %d no longer visible", UID);
         }
     }
 

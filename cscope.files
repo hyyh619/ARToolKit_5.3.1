@@ -79,6 +79,7 @@
 ./include/AR/arMulti.h
 ./include/AR/arosg.h
 ./include/AR/arvrml.h
+./include/AR/config.h
 ./include/AR/gsub.h
 ./include/AR/gsub_es.h
 ./include/AR/gsub_es2.h
@@ -101,6 +102,7 @@
 ./include/AR/sys/videoLinux1394CamV1.h
 ./include/AR/sys/videoLinux1394CamV2.h
 ./include/AR/sys/videoLinuxV4L.h
+./include/AR/sys/videoLinuxV4L2.h
 ./include/AR/sys/videoQuickTime.h
 ./include/AR/sys/videoQuickTime7.h
 ./include/AR/sys/videoQuickTimeMovie.h

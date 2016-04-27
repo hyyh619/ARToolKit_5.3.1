@@ -67,7 +67,7 @@ bool ARMarkerMulti::load(const char *multiConfig, ARPattHandle *arPattHandle)
 
     if (!config)
     {
-        ARController::logv("Error loading multimarker config %s", multiConfig);
+        ARController::logv(AR_LOG_LEVEL_ERROR, "Error loading multimarker config %s", multiConfig);
         return false;
     }
 
@@ -105,7 +105,8 @@ bool ARMarkerMulti::load(const char *multiConfig, ARPattHandle *arPattHandle)
         patterns[i]->m_matrix[15] = _1_0;
     }
 
-    m_loaded = true;
+    config->min_submarker = 0;
+    m_loaded              = true;
     return true;
 }
 

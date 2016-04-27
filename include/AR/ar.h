@@ -63,8 +63,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #ifndef _WIN32 // errno is defined in stdlib.h on Windows.
+#  ifdef EMSCRIPTEN // errno is not in sys/
+#    include <errno.h>
+#  else
 #  include <sys/errno.h>
+#endif
 #endif
 #include <AR/config.h>
 #include <AR/arConfig.h>
@@ -119,7 +124,6 @@ extern int arLogLevel;
 void arLog(const int logLevel, const char *format, ...);
 
 typedef void (AR_CALLBACK * AR_LOG_LOGGER_CALLBACK)(const char *logMessage);
-
 
 /*!
     @function
@@ -1661,20 +1665,20 @@ int arGetStereoMatching(AR3DStereoHandle * handle,
  */
 ARUint32       arGetVersion(char **versionStringRef);
 
-int arUtilMatInv(ARdouble s[3][4], ARdouble d[3][4]);
-int arUtilMatMul(ARdouble s1[3][4], ARdouble s2[3][4], ARdouble d[3][4]);
+int arUtilMatInv(const ARdouble s[3][4], ARdouble d[3][4]);
+int arUtilMatMul(const ARdouble s1[3][4], const ARdouble s2[3][4], ARdouble d[3][4]);
 
 #ifdef ARDOUBLE_IS_FLOAT
 #define arUtilMatInvf   arUtilMatInv
 #define arUtilMatMulf   arUtilMatMul
 #define arUtilMatMuldff arUtilMatMul
 #else
-int arUtilMatInvf(float s[3][4], float d[3][4]);
-int arUtilMatMulf(float s1[3][4], float s2[3][4], float d[3][4]);
-int arUtilMatMuldff(ARdouble s1[3][4], float s2[3][4], float d[3][4]);
+int arUtilMatInvf(const float s[3][4], float d[3][4]);
+int arUtilMatMulf(const float s1[3][4], const float s2[3][4], float d[3][4]);
+int arUtilMatMuldff(const ARdouble s1[3][4], const float s2[3][4], float d[3][4]);
 #endif
-int arUtilMat2QuatPos(ARdouble m[3][4], ARdouble q[4], ARdouble p[3]);
-int arUtilQuatPos2Mat(ARdouble q[4], ARdouble p[3], ARdouble m[3][4]);
+int arUtilMat2QuatPos(const ARdouble m[3][4], ARdouble q[4], ARdouble p[3]);
+int arUtilQuatPos2Mat(const ARdouble q[4], const ARdouble p[3], ARdouble m[3][4]);
 int arUtilQuatNorm(ARdouble q[4]);
 
 double         arUtilTimer(void);
@@ -1895,7 +1899,6 @@ int arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavi
 #endif
 #endif // !_WINRT
 
-
 /*!
     @function
     @abstract   Prints a transformation matrix via ARLOG(...).
@@ -1909,7 +1912,16 @@ void arUtilPrintTransMat(const ARdouble trans[3][4]);
     @param mtx16 The matrix to print.
  */
 void arUtilPrintMtx16(const ARdouble mtx16[16]);
+
+#ifdef ANDROID
+// Call from native code to do the following in Java source:
+//    import android.provider.Settings.Secure;
+//    private String android_id = Secure.getString(getContext().getContentResolver(),
+//                                                 Secure.ANDROID_ID);
+char* arUtilGetAndroidDevID();
+#endif // #ifdef ANDROID
+
 #ifdef __cplusplus
 }
-#endif
-#endif
+#endif // #ifdef __cplusplus
+#endif // #ifndef AR_H

@@ -117,7 +117,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
     vid->buffer.fillFlag       = 0;
 
     a = config;
-
     if (a != NULL)
     {
         for (;;)
@@ -144,7 +143,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
             else if (strncmp(a, "-format=", 8) == 0)
             {
                 sscanf(a, "%s", line);
-
                 if (strlen(line) <= 8)
                     err_i = 1;
                 else
@@ -164,7 +162,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
             else if (strncmp(a, "-pixelformat=", 13) == 0)
             {
                 sscanf(a, "%s", line);
-
                 if (strlen(line) <= 13)
                     err_i = 1;
                 else
@@ -200,7 +197,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
             {
                 // Attempt to read in device unique ID, allowing for quoting of whitespace.
                 a += 11;                 // Skip "-sourceuuid=" characters.
-
                 if (*a == '"')
                 {
                     a++;
@@ -211,7 +207,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
                     {
                         line[i] = *a;
                         a++;
-
                         if (line[i] == '"')
                             break;
 
@@ -304,11 +299,9 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
     @autoreleasepool {
         // Init the QTKitVideo object.
         vid->qtKitVideo = [[QTKitVideo alloc] init];
-
         if (!vid->qtKitVideo)
         {
             NSLog(@"Error: Unable to initialise camera.\n");
-
             if (sourceuid)
                 free(sourceuid);
 
@@ -326,7 +319,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
         }
 
         vid->qtKitVideo.showDialogs = showDialog;
-
         if (noMuxed)
             vid->qtKitVideo.acceptMuxedVideo = FALSE;
 
@@ -341,7 +333,6 @@ AR2VideoParamQuickTime7T* ar2VideoOpenQuickTime7(const char *config)
 
         // Report video size and compression type.
         OSType formatType = vid->qtKitVideo.pixelFormat;
-
         if (formatType > 0x28)
             ARLOGi("Video formatType is %c%c%c%c, size is %ldx%ld.\n",
                    (char)((formatType >> 24) & 0xFF),
@@ -436,7 +427,6 @@ AR2VideoBufferT* ar2VideoGetImageQuickTime7(AR2VideoParamQuickTime7T *vid)
             @autoreleasepool {
                 UInt64           timestamp;
                 CVImageBufferRef frame = [vid->qtKitVideo frameTimestamp:&timestamp ifNewerThanTimestamp:vid->currentFrameTimestamp];
-
                 if (frame)
                 {
                     if (vid->currentFrame)
@@ -477,7 +467,6 @@ int ar2VideoGetSizeQuickTime7(AR2VideoParamQuickTime7T *vid, int *x, int *y)
 
     @autoreleasepool {
         *x = (int)((vid->qtKitVideo).width);
-
         if (!*x)
         {
 #ifdef DEBUG
@@ -487,7 +476,6 @@ int ar2VideoGetSizeQuickTime7(AR2VideoParamQuickTime7T *vid, int *x, int *y)
         }
 
         *y = (int)((vid->qtKitVideo).height);
-
         if (!*y)
         {
 #ifdef DEBUG
@@ -709,7 +697,6 @@ void ar2VideoSetGotImageFunctionQuickTime7(AR2VideoParamQuickTime7T *vid, void (
                 @autoreleasepool {
                     vid->gotImageFunc         = gotImageFunc;
                     vid->gotImageFuncUserData = userData;
-
                     if (gotImageFunc)
                     {
                         // Setting or changing; the videoQuickTime7QTKitVideoGotFrameDelegate class implements the appropriate delegate.

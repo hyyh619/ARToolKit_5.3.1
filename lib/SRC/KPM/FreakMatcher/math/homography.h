@@ -207,7 +207,7 @@ inline void NormalizeHomography(T H[9])
 
     H[0] *= one_over;  H[1] *= one_over;  H[2] *= one_over;
     H[3] *= one_over;  H[4] *= one_over;  H[5] *= one_over;
-    H[6] *= one_over;  H[7] *= one_over;  H[8] *= one_over;
+    H[6] *= one_over;  H[7] *= one_over;  H[8] = 1.0f;
 }
 
 /**

@@ -69,7 +69,7 @@
 
 #define             CPARA_NAME "Data/camera_para.dat"
 #define             VPARA_NAME "Data/cameraSetting-%08x%08x.dat"
-#define             PATT_NAME  "Data/patt.hiro"
+#define             PATT_NAME  "Data/hiro.patt"
 
 ARHandle          *arHandle;
 ARPattHandle      *arPattHandle;
@@ -336,7 +336,6 @@ static void   init(int argc, char *argv[])
 
     /* open the video path */
     ARLOGi("Using video configuration '%s'.\n", vconf);
-
     if (arVideoOpen(vconf) < 0)
         exit(0);
 
@@ -344,7 +343,6 @@ static void   init(int argc, char *argv[])
         exit(0);
 
     ARLOGi("Image size (x,y) = (%d,%d)\n", xsize, ysize);
-
     if ((pixFormat = arVideoGetPixelFormat()) < 0)
         exit(0);
 
@@ -352,7 +350,6 @@ static void   init(int argc, char *argv[])
     {
         ARLOGi("Camera ID = (%08x, %08x)\n", id1, id0);
         sprintf(vconf, VPARA_NAME, id1, id0);
-
         if (arVideoLoadParam(vconf) < 0)
         {
             ARLOGe("No camera setting data!!\n");
@@ -369,7 +366,6 @@ static void   init(int argc, char *argv[])
     arParamChangeSize(&cparam, xsize, ysize, &cparam);
     ARLOG("*** Camera Parameter ***\n");
     arParamDisp(&cparam);
-
     if ((gCparamLT = arParamLTCreate(&cparam, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL)
     {
         ARLOGe("Error: arParamLTCreate.\n");
@@ -422,7 +418,6 @@ static void   init(int argc, char *argv[])
     viewport.sy    = 0;
     viewport.xsize = xsize;
     viewport.ysize = ysize;
-
     if ((vp = argCreateViewport(&viewport)) == NULL)
         exit(0);
 

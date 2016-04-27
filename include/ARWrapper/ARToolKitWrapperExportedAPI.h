@@ -55,6 +55,8 @@ extern "C" {
  */
 EXPORT_API void arwRegisterLogCallback(PFN_LOGCALLBACK callback);
 
+EXPORT_API void arwSetLogLevel(const int logLevel);
+
 // ----------------------------------------------------------------------------------------------------
 #pragma mark  ARToolKit lifecycle functions
 // ----------------------------------------------------------------------------------------------------
@@ -376,7 +378,7 @@ EXPORT_API bool arwGetNFTMultiMode();
 /**
  * Adds a marker as specified in the given configuration string. The format of the string can be
  * one of:
- * - Single marker:             "single;pattern_file;pattern_width", e.g. "single;data/patt.hiro;80"
+ * - Single marker:             "single;pattern_file;pattern_width", e.g. "single;data/hiro.patt;80"
  * - Multi marker:              "multi;config_file", e.g. "multi;data/multi/marker.dat"
  * - NFT marker:        "nft;nft_dataset_pathname", e.g. "nft;gibraltar"
  * @param cfg           The configuration string
@@ -473,7 +475,10 @@ enum
     ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION = 4,      ///< bool, true to use continuous pose estimate.
     ARW_MARKER_OPTION_SQUARE_CONFIDENCE               = 5,      ///< float, confidence value of most recent marker match
     ARW_MARKER_OPTION_SQUARE_CONFIDENCE_CUTOFF        = 6,      ///< float, minimum allowable confidence value used in marker matching.
-    ARW_MARKER_OPTION_NFT_SCALE                       = 7       ///< float, scale factor applied to NFT marker size.
+    ARW_MARKER_OPTION_NFT_SCALE                       = 7,      ///< float, scale factor applied to NFT marker size.
+    ARW_MARKER_OPTION_MULTI_MIN_SUBMARKERS            = 8,      ///< int, minimum number of submarkers for tracking to be valid.
+    ARW_MARKER_OPTION_MULTI_MIN_CONF_MATRIX           = 9,      ///< float, minimum confidence value for submarker matrix tracking to be valid.
+    ARW_MARKER_OPTION_MULTI_MIN_CONF_PATTERN          = 10,     ///< float, minimum confidence value for submarker pattern tracking to be valid.
 };
 
 /**

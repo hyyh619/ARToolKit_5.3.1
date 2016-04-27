@@ -212,7 +212,7 @@ bool mUseFeatureIndex;
 
 matches_t mMatchedInliers;
 id_t      mMatchedId;
-float     mMatchedGeometry[12];
+float     mMatchedGeometry[9];
 
 keyframe_ptr_t mQueryKeyframe;
 
@@ -373,8 +373,6 @@ inline int FindHoughSimilarity(HoughSimilarityVoting&hough,
  */
 inline void FindHoughMatches(matches_t&out_matches,
                              const HoughSimilarityVoting&hough,
-                             const std::vector<FeaturePoint>&p1,
-                             const std::vector<FeaturePoint>&p2,
                              const matches_t&in_matches,
                              int binIndex,
                              float binDelta)
@@ -412,7 +410,6 @@ inline bool EstimateHomography(float H[9],
                                const std::vector<FeaturePoint>&p1,
                                const std::vector<FeaturePoint>&p2,
                                const matches_t&matches,
-                               float threshold,
                                RobustHomography<float>&estimator,
                                int refWidth,
                                int refHeight)

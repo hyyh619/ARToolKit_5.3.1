@@ -51,7 +51,6 @@ int arParamLTSave(char *filename, char *ext, ARParamLT *paramLT)
     len = strlen(filename) + strlen(ext) + 2;
     arMalloc(buf, char, len);
     sprintf(buf, "%s.%s", filename, ext);
-
     if ((fp = fopen(buf, "wb")) == NULL)
     {
         ARLOGe("Error: Unable to open file '%s' for writing.\n", buf);
@@ -107,7 +106,6 @@ ARParamLT* arParamLTLoad(char *filename, char *ext)
     len = strlen(filename) + strlen(ext) + 2;
     arMalloc(buf, char, len);
     sprintf(buf, "%s.%s", filename, ext);
-
     if ((fp = fopen(buf, "rb")) == NULL)
     {
         ARLOGe("Error: Unable to open file '%s' for reading.\n", buf);
@@ -258,7 +256,7 @@ int arParamLTFree(ARParamLT **paramLT_p)
 }
 
 /*
-   int arParamIdeal2ObservLTi( ARParamLTi *paramLTi, int    ix, int    iy, int    *ox, int    *oy)
+   int arParamIdeal2ObservLTi( const ARParamLTi *paramLTi, const int    ix, const int    iy, int    *ox, int    *oy)
    {
     int      px, py;
     short   *lt;
@@ -275,7 +273,7 @@ int arParamLTFree(ARParamLT **paramLT_p)
    }
  */
 
-int arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, float  *ox, float  *oy)
+int arParamIdeal2ObservLTf(const ARParamLTf *paramLTf, const float ix, const float iy, float  *ox, float  *oy)
 {
     int   px, py;
     float *lt;
@@ -294,7 +292,7 @@ int arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, float  *ox,
 }
 
 /*
-   int arParamObserv2IdealLTi( ARParamLTi *paramLTi, int    ox, int    oy, int    *ix, int    *iy)
+   int arParamObserv2IdealLTi( const ARParamLTi *paramLTi, const int    ox, const int    oy, int    *ix, int    *iy)
    {
     int      px, py;
     short   *lt;
@@ -311,7 +309,7 @@ int arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, float  *ox,
    }
  */
 
-int arParamObserv2IdealLTf(ARParamLTf *paramLTf, float ox, float oy, float  *ix, float  *iy)
+int arParamObserv2IdealLTf(const ARParamLTf *paramLTf, const float ox, const float oy, float  *ix, float  *iy)
 {
     int   px, py;
     float *lt;

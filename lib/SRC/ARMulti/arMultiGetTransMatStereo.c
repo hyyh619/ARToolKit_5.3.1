@@ -250,7 +250,7 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
     }
 
 // ARLOG("vnumL=%d, vnumR=%d\n", vnumL, vnumR);
-    if (vnumL == 0 && vnumR == 0)
+    if ((vnumL == 0 && vnumR == 0) || (vnumL < config->min_submarker && vnumR < config->min_submarker))
     {
         config->prevF = 0;
 // ARLOG("**** NG.\n");
@@ -334,7 +334,7 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
 
     if (config->prevF == 0)
     {
-        arUtilMatMul(trans1, config->marker[max].itrans, trans2);
+        arUtilMatMul((const ARdouble (*)[4])trans1, (const ARdouble (*)[4])config->marker[max].itrans, trans2);
         if (robustFlag)
         {
             err = arGetTransMatStereo(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
@@ -372,7 +372,7 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
     }
     else
     {
-        arUtilMatMul(trans1, config->marker[max].itrans, trans2);
+        arUtilMatMul((const ARdouble (*)[4])trans1, (const ARdouble (*)[4])config->marker[max].itrans, trans2);
         if (robustFlag)
         {
             err2 = arGetTransMatStereo(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,

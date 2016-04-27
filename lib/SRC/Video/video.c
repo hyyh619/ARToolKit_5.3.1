@@ -48,6 +48,8 @@ int arVideoGetDefaultDevice(void)
 {
 #if defined(AR_DEFAULT_INPUT_V4L)
     return AR_VIDEO_DEVICE_V4L;
+#elif defined(AR_DEFAULT_INPUT_V4L2)
+    return AR_VIDEO_DEVICE_V4L2;
 #elif defined(AR_DEFAULT_INPUT_DV)
     return AR_VIDEO_DEVICE_DV;
 #elif defined(AR_DEFAULT_INPUT_1394CAM)
@@ -90,7 +92,6 @@ int arVideoOpen(const char *config)
     }
 
     g_vid = ar2VideoOpen(config);
-
     if (g_vid == NULL)
         return -1;
 
@@ -106,7 +107,6 @@ int arVideoOpenAsync(const char *config, void (*callback)(void*), void *userdata
     }
 
     g_vid = ar2VideoOpenAsync(config, callback, userdata);
-
     if (g_vid == NULL)
         return -1;
 
@@ -182,7 +182,6 @@ ARUint8* arVideoGetImage(void)
         return NULL;
 
     buffer = ar2VideoGetImage(g_vid);
-
     if (buffer == NULL)
         return (NULL);
 

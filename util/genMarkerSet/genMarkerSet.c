@@ -78,22 +78,27 @@ enum
 };
 
 
-static AR2ImageSetT    *imageSet      = NULL;
-static AR2JpegImageT   *jpegImage     = NULL;
-static ARUint8         *image         = NULL;
-static int             xsize          = 0, ysize = 0;
-static AR_PIXEL_FORMAT pixFormat      = AR_PIXEL_FORMAT_INVALID;
-static float           dpi            = -1.0f;
-static char            *inputFilePath = NULL;
-static ARdouble        pattRatio      = (ARdouble)(AR_PATT_RATIO);
-static int             gPattSize      = AR_PATT_SIZE1;
-static ARParam         cparam;
-static ARParamLT       *cparamLT         = NULL;
-static ARHandle        *gARHandle        = NULL;
-static float           *gMarkerWidths    = NULL;
-static int             detectedMarkerNum = 0;
-static int             gCapturing        = 0;
+static AR2ImageSetT      *imageSet      = NULL;
+static AR2JpegImageT     *jpegImage     = NULL;
+static ARUint8           *image         = NULL;
+static int               xsize          = 0, ysize = 0; // Input image size.
+static int               windowWidth    = XWIN_MAX;
+static int               windowHeight   = YWIN_MAX;
+static ARGViewportHandle *vp            = NULL;
+static AR_PIXEL_FORMAT   pixFormat      = AR_PIXEL_FORMAT_INVALID;
+static float             dpi            = -1.0f;
+static char              *inputFilePath = NULL;
+static ARdouble          pattRatio      = (ARdouble)(AR_PATT_RATIO);
+static int               gPattSize      = AR_PATT_SIZE1;
+static ARParam           cparam;
+static ARParamLT         *cparamLT         = NULL;
+static ARHandle          *gARHandle        = NULL;
+static float             *gMarkerWidths    = NULL;
+static int               detectedMarkerNum = 0;
+static int               gCapturing        = 0;
 // static int              gCapturingMarker = -1;
+static int gShowHelp = 1;
+static int gShowMode = 1;
 
 static char exitcode = 255;
 #define EXIT(c) {exitcode = c; exit(c); }
@@ -108,6 +113,10 @@ static void dispFunc(void);
 static void check_square(ARMarkerInfo *markerInfo, int markerNum, float *markerWidths);
 static void pixel2mm(float px, float py, float *mx, float *my);
 // static void mm2pixel( float mx, float my, float *px, float *py );
+static void print(const char *text, const float x, const float y, int calculateXFromRightEdge, int calculateYFromTopEdge);
+static void drawBackground(const float width, const float height, const float x, const float y);
+static void printHelpKeys();
+static void printMode();
 
 int main(int argc, char *argv[])
 {
@@ -123,16 +132,13 @@ int main(int argc, char *argv[])
 
 static int init(int argc, char *argv[])
 {
-    ARGViewport       viewport;
-    ARGViewportHandle *vp;
-    int               winXsize = XWIN_MAX;
-    int               winYsize = YWIN_MAX;
-    char              *ext     = NULL;
-    float             xzoom, yzoom, zoom;
-    int               i;
-    int               gotTwoPartOption;
-    float             tempF;
-    int               tempI;
+    ARGViewport viewport;
+    char        *ext = NULL;
+    float       xzoom, yzoom, zoom;
+    int         i;
+    int         gotTwoPartOption;
+    float       tempF;
+    int         tempI;
 
     i = 1; // argv[0] is name of app, so start at 1.
 
@@ -260,6 +266,7 @@ static int init(int argc, char *argv[])
         xsize = imageSet->scale[targetScale]->xsize;
         ysize = imageSet->scale[targetScale]->ysize;
         dpi   = imageSet->scale[targetScale]->dpi;
+        ARLOGi("iset image '%s' is %dx%d@%f dpi.\n", inputFilePath, xsize, ysize, dpi);
     }
     else if (strcmp(ext, "jpeg") == 0 || strcmp(ext, "jpg") == 0 || strcmp(ext, "jpe") == 0)
     {
@@ -278,6 +285,7 @@ static int init(int argc, char *argv[])
 
         ARLOGi("   Done.\n");
 
+        ARLOGi("JPEG image '%s' is %dx%d.\n", inputFilePath, jpegImage->xsize, jpegImage->ysize);
         image = jpegImage->image;
         if (jpegImage->nc == 1)
             pixFormat = AR_PIXEL_FORMAT_MONO;
@@ -326,10 +334,10 @@ static int init(int argc, char *argv[])
 
     xzoom = yzoom = 1.0;
 
-    while (xsize > winXsize * xzoom)
+    while (xsize > windowWidth * xzoom)
         xzoom += 1.0;
 
-    while (ysize > winYsize * yzoom)
+    while (ysize > windowHeight * yzoom)
         yzoom += 1.0;
 
     if (xzoom > yzoom)
@@ -337,21 +345,19 @@ static int init(int argc, char *argv[])
     else
         zoom = 1.0 / yzoom;
 
-    winXsize = xsize * zoom;
-    winYsize = ysize * zoom;
+    windowWidth  = xsize * zoom;
+    windowHeight = ysize * zoom;
     ARLOG("Size = (%d,%d) Zoom = %f\n", xsize, ysize, zoom);
 
     viewport.sx    = 0;
     viewport.sy    = 0;
-    viewport.xsize = winXsize;
-    viewport.ysize = winYsize;
+    viewport.xsize = windowWidth;
+    viewport.ysize = windowHeight;
     vp             = argCreateViewport(&viewport);
     argViewportSetImageSize(vp, xsize, ysize);
     argViewportSetDispMethod(vp, AR_GL_DISP_METHOD_GL_DRAW_PIXELS);
     argViewportSetDispMode(vp, AR_GL_DISP_MODE_FIT_TO_VIEWPORT);
     argViewportSetDistortionMode(vp, AR_GL_DISTORTION_COMPENSATE_DISABLE);
-    argViewportSetPixFormat(vp, AR_PIXEL_FORMAT_MONO);   // Only ever drawing the debug image.
-    argDrawMode2D(vp);
 
     arParamClear(&cparam, xsize, ysize, AR_DIST_FUNCTION_VERSION_DEFAULT);
     cparamLT  = arParamLTCreate(&cparam, AR_PARAM_LT_DEFAULT_OFFSET);
@@ -376,7 +382,7 @@ static int detect(float **markerWidths_p)
         return 0;
 
     arDetectMarker(gARHandle, image);
-    ARLOG("#1 Delected marker: %d\n", gARHandle->marker_num);
+    ARLOG("Pass 1: detected %d markers.\n", gARHandle->marker_num);
 
     if (*markerWidths_p)
         free(*markerWidths_p);
@@ -390,9 +396,7 @@ static int detect(float **markerWidths_p)
             j++;
     }
 
-    ARLOG("#2 Delected marker: %d\n", j);
-
-    glutPostRedisplay();
+    ARLOG("Pass 2: %d detected markers are square.\n", j);
 
     return j;
 }
@@ -434,7 +438,7 @@ static void usage(char *com)
 
 static void   keyEvent(unsigned char key, int x, int y)
 {
-    int                     mode, threshChange = 0, redetect = 0;
+    int                     mode, threshChange = 0, redetect = 0, redraw = 0;
     AR_LABELING_THRESH_MODE modea;
 
     switch (key)
@@ -448,7 +452,7 @@ static void   keyEvent(unsigned char key, int x, int y)
 
     case ' ':
         gCapturing = 1;
-        glutPostRedisplay();
+        redraw     = 1;
         break;
 
     case 'X':
@@ -464,7 +468,7 @@ static void   keyEvent(unsigned char key, int x, int y)
         }
 
         arSetImageProcMode(gARHandle, mode);
-        redetect = 1;
+        redetect = redraw = 1;
         break;
 
     case 'a':
@@ -486,7 +490,7 @@ static void   keyEvent(unsigned char key, int x, int y)
         }
 
         arSetLabelingThreshMode(gARHandle, modea);
-        redetect = 1;
+        redetect = redraw = 1;
         break;
 
     case 'b':
@@ -498,7 +502,7 @@ static void   keyEvent(unsigned char key, int x, int y)
             mode = AR_LABELING_BLACK_REGION;
 
         arSetLabelingMode(gARHandle, mode);
-        redetect = 1;
+        redetect = redraw = 1;
         break;
 
     case '-':
@@ -514,12 +518,22 @@ static void   keyEvent(unsigned char key, int x, int y)
     case 'd':
         arGetDebugMode(gARHandle, &mode);
         arSetDebugMode(gARHandle, !mode);
+        redraw = 1;
         break;
 
     case '?':
     case '/':
-        // gShowHelp++;
-        // if (gShowHelp > 2) gShowHelp = 0;
+        gShowHelp++;
+        if (gShowHelp > 1)
+            gShowHelp = 0;
+
+        redraw = 1;
+        break;
+
+    case 'm':
+    case 'M':
+        gShowMode = !gShowMode;
+        redraw    = 1;
         break;
 
     default:
@@ -539,12 +553,17 @@ static void   keyEvent(unsigned char key, int x, int y)
 
         arSetLabelingThresh(gARHandle, threshhold);
         ARLOG("thresh = %d\n", threshhold);
-        redetect = 1;
+        redetect = redraw = 1;
     }
 
     if (redetect)
     {
         detectedMarkerNum = detect(&gMarkerWidths);
+    }
+
+    if (redraw)
+    {
+        glutPostRedisplay();
     }
 }
 
@@ -565,7 +584,7 @@ static void mouseEvent(int button, int state, int x, int y)
 
 static void dispFunc(void)
 {
-    int        ret              = 0;
+    int        ret              = 0, mode;
     char       path[MAXPATHLEN] = "";
     size_t     pathLen          = 0L;
     char       *basename        = NULL;
@@ -573,19 +592,71 @@ static void dispFunc(void)
     const char patternExt[]     = "pat";
     FILE       *fp;
     char       buf[256];
-    int        i, ii;
-    int        j, jj;
+    int        i, j;
+    int        ii, jj;
     int        x, y;
     int        co, *flag;
     float      vec[2][2], center[2], length;
-    float      trans1[3][4], trans2[3][4];
+    float      trans1[3][4];
     float      mx1, my1, mx2, my2;
 
     // static int r = 0;
 
+    glClear(GL_COLOR_BUFFER_BIT);
+
     if (!gCapturing)
     {
-        argDrawImage(gARHandle->labelInfo.bwImage);
+        arGetDebugMode(gARHandle, &mode);
+        if (mode == AR_DEBUG_ENABLE)
+        {
+            argViewportSetPixFormat(vp, AR_PIXEL_FORMAT_MONO); // Drawing the debug image.
+            argDrawMode2D(vp);
+            argDrawImage(gARHandle->labelInfo.bwImage);
+        }
+        else
+        {
+            argViewportSetPixFormat(vp, pixFormat); // Drawing the input image.
+            argDrawMode2D(vp);
+            argDrawImage(image);
+        }
+
+        // Draw detected markers.
+        glLineWidth(1.0f);
+        glColor3f(0.0f, 1.0f, 0.0f);
+
+        for (i = j = 0; i < detectedMarkerNum; i++)
+        {
+            while (gMarkerWidths[j] <= 0.0f)
+                j++;
+
+            argDrawSquareByIdealPos(gARHandle->markerInfo[j].vertex);
+            argDrawLineByIdealPos(gARHandle->markerInfo[j].vertex[2][0], gARHandle->markerInfo[j].vertex[2][1],  gARHandle->markerInfo[j].pos[0], gARHandle->markerInfo[j].pos[1]);
+            j++;
+        }
+
+        //
+        // Draw help text and mode.
+        //
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0.0, windowWidth, 0.0, windowHeight, -1.0, 1.0);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glDisable(GL_LIGHTING);
+        glDisable(GL_DEPTH_TEST);
+        if (gShowMode)
+        {
+            printMode();
+        }
+
+        if (gShowHelp)
+        {
+            if (gShowHelp == 1)
+            {
+                printHelpKeys();
+            }
+        }
+
         argSwapBuffers();
         return;
     }
@@ -608,25 +679,42 @@ static void dispFunc(void)
 
     for (ii = jj = 0; ii < detectedMarkerNum; ii++, jj++)
     {
-        while (gMarkerWidths[jj] <= 0.0)
-            jj++;
+        arGetDebugMode(gARHandle, &mode);
+        if (mode == AR_DEBUG_ENABLE)
+        {
+            argViewportSetPixFormat(vp, AR_PIXEL_FORMAT_MONO); // Drawing the debug image.
+            argDrawMode2D(vp);
+            argDrawImage(gARHandle->labelInfo.bwImage);
+        }
+        else
+        {
+            argViewportSetPixFormat(vp, pixFormat); // Drawing the input image.
+            argDrawMode2D(vp);
+            argDrawImage(image);
+        }
 
-        argDrawImage(gARHandle->labelInfo.bwImage);
-
+        // Draw detected markers.
         for (i = j = 0; i < detectedMarkerNum; i++)
         {
-            while (gMarkerWidths[j] <= 0.0)
+            while (gMarkerWidths[j] <= 0.0f)
                 j++;
 
-            glLineWidth(1.0);
-            glColor3f(0.0, 1.0, 0.0);
+            glLineWidth(1.0f);
+            glColor3f(0.0f, 1.0f, 0.0f);
             argDrawSquareByIdealPos(gARHandle->markerInfo[j].vertex);
+            argDrawLineByIdealPos(gARHandle->markerInfo[j].vertex[2][0], gARHandle->markerInfo[j].vertex[2][1], gARHandle->markerInfo[j].pos[0], gARHandle->markerInfo[j].pos[1]);
             j++;
         }
 
-        glLineWidth(2.0);
-        glColor3f(1.0, 0.0, 0.0);
+        // Draw marker of interest.
+        while (gMarkerWidths[jj] <= 0.0f)
+            jj++;
+
+        glLineWidth(2.0f);
+        glColor3f(1.0f, 0.0f, 0.0f);
         argDrawSquareByIdealPos(gARHandle->markerInfo[jj].vertex);
+        argDrawLineByIdealPos(gARHandle->markerInfo[jj].vertex[2][0], gARHandle->markerInfo[jj].vertex[2][1], gARHandle->markerInfo[jj].pos[0], gARHandle->markerInfo[jj].pos[1]);
+
         argSwapBuffers();
 
         flag[ii] = 0;
@@ -680,12 +768,17 @@ static void dispFunc(void)
         fprintf(fp, "%s\n", path);
         fprintf(fp, "%f\n", gMarkerWidths[j]);
 
+        // Print vertices in pixel coords.
+        // Origin at UL of image.
         ARLOG("-- %s --\n", path);
-        ARLOG("1: %f %f\n", gARHandle->markerInfo[j].vertex[2][0], gARHandle->markerInfo[j].vertex[2][1]);
-        ARLOG("2: %f %f\n", gARHandle->markerInfo[j].vertex[3][0], gARHandle->markerInfo[j].vertex[3][1]);
-        ARLOG("3: %f %f\n", gARHandle->markerInfo[j].vertex[0][0], gARHandle->markerInfo[j].vertex[0][1]);
-        ARLOG("4: %f %f\n", gARHandle->markerInfo[j].vertex[1][0], gARHandle->markerInfo[j].vertex[1][1]);
+        ARLOG("Upper-left:  {%f, %f}\n", gARHandle->markerInfo[j].vertex[2][0], gARHandle->markerInfo[j].vertex[2][1]);
+        ARLOG("Upper-right: {%f, %f}\n", gARHandle->markerInfo[j].vertex[3][0], gARHandle->markerInfo[j].vertex[3][1]);
+        ARLOG("Lower-right: {%f, %f}\n", gARHandle->markerInfo[j].vertex[0][0], gARHandle->markerInfo[j].vertex[0][1]);
+        ARLOG("Lower-left:  {%f, %f}\n", gARHandle->markerInfo[j].vertex[1][0], gARHandle->markerInfo[j].vertex[1][1]);
 
+        // UR (for axis-aligned upright marker) to m1, UL (for axis-aligned upright marker) to m2
+        // Origin at LL of image.
+        // vec[0] is unit vector from UL to UR (for axis-aligned upright marker).
         pixel2mm(gARHandle->markerInfo[j].vertex[3][0], gARHandle->markerInfo[j].vertex[3][1], &mx1, &my1);
         pixel2mm(gARHandle->markerInfo[j].vertex[2][0], gARHandle->markerInfo[j].vertex[2][1], &mx2, &my2);
         vec[0][0]  = mx1 - mx2;
@@ -694,6 +787,9 @@ static void dispFunc(void)
         vec[0][0] /= length;
         vec[0][1] /= length;
 
+        // LL (for axis-aligned upright marker) to m1, UL (for axis-aligned upright marker) to m2
+        // Origin at LL of image.
+        // vec[1] is unit vector from LL to UL (for axis-aligned upright marker).
         pixel2mm(gARHandle->markerInfo[j].vertex[1][0], gARHandle->markerInfo[j].vertex[1][1], &mx1, &my1);
         pixel2mm(gARHandle->markerInfo[j].vertex[2][0], gARHandle->markerInfo[j].vertex[2][1], &mx2, &my2);
         vec[1][0]  = mx2 - mx1;
@@ -722,12 +818,11 @@ static void dispFunc(void)
         trans1[0][3] = center[0];
         trans1[1][3] = center[1];
         trans1[2][3] = 0.0;
-        arUtilMatInvf(trans1, trans2);
 
         for (y = 0; y < 3; y++)
         {
             for (x = 0; x < 4; x++)
-                fprintf(fp, " %15.7f", trans2[y][x]);
+                fprintf(fp, " %15.7f", trans1[y][x]);
 
             fprintf(fp, "\n");
         }
@@ -803,3 +898,169 @@ static void pixel2mm(float px, float py, float *mx, float *my)
  * px = mx         * dpi / 25.4;
  * py = ysize - my * dpi / 25.4;
    }*/
+
+//
+// The following functions provide the onscreen help text and mode info.
+//
+
+static void print(const char *text, const float x, const float y, int calculateXFromRightEdge, int calculateYFromTopEdge)
+{
+    int     i, len;
+    GLfloat x0, y0;
+
+    if (!text)
+        return;
+
+    if (calculateXFromRightEdge)
+    {
+        x0 = windowWidth - x - (float)glutBitmapLength(GLUT_BITMAP_HELVETICA_10, (const unsigned char*)text);
+    }
+    else
+    {
+        x0 = x;
+    }
+
+    if (calculateYFromTopEdge)
+    {
+        y0 = windowHeight - y - 10.0f;
+    }
+    else
+    {
+        y0 = y;
+    }
+
+    glRasterPos2f(x0, y0);
+
+    len = (int)strlen(text);
+
+    for (i = 0; i < len; i++)
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, text[i]);
+}
+
+static void drawBackground(const float width, const float height, const float x, const float y)
+{
+    GLfloat vertices[4][2];
+
+    vertices[0][0] = x; vertices[0][1] = y;
+    vertices[1][0] = width + x; vertices[1][1] = y;
+    vertices[2][0] = width + x; vertices[2][1] = height + y;
+    vertices[3][0] = x; vertices[3][1] = height + y;
+    glLoadIdentity();
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glVertexPointer(2, GL_FLOAT, 0, vertices);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glColor4f(0.0f, 0.0f, 0.0f, 0.5f);  // 50% transparent black.
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Opaque white.
+    // glLineWidth(1.0f);
+    // glDrawArrays(GL_LINE_LOOP, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisable(GL_BLEND);
+}
+
+static void printHelpKeys()
+{
+    int        i;
+    GLfloat    w, bw, bh;
+    const char *helpText[] =
+    {
+        "Keys:\n",
+        " ? or /        Show/hide this help.",
+        " q or [esc]    Quit program.",
+        " d             Activate / deactivate debug mode.",
+        " m             Toggle display of mode info.",
+        " a             Toggle between available threshold modes.",
+        " - and +       Switch to manual threshold mode, and adjust threshhold up/down by 5.",
+        " x             Change image processing mode.",
+        " b             Change labeling mode.",
+        " c             Calulcate frame rate.",
+    };
+
+#define helpTextLineCount (sizeof(helpText) / sizeof(char*))
+
+    bw = 0.0f;
+
+    for (i = 0; i < helpTextLineCount; i++)
+    {
+        w = (float)glutBitmapLength(GLUT_BITMAP_HELVETICA_10, (unsigned char*)helpText[i]);
+        if (w > bw)
+            bw = w;
+    }
+
+    bh = helpTextLineCount * 10.0f /* character height */ + (helpTextLineCount - 1) * 2.0f /* line spacing */;
+    drawBackground(bw, bh, 2.0f, 2.0f);
+
+    for (i = 0; i < helpTextLineCount; i++)
+        print(helpText[i], 2.0f, (helpTextLineCount - 1 - i) * 12.0f + 2.0f, 0, 0);
+
+    ;
+}
+
+static void printMode()
+{
+    int                     len, thresh, line, mode;
+    AR_LABELING_THRESH_MODE threshMode;
+    ARdouble                tempF;
+    char                    text[256], *text_p;
+
+    glColor3ub(255, 255, 255);
+    line = 1;
+
+    // Image size and processing mode.
+    arGetImageProcMode(gARHandle, &mode);
+    if (mode == AR_IMAGE_PROC_FRAME_IMAGE)
+        text_p = "full frame";
+    else
+        text_p = "even field only";
+
+    snprintf(text, sizeof(text), "Processing %dx%d input image %s", xsize, ysize, text_p);
+    print(text, 2.0f,  (line - 1) * 12.0f + 2.0f, 0, 1);
+    line++;
+
+    // Threshold mode, and threshold, if applicable.
+    arGetLabelingThreshMode(gARHandle, &threshMode);
+
+    switch (threshMode)
+    {
+    case AR_LABELING_THRESH_MODE_MANUAL: text_p = "MANUAL"; break;
+
+    case AR_LABELING_THRESH_MODE_AUTO_MEDIAN: text_p = "AUTO_MEDIAN"; break;
+
+    case AR_LABELING_THRESH_MODE_AUTO_OTSU: text_p = "AUTO_OTSU"; break;
+
+    case AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE: text_p = "AUTO_ADAPTIVE"; break;
+
+    case AR_LABELING_THRESH_MODE_AUTO_BRACKETING: text_p = "AUTO_BRACKETING"; break;
+
+    default: text_p = "UNKNOWN"; break;
+    }
+
+    snprintf(text, sizeof(text), "Threshold mode: %s", text_p);
+    if (threshMode != AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE)
+    {
+        arGetLabelingThresh(gARHandle, &thresh);
+        len = (int)strlen(text);
+        snprintf(text + len, sizeof(text) - len, ", thresh=%d", thresh);
+    }
+
+    arGetDebugMode(gARHandle, &mode);
+    len = (int)strlen(text);
+    snprintf(text + len, sizeof(text) - len, ", debug mode %s", (mode == AR_DEBUG_ENABLE ? "ON" : "OFF"));
+    print(text, 2.0f,  (line - 1) * 12.0f + 2.0f, 0, 1);
+    line++;
+
+    // Border size, image processing mode, pattern detection mode.
+    arGetBorderSize(gARHandle, &tempF);
+    snprintf(text, sizeof(text), "Border: %0.2f%%", tempF * 100.0);
+
+    // Window size.
+    snprintf(text, sizeof(text), "Drawing into %dx%d window", windowWidth, windowHeight);
+    print(text, 2.0f,  (line - 1) * 12.0f + 2.0f, 0, 1);
+    line++;
+
+    // Detected markers.
+    snprintf(text, sizeof(text), "Detected %d square markers. Press [space] to save multi-marker dataset.\n", detectedMarkerNum);
+    print(text, 2.0f,  (line - 1) * 12.0f + 2.0f, 0, 1);
+    line++;
+}

@@ -529,8 +529,8 @@ static void dispImage(void)
         }
         else
         {
-            arUtilMatInv(configL->trans, transL2M);
-            arUtilMatMul(configR->trans, transL2M, transL2R);
+            arUtilMatInv((const ARdouble (*)[4])configL->trans, transL2M);
+            arUtilMatMul((const ARdouble (*)[4])configR->trans, (const ARdouble (*)[4])transL2M, transL2R);
             arParamDispExt(transL2R);
 
             printf("save filename[%s]: ", TRANSL2R_NAME);

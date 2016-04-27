@@ -177,13 +177,13 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
         vnum++;
     }
 
-    if (vnum == 0)
+    if (vnum == 0 || vnum < config->min_submarker)
     {
         config->prevF = 0;
         return -1;
     }
 
-    arUtilMatMul(trans1, config->marker[max].itrans, trans2);
+    arUtilMatMul((const ARdouble (*)[4])trans1, (const ARdouble (*)[4])config->marker[max].itrans, trans2);
 
     arMalloc(pos2d, ARdouble, vnum * 4 * 2);
     arMalloc(pos3d, ARdouble, vnum * 4 * 3);

@@ -229,7 +229,6 @@ int    arParamSave(const char *filename, const int num, const ARParam *param, ..
         return -1;
 
     fp = fopen(filename, "wb");
-
     if (fp == NULL)
     {
         ARLOGe("Error (%d): unable to open camera parameters file \"%s\" for writing.\n", errno, filename);
@@ -325,7 +324,6 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
 
     // Determine file length.
     fseek(fp, 0L, SEEK_END);
-
     if (ferror(fp))
     {
         ARLOGe("Error (%d): unable to determine file length.", errno);
@@ -399,6 +397,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
         }
 
         param_wasRead.dist_function_version = dist_function_version;
+        
 #ifdef AR_LITTLE_ENDIAN
         byteswap(&param_wasRead);
 #endif
@@ -418,7 +417,6 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
     }
 
 done:
-
     if (fp)
     {
         fclose(fp);
@@ -496,7 +494,6 @@ int arParamSaveExt(const char *filename, ARdouble para[3][4])
         return (-1);
 
     fp = fopen(filename, "wb");
-
     if (fp == NULL)
     {
         ARLOGe("Error (%d): unable to open external parameters file \"%s\" for writing.\n", errno, filename);
@@ -554,7 +551,6 @@ int arParamLoadExt(const char *filename, ARdouble para[3][4])
         return (-1);
 
     fp = fopen(filename, "rb");
-
     if (fp == NULL)
     {
         ARLOGe("Error (%d): unable to open external parameters file \"%s\" for reading.\n", errno, filename);
@@ -650,7 +646,6 @@ int arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble
         return (-1);
 
     fp = fopen(filename, "wb");
-
     if (fp == NULL)
     {
         ARLOGe("Error (%d): unable to open optical parameters file \"%s\" for writing.\n", errno, filename);
@@ -666,14 +661,12 @@ int arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble
 
 #ifdef AR_LITTLE_ENDIAN
     byteSwapDouble(&fovy0, &fovy1);
-
     if (fwrite(&fovy1, sizeof(double), 1, fp) != 1)
     {
         goto bail;
     }
 
     byteSwapDouble(&aspect0, &aspect1);
-
     if (fwrite(&aspect1, sizeof(double), 1, fp) != 1)
     {
         goto bail;
@@ -726,7 +719,6 @@ int arParamLoadOptical(const char *filename, ARdouble *fovy_p, ARdouble *aspect_
         return (-1);
 
     fp = fopen(filename, "rb");
-
     if (fp == NULL)
     {
         ARLOGe("Error (%d): unable to open optical parameters file \"%s\" for reading.\n", errno, filename);
@@ -741,14 +733,12 @@ int arParamLoadOptical(const char *filename, ARdouble *fovy_p, ARdouble *aspect_
     }
 
     byteSwapDouble(&fovy1, &fovy0);
-
     if (fread(&aspect1, sizeof(double), 1, fp) != 1)
     {
         goto bail;
     }
 
     byteSwapDouble(&aspect1, &aspect0);
-
     if (fread(m1, sizeof(double), 16, fp) != 16)
     {
         goto bail;

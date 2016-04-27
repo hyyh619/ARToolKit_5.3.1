@@ -273,8 +273,6 @@ inline bool OrthogonalizePivot8x9Basis7(T Q[8 * 9], T A[8 * 9])
         return false;
     }
 
-    Swap9(Q + 63, Q + 63);
-    Swap9(A + 63, A + 63);
     ScaleVector9(Q + 63, Q + 63, 1.f / std::sqrt(ss));
 
     return true;

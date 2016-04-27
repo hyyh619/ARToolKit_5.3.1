@@ -60,7 +60,7 @@ ARMultiMarkerInfoT* arMultiReadConfigFile(const char *filename, ARPattHandle *pa
     ARMultiEachMarkerInfoT *marker;
     ARMultiMarkerInfoT     *marker_info;
     ARdouble               wpos3d[4][2];
-    char                   buf[256], pattPath[2048];
+    char                   buf[256], pattPath[2048], dummy;
     int                    num;
     int                    patt_type = 0;
     int                    i, j;
@@ -89,11 +89,11 @@ ARMultiMarkerInfoT* arMultiReadConfigFile(const char *filename, ARPattHandle *pa
         get_buff(buf, 256, fp);
         if (sscanf(buf,
 #if defined(__LP64__) && !defined(__APPLE__)
-                   "%lu",
+                   "%lu%c",
 #else
-                   "%llu",
+                   "%llu%c",
 #endif
-                   &(marker[i].globalID)) != 1)         // Try first as matrix code.
+                   &(marker[i].globalID), &dummy) != 1)         // Try first as matrix code.
 
         {
             if (!pattHandle)
@@ -192,7 +192,7 @@ ARMultiMarkerInfoT* arMultiReadConfigFile(const char *filename, ARPattHandle *pa
         }
         while (j < 3);
 
-        arUtilMatInv(marker[i].trans, marker[i].itrans);
+        arUtilMatInv((const ARdouble (*)[4])marker[i].trans, marker[i].itrans);
 
         wpos3d[0][0] = -marker[i].width / 2.0;
         wpos3d[0][1] = marker[i].width / 2.0;

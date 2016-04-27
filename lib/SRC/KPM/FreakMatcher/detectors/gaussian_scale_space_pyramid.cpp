@@ -344,8 +344,6 @@ void BinomialPyramid32f::alloc(size_t width,
     mTemp_us16.resize(width * height);
     mTemp_f32_1.resize(width * height);
     mTemp_f32_2.resize(width * height);
-
-    mNumOctaves = num_octaves;
 }
 
 void BinomialPyramid32f::release()
