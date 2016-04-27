@@ -739,7 +739,7 @@ bool MatrixBase<Derived>::isIdentity
 
 namespace internal
 {
-template<typename Derived, bool Big = (Derived::SizeAtCompileTime> = 16) >
+template<typename Derived, bool Big = (Derived::SizeAtCompileTime >= 16) >
                                       struct setIdentity_impl
          {
              static EIGEN_STRONG_INLINE Derived&run(Derived & m)
