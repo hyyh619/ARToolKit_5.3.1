@@ -139,7 +139,7 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
     int             xsize, ysize;
     AR_PIXEL_FORMAT pixFormat;
 
-    // Open the video path.
+    // Open the video path.
     if (arVideoOpen(vconf) < 0)
     {
         ARLOGe("setupCamera(): Unable to open connection to camera.\n");
@@ -579,7 +579,7 @@ static void Display(void)
     {
         // Calculate the camera position relative to the marker.
         // Replace VIEW_SCALEFACTOR with 1.0 to make one drawing unit equal to 1.0 ARToolKit units (usually millimeters).
-        arglCameraViewRH(gPatt_trans, m, VIEW_SCALEFACTOR);
+        arglCameraViewRH((const ARdouble (*)[4])gPatt_trans, m, VIEW_SCALEFACTOR);
 #ifdef ARDOUBLE_IS_FLOAT
         glLoadMatrixf(m);
 #else

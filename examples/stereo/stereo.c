@@ -457,7 +457,7 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    arUtilMatInv(transL2R, transR2L);
+    arUtilMatInv((const ARdouble (*)[4])transL2R, transR2L);
     arParamDispExt(transL2R);
     gAR3DStereoHandle = ar3DStereoCreateHandle(&(gCparamLTL->param), &(gCparamLTR->param), AR_TRANS_MAT_IDENTITY, transL2R);
     if (!gAR3DStereoHandle)
@@ -1130,9 +1130,9 @@ static void mainLoop(void)
                 }
 
                 // We have a new pose, so set that.
-                arglCameraViewRH(markersSquare[i].trans, markersSquare[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
-                arUtilMatMul(transL2R, markersSquare[i].trans, transR);
-                arglCameraViewRH(transR, poseR.T, 1.0f /*VIEW_SCALEFACTOR*/);
+                arglCameraViewRH((const ARdouble (*)[4])markersSquare[i].trans, markersSquare[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
+                arUtilMatMul((const ARdouble (*)[4])transL2R, (const ARdouble (*)[4])markersSquare[i].trans, transR);
+                arglCameraViewRH((const ARdouble (*)[4])transR, poseR.T, 1.0f /*VIEW_SCALEFACTOR*/);
 
                 // Tell any dependent objects about the update.
                 for (j = 0; j < viewCount; j++)

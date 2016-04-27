@@ -150,7 +150,6 @@ static void keyFunc(unsigned char key, int x, int y)
 
     case 'h':
     case 'H':
-
         if (flipMode & AR_GL_FLIP_H)
             flipMode = flipMode & AR_GL_FLIP_V;
         else
@@ -161,7 +160,6 @@ static void keyFunc(unsigned char key, int x, int y)
 
     case 'v':
     case 'V':
-
         if (flipMode & AR_GL_FLIP_V)
             flipMode = flipMode & AR_GL_FLIP_H;
         else
@@ -227,7 +225,6 @@ static void mainLoop(void)
 
     argDrawMode2D(vp);
     arGetDebugMode(arHandle, &debugMode);
-
     if (debugMode == 0)
     {
         argDrawImage(dataPtr);
@@ -235,7 +232,6 @@ static void mainLoop(void)
     else
     {
         arGetImageProcMode(arHandle, &imageProcMode);
-
         if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE)
         {
             argDrawImage(arHandle->labelInfo.bwImage);
@@ -264,7 +260,6 @@ static void mainLoop(void)
     argDrawStringsByIdealPos(fps, 10, ysize - 30);
 
     markerNum = arGetMarkerNum(arHandle);
-
     if (markerNum == 0)
     {
         argSwapBuffers();
@@ -278,7 +273,6 @@ static void mainLoop(void)
     for (j = 0; j < markerNum; j++)
     {
         ARLOG("ID=%d, CF = %f\n", markerInfo[j].id, markerInfo[j].cf);
-
         if (patt_id == markerInfo[j].id)
         {
             if (k == -1)

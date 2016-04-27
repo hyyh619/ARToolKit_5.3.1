@@ -396,7 +396,6 @@ static void Keyboard(unsigned char key, int x, int y)
 
     case 's':
     case 'S':
-
         if (!gARTImageSavePlease)
             gARTImageSavePlease = TRUE;
 
@@ -405,7 +404,6 @@ static void Keyboard(unsigned char key, int x, int y)
     case '?':
     case '/':
         gShowHelp++;
-
         if (gShowHelp > 1)
             gShowHelp = 0;
 
@@ -450,7 +448,6 @@ static void mainLoop(void)
     // Find out how long since mainLoop() last ran.
     ms        = glutGet(GLUT_ELAPSED_TIME);
     s_elapsed = (float)(ms - ms_prev) * 0.001f;
-
     if (s_elapsed < 0.01f)
         return;                        // Don't update more often than 100 Hz.
 
@@ -468,7 +465,6 @@ static void mainLoop(void)
         {
             char imageNumberText[15];
             sprintf(imageNumberText, "image-%04d.jpg", imageNumber++);
-
             if (arVideoSaveImageJPEG(gARHandle->xsize, gARHandle->ysize, gARHandle->arPixelFormat, gARTImage, imageNumberText, 75, 0) < 0)
             {
                 ARLOGe("Error saving video image.\n");
@@ -585,7 +581,7 @@ static void Display(void)
     {
         // Calculate the camera position relative to the marker.
         // Replace VIEW_SCALEFACTOR with 1.0 to make one drawing unit equal to 1.0 ARToolKit units (usually millimeters).
-        arglCameraViewRH(gPatt_trans, m, VIEW_SCALEFACTOR);
+        arglCameraViewRH((const ARdouble (*)[4])gPatt_trans, m, VIEW_SCALEFACTOR);
 #ifdef ARDOUBLE_IS_FLOAT
         glLoadMatrixf(m);
 #else
@@ -650,7 +646,7 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    // 
+    //
     // Graphics setup.
     //
 
