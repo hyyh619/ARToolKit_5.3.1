@@ -68,11 +68,11 @@
 ./include/AR/arvrml.h
 ./include/AR/config.h
 ./include/AR/gsub.h
-./include/AR/gsubConfig.h
 ./include/AR/gsub_es.h
 ./include/AR/gsub_es2.h
 ./include/AR/gsub_lite.h
 ./include/AR/gsub_mtx.h
+./include/AR/gsubConfig.h
 ./include/AR/icp.h
 ./include/AR/icpCalib.h
 ./include/AR/icpCore.h
@@ -178,8 +178,8 @@
 ./include/macosx-universal/opencv2/core/version.hpp
 ./include/macosx-universal/opencv2/core/wimage.hpp
 ./include/macosx-universal/opencv2/features2d/features2d.hpp
-./include/macosx-universal/opencv2/flann/allocator.h
 ./include/macosx-universal/opencv2/flann/all_indices.h
+./include/macosx-universal/opencv2/flann/allocator.h
 ./include/macosx-universal/opencv2/flann/any.h
 ./include/macosx-universal/opencv2/flann/autotuned_index.h
 ./include/macosx-universal/opencv2/flann/composite_index.h
@@ -351,8 +351,8 @@
 ./include/win32-i386/opencv2/core/version.hpp
 ./include/win32-i386/opencv2/core/wimage.hpp
 ./include/win32-i386/opencv2/features2d/features2d.hpp
-./include/win32-i386/opencv2/flann/allocator.h
 ./include/win32-i386/opencv2/flann/all_indices.h
+./include/win32-i386/opencv2/flann/allocator.h
 ./include/win32-i386/opencv2/flann/any.h
 ./include/win32-i386/opencv2/flann/autotuned_index.h
 ./include/win32-i386/opencv2/flann/composite_index.h
@@ -524,8 +524,8 @@
 ./include/win64-x64/opencv2/core/version.hpp
 ./include/win64-x64/opencv2/core/wimage.hpp
 ./include/win64-x64/opencv2/features2d/features2d.hpp
-./include/win64-x64/opencv2/flann/allocator.h
 ./include/win64-x64/opencv2/flann/all_indices.h
+./include/win64-x64/opencv2/flann/allocator.h
 ./include/win64-x64/opencv2/flann/any.h
 ./include/win64-x64/opencv2/flann/autotuned_index.h
 ./include/win64-x64/opencv2/flann/composite_index.h
@@ -814,10 +814,10 @@
 ./lib/SRC/ARosg/arosg.cpp
 ./lib/SRC/ARvrml/arViewer.cpp
 ./lib/SRC/ARvrml/arViewer.h
-./lib/SRC/ARvrml/arViewerCapi.cpp
-./lib/SRC/ARvrml/arViewerCapi_openvrml-0.14.3.cpp
 ./lib/SRC/ARvrml/arViewer_openvrml-0.14.3.cpp
 ./lib/SRC/ARvrml/arViewer_openvrml-0.14.3.h
+./lib/SRC/ARvrml/arViewerCapi.cpp
+./lib/SRC/ARvrml/arViewerCapi_openvrml-0.14.3.cpp
 ./lib/SRC/ARWrapper/AndroidFeatures.cpp
 ./lib/SRC/ARWrapper/AndroidVideoSource.cpp
 ./lib/SRC/ARWrapper/ARController.cpp
@@ -845,8 +845,6 @@
 ./lib/SRC/Eden/EdenTime.c
 ./lib/SRC/Eden/EdenUtil.c
 ./lib/SRC/Eden/glm.c
-./lib/SRC/Eden/gluttext/glutbitmap.h
-./lib/SRC/Eden/gluttext/glutstroke.h
 ./lib/SRC/Eden/gluttext/glut_8x13.c
 ./lib/SRC/Eden/gluttext/glut_9x15.c
 ./lib/SRC/Eden/gluttext/glut_bitmap.c
@@ -860,6 +858,8 @@
 ./lib/SRC/Eden/gluttext/glut_swidth.c
 ./lib/SRC/Eden/gluttext/glut_tr10.c
 ./lib/SRC/Eden/gluttext/glut_tr24.c
+./lib/SRC/Eden/gluttext/glutbitmap.h
+./lib/SRC/Eden/gluttext/glutstroke.h
 ./lib/SRC/Eden/readtex.c
 ./lib/SRC/Gl/argBase.c
 ./lib/SRC/Gl/argDraw.c
@@ -868,9 +868,9 @@
 ./lib/SRC/Gl/argFunction.c
 ./lib/SRC/Gl/argPrivate.h
 ./lib/SRC/Gl/argWindow.c
-./lib/SRC/Gl/gsubTest.c
 ./lib/SRC/Gl/gsub_lite.c
 ./lib/SRC/Gl/gsub_mtx.c
+./lib/SRC/Gl/gsubTest.c
 ./lib/SRC/KPM/FreakMatcher/detectors/DoG_scale_invariant_detector.cpp
 ./lib/SRC/KPM/FreakMatcher/detectors/DoG_scale_invariant_detector.h
 ./lib/SRC/KPM/FreakMatcher/detectors/gaussian_scale_space_pyramid.cpp
@@ -1272,8 +1272,8 @@
 ./util/calib_optical/getInput.h
 ./util/calib_stereo/calib_stereo.cpp
 ./util/calib_stereo_old-v3/calib_stereo.c
-./util/checkResolution/checkResolution.c
 ./util/check_id/check_id.c
+./util/checkResolution/checkResolution.c
 ./util/dispFeatureSet/dispFeatureSet.c
 ./util/dispImageSet/dispImageSet.c
 ./util/genMarkerSet/genMarkerSet.c
