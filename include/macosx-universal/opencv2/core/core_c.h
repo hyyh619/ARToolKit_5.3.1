@@ -1836,10 +1836,10 @@ CVAPI(int) cvGuiBoxReport(int status, const char *func_name, const char *err_msg
    function call. If error detected, control will be transferred to the exit
    label.
  */
-#define CV_CHECK()                                                \
-    {                                                             \
-        if (cvGetErrStatus() < 0)                                 \
-            CV_ERROR(CV_StsBackTrace, "Inner function failed.");  \
+#define CV_CHECK()                                               \
+    {                                                            \
+        if (cvGetErrStatus() < 0)                                \
+            CV_ERROR(CV_StsBackTrace, "Inner function failed."); \
     }
 
 
@@ -1856,14 +1856,14 @@ CVAPI(int) cvGuiBoxReport(int status, const char *func_name, const char *err_msg
 
 
 /* Runtime assertion macro */
-#define CV_ASSERT(Condition)                                               \
-    {                                                                      \
-        if (!(Condition))                                                  \
-            CV_ERROR(CV_StsInternal, "Assertion: " #Condition " failed");  \
+#define CV_ASSERT(Condition)                                              \
+    {                                                                     \
+        if (!(Condition))                                                 \
+            CV_ERROR(CV_StsInternal, "Assertion: " #Condition " failed"); \
     }
 
 #define __CV_BEGIN__ {
-#define __CV_END__   goto exit; exit :; }
+#define __CV_END__   goto exit; exit:; }
 #define __CV_EXIT__  goto exit
 
 #ifdef __cplusplus

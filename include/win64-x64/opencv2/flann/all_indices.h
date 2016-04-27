@@ -45,40 +45,49 @@
 
 namespace cvflann
 {
-
 template<typename KDTreeCapability, typename VectorSpace, typename Distance>
 struct index_creator
 {
-    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>& dataset, const IndexParams& params, const Distance& distance)
+    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
 
-        NNIndex<Distance>* nnIndex;
-        switch (index_type) {
+        NNIndex<Distance> *nnIndex;
+
+        switch (index_type)
+        {
         case FLANN_INDEX_LINEAR:
             nnIndex = new LinearIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_KDTREE_SINGLE:
             nnIndex = new KDTreeSingleIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_KDTREE:
             nnIndex = new KDTreeIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_KMEANS:
             nnIndex = new KMeansIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_COMPOSITE:
             nnIndex = new CompositeIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_AUTOTUNED:
             nnIndex = new AutotunedIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_HIERARCHICAL:
             nnIndex = new HierarchicalClusteringIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_LSH:
             nnIndex = new LshIndex<Distance>(dataset, params, distance);
             break;
+
         default:
             throw FLANNException("Unknown index type");
         }
@@ -88,26 +97,32 @@ struct index_creator
 };
 
 template<typename VectorSpace, typename Distance>
-struct index_creator<False,VectorSpace,Distance>
+struct index_creator<False, VectorSpace, Distance>
 {
-    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>& dataset, const IndexParams& params, const Distance& distance)
+    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
 
-        NNIndex<Distance>* nnIndex;
-        switch (index_type) {
+        NNIndex<Distance> *nnIndex;
+
+        switch (index_type)
+        {
         case FLANN_INDEX_LINEAR:
             nnIndex = new LinearIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_KMEANS:
             nnIndex = new KMeansIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_HIERARCHICAL:
             nnIndex = new HierarchicalClusteringIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_LSH:
             nnIndex = new LshIndex<Distance>(dataset, params, distance);
             break;
+
         default:
             throw FLANNException("Unknown index type");
         }
@@ -117,23 +132,28 @@ struct index_creator<False,VectorSpace,Distance>
 };
 
 template<typename Distance>
-struct index_creator<False,False,Distance>
+struct index_creator<False, False, Distance>
 {
-    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>& dataset, const IndexParams& params, const Distance& distance)
+    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
 
-        NNIndex<Distance>* nnIndex;
-        switch (index_type) {
+        NNIndex<Distance> *nnIndex;
+
+        switch (index_type)
+        {
         case FLANN_INDEX_LINEAR:
             nnIndex = new LinearIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_HIERARCHICAL:
             nnIndex = new HierarchicalClusteringIndex<Distance>(dataset, params, distance);
             break;
+
         case FLANN_INDEX_LSH:
             nnIndex = new LshIndex<Distance>(dataset, params, distance);
             break;
+
         default:
             throw FLANNException("Unknown index type");
         }
@@ -143,13 +163,12 @@ struct index_creator<False,False,Distance>
 };
 
 template<typename Distance>
-NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementType>& dataset, const IndexParams& params, const Distance& distance)
+NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
 {
     return index_creator<typename Distance::is_kdtree_distance,
                          typename Distance::is_vector_space_distance,
-                         Distance>::create(dataset, params,distance);
+                         Distance>::create(dataset, params, distance);
 }
-
 }
 
 #endif /* OPENCV_FLANN_ALL_INDICES_H_ */

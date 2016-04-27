@@ -150,13 +150,13 @@ int main(int argc, char **argv)
     char       glutGamemode[32];
     const char *cparam_name               = "Data2/camera_para_640x480.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
-    
+
 #ifdef WIN32
-    char       vconf[]                    = "-device=WinDS -showDialog  -flipV";
+    char vconf[] = "-device=WinDS -showDialog  -flipV";
 #else
-    char       vconf[]                    = "";
+    char vconf[] = "";
 #endif
-    
+
     // If using 1280x720, we should use 1280x720 camera parameter file.
     // const char *cparam_name = "Data2/camera_para_640x480.dat";
     // const char *cparam_name = "Data2/Logitech_camera_para_1280x720.dat";

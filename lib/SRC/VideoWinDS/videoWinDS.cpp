@@ -643,7 +643,6 @@ static AR2VideoWinDSDeviceInfoT* ar2VideoWinDSInit2(void)
             ARLOGe("Exceeded size of WinDS device list (%d)\n", AR2VIDEO_WINDS_DEVICE_MAX);
             break;
         }
-
     }
 
     hr = devInfo->pGraph->QueryInterface(IID_IMediaControl, (void**)&(devInfo->pMediaControl));

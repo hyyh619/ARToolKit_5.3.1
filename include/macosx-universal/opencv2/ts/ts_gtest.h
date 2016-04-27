@@ -2481,7 +2481,7 @@ inline To ImplicitCast_(To x)
 // namespace alone is not enough because the function can be found by ADL.
 template<typename To, typename From>  // use like this: DownCast_<T*>(foo);
 inline To DownCast_(From *f)    // so we only accept pointers
-{ // Ensures that To is a sub-type of From *.  This test is here only
+{           // Ensures that To is a sub-type of From *.  This test is here only
   // for compile-time type checking, and has no overhead in an
   // optimized build at run-time, as it will be optimized away
   // completely.

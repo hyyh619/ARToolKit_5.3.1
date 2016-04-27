@@ -85,7 +85,7 @@ void pseudo_inverse(const CMatrix&C, CINVMatrix&CINV)
 
         while (rho >= 1e-38)
         {       /* conjugate gradient to compute e             */
-          /* which is the i-th row of inv(C * trans(C))  */
+            /* which is the i-th row of inv(C * trans(C))  */
             l     = C.transpose() * p;
             q     = C * l;
             alpha = rho / p.dot(q);

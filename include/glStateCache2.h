@@ -31,7 +31,7 @@
  *  Copyright 2015 Daqri, LLC.
  *  Copyright 2009-2015 ARToolworks, Inc.
  *
- *  Author(s): Philip Lamb 
+ *  Author(s): Philip Lamb
  *
  */
 
@@ -84,10 +84,10 @@ void glStateCacheFlush();
 #define glStateCacheBeginAgain glStateCacheFlush // Deprecated name.
 
 #ifdef DISABLE_GL_STATE_CACHE
-#define glStateCacheEnableDepthTest() glEnable(GL_DEPTH_TEST)
+#define glStateCacheEnableDepthTest()  glEnable(GL_DEPTH_TEST)
 #define glStateCacheDisableDepthTest() glDisable(GL_DEPTH_TEST)
-#define glStateCacheEnableBlend() glEnable(GL_BLEND)
-#define glStateCacheDisableBlend() glDisable(GL_BLEND)
+#define glStateCacheEnableBlend()      glEnable(GL_BLEND)
+#define glStateCacheDisableBlend()     glDisable(GL_BLEND)
 #else
 void glStateCacheEnableDepthTest();
 void glStateCacheDisableDepthTest();
@@ -119,13 +119,13 @@ void glStateCacheBlendFunc(GLenum sfactor, GLenum dfactor);
 #else
 void glStateCacheColorMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
 #endif
-    
+
 #ifdef DISABLE_GL_STATE_CACHE
 #define glStateCacheDepthMask(flag) glDepthMask(flag)
 #else
 void glStateCacheDepthMask(GLboolean flag);
 #endif
-    
+
 #ifdef DISABLE_GL_STATE_CACHE
 #define glStateCachePixelStoreUnpackAlignment(param) glPixelStorei(GL_UNPACK_ALIGNMENT, param)
 #else

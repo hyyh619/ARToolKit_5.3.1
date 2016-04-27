@@ -48,27 +48,27 @@
 namespace cv
 { namespace gpu
   { namespace device
-                 {
+    {
     #if defined __CUDA_ARCH__ && __CUDA_ARCH__ >= 200
-                 // for Fermi memory space is detected automatically
-                 template<typename T> struct ForceGlob
-                 {
-                     __device__ __forceinline__ static void Load(const T *ptr, int offset, T&val)
-                     {
-                         val = ptr[offset];
-                     }
-                 };
+    // for Fermi memory space is detected automatically
+    template<typename T> struct ForceGlob
+    {
+        __device__ __forceinline__ static void Load(const T *ptr, int offset, T&val)
+        {
+            val = ptr[offset];
+        }
+    };
 
     #else   // __CUDA_ARCH__ >= 200
         #if defined(_WIN64) || defined(__LP64__)
-                 // 64-bit register modifier for inlined asm
+    // 64-bit register modifier for inlined asm
             #define OPENCV_GPU_ASM_PTR "l"
         #else
-                 // 32-bit register modifier for inlined asm
+    // 32-bit register modifier for inlined asm
             #define OPENCV_GPU_ASM_PTR "r"
         #endif
 
-                 template<class T> struct ForceGlob;
+    template<class T> struct ForceGlob;
 
         #define OPENCV_GPU_DEFINE_FORCE_GLOB(base_type, ptx_type, reg_mod)                                  \
     template<> struct ForceGlob<base_type>                                                                  \
@@ -87,19 +87,19 @@ namespace cv
         }                                                                                                                        \
     };
 
-                 OPENCV_GPU_DEFINE_FORCE_GLOB_B(uchar,  u8)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB_B(schar,  s8)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB_B(char,   b8)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB  (ushort, u16, h)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB  (short,  s16, h)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB  (uint,   u32, r)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB  (int,    s32, r)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB  (float,  f32, f)
-                 OPENCV_GPU_DEFINE_FORCE_GLOB  (double, f64, d)
+    OPENCV_GPU_DEFINE_FORCE_GLOB_B(uchar,  u8)
+    OPENCV_GPU_DEFINE_FORCE_GLOB_B(schar,  s8)
+    OPENCV_GPU_DEFINE_FORCE_GLOB_B(char,   b8)
+    OPENCV_GPU_DEFINE_FORCE_GLOB  (ushort, u16, h)
+    OPENCV_GPU_DEFINE_FORCE_GLOB  (short,  s16, h)
+    OPENCV_GPU_DEFINE_FORCE_GLOB  (uint,   u32, r)
+    OPENCV_GPU_DEFINE_FORCE_GLOB  (int,    s32, r)
+    OPENCV_GPU_DEFINE_FORCE_GLOB  (float,  f32, f)
+    OPENCV_GPU_DEFINE_FORCE_GLOB  (double, f64, d)
 
         #undef OPENCV_GPU_DEFINE_FORCE_GLOB
         #undef OPENCV_GPU_DEFINE_FORCE_GLOB_B
         #undef OPENCV_GPU_ASM_PTR
     #endif  // __CUDA_ARCH__ >= 200
-                 }}} // namespace cv { namespace gpu { namespace device
+    }}}              // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_DATAMOV_UTILS_HPP__

@@ -626,7 +626,6 @@ AR2VideoParamWinMFT* ar2VideoOpenWinMF(const char *config)
 
     if (changeFormat)
     {
-
         // Now look through native formats for a matching pixel formats and sizes.
         IMFMediaType *pType                = NULL;
         DWORD        dwPFMatchIndex        = -1;
@@ -806,9 +805,7 @@ AR2VideoParamWinMFT* ar2VideoOpenWinMF(const char *config)
                 ARLOGe("Error: IMFSourceReader::GetCurrentMediaType.\n");
                 goto bail3;
             }
-
         } // setType
-
     }
 
     ARLOGi("Video %dx%d (%s), rowBytes=%d.\n", vid->width, vid->height, arVideoUtilGetPixelFormatName(vid->format), vid->rowBytes);
@@ -1112,7 +1109,6 @@ CRITICAL_SECTION m_critsec;
 HANDLE           m_hEvent;
 BOOL             m_bEOS;
 HRESULT          m_hrStatus;
-
 };
 
 // Callback implementation.

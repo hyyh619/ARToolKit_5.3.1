@@ -37,15 +37,13 @@
 
 namespace cvflann
 {
-
 class FLANNException : public std::runtime_error
 {
 public:
-    FLANNException(const char* message) : std::runtime_error(message) { }
+FLANNException(const char *message) : std::runtime_error(message) { }
 
-    FLANNException(const std::string& message) : std::runtime_error(message) { }
+FLANNException(const std::string&message) : std::runtime_error(message) { }
 };
-
 }
 
 

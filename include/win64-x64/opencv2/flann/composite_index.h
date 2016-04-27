@@ -38,14 +38,13 @@
 
 namespace cvflann
 {
-
 /**
  * Index parameters for the CompositeIndex.
  */
 struct CompositeIndexParams : public IndexParams
 {
     CompositeIndexParams(int trees = 4, int branching = 32, int iterations = 11,
-                         flann_centers_init_t centers_init = FLANN_CENTERS_RANDOM, float cb_index = 0.2 )
+                         flann_centers_init_t centers_init = FLANN_CENTERS_RANDOM, float cb_index = 0.2)
     {
         (*this)["algorithm"] = FLANN_INDEX_KMEANS;
         // number of randomized trees to use (for kdtree)
@@ -67,128 +66,127 @@ struct CompositeIndexParams : public IndexParams
  * neighbour search both indexes. This gives a slight boost in search performance
  * as some of the neighbours that are missed by one index are found by the other.
  */
-template <typename Distance>
+template<typename Distance>
 class CompositeIndex : public NNIndex<Distance>
 {
 public:
-    typedef typename Distance::ElementType ElementType;
-    typedef typename Distance::ResultType DistanceType;
+typedef typename Distance::ElementType ElementType;
+typedef typename Distance::ResultType DistanceType;
 
-    /**
-     * Index constructor
-     * @param inputData dataset containing the points to index
-     * @param params Index parameters
-     * @param d Distance functor
-     * @return
-     */
-    CompositeIndex(const Matrix<ElementType>& inputData, const IndexParams& params = CompositeIndexParams(),
-                   Distance d = Distance()) : index_params_(params)
-    {
-        kdtree_index_ = new KDTreeIndex<Distance>(inputData, params, d);
-        kmeans_index_ = new KMeansIndex<Distance>(inputData, params, d);
-
-    }
-
-    CompositeIndex(const CompositeIndex&);
-    CompositeIndex& operator=(const CompositeIndex&);
-
-    virtual ~CompositeIndex()
-    {
-        delete kdtree_index_;
-        delete kmeans_index_;
-    }
-
-    /**
-     * @return The index type
-     */
-    flann_algorithm_t getType() const
-    {
-        return FLANN_INDEX_COMPOSITE;
-    }
-
-    /**
-     * @return Size of the index
-     */
-    size_t size() const
-    {
-        return kdtree_index_->size();
-    }
-
-    /**
-     * \returns The dimensionality of the features in this index.
-     */
-    size_t veclen() const
-    {
-        return kdtree_index_->veclen();
-    }
-
-    /**
-     * \returns The amount of memory (in bytes) used by the index.
-     */
-    int usedMemory() const
-    {
-        return kmeans_index_->usedMemory() + kdtree_index_->usedMemory();
-    }
-
-    /**
-     * \brief Builds the index
-     */
-    void buildIndex()
-    {
-        Logger::info("Building kmeans tree...\n");
-        kmeans_index_->buildIndex();
-        Logger::info("Building kdtree tree...\n");
-        kdtree_index_->buildIndex();
-    }
-
-    /**
-     * \brief Saves the index to a stream
-     * \param stream The stream to save the index to
-     */
-    void saveIndex(FILE* stream)
-    {
-        kmeans_index_->saveIndex(stream);
-        kdtree_index_->saveIndex(stream);
-    }
-
-    /**
-     * \brief Loads the index from a stream
-     * \param stream The stream from which the index is loaded
-     */
-    void loadIndex(FILE* stream)
-    {
-        kmeans_index_->loadIndex(stream);
-        kdtree_index_->loadIndex(stream);
-    }
-
-    /**
-     * \returns The index parameters
-     */
-    IndexParams getParameters() const
-    {
-        return index_params_;
-    }
-
-    /**
-     * \brief Method that searches for nearest-neighbours
-     */
-    void findNeighbors(ResultSet<DistanceType>& result, const ElementType* vec, const SearchParams& searchParams)
-    {
-        kmeans_index_->findNeighbors(result, vec, searchParams);
-        kdtree_index_->findNeighbors(result, vec, searchParams);
-    }
-
-private:
-    /** The k-means index */
-    KMeansIndex<Distance>* kmeans_index_;
-
-    /** The kd-tree index */
-    KDTreeIndex<Distance>* kdtree_index_;
-
-    /** The index parameters */
-    const IndexParams index_params_;
-};
-
+/**
+ * Index constructor
+ * @param inputData dataset containing the points to index
+ * @param params Index parameters
+ * @param d Distance functor
+ * @return
+ */
+CompositeIndex(const Matrix<ElementType>&inputData, const IndexParams&params = CompositeIndexParams(),
+               Distance d = Distance()) : index_params_(params)
+{
+    kdtree_index_ = new KDTreeIndex<Distance>(inputData, params, d);
+    kmeans_index_ = new KMeansIndex<Distance>(inputData, params, d);
 }
 
-#endif //OPENCV_FLANN_COMPOSITE_INDEX_H_
+CompositeIndex(const CompositeIndex&);
+CompositeIndex&operator=(const CompositeIndex&);
+
+virtual ~CompositeIndex()
+{
+    delete kdtree_index_;
+    delete kmeans_index_;
+}
+
+/**
+ * @return The index type
+ */
+flann_algorithm_t getType() const
+{
+    return FLANN_INDEX_COMPOSITE;
+}
+
+/**
+ * @return Size of the index
+ */
+size_t size() const
+{
+    return kdtree_index_->size();
+}
+
+/**
+ * \returns The dimensionality of the features in this index.
+ */
+size_t veclen() const
+{
+    return kdtree_index_->veclen();
+}
+
+/**
+ * \returns The amount of memory (in bytes) used by the index.
+ */
+int usedMemory() const
+{
+    return kmeans_index_->usedMemory() + kdtree_index_->usedMemory();
+}
+
+/**
+ * \brief Builds the index
+ */
+void buildIndex()
+{
+    Logger::info("Building kmeans tree...\n");
+
+    kmeans_index_->buildIndex();
+    Logger::info("Building kdtree tree...\n");
+    kdtree_index_->buildIndex();
+}
+
+/**
+ * \brief Saves the index to a stream
+ * \param stream The stream to save the index to
+ */
+void saveIndex(FILE *stream)
+{
+    kmeans_index_->saveIndex(stream);
+    kdtree_index_->saveIndex(stream);
+}
+
+/**
+ * \brief Loads the index from a stream
+ * \param stream The stream from which the index is loaded
+ */
+void loadIndex(FILE *stream)
+{
+    kmeans_index_->loadIndex(stream);
+    kdtree_index_->loadIndex(stream);
+}
+
+/**
+ * \returns The index parameters
+ */
+IndexParams getParameters() const
+{
+    return index_params_;
+}
+
+/**
+ * \brief Method that searches for nearest-neighbours
+ */
+void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+{
+    kmeans_index_->findNeighbors(result, vec, searchParams);
+    kdtree_index_->findNeighbors(result, vec, searchParams);
+}
+
+private:
+/** The k-means index */
+KMeansIndex<Distance> *kmeans_index_;
+
+/** The kd-tree index */
+KDTreeIndex<Distance> *kdtree_index_;
+
+/** The index parameters */
+const IndexParams index_params_;
+};
+}
+
+#endif // OPENCV_FLANN_COMPOSITE_INDEX_H_

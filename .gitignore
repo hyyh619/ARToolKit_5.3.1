@@ -36,6 +36,7 @@ ctags.files
 *.idb
 AR*.dll
 AR*.lib
+KPM*.lib
 *.exe
 *.xml
 *.txt

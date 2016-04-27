@@ -222,10 +222,10 @@ inline void assert_fail(const char *condition, const char *function, const char 
 }
 }
 }
-    #define eigen_plain_assert(x)                                                                        \
-    do {                                                                                                 \
-        if (!Eigen::internal::copy_bool(x))                                                              \
-            Eigen::internal::assert_fail(EIGEN_MAKESTRING(x), __PRETTY_FUNCTION__, __FILE__, __LINE__);  \
+    #define eigen_plain_assert(x)                                                                       \
+    do {                                                                                                \
+        if (!Eigen::internal::copy_bool(x))                                                             \
+            Eigen::internal::assert_fail(EIGEN_MAKESTRING(x), __PRETTY_FUNCTION__, __FILE__, __LINE__); \
     } while (false)
   #endif
 #endif

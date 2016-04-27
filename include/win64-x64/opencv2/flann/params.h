@@ -38,12 +38,11 @@
 
 namespace cvflann
 {
-
 typedef std::map<std::string, any> IndexParams;
 
 struct SearchParams : public IndexParams
 {
-    SearchParams(int checks = 32, float eps = 0, bool sorted = true )
+    SearchParams(int checks = 32, float eps = 0, bool sorted = true)
     {
         // how many leafs to visit when searching for neighbours (-1 for unlimited)
         (*this)["checks"] = checks;
@@ -56,43 +55,49 @@ struct SearchParams : public IndexParams
 
 
 template<typename T>
-T get_param(const IndexParams& params, std::string name, const T& default_value)
+T get_param(const IndexParams&params, std::string name, const T&default_value)
 {
     IndexParams::const_iterator it = params.find(name);
-    if (it != params.end()) {
+
+    if (it != params.end())
+    {
         return it->second.cast<T>();
     }
-    else {
+    else
+    {
         return default_value;
     }
 }
 
 template<typename T>
-T get_param(const IndexParams& params, std::string name)
+T get_param(const IndexParams&params, std::string name)
 {
     IndexParams::const_iterator it = params.find(name);
-    if (it != params.end()) {
+
+    if (it != params.end())
+    {
         return it->second.cast<T>();
     }
-    else {
-        throw FLANNException(std::string("Missing parameter '")+name+std::string("' in the parameters given"));
+    else
+    {
+        throw FLANNException(std::string("Missing parameter '") + name + std::string("' in the parameters given"));
     }
 }
 
-inline void print_params(const IndexParams& params, std::ostream& stream)
+inline void print_params(const IndexParams&params, std::ostream&stream)
 {
     IndexParams::const_iterator it;
 
-    for(it=params.begin(); it!=params.end(); ++it) {
+    for (it = params.begin(); it != params.end(); ++it)
+    {
         stream << it->first << " : " << it->second << std::endl;
     }
 }
 
-inline void print_params(const IndexParams& params)
+inline void print_params(const IndexParams&params)
 {
     print_params(params, std::cout);
 }
-
 }
 
 

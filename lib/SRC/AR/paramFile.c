@@ -397,7 +397,7 @@ int arParamLoad(const char *filename, int num, ARParam *param, ...)
         }
 
         param_wasRead.dist_function_version = dist_function_version;
-        
+
 #ifdef AR_LITTLE_ENDIAN
         byteswap(&param_wasRead);
 #endif

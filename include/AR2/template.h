@@ -93,18 +93,18 @@ int            ar2FreeTemplate(AR2TemplateT  *templ);
 int            ar2FreeTemplate2(AR2Template2T *templ2);
 
 int ar2SetTemplateSub(const ARParamLT *cparamLT, const float trans[3][4], AR2ImageSetT *imageSet,
-                       AR2FeaturePointsT * featurePoints, int num, int blurLevel,
-                       AR2TemplateT * templ);
+                      AR2FeaturePointsT *featurePoints, int num, int blurLevel,
+                      AR2TemplateT *templ);
 int ar2SetTemplate2Sub(const ARParamLT *cparamLT, const float trans[3][4], AR2ImageSetT *imageSet,
-                       AR2FeaturePointsT * featurePoints, int num, int blurLevel,
-                       AR2Template2T * templ2);
+                       AR2FeaturePointsT *featurePoints, int num, int blurLevel,
+                       AR2Template2T *templ2);
 #else
 AR2TemplateT* ar2GenTemplate(int ts1, int ts2);
 int            ar2FreeTemplate(AR2TemplateT  *templ);
 
 int ar2SetTemplateSub(const ARParamLT *cparamLT, const float trans[3][4], AR2ImageSetT *imageSet,
-                       AR2FeaturePointsT * featurePoints, int num,
-                       AR2TemplateT * templ);
+                      AR2FeaturePointsT *featurePoints, int num,
+                      AR2TemplateT *templ);
 #endif
 
 
