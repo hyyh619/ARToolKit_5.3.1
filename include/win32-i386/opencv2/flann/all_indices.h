@@ -170,5 +170,4 @@ NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementT
                          Distance>::create(dataset, params, distance);
 }
 }
-
 #endif /* OPENCV_FLANN_ALL_INDICES_H_ */

@@ -106,5 +106,4 @@ int              size_; // narrow band size
 } // namespace cv
 
 #include "fast_marching_inl.hpp"
-
 #endif

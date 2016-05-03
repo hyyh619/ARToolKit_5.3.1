@@ -60,5 +60,4 @@ struct StreamAccessor
 };
 }
 }
-
 #endif /* __OPENCV_GPU_STREAM_ACCESSOR_HPP__ */

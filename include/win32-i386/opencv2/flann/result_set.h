@@ -566,5 +566,4 @@ unsigned int capacity_;
 DistanceType radius_;
 };
 }
-
 #endif // OPENCV_FLANN_RESULTSET_H

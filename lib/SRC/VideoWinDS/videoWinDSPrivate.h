@@ -122,5 +122,4 @@ typedef struct
     int               showPropertiesFlag;
     int               devNum;
 } AR2VideoParamWinDS2T;
-
 #endif

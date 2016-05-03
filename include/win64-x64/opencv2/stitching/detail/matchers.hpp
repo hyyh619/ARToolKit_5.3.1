@@ -192,5 +192,4 @@ Ptr<FeaturesMatcher> impl_;
 };
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_MATCHERS_HPP__

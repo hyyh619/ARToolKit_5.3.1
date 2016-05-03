@@ -228,5 +228,4 @@ using cv::gpu::PtrStepi;
 }
 }
 #endif // __cplusplus
-
 #endif /* __OPENCV_CORE_DEVPTRS_HPP__ */

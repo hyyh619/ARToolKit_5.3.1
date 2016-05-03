@@ -59,7 +59,6 @@
 #include "opencv2/legacy/compat.hpp"
 #include "opencv2/legacy/blobtrack.hpp"
 #include "opencv2/contrib/contrib.hpp"
-
 #endif
 
 /* End of file. */

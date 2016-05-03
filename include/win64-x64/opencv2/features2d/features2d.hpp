@@ -1619,7 +1619,6 @@ Ptr<DescriptorMatcher>   dmatcher;
 };
 } /* namespace cv */
 #endif /* __cplusplus */
-
 #endif
 
 /* End of file. */

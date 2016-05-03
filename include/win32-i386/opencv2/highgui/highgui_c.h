@@ -645,5 +645,4 @@ CVAPI(void) cvSetPostprocessFuncWin32_(const void *callback);
 #ifdef __cplusplus
 }
 #endif
-
 #endif

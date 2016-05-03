@@ -55,7 +55,7 @@ using namespace Windows::System::Threading;
 
 int arCreateDetachedThreadWinRT(void*(*start_routine)(THREAD_HANDLE_T*), THREAD_HANDLE_T *flag)
 {
-    auto workItemHandler = ref new WorkItemHandler([ = ] (IAsyncAction^)
+    auto workItemHandler = ref new WorkItemHandler([ = ] (IAsyncAction ^)
     {
         // Run the user callback.
         try

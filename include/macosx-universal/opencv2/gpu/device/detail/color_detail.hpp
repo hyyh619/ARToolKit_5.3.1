@@ -163,7 +163,8 @@ namespace cv
         static __host__ __device__ __forceinline__ functor_type create_functor()          \
         {                                                                                 \
             return functor_type();                                                        \
-        }};
+        }                                                                                 \
+    };
 
 /////////// Transforming 16-bit (565 or 555) RGB to/from 24/32-bit (888[8]) RGB //////////
 
@@ -1116,7 +1117,10 @@ namespace cv
 
     namespace color_detail
     {
-    __constant__ int c_HsvSectorData[6][3] = { {1, 3, 0}, {1, 0, 2}, {3, 0, 1}, {0, 2, 1}, {0, 1, 3}, {2, 1, 0} };
+    __constant__ int c_HsvSectorData[6][3] =
+    {
+        {1, 3, 0}, {1, 0, 2}, {3, 0, 1}, {0, 2, 1}, {0, 1, 3}, {2, 1, 0}
+    };
 
     template<int bidx, int hr, typename T> static __device__ void HSV2RGBConvert(const T&src, float *dst)
     {
@@ -1394,7 +1398,10 @@ namespace cv
 
     namespace color_detail
     {
-    __constant__ int c_HlsSectorData[6][3] = { {1, 3, 0}, {1, 0, 2}, {3, 0, 1}, {0, 2, 1}, {0, 1, 3}, {2, 1, 0} };
+    __constant__ int c_HlsSectorData[6][3] =
+    {
+        {1, 3, 0}, {1, 0, 2}, {3, 0, 1}, {0, 2, 1}, {0, 1, 3}, {2, 1, 0}
+    };
 
     template<int bidx, int hr, typename T> static __device__ void HLS2RGBConvert(const T&src, float *dst)
     {
@@ -1999,5 +2006,7 @@ namespace cv
     };
 
     #undef CV_DESCALE
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_COLOR_DETAIL_HPP__

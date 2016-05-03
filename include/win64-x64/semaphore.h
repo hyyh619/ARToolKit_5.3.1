@@ -165,5 +165,4 @@ PTW32_DLLPORT int __cdecl sem_getvalue(sem_t *sem,
 
 #undef PTW32_SEMAPHORE_LEVEL
 #undef PTW32_SEMAPHORE_LEVEL_MAX
-
 #endif                          /* !SEMAPHORE_H */

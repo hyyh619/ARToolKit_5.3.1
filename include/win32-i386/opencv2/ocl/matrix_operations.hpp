@@ -494,5 +494,4 @@ inline void ensureSizeIsEnough(Size size, int type, oclMat&m)
 }
 }     /* end of namespace ocl */
 } /* end of namespace cv */
-
 #endif /* __OPENCV_OCL_MATRIX_OPERATIONS_HPP__ */

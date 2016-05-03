@@ -430,5 +430,4 @@ inline void GlTexture::create(Size _size, int _type)
 }
 } // namespace cv
 #endif // __cplusplus
-
 #endif // __OPENCV_OPENGL_INTEROP_DEPRECATED_HPP__

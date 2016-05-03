@@ -432,5 +432,4 @@ std::vector<lsh::BucketKey> xor_masks_;
 Distance distance_;
 };
 }
-
 #endif // OPENCV_FLANN_LSH_INDEX_H_

@@ -503,5 +503,4 @@ FLANN_DEPRECATED int hierarchicalClustering(const Mat&features, Mat&centers, con
 }
 }   // namespace cv::flann
 #endif // __cplusplus
-
 #endif

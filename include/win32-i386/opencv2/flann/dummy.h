@@ -9,6 +9,4 @@ __declspec(dllexport)
 #endif
 void dummyfunc();
 }
-
-
 #endif  /* OPENCV_FLANN_DUMMY_H_ */

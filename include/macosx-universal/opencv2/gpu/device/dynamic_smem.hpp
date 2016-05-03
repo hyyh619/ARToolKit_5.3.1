@@ -81,5 +81,7 @@ namespace cv
             return (double*)__smem_d;
         }
     };
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_DYNAMIC_SMEM_HPP__

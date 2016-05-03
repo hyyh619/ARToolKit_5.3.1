@@ -78,5 +78,4 @@
 #if defined(__cplusplus)
 #include "opencv2/core/internal.hpp"
 #endif // __cplusplus
-
 #endif // __OPENCV_OLD_CV_H_

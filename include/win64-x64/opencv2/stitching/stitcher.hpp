@@ -276,5 +276,4 @@ double                              seam_work_aspect_;
 double                              warped_image_scale_;
 };
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_STITCHER_HPP__

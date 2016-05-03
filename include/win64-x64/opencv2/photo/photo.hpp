@@ -84,5 +84,4 @@ CV_EXPORTS_W void fastNlMeansDenoisingColoredMulti(InputArrayOfArrays srcImgs, O
                                                    int templateWindowSize = 7, int searchWindowSize = 21);
 }
 #endif // __cplusplus
-
 #endif

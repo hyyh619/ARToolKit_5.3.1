@@ -906,5 +906,7 @@ namespace cv
 
         return r;
     }
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_SIMD_FUNCTIONS_HPP__

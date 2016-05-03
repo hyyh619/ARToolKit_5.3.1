@@ -155,5 +155,4 @@ void                       *index;
 }
 }   // namespace cv::flann
 #endif // __cplusplus
-
 #endif

@@ -735,5 +735,4 @@ PooledAllocator pool_;
 Distance distance_;
 };   // class KDTree
 }
-
 #endif // OPENCV_FLANN_KDTREE_SINGLE_INDEX_H_

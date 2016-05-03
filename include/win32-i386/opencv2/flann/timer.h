@@ -87,5 +87,4 @@ void reset()
 }
 };
 }
-
 #endif // FLANN_TIMER_H

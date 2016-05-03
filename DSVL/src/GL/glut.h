@@ -723,5 +723,4 @@ GLUTAPI int APIENTRY glutGameModeGet(GLenum mode);
 # undef GLUT_DEFINED__CRTIMP
 # undef _CRTIMP
 #endif
-
 #endif                  /* __glut_h__ */

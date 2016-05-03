@@ -271,5 +271,7 @@ namespace cv
             return warpScanInclusive(idata, s_Data, tid);
         }
     }
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_SCAN_HPP__

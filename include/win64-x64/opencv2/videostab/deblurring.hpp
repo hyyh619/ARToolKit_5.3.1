@@ -134,5 +134,4 @@ Mat_<float> bSum_, gSum_, rSum_, wSum_;
 };
 }   // namespace videostab
 } // namespace cv
-
 #endif

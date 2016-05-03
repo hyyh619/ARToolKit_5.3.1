@@ -1022,7 +1022,6 @@ CV_EXPORTS void cvTestSeqAddNoise(CvTestSeq *pTestSeq, int noise_type = CV_NOISE
 /* Add Intensity variation: */
 CV_EXPORTS void cvTestSeqAddIntensityVariation(CvTestSeq *pTestSeq, float DI_per_frame, float MinI, float MaxI);
 CV_EXPORTS void cvTestSeqSetFrame(CvTestSeq *pTestSeq, int n);
-
 #endif
 
 /* End of file. */

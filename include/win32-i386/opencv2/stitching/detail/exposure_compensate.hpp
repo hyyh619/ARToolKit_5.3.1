@@ -102,5 +102,4 @@ std::vector<Mat_<float> > gain_maps_;
 };
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_EXPOSURE_COMPENSATE_HPP__

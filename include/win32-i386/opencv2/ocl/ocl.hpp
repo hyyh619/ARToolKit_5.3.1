@@ -1977,5 +1977,4 @@ void create_solver();
 #if defined _MSC_VER && _MSC_VER >= 1200
 #  pragma warning( pop)
 #endif
-
 #endif /* __OPENCV_OCL_HPP__ */

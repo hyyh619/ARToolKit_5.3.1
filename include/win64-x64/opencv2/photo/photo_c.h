@@ -65,5 +65,4 @@ CVAPI(void) cvInpaint(const CvArr * src, const CvArr * inpaint_mask,
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
 #endif // __OPENCV_PHOTO_C_H__

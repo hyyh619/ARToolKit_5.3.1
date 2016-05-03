@@ -348,5 +348,4 @@ void test_index_precisions(NNIndex<Distance>&index, const Matrix<typename Distan
     }
 }
 }
-
 #endif // OPENCV_FLANN_INDEX_TESTING_H_

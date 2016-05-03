@@ -48,98 +48,99 @@
 namespace cv
 { namespace gpu
   { namespace device
-                 {
-                 struct Emulation
-                 {
-                     static __device__ __forceinline__ int syncthreadsOr(int pred)
-                     {
+    {
+    struct Emulation
+    {
+        static __device__ __forceinline__ int syncthreadsOr(int pred)
+        {
 #if defined (__CUDA_ARCH__) && (__CUDA_ARCH__ < 200)
-                         // just campilation stab
-                         return 0;
+            // just campilation stab
+            return 0;
 #else
-                         return __syncthreads_or(pred);
+            return __syncthreads_or(pred);
 #endif
-                     }
+        }
 
-                     template<int CTA_SIZE>
-                     static __forceinline__ __device__ int Ballot(int predicate)
-                     {
+        template<int CTA_SIZE>
+        static __forceinline__ __device__ int Ballot(int predicate)
+        {
 #if defined (__CUDA_ARCH__) && (__CUDA_ARCH__ >= 200)
-                         return __ballot(predicate);
+            return __ballot(predicate);
 #else
-                         __shared__ volatile int cta_buffer[CTA_SIZE];
+            __shared__ volatile int cta_buffer[CTA_SIZE];
 
-                         int tid = threadIdx.x;
-                         cta_buffer[tid] = predicate ? (1 << (tid & 31)) : 0;
-                         return warp_reduce(cta_buffer);
+            int tid = threadIdx.x;
+            cta_buffer[tid] = predicate ? (1 << (tid & 31)) : 0;
+            return warp_reduce(cta_buffer);
 #endif
-                     }
+        }
 
-                     struct smem
-                     {
-                         enum { TAG_MASK = (1U << ((sizeof(unsigned int) << 3) - 5U)) - 1U };
+        struct smem
+        {
+            enum { TAG_MASK = (1U << ((sizeof(unsigned int) << 3) - 5U)) - 1U };
 
-                         template<typename T>
-                         static __device__ __forceinline__ T atomicInc(T *address, T val)
-                         {
+            template<typename T>
+            static __device__ __forceinline__ T atomicInc(T *address, T val)
+            {
 #if defined (__CUDA_ARCH__) && (__CUDA_ARCH__ < 120)
-                             T            count;
-                             unsigned int tag = threadIdx.x << ((sizeof(unsigned int) << 3) - 5U);
+                T            count;
+                unsigned int tag = threadIdx.x << ((sizeof(unsigned int) << 3) - 5U);
 
-                             do
-                             {
-                                 count = *address & TAG_MASK;
-                                 count = tag | (count + 1);
-                                 *address = count;
-                             }
-                             while (*address != count);
+                do
+                {
+                    count = *address & TAG_MASK;
+                    count = tag | (count + 1);
+                    *address = count;
+                }
+                while (*address != count);
 
-                             return (count & TAG_MASK) - 1;
+                return (count & TAG_MASK) - 1;
 #else
-                             return ::atomicInc(address, val);
+                return ::atomicInc(address, val);
 #endif
-                         }
+            }
 
-                         template<typename T>
-                         static __device__ __forceinline__ T atomicAdd(T *address, T val)
-                         {
+            template<typename T>
+            static __device__ __forceinline__ T atomicAdd(T *address, T val)
+            {
 #if defined (__CUDA_ARCH__) && (__CUDA_ARCH__ < 120)
-                             T            count;
-                             unsigned int tag = threadIdx.x << ((sizeof(unsigned int) << 3) - 5U);
+                T            count;
+                unsigned int tag = threadIdx.x << ((sizeof(unsigned int) << 3) - 5U);
 
-                             do
-                             {
-                                 count = *address & TAG_MASK;
-                                 count = tag | (count + val);
-                                 *address = count;
-                             }
-                             while (*address != count);
+                do
+                {
+                    count = *address & TAG_MASK;
+                    count = tag | (count + val);
+                    *address = count;
+                }
+                while (*address != count);
 
-                             return (count & TAG_MASK) - val;
+                return (count & TAG_MASK) - val;
 #else
-                             return ::atomicAdd(address, val);
+                return ::atomicAdd(address, val);
 #endif
-                         }
+            }
 
-                         template<typename T>
-                         static __device__ __forceinline__ T atomicMin(T *address, T val)
-                         {
+            template<typename T>
+            static __device__ __forceinline__ T atomicMin(T *address, T val)
+            {
 #if defined (__CUDA_ARCH__) && (__CUDA_ARCH__ < 120)
-                             T count = ::min(*address, val);
+                T count = ::min(*address, val);
 
-                             do
-                             {
-                                 *address = count;
-                             }
-                             while (*address > count);
+                do
+                {
+                    *address = count;
+                }
+                while (*address > count);
 
-                             return count;
+                return count;
 #else
-                             return ::atomicMin(address, val);
+                return ::atomicMin(address, val);
 #endif
-                         }
-                     };
-                 };
-                 }}} // namespace cv { namespace gpu { namespace device
-
+            }
+        };
+    };
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif /* OPENCV_GPU_EMULATION_HPP_ */

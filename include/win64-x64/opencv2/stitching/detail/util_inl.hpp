@@ -135,5 +135,4 @@ static inline double sqr(double x)
 }
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_UTIL_INL_HPP__

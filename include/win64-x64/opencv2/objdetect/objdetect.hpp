@@ -1080,5 +1080,4 @@ CV_EXPORTS Ptr<Detector> getDefaultLINEMOD();
 }   // namespace linemod
 } // namespace cv
 #endif
-
 #endif

@@ -13142,5 +13142,4 @@ typedef void (APIENTRYP PFNGLDRAWTEXTURENVPROC)(GLuint texture, GLuint sampler, 
 #ifdef __cplusplus
 }
 #endif
-
 #endif

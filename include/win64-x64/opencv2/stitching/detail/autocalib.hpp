@@ -61,5 +61,4 @@ void CV_EXPORTS estimateFocal(const std::vector<ImageFeatures>&features,
 bool CV_EXPORTS calibrateRotatingCamera(const std::vector<Mat>&Hs, Mat&K);
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_AUTOCALIB_HPP__

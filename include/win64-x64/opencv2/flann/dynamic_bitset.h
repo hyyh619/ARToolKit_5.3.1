@@ -152,5 +152,4 @@ static const unsigned int cell_bit_size_ = CHAR_BIT * sizeof(size_t);
 };
 } // namespace cvflann
 #endif
-
 #endif // OPENCV_FLANN_DYNAMIC_BITSET_H_

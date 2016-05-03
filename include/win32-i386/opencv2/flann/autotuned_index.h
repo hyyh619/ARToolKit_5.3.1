@@ -605,5 +605,4 @@ float sample_fraction_;
 Distance distance_;
 };
 }
-
 #endif /* OPENCV_FLANN_AUTOTUNED_INDEX_H_ */

@@ -45,6 +45,4 @@ FLANNException(const char *message) : std::runtime_error(message) { }
 FLANNException(const std::string&message) : std::runtime_error(message) { }
 };
 }
-
-
 #endif  /* OPENCV_FLANN_GENERAL_H_ */

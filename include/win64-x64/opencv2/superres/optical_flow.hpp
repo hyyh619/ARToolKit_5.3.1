@@ -72,5 +72,4 @@ CV_EXPORTS Ptr<DenseOpticalFlowExt> createOptFlow_PyrLK_GPU();
 CV_EXPORTS Ptr<DenseOpticalFlowExt> createOptFlow_PyrLK_OCL();
 }
 }
-
 #endif // __OPENCV_SUPERRES_OPTICAL_FLOW_HPP__

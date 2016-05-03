@@ -1173,5 +1173,4 @@ struct jpeg_color_quantizer { long dummy; };
 }
 #endif
 #endif
-
 #endif /* JPEGLIB_H */

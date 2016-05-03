@@ -180,5 +180,4 @@ extern uint64_t    android_getCpuFeatures(void);
 extern int         android_getCpuCount(void);
 
 __END_DECLS
-
 #endif /* CPU_FEATURES_H */

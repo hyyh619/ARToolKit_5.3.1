@@ -126,5 +126,4 @@ IndexParams index_params_;
 Distance distance_;
 };
 }
-
 #endif // OPENCV_FLANN_LINEAR_INDEX_H_

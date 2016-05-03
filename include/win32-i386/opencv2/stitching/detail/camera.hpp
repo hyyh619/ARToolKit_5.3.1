@@ -65,5 +65,4 @@ struct CV_EXPORTS CameraParams
 };
 }   // namespace detail
 } // namespace cv
-
 #endif // #ifndef __OPENCV_STITCHING_CAMERA_HPP__

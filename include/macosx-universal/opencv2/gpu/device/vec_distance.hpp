@@ -224,5 +224,7 @@ namespace cv
 
         U vec1Vals[MAX_LEN / THREAD_DIM];
     };
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_VEC_DISTANCE_HPP__

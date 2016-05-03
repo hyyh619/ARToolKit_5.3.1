@@ -1728,5 +1728,4 @@ TiXmlNode *node;
 #pragma warning( default : 4530 )
 #pragma warning( default : 4786 )
 #endif
-
 #endif

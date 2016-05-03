@@ -94,8 +94,8 @@ SelfAdjointView<MatrixType, UpLo>&SelfAdjointView<MatrixType, UpLo>
         actualAlpha = internal::conj(actualAlpha);
 
     internal::selfadjoint_rank2_update_selector<Scalar, Index,
-                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor^UBlasTraits::NeedToConjugate, _ActualUType>::type>::type,
-                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor^VBlasTraits::NeedToConjugate, _ActualVType>::type>::type,
+                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor ^ UBlasTraits::NeedToConjugate, _ActualUType>::type>::type,
+                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor ^ VBlasTraits::NeedToConjugate, _ActualVType>::type>::type,
                                                 (IsRowMajor ? int(UpLo == Upper ? Lower : Upper) : UpLo)>
     ::run(_expression().const_cast_derived().data(), _expression().outerStride(), actualU, actualV, actualAlpha);
 

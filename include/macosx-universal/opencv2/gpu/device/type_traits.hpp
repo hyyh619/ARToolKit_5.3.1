@@ -79,5 +79,7 @@ namespace cv
         typedef typename type_traits_detail::Select<IsSimpleParameter<UnqualifiedType>::value,
                                                     T, typename type_traits_detail::AddParameterType<T>::type>::type ParameterType;
     };
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_TYPE_TRAITS_HPP__

@@ -849,5 +849,4 @@ flann_centers_init_t centers_init_;
 int                  leaf_size_;
 };
 }
-
 #endif /* OPENCV_FLANN_HIERARCHICAL_CLUSTERING_INDEX_H_ */

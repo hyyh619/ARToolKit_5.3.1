@@ -61,8 +61,8 @@ namespace cv
       __OPENCV_GPU_HOST_DEVICE__ static void check() {};
   };
   }
-  }}
+  }
+}
 
 #undef __OPENCV_GPU_HOST_DEVICE__
-
 #endif /* __OPENCV_GPU_GPU_DEVICE_STATIC_CHECK_HPP__ */

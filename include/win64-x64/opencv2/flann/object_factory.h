@@ -87,5 +87,4 @@ private:
 ObjectRegistry object_registry;
 };
 }
-
 #endif /* OPENCV_FLANN_OBJECT_FACTORY_H_ */

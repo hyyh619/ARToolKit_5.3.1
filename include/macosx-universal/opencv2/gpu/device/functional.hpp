@@ -306,7 +306,8 @@ namespace cv
         __device__ __forceinline__ type operator()(type lhs, type rhs) const {return op(lhs, rhs); \
         }                                                                                          \
         __host__ __device__ __forceinline__ name() {}                                              \
-        __host__ __device__ __forceinline__ name(const name &) {}};
+        __host__ __device__ __forceinline__ name(const name &) {}                                  \
+    };
 
     template<typename T> struct maximum : binary_function<T, T, T>
     {
@@ -795,5 +796,7 @@ namespace cv
 
 #define OPENCV_GPU_TRANSFORM_FUNCTOR_TRAITS(type) \
     template<> struct TransformFunctorTraits<type> : DefaultTransformFunctorTraits < type >
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_FUNCTIONAL_HPP__

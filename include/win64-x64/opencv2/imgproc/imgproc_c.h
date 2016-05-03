@@ -619,5 +619,4 @@ CVAPI(void)  cvFitLine(const CvArr * points, int dist_type, double param,
 #ifdef __cplusplus
 }
 #endif
-
 #endif

@@ -303,5 +303,7 @@ namespace cv
             }
         }
     };
-    }}}
+    }
+  }
+}
 #endif /* __OPENCV_GPU_DEVICE_BLOCK_HPP__ */

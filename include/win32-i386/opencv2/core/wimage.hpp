@@ -715,5 +715,4 @@ WImageViewC<T, C> WImageC<T, C>::View(int c, int r, int width, int height)
 }
 }  // end of namespace
 #endif // __cplusplus
-
 #endif

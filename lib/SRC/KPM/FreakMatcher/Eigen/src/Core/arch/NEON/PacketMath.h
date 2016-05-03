@@ -54,8 +54,12 @@ typedef uint32x4_t Packet4ui;
 
 #if defined(__llvm__) && !defined(__clang__)
 // Special treatment for Apple's llvm-gcc, its NEON packet types are unions
-  #define EIGEN_INIT_NEON_PACKET2(X, Y)       {{X, Y}}
-  #define EIGEN_INIT_NEON_PACKET4(X, Y, Z, W) {{X, Y, Z, W}}
+  #define EIGEN_INIT_NEON_PACKET2(X, Y)       { \
+        {X, Y}                                  \
+}
+  #define EIGEN_INIT_NEON_PACKET4(X, Y, Z, W) { \
+        {X, Y, Z, W}                            \
+}
 #else
 // Default initializer for packets
   #define EIGEN_INIT_NEON_PACKET2(X, Y)       {X, Y}

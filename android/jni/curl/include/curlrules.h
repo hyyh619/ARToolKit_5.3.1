@@ -1,26 +1,26 @@
 #ifndef __CURL_CURLRULES_H
 #define __CURL_CURLRULES_H
 /***************************************************************************
- *                                  _   _ ____  _
- *  Project                     ___| | | |  _ \| |
- *                             / __| | | | |_) | |
- *                            | (__| |_| |  _ <| |___
- *                             \___|\___/|_| \_\_____|
- *
- * Copyright (C) 1998 - 2012, Daniel Stenberg, <daniel@haxx.se>, et al.
- *
- * This software is licensed as described in the file COPYING, which
- * you should have received as part of this distribution. The terms
- * are also available at http://curl.haxx.se/docs/copyright.html.
- *
- * You may opt to use, copy, modify, merge, publish, distribute and/or sell
- * copies of the Software, and permit persons to whom the Software is
- * furnished to do so, under the terms of the COPYING file.
- *
- * This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY
- * KIND, either express or implied.
- *
- ***************************************************************************/
+*                                  _   _ ____  _
+*  Project                     ___| | | |  _ \| |
+*                             / __| | | | |_) | |
+*                            | (__| |_| |  _ <| |___
+*                             \___|\___/|_| \_\_____|
+*
+* Copyright (C) 1998 - 2012, Daniel Stenberg, <daniel@haxx.se>, et al.
+*
+* This software is licensed as described in the file COPYING, which
+* you should have received as part of this distribution. The terms
+* are also available at http://curl.haxx.se/docs/copyright.html.
+*
+* You may opt to use, copy, modify, merge, publish, distribute and/or sell
+* copies of the Software, and permit persons to whom the Software is
+* furnished to do so, under the terms of the COPYING file.
+*
+* This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY
+* KIND, either express or implied.
+*
+***************************************************************************/
 
 /* ================================================================ */
 /*                    COMPILE TIME SANITY CHECKS                    */
@@ -77,52 +77,52 @@
 
 #ifndef CURL_SIZEOF_LONG
 #  error "CURL_SIZEOF_LONG definition is missing!"
-   Error Compilation_aborted_CURL_SIZEOF_LONG_is_missing
+Error Compilation_aborted_CURL_SIZEOF_LONG_is_missing
 #endif
 
 #ifndef CURL_TYPEOF_CURL_SOCKLEN_T
 #  error "CURL_TYPEOF_CURL_SOCKLEN_T definition is missing!"
-   Error Compilation_aborted_CURL_TYPEOF_CURL_SOCKLEN_T_is_missing
+Error Compilation_aborted_CURL_TYPEOF_CURL_SOCKLEN_T_is_missing
 #endif
 
 #ifndef CURL_SIZEOF_CURL_SOCKLEN_T
 #  error "CURL_SIZEOF_CURL_SOCKLEN_T definition is missing!"
-   Error Compilation_aborted_CURL_SIZEOF_CURL_SOCKLEN_T_is_missing
+Error Compilation_aborted_CURL_SIZEOF_CURL_SOCKLEN_T_is_missing
 #endif
 
 #ifndef CURL_TYPEOF_CURL_OFF_T
 #  error "CURL_TYPEOF_CURL_OFF_T definition is missing!"
-   Error Compilation_aborted_CURL_TYPEOF_CURL_OFF_T_is_missing
+Error Compilation_aborted_CURL_TYPEOF_CURL_OFF_T_is_missing
 #endif
 
 #ifndef CURL_FORMAT_CURL_OFF_T
 #  error "CURL_FORMAT_CURL_OFF_T definition is missing!"
-   Error Compilation_aborted_CURL_FORMAT_CURL_OFF_T_is_missing
+Error Compilation_aborted_CURL_FORMAT_CURL_OFF_T_is_missing
 #endif
 
 #ifndef CURL_FORMAT_CURL_OFF_TU
 #  error "CURL_FORMAT_CURL_OFF_TU definition is missing!"
-   Error Compilation_aborted_CURL_FORMAT_CURL_OFF_TU_is_missing
+Error Compilation_aborted_CURL_FORMAT_CURL_OFF_TU_is_missing
 #endif
 
 #ifndef CURL_FORMAT_OFF_T
 #  error "CURL_FORMAT_OFF_T definition is missing!"
-   Error Compilation_aborted_CURL_FORMAT_OFF_T_is_missing
+Error Compilation_aborted_CURL_FORMAT_OFF_T_is_missing
 #endif
 
 #ifndef CURL_SIZEOF_CURL_OFF_T
 #  error "CURL_SIZEOF_CURL_OFF_T definition is missing!"
-   Error Compilation_aborted_CURL_SIZEOF_CURL_OFF_T_is_missing
+Error Compilation_aborted_CURL_SIZEOF_CURL_OFF_T_is_missing
 #endif
 
 #ifndef CURL_SUFFIX_CURL_OFF_T
 #  error "CURL_SUFFIX_CURL_OFF_T definition is missing!"
-   Error Compilation_aborted_CURL_SUFFIX_CURL_OFF_T_is_missing
+Error Compilation_aborted_CURL_SUFFIX_CURL_OFF_T_is_missing
 #endif
 
 #ifndef CURL_SUFFIX_CURL_OFF_TU
 #  error "CURL_SUFFIX_CURL_OFF_TU definition is missing!"
-   Error Compilation_aborted_CURL_SUFFIX_CURL_OFF_TU_is_missing
+Error Compilation_aborted_CURL_SUFFIX_CURL_OFF_TU_is_missing
 #endif
 
 /*
@@ -139,7 +139,7 @@
  */
 
 typedef char
-  __curl_rule_01__
+    __curl_rule_01__
     [CurlchkszEQ(long, CURL_SIZEOF_LONG)];
 
 /*
@@ -149,7 +149,7 @@ typedef char
  */
 
 typedef char
-  __curl_rule_02__
+    __curl_rule_02__
     [CurlchkszEQ(curl_off_t, CURL_SIZEOF_CURL_OFF_T)];
 
 /*
@@ -159,7 +159,7 @@ typedef char
  */
 
 typedef char
-  __curl_rule_03__
+    __curl_rule_03__
     [CurlchkszGE(curl_off_t, long)];
 
 /*
@@ -169,7 +169,7 @@ typedef char
  */
 
 typedef char
-  __curl_rule_04__
+    __curl_rule_04__
     [CurlchkszEQ(curl_socklen_t, CURL_SIZEOF_CURL_SOCKLEN_T)];
 
 /*
@@ -179,7 +179,7 @@ typedef char
  */
 
 typedef char
-  __curl_rule_05__
+    __curl_rule_05__
     [CurlchkszGE(curl_socklen_t, int)];
 
 /* ================================================================ */
@@ -201,14 +201,14 @@ typedef char
  * or  __cplusplus so we need to carefully check for them too.
  */
 
-#if defined(__STDC__) || defined(_MSC_VER) || defined(__cplusplus) || \
-  defined(__HP_aCC) || defined(__BORLANDC__) || defined(__LCC__) || \
-  defined(__POCC__) || defined(__SALFORDC__) || defined(__HIGHC__) || \
-  defined(__ILEC400__)
-  /* This compiler is believed to have an ISO compatible preprocessor */
+#if defined(__STDC__) || defined(_MSC_VER) || defined(__cplusplus) ||   \
+    defined(__HP_aCC) || defined(__BORLANDC__) || defined(__LCC__) ||   \
+    defined(__POCC__) || defined(__SALFORDC__) || defined(__HIGHC__) || \
+    defined(__ILEC400__)
+/* This compiler is believed to have an ISO compatible preprocessor */
 #define CURL_ISOCPP
 #else
-  /* This compiler is believed NOT to have an ISO compatible preprocessor */
+/* This compiler is believed NOT to have an ISO compatible preprocessor */
 #undef CURL_ISOCPP
 #endif
 
@@ -219,19 +219,19 @@ typedef char
 #if defined(__BORLANDC__) && (__BORLANDC__ == 0x0551)
 #  define __CURL_OFF_T_C_HLPR2(x) x
 #  define __CURL_OFF_T_C_HLPR1(x) __CURL_OFF_T_C_HLPR2(x)
-#  define CURL_OFF_T_C(Val)  __CURL_OFF_T_C_HLPR1(Val) ## \
-                             __CURL_OFF_T_C_HLPR1(CURL_SUFFIX_CURL_OFF_T)
-#  define CURL_OFF_TU_C(Val) __CURL_OFF_T_C_HLPR1(Val) ## \
-                             __CURL_OFF_T_C_HLPR1(CURL_SUFFIX_CURL_OFF_TU)
+#  define CURL_OFF_T_C(Val)       __CURL_OFF_T_C_HLPR1(Val) ## \
+    __CURL_OFF_T_C_HLPR1(CURL_SUFFIX_CURL_OFF_T)
+#  define CURL_OFF_TU_C(Val)      __CURL_OFF_T_C_HLPR1(Val) ## \
+    __CURL_OFF_T_C_HLPR1(CURL_SUFFIX_CURL_OFF_TU)
 #else
 #  ifdef CURL_ISOCPP
-#    define __CURL_OFF_T_C_HLPR2(Val,Suffix) Val ## Suffix
+#    define __CURL_OFF_T_C_HLPR2(Val, Suffix) Val ## Suffix
 #  else
-#    define __CURL_OFF_T_C_HLPR2(Val,Suffix) Val/**/Suffix
+#    define __CURL_OFF_T_C_HLPR2(Val, Suffix) Val /**/ Suffix
 #  endif
-#  define __CURL_OFF_T_C_HLPR1(Val,Suffix) __CURL_OFF_T_C_HLPR2(Val,Suffix)
-#  define CURL_OFF_T_C(Val)  __CURL_OFF_T_C_HLPR1(Val,CURL_SUFFIX_CURL_OFF_T)
-#  define CURL_OFF_TU_C(Val) __CURL_OFF_T_C_HLPR1(Val,CURL_SUFFIX_CURL_OFF_TU)
+#  define __CURL_OFF_T_C_HLPR1(Val, Suffix) __CURL_OFF_T_C_HLPR2(Val, Suffix)
+#  define CURL_OFF_T_C(Val)                 __CURL_OFF_T_C_HLPR1(Val, CURL_SUFFIX_CURL_OFF_T)
+#  define CURL_OFF_TU_C(Val)                __CURL_OFF_T_C_HLPR1(Val, CURL_SUFFIX_CURL_OFF_TU)
 #endif
 
 /*
@@ -258,5 +258,4 @@ typedef char
 #ifdef CURL_NO_OLDIES
 #undef CURL_FORMAT_OFF_T /* not required since 7.19.0 - obsoleted in 7.20.0 */
 #endif
-
 #endif /* __CURL_CURLRULES_H */

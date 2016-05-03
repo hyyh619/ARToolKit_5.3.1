@@ -68,5 +68,7 @@ namespace cv
         printf("\n");
         fflush(stdout);
     }
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif  /* __OPENCV_GPU_DEVICE_FUNCATTRIB_HPP_ */

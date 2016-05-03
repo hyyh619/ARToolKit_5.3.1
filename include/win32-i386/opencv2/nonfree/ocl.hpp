@@ -136,5 +136,4 @@ void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) c
 };
 }
 }
-
 #endif // __OPENCV_NONFREE_OCL_HPP__

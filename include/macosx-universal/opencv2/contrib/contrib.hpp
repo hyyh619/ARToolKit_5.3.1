@@ -689,30 +689,30 @@ LogPolar_Interp() {}
 
 /**
  * Constructor
- ***\param w the width of the input image
- ***\param h the height of the input image
- ***\param center the transformation center: where the output precision is maximal
- ***\param R the number of rings of the cortical image (default value 70 pixel)
- ***\param ro0 the radius of the blind spot (default value 3 pixel)
- ***\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
+ *****\param w the width of the input image
+ *****\param h the height of the input image
+ *****\param center the transformation center: where the output precision is maximal
+ *****\param R the number of rings of the cortical image (default value 70 pixel)
+ *****\param ro0 the radius of the blind spot (default value 3 pixel)
+ *****\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
  *            \a 0 means that the retinal image is computed within the inscribed circle.
- ***\param S the number of sectors of the cortical image (default value 70 pixel).
+ *****\param S the number of sectors of the cortical image (default value 70 pixel).
  *         Its value is usually internally computed to obtain a pixel aspect ratio equals to 1.
- ***\param sp \a 1 (default value) means that the parameter \a S is internally computed.
+ *****\param sp \a 1 (default value) means that the parameter \a S is internally computed.
  *          \a 0 means that the parameter \a S is provided by the user.
  */
 LogPolar_Interp(int w, int h, Point2i center, int R = 70, double ro0 = 3.0,
                 int interp = INTER_LINEAR, int full = 1, int S = 117, int sp = 1);
 /**
  * Transformation from Cartesian image to cortical (log-polar) image.
- ***\param source the Cartesian image
- ***\return the transformed image (cortical image)
+ *****\param source the Cartesian image
+ *****\return the transformed image (cortical image)
  */
 const Mat to_cortical(const Mat&source);
 /**
  * Transformation from cortical image to retinal (inverse log-polar) image.
- ***\param source the cortical image
- ***\return the transformed image (retinal image)
+ *****\param source the cortical image
+ *****\return the transformed image (retinal image)
  */
 const Mat to_cartesian(const Mat&source);
 /**
@@ -752,30 +752,30 @@ LogPolar_Overlapping() {}
 
 /**
  * Constructor
- ***\param w the width of the input image
- ***\param h the height of the input image
- ***\param center the transformation center: where the output precision is maximal
- ***\param R the number of rings of the cortical image (default value 70 pixel)
- ***\param ro0 the radius of the blind spot (default value 3 pixel)
- ***\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
+ *****\param w the width of the input image
+ *****\param h the height of the input image
+ *****\param center the transformation center: where the output precision is maximal
+ *****\param R the number of rings of the cortical image (default value 70 pixel)
+ *****\param ro0 the radius of the blind spot (default value 3 pixel)
+ *****\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
  *            \a 0 means that the retinal image is computed within the inscribed circle.
- ***\param S the number of sectors of the cortical image (default value 70 pixel).
+ *****\param S the number of sectors of the cortical image (default value 70 pixel).
  *         Its value is usually internally computed to obtain a pixel aspect ratio equals to 1.
- ***\param sp \a 1 (default value) means that the parameter \a S is internally computed.
+ *****\param sp \a 1 (default value) means that the parameter \a S is internally computed.
  *          \a 0 means that the parameter \a S is provided by the user.
  */
 LogPolar_Overlapping(int w, int h, Point2i center, int R = 70,
                      double ro0 = 3.0, int full = 1, int S = 117, int sp = 1);
 /**
  * Transformation from Cartesian image to cortical (log-polar) image.
- ***\param source the Cartesian image
- ***\return the transformed image (cortical image)
+ *****\param source the Cartesian image
+ *****\return the transformed image (cortical image)
  */
 const Mat to_cortical(const Mat&source);
 /**
  * Transformation from cortical image to retinal (inverse log-polar) image.
- ***\param source the cortical image
- ***\return the transformed image (retinal image)
+ *****\param source the cortical image
+ *****\return the transformed image (retinal image)
  */
 const Mat to_cartesian(const Mat&source);
 /**
@@ -829,30 +829,30 @@ LogPolar_Adjacent() {}
 
 /**
  * Constructor
- ***\param w the width of the input image
- ***\param h the height of the input image
- ***\param center the transformation center: where the output precision is maximal
- ***\param R the number of rings of the cortical image (default value 70 pixel)
- ***\param ro0 the radius of the blind spot (default value 3 pixel)
- ***\param smin the size of the subpixel (default value 0.25 pixel)
- ***\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
+ *****\param w the width of the input image
+ *****\param h the height of the input image
+ *****\param center the transformation center: where the output precision is maximal
+ *****\param R the number of rings of the cortical image (default value 70 pixel)
+ *****\param ro0 the radius of the blind spot (default value 3 pixel)
+ *****\param smin the size of the subpixel (default value 0.25 pixel)
+ *****\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
  *            \a 0 means that the retinal image is computed within the inscribed circle.
- ***\param S the number of sectors of the cortical image (default value 70 pixel).
+ *****\param S the number of sectors of the cortical image (default value 70 pixel).
  *         Its value is usually internally computed to obtain a pixel aspect ratio equals to 1.
- ***\param sp \a 1 (default value) means that the parameter \a S is internally computed.
+ *****\param sp \a 1 (default value) means that the parameter \a S is internally computed.
  *          \a 0 means that the parameter \a S is provided by the user.
  */
 LogPolar_Adjacent(int w, int h, Point2i center, int R = 70, double ro0 = 3.0, double smin = 0.25, int full = 1, int S = 117, int sp = 1);
 /**
  * Transformation from Cartesian image to cortical (log-polar) image.
- ***\param source the Cartesian image
- ***\return the transformed image (cortical image)
+ *****\param source the Cartesian image
+ *****\return the transformed image (cortical image)
  */
 const Mat to_cortical(const Mat&source);
 /**
  * Transformation from cortical image to retinal (inverse log-polar) image.
- ***\param source the cortical image
- ***\return the transformed image (retinal image)
+ *****\param source the cortical image
+ *****\return the transformed image (retinal image)
  */
 const Mat to_cartesian(const Mat&source);
 /**

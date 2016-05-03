@@ -551,5 +551,4 @@ void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
 } // namespace cv
 
 #include "warpers_inl.hpp"
-
 #endif // __OPENCV_STITCHING_WARPERS_HPP__

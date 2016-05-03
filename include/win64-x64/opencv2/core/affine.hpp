@@ -510,5 +510,4 @@ cv::Affine3<T>::operator Eigen::Transform<T, 3, Eigen::Affine>() const
 }
 #endif /* defined EIGEN_WORLD_VERSION && defined EIGEN_GEOMETRY_MODULE_H */
 #endif /* __cplusplus */
-
 #endif /* __OPENCV_CORE_AFFINE3_HPP__ */

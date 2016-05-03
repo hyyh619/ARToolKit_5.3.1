@@ -260,5 +260,4 @@ CV_EXPORTS void completeFrameAccordingToFlow(
     float distThresh, Mat&frame0, Mat&mask0);
 }   // namespace videostab
 } // namespace cv
-
 #endif

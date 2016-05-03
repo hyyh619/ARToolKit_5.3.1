@@ -171,5 +171,4 @@ enum
     FLANN_CHECKS_AUTOTUNED = -2
 };
 }
-
 #endif /* OPENCV_FLANN_DEFINES_H_ */

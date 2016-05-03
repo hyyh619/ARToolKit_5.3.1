@@ -736,5 +736,4 @@ CVAPI(CvSeq*) cvGetStarKeypoints(const CvArr * img, CvMemStorage * storage,
 #ifdef __cplusplus
 }
 #endif
-
 #endif

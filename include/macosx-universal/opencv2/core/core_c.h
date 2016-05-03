@@ -1791,13 +1791,15 @@ CVAPI(int) cvGuiBoxReport(int status, const char *func_name, const char *err_msg
 #define OPENCV_ERROR(status, func, context) \
     cvError((status), (func), (context), __FILE__, __LINE__)
 
-#define OPENCV_ERRCHK(func, context) \
-    {if (cvGetErrStatus() >= 0)      \
-     {OPENCV_ERROR(CV_StsBackTrace, (func), (context)); }}
+#define OPENCV_ERRCHK(func, context)                      \
+    {if (cvGetErrStatus() >= 0)                           \
+     {OPENCV_ERROR(CV_StsBackTrace, (func), (context)); } \
+    }
 
-#define OPENCV_ASSERT(expr, func, context) \
-    {if (!(expr))                          \
-     {OPENCV_ERROR(CV_StsInternal, (func), (context)); }}
+#define OPENCV_ASSERT(expr, func, context)               \
+    {if (!(expr))                                        \
+     {OPENCV_ERROR(CV_StsInternal, (func), (context)); } \
+    }
 
 #define OPENCV_RSTERR() (cvSetErrStatus(CV_StsOk))
 
@@ -1863,7 +1865,7 @@ CVAPI(int) cvGuiBoxReport(int status, const char *func_name, const char *err_msg
     }
 
 #define __CV_BEGIN__ {
-#define __CV_END__   goto exit; exit:; }
+#define __CV_END__   goto exit; exit :; }
 #define __CV_EXIT__  goto exit
 
 #ifdef __cplusplus

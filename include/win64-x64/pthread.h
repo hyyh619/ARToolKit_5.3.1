@@ -1358,5 +1358,4 @@ PTW32_DLLPORT DWORD PTW32_CDECL ptw32_get_exception_services_code(void);
 #undef PTW32_LEVEL
 #undef PTW32_LEVEL_MAX
 #endif /* ! RC_INVOKED */
-
 #endif /* PTHREAD_H */

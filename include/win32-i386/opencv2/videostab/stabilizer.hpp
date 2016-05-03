@@ -263,5 +263,4 @@ bool isPrePassDone_;
 };
 }   // namespace videostab
 } // namespace cv
-
 #endif

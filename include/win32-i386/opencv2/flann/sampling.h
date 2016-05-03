@@ -84,6 +84,4 @@ Matrix<T> random_sample(const Matrix<T>&srcMatrix, size_t size)
     return newSet;
 }
 } // namespace
-
-
 #endif /* OPENCV_FLANN_SAMPLING_H_ */

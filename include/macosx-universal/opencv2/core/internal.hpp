@@ -401,9 +401,9 @@ CV_EXPORTS const char* currentParallelFramework();
 #define  CV_POS_INF 0x7f800000
 #define  CV_NEG_INF 0x807fffff       /* CV_TOGGLE_FLT(0xff800000) */
 #define  CV_1F      0x3f800000
-#define  CV_TOGGLE_FLT(x) ((x)^ ((int)(x) < 0 ? 0x7fffffff : 0))
+#define  CV_TOGGLE_FLT(x) ((x) ^ ((int)(x) < 0 ? 0x7fffffff : 0))
 #define  CV_TOGGLE_DBL(x) \
-    ((x)^ ((int64)(x) < 0 ? CV_BIG_INT(0x7fffffffffffffff) : 0))
+    ((x) ^ ((int64)(x) < 0 ? CV_BIG_INT(0x7fffffffffffffff) : 0))
 
 #define  CV_NOP(a)     (a)
 #define  CV_ADD(a, b)  ((a) + (b))
@@ -411,7 +411,7 @@ CV_EXPORTS const char* currentParallelFramework();
 #define  CV_MUL(a, b)  ((a)* (b))
 #define  CV_AND(a, b)  ((a)& (b))
 #define  CV_OR(a, b)   ((a) | (b))
-#define  CV_XOR(a, b)  ((a)^ (b))
+#define  CV_XOR(a, b)  ((a) ^ (b))
 #define  CV_ANDN(a, b) (~(a)& (b))
 #define  CV_ORN(a, b)  (~(a) | (b))
 #define  CV_SQR(a)     ((a)* (a))
@@ -802,7 +802,8 @@ namespace cv
 { namespace ogl
   {
   CV_EXPORTS bool checkError(const char *file, const int line, const char *func = "");
-  }}
+  }
+}
 
 #if defined(__GNUC__)
     #define CV_CheckGlError() CV_DbgAssert((cv::ogl::checkError(__FILE__, __LINE__, __func__)))

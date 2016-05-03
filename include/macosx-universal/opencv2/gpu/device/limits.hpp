@@ -177,5 +177,7 @@ namespace cv
         }
         static const bool is_signed = true;
     };
-    }}}              // namespace cv { namespace gpu { namespace device {
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device {
 #endif // __OPENCV_GPU_LIMITS_GPU_HPP__

@@ -123,5 +123,4 @@ public:
   };
   } // namespace gpu
 } // namespace cv
-
 #endif // __OPENCV_NONFREE_GPU_HPP__

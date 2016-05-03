@@ -188,5 +188,4 @@ KDTreeIndex<Distance> *kdtree_index_;
 const IndexParams index_params_;
 };
 }
-
 #endif // OPENCV_FLANN_COMPOSITE_INDEX_H_

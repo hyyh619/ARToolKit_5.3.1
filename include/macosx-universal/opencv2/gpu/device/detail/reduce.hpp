@@ -360,5 +360,7 @@ namespace cv
                 >::type reductor;
     };
     }
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_REDUCE_DETAIL_HPP__

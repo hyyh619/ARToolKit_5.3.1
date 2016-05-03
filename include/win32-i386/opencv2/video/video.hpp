@@ -52,5 +52,4 @@ namespace cv
 CV_EXPORTS bool initModule_video(void);
 }
 #endif
-
 #endif // __OPENCV_VIDEO_HPP__

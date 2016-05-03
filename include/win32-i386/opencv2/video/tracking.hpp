@@ -366,5 +366,4 @@ virtual void collectGarbage()                                          = 0;
 CV_EXPORTS Ptr<DenseOpticalFlow> createOptFlow_DualTVL1();
 }
 #endif
-
 #endif

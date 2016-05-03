@@ -47,5 +47,4 @@
 // #endif
 
 #include <cvaux.h>
-
 #endif

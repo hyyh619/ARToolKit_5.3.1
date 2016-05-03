@@ -106,5 +106,4 @@ Matrix<T> as()
 }
 };
 }
-
 #endif // OPENCV_FLANN_DATASET_H_

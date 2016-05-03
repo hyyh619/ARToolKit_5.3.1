@@ -4947,5 +4947,4 @@ virtual void deleteDataInstance(void *data) const
 
 #include "opencv2/core/operations.hpp"
 #include "opencv2/core/mat.hpp"
-
 #endif /*__OPENCV_CORE_HPP__*/

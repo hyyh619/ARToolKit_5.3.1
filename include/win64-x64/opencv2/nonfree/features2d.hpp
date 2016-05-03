@@ -146,7 +146,6 @@ typedef SURF SurfFeatureDetector;
 typedef SURF SurfDescriptorExtractor;
 } /* namespace cv */
 #endif /* __cplusplus */
-
 #endif
 
 /* End of file. */

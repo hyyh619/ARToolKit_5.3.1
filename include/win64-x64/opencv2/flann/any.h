@@ -326,5 +326,4 @@ inline std::ostream&operator <<(std::ostream&out, const any&any_val)
     return out;
 }
 }
-
 #endif // OPENCV_FLANN_ANY_H_

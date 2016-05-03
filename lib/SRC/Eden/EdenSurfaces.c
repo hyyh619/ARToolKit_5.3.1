@@ -404,10 +404,16 @@ EDEN_BOOL EdenSurfacesTextureUnload(const int contextIndex, const int numTexture
 EDEN_BOOL EdenSurfacesDraw(const int contextIndex, const TEXTURE_INDEX_t textureIndex, const int width, const int height, const EDEN_TEXTURE_SCALING_MODE scaleMode, const EDEN_TEXTURE_ALIGNMENT_MODE alignMode)
 {
     unsigned int offset;
-    GLfloat      vertices[4][2] = { {0.0f, 0.0f}, {width, 0.0f}, {width, height}, {0.0f, height} };
-    GLfloat      normals[4][3]  = { {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f} };
-    GLfloat      texcoords[4][2];
-    float        aspectRatio, contentAspectRatio, S, T, maxS, maxT, S0, S1, T0, T1;
+    GLfloat      vertices[4][2] =
+    {
+        {0.0f, 0.0f}, {width, 0.0f}, {width, height}, {0.0f, height}
+    };
+    GLfloat normals[4][3] =
+    {
+        {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}
+    };
+    GLfloat texcoords[4][2];
+    float   aspectRatio, contentAspectRatio, S, T, maxS, maxT, S0, S1, T0, T1;
 
     if (contextIndex < 0 || contextIndex >= gSurfacesContextsActiveCount)
         return (FALSE);                                                                       // Sanity check.

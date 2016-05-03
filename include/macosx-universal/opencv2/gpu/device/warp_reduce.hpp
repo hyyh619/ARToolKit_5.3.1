@@ -65,5 +65,7 @@ namespace cv
 
         return ptr[tid - lane];
     }
-    }}}              // namespace cv { namespace gpu { namespace device {
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device {
 #endif /* OPENCV_GPU_WARP_REDUCE_HPP__ */

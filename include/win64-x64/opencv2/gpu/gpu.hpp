@@ -2535,5 +2535,4 @@ private:
       GpuMat&mapx, GpuMat&mapy);
   } // namespace gpu
 } // namespace cv
-
 #endif /* __OPENCV_GPU_HPP__ */

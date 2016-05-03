@@ -94,5 +94,4 @@ VideoCapture reader_;
 };
 }   // namespace videostab
 } // namespace cv
-
 #endif

@@ -64,5 +64,7 @@ namespace cv
         typedef TransformFunctorTraits<BinOp> ft;
         transform_detail::TransformDispatcher<VecTraits<T1>::cn == 1 && VecTraits<T2>::cn == 1 && VecTraits<D>::cn == 1 && ft::smart_shift != 1>::call(src1, src2, dst, op, mask, stream);
     }
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_TRANSFORM_HPP__

@@ -186,5 +186,4 @@ T* allocate(size_t count = 1)
 }
 };
 }
-
 #endif // OPENCV_FLANN_ALLOCATOR_H_

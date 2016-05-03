@@ -86,7 +86,4 @@ HRESULT AMErrorMessage(HRESULT hr, char *error_title = "DirectShow ERROR");
 void FlipImageRGB32(BYTE *pBuf, int width, int height,
 
                     bool flipImageH, bool flipImageV);
-
-
-
 #endif

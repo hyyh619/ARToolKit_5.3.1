@@ -160,5 +160,4 @@ bool popMin(T&value)
 }
 };
 }
-
 #endif // OPENCV_FLANN_HEAP_H_

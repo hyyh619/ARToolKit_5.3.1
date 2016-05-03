@@ -78,7 +78,8 @@ namespace cv
   {
       return step % size == 0;
   }
-  }}
+  }
+}
 
 static inline void ___cudaSafeCall(cudaError_t err, const char *file, const int line, const char *func = "")
 {
@@ -114,5 +115,6 @@ namespace cv
   }
 #endif      // __CUDACC__
   }
-  }}
+  }
+}
 #endif // __OPENCV_GPU_COMMON_HPP__

@@ -276,5 +276,4 @@ void cv2eigen(const Matx<_Tp, 1, _cols>&src,
 }
 }
 #endif
-
 #endif

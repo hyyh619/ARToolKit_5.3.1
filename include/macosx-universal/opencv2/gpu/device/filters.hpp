@@ -276,5 +276,7 @@ namespace cv
         float       scale_x, scale_y;
         int         width, haight;
     };
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_FILTERS_HPP__

@@ -129,5 +129,4 @@ gpu::GpuMat           frame0_, frame1_, flowX_, flowY_, errors_;
 #endif
 }   // namespace videostab
 } // namespace cv
-
 #endif

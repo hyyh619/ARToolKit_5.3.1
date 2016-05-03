@@ -48,5 +48,4 @@
 // #endif
 
 #include <cv.h>
-
 #endif

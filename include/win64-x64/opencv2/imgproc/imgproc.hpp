@@ -1300,7 +1300,6 @@ Point2f bottomRight;
 };
 }
 #endif /* __cplusplus */
-
 #endif
 
 /* End of file. */

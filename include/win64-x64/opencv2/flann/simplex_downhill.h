@@ -222,5 +222,4 @@ float optimizeSimplexDownhill(T *points, int n, F func, float *vals = NULL)
     return bestVal;
 }
 }
-
 #endif // OPENCV_FLANN_SIMPLEX_DOWNHILL_H_

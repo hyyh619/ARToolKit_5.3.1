@@ -94,5 +94,4 @@ void compute_ground_truth(const Matrix<typename Distance::ElementType>&dataset, 
     }
 }
 }
-
 #endif // OPENCV_FLANN_GROUND_TRUTH_H_

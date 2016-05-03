@@ -1283,5 +1283,4 @@ PooledAllocator pool_;
 int memoryCounter_;
 };
 }
-
 #endif // OPENCV_FLANN_KMEANS_INDEX_H_

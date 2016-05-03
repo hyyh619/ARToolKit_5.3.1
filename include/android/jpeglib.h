@@ -1197,5 +1197,4 @@ struct jpeg_color_quantizer { long dummy; };
 #include "jpegint.h"            /* fetch private declarations */
 #include "jerror.h"             /* fetch error codes too */
 #endif
-
 #endif /* JPEGLIB_H */

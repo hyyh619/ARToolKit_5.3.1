@@ -69,5 +69,4 @@ virtual void print(const char *format, ...);
 };
 }   // namespace videostab
 } // namespace cv
-
 #endif

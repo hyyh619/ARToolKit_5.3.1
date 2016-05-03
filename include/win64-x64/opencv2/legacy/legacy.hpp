@@ -3692,7 +3692,6 @@ CVAPI(CvSeq*) cvSegmentFGMask(CvArr * fgmask, int poly1Hull0 CV_DEFAULT(1),
 #ifdef __cplusplus
 }
 #endif
-
 #endif
 
 /* End of file. */

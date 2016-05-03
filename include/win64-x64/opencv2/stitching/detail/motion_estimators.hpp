@@ -218,5 +218,4 @@ void CV_EXPORTS findMaxSpanningTree(int num_images, const std::vector<MatchesInf
                                     Graph&span_tree, std::vector<int>&centers);
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_MOTION_ESTIMATORS_HPP__

@@ -1467,8 +1467,11 @@ inline Vec<_Tp, cn>::operator Vec<T2, cn>() const
 
 template<typename _Tp, int cn> inline Vec<_Tp, cn>::operator CvScalar() const
 {
-    CvScalar s = {{0, 0, 0, 0}};
-    int      i;
+    CvScalar s =
+    {
+        {0, 0, 0, 0}
+    };
+    int i;
 
     for (i = 0; i < std::min(cn, 4); i++)
         s.val[i] = this->val[i];

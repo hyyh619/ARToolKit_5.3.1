@@ -48,5 +48,4 @@
 // #endif
 
 #include <cxcore.h>
-
 #endif

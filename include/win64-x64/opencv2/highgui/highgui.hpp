@@ -247,5 +247,4 @@ Ptr<CvVideoWriter> writer;
 #endif
 }
 #endif
-
 #endif

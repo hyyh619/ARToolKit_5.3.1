@@ -186,5 +186,4 @@ virtual IndexParams getParameters() const = 0;
 virtual void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams) = 0;
 };
 }
-
 #endif // OPENCV_FLANN_NNINDEX_H

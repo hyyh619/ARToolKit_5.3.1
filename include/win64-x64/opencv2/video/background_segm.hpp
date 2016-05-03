@@ -256,5 +256,4 @@ cv::Mat_<float>        weights_;
 cv::Mat buf_;
 };
 }
-
 #endif

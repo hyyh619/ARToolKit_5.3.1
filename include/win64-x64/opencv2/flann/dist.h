@@ -1055,5 +1055,4 @@ typename Distance::ResultType ensureSimpleDistance(typename Distance::ResultType
     return dummy(dist);
 }
 }
-
 #endif // OPENCV_FLANN_DIST_H_

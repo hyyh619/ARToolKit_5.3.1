@@ -176,5 +176,4 @@ CV_EXPORTS int&stitchingLogLevel();
 } // namespace cv
 
 #include "util_inl.hpp"
-
 #endif // __OPENCV_STITCHING_UTIL_HPP__

@@ -418,5 +418,7 @@ namespace cv
         }
     };
     }              // namespace transform_detail
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_TRANSFORM_DETAIL_HPP__

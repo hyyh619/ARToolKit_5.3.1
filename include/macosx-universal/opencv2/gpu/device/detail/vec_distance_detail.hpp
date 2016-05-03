@@ -113,5 +113,7 @@ namespace cv
         }
     };
     }              // namespace vec_distance_detail
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_VEC_DISTANCE_DETAIL_HPP__

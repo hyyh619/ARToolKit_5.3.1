@@ -707,5 +707,7 @@ namespace cv
         const int   width;
         const D     val;
     };
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_BORDER_INTERPOLATE_HPP__

@@ -330,5 +330,7 @@ namespace cv
         return saturate_cast<uint>((float)v);
     #endif
     }
-    }}}
+    }
+  }
+}
 #endif /* __OPENCV_GPU_SATURATE_CAST_HPP__ */

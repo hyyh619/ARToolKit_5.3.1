@@ -45,5 +45,4 @@ typedef enum _PIXELFORMAT
     PIXELFORMAT_QUERY    = 8,
     PIXELFORMAT_ENUM_MAX = 9
 } PIXELFORMAT;
-
 #endif

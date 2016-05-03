@@ -349,5 +349,7 @@ namespace cv
             return make_char8(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7]);
         }
     };
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_VEC_TRAITS_HPP__

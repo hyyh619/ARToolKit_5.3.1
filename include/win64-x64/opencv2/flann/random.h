@@ -131,5 +131,4 @@ int next()
 }
 };
 }
-
 #endif // OPENCV_FLANN_RANDOM_H

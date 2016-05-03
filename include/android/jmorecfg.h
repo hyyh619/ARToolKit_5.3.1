@@ -393,5 +393,4 @@ typedef int boolean;
 #endif
 #endif
 #endif /* JPEG_INTERNAL_OPTIONS */
-
 #endif /* JMORECFG_H */

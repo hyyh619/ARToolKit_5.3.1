@@ -57,7 +57,10 @@ Inpaint FastMarchingMethod::run(const cv::Mat&mask, Inpaint inpaint)
 
     CV_Assert(mask.type() == CV_8U);
 
-    static const int lut[4][2] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+    static const int lut[4][2] =
+    {
+        {-1, 0}, {0, -1}, {1, 0}, {0, 1}
+    };
 
     mask.copyTo(flag_);
     flag_.create(mask.size());

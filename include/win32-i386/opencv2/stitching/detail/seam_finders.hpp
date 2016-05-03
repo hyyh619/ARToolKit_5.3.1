@@ -260,5 +260,4 @@ float            bad_region_penalty_;
 };
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_SEAM_FINDERS_HPP__

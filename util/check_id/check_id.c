@@ -78,16 +78,26 @@ typedef struct _cutoffPhaseColours
 
 const cutoffPhaseColours_t cutoffPhaseColours[AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT] =
 {
-    {AR_MARKER_INFO_CUTOFF_PHASE_NONE,                               {0xff, 0x0,  0x0 }},  // Red.
-    {AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION,                 {0x95, 0xd6, 0xf6}},  // Light blue.
-    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC,                      {0x0,  0x0,  0xff}},  // Blue.
-    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST,                     {0x99, 0x66, 0x33}},  // Brown.
-    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND,            {0x7f, 0x0,  0x7f}},  // Purple.
-    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL,             {0xff, 0x0,  0xff}},  // Magenta.
-    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE,                   {0x0,  0xff, 0x0 }},  // Green.
-    {AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR,                         {0xff, 0x7f, 0x0 }},  // Orange.
-    {AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI,                   {0xff, 0xff, 0x0 }},  // Yellow.
-    {AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES, {0xc6, 0xdc, 0x6a}},  // Khaki.
+    {AR_MARKER_INFO_CUTOFF_PHASE_NONE,                               {0xff, 0x0,  0x0 }
+    },                                                                                     // Red.
+    {AR_MARKER_INFO_CUTOFF_PHASE_PATTERN_EXTRACTION,                 {0x95, 0xd6, 0xf6}
+    },                                                                                     // Light blue.
+    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_GENERIC,                      {0x0,  0x0,  0xff}
+    },                                                                                     // Blue.
+    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONTRAST,                     {0x99, 0x66, 0x33}
+    },                                                                                     // Brown.
+    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_NOT_FOUND,            {0x7f, 0x0,  0x7f}
+    },                                                                                     // Purple.
+    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_BARCODE_EDC_FAIL,             {0xff, 0x0,  0xff}
+    },                                                                                     // Magenta.
+    {AR_MARKER_INFO_CUTOFF_PHASE_MATCH_CONFIDENCE,                   {0x0,  0xff, 0x0 }
+    },                                                                                     // Green.
+    {AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR,                         {0xff, 0x7f, 0x0 }
+    },                                                                                     // Orange.
+    {AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI,                   {0xff, 0xff, 0x0 }
+    },                                                                                     // Yellow.
+    {AR_MARKER_INFO_CUTOFF_PHASE_HEURISTIC_TROUBLESOME_MATRIX_CODES, {0xc6, 0xdc, 0x6a}
+    },                                                                                     // Khaki.
 };
 
 // ============================================================================

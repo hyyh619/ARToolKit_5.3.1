@@ -45,5 +45,4 @@ void *camera;
 int  frameWidth;
 int  frameHeight;
 };
-
 #endif

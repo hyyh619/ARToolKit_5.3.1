@@ -207,5 +207,4 @@ Ptr<detail::RotationWarper> create(float scale) const
 }
 };
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_WARPER_CREATORS_HPP__

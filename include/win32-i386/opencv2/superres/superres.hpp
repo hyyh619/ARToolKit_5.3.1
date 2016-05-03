@@ -95,5 +95,4 @@ CV_EXPORTS Ptr<SuperResolution> createSuperResolution_BTVL1_GPU();
 CV_EXPORTS Ptr<SuperResolution> createSuperResolution_BTVL1_OCL();
 }
 }
-
 #endif // __OPENCV_SUPERRES_HPP__

@@ -140,5 +140,7 @@ namespace cv
             }
         };
     };
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif /* OPENCV_GPU_EMULATION_HPP_ */

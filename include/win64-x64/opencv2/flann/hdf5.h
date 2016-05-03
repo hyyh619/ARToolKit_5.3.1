@@ -258,5 +258,4 @@ void load_from_file(cvflann::Matrix<T>&dataset, const std::string&filename, cons
 }
 #endif // HAVE_MPI
 } // namespace cvflann::mpi
-
 #endif /* OPENCV_FLANN_HDF5_H_ */

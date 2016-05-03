@@ -579,6 +579,7 @@ public:
   {
       ensureSizeIsEnough(size.height, size.width, type, m);
   }
-  }}
+  }
+}
 #endif // __cplusplus
 #endif // __OPENCV_GPUMAT_HPP__

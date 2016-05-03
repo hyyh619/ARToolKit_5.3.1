@@ -184,5 +184,7 @@ namespace cv
         enum { value = 1 };
     };
     }              // namespace type_traits_detail
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_TYPE_TRAITS_DETAIL_HPP__

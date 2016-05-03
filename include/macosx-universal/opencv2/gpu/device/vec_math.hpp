@@ -1012,5 +1012,7 @@ namespace cv
     CV_CUDEV_IMPLEMENT_SCALAR_BINARY_FUNC(atan2, ::atan2, double, double, double)
 
 #undef CV_CUDEV_IMPLEMENT_SCALAR_BINARY_FUNC
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_VECMATH_HPP__

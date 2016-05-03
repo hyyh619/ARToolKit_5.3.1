@@ -138,5 +138,4 @@ FILE *stream;
 int  logLevel;
 };
 }
-
 #endif // OPENCV_FLANN_LOGGER_H

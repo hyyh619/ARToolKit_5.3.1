@@ -354,6 +354,6 @@ namespace cv
 { namespace gpu
   {
   CV_EXPORTS void PrintTo(const DeviceInfo&info, std::ostream *os);
-  }}
-
+  }
+}
 #endif // __OPENCV_GPU_TEST_UTILITY_HPP__

@@ -66,5 +66,4 @@ PIXELFORMAT StringToPX(char *formatName);
    [6] MEDIASUBTYPE_RGB32        RGB, 32 bits per pixel. Uncompressed RGB samples. Do not use the alpha bits
                                                  with this media type. (Compare MEDIASUBTYPE_ARGB32.)
  */
-
 #endif

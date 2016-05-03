@@ -142,5 +142,7 @@ namespace cv
         return 0.0;
     #endif
     }
-    }}}
+    }
+  }
+}
 #endif // __OPENCV_GPU_WARP_SHUFFLE_HPP__

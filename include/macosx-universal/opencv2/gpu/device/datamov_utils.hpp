@@ -76,7 +76,8 @@ namespace cv
         __device__ __forceinline__ static void Load(const base_type * ptr, int offset, base_type & val)     \
         {                                                                                                   \
             asm ("ld.global."#ptx_type " %0, [%1];" : "="#reg_mod(val) : OPENCV_GPU_ASM_PTR(ptr + offset)); \
-        }};
+        }                                                                                                   \
+    };
 
         #define OPENCV_GPU_DEFINE_FORCE_GLOB_B(base_type, ptx_type)                                                              \
     template<> struct ForceGlob<base_type>                                                                                       \
@@ -101,5 +102,7 @@ namespace cv
         #undef OPENCV_GPU_DEFINE_FORCE_GLOB_B
         #undef OPENCV_GPU_ASM_PTR
     #endif  // __CUDA_ARCH__ >= 200
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_DATAMOV_UTILS_HPP__

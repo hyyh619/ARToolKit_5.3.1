@@ -147,5 +147,4 @@ void CV_EXPORTS restoreImageFromLaplacePyr(std::vector<Mat>&pyr);
 void CV_EXPORTS restoreImageFromLaplacePyrGpu(std::vector<Mat>&pyr);
 }   // namespace detail
 } // namespace cv
-
 #endif // __OPENCV_STITCHING_BLENDERS_HPP__

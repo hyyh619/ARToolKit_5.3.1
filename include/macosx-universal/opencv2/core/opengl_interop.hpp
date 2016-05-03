@@ -318,14 +318,16 @@ private:
 // ! render OpenGL arrays
   CV_EXPORTS void render(const Arrays&arr, int mode = POINTS, Scalar color = Scalar::all(255));
   CV_EXPORTS void render(const Arrays&arr, InputArray indices, int mode = POINTS, Scalar color = Scalar::all(255));
-  }} // namespace cv::gl
+  }
+}    // namespace cv::gl
 
 namespace cv
 { namespace gpu
   {
 // ! set a CUDA device to use OpenGL interoperability
   CV_EXPORTS void setGlDevice(int device = 0);
-  }}
+  }
+}
 
 namespace cv
 {

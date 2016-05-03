@@ -364,8 +364,10 @@ int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const ARdouble tran
         osg::Vec4f(1.0f, 0.0f, 1.0f, 1.0f), osg::Vec4f(1.0f, 0.0f, 0.0f, 1.0f), osg::Vec4f(0.0f, 0.0f, 0.0f, 1.0f), osg::Vec4f(0.0f, 0.0f, 1.0f, 1.0f)
     };
     const GLubyte cube_faces[6][4] =       /* ccw-winding */
-    { /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
-               /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
+    {       /* +z */
+        {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
+        /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7}
+    };
     osg::ref_ptr<osg::Geode> model = new osg::Geode();
     model->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
     // model->getOrCreateStateSet()->setTextureMode(GL_TEXTURE_2D, osg::StateAttribute::OFF);

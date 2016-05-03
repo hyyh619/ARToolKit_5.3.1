@@ -210,5 +210,7 @@ namespace cv
 
         return false;
     }
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_UTILITY_HPP__

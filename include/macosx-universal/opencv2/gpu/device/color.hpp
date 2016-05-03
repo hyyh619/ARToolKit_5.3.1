@@ -298,5 +298,7 @@ namespace cv
     OPENCV_GPU_IMPLEMENT_Luv2RGB_TRAITS(luv4_to_lbgra, 4, 4, false, 0)
 
     #undef OPENCV_GPU_IMPLEMENT_Luv2RGB_TRAITS
-    }}}              // namespace cv { namespace gpu { namespace device
+    }
+  }
+}                    // namespace cv { namespace gpu { namespace device
 #endif // __OPENCV_GPU_BORDER_INTERPOLATE_HPP__

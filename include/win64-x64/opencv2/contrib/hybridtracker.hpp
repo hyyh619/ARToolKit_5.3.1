@@ -213,5 +213,4 @@ typedef CvFeatureTracker FeatureTracker;
 typedef CvHybridTracker HybridTracker;
 }
 #endif
-
 #endif

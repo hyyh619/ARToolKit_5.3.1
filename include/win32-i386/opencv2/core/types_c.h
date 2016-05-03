@@ -1901,7 +1901,6 @@ typedef struct CvModuleInfo
     CvPluginFuncInfo    *func_tab;
 }
 CvModuleInfo;
-
 #endif /*__OPENCV_CORE_TYPES_H__*/
 
 /* End of file. */

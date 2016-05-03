@@ -403,5 +403,4 @@ double clusterSize;
 };
 }
 }
-
 #endif /* OPENFABMAP_H_ */

@@ -636,5 +636,4 @@ struct CvLSHOperations;
 #ifdef __cplusplus
 }
 #endif
-
 #endif

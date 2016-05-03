@@ -226,5 +226,4 @@ void load_value(FILE *stream, std::vector<T>&value)
     }
 }
 }
-
 #endif /* OPENCV_FLANN_SAVING_H_ */
