@@ -27,7 +27,7 @@
 #define EIGEN_DENSESTORAGEBASE_H
 
 #ifdef EIGEN_INITIALIZE_MATRICES_BY_ZERO
-# define EIGEN_INITIALIZE_BY_ZERO_IF_THAT_OPTION_IS_ENABLED for (int i = 0; i < base().size(); ++i)coeffRef(i) = Scalar(0);
+# define EIGEN_INITIALIZE_BY_ZERO_IF_THAT_OPTION_IS_ENABLED for (int i = 0; i < base().size(); ++i) coeffRef(i) = Scalar(0);
 #else
 # define EIGEN_INITIALIZE_BY_ZERO_IF_THAT_OPTION_IS_ENABLED
 #endif

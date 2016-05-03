@@ -110,7 +110,7 @@ int _type;
             const int  vals[] = { __VA_ARGS__ };                                       \
             const char *svals = #__VA_ARGS__;                                          \
             for (int i = 0, pos = 0; i < (int)(sizeof(vals) / sizeof(int)); ++i) {     \
-                while (isspace(svals[pos]) || svals[pos] == ',')++pos;                 \
+                while (isspace(svals[pos]) || svals[pos] == ',') ++pos;                \
                 int start = pos;                                                       \
                 while (!(isspace(svals[pos]) || svals[pos] == ',' || svals[pos] == 0)) \
                     ++pos;                                                             \
@@ -143,18 +143,18 @@ private: int val_;                                                              
             int        value  = val_;                                                  \
             bool       first  = true;                                                  \
             for (int i = 0, pos = 0; i < (int)(sizeof(vals) / sizeof(int)); ++i) {     \
-                while (isspace(svals[pos]) || svals[pos] == ',')++pos;                 \
+                while (isspace(svals[pos]) || svals[pos] == ',') ++pos;                \
                 int start = pos;                                                       \
                 while (!(isspace(svals[pos]) || svals[pos] == ',' || svals[pos] == 0)) \
                     ++pos;                                                             \
                 if ((value & vals[i]) == vals[i]) {                                    \
                     value &= ~vals[i];                                                 \
-                    if (first)first = false; else *os << "|";                          \
+                    if (first) first = false; else *os << "|";                         \
                     *os << std::string(svals + start, svals + pos);                    \
-                    if (!value)return;                                                 \
+                    if (!value) return;                                                \
                 }                                                                      \
             }                                                                          \
-            if (first)*os << "UNKNOWN";                                                \
+            if (first) *os << "UNKNOWN";                                               \
         }                                                                              \
 private: int val_;                                                                     \
     };                                                                                 \
@@ -539,7 +539,7 @@ protected:                                                            \
 
 #define TEST_CYCLE_N(n)              for (declare.iterations(n); startTimer(), next(); stopTimer())
 #define TEST_CYCLE()                 for (; startTimer(), next(); stopTimer())
-#define TEST_CYCLE_MULTIRUN(runsNum) for (declare.runs(runsNum); startTimer(), next(); stopTimer())for (int r = 0; r < runsNum; ++r)
+#define TEST_CYCLE_MULTIRUN(runsNum) for (declare.runs(runsNum); startTimer(), next(); stopTimer()) for (int r = 0; r < runsNum; ++r)
 
 namespace perf
 {

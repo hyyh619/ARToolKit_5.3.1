@@ -2015,7 +2015,7 @@ using ::std::tuple_size;
 #ifdef __INTEL_COMPILER
 # define GTEST_AMBIGUOUS_ELSE_BLOCKER_
 #else
-# define GTEST_AMBIGUOUS_ELSE_BLOCKER_ switch (0)case 0: \
+# define GTEST_AMBIGUOUS_ELSE_BLOCKER_ switch (0) case 0: \
     default:                                                        // NOLINT
 #endif
 

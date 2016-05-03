@@ -98,7 +98,7 @@ hid_t get_hdf5_type<double>()
 }
 
 
-#define CHECK_ERROR(x, y) if ((x) < 0)throw FLANNException((y));
+#define CHECK_ERROR(x, y) if ((x) < 0) throw FLANNException((y));
 
 template<typename T>
 void save_to_file(const cvflann::Matrix<T>&dataset, const std::string&filename, const std::string&name)

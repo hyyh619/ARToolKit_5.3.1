@@ -184,7 +184,7 @@
    and your system malloc for others, you can compile with
    ONLY_MSPACES and then do something like...
     static mspace mymspace = create_mspace(0,0); // for example
- ****#define mymalloc(bytes)  mspace_malloc(mymspace, bytes)
+ *****#define mymalloc(bytes)  mspace_malloc(mymspace, bytes)
 
    (Note: If you only need one instance of an mspace, you can instead
    use "USE_DL_PREFIX" to relabel the global malloc.)
@@ -1300,7 +1300,7 @@ int mspace_mallopt(int, int);
 #ifdef DEBUG
 #if ABORT_ON_ASSERT_FAILURE
 #undef assert
-#define assert(x) if (!(x))ABORT
+#define assert(x) if (!(x)) ABORT
 #else /* ABORT_ON_ASSERT_FAILURE */
 #include <assert.h>
 #endif /* ABORT_ON_ASSERT_FAILURE */
@@ -2004,21 +2004,21 @@ static void init_malloc_global_mutex()
 
    chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Size of previous chunk (if P = 0)                             |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |P|
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |P|
  | Size of this chunk                                         1| +-+
    mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               |
- ||||+-                                                             -+
+ |||||+-                                                             -+
  |                                                               |
- ||||+-                                                             -+
+ |||||+-                                                             -+
  |                                                               :
- ||||+-      size - sizeof(size_t) available payload bytes          -+
+ |||||+-      size - sizeof(size_t) available payload bytes          -+
          :                                                               |
    chunk-> +-                                                             -+
  |                                                               |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |1|
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |1|
  | Size of next chunk (may or may not be in use)               | +-+
    mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
@@ -2026,29 +2026,29 @@ static void init_malloc_global_mutex()
 
    chunk-> +-                                                             -+
  | User payload (must be in use, or we would have merged!)       |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |P|
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |P|
  | Size of this chunk                                         0| +-+
    mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Next pointer                                                  |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Prev pointer                                                  |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               :
- ||||+-      size - sizeof(struct chunk) unused bytes               -+
+ |||||+-      size - sizeof(struct chunk) unused bytes               -+
          :                                                               |
    chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Size of this chunk                                            |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |0|
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |0|
  | Size of next chunk (must be in use, or we would have merged)| +-+
    mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                                                               :
- ||||+- User payload                                                -+
+ |||||+- User payload                                                -+
        :                                                               |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |||||0|
- ||||+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ ||||||0|
+ |||||+-+
    Note that since we always merge adjacent free chunks, the chunks
    adjacent to a free chunk must be in use.
 
@@ -2242,19 +2242,19 @@ typedef unsigned int flag_t;           /* The type of various bit flag sets */
 
     chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Size of previous chunk                            |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     `head:' |             Size of chunk, in bytes                         |P|
       mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Forward pointer to next chunk in list             |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Back pointer to previous chunk in list            |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Unused space (may be 0 bytes long)                .
             .                                                               .
             .                                                               |
    nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     `foot:' |             Size of chunk, in bytes                           |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    Larger chunks are kept in a form of bitwise digital trees (aka
    tries) keyed on chunksizes.  Because malloc_tree_chunks are only for
@@ -2263,26 +2263,26 @@ typedef unsigned int flag_t;           /* The type of various bit flag sets */
 
     chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Size of previous chunk                            |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     `head:' |             Size of chunk, in bytes                         |P|
       mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Forward pointer to next chunk of same size        |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Back pointer to previous chunk of same size       |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Pointer to left child (child[0])                  |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Pointer to right child (child[1])                 |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Pointer to parent                                 |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             bin index of this chunk                           |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |             Unused space                                      .
             .                                                               |
    nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     `foot:' |             Size of chunk, in bytes                           |
- ||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |||||+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    Each tree holding treenodes is a tree of unique chunk sizes.  Chunks
    of the same size are arranged in a circularly-linked list, with only
@@ -2673,7 +2673,7 @@ static int has_segment_link(mstate m, msegmentptr ss)
 #if USE_LOCKS
 
 #define PREACTION(M)  ((use_lock(M)) ? ACQUIRE_LOCK(&(M)->mutex) : 0)
-#define POSTACTION(M) { if (use_lock(M))RELEASE_LOCK(&(M)->mutex); }
+#define POSTACTION(M) { if (use_lock(M)) RELEASE_LOCK(&(M)->mutex); }
 #else /* USE_LOCKS */
 
 #ifndef PREACTION
@@ -3794,12 +3794,12 @@ static void internal_malloc_stats(mstate m)
 
 /* Relays to large vs small bin operations */
 
-#define insert_chunk(M, P, S)                   \
-    if (is_small(S))insert_small_chunk(M, P, S) \
+#define insert_chunk(M, P, S)                    \
+    if (is_small(S)) insert_small_chunk(M, P, S) \
         else { tchunkptr TP = (tchunkptr)(P); insert_large_chunk(M, TP, S); }
 
-#define unlink_chunk(M, P, S)                   \
-    if (is_small(S))unlink_small_chunk(M, P, S) \
+#define unlink_chunk(M, P, S)                    \
+    if (is_small(S)) unlink_small_chunk(M, P, S) \
         else { tchunkptr TP = (tchunkptr)(P); unlink_large_chunk(M, TP); }
 
 
@@ -3813,7 +3813,7 @@ static void internal_malloc_stats(mstate m)
 #define internal_malloc(m, b) \
     (m == gm) ? dlmalloc(b) : mspace_malloc(m, b)
 #define internal_free(m, mem) \
-    if (m == gm)dlfree(mem); else mspace_free(m, mem);
+    if (m == gm) dlfree(mem); else mspace_free(m, mem);
 #else /* MSPACES */
 #define internal_malloc(m, b) dlmalloc(b)
 #define internal_free(m, mem) dlfree(mem)
@@ -5992,13 +5992,13 @@ int mspace_mallopt(int param_number, int value)
    this section, adding some #includes, and setting up the appropriate
    defines above:
 
- ****#define MORECORE osMoreCore
+ *****#define MORECORE osMoreCore
 
    There is also a shutdown routine that should somehow be called for
    cleanup upon program exit.
 
- ****#define MAX_POOL_ENTRIES 100
- ****#define MINIMUM_MORECORE_SIZE  (64 * 1024U)
+ *****#define MAX_POOL_ENTRIES 100
+ *****#define MINIMUM_MORECORE_SIZE  (64 * 1024U)
    static int next_os_pool;
    void *our_os_pools[MAX_POOL_ENTRIES];
 
