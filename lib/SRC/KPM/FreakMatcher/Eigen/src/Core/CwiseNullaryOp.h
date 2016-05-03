@@ -739,31 +739,31 @@ bool MatrixBase<Derived>::isIdentity
 
 namespace internal
 {
-template<typename Derived, bool Big = (Derived::SizeAtCompileTime> = 16) >
-                                      struct setIdentity_impl
-         {
-             static EIGEN_STRONG_INLINE Derived&run(Derived & m)
-             {
-                 return m = Derived::Identity(m.rows(), m.cols());
-             }
-         };
+    template<typename Derived, bool Big = (Derived::SizeAtCompileTime >= 16) >
+    struct setIdentity_impl
+    {
+        static EIGEN_STRONG_INLINE Derived&run(Derived & m)
+        {
+            return m = Derived::Identity(m.rows(), m.cols());
+        }
+    };
 
-         template<typename Derived>
-         struct setIdentity_impl<Derived, true>
-         {
-             typedef typename Derived::Index Index;
-             static EIGEN_STRONG_INLINE Derived&run(Derived & m)
-             {
-                 m.setZero();
-                 const Index size = (std::min)(m.rows(), m.cols());
+    template<typename Derived>
+    struct setIdentity_impl<Derived, true>
+    {
+        typedef typename Derived::Index Index;
+        static EIGEN_STRONG_INLINE Derived&run(Derived & m)
+        {
+            m.setZero();
+            const Index size = (std::min)(m.rows(), m.cols());
 
-                 for (Index i = 0; i < size; ++i)
-                     m.coeffRef(i, i) = typename Derived::Scalar(1);
+            for (Index i = 0; i < size; ++i)
+                m.coeffRef(i, i) = typename Derived::Scalar(1);
 
-                 return m;
-             }
-         };
-         } // end namespace internal
+            return m;
+        }
+    };
+} // end namespace internal
 
 /** Writes the identity expression (not necessarily square) into *this.
  *
