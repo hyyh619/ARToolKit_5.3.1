@@ -45,3 +45,8 @@ KPMd.lib
 *.avi
 VisualStudio/vs120/Debug/*
 VisualStudio/vs120/Release/*
+
+# android
+android/libs/*
+android/obj/local/armeabi/objs/*
+android/obj/local/armeabi-v7a/objs/*
