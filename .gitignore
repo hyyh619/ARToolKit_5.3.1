@@ -48,6 +48,7 @@ VisualStudio/vs120/Release/*
 
 # android
 android/libs/*
+android/obj/local/
 android/obj/local/armeabi/objs/*
 android/obj/local/armeabi-v7a/objs/*
 AndroidStudio/NFTSimple/*gradle/*
@@ -55,3 +56,7 @@ AndroidStudio/NFTSimple/*idea/*
 AndroidStudio/NFTSimple/aRBaseLib/build/*
 AndroidStudio/NFTSimple/nftSimple/build/*
 AndroidStudio/NFTSimple/build/*
+AndroidStudio/NFTSimple/nftSimple/src/main/libs/armeabi-v7a/libARWrapper.so
+AndroidStudio/NFTSimple/nftSimple/src/main/libs/armeabi/libARWrapper.so
+android/obj/local/armeabi/libARWrapper.so
+android/obj/local/armeabi-v7a/libARWrapper.so
