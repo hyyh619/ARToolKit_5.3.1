@@ -7,6 +7,7 @@
 ./android/jni/curl/include/multi.h
 ./android/jni/curl/include/stdcheaders.h
 ./android/jni/curl/include/typecheck-gcc.h
+./AndroidStudio/NFTSimple/nftSimple/src/main/jni/NFTSimpleNative.cpp
 ./DSVL/extlib/tinyxml/tinystr.cpp
 ./DSVL/extlib/tinyxml/tinystr.h
 ./DSVL/extlib/tinyxml/tinyxml.cpp
@@ -39,7 +40,11 @@
 ./examples/nftBook/VirtualEnvironment.h
 ./examples/nftSimple/ARMarkerNFT.c
 ./examples/nftSimple/ARMarkerNFT.h
+./examples/nftSimple/ColorConvertCommon.c
+./examples/nftSimple/ColorConvertCommon.h
+./examples/nftSimple/Main.cpp
 ./examples/nftSimple/nftSimple.c
+./examples/nftSimple/NFTSimple.h
 ./examples/nftSimple/trackingSub.c
 ./examples/nftSimple/trackingSub.h
 ./examples/optical/ARMarkerSquare.c
