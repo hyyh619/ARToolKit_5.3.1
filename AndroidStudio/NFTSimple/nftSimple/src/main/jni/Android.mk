@@ -91,7 +91,7 @@ LOCAL_ARM_MODE := arm
 
 LOCAL_PATH := $(MY_LOCAL_PATH)
 LOCAL_MODULE := NFTSimpleNative
-LOCAL_SRC_FILES := NFTSimple.cpp \
+LOCAL_SRC_FILES := NFTSimpleNative.cpp \
                    ../../../../../../examples/nftSimple/ARMarkerNFT.c \
                    ../../../../../../examples/nftSimple/TrackingSub.c
 

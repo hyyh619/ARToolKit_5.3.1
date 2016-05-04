@@ -1,5 +1,5 @@
 /*
- *      trackingSub.h
+ *  trackingSub.h
  *  ARToolKit5
  *
  *  Disclaimer: IMPORTANT:  This Daqri software is supplied to you by Daqri

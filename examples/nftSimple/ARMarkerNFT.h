@@ -55,7 +55,9 @@
 #ifndef _MSC_VER
 #  include <stdbool.h>
 #else
+#ifndef __cplusplus
 typedef unsigned char bool;
+#endif
 #endif
 
 #ifdef __cplusplus
