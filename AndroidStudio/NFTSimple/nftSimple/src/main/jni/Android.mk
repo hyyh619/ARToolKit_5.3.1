@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------
 #
-#  nftSimple
+#  NFTSimple
 #  ARToolKit for Android
 #
 #  Disclaimer: IMPORTANT:  This Daqri software is supplied to you by Daqri
@@ -56,10 +56,10 @@ include $(CLEAR_VARS)
 ARTOOLKIT_DIR := $(MY_LOCAL_PATH)/../../../../../../android
 ARTOOLKIT_LIBDIR := $(call host-path, $(ARTOOLKIT_DIR)/obj/local/$(TARGET_ARCH_ABI))
 define add_artoolkit_module
-	include $(CLEAR_VARS)
-	LOCAL_MODULE:=$1
-	LOCAL_SRC_FILES:=lib$1.a
-	include $(PREBUILT_STATIC_LIBRARY)
+    include $(CLEAR_VARS)
+    LOCAL_MODULE:=$1
+    LOCAL_SRC_FILES:=lib$1.a
+    include $(PREBUILT_STATIC_LIBRARY)
 endef
 ARTOOLKIT_LIBS := ar2 kpm util eden argsub_es armulti ar aricp jpeg arvideo
 LOCAL_PATH := $(ARTOOLKIT_LIBDIR)
@@ -71,12 +71,12 @@ LOCAL_PATH := $(MY_LOCAL_PATH)
 CURL_DIR := $(ARTOOLKIT_DIR)/jni/curl
 CURL_LIBDIR := $(call host-path, $(CURL_DIR)/libs/$(TARGET_ARCH_ABI))
 define add_curl_module
-	include $(CLEAR_VARS)
-	LOCAL_MODULE:=$1
-	#LOCAL_SRC_FILES:=lib$1.so
-	#include $(PREBUILT_SHARED_LIBRARY)
-	LOCAL_SRC_FILES:=lib$1.a
-	include $(PREBUILT_STATIC_LIBRARY)
+    include $(CLEAR_VARS)
+    LOCAL_MODULE:=$1
+    #LOCAL_SRC_FILES:=lib$1.so
+    #include $(PREBUILT_SHARED_LIBRARY)
+    LOCAL_SRC_FILES:=lib$1.a
+    include $(PREBUILT_STATIC_LIBRARY)
 endef
 #CURL_LIBS := curl ssl crypto
 CURL_LIBS := curl
@@ -90,8 +90,8 @@ include $(CLEAR_VARS)
 LOCAL_ARM_MODE := arm
 
 LOCAL_PATH := $(MY_LOCAL_PATH)
-LOCAL_MODULE := nftSimpleNative
-LOCAL_SRC_FILES := nftSimple.cpp ARMarkerNFT.c trackingSub.c
+LOCAL_MODULE := NFTSimpleNative
+LOCAL_SRC_FILES := NFTSimple.cpp ARMarkerNFT.c TrackingSub.c
 
 # Make sure DEBUG is defined for debug builds. (NDK already defines NDEBUG for release builds.)
 ifeq ($(APP_OPTIM),debug)

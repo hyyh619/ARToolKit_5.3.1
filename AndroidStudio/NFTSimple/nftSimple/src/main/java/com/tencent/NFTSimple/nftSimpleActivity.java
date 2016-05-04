@@ -76,12 +76,12 @@ import android.widget.FrameLayout;
 
 public class nftSimpleActivity extends Activity {
 
-    private static final String TAG = "nftSimple";
+    private static final String TAG = "NFTSimple";
 
     // Load the native libraries.
     static {
     	System.loadLibrary("c++_shared");
-    	System.loadLibrary("nftSimpleNative");
+    	System.loadLibrary("NFTSimpleNative");
     }
 
 	// Lifecycle functions.
