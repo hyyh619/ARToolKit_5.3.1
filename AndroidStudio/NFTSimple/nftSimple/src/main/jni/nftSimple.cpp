@@ -98,7 +98,7 @@ enum viewPortIndices
 };
 
 // ============================================================================
-//      Constants
+// Constants
 // ============================================================================
 
 #define PAGES_MAX 10                        // Maximum number of pages expected. You can change this down (to save memory) or up (to accomodate more pages.)

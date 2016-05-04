@@ -35,7 +35,7 @@
  *
  *  Author(s): Philip Lamb
  *
- *      Rev             Date            Who             Changes
+ *  Rev     Date        Who     Changes
  *  1.0.0   2008-03-30  PRL     Rewrite of gsub_lite.c from ARToolKit v4.3.2 for OpenGL ES 1.1 capabilities.
  *
  */

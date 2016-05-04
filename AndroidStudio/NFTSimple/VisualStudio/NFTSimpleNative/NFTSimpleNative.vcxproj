@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\include\android;$(ProjectDir)..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -65,14 +66,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\nftSimple\src\main\jni\ARMarkerNFT.c" />
-    <ClCompile Include="..\..\nftSimple\src\main\jni\color_convert_common.c" />
-    <ClCompile Include="..\..\nftSimple\src\main\jni\nftSimple.cpp" />
-    <ClCompile Include="..\..\nftSimple\src\main\jni\trackingSub.c" />
+    <ClCompile Include="..\..\nftSimple\src\main\jni\ColorConvertCommon.c" />
+    <ClCompile Include="..\..\nftSimple\src\main\jni\NFTSimple.cpp" />
+    <ClCompile Include="..\..\nftSimple\src\main\jni\TrackingSub.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\nftSimple\src\main\jni\ARMarkerNFT.h" />
-    <ClInclude Include="..\..\nftSimple\src\main\jni\color_convert_common.h" />
-    <ClInclude Include="..\..\nftSimple\src\main\jni\trackingSub.h" />
+    <ClInclude Include="..\..\nftSimple\src\main\jni\ColorConvertCommon.h" />
+    <ClInclude Include="..\..\nftSimple\src\main\jni\TrackingSub.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\nftSimple\src\main\jni\Android.mk" />
+    <None Include="..\..\nftSimple\src\main\jni\Application.mk" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
