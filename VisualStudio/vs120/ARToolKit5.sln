@@ -207,6 +207,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KPM", "KPM.vcxproj", "{6E11
 		{752E008F-2349-4275-BCD9-A2D145AE055D} = {752E008F-2349-4275-BCD9-A2D145AE055D}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NFTSimpleNative", "..\..\AndroidStudio\NFTSimple\VisualStudio\NFTSimpleNative\NFTSimpleNative.vcxproj", "{8FBAD965-F6D5-4D3C-9392-557C62439826}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -1061,6 +1063,26 @@ Global
 		{6E11DC57-ED7C-6C44-9F4C-08F8706CC5BB}.Release-StaticCRuntime|Win32.Build.0 = Release-StaticCRuntime|Win32
 		{6E11DC57-ED7C-6C44-9F4C-08F8706CC5BB}.Release-StaticCRuntime|x64.ActiveCfg = Release-StaticCRuntime|x64
 		{6E11DC57-ED7C-6C44-9F4C-08F8706CC5BB}.Release-StaticCRuntime|x64.Build.0 = Release-StaticCRuntime|x64
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug|Win32.Build.0 = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug|x64.ActiveCfg = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug-StaticCRuntime|Mixed Platforms.ActiveCfg = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug-StaticCRuntime|Mixed Platforms.Build.0 = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug-StaticCRuntime|Win32.ActiveCfg = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug-StaticCRuntime|Win32.Build.0 = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Debug-StaticCRuntime|x64.ActiveCfg = Debug|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release|Win32.ActiveCfg = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release|Win32.Build.0 = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release|x64.ActiveCfg = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release-StaticCRuntime|Mixed Platforms.ActiveCfg = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release-StaticCRuntime|Mixed Platforms.Build.0 = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release-StaticCRuntime|Win32.ActiveCfg = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release-StaticCRuntime|Win32.Build.0 = Release|Win32
+		{8FBAD965-F6D5-4D3C-9392-557C62439826}.Release-StaticCRuntime|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
