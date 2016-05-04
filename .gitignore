@@ -50,3 +50,8 @@ VisualStudio/vs120/Release/*
 android/libs/*
 android/obj/local/armeabi/objs/*
 android/obj/local/armeabi-v7a/objs/*
+AndroidStudio/NFTSimple/*gradle/*
+AndroidStudio/NFTSimple/*idea/*
+AndroidStudio/NFTSimple/aRBaseLib/build/*
+AndroidStudio/NFTSimple/nftSimple/build/*
+AndroidStudio/NFTSimple/build/*
