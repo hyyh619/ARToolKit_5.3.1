@@ -112,7 +112,11 @@ enum viewPortIndices
 
 // Logging macros
 #define  LOG_TAG "NFTSimpleNative"
+#ifdef DEBUG
 #define  LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#else
+#define  LOGD(...) 
+#endif
 #define  LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define  LOGW(...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
 #define  LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
@@ -139,8 +143,8 @@ JNIEXPORT void JNICALL     JNIFUNCTION_NATIVE(nativeSetInternetState(JNIEnv * en
 };
 
 static void nativeVideoGetCparamCallback(const ARParam *cparam, void *userdata);
-static void* loadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
-static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
+static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
+static int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
 
 // ============================================================================
 // Global variables
@@ -151,10 +155,10 @@ static const char *cparaName                = "Data/camera_para.dat";   ///< Cam
 static const char *markerConfigDataFilename = "Data/markers.dat";
 
 // Image acquisition.
-static AR2VideoParamT  *gVid                                = NULL;
-static bool            videoInited                          = false;    ///< true when ready to receive video frames.
-static int             videoWidth                           = 0;        ///< Width of the video frame in pixels.
-static int             videoHeight                          = 0;        ///< Height of the video frame in pixels.
+static AR2VideoParamT  *g_Vid                               = NULL;
+static bool            g_videoInited                        = false;    ///< true when ready to receive video frames.
+static int             g_videoWidth                         = 0;        ///< Width of the video frame in pixels.
+static int             g_videoHeight                        = 0;        ///< Height of the video frame in pixels.
 static AR_PIXEL_FORMAT gPixFormat;                                      ///< Pixel format from ARToolKit enumeration.
 static ARUint8         *gVideoFrame                         = NULL;     ///< Buffer containing current video frame.
 static size_t          gVideoFrameSize                      = 0;        ///< Size of buffer containing current video frame.
@@ -163,17 +167,17 @@ static int             gCameraIndex                         = 0;
 static bool            gCameraIsFrontFacing                 = false;
 
 // Markers.
-static ARMarkerNFT *markersNFT     = NULL;
-static int         markersNFTCount = 0;
+static ARMarkerNFT     *markersNFT                          = NULL;
+static int             markersNFTCount                      = 0;
 
 // NFT.
-static THREAD_HANDLE_T *trackingThreadHandle        = NULL;
-static AR2HandleT      *ar2Handle                   = NULL;
-static KpmHandle       *kpmHandle                   = NULL;
-static int             surfaceSetCount              = 0;
+static THREAD_HANDLE_T *trackingThreadHandle                = NULL;
+static AR2HandleT      *ar2Handle                           = NULL;
+static KpmHandle       *kpmHandle                           = NULL;
+static int             surfaceSetCount                      = 0;
 static AR2SurfaceSetT  *surfaceSet[PAGES_MAX];
-static THREAD_HANDLE_T *nftDataLoadingThreadHandle  = NULL;
-static int             nftDataLoaded                = false;
+static THREAD_HANDLE_T *nftDataLoadingThreadHandle          = NULL;
+static int             nftDataLoaded                        = false;
 
 // NFT results.
 static int   detectedPage = -2; // -2 Tracking not initialized, -1 tracking initialized OK, >= 0 tracking online on page.
@@ -220,9 +224,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeCreate(JNIEnv * env, jobject
 {
     int err_i;
 
-#ifdef DEBUG
-    LOGI("nativeCreate\n");
-#endif
+    LOGD("nativeCreate\n");
 
     // Change working directory for the native process, so relative paths can be used for file access.
     arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST, NULL, instanceOfAndroidContext);
@@ -235,21 +237,17 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeCreate(JNIEnv * env, jobject
         return false;
     }
 
-#ifdef DEBUG
-    LOGE("Marker count = %d\n", markersNFTCount);
-#endif
+    LOGD("Marker count = %d\n", markersNFTCount);
 
     return (true);
 }
 
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStart(JNIEnv * env, jobject object))
 {
-#ifdef DEBUG
-    LOGI("nativeStart\n");
-#endif
+    LOGD("nativeStart\n");
 
-    gVid = ar2VideoOpen("");
-    if (!gVid)
+    g_Vid = ar2VideoOpen("");
+    if (!g_Vid)
     {
         LOGE("Error: ar2VideoOpen.\n");
         return (false);
@@ -270,19 +268,17 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStart(JNIEnv * env, jobject 
 // cleanup();
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject object))
 {
-#ifdef DEBUG
-    LOGI("nativeStop\n");
-#endif
-    int i, j;
+    int i;
+    int j;
+
+    LOGD("nativeStop\n");
 
     // Can't call arglCleanup() here, because nativeStop is not called on rendering thread.
 
     // NFT cleanup.
     if (trackingThreadHandle)
     {
-#ifdef DEBUG
-        LOGI("Stopping NFT2 tracking thread.");
-#endif
+        LOGD("Stopping NFT2 tracking thread.");
         trackingInitQuit(&trackingThreadHandle);
         detectedPage = -2;
     }
@@ -295,7 +291,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
         {
 #ifdef DEBUG
             if (j == 0)
-                LOGI("Unloading NFT tracking surfaces.");
+                LOGD("Unloading NFT tracking surfaces.");
 #endif
             ar2FreeSurfaceSet(&surfaceSet[i]); // Sets surfaceSet[i] to NULL.
             j++;
@@ -304,13 +300,14 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
 
 #ifdef DEBUG
     if (j > 0)
-        LOGI("Unloaded %d NFT tracking surfaces.", j);
+        LOGD("Unloaded %d NFT tracking surfaces.", j);
 #endif
+
     surfaceSetCount = 0;
     nftDataLoaded   = false;
-#ifdef DEBUG
-    LOGI("Cleaning up ARToolKit NFT handles.");
-#endif
+
+    LOGD("Cleaning up ARToolKit NFT handles.");
+
     ar2DeleteHandle(&ar2Handle);
     kpmDeleteHandle(&kpmHandle);
     arParamLTFree(&gCparamLT);
@@ -325,18 +322,17 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
         gVideoFrameSize = 0;
     }
 
-    ar2VideoClose(gVid);
-    gVid        = NULL;
-    videoInited = false;
+    ar2VideoClose(g_Vid);
+    g_Vid        = NULL;
+    g_videoInited = false;
 
     return (true);
 }
 
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeDestroy(JNIEnv * env, jobject object))
 {
-#ifdef DEBUG
-    LOGI("nativeDestroy\n");
-#endif
+    LOGD("nativeDestroy\n");
+
     if (markersNFT)
         DeleteMarkers(&markersNFT, &markersNFTCount);
 
@@ -349,9 +345,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeDestroy(JNIEnv * env, jobjec
 
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeVideoInit(JNIEnv * env, jobject object, jint w, jint h, jint cameraIndex, jboolean cameraIsFrontFacing))
 {
-#ifdef DEBUG
-    LOGI("nativeVideoInit\n");
-#endif
+    LOGD("nativeVideoInit\n");
 
     // As of ARToolKit v5.0, NV21 format video frames are handled natively,
     // and no longer require color conversion to RGBA. A buffer (gVideoFrame)
@@ -371,21 +365,21 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeVideoInit(JNIEnv * env, jobj
         return false;
     }
 
-    videoWidth           = w;
-    videoHeight          = h;
+    g_videoWidth           = w;
+    g_videoHeight          = h;
     gCameraIndex         = cameraIndex;
     gCameraIsFrontFacing = cameraIsFrontFacing;
     LOGI("Video camera %d (%s), %dx%d format %s, %d-byte buffer.", 
         gCameraIndex, (gCameraIsFrontFacing ? "front" : "rear"), w, h, arUtilGetPixelFormatName(gPixFormat), gVideoFrameSize);
 
-    ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_WIDTH, videoWidth);
-    ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_HEIGHT, videoHeight);
-    ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_PIXELFORMAT, (int)gPixFormat);
-    ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX, gCameraIndex);
-    ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_CAMERA_FACE, gCameraIsFrontFacing);
-    ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_INTERNET_STATE, gInternetState);
+    ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_WIDTH, g_videoWidth);
+    ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_HEIGHT, g_videoHeight);
+    ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_PIXELFORMAT, (int)gPixFormat);
+    ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX, gCameraIndex);
+    ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_CAMERA_FACE, gCameraIsFrontFacing);
+    ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_INTERNET_STATE, gInternetState);
 
-    if (ar2VideoGetCParamAsync(gVid, nativeVideoGetCparamCallback, NULL) < 0)
+    if (ar2VideoGetCParamAsync(g_Vid, nativeVideoGetCparamCallback, NULL) < 0)
     {
         LOGE("Error getting cparam.\n");
         nativeVideoGetCparamCallback(NULL, NULL);
@@ -411,23 +405,24 @@ static void nativeVideoGetCparamCallback(const ARParam *cparam_p, void *userdata
         }
     }
 
-    if (cparam.xsize != videoWidth || cparam.ysize != videoHeight)
+    if (cparam.xsize != g_videoWidth || cparam.ysize != g_videoHeight)
     {
         LOGW("*** Camera Parameter resized from %d, %d. ***\n", cparam.xsize, cparam.ysize);
-        arParamChangeSize(&cparam, videoWidth, videoHeight, &cparam);
+        arParamChangeSize(&cparam, g_videoWidth, g_videoHeight, &cparam);
     }
 
 #ifdef DEBUG
     LOGD("*** Camera Parameter ***\n");
     arParamDisp(&cparam);
 #endif
+
     if ((gCparamLT = arParamLTCreate(&cparam, AR_PARAM_LT_DEFAULT_OFFSET)) == NULL)
     {
         LOGE("Error: arParamLTCreate.\n");
         return;
     }
 
-    videoInited = true;
+    g_videoInited = true;
 
     //
     // AR init.
@@ -437,7 +432,7 @@ static void nativeVideoGetCparamCallback(const ARParam *cparam_p, void *userdata
     arglCameraFrustumRHf(&gCparamLT->param, NEAR_PLANE, FAR_PLANE, cameraLens);
     cameraPoseValid = FALSE;
 
-    if (!initNFT(gCparamLT, gPixFormat))
+    if (!InitNFT(gCparamLT, gPixFormat))
     {
         LOGE("Error initialising NFT.\n");
         arParamLTFree(&gCparamLT);
@@ -445,7 +440,7 @@ static void nativeVideoGetCparamCallback(const ARParam *cparam_p, void *userdata
     }
 
     // Marker data has already been loaded, so now load NFT data on a second thread.
-    nftDataLoadingThreadHandle = threadInit(0, NULL, loadNFTDataAsync);
+    nftDataLoadingThreadHandle = threadInit(0, NULL, LoadNFTDataAsync);
     if (!nftDataLoadingThreadHandle)
     {
         LOGE("Error starting NFT loading thread.\n");
@@ -457,11 +452,10 @@ static void nativeVideoGetCparamCallback(const ARParam *cparam_p, void *userdata
 }
 
 // Modifies globals: kpmHandle, ar2Handle.
-static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
+static int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
 {
-#ifdef DEBUG
-    LOGE("Initialising NFT.\n");
-#endif
+    LOGD("Initialising NFT.\n");
+
     //
     // NFT init.
     //
@@ -486,9 +480,8 @@ static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
 
     if (threadGetCPU() <= 1)
     {
-#ifdef DEBUG
-        LOGE("Using NFT tracking settings for a single CPU.\n");
-#endif
+        LOGD("Using NFT tracking settings for a single CPU.\n");
+
         ar2SetTrackingThresh(ar2Handle, 5.0);
         ar2SetSimThresh(ar2Handle, 0.50);
         ar2SetSearchFeatureNum(ar2Handle, 16);
@@ -498,9 +491,8 @@ static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
     }
     else
     {
-#ifdef DEBUG
-        LOGE("Using NFT tracking settings for more than one CPU.\n");
-#endif
+        LOGD("Using NFT tracking settings for more than one CPU.\n");
+
         ar2SetTrackingThresh(ar2Handle, 5.0);
         ar2SetSimThresh(ar2Handle, 0.50);
         ar2SetSearchFeatureNum(ar2Handle, 16);
@@ -510,24 +502,21 @@ static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
     }
 
     // NFT dataset loading will happen later.
-#ifdef DEBUG
-    LOGE("NFT initialised OK.\n");
-#endif
+    LOGD("NFT initialised OK.\n");
+
     return (true);
 }
 
 // References globals: markersNFTCount
 // Modifies globals: trackingThreadHandle, surfaceSet[], surfaceSetCount, markersNFT[], markersNFTCount
-static void* loadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
+static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
 {
     int           i, j;
     KpmRefDataSet *refDataSet;
 
     while (threadStartWait(threadHandle) == 0)
     {
-#ifdef DEBUG
-        LOGE("Loading NFT data.\n");
-#endif
+        LOGD("Loading NFT data.\n");
 
         // If data was already loaded, stop KPM tracking thread and unload previously loaded data.
         if (trackingThreadHandle)
@@ -611,9 +600,7 @@ static void* loadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
         if (!trackingThreadHandle)
             exit(-1);
 
-#ifdef DEBUG
-        LOGI("Loading of NFT data complete.");
-#endif
+        LOGD("Loading of NFT data complete.");
 
         threadEndSignal(threadHandle); // Signal that we're done.
     }
@@ -626,21 +613,17 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
     int   i, j, k;
     jbyte *inArray;
 
-    if (!videoInited)
+    if (!g_videoInited)
     {
-#ifdef DEBUG
         LOGD("nativeVideoFrame !VIDEO\n");
-#endif
-        return; // No point in trying to track until video is inited.
+        return; // No point in trying to track until video is initialized.
     }
 
     if (!nftDataLoaded)
     {
         if (!nftDataLoadingThreadHandle || threadGetStatus(nftDataLoadingThreadHandle) < 1)
         {
-#ifdef DEBUG
             LOGD("nativeVideoFrame !NFTDATA\n");
-#endif
             return;
         }
         else
@@ -653,15 +636,11 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
 
     if (!gARViewInited)
     {
-        return; // Also, we won't track until the ARView has been inited.
-#ifdef DEBUG
         LOGD("nativeVideoFrame !ARVIEW\n");
-#endif
+        return; // Also, we won't track until the ARView has been initialized.
     }
 
-#ifdef DEBUG
     LOGD("nativeVideoFrame\n");
-#endif
 
     // Copy the incoming  YUV420 image in pinArray.
     env->GetByteArrayRegion(pinArray, 0, gVideoFrameSize, (jbyte*)gVideoFrame);
@@ -695,9 +674,8 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
             {
                 if (pageNo >= 0 && pageNo < surfaceSetCount)
                 {
-#ifdef DEBUG
-                    LOGE("Detected page %d.\n", pageNo);
-#endif
+                    LOGD("Detected page %d.\n", pageNo);
+
                     detectedPage = pageNo;
                     ar2SetInitTrans(surfaceSet[detectedPage], trackingTrans);
                 }
@@ -709,9 +687,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
             }
             else if (ret < 0)
             {
-#ifdef DEBUG
-                LOGE("No page detected.\n");
-#endif
+                LOGD("No page detected.\n");
                 detectedPage = -2;
             }
         }
@@ -720,16 +696,12 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
         {
             if (ar2Tracking(ar2Handle, surfaceSet[detectedPage], gVideoFrame, trackingTrans, &err) < 0)
             {
-#ifdef DEBUG
-                LOGE("Tracking lost.\n");
-#endif
+                LOGD("Tracking lost.\n");
                 detectedPage = -2;
             }
             else
             {
-#ifdef DEBUG
-                LOGE("Tracked page %d (max %d).\n", detectedPage, surfaceSetCount - 1);
-#endif
+                LOGD("Tracked page %d (max %d).\n", detectedPage, surfaceSetCount - 1);
             }
         }
     }
@@ -797,15 +769,14 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
 // OpenGL context is about to be deleted, it's just whipped out from under us. So it's
 // possible that when we enter this function, we're actually resuming after such an
 // event. What about resources we allocated previously which we didn't get time to
-// de-allocate? Well, we don't have to worry about the OpenGL resources themselves, they
+// free? Well, we don't have to worry about the OpenGL resources themselves, they
 // were deleted along with the context. But, we should clean up any data structures we
 // allocated with malloc etc. ARGL's settings falls into this category.
 //
 JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeSurfaceCreated(JNIEnv * env, jobject object))
 {
-#ifdef DEBUG
-    LOGI("nativeSurfaceCreated\n");
-#endif
+    LOGD("nativeSurfaceCreated\n");
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     glStateCacheFlush();     // Make sure we don't hold outdated OpenGL state.
@@ -827,9 +798,8 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeSurfaceChanged(JNIEnv * env, job
 {
     backingWidth  = w;
     backingHeight = h;
-#ifdef DEBUG
-    LOGI("nativeSurfaceChanged backingWidth=%d, backingHeight=%d\n", w, h);
-#endif
+
+    LOGD("nativeSurfaceChanged backingWidth=%d, backingHeight=%d\n", w, h);
 
     // Call through to anyone else who needs to know about window sizing here.
 
@@ -842,9 +812,8 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeSurfaceChanged(JNIEnv * env, job
 // 0 = portrait, 1 = landscape (device rotated 90 degrees ccw), 2 = portrait upside down, 3 = landscape reverse (device rotated 90 degrees cw).
 JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDisplayParametersChanged(JNIEnv * env, jobject object, jint orientation, jint width, jint height, jint dpi))
 {
-#ifdef DEBUG
-    LOGI("nativeDisplayParametersChanged orientation=%d, size=%dx%d@%dpi\n", orientation, width, height, dpi);
-#endif
+    LOGD("nativeDisplayParametersChanged orientation=%d, size=%dx%d@%dpi\n", orientation, width, height, dpi);
+
     gDisplayOrientation = orientation;
     gDisplayWidth       = width;
     gDisplayHeight      = height;
@@ -856,13 +825,13 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDisplayParametersChanged(JNIEnv 
 JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeSetInternetState(JNIEnv * env, jobject obj, jint state))
 {
     gInternetState = state;
-    if (gVid)
+    if (g_Vid)
     {
-        ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_INTERNET_STATE, state);
+        ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_INTERNET_STATE, state);
     }
 }
 
-// Lays out the AR view. Requires both video and OpenGL to be inited, and must be called on OpenGL thread.
+// Lays out the AR view. Requires both video and OpenGL to be initialized, and must be called on OpenGL thread.
 // References globals: gContentMode, backingWidth, backingHeight, videoWidth, videoHeight, .
 // Modifies globals: gContentFlipV, gContentFlipH, gContentRotate90, viewPort, gARViewLayoutRequired.
 static bool layoutARView(void)
@@ -898,8 +867,8 @@ static bool layoutARView(void)
 
     // Calculate viewPort.
     int left, bottom, w, h;
-    int contentWidth  = videoWidth;
-    int contentHeight = videoHeight;
+    int contentWidth  = g_videoWidth;
+    int contentHeight = g_videoHeight;
 
     if (gContentMode == ARViewContentModeScaleToFill)
     {
@@ -959,9 +928,8 @@ static bool layoutARView(void)
     viewPort[viewPortIndexWidth]  = w;
     viewPort[viewPortIndexHeight] = h;
 
-#ifdef DEBUG
-    LOGE("Viewport={%d, %d, %d, %d}\n", left, bottom, w, h);
-#endif
+    LOGD("Viewport={%d, %d, %d, %d}\n", left, bottom, w, h);
+
     // Call through to anyone else who needs to know about changes in the ARView layout here.
     // --->
 
@@ -971,41 +939,36 @@ static bool layoutARView(void)
 }
 
 
-// All tasks which require both video and OpenGL to be inited should be performed here.
+// All tasks which require both video and OpenGL to be initialized should be performed here.
 // References globals: gCparamLT, gPixFormat
 // Modifies globals: gArglSettings
-static bool initARView(void)
+static bool InitARView(void)
 {
-#ifdef DEBUG
-    LOGI("Initialising ARView\n");
-#endif
+    LOGD("Initialising ARView\n");
+
     if (gARViewInited)
         return (false);
 
-#ifdef DEBUG
-    LOGI("Setting up argl.\n");
-#endif
+    LOGD("Setting up argl.\n");
+
     if ((gArglSettings = arglSetupForCurrentContext(&gCparamLT->param, gPixFormat)) == NULL)
     {
         LOGE("Unable to setup argl.\n");
         return (false);
     }
 
-#ifdef DEBUG
-    LOGI("argl setup OK.\n");
-#endif
+    LOGD("argl setup OK.\n");
 
     gARViewInited = true;
-#ifdef DEBUG
-    LOGI("ARView initialised.\n");
-#endif
+
+    LOGD("ARView initialised.\n");
 
     return (true);
 }
 
-void drawCube(float size, float x, float y, float z)
+void DrawCube(float size, float x, float y, float z)
 {
-    // Colour cube data.
+    // Color cube data.
     int           i;
     const GLfloat cube_vertices[8][3] =
     {
@@ -1052,20 +1015,17 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
 {
     float width, height;
 
-    if (!videoInited)
+    if (!g_videoInited)
     {
-#ifdef DEBUG
-        LOGI("nativeDrawFrame !VIDEO\n");
-#endif
-        return; // No point in trying to draw until video is inited.
+        LOGD("nativeDrawFrame !VIDEO\n");
+        return; // No point in trying to draw until video is initialized.
     }
 
-#ifdef DEBUG
-    LOGI("nativeDrawFrame\n");
-#endif
+    LOGD("nativeDrawFrame\n");
+
     if (!gARViewInited)
     {
-        if (!initARView())
+        if (!InitARView())
             return;
     }
 
@@ -1075,7 +1035,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
     // Upload new video frame if required.
     if (videoFrameNeedsPixelBufferDataUpload)
     {
-        arglPixelBufferDataUploadBiPlanar(gArglSettings, gVideoFrame, gVideoFrame + videoWidth * videoHeight);
+        arglPixelBufferDataUploadBiPlanar(gArglSettings, gVideoFrame, gVideoFrame + g_videoWidth * g_videoHeight);
         videoFrameNeedsPixelBufferDataUpload = false;
     }
 
@@ -1104,7 +1064,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
         if (markersNFT[i].valid)
         {
             glLoadMatrixf(markersNFT[i].pose.T);
-            drawCube(40.0f, 0.0f, 0.0f, 20.0f);
+            DrawCube(40.0f, 0.0f, 0.0f, 20.0f);
         }
     }
 
