@@ -92,9 +92,9 @@ typedef struct _ARMarkerNFT
     char *datasetPathname;
 } ARMarkerNFT;
 
-void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out);
+void NewMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out);
 
-void deleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p);
+void DeleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p);
 
 #ifdef __cplusplus
 }

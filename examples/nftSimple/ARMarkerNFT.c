@@ -64,7 +64,7 @@ const ARPose ARPoseUnity =
     {1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
 };
 
-static char* get_buff(char *buf, int n, FILE *fp, int skipblanks)
+static char* GetBuff(char *buf, int n, FILE *fp, int skipblanks)
 {
     char   *ret;
     size_t l;
@@ -92,7 +92,7 @@ static char* get_buff(char *buf, int n, FILE *fp, int skipblanks)
     return (ret);
 }
 
-void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out)
+void NewMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out)
 {
     FILE        *fp;
     char        buf[MAXPATHLEN], buf1[MAXPATHLEN];
@@ -118,7 +118,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
     }
 
     // First line is number of markers to read.
-    get_buff(buf, MAXPATHLEN, fp, 1);
+    GetBuff(buf, MAXPATHLEN, fp, 1);
     if (sscanf(buf, "%d", &tempI) != 1)
     {
         ARLOGe("Error in marker configuration data file; expected marker count.\n");
@@ -134,14 +134,14 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
     for (i = 0; i < markersNFTCount; i++)
     {
         // Read marker name.
-        if (!get_buff(buf, MAXPATHLEN, fp, 1))
+        if (!GetBuff(buf, MAXPATHLEN, fp, 1))
         {
             ARLOGe("Error in marker configuration data file; expected marker name.\n");
             break;
         }
 
         // Read marker type.
-        if (!get_buff(buf1, MAXPATHLEN, fp, 1))
+        if (!GetBuff(buf1, MAXPATHLEN, fp, 1))
         {
             ARLOGe("Error in marker configuration data file; expected marker type.\n");
             break;
@@ -170,7 +170,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
         }
 
         // Look for optional tokens. A blank line marks end of options.
-        while (get_buff(buf, MAXPATHLEN, fp, 0) && (buf[0] != '\0'))
+        while (GetBuff(buf, MAXPATHLEN, fp, 0) && (buf[0] != '\0'))
         {
             if (strncmp(buf, "FILTER", 6) == 0)
             {
@@ -221,7 +221,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
     *markersNFT_out      = markersNFT;
 }
 
-void deleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p)
+void DeleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p)
 {
     int i;
 

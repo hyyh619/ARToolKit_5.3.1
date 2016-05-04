@@ -65,5 +65,4 @@ int trackingInitQuit(THREAD_HANDLE_T **threadHandle_p);
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !TRACKING_SUB_H

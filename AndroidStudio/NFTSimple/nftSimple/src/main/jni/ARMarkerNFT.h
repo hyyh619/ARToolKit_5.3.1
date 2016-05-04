@@ -41,9 +41,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  *  Copyright 2015 Daqri LLC. All Rights Reserved.
- *  Copyright 2011-2015 ARToolworks, Inc. All Rights Reserved.
+ *  Copyright 2013-2015 ARToolworks, Inc. All Rights Reserved.
  *
- *  Author(s): Philip Lamb
+ *  Author(s): Philip Lamb.
  *
  */
 
@@ -92,9 +92,9 @@ typedef struct _ARMarkerNFT
     char *datasetPathname;
 } ARMarkerNFT;
 
-void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out);
+void NewMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out);
 
-void deleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p);
+void DeleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p);
 
 #ifdef __cplusplus
 }

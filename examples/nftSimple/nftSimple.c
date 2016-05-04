@@ -2,7 +2,7 @@
  *  nftSimple.c
  *  ARToolKit5
  *
- *  Demonstration of ARToolKit NFT. Renders a color cube.
+ *  Demonstration of ARToolKit NFT. Render a color cube.
  *
  *  Press '?' while running for help on available key commands.
  *
@@ -53,7 +53,7 @@
 
 
 // ============================================================================
-//      Includes
+// Includes
 // ============================================================================
 
 #ifdef _WIN32
@@ -81,25 +81,25 @@
 #include "trackingSub.h"
 
 // ============================================================================
-//      Constants
+// Constants
 // ============================================================================
 
 #define PAGES_MAX 10                        // Maximum number of pages expected. You can change this down (to save memory) or up (to accomodate more pages.)
 
-#define VIEW_SCALEFACTOR  1.0                           // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
-#define VIEW_DISTANCE_MIN 10.0                          // Objects closer to the camera than this will not be displayed. OpenGL units.
-#define VIEW_DISTANCE_MAX 10000.0                       // Objects further away from the camera than this will not be displayed. OpenGL units.
+#define VIEW_SCALEFACTOR  1.0               // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
+#define VIEW_DISTANCE_MIN 10.0              // Objects closer to the camera than this will not be displayed. OpenGL units.
+#define VIEW_DISTANCE_MAX 10000.0           // Objects further away from the camera than this will not be displayed. OpenGL units.
 
 // ============================================================================
-//      Global variables
+// Global variables
 // ============================================================================
 
 // Preferences.
 static int prefWindowed = TRUE;
-static int prefWidth    = 640;                          // Fullscreen mode width.
-static int prefHeight   = 480;                          // Fullscreen mode height.
-static int prefDepth    = 32;                           // Fullscreen mode bit depth.
-static int prefRefresh  = 0;                            // Fullscreen mode refresh rate. Set to 0 to use default rate.
+static int prefWidth    = 640;              // Fullscreen mode width.
+static int prefHeight   = 480;              // Fullscreen mode height.
+static int prefDepth    = 32;               // Fullscreen mode bit depth.
+static int prefRefresh  = 0;                // Fullscreen mode refresh rate. Set to 0 to use default rate.
 
 
 // Image acquisition.
@@ -129,7 +129,7 @@ static ARdouble                  cameraLens[16];
 
 
 // ============================================================================
-//      Function prototypes
+// Function prototypes
 // ============================================================================
 
 static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p);
@@ -142,7 +142,7 @@ static void Reshape(int w, int h);
 static void Display(void);
 
 // ============================================================================
-//      Functions
+// Functions
 // ============================================================================
 
 int main(int argc, char **argv)
@@ -243,7 +243,7 @@ int main(int argc, char **argv)
     //
 
     // Load marker(s).
-    newMarkers(markerConfigDataFilename, &markersNFT, &markersNFTCount);
+    NewMarkers(markerConfigDataFilename, &markersNFT, &markersNFTCount);
     if (!markersNFTCount)
     {
         ARLOGe("Error loading markers from config. file '%s'.\n", markerConfigDataFilename);
@@ -565,7 +565,7 @@ static int loadNFTData(void)
 static void cleanup(void)
 {
     if (markersNFT)
-        deleteMarkers(&markersNFT, &markersNFTCount);
+        DeleteMarkers(&markersNFT, &markersNFTCount);
 
     // NFT cleanup.
     unloadNFTData();
@@ -590,7 +590,7 @@ static void Keyboard(unsigned char key, int x, int y)
 {
     switch (key)
     {
-    case 0x1B:                                                          // Quit.
+    case 0x1B: // Quit.
     case 'Q':
     case 'q':
         cleanup();
@@ -623,7 +623,7 @@ static void mainLoop(void)
     ARUint8    *image;
 
     // NFT results.
-    static int   detectedPage = -2; // -2 Tracking not inited, -1 tracking inited OK, >= 0 tracking online on page.
+    static int   detectedPage = -2; // -2 Tracking not initialized, -1 tracking initialized OK, >= 0 tracking online on page.
     static float trackingTrans[3][4];
 
 
@@ -756,8 +756,8 @@ static void mainLoop(void)
 }
 
 //
-//      This function is called on events when the visibility of the
-//      GLUT window changes (including when it first becomes visible).
+// This function is called on events when the visibility of the
+// GLUT window changes (including when it first becomes visible).
 //
 static void Visibility(int visible)
 {
@@ -772,8 +772,8 @@ static void Visibility(int visible)
 }
 
 //
-//      This function is called when the
-//      GLUT window is resized.
+// This function is called when the
+// GLUT window is resized.
 //
 static void Reshape(int w, int h)
 {
@@ -831,7 +831,7 @@ static void Display(void)
             // All lighting and geometry to be drawn relative to the marker goes here.
             // --->
 
-            // benet-add for test
+            // Benet-add for test
             glScalef(15.0f, 20.0f, 4.0f);
             glTranslatef(20.0, 20.0f, 0.0f);
 

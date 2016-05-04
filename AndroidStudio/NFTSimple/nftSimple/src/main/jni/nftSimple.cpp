@@ -3,7 +3,7 @@
  *  ARToolKit for Android
  *
  *  An NFT example with all ARToolKit setup performed in native code,
- *  and with basic OpenGL ES rendering of a colour cube.
+ *  and with basic OpenGL ES rendering of a color cube.
  *
  *  Disclaimer: IMPORTANT:  This Daqri software is supplied to you by Daqri
  *  LLC ("Daqri") in consideration of your agreement to the following
@@ -51,7 +51,7 @@
  */
 
 // ============================================================================
-//      Includes
+// Includes
 // ============================================================================
 
 #include <jni.h>
@@ -69,7 +69,7 @@
 #include "trackingSub.h"
 
 // ============================================================================
-//      Types
+// Types
 // ============================================================================
 
 typedef enum
@@ -77,7 +77,6 @@ typedef enum
     ARViewContentModeScaleToFill,
     ARViewContentModeScaleAspectFit,      // contents scaled to fit with fixed aspect. remainder is transparent
     ARViewContentModeScaleAspectFill,     // contents scaled to fill with fixed aspect. some portion of content may be clipped.
-    // ARViewContentModeRedraw,              // redraw on bounds change
     ARViewContentModeCenter,              // contents remain same size. positioned adjusted.
     ARViewContentModeTop,
     ARViewContentModeBottom,
@@ -87,6 +86,7 @@ typedef enum
     ARViewContentModeTopRight,
     ARViewContentModeBottomLeft,
     ARViewContentModeBottomRight,
+    // ARViewContentModeRedraw,              // redraw on bounds change
 } ARViewContentMode;
 
 enum viewPortIndices
@@ -118,7 +118,7 @@ enum viewPortIndices
 #define  LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 // ============================================================================
-//      Function prototypes.
+// Function prototypes.
 // ============================================================================
 
 // Utility preprocessor directive so only one change needed if Java class name changes
@@ -143,21 +143,21 @@ static void* loadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
 static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
 
 // ============================================================================
-//      Global variables
+// Global variables
 // ============================================================================
 
 // Preferences.
-static const char *cparaName                = "Data/camera_para.dat";           ///< Camera parameters file
+static const char *cparaName                = "Data/camera_para.dat";   ///< Camera parameters file
 static const char *markerConfigDataFilename = "Data/markers.dat";
 
 // Image acquisition.
-static AR2VideoParamT  *gVid       = NULL;
-static bool            videoInited = false;                         ///< true when ready to receive video frames.
-static int             videoWidth  = 0;                             ///< Width of the video frame in pixels.
-static int             videoHeight = 0;                             ///< Height of the video frame in pixels.
-static AR_PIXEL_FORMAT gPixFormat;                                  ///< Pixel format from ARToolKit enumeration.
-static ARUint8         *gVideoFrame                         = NULL; ///< Buffer containing current video frame.
-static size_t          gVideoFrameSize                      = 0;    ///< Size of buffer containing current video frame.
+static AR2VideoParamT  *gVid                                = NULL;
+static bool            videoInited                          = false;    ///< true when ready to receive video frames.
+static int             videoWidth                           = 0;        ///< Width of the video frame in pixels.
+static int             videoHeight                          = 0;        ///< Height of the video frame in pixels.
+static AR_PIXEL_FORMAT gPixFormat;                                      ///< Pixel format from ARToolKit enumeration.
+static ARUint8         *gVideoFrame                         = NULL;     ///< Buffer containing current video frame.
+static size_t          gVideoFrameSize                      = 0;        ///< Size of buffer containing current video frame.
 static bool            videoFrameNeedsPixelBufferDataUpload = false;
 static int             gCameraIndex                         = 0;
 static bool            gCameraIsFrontFacing                 = false;
@@ -167,16 +167,16 @@ static ARMarkerNFT *markersNFT     = NULL;
 static int         markersNFTCount = 0;
 
 // NFT.
-static THREAD_HANDLE_T *trackingThreadHandle = NULL;
-static AR2HandleT      *ar2Handle            = NULL;
-static KpmHandle       *kpmHandle            = NULL;
-static int             surfaceSetCount       = 0;
+static THREAD_HANDLE_T *trackingThreadHandle        = NULL;
+static AR2HandleT      *ar2Handle                   = NULL;
+static KpmHandle       *kpmHandle                   = NULL;
+static int             surfaceSetCount              = 0;
 static AR2SurfaceSetT  *surfaceSet[PAGES_MAX];
-static THREAD_HANDLE_T *nftDataLoadingThreadHandle = NULL;
-static int             nftDataLoaded               = false;
+static THREAD_HANDLE_T *nftDataLoadingThreadHandle  = NULL;
+static int             nftDataLoaded                = false;
 
 // NFT results.
-static int   detectedPage = -2; // -2 Tracking not inited, -1 tracking inited OK, >= 0 tracking online on page.
+static int   detectedPage = -2; // -2 Tracking not initialized, -1 tracking initialized OK, >= 0 tracking online on page.
 static float trackingTrans[3][4];
 
 // Drawing.
@@ -185,7 +185,7 @@ static int                       backingHeight;
 static GLint                     viewPort[4];
 static ARViewContentMode         gContentMode          = ARViewContentModeScaleAspectFill;
 static bool                      gARViewLayoutRequired = false;
-static ARParamLT                 *gCparamLT            = NULL;      ///< Camera paramaters
+static ARParamLT                 *gCparamLT            = NULL;      ///< Camera parameters
 static ARGL_CONTEXT_SETTINGS_REF gArglSettings         = NULL;      ///< GL settings for rendering video background
 static const ARdouble            NEAR_PLANE            = 10.0f;     ///< Near plane distance for projection matrix calculation
 static const ARdouble            FAR_PLANE             = 5000.0f;   ///< Far plane distance for projection matrix calculation
@@ -209,12 +209,11 @@ static int gInternetState = -1;
 
 
 // ============================================================================
-//      Functions
+// Functions
 // ============================================================================
 
 //
-// Lifecycle functions.
-// See http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
+// Life-cycle functions.
 //
 
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeCreate(JNIEnv * env, jobject object, jobject instanceOfAndroidContext))
@@ -229,7 +228,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeCreate(JNIEnv * env, jobject
     arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST, NULL, instanceOfAndroidContext);
 
     // Load marker(s).
-    newMarkers(markerConfigDataFilename, &markersNFT, &markersNFTCount);
+    NewMarkers(markerConfigDataFilename, &markersNFT, &markersNFTCount);
     if (!markersNFTCount)
     {
         LOGE("Error loading markers from config. file '%s'.", markerConfigDataFilename);
@@ -339,7 +338,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeDestroy(JNIEnv * env, jobjec
     LOGI("nativeDestroy\n");
 #endif
     if (markersNFT)
-        deleteMarkers(&markersNFT, &markersNFTCount);
+        DeleteMarkers(&markersNFT, &markersNFTCount);
 
     return (true);
 }
@@ -353,8 +352,9 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeVideoInit(JNIEnv * env, jobj
 #ifdef DEBUG
     LOGI("nativeVideoInit\n");
 #endif
+
     // As of ARToolKit v5.0, NV21 format video frames are handled natively,
-    // and no longer require colour conversion to RGBA. A buffer (gVideoFrame)
+    // and no longer require color conversion to RGBA. A buffer (gVideoFrame)
     // must be set aside to copy the frame from the Java side.
     // If you still require RGBA format information from the video,
     // you can create your own additional buffer, and then unpack the NV21
@@ -375,7 +375,8 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeVideoInit(JNIEnv * env, jobj
     videoHeight          = h;
     gCameraIndex         = cameraIndex;
     gCameraIsFrontFacing = cameraIsFrontFacing;
-    LOGI("Video camera %d (%s), %dx%d format %s, %d-byte buffer.", gCameraIndex, (gCameraIsFrontFacing ? "front" : "rear"), w, h, arUtilGetPixelFormatName(gPixFormat), gVideoFrameSize);
+    LOGI("Video camera %d (%s), %dx%d format %s, %d-byte buffer.", 
+        gCameraIndex, (gCameraIsFrontFacing ? "front" : "rear"), w, h, arUtilGetPixelFormatName(gPixFormat), gVideoFrameSize);
 
     ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_WIDTH, videoWidth);
     ar2VideoSetParami(gVid, AR_VIDEO_PARAM_ANDROID_HEIGHT, videoHeight);
@@ -666,7 +667,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
     env->GetByteArrayRegion(pinArray, 0, gVideoFrameSize, (jbyte*)gVideoFrame);
 
     // As of ARToolKit v5.0, NV21 format video frames are handled natively,
-    // and no longer require colour conversion to RGBA.
+    // and no longer require color conversion to RGBA.
     // If you still require RGBA format information from the video,
     // here is where you'd do the conversion:
     // color_convert_common(gVideoFrame, gVideoFrame + videoWidth*videoHeight, videoWidth, videoHeight, myRGBABuffer);

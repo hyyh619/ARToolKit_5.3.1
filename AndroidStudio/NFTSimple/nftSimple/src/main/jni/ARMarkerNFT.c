@@ -41,9 +41,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  *  Copyright 2015 Daqri LLC. All Rights Reserved.
- *  Copyright 2011-2015 ARToolworks, Inc. All Rights Reserved.
+ *  Copyright 2013-2015 ARToolworks, Inc. All Rights Reserved.
  *
- *  Author(s): Philip Lamb
+ *  Author(s): Philip Lamb.
  *
  */
 
@@ -58,11 +58,13 @@
 #  include <sys/param.h> // MAXPATHLEN
 #endif
 
-// benet: test for NDK.
 
-const ARPose ARPoseUnity = {{1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f}};
+const ARPose ARPoseUnity =
+{
+    {1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
+};
 
-static char* get_buff(char *buf, int n, FILE *fp, int skipblanks)
+static char* GetBuff(char *buf, int n, FILE *fp, int skipblanks)
 {
     char   *ret;
     size_t l;
@@ -71,7 +73,7 @@ static char* get_buff(char *buf, int n, FILE *fp, int skipblanks)
     {
         ret = fgets(buf, n, fp);
         if (ret == NULL)
-            return (NULL);              // EOF or error.
+            return (NULL); // EOF or error.
 
         // Remove NLs and CRs from end of string.
         l = strlen(buf);
@@ -90,7 +92,7 @@ static char* get_buff(char *buf, int n, FILE *fp, int skipblanks)
     return (ret);
 }
 
-void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out)
+void NewMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT_out, int *markersNFTCount_out)
 {
     FILE        *fp;
     char        buf[MAXPATHLEN], buf1[MAXPATHLEN];
@@ -106,9 +108,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
         return;
 
     // Load the marker data file.
-#ifdef DEBUG
-    ARLOGe("Opening marker config. data file from path '%s'.\n", markersConfigDataFilePathC);
-#endif
+    ARLOGd("Opening marker config. data file from path '%s'.\n", markersConfigDataFilePathC);
     arUtilGetDirectoryNameFromPath(markersConfigDataDirC, markersConfigDataFilePathC, MAXPATHLEN, 1); // 1 = add '/' at end.
     markersConfigDataDirCLen = strlen(markersConfigDataDirC);
     if ((fp = fopen(markersConfigDataFilePathC, "r")) == NULL)
@@ -118,7 +118,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
     }
 
     // First line is number of markers to read.
-    get_buff(buf, MAXPATHLEN, fp, 1);
+    GetBuff(buf, MAXPATHLEN, fp, 1);
     if (sscanf(buf, "%d", &tempI) != 1)
     {
         ARLOGe("Error in marker configuration data file; expected marker count.\n");
@@ -129,21 +129,19 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
     arMallocClear(markersNFT, ARMarkerNFT, tempI);
     markersNFTCount = tempI;
 
-#ifdef DEBUG
-    ARLOGe("Reading %d marker configuration(s).\n", markersNFTCount);
-#endif
+    ARLOGd("Reading %d marker configuration(s).\n", markersNFTCount);
 
     for (i = 0; i < markersNFTCount; i++)
     {
         // Read marker name.
-        if (!get_buff(buf, MAXPATHLEN, fp, 1))
+        if (!GetBuff(buf, MAXPATHLEN, fp, 1))
         {
             ARLOGe("Error in marker configuration data file; expected marker name.\n");
             break;
         }
 
         // Read marker type.
-        if (!get_buff(buf1, MAXPATHLEN, fp, 1))
+        if (!GetBuff(buf1, MAXPATHLEN, fp, 1))
         {
             ARLOGe("Error in marker configuration data file; expected marker type.\n");
             break;
@@ -172,7 +170,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
         }
 
         // Look for optional tokens. A blank line marks end of options.
-        while (get_buff(buf, MAXPATHLEN, fp, 0) && (buf[0] != '\0'))
+        while (GetBuff(buf, MAXPATHLEN, fp, 0) && (buf[0] != '\0'))
         {
             if (strncmp(buf, "FILTER", 6) == 0)
             {
@@ -223,7 +221,7 @@ void newMarkers(const char *markersConfigDataFilePathC, ARMarkerNFT **markersNFT
     *markersNFT_out      = markersNFT;
 }
 
-void deleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p)
+void DeleteMarkers(ARMarkerNFT **markersNFT_p, int *markersNFTCount_p)
 {
     int i;
 
