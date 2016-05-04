@@ -60,3 +60,7 @@ AndroidStudio/NFTSimple/nftSimple/src/main/libs/armeabi-v7a/libARWrapper.so
 AndroidStudio/NFTSimple/nftSimple/src/main/libs/armeabi/libARWrapper.so
 android/obj/local/armeabi/libARWrapper.so
 android/obj/local/armeabi-v7a/libARWrapper.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi/libnftSimpleNative.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi/libc++_shared.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libnftSimpleNative.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libc++_shared.so
