@@ -133,7 +133,7 @@ static ARdouble                  cameraLens[16];
 // ============================================================================
 
 static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p);
-static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
+static int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
 static int loadNFTData(void);
 static void cleanup(void);
 static void Keyboard(unsigned char key, int x, int y);
@@ -200,7 +200,7 @@ int main(int argc, char **argv)
     // Create the OpenGL projection from the calibrated camera parameters.
     arglCameraFrustumRH(&(gCparamLT->param), VIEW_DISTANCE_MIN, VIEW_DISTANCE_MAX, cameraLens);
 
-    if (!initNFT(gCparamLT, arVideoGetPixelFormat()))
+    if (!InitNFT(gCparamLT, arVideoGetPixelFormat()))
     {
         ARLOGe("main(): Unable to init NFT.\n");
         exit(-1);
@@ -401,7 +401,7 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 }
 
 // Modifies globals: kpmHandle, ar2Handle.
-static int initNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
+static int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
 {
     ARLOGd("Initialising NFT.\n");
 
@@ -460,7 +460,7 @@ static int unloadNFTData(void)
     if (threadHandle)
     {
         ARLOGi("Stopping NFT2 tracking thread.\n");
-        trackingInitQuit(&threadHandle);
+        TrackingInitQuit(&threadHandle);
     }
 
     j = 0;
@@ -554,7 +554,7 @@ static int loadNFTData(void)
     kpmDeleteRefDataSet(&refDataSet);
 
     // Start the KPM tracking thread.
-    threadHandle = trackingInitInit(kpmHandle);
+    threadHandle = TrackingInitInit(kpmHandle);
     if (!threadHandle)
         exit(-1);
 
@@ -656,13 +656,13 @@ static void mainLoop(void)
 
             if (detectedPage == -2)
             {
-                trackingInitStart(threadHandle, gARTImage);
+                TrackingInitStart(threadHandle, gARTImage);
                 detectedPage = -1;
             }
 
             if (detectedPage == -1)
             {
-                ret = trackingInitGetResult(threadHandle, trackingTrans, &pageNo);
+                ret = TrackingInitGetResult(threadHandle, trackingTrans, &pageNo);
                 if (ret == 1)
                 {
                     if (pageNo >= 0 && pageNo < surfaceSetCount)

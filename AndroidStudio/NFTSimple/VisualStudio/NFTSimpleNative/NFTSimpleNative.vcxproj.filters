@@ -15,27 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\nftSimple\src\main\jni\ARMarkerNFT.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\nftSimple\src\main\jni\ColorConvertCommon.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\nftSimple\src\main\jni\NFTSimple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\nftSimple\src\main\jni\TrackingSub.c">
+    <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\nftSimple\src\main\jni\ARMarkerNFT.h">
+    <ClInclude Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\nftSimple\src\main\jni\ColorConvertCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\nftSimple\src\main\jni\TrackingSub.h">
+    <ClInclude Include="..\..\..\..\examples\nftSimple\TrackingSub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

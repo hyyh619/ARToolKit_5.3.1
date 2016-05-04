@@ -44,7 +44,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\include\android;$(ProjectDir)..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Administrator\AppData\Local\Android\sdk\ndk-bundle\platforms\android-24\arch-arm\usr\include;$(ProjectDir)..\..\..\..\examples\nftSimple;$(ProjectDir)..\..\..\..\include\android;$(ProjectDir)..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -65,15 +66,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\nftSimple\src\main\jni\ARMarkerNFT.c" />
-    <ClCompile Include="..\..\nftSimple\src\main\jni\ColorConvertCommon.c" />
+    <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.c" />
+    <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.c" />
     <ClCompile Include="..\..\nftSimple\src\main\jni\NFTSimple.cpp" />
-    <ClCompile Include="..\..\nftSimple\src\main\jni\TrackingSub.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\nftSimple\src\main\jni\ARMarkerNFT.h" />
-    <ClInclude Include="..\..\nftSimple\src\main\jni\ColorConvertCommon.h" />
-    <ClInclude Include="..\..\nftSimple\src\main\jni\TrackingSub.h" />
+    <ClInclude Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.h" />
+    <ClInclude Include="..\..\..\..\examples\nftSimple\TrackingSub.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\nftSimple\src\main\jni\Android.mk" />

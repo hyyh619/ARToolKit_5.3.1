@@ -105,12 +105,13 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\examples\nftSimple\trackingSub.c" />
-    <ClCompile Include="..\..\examples\nftSimple\nftSimple.c" />
     <ClCompile Include="..\..\examples\nftSimple\ARMarkerNFT.c" />
+    <ClCompile Include="..\..\examples\nftSimple\NFTSimple.c" />
+    <ClCompile Include="..\..\examples\nftSimple\TrackingSub.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\examples\nftSimple\trackingSub.h" />
+    <ClInclude Include="..\..\examples\nftSimple\ARMarkerNFT.h" />
+    <ClInclude Include="..\..\examples\nftSimple\TrackingSub.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="AR.vcxproj">

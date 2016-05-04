@@ -91,14 +91,19 @@ LOCAL_ARM_MODE := arm
 
 LOCAL_PATH := $(MY_LOCAL_PATH)
 LOCAL_MODULE := NFTSimpleNative
-LOCAL_SRC_FILES := NFTSimple.cpp ARMarkerNFT.c TrackingSub.c
+LOCAL_SRC_FILES := NFTSimple.cpp \
+                   ../../../../../../examples/nftSimple/ARMarkerNFT.c \
+                   ../../../../../../examples/nftSimple/TrackingSub.c
 
 # Make sure DEBUG is defined for debug builds. (NDK already defines NDEBUG for release builds.)
 ifeq ($(APP_OPTIM),debug)
     LOCAL_CPPFLAGS += -DDEBUG
 endif
 
-LOCAL_C_INCLUDES += $(ARTOOLKIT_DIR)/../include/android $(ARTOOLKIT_DIR)/../include
+LOCAL_C_INCLUDES += $(ARTOOLKIT_DIR)/../include/android \
+                    $(ARTOOLKIT_DIR)/../include \
+                    $(ARTOOLKIT_DIR)/../examples/nftSimple
+
 LOCAL_LDLIBS += -llog -lGLESv1_CM -lz
 LOCAL_WHOLE_STATIC_LIBRARIES += ar
 LOCAL_STATIC_LIBRARIES += ar2 kpm util eden argsub_es armulti aricp cpufeatures jpeg arvideo

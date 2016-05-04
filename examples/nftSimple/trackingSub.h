@@ -57,10 +57,10 @@
 extern "C" {
 #endif
 
-THREAD_HANDLE_T* trackingInitInit(KpmHandle *kpmHandle);
-int trackingInitStart(THREAD_HANDLE_T *threadHandle, ARUint8 *imagePtr);
-int trackingInitGetResult(THREAD_HANDLE_T * threadHandle, float trans[3][4], int *page);
-int trackingInitQuit(THREAD_HANDLE_T **threadHandle_p);
+THREAD_HANDLE_T* TrackingInitInit(KpmHandle *kpmHandle);
+int TrackingInitStart(THREAD_HANDLE_T *threadHandle, ARUint8 *imagePtr);
+int TrackingInitGetResult(THREAD_HANDLE_T * threadHandle, float trans[3][4], int *page);
+int TrackingInitQuit(THREAD_HANDLE_T **threadHandle_p);
 
 #ifdef __cplusplus
 }

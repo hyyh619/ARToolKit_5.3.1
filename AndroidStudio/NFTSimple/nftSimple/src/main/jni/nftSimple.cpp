@@ -66,7 +66,7 @@
 #include <AR2/tracking.h>
 
 #include "ARMarkerNFT.h"
-#include "trackingSub.h"
+#include "TrackingSub.h"
 
 // ============================================================================
 // Types
@@ -279,7 +279,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
     if (trackingThreadHandle)
     {
         LOGD("Stopping NFT2 tracking thread.");
-        trackingInitQuit(&trackingThreadHandle);
+        TrackingInitQuit(&trackingThreadHandle);
         detectedPage = -2;
     }
 
@@ -522,7 +522,7 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
         if (trackingThreadHandle)
         {
             LOGE("NFT2 tracking thread is running. Stopping it first.\n");
-            trackingInitQuit(&trackingThreadHandle);
+            TrackingInitQuit(&trackingThreadHandle);
             detectedPage = -2;
         }
 
@@ -596,7 +596,7 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
         kpmDeleteRefDataSet(&refDataSet);
 
         // Start the KPM tracking thread.
-        trackingThreadHandle = trackingInitInit(kpmHandle);
+        trackingThreadHandle = TrackingInitInit(kpmHandle);
         if (!trackingThreadHandle)
             exit(-1);
 
@@ -663,13 +663,13 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
 
         if (detectedPage == -2)
         {
-            trackingInitStart(trackingThreadHandle, gVideoFrame);
+            TrackingInitStart(trackingThreadHandle, gVideoFrame);
             detectedPage = -1;
         }
 
         if (detectedPage == -1)
         {
-            ret = trackingInitGetResult(trackingThreadHandle, trackingTrans, &pageNo);
+            ret = TrackingInitGetResult(trackingThreadHandle, trackingTrans, &pageNo);
             if (ret == 1)
             {
                 if (pageNo >= 0 && pageNo < surfaceSetCount)

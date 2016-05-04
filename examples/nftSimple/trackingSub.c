@@ -47,7 +47,7 @@
  *
  */
 
-#include "trackingSub.h"
+#include "TrackingSub.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,10 +63,9 @@ typedef struct
     int       flag;                         // Tracked successfully.
 } TrackingInitHandle;
 
-static void* trackingInitMain(THREAD_HANDLE_T *threadHandle);
+static void* TrackingInitMain(THREAD_HANDLE_T *threadHandle);
 
-
-int trackingInitQuit(THREAD_HANDLE_T **threadHandle_p)
+int TrackingInitQuit(THREAD_HANDLE_T **threadHandle_p)
 {
     TrackingInitHandle *trackingInitHandle;
 
@@ -91,7 +90,7 @@ int trackingInitQuit(THREAD_HANDLE_T **threadHandle_p)
     return 0;
 }
 
-THREAD_HANDLE_T* trackingInitInit(KpmHandle *kpmHandle)
+THREAD_HANDLE_T* TrackingInitInit(KpmHandle *kpmHandle)
 {
     TrackingInitHandle *trackingInitHandle;
     THREAD_HANDLE_T    *threadHandle;
@@ -111,11 +110,11 @@ THREAD_HANDLE_T* trackingInitInit(KpmHandle *kpmHandle)
     trackingInitHandle->imagePtr  = (ARUint8*)malloc(trackingInitHandle->imageSize);
     trackingInitHandle->flag      = 0;
 
-    threadHandle = threadInit(0, trackingInitHandle, trackingInitMain);
+    threadHandle = threadInit(0, trackingInitHandle, TrackingInitMain);
     return threadHandle;
 }
 
-int trackingInitStart(THREAD_HANDLE_T *threadHandle, ARUint8 *imagePtr)
+int TrackingInitStart(THREAD_HANDLE_T *threadHandle, ARUint8 *imagePtr)
 {
     TrackingInitHandle *trackingInitHandle;
 
@@ -138,7 +137,7 @@ int trackingInitStart(THREAD_HANDLE_T *threadHandle, ARUint8 *imagePtr)
     return 0;
 }
 
-int trackingInitGetResult(THREAD_HANDLE_T *threadHandle, float trans[3][4], int *page)
+int TrackingInitGetResult(THREAD_HANDLE_T *threadHandle, float trans[3][4], int *page)
 {
     TrackingInitHandle *trackingInitHandle;
     int                i, j;
@@ -170,7 +169,7 @@ int trackingInitGetResult(THREAD_HANDLE_T *threadHandle, float trans[3][4], int 
     return -1;
 }
 
-static void* trackingInitMain(THREAD_HANDLE_T *threadHandle)
+static void* TrackingInitMain(THREAD_HANDLE_T *threadHandle)
 {
     TrackingInitHandle *trackingInitHandle;
     KpmHandle          *kpmHandle;
