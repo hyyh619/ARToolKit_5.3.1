@@ -47,10 +47,10 @@
  *
  */
 
-package org.artoolkit.ar.samples.nftSimple;
+package com.tencent.NFTSimple;
 
 import java.io.IOException;
-import org.artoolkit.ar.samples.nftSimple.R;
+import com.tencent.NFTSimple.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;

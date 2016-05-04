@@ -1,5 +1,5 @@
 /*
- *  nftSimpleApplication.java
+ *  Renderer.java
  *  ARToolKit5
  *
  *  Disclaimer: IMPORTANT:  This Daqri software is supplied to you by Daqri
@@ -43,49 +43,30 @@
  *  Copyright 2015 Daqri, LLC.
  *  Copyright 2011-2015 ARToolworks, Inc.
  *
- *  Author(s): Philip Lamb
+ *  Author(s): Julian Looser, Philip Lamb
  *
  */
 
-//
-// This class provides a subclass of Application to enable app-wide behavior.
-// 
+package com.tencent.NFTSimple;
 
-package org.artoolkit.ar.samples.nftSimple;
 
-import org.artoolkit.ar.base.assets.AssetHelper;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
-import android.app.Application;
-import android.preference.PreferenceManager;
+import android.opengl.GLSurfaceView;
 
-public class nftSimpleApplication extends Application {
+public class Renderer implements GLSurfaceView.Renderer {
+ 
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {            	   
+    	nftSimpleActivity.nativeSurfaceCreated();
+    }
 
-	private static Application sInstance;
-	 
-	// Anywhere in the application where an instance is required, this method
-	// can be used to retrieve it.
-    public static Application getInstance() {
-    	return sInstance;
+    public void onSurfaceChanged(GL10 gl, int w, int h) {       
+    	nftSimpleActivity.nativeSurfaceChanged(w, h);        
+    }
+
+    public void onDrawFrame(GL10 gl) {
+    	nftSimpleActivity.nativeDrawFrame();    	
     }
     
-    @Override
-    public void onCreate() {
-    	super.onCreate(); 
-    	sInstance = this;
-    	((nftSimpleApplication) sInstance).initializeInstance();
-    }
-    
-    // Here we do one-off initialisation which should apply to all activities
-	// in the application.
-    protected void initializeInstance() {
-    	
-    	PreferenceManager.setDefaultValues(this, org.artoolkit.ar.base.R.xml.preferences, false);
-    	
-		// Unpack assets to cache directory so native library can read them.
-    	// N.B.: If contents of assets folder changes, be sure to increment the
-    	// versionCode integer in the AndroidManifest.xml file.
-		AssetHelper assetHelper = new AssetHelper(getAssets());        
-		assetHelper.cacheAssetFolder(getInstance(), "Data");
-		assetHelper.cacheAssetFolder(getInstance(), "DataNFT");
-    }
 }

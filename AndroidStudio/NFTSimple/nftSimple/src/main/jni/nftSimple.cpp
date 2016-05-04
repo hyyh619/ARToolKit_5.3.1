@@ -122,7 +122,7 @@ enum viewPortIndices
 // ============================================================================
 
 // Utility preprocessor directive so only one change needed if Java class name changes
-#define JNIFUNCTION_NATIVE(sig) Java_org_artoolkit_ar_samples_nftSimple_nftSimpleActivity_ ## sig
+#define JNIFUNCTION_NATIVE(sig) Java_com_tencent_NFTSimple_nftSimpleActivity_ ## sig
 
 extern "C" {
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeCreate(JNIEnv * env, jobject object, jobject instanceOfAndroidContext));

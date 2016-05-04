@@ -47,10 +47,10 @@
  *
  */
 
-package org.artoolkit.ar.samples.nftSimple;
+package com.tencent.NFTSimple;
 
 import org.artoolkit.ar.base.camera.CameraPreferencesActivity;
-import org.artoolkit.ar.samples.nftSimple.R;
+import com.tencent.NFTSimple.R;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
