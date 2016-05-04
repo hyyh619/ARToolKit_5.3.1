@@ -69,7 +69,7 @@ If doUpdate Then
     strText = Replace(strText, "#undef  AR_INPUT_IMAGE", "#define AR_INPUT_IMAGE")
     strText = Replace(strText, "#undef  AR_INPUT_WINDOWS_DIRECTSHOW", "#define AR_INPUT_WINDOWS_DIRECTSHOW")
     strText = Replace(strText, "#undef  AR_INPUT_WINDOWS_DSVIDEOLIB", "#define AR_INPUT_WINDOWS_DSVIDEOLIB")
-    strText = Replace(strText, "#undef  AR_INPUT_QUICKTIME", "#define AR_INPUT_QUICKTIME")
+    ' strText = Replace(strText, "#undef  AR_INPUT_QUICKTIME", "#define AR_INPUT_QUICKTIME")
     strText = Replace(strText, "#undef  AR_INPUT_WINDOWS_MEDIA_FOUNDATION", "#define AR_INPUT_WINDOWS_MEDIA_FOUNDATION")
     strText = Replace(strText, "#undef  AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW", "#define AR_DEFAULT_INPUT_WINDOWS_DIRECTSHOW")
     Set objFile = objFSO.CreateTextFile(strConfigHFileName)
