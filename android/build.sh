@@ -126,15 +126,14 @@ if [[ $1 != "clean" ]] ; then
     #    ARDistanceOpenGLES20 \
     #    ARMulti \
     #"
-    JDK_PROJS=""
+    JDK_PROJS="\
+    NFTSimple
+    "
     for i in $JDK_PROJS
     do
-        if [[ $i != "ARMarkerDistance" && $i != "ARSimpleOpenGLES20" && $i != "ARDistanceOpenGLES20" ]] ; then
-            cp -Rpvf ${ARTK_LibsDir} ../EclipseProjects/${i}/
-        fi
         FirstChar=${i:0:1}
         LCFirstChar=`echo $FirstChar | tr '[:upper:]' '[:lower:]'`
         ModName=$LCFirstChar${i:1}
-        cp -Rpvf ${ARTK_LibsDir} ../AndroidStudioProjects/${i}Proj/$ModName/src/main/
+        cp -Rpvf ${ARTK_LibsDir} ../AndroidStudio/${i}/$ModName/src/main/
     done
 fi
