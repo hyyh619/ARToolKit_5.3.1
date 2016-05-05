@@ -47,6 +47,8 @@
 ./examples/nftSimple/NFTSimple.h
 ./examples/nftSimple/trackingSub.c
 ./examples/nftSimple/trackingSub.h
+./examples/nftSimple/VirtualEnvironment.c
+./examples/nftSimple/VirtualEnvironment.h
 ./examples/optical/ARMarkerSquare.c
 ./examples/optical/ARMarkerSquare.h
 ./examples/optical/optical.c
