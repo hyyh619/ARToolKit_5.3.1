@@ -409,7 +409,6 @@ static void mainLoop(void)
     static int   detectedPage = -2; // -2 Tracking not initialized, -1 tracking initialized OK, >= 0 tracking online on page.
     static float trackingTrans[3][4];
 
-
     int i, j, k;
 
     // Find out how long since mainLoop() last ran.
@@ -521,6 +520,7 @@ static void mainLoop(void)
 
                 // We have a new pose, so set that.
                 arglCameraViewRH((const ARdouble(*)[4])g_pMarkersNFT[i].trans, g_pMarkersNFT[i].pose.T, VIEW_SCALEFACTOR);
+                
                 // Tell any dependent objects about the update.
                 // --->
                 VirtualEnvironmentHandleARMarkerWasUpdated(i, g_pMarkersNFT[i].pose);
