@@ -3,6 +3,11 @@
 // Includes
 // ============================================================================
 #include <AR2/tracking.h>
+#ifdef ANDROID
+#include <AR/gsub_es.h>
+#else
+#include <AR/gsub_lite.h>
+#endif
 
 #include "ARMarkerNFT.h"
 #include "TrackingSub.h"
@@ -183,4 +188,56 @@ int LoadNFTData(void)
 
     ARLOGi("Loading of NFT data complete.\n");
     return (TRUE);
+}
+
+void DrawCube(float fSize, float x, float y, float z)
+{
+    // Color cube data.
+    int           i;
+    const GLfloat cube_vertices[8][3] =
+    {
+        /* +z */{ 0.5f, 0.5f, 0.5f }, { 0.5f, -0.5f, 0.5f }, { -0.5f, -0.5f, 0.5f }, { -0.5f, 0.5f, 0.5f },
+        /* -z */{ 0.5f, 0.5f, -0.5f }, { 0.5f, -0.5f, -0.5f }, { -0.5f, -0.5f, -0.5f }, { -0.5f, 0.5f, -0.5f }
+    };
+    const GLubyte cube_vertex_colors[8][4] =
+    {
+        { 255, 255, 255, 255 }, { 255, 255, 0, 255 }, { 0, 255, 0, 255 }, { 0, 255, 255, 255 },
+        { 255, 0, 255, 255 }, { 255, 0, 0, 255 }, { 0, 0, 0, 255 }, { 0, 0, 255, 255 }
+    };
+    const GLushort cube_faces[6][4] =    /* ccw-winding */
+    { /* +z */{ 3, 2, 1, 0 }, /* -y */{ 2, 3, 7, 6 }, /* +y */{ 0, 1, 5, 4 },
+    /* -x */{ 3, 0, 4, 7 }, /* +x */{ 1, 2, 6, 5 }, /* -z */{ 4, 5, 6, 7 } };
+
+    glPushMatrix(); // Save world coordinate system.
+    glTranslatef(x, y, z);
+    glScalef(fSize, fSize, fSize);
+
+#ifdef ANDROID
+    glStateCacheDisableLighting();
+    glStateCacheDisableTex2D();
+    glStateCacheDisableBlend();
+#else
+    glDisable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
+#endif
+    glColorPointer(4, GL_UNSIGNED_BYTE, 0, cube_vertex_colors);
+    glVertexPointer(3, GL_FLOAT, 0, cube_vertices);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+
+    for (i = 0; i < 6; i++)
+    {
+        glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, &(cube_faces[i][0]));
+    }
+
+    glDisableClientState(GL_COLOR_ARRAY);
+    glColor4ub(0, 0, 0, 255);
+
+    for (i = 0; i < 6; i++)
+    {
+        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_SHORT, &(cube_faces[i][0]));
+    }
+
+    glPopMatrix();    // Restore world coordinate system.
 }

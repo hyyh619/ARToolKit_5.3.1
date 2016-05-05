@@ -149,7 +149,7 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
 // ============================================================================
 
 // Preferences.
-static const char *cparaName                = "Data/camera_para.dat";   ///< Camera parameters file
+static const char *g_cparaName              = "Data/camera_para.dat";   ///< Camera parameters file
 static const char *markerConfigDataFilename = "Data/markers.dat";
 
 // Image acquisition.
@@ -384,9 +384,9 @@ static void nativeVideoGetCparamCallback(const ARParam *cparam_p, void *userdata
     else
     {
         LOGE("Unable to automatically determine camera parameters. Using default.\n");
-        if (arParamLoad(cparaName, 1, &cparam) < 0)
+        if (arParamLoad(g_cparaName, 1, &cparam) < 0)
         {
-            LOGE("Error: Unable to load parameter file %s for camera.\n", cparaName);
+            LOGE("Error: Unable to load parameter file %s for camera.\n", g_cparaName);
             return;
         }
     }
@@ -894,51 +894,6 @@ static bool InitARView(void)
     LOGD("ARView initialised.\n");
 
     return (true);
-}
-
-void DrawCube(float size, float x, float y, float z)
-{
-    // Color cube data.
-    int           i;
-    const GLfloat cube_vertices[8][3] =
-    {
-        /* +z */ {0.5f, 0.5f, 0.5f}, {0.5f, -0.5f, 0.5f}, {-0.5f, -0.5f, 0.5f}, {-0.5f, 0.5f, 0.5f},
-        /* -z */ {0.5f, 0.5f, -0.5f}, {0.5f, -0.5f, -0.5f}, {-0.5f, -0.5f, -0.5f}, {-0.5f, 0.5f, -0.5f}
-    };
-    const GLubyte cube_vertex_colors[8][4] =
-    {
-        {255, 255, 255, 255}, {255, 255, 0, 255}, {0, 255, 0, 255}, {0, 255, 255, 255},
-        {255, 0, 255, 255}, {255, 0, 0, 255}, {0, 0, 0, 255}, {0, 0, 255, 255}
-    };
-    const GLushort cube_faces[6][4] =    /* ccw-winding */
-    { /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
-               /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
-
-    glPushMatrix(); // Save world coordinate system.
-    glTranslatef(x, y, z);
-    glScalef(size, size, size);
-    glStateCacheDisableLighting();
-    glStateCacheDisableTex2D();
-    glStateCacheDisableBlend();
-    glColorPointer(4, GL_UNSIGNED_BYTE, 0, cube_vertex_colors);
-    glVertexPointer(3, GL_FLOAT, 0, cube_vertices);
-    glStateCacheEnableClientStateVertexArray();
-    glEnableClientState(GL_COLOR_ARRAY);
-
-    for (i = 0; i < 6; i++)
-    {
-        glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, &(cube_faces[i][0]));
-    }
-
-    glDisableClientState(GL_COLOR_ARRAY);
-    glColor4ub(0, 0, 0, 255);
-
-    for (i = 0; i < 6; i++)
-    {
-        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_SHORT, &(cube_faces[i][0]));
-    }
-
-    glPopMatrix();    // Restore world coordinate system.
 }
 
 JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject obj))

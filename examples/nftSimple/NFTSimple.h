@@ -22,6 +22,7 @@ extern "C" {
 int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
 int LoadNFTData(void);
 int UnloadNFTData(void);
+void DrawCube(float fSize, float x, float y, float z);
 
 
 // ============================================================================

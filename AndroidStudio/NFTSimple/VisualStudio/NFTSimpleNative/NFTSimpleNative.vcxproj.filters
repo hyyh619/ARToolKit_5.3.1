@@ -13,16 +13,40 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="VideoAndroid">
+      <UniqueIdentifier>{df70cd35-384d-4306-8ac4-be4a58e0728a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\nftSimple\src\main\jni\NFTSimple.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\nftSimple\src\main\jni\NFTSimpleNative.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\examples\nftSimple\NFTSimple.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\color_convert_common.c">
+      <Filter>VideoAndroid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\cparamSearch.c">
+      <Filter>VideoAndroid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\nxjson.c">
+      <Filter>VideoAndroid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\sqlite3.c">
+      <Filter>VideoAndroid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\videoAndroid.c">
+      <Filter>VideoAndroid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\videoAndroidNativeCapture.cpp">
+      <Filter>VideoAndroid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +55,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\examples\nftSimple\TrackingSub.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\examples\nftSimple\NFTSimple.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\android_os_build_codes.h">
+      <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\camera_activity.hpp">
+      <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\color_convert_common.h">
+      <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\cparamSearch.h">
+      <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\nxjson.h">
+      <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\sqlite3.h">
+      <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\videoAndroidNativeCapture.h">
+      <Filter>VideoAndroid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
