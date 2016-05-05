@@ -17,10 +17,10 @@ ARMarkerNFT     *g_pMarkersNFT      = NULL;
 int             g_nMarkersNFTCount  = 0;
 
 // NFT.
-THREAD_HANDLE_T *g_threadHandle   = NULL;
-AR2HandleT      *g_ar2Handle      = NULL;
-KpmHandle       *g_kpmHandle      = NULL;
-int             g_surfaceSetCount = 0;
+THREAD_HANDLE_T *g_threadHandle     = NULL;
+AR2HandleT      *g_ar2Handle        = NULL;
+KpmHandle       *g_kpmHandle        = NULL;
+int             g_surfaceSetCount   = 0;
 AR2SurfaceSetT  *g_surfaceSet[PAGES_MAX];
 
 // Modifies globals: kpmHandle, ar2Handle.

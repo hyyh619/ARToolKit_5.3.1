@@ -118,8 +118,8 @@ static ARdouble                  cameraLens[16];
 // Function prototypes
 // ============================================================================
 
-static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p);
-static void cleanup(void);
+static int SetupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p);
+static void Cleanup(void);
 static void Keyboard(unsigned char key, int x, int y);
 static void Visibility(int visible);
 static void Reshape(int w, int h);
@@ -171,7 +171,7 @@ int main(int argc, char **argv)
     CoInitialize(NULL);
 #endif
 
-    if (!setupCamera(cparam_name, vconf, &gCparamLT))
+    if (!SetupCamera(cparam_name, vconf, &gCparamLT))
     {
         ARLOGe("main(): Unable to set up AR camera.\n");
         exit(-1);
@@ -216,7 +216,7 @@ int main(int argc, char **argv)
     if ((gArglSettings = arglSetupForCurrentContext(&(gCparamLT->param), arVideoGetPixelFormat())) == NULL)
     {
         ARLOGe("main(): arglSetupForCurrentContext() returned error.\n");
-        cleanup();
+        Cleanup();
         exit(-1);
     }
 
@@ -231,7 +231,7 @@ int main(int argc, char **argv)
     if (!g_nMarkersNFTCount)
     {
         ARLOGe("Error loading markers from config. file '%s'.\n", markerConfigDataFilename);
-        cleanup();
+        Cleanup();
         exit(-1);
     }
 
@@ -241,7 +241,7 @@ int main(int argc, char **argv)
     if (!LoadNFTData())
     {
         ARLOGe("Error loading NFT data.\n");
-        cleanup();
+        Cleanup();
         exit(-1);
     }
 
@@ -324,7 +324,7 @@ static void DrawCubeUpdate(float timeDelta)
     }
 }
 
-static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p)
+static int SetupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamLT_p)
 {
     ARParam         cparam;
     int             xsize, ysize;
@@ -384,10 +384,9 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
     return (TRUE);
 }
 
-static void cleanup(void)
+static void Cleanup(void)
 {
-    if (g_pMarkersNFT)
-        DeleteMarkers(&g_pMarkersNFT, &g_nMarkersNFTCount);
+    DeleteMarkers(&g_pMarkersNFT, &g_nMarkersNFTCount);
 
     // NFT cleanup.
     UnloadNFTData();
@@ -403,6 +402,7 @@ static void cleanup(void)
     // Camera cleanup.
     arVideoCapStop();
     arVideoClose();
+
 #ifdef _WIN32
     CoUninitialize();
 #endif
@@ -415,7 +415,7 @@ static void Keyboard(unsigned char key, int x, int y)
     case 0x1B: // Quit.
     case 'Q':
     case 'q':
-        cleanup();
+        Cleanup();
         exit(0);
         break;
 

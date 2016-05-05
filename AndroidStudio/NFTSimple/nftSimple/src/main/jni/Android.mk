@@ -93,7 +93,8 @@ LOCAL_PATH := $(MY_LOCAL_PATH)
 LOCAL_MODULE := NFTSimpleNative
 LOCAL_SRC_FILES := NFTSimpleNative.cpp \
                    ../../../../../../examples/nftSimple/ARMarkerNFT.c \
-                   ../../../../../../examples/nftSimple/TrackingSub.c
+                   ../../../../../../examples/nftSimple/TrackingSub.c \
+                   ../../../../../../examples/nftSimple/NFTSimple.c
 
 # Make sure DEBUG is defined for debug builds. (NDK already defines NDEBUG for release builds.)
 ifeq ($(APP_OPTIM),debug)

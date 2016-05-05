@@ -67,6 +67,7 @@
 
 #include "ARMarkerNFT.h"
 #include "TrackingSub.h"
+#include "NFTSimple.h"
 
 // ============================================================================
 // Types
@@ -100,8 +101,6 @@ enum viewPortIndices
 // ============================================================================
 // Constants
 // ============================================================================
-
-#define PAGES_MAX 10                        // Maximum number of pages expected. You can change this down (to save memory) or up (to accomodate more pages.)
 
 #ifndef MAX
 #  define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
@@ -144,7 +143,6 @@ JNIEXPORT void JNICALL     JNIFUNCTION_NATIVE(nativeSetInternetState(JNIEnv * en
 
 static void nativeVideoGetCparamCallback(const ARParam *cparam, void *userdata);
 static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
-static int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat);
 
 // ============================================================================
 // Global variables
@@ -166,16 +164,7 @@ static bool            videoFrameNeedsPixelBufferDataUpload = false;
 static int             gCameraIndex                         = 0;
 static bool            gCameraIsFrontFacing                 = false;
 
-// Markers.
-static ARMarkerNFT     *markersNFT                          = NULL;
-static int             markersNFTCount                      = 0;
-
 // NFT.
-static THREAD_HANDLE_T *trackingThreadHandle                = NULL;
-static AR2HandleT      *ar2Handle                           = NULL;
-static KpmHandle       *kpmHandle                           = NULL;
-static int             surfaceSetCount                      = 0;
-static AR2SurfaceSetT  *surfaceSet[PAGES_MAX];
 static THREAD_HANDLE_T *nftDataLoadingThreadHandle          = NULL;
 static int             nftDataLoaded                        = false;
 
@@ -230,14 +219,14 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeCreate(JNIEnv * env, jobject
     arUtilChangeToResourcesDirectory(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST, NULL, instanceOfAndroidContext);
 
     // Load marker(s).
-    NewMarkers(markerConfigDataFilename, &markersNFT, &markersNFTCount);
-    if (!markersNFTCount)
+    NewMarkers(markerConfigDataFilename, &g_pMarkersNFT, &g_nMarkersNFTCount);
+    if (!g_nMarkersNFTCount)
     {
         LOGE("Error loading markers from config. file '%s'.", markerConfigDataFilename);
         return false;
     }
 
-    LOGD("Marker count = %d\n", markersNFTCount);
+    LOGD("Marker count = %d\n", g_nMarkersNFTCount);
 
     return (true);
 }
@@ -276,24 +265,24 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
     // Can't call arglCleanup() here, because nativeStop is not called on rendering thread.
 
     // NFT cleanup.
-    if (trackingThreadHandle)
+    if (g_threadHandle)
     {
         LOGD("Stopping NFT2 tracking thread.");
-        TrackingInitQuit(&trackingThreadHandle);
+        TrackingInitQuit(&g_threadHandle);
         detectedPage = -2;
     }
 
     j = 0;
 
-    for (i = 0; i < surfaceSetCount; i++)
+    for (i = 0; i < g_surfaceSetCount; i++)
     {
-        if (surfaceSet[i])
+        if (g_surfaceSet[i])
         {
 #ifdef DEBUG
             if (j == 0)
                 LOGD("Unloading NFT tracking surfaces.");
 #endif
-            ar2FreeSurfaceSet(&surfaceSet[i]); // Sets surfaceSet[i] to NULL.
+            ar2FreeSurfaceSet(&g_surfaceSet[i]); // Sets surfaceSet[i] to NULL.
             j++;
         }
     }
@@ -303,13 +292,13 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
         LOGD("Unloaded %d NFT tracking surfaces.", j);
 #endif
 
-    surfaceSetCount = 0;
+    g_surfaceSetCount = 0;
     nftDataLoaded   = false;
 
     LOGD("Cleaning up ARToolKit NFT handles.");
 
-    ar2DeleteHandle(&ar2Handle);
-    kpmDeleteHandle(&kpmHandle);
+    ar2DeleteHandle(&g_ar2Handle);
+    kpmDeleteHandle(&g_kpmHandle);
     arParamLTFree(&gCparamLT);
 
     // OpenGL cleanup -- not done here.
@@ -332,10 +321,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeDestroy(JNIEnv * env, jobject object))
 {
     LOGD("nativeDestroy\n");
-
-    if (markersNFT)
-        DeleteMarkers(&markersNFT, &markersNFTCount);
-
+    DeleteMarkers(&g_pMarkersNFT, &g_nMarkersNFTCount);
     return (true);
 }
 
@@ -365,8 +351,8 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeVideoInit(JNIEnv * env, jobj
         return false;
     }
 
-    g_videoWidth           = w;
-    g_videoHeight          = h;
+    g_videoWidth         = w;
+    g_videoHeight        = h;
     gCameraIndex         = cameraIndex;
     gCameraIsFrontFacing = cameraIsFrontFacing;
     LOGI("Video camera %d (%s), %dx%d format %s, %d-byte buffer.", 
@@ -451,62 +437,6 @@ static void nativeVideoGetCparamCallback(const ARParam *cparam_p, void *userdata
     threadStartSignal(nftDataLoadingThreadHandle);
 }
 
-// Modifies globals: kpmHandle, ar2Handle.
-static int InitNFT(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
-{
-    LOGD("Initialising NFT.\n");
-
-    //
-    // NFT init.
-    //
-
-    // KPM init.
-    kpmHandle = kpmCreateHandle(cparamLT, pixFormat);
-    if (!kpmHandle)
-    {
-        LOGE("Error: kpmCreatHandle.\n");
-        return (false);
-    }
-
-    // kpmSetProcMode( kpmHandle, KpmProcHalfSize );
-
-    // AR2 init.
-    if ((ar2Handle = ar2CreateHandle(cparamLT, pixFormat, AR2_TRACKING_DEFAULT_THREAD_NUM)) == NULL)
-    {
-        LOGE("Error: ar2CreateHandle.\n");
-        kpmDeleteHandle(&kpmHandle);
-        return (false);
-    }
-
-    if (threadGetCPU() <= 1)
-    {
-        LOGD("Using NFT tracking settings for a single CPU.\n");
-
-        ar2SetTrackingThresh(ar2Handle, 5.0);
-        ar2SetSimThresh(ar2Handle, 0.50);
-        ar2SetSearchFeatureNum(ar2Handle, 16);
-        ar2SetSearchSize(ar2Handle, 6);
-        ar2SetTemplateSize1(ar2Handle, 6);
-        ar2SetTemplateSize2(ar2Handle, 6);
-    }
-    else
-    {
-        LOGD("Using NFT tracking settings for more than one CPU.\n");
-
-        ar2SetTrackingThresh(ar2Handle, 5.0);
-        ar2SetSimThresh(ar2Handle, 0.50);
-        ar2SetSearchFeatureNum(ar2Handle, 16);
-        ar2SetSearchSize(ar2Handle, 12);
-        ar2SetTemplateSize1(ar2Handle, 6);
-        ar2SetTemplateSize2(ar2Handle, 6);
-    }
-
-    // NFT dataset loading will happen later.
-    LOGD("NFT initialised OK.\n");
-
-    return (true);
-}
-
 // References globals: markersNFTCount
 // Modifies globals: trackingThreadHandle, surfaceSet[], surfaceSetCount, markersNFT[], markersNFTCount
 static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
@@ -519,46 +449,46 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
         LOGD("Loading NFT data.\n");
 
         // If data was already loaded, stop KPM tracking thread and unload previously loaded data.
-        if (trackingThreadHandle)
+        if (g_threadHandle)
         {
             LOGE("NFT2 tracking thread is running. Stopping it first.\n");
-            TrackingInitQuit(&trackingThreadHandle);
+            TrackingInitQuit(&g_threadHandle);
             detectedPage = -2;
         }
 
         j = 0;
 
-        for (i = 0; i < surfaceSetCount; i++)
+        for (i = 0; i < g_surfaceSetCount; i++)
         {
             if (j == 0)
                 LOGE("Unloading NFT tracking surfaces.");
 
-            ar2FreeSurfaceSet(&surfaceSet[i]); // Also sets surfaceSet[i] to NULL.
+            ar2FreeSurfaceSet(&g_surfaceSet[i]); // Also sets surfaceSet[i] to NULL.
             j++;
         }
 
         if (j > 0)
             LOGE("Unloaded %d NFT tracking surfaces.\n", j);
 
-        surfaceSetCount = 0;
+        g_surfaceSetCount = 0;
 
         refDataSet = NULL;
 
-        for (i = 0; i < markersNFTCount; i++)
+        for (i = 0; i < g_nMarkersNFTCount; i++)
         {
             // Load KPM data.
             KpmRefDataSet *refDataSet2;
-            LOGI("Reading %s.fset3\n", markersNFT[i].datasetPathname);
-            if (kpmLoadRefDataSet(markersNFT[i].datasetPathname, "fset3", &refDataSet2) < 0)
+            LOGI("Reading %s.fset3\n", g_pMarkersNFT[i].datasetPathname);
+            if (kpmLoadRefDataSet(g_pMarkersNFT[i].datasetPathname, "fset3", &refDataSet2) < 0)
             {
-                LOGE("Error reading KPM data from %s.fset3\n", markersNFT[i].datasetPathname);
-                markersNFT[i].pageNo = -1;
+                LOGE("Error reading KPM data from %s.fset3\n", g_pMarkersNFT[i].datasetPathname);
+                g_pMarkersNFT[i].pageNo = -1;
                 continue;
             }
 
-            markersNFT[i].pageNo = surfaceSetCount;
-            LOGI("  Assigned page no. %d.\n", surfaceSetCount);
-            if (kpmChangePageNoOfRefDataSet(refDataSet2, KpmChangePageNoAllPages, surfaceSetCount) < 0)
+            g_pMarkersNFT[i].pageNo = g_surfaceSetCount;
+            LOGI("  Assigned page no. %d.\n", g_surfaceSetCount);
+            if (kpmChangePageNoOfRefDataSet(refDataSet2, KpmChangePageNoAllPages, g_surfaceSetCount) < 0)
             {
                 LOGE("Error: kpmChangePageNoOfRefDataSet\n");
                 exit(-1);
@@ -573,21 +503,21 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
             LOGI("  Done.\n");
 
             // Load AR2 data.
-            LOGI("Reading %s.fset\n", markersNFT[i].datasetPathname);
+            LOGI("Reading %s.fset\n", g_pMarkersNFT[i].datasetPathname);
 
-            if ((surfaceSet[surfaceSetCount] = ar2ReadSurfaceSet(markersNFT[i].datasetPathname, "fset", NULL)) == NULL)
+            if ((g_surfaceSet[g_surfaceSetCount] = ar2ReadSurfaceSet(g_pMarkersNFT[i].datasetPathname, "fset", NULL)) == NULL)
             {
-                LOGE("Error reading data from %s.fset\n", markersNFT[i].datasetPathname);
+                LOGE("Error reading data from %s.fset\n", g_pMarkersNFT[i].datasetPathname);
             }
 
             LOGI("  Done.\n");
 
-            surfaceSetCount++;
-            if (surfaceSetCount == PAGES_MAX)
+            g_surfaceSetCount++;
+            if (g_surfaceSetCount == PAGES_MAX)
                 break;
         }
 
-        if (kpmSetRefDataSet(kpmHandle, refDataSet) < 0)
+        if (kpmSetRefDataSet(g_kpmHandle, refDataSet) < 0)
         {
             LOGE("Error: kpmSetRefDataSet");
             exit(-1);
@@ -596,8 +526,8 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle)
         kpmDeleteRefDataSet(&refDataSet);
 
         // Start the KPM tracking thread.
-        trackingThreadHandle = TrackingInitInit(kpmHandle);
-        if (!trackingThreadHandle)
+        g_threadHandle = TrackingInitInit(g_kpmHandle);
+        if (!g_threadHandle)
             exit(-1);
 
         LOGD("Loading of NFT data complete.");
@@ -654,7 +584,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
     videoFrameNeedsPixelBufferDataUpload = true; // Note that buffer needs uploading. (Upload must be done on OpenGL context's thread.)
 
     // Run marker detection on frame
-    if (trackingThreadHandle)
+    if (g_threadHandle)
     {
         // Perform NFT tracking.
         float err;
@@ -663,21 +593,21 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
 
         if (detectedPage == -2)
         {
-            TrackingInitStart(trackingThreadHandle, gVideoFrame);
+            TrackingInitStart(g_threadHandle, gVideoFrame);
             detectedPage = -1;
         }
 
         if (detectedPage == -1)
         {
-            ret = TrackingInitGetResult(trackingThreadHandle, trackingTrans, &pageNo);
+            ret = TrackingInitGetResult(g_threadHandle, trackingTrans, &pageNo);
             if (ret == 1)
             {
-                if (pageNo >= 0 && pageNo < surfaceSetCount)
+                if (pageNo >= 0 && pageNo < g_surfaceSetCount)
                 {
                     LOGD("Detected page %d.\n", pageNo);
 
                     detectedPage = pageNo;
-                    ar2SetInitTrans(surfaceSet[detectedPage], trackingTrans);
+                    ar2SetInitTrans(g_surfaceSet[detectedPage], trackingTrans);
                 }
                 else
                 {
@@ -692,16 +622,16 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
             }
         }
 
-        if (detectedPage >= 0 && detectedPage < surfaceSetCount)
+        if (detectedPage >= 0 && detectedPage < g_surfaceSetCount)
         {
-            if (ar2Tracking(ar2Handle, surfaceSet[detectedPage], gVideoFrame, trackingTrans, &err) < 0)
+            if (ar2Tracking(g_ar2Handle, g_surfaceSet[detectedPage], gVideoFrame, trackingTrans, &err) < 0)
             {
                 LOGD("Tracking lost.\n");
                 detectedPage = -2;
             }
             else
             {
-                LOGD("Tracked page %d (max %d).\n", detectedPage, surfaceSetCount - 1);
+                LOGD("Tracked page %d (max %d).\n", detectedPage, g_surfaceSetCount - 1);
             }
         }
     }
@@ -712,45 +642,45 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
     }
 
     // Update markers.
-    for (i = 0; i < markersNFTCount; i++)
+    for (i = 0; i < g_nMarkersNFTCount; i++)
     {
-        markersNFT[i].validPrev = markersNFT[i].valid;
-        if (markersNFT[i].pageNo >= 0 && markersNFT[i].pageNo == detectedPage)
+        g_pMarkersNFT[i].validPrev = g_pMarkersNFT[i].valid;
+        if (g_pMarkersNFT[i].pageNo >= 0 && g_pMarkersNFT[i].pageNo == detectedPage)
         {
-            markersNFT[i].valid = TRUE;
+            g_pMarkersNFT[i].valid = TRUE;
 
             for (j = 0; j < 3; j++)
                 for (k = 0; k < 4; k++)
-                    markersNFT[i].trans[j][k] = trackingTrans[j][k];
+                    g_pMarkersNFT[i].trans[j][k] = trackingTrans[j][k];
         }
         else
-            markersNFT[i].valid = FALSE;
+            g_pMarkersNFT[i].valid = FALSE;
 
-        if (markersNFT[i].valid)
+        if (g_pMarkersNFT[i].valid)
         {
             // Filter the pose estimate.
-            if (markersNFT[i].ftmi)
+            if (g_pMarkersNFT[i].ftmi)
             {
-                if (arFilterTransMat(markersNFT[i].ftmi, markersNFT[i].trans, !markersNFT[i].validPrev) < 0)
+                if (arFilterTransMat(g_pMarkersNFT[i].ftmi, g_pMarkersNFT[i].trans, !g_pMarkersNFT[i].validPrev) < 0)
                 {
                     LOGE("arFilterTransMat error with marker %d.\n", i);
                 }
             }
 
-            if (!markersNFT[i].validPrev)
+            if (!g_pMarkersNFT[i].validPrev)
             {
                 // Marker has become visible, tell any dependent objects.
                 // ARMarkerAppearedNotification
             }
 
             // We have a new pose, so set that.
-            arglCameraViewRHf(markersNFT[i].trans, markersNFT[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
+            arglCameraViewRHf(g_pMarkersNFT[i].trans, g_pMarkersNFT[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
             // Tell any dependent objects about the update.
             // ARMarkerUpdatedPoseNotification
         }
         else
         {
-            if (markersNFT[i].validPrev)
+            if (g_pMarkersNFT[i].validPrev)
             {
                 // Marker has ceased to be visible, tell any dependent objects.
                 // ARMarkerDisappearedNotification
@@ -1059,11 +989,11 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
     // --->
 
     // Draw an object on all valid markers.
-    for (int i = 0; i < markersNFTCount; i++)
+    for (int i = 0; i < g_nMarkersNFTCount; i++)
     {
-        if (markersNFT[i].valid)
+        if (g_pMarkersNFT[i].valid)
         {
-            glLoadMatrixf(markersNFT[i].pose.T);
+            glLoadMatrixf(g_pMarkersNFT[i].pose.T);
             DrawCube(40.0f, 0.0f, 0.0f, 20.0f);
         }
     }
