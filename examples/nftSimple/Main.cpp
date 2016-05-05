@@ -80,6 +80,7 @@
 #include "ARMarkerNFT.h"
 #include "TrackingSub.h"
 #include "NFTSimple.h"
+#include "VirtualEnvironment.h"
 
 // ============================================================================
 // Constants
@@ -112,6 +113,8 @@ static ARGL_CONTEXT_SETTINGS_REF gArglSettings    = NULL;
 static int                       gDrawRotate      = FALSE;
 static float                     gDrawRotateAngle = 0;  // For use in drawing.
 static ARdouble                  cameraLens[16];
+static ARdouble                  g_fCameraPose[16];
+static int                       g_nCameraPoseValid;
 
 
 // ============================================================================
@@ -134,6 +137,7 @@ int main(int argc, char **argv)
     char       glutGamemode[32];
     const char *cparam_name               = "Data2/camera_para_640x480.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
+    const char objectDataFilename[]       = "Data/cow.dat"; //"Data/objects.dat";
 
 #ifdef WIN32
     char vconf[] = "-device=WinDS -showDialog  -flipV";
@@ -183,6 +187,7 @@ int main(int argc, char **argv)
 
     // Create the OpenGL projection from the calibrated camera parameters.
     arglCameraFrustumRH(&(gCparamLT->param), VIEW_DISTANCE_MIN, VIEW_DISTANCE_MAX, cameraLens);
+    g_nCameraPoseValid = FALSE;
 
     if (!InitNFT(gCparamLT, arVideoGetPixelFormat()))
     {
@@ -219,6 +224,10 @@ int main(int argc, char **argv)
         Cleanup();
         exit(-1);
     }
+
+    // Load objects (i.e. OSG models).
+    VirtualEnvironmentInit(objectDataFilename);
+    VirtualEnvironmentHandleARViewUpdatedCameraLens(cameraLens);
 
     arUtilTimerReset();
 
@@ -336,6 +345,8 @@ static int SetupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 
 static void Cleanup(void)
 {
+    VirtualEnvironmentFinal();
+
     DeleteMarkers(&g_pMarkersNFT, &g_nMarkersNFTCount);
 
     // NFT cleanup.
@@ -505,12 +516,14 @@ static void mainLoop(void)
                 {
                     // Marker has become visible, tell any dependent objects.
                     // --->
+                    VirtualEnvironmentHandleARMarkerAppeared(i);
                 }
 
                 // We have a new pose, so set that.
                 arglCameraViewRH((const ARdouble(*)[4])g_pMarkersNFT[i].trans, g_pMarkersNFT[i].pose.T, VIEW_SCALEFACTOR);
                 // Tell any dependent objects about the update.
                 // --->
+                VirtualEnvironmentHandleARMarkerWasUpdated(i, g_pMarkersNFT[i].pose);
             }
             else
             {
@@ -518,6 +531,7 @@ static void mainLoop(void)
                 {
                     // Marker has ceased to be visible, tell any dependent objects.
                     // --->
+                    VirtualEnvironmentHandleARMarkerDisappeared(i);
                 }
             }
         }
@@ -549,13 +563,21 @@ static void Visibility(int visible)
 //
 static void Reshape(int w, int h)
 {
+    GLint viewport[4];
+
     gWindowW = w;
     gWindowH = h;
+
+    viewport[0] = 0;
+    viewport[1] = 0;
+    viewport[2] = w;
+    viewport[3] = h;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 
     // Call through to anyone else who needs to know about window sizing here.
+    VirtualEnvironmentHandleARViewUpdatedViewport(viewport);
 }
 
 //
@@ -591,6 +613,21 @@ static void Display(void)
     // (I.e. should be specified before marker pose transform.)
     // --->
 
+    VirtualEnvironmentHandleARViewDrawPreCamera();
+
+    if (g_nCameraPoseValid)
+    {
+#ifdef ARDOUBLE_IS_FLOAT
+        glMultMatrixf(g_fCameraPose);
+#else
+        glMultMatrixd(g_fCameraPose);
+#endif
+
+        // All lighting and geometry to be drawn in world coordinates goes here.
+        // --->
+        VirtualEnvironmentHandleARViewDrawPostCamera();
+    }
+
     for (i = 0; i < g_nMarkersNFTCount; i++)
     {
         if (g_pMarkersNFT[i].valid)
@@ -604,8 +641,8 @@ static void Display(void)
             // --->
 
             // Benet-add for test
-            glScalef(15.0f, 20.0f, 4.0f);
-            glTranslatef(20.0, 20.0f, 0.0f);
+            // glScalef(15.0f, 20.0f, 4.0f);
+            // glTranslatef(20.0, 20.0f, 0.0f);
 
             DrawCube(40.0f, 0.0f, 0.0f, 0.0f);
         }

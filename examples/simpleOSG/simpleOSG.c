@@ -159,9 +159,9 @@ int main(int argc, char **argv)
     int        i;
     int        gotTwoPartOption;
     const char markerConfigDataFilename[] = "Data/markers.dat";
-    const char objectDataFilename[]       = "Data/objects.dat";
+    //const char objectDataFilename[]       = "Data/objects.dat";
 
-    // const char objectDataFilename[] = "Data/cow.dat";
+    const char objectDataFilename[] = "Data/cow.dat";
 
     //
     // Process command-line options.
@@ -174,6 +174,7 @@ int main(int argc, char **argv)
     while (i < argc)
     {
         gotTwoPartOption = FALSE;
+        
         // Look for two-part options first.
         if ((i + 1) < argc)
         {
@@ -674,7 +675,6 @@ static void mainLoop(void)
         {
             markersSquare[i].validPrev = markersSquare[i].valid;
 
-
             // Check through the marker_info array for highest confidence
             // visible marker matching our preferred pattern.
             k = -1;
@@ -763,6 +763,7 @@ static void mainLoop(void)
 
                 // We have a new pose, so set that.
                 arglCameraViewRH((const ARdouble (*)[4])markersSquare[i].trans, markersSquare[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
+
                 // Tell any dependent objects about the update.
                 VirtualEnvironmentHandleARMarkerWasUpdated(i, markersSquare[i].pose);
             }
