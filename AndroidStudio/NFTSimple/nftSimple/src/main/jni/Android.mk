@@ -107,7 +107,7 @@ LOCAL_C_INCLUDES += $(ARTOOLKIT_DIR)/../include/android \
 
 LOCAL_LDLIBS += -llog -lGLESv1_CM -lz
 LOCAL_WHOLE_STATIC_LIBRARIES += ar
-LOCAL_STATIC_LIBRARIES += ar2 kpm util eden argsub_es armulti aricp cpufeatures jpeg arvideo
+LOCAL_STATIC_LIBRARIES += ar2 arosg kpm util eden argsub_es armulti aricp cpufeatures jpeg arvideo
 #LOCAL_SHARED_LIBRARIES += $(CURL_LIBS)
 LOCAL_STATIC_LIBRARIES += $(CURL_LIBS)
 
