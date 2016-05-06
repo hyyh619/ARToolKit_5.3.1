@@ -45,4 +45,3 @@ ctags.files
 *.avi
 VisualStudio/vs120/Debug/*
 VisualStudio/vs120/Release/*
-include/AR/config.h
