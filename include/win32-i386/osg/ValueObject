@@ -16,10 +16,12 @@
 
 #include <osg/Object>
 #include <osg/UserDataContainer>
+#include <osg/BoundingBox>
+#include <osg/BoundingSphere>
 
 namespace osg {
 
-// foward declare core OSG math classes
+// forward declare core OSG math classes
 class Vec2f;
 class Vec3f;
 class Vec4f;
@@ -44,6 +46,7 @@ class ValueObject : public Object
         class GetValueVisitor
         {
         public:
+            virtual ~GetValueVisitor() {}
             virtual void apply(bool /*value*/) {}
             virtual void apply(char /*value*/) {}
             virtual void apply(unsigned char /*value*/) {}
@@ -64,11 +67,16 @@ class ValueObject : public Object
             virtual void apply(const osg::Plane& /*value*/) {}
             virtual void apply(const osg::Matrixf& /*value*/) {}
             virtual void apply(const osg::Matrixd& /*value*/) {}
+            virtual void apply(const osg::BoundingBoxf& /*value*/) {}
+            virtual void apply(const osg::BoundingBoxd& /*value*/) {}
+            virtual void apply(const osg::BoundingSpheref& /*value*/) {}
+            virtual void apply(const osg::BoundingSphered& /*value*/) {}
         };
 
         class SetValueVisitor
         {
         public:
+            virtual ~SetValueVisitor() {}
             virtual void apply(bool& /*value*/) {}
             virtual void apply(char& /*value*/) {}
             virtual void apply(unsigned char& /*value*/) {}
@@ -89,11 +97,16 @@ class ValueObject : public Object
             virtual void apply(osg::Plane& /*value*/) {}
             virtual void apply(osg::Matrixf& /*value*/) {}
             virtual void apply(osg::Matrixd& /*value*/) {}
+            virtual void apply(osg::BoundingBoxf& /*value*/) {}
+            virtual void apply(osg::BoundingBoxd& /*value*/) {}
+            virtual void apply(osg::BoundingSpheref& /*value*/) {}
+            virtual void apply(osg::BoundingSphered& /*value*/) {}
         };
 
         virtual bool get(GetValueVisitor& /*gvv*/) const { return false; }
         virtual bool set(SetValueVisitor& /*gvv*/) { return false; }
-    protected:
+
+protected:
         virtual ~ValueObject() {}
 };
 
@@ -165,6 +178,10 @@ META_ValueObject(Quat, QuatValueObject)
 META_ValueObject(Plane, PlaneValueObject)
 META_ValueObject(Matrixf, MatrixfValueObject)
 META_ValueObject(Matrixd, MatrixdValueObject)
+META_ValueObject(BoundingBoxf, BoundingBoxfValueObject)
+META_ValueObject(BoundingBoxd, BoundingBoxdValueObject)
+META_ValueObject(BoundingSpheref, BoundingSpherefValueObject)
+META_ValueObject(BoundingSphered, BoundingSpheredValueObject)
 
 /** provide implementation of osg::Object::getUserValue(..) template*/
 template<typename T>
@@ -204,6 +221,7 @@ void osg::Object::setUserValue(const std::string& name, const T& value)
     if (i<udc->getNumUserObjects()) udc->setUserObject(i, new UserValueObject(name,value));
     else udc->addUserObject(new UserValueObject(name,value));
 }
+
 
 }
 #endif

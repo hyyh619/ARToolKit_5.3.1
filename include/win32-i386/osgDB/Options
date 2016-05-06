@@ -15,6 +15,7 @@
 #define OSGDB_OPTIONS 1
 
 #include <osgDB/Callbacks>
+#include <osgDB/ObjectCache>
 #include <osg/ObserverNodePath>
 
 #include <deque>
@@ -138,6 +139,13 @@ class OSGDB_EXPORT Options : public osg::Object
         /** Get whether the Registry::ObjectCache should be used by default.*/
         CacheHintOptions getObjectCacheHint() const { return _objectCacheHint; }
 
+        /** Set the ObjectCache that is used to cache previously loaded data.*/
+        void setObjectCache(ObjectCache* objectCache) { _objectCache = objectCache; }
+
+        /** Get the ObjectCache that is used to cache previously loaded data.*/
+        ObjectCache* getObjectCache() const { return _objectCache.get(); }
+
+
         /** Set which geometry attributes plugins should import at double precision. */
         void setPrecisionHint(PrecisionHint hint) { _precisionHint = hint; }
 
@@ -241,6 +249,11 @@ class OSGDB_EXPORT Options : public osg::Object
         /** Get the terrain observer_ptr, use to decorate any osgTerrain subgraphs.*/
         const osg::observer_ptr<osg::Node>& getTerrain() const { return _terrain; }
 
+        /** Set the parentGroup observer_ptr, where the loaded model is intended to be added */
+        void setParentGroup(osg::observer_ptr<osg::Group>& parentGroup) { _parentGroup= parentGroup; }
+
+        /** Get the parentGroup observer_ptr, where the loaded model is intended to be added */
+        const osg::observer_ptr<osg::Group>& getParentGroup() const { return _parentGroup; }
 
     protected:
 
@@ -248,7 +261,10 @@ class OSGDB_EXPORT Options : public osg::Object
 
         std::string                     _str;
         FilePathList                    _databasePaths;
+
         CacheHintOptions                _objectCacheHint;
+        osg::ref_ptr<ObjectCache>       _objectCache;
+
         PrecisionHint                   _precisionHint;
         BuildKdTreesHint                _buildKdTreesHint;
         osg::ref_ptr<AuthenticationMap> _authenticationMap;
@@ -266,6 +282,7 @@ class OSGDB_EXPORT Options : public osg::Object
         osg::ref_ptr<FileCache>             _fileCache;
 
         osg::observer_ptr<osg::Node>        _terrain;
+        osg::observer_ptr<osg::Group>       _parentGroup; // Set by the DatabasePager to the node where the requested file will be inserted. NOTE: observer since prent can be dettached whilst DB thread is loading the object
 };
 
 }

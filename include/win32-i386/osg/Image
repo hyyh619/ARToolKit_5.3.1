@@ -69,6 +69,7 @@
     #define GL_COLOR_INDEX          0x1900
     #define GL_INTENSITY12          0x804C
     #define GL_INTENSITY16          0x804D
+    #define GL_INTENSITY            0x8049
     #define GL_INTENSITY4           0x804A
     #define GL_INTENSITY8           0x804B
     #define GL_LUMINANCE12          0x8041
@@ -95,6 +96,19 @@
 
 #ifndef GL_OES_compressed_ETC1_RGB8_texture
     #define GL_ETC1_RGB8_OES        0x8D64
+#endif
+
+#ifndef GL_ARB_ES3_compatibility
+    #define GL_COMPRESSED_RGB8_ETC2                             0x9274
+    #define GL_COMPRESSED_SRGB8_ETC2                            0x9275
+    #define GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2         0x9276
+    #define GL_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2        0x9277
+    #define GL_COMPRESSED_RGBA8_ETC2_EAC                        0x9278
+    #define GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC                 0x9279
+    #define GL_COMPRESSED_R11_EAC                               0x9270
+    #define GL_COMPRESSED_SIGNED_R11_EAC                        0x9271
+    #define GL_COMPRESSED_RG11_EAC                              0x9272
+    #define GL_COMPRESSED_SIGNED_RG11_EAC                       0x9273
 #endif
 
 #ifndef GL_DEPTH_COMPONENT
@@ -210,7 +224,7 @@ class OSG_EXPORT Image : public BufferData
           * Typically used to copy to an already allocated image, such as creating
           * a 3D image from a stack 2D images.
           * If this Image is empty then image data is created to
-          * accomodate the source image in its offset position.
+          * accommodate the source image in its offset position.
           * If source is NULL then no operation happens, this Image is left unchanged.
         */
         virtual void copySubImage(int s_offset, int t_offset, int r_offset, const osg::Image* source);
@@ -359,6 +373,14 @@ class OSG_EXPORT Image : public BufferData
         /** Get the color value for specified texcoord.*/
         Vec4 getColor(const Vec3& texcoord) const;
 
+         /** Set the color value for specified texcoord.*/
+        void setColor(const osg::Vec4& color, unsigned int s, unsigned int t=0, unsigned int r=0);
+
+         /** Set the color value for specified texcoord. Note texcoord is clamped to edge.*/
+        void setColor(const osg::Vec4& color, const osg::Vec2& texcoord ) { setColor(color, osg::Vec3(texcoord, 0.0f)); }
+
+         /** Set the color value for specified texcoord. Note texcoord is clamped to edge.*/
+        void setColor(const osg::Vec4& color, const osg::Vec3& texcoord );
 
         /** Flip the image horizontally, around s dimension. */
         void flipHorizontal();
@@ -366,7 +388,7 @@ class OSG_EXPORT Image : public BufferData
         /** Flip the image vertically, around t dimension. */
         void flipVertical();
 
-        /** Flip the image around the r dimension. Only relevent for 3D textures. */
+        /** Flip the image around the r dimension. Only relevant for 3D textures. */
         void flipDepth();
 
         /** Ensure image dimensions are a power of two.
@@ -462,15 +484,15 @@ class OSG_EXPORT Image : public BufferData
 
         /** Pass frame information to the custom Image classes, to be called only when objects associated with imagery are not culled.*/
         virtual void setFrameLastRendered(const osg::FrameStamp* /*frameStamp*/) {}
-        
+
         class DimensionsChangedCallback : public osg::Referenced {
         public:
             DimensionsChangedCallback() : osg::Referenced() {}
             virtual void operator()(osg::Image* image) = 0;
         };
-        
+
         typedef std::vector< osg::ref_ptr<DimensionsChangedCallback> > DimensionsChangedCallbackVector;
-        
+
         void addDimensionsChangedCallback(DimensionsChangedCallback* cb);
         void removeDimensionsChangedCallback(DimensionsChangedCallback* cb);
 
@@ -479,8 +501,8 @@ class OSG_EXPORT Image : public BufferData
         virtual ~Image();
 
         Image& operator = (const Image&) { return *this; }
-        
-        void handleDimensionsChangedCallbacks() 
+
+        void handleDimensionsChangedCallbacks()
         {
             for(DimensionsChangedCallbackVector::iterator i = _dimensionsChangedCallbacks.begin(); i != _dimensionsChangedCallbacks.end(); ++i)
             {
@@ -509,7 +531,7 @@ class OSG_EXPORT Image : public BufferData
         void setData(unsigned char* data,AllocationMode allocationMode);
 
         MipmapDataType _mipmapData;
-        
+
         DimensionsChangedCallbackVector _dimensionsChangedCallbacks;
 };
 
