@@ -44,14 +44,14 @@ extern "C" {
 
 typedef struct __arVideo1394
 {
-    dc1394_t               *dc1394;
-    dc1394camera_list_t    *list;
-    int                    *activeFlag;
+    dc1394_t            *dc1394;
+    dc1394camera_list_t *list;
+    int                 *activeFlag;
 } ARVideo1394;
 
 
-ARVideo1394  *ar2VideoGetHandle            ( void );
-void          ar2Video1394FormatConversion ( ARUint8 *src, ARUint8 *dst, int mode, int width, int height );
+ARVideo1394* ar2VideoGetHandle(void);
+void          ar2Video1394FormatConversion(ARUint8 *src, ARUint8 *dst, int mode, int width, int height);
 
 
 #ifdef  __cplusplus

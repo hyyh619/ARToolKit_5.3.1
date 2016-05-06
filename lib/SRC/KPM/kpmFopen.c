@@ -45,20 +45,25 @@
 #  include <sys/param.h> // MAXPATHLEN
 #endif
 
-FILE *kpmFopen( const char *filename, const char *ext, const char *mode )
+FILE* kpmFopen(const char *filename, const char *ext, const char *mode)
 {
     FILE   *fp;
     char   *buf;
-    size_t  len;
-    
-    if (!filename) return (NULL);
-    if (ext) {
+    size_t len;
+
+    if (!filename)
+        return (NULL);
+
+    if (ext)
+    {
         len = strlen(filename) + strlen(ext) + 2; // space for '.' and '\0'.
         arMalloc(buf, char, len)
         sprintf(buf, "%s.%s", filename, ext);
         fp = fopen(buf, mode);
         free(buf);
-    } else {
+    }
+    else
+    {
         fp = fopen(filename, mode);
     }
 

@@ -2,10 +2,10 @@
  *  EdenSurfaces.h
  *  The Eden Library
  *
- *	Copyright (c) 2001-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
+ *      Copyright (c) 2001-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
  *
- *	Rev		Date		Who		Changes
- *	1.0.0	2001-11-11	PRL     Initial version for The SRMS simulator.
+ *      Rev             Date            Who             Changes
+ *      1.0.0   2001-11-11      PRL     Initial version for The SRMS simulator.
  *  1.1.0   2008-07-18  PRL     Repurposed for OpenGL ES.
  *  1.2.0   2010-09-22  PRL     Remove redundant static material handling.
  */
@@ -54,10 +54,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 /* ============================================================================ *
- *	Includes
- * ============================================================================ */
+*       Includes
+* ============================================================================ */
 #ifndef __Eden_h__
 #  include <Eden/Eden.h>
 #endif
@@ -87,16 +87,16 @@ extern "C" {
 
 
 /* ============================================================================ *
- *	defines
- * ============================================================================ */
+*       defines
+* ============================================================================ */
 #if 0
 // Symbolic names for faces of objects to texture.
-#define TEXTURE_FACE_TOP_BIT	0x01
-#define TEXTURE_FACE_RIGHT_BIT	0x02
-#define TEXTURE_FACE_BACK_BIT	0x04
-#define TEXTURE_FACE_LEFT_BIT	0x08
-#define TEXTURE_FACE_FRONT_BIT	0x10
-#define TEXTURE_FACE_BOTTOM_BIT	0x20
+#define TEXTURE_FACE_TOP_BIT    0x01
+#define TEXTURE_FACE_RIGHT_BIT  0x02
+#define TEXTURE_FACE_BACK_BIT   0x04
+#define TEXTURE_FACE_LEFT_BIT   0x08
+#define TEXTURE_FACE_FRONT_BIT  0x10
+#define TEXTURE_FACE_BOTTOM_BIT 0x20
 #endif
 
 /*!
@@ -113,7 +113,8 @@ extern "C" {
         If the texture is larger than the quad, it will be cropped. If it is smaller, it will
         be surrounded by background texture.
  */
-typedef enum {
+typedef enum
+{
     STRETCH,
     FILL,
     FIT,
@@ -124,7 +125,8 @@ typedef enum {
      @typedef
      @abstract How to align the texture content when drawing a texture on a quad.
  */
-typedef enum {
+typedef enum
+{
     CENTRE,
     TOP_LEFT,
     TOP_RIGHT,
@@ -137,7 +139,7 @@ typedef enum {
 } EDEN_TEXTURE_ALIGNMENT_MODE;
 
 /* ============================================================================ *
-*	Public types
+*       Public types
 * ============================================================================ */
 
 typedef unsigned int TEXTURE_INDEX_t;
@@ -156,30 +158,31 @@ typedef unsigned int TEXTURE_INDEX_t;
     @field wrap_t
     @field priority
     @field env_mode
-*/
-typedef struct {
-	const char *pathname;
-	GLboolean	mipmaps;
-	GLint		internalformat;
-	GLint		min_filter;
-	GLint		mag_filter;
-	GLint		wrap_s;
-	GLint		wrap_t;
-	GLclampf	priority;
-	GLint		env_mode;
-	//GLfloat	env_color[4];
+ */
+typedef struct
+{
+    const char *pathname;
+    GLboolean  mipmaps;
+    GLint      internalformat;
+    GLint      min_filter;
+    GLint      mag_filter;
+    GLint      wrap_s;
+    GLint      wrap_t;
+    GLclampf   priority;
+    GLint      env_mode;
+    // GLfloat  env_color[4];
 } TEXTURE_INFO_t;
 
 /* ============================================================================ *
- *	Public functions
- * ============================================================================ */
+*       Public functions
+* ============================================================================ */
 
 /*!
     @function
     @abstract Initialise the EdenSurfaces library.
     @discussion
         This function must be called prior to any other EdenSurfaces*() functions being called.
- 
+
         Does NOT require that a valid OpenGL context be available.
     @param contextsActiveCount Maximum number of OpenGL contexts that will be in use. Typically 1.
     @param textureIndicesMax Maximum number of textures that can be loaded via calls to EdenSurfacesTextureLoad.
@@ -199,7 +202,7 @@ EDEN_BOOL EdenSurfacesInit(const int contextsActiveCount, const int textureIndic
     @param numTextures The number of textures being loaded.
     @param textureInfo An array (of length numTextures) holding details of each texture
         being loaded.
- 
+
         On OpenGL ES devices with limited non-power-of-two (NPOT) texture support,
         the NPOT support will only be available if {mipmaps = FALSE, min_filter/mag_filter
         = GL_NEAREST/GL_LINEAR, wrap_s/wrap_t = GL_CLAMP_TO_EDGE}.
@@ -218,7 +221,7 @@ EDEN_BOOL EdenSurfacesInit(const int contextsActiveCount, const int textureIndic
     @result TRUE if all textures were loaded correctly, FALSE if one or more were not.
  */
 EDEN_BOOL EdenSurfacesTextureLoad(const int contextIndex, const int numTextures, const TEXTURE_INFO_t *textureInfo, TEXTURE_INDEX_t *textureIndices, char *hasAlpha_out);
-    
+
 EDEN_BOOL EdenSurfacesTextureLoad2(const int contextIndex, const int numTextures, const TEXTURE_INFO_t *textureInfo, TEXTURE_INDEX_t *textureIndices, char *hasAlpha_out, const EDEN_BOOL flipH, const EDEN_BOOL flipV);
 
 /*!
@@ -252,7 +255,7 @@ EDEN_BOOL EdenSurfacesTextureUnload(const int contextIndex, const int numTexture
 /*!
     @function
     @abstract Finalise the EdenSurfaces library.
-    @discussion 
+    @discussion
         This function should be called once no more calls to any other EdenSurfaces*()
         functions are required, to free up allocated memory.
         Does NOT require that a valid OpenGL context be available.
@@ -266,7 +269,7 @@ EDEN_BOOL EdenSurfacesFinal(void);
     @discussion
         Draws the texture pointed to by index on a surface of size (width, height) OpenGL units,
         with the lower-left corner of the surface at the origin, and the surface lying in the X-Y plane.
- 
+
         To draw at a different position and/or orientation precede with glTranslate/glRotate calls.
     @param width Width, in OpenGL units, of the quad on which to draw.
     @param height Height, in OpenGL units, of the quad on which to draw.
@@ -286,8 +289,8 @@ EDEN_BOOL EdenSurfacesDraw(const int contextIndex, const TEXTURE_INDEX_t texture
     @param      extName Name of the extension, e.g. "GL_EXT_texture".
     @param      extString The OpenGL extensions string, as returned by glGetString(GL_EXTENSIONS);
     @result     TRUE, if the extension is found, FALSE otherwise.
-*/
-GLboolean EdenGluCheckExtension(const GLubyte* extName, const GLubyte *extString);
+ */
+GLboolean EdenGluCheckExtension(const GLubyte *extName, const GLubyte *extString);
 
 /*!
     @function
@@ -307,11 +310,10 @@ GLboolean EdenGluCheckExtension(const GLubyte* extName, const GLubyte *extString
         string for. E.g. "GL_EXT_texture". If NULL, the extension name test will always fail,
         and the result will only be true if the version number test passes.
     @result     TRUE If either of the tests passes, or FALSE if both fail.
-*/
+ */
 int EdenGLCapabilityCheck(const unsigned short minVersion, const unsigned char *extension);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif		/* !__EdenSurfaces_h__ */
+#endif          /* !__EdenSurfaces_h__ */

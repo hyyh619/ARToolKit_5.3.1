@@ -56,13 +56,12 @@ extern "C" {
 #endif
 
 AR_DLL_API int arVrmlLoadFile(const char *file);
-AR_DLL_API int arVrmlFree( int id );
-AR_DLL_API int arVrmlDraw( int id );
-AR_DLL_API int arVrmlTimerUpdate( void );
-AR_DLL_API int arVrmlSetInternalLight( int flag );
+AR_DLL_API int arVrmlFree(int id);
+AR_DLL_API int arVrmlDraw(int id);
+AR_DLL_API int arVrmlTimerUpdate(void);
+AR_DLL_API int arVrmlSetInternalLight(int flag);
 
 #ifdef __cplusplus
 }
 #endif
-
 #endif

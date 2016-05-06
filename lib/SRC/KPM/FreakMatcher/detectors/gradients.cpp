@@ -39,171 +39,179 @@
 
 using namespace vision;
 
-namespace vision {
+namespace vision
+{
+void ComputePolarGradients(float *gradient,
+                           const float *im,
+                           size_t width,
+                           size_t height)
+{
+#define SET_GRADIENT(dx, dy)                      \
+    *(gradient++) = std::atan2(dy, dx) + PI;      \
+    *(gradient++) = std::sqrt(dx * dx + dy * dy); \
+    p_ptr++; pm1_ptr++; pp1_ptr++;                \
 
-    void ComputePolarGradients(float* gradient,
-                               const float* im,
-                               size_t width,
-                               size_t height) {
-        
-#define SET_GRADIENT(dx, dy)                \
-*(gradient++) = std::atan2(dy, dx)+PI;      \
-*(gradient++) = std::sqrt(dx*dx+dy*dy);     \
-p_ptr++; pm1_ptr++; pp1_ptr++;              \
+    size_t width_minus_1;
+    size_t height_minus_1;
 
-        size_t width_minus_1;
-        size_t height_minus_1;
-        
-        float dx, dy;
-        const float* p_ptr;
-        const float* pm1_ptr;
-        const float* pp1_ptr;
-        
-        width_minus_1 = width-1;
-        height_minus_1 = height-1;
-        
-        // Top row
-        pm1_ptr = im;
-        p_ptr   = im;
-        pp1_ptr = p_ptr+width;
-        
+    float       dx, dy;
+    const float *p_ptr;
+    const float *pm1_ptr;
+    const float *pp1_ptr;
+
+    width_minus_1  = width - 1;
+    height_minus_1 = height - 1;
+
+    // Top row
+    pm1_ptr = im;
+    p_ptr   = im;
+    pp1_ptr = p_ptr + width;
+
+    dx = p_ptr[1] - p_ptr[0];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+    for (int col = 1; col < width_minus_1; col++)
+    {
+        dx = p_ptr[1] - p_ptr[-1];
+        dy = pp1_ptr[0] - pm1_ptr[0];
+        SET_GRADIENT(dx, dy)
+    }
+
+    dx = p_ptr[0] - p_ptr[-1];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+    // Non-border pixels
+    pm1_ptr = im;
+    p_ptr   = pm1_ptr + width;
+    pp1_ptr = p_ptr + width;
+
+    for (int row = 1; row < height_minus_1; row++)
+    {
         dx = p_ptr[1] - p_ptr[0];
         dy = pp1_ptr[0] - pm1_ptr[0];
         SET_GRADIENT(dx, dy)
-        
-        for(int col = 1; col < width_minus_1; col++) {
+
+        for (int col = 1; col < width_minus_1; col++)
+        {
             dx = p_ptr[1] - p_ptr[-1];
             dy = pp1_ptr[0] - pm1_ptr[0];
             SET_GRADIENT(dx, dy)
         }
-        
+
         dx = p_ptr[0] - p_ptr[-1];
         dy = pp1_ptr[0] - pm1_ptr[0];
         SET_GRADIENT(dx, dy)
-        
-        // Non-border pixels
-        pm1_ptr = im;
-        p_ptr   = pm1_ptr+width;
-        pp1_ptr = p_ptr+width;
-        
-        for(int row = 1; row < height_minus_1; row++) {
-            dx = p_ptr[1] - p_ptr[0];
-            dy = pp1_ptr[0] - pm1_ptr[0];
-            SET_GRADIENT(dx, dy)
-            
-            for(int col = 1; col < width_minus_1; col++) {
-                dx = p_ptr[1] - p_ptr[-1];
-                dy = pp1_ptr[0] - pm1_ptr[0];
-                SET_GRADIENT(dx, dy)
-            }
-            
-            dx = p_ptr[0] - p_ptr[-1];
-            dy = pp1_ptr[0] - pm1_ptr[0];
-            SET_GRADIENT(dx, dy)
-        }
-        
-        // Lower row
-        p_ptr   = &im[height_minus_1*width];
-        pm1_ptr = p_ptr-width;
-        pp1_ptr = p_ptr;
-        
-        dx = p_ptr[1] - p_ptr[0];
-        dy = pp1_ptr[0] - pm1_ptr[0];
-        SET_GRADIENT(dx, dy)
-        
-        for(int col = 1; col < width_minus_1; col++) {
-            dx = p_ptr[1] - p_ptr[-1];
-            dy = pp1_ptr[0] - pm1_ptr[0];
-            SET_GRADIENT(dx, dy)
-        }
-        
-        dx = p_ptr[0]   - p_ptr[-1];
-        dy = pp1_ptr[0] - pm1_ptr[0];
-        SET_GRADIENT(dx, dy)
-        
-#undef SET_GRADIENT
     }
-    
-    void ComputeGradients(float* gradient,
-                          const float* im,
-                          size_t width,
-                          size_t height) {
-#define SET_GRADIENT(dx, dy)                \
-*(gradient++) = dx;                         \
-*(gradient++) = dy;                         \
-p_ptr++; pm1_ptr++; pp1_ptr++;              \
 
-        size_t width_minus_1;
-        size_t height_minus_1;
-        
-        float dx, dy;
-        const float* p_ptr;
-        const float* pm1_ptr;
-        const float* pp1_ptr;
-        
-        width_minus_1 = width-1;
-        height_minus_1 = height-1;
-        
-        // Top row
-        pm1_ptr = im;
-        p_ptr   = im;
-        pp1_ptr = p_ptr+width;
-        
+    // Lower row
+    p_ptr   = &im[height_minus_1 * width];
+    pm1_ptr = p_ptr - width;
+    pp1_ptr = p_ptr;
+
+    dx = p_ptr[1] - p_ptr[0];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+    for (int col = 1; col < width_minus_1; col++)
+    {
+        dx = p_ptr[1] - p_ptr[-1];
+        dy = pp1_ptr[0] - pm1_ptr[0];
+        SET_GRADIENT(dx, dy)
+    }
+
+    dx = p_ptr[0] - p_ptr[-1];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+#undef SET_GRADIENT
+}
+
+void ComputeGradients(float *gradient,
+                      const float *im,
+                      size_t width,
+                      size_t height)
+{
+#define SET_GRADIENT(dx, dy)       \
+    *(gradient++) = dx;            \
+    *(gradient++) = dy;            \
+    p_ptr++; pm1_ptr++; pp1_ptr++; \
+
+    size_t width_minus_1;
+    size_t height_minus_1;
+
+    float       dx, dy;
+    const float *p_ptr;
+    const float *pm1_ptr;
+    const float *pp1_ptr;
+
+    width_minus_1  = width - 1;
+    height_minus_1 = height - 1;
+
+    // Top row
+    pm1_ptr = im;
+    p_ptr   = im;
+    pp1_ptr = p_ptr + width;
+
+    dx = p_ptr[1] - p_ptr[0];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+    for (int col = 1; col < width_minus_1; col++)
+    {
+        dx = p_ptr[1] - p_ptr[-1];
+        dy = pp1_ptr[0] - pm1_ptr[0];
+        SET_GRADIENT(dx, dy)
+    }
+
+    dx = p_ptr[0] - p_ptr[-1];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+    // Non-border pixels
+    pm1_ptr = im;
+    p_ptr   = pm1_ptr + width;
+    pp1_ptr = p_ptr + width;
+
+    for (int row = 1; row < height_minus_1; row++)
+    {
         dx = p_ptr[1] - p_ptr[0];
         dy = pp1_ptr[0] - pm1_ptr[0];
         SET_GRADIENT(dx, dy)
-        
-        for(int col = 1; col < width_minus_1; col++) {
+
+        for (int col = 1; col < width_minus_1; col++)
+        {
             dx = p_ptr[1] - p_ptr[-1];
             dy = pp1_ptr[0] - pm1_ptr[0];
             SET_GRADIENT(dx, dy)
         }
-        
+
         dx = p_ptr[0] - p_ptr[-1];
         dy = pp1_ptr[0] - pm1_ptr[0];
         SET_GRADIENT(dx, dy)
-        
-        // Non-border pixels
-        pm1_ptr = im;
-        p_ptr   = pm1_ptr+width;
-        pp1_ptr = p_ptr+width;
-        
-        for(int row = 1; row < height_minus_1; row++) {
-            dx = p_ptr[1] - p_ptr[0];
-            dy = pp1_ptr[0] - pm1_ptr[0];
-            SET_GRADIENT(dx, dy)
-            
-            for(int col = 1; col < width_minus_1; col++) {
-                dx = p_ptr[1] - p_ptr[-1];
-                dy = pp1_ptr[0] - pm1_ptr[0];
-                SET_GRADIENT(dx, dy)
-            }
-            
-            dx = p_ptr[0] - p_ptr[-1];
-            dy = pp1_ptr[0] - pm1_ptr[0];
-            SET_GRADIENT(dx, dy)
-        }
-        
-        // Lower row
-        p_ptr   = &im[height_minus_1*width];
-        pm1_ptr = p_ptr-width;
-        pp1_ptr = p_ptr;
-        
-        dx = p_ptr[1] - p_ptr[0];
-        dy = pp1_ptr[0] - pm1_ptr[0];
-        SET_GRADIENT(dx, dy)
-        
-        for(int col = 1; col < width_minus_1; col++) {
-            dx = p_ptr[1] - p_ptr[-1];
-            dy = pp1_ptr[0] - pm1_ptr[0];
-            SET_GRADIENT(dx, dy)
-        }
-        
-        dx = p_ptr[0]   - p_ptr[-1];
-        dy = pp1_ptr[0] - pm1_ptr[0];
-        SET_GRADIENT(dx, dy)
-        
-#undef SET_GRADIENT
     }
-    
+
+    // Lower row
+    p_ptr   = &im[height_minus_1 * width];
+    pm1_ptr = p_ptr - width;
+    pp1_ptr = p_ptr;
+
+    dx = p_ptr[1] - p_ptr[0];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+    for (int col = 1; col < width_minus_1; col++)
+    {
+        dx = p_ptr[1] - p_ptr[-1];
+        dy = pp1_ptr[0] - pm1_ptr[0];
+        SET_GRADIENT(dx, dy)
+    }
+
+    dx = p_ptr[0] - p_ptr[-1];
+    dy = pp1_ptr[0] - pm1_ptr[0];
+    SET_GRADIENT(dx, dy)
+
+#undef SET_GRADIENT
+}
 } // vision

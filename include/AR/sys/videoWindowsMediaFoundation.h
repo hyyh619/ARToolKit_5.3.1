@@ -47,24 +47,24 @@ extern "C" {
 
 typedef struct _AR2VideoParamWinMFT AR2VideoParamWinMFT;
 
-int                    ar2VideoDispOptionWinMF     (void);
-ARVideoSourceInfoListT *ar2VideoCreateSourceInfoListWinMF(const char *config);
-AR2VideoParamWinMFT   *ar2VideoOpenWinMF           (const char *config);
-int                    ar2VideoCloseWinMF          (AR2VideoParamWinMFT *vid);
-int                    ar2VideoGetIdWinMF          (AR2VideoParamWinMFT *vid, ARUint32 *id0, ARUint32 *id1);
-int                    ar2VideoGetSizeWinMF        (AR2VideoParamWinMFT *vid, int *x,int *y);
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinMF (AR2VideoParamWinMFT *vid);
-AR2VideoBufferT       *ar2VideoGetImageWinMF       (AR2VideoParamWinMFT *vid);
-int                    ar2VideoCapStartWinMF       (AR2VideoParamWinMFT *vid);
-int                    ar2VideoCapStopWinMF        (AR2VideoParamWinMFT *vid);
+int                    ar2VideoDispOptionWinMF(void);
+ARVideoSourceInfoListT* ar2VideoCreateSourceInfoListWinMF(const char *config);
+AR2VideoParamWinMFT* ar2VideoOpenWinMF(const char *config);
+int                    ar2VideoCloseWinMF(AR2VideoParamWinMFT *vid);
+int                    ar2VideoGetIdWinMF(AR2VideoParamWinMFT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeWinMF(AR2VideoParamWinMFT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinMF(AR2VideoParamWinMFT *vid);
+AR2VideoBufferT* ar2VideoGetImageWinMF(AR2VideoParamWinMFT *vid);
+int                    ar2VideoCapStartWinMF(AR2VideoParamWinMFT *vid);
+int                    ar2VideoCapStopWinMF(AR2VideoParamWinMFT *vid);
 
-int                    ar2VideoGetParamiWinMF      (AR2VideoParamWinMFT *vid, const int paramName, int *value);
-int                    ar2VideoSetParamiWinMF      (AR2VideoParamWinMFT *vid, const int paramName, const int  value);
-int                    ar2VideoGetParamdWinMF      (AR2VideoParamWinMFT *vid, const int paramName, double *value);
-int                    ar2VideoSetParamdWinMF      (AR2VideoParamWinMFT *vid, const int paramName, const double  value);
-int                    ar2VideoGetParamsWinMF      (AR2VideoParamWinMFT *vid, const int paramName, char **value);
-int                    ar2VideoSetParamsWinMF      (AR2VideoParamWinMFT *vid, const int paramName, const char  *value);
- 
+int                    ar2VideoGetParamiWinMF(AR2VideoParamWinMFT *vid, const int paramName, int *value);
+int                    ar2VideoSetParamiWinMF(AR2VideoParamWinMFT *vid, const int paramName, const int value);
+int                    ar2VideoGetParamdWinMF(AR2VideoParamWinMFT *vid, const int paramName, double *value);
+int                    ar2VideoSetParamdWinMF(AR2VideoParamWinMFT *vid, const int paramName, const double value);
+int                    ar2VideoGetParamsWinMF(AR2VideoParamWinMFT *vid, const int paramName, char **value);
+int                    ar2VideoSetParamsWinMF(AR2VideoParamWinMFT *vid, const int paramName, const char  *value);
+
 #ifdef  __cplusplus
 }
 #endif

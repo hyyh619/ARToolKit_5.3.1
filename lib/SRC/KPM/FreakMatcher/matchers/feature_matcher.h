@@ -39,120 +39,127 @@
 #include <matchers/binary_hierarchical_clustering.h>
 #include <matchers/matcher_types.h>
 
-namespace vision {
+namespace vision
+{
+class BinaryFeatureStore;
 
-    class BinaryFeatureStore;
-    
-    /**
-     * Implements a matcher between two feature stores.
-     */
-    template<int FEATURE_SIZE>
-    class BinaryFeatureMatcher {
-    public:
-        
-        typedef BinaryHierarchicalClustering<FEATURE_SIZE> index_t;
-        
-        BinaryFeatureMatcher();
-        ~BinaryFeatureMatcher();
-        
-        /**
-         * Set the ratio threshold between the 1st and 2nd best matches.
-         */
-        void setThreshold(float tr) {
-            mThreshold = tr;
-        }
-        
-        /**
-         * @return Get the threshold
-         */
-        float threshold() const {
-            return mThreshold;
-        }
-        
-        /**
-         * Match two feature stores.
-         * @return Number of matches
-         */
-        size_t match(const BinaryFeatureStore* features1,
-                     const BinaryFeatureStore* features2);
+/**
+ * Implements a matcher between two feature stores.
+ */
+template<int FEATURE_SIZE>
+class BinaryFeatureMatcher
+{
+public:
 
-        /**
-         * Match two feature stores with an index on features2.
-         * @return Number of matches
-         */
-        size_t match(const BinaryFeatureStore* features1,
-                     const BinaryFeatureStore* features2,
-                     const index_t& index2);
-        
-        /**
-         * Match two feature stores given a homography from the features in store 1 to
-         * store 2. The THRESHOLD is a spatial threshold in pixels to restrict the number
-         * of feature comparisons.
-         * @return Number of matches
-         */
-        size_t match(const BinaryFeatureStore* features1,
-                     const BinaryFeatureStore* features2,
-                     const float H[9],
-                     float tr);
-        
-        /**
-         * @return Vector of matches after a call to MATCH.
-         */
-        inline const matches_t& matches() const { return mMatches; }
-        
-    private:
-        
-        // Vector of indices that represent matches
-        matches_t mMatches;
-        
-        // Threshold on the 1st and 2nd best matches
-        float mThreshold;
-        
-    }; // BinaryFeatureMatcher
-    
-    /**
-     * Implements a matcher between two feature stores based on mutual correspondence.
-     */
-    template<int FEATURE_SIZE>
-    class MutualCorrespondenceBinaryFeatureMatcher {
-    public:
-        
-        MutualCorrespondenceBinaryFeatureMatcher() {}
-        ~MutualCorrespondenceBinaryFeatureMatcher() {}
-        
-        /**
-         * Match two feature stores.
-         * @return Number of matches
-         */
-        size_t match(const BinaryFeatureStore* features1,
-                     const BinaryFeatureStore* features2,
-                     float tr);
-        
-        /**
-         * Match two feature stores given a homography from the features in store 1 to
-         * store 2. The THRESHOLD is a spatial threshold in pixels to restrict the number
-         * of feature comparisons.
-         * @return Number of matches
-         */
-        size_t match(const BinaryFeatureStore* features1,
-                     const BinaryFeatureStore* features2,
-                     const float H[9],
-                     float tr1,
-                     float tr2);
-        
-        /**
-         * @return Vector of matches after a call to MATCH.
-         */
-        inline const matches_t& matches() const { return mMatches; }
-        
-    private:
-        
-        // Vector of indices that represent matches
-        matches_t mMatches;
-        
-        // Vector to hold indices
-        std::vector<int> mIndices;
-        
-    }; // MutualCorrespondenceBinaryFeatureMatcher
-    
+typedef BinaryHierarchicalClustering<FEATURE_SIZE> index_t;
+
+BinaryFeatureMatcher();
+~BinaryFeatureMatcher();
+
+/**
+ * Set the ratio threshold between the 1st and 2nd best matches.
+ */
+void setThreshold(float tr)
+{
+    mThreshold = tr;
+}
+
+/**
+ * @return Get the threshold
+ */
+float threshold() const
+{
+    return mThreshold;
+}
+
+/**
+ * Match two feature stores.
+ * @return Number of matches
+ */
+size_t match(const BinaryFeatureStore *features1,
+             const BinaryFeatureStore *features2);
+
+/**
+ * Match two feature stores with an index on features2.
+ * @return Number of matches
+ */
+size_t match(const BinaryFeatureStore *features1,
+             const BinaryFeatureStore *features2,
+             const index_t&index2);
+
+/**
+ * Match two feature stores given a homography from the features in store 1 to
+ * store 2. The THRESHOLD is a spatial threshold in pixels to restrict the number
+ * of feature comparisons.
+ * @return Number of matches
+ */
+size_t match(const BinaryFeatureStore *features1,
+             const BinaryFeatureStore *features2,
+             const float H[9],
+             float tr);
+
+/**
+ * @return Vector of matches after a call to MATCH.
+ */
+inline const matches_t&matches() const
+{
+    return mMatches;
+}
+
+private:
+
+// Vector of indices that represent matches
+matches_t mMatches;
+
+// Threshold on the 1st and 2nd best matches
+float mThreshold;
+};     // BinaryFeatureMatcher
+
+/**
+ * Implements a matcher between two feature stores based on mutual correspondence.
+ */
+template<int FEATURE_SIZE>
+class MutualCorrespondenceBinaryFeatureMatcher
+{
+public:
+
+MutualCorrespondenceBinaryFeatureMatcher() {}
+~MutualCorrespondenceBinaryFeatureMatcher() {}
+
+/**
+ * Match two feature stores.
+ * @return Number of matches
+ */
+size_t match(const BinaryFeatureStore *features1,
+             const BinaryFeatureStore *features2,
+             float tr);
+
+/**
+ * Match two feature stores given a homography from the features in store 1 to
+ * store 2. The THRESHOLD is a spatial threshold in pixels to restrict the number
+ * of feature comparisons.
+ * @return Number of matches
+ */
+size_t match(const BinaryFeatureStore *features1,
+             const BinaryFeatureStore *features2,
+             const float H[9],
+             float tr1,
+             float tr2);
+
+/**
+ * @return Vector of matches after a call to MATCH.
+ */
+inline const matches_t&matches() const
+{
+    return mMatches;
+}
+
+private:
+
+// Vector of indices that represent matches
+matches_t mMatches;
+
+// Vector to hold indices
+std::vector<int> mIndices;
+};     // MutualCorrespondenceBinaryFeatureMatcher
 } // vision

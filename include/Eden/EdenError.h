@@ -2,9 +2,9 @@
 //  EdenError.h
 //
 //  Copyright (c) 2004-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
-//	
-//	Rev		Date		Who		Changes
-//	1.0.0	2004-06-01	PRL		Pulled together from other headers.
+//
+//      Rev             Date            Who             Changes
+//      1.0.0   2004-06-01      PRL             Pulled together from other headers.
 //
 //
 
@@ -41,146 +41,147 @@
 // HeaderDoc documentation included. See http://developer.apple.com/darwin/projects/headerdoc/
 
 /*!
-	@header EdenError
-	@abstract Error codes and error reporting for the Eden library.
-	@version 1.0.0
-	@updated 2004-06-01
-	@discussion
-*/
+        @header EdenError
+        @abstract Error codes and error reporting for the Eden library.
+        @version 1.0.0
+        @updated 2004-06-01
+        @discussion
+ */
 
 #ifndef __EdenError_h__
 #define __EdenError_h__
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 
 #ifndef __Eden_h__
 #  include <Eden/Eden.h>
 #endif
-#include <stdio.h>				// stderr, fprintf(), vfprintf()
+#include <stdio.h>                              // stderr, fprintf(), vfprintf()
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 // ============================================================================
-//	Public defines
+//      Public defines
 // ============================================================================
 
 /*!
     @enum EDEN_E_*
     @abstract Symbolic codes for errors reported by routines in the Eden Library.
-	@discussion
-		As the actual numerical values for certain errors may change from time
-		to time, these symbolic codes should be used instead.
-	@constant EDEN_E_NONE No error.
+        @discussion
+                As the actual numerical values for certain errors may change from time
+                to time, these symbolic codes should be used instead.
+        @constant EDEN_E_NONE No error.
     @constant EDEN_E_GENERIC Error.
-	@constant EDEN_E_OUT_OF_MEMORY Out of memory.
-	@constant EDEN_E_OVERFLOW Overflow.
-	@constant EDEN_E_NODATA Data was requested but none was available.
-	@constant EDEN_E_IOERROR Error during input / output operation.
-	@constant EDEN_E_EOF End of file reached.
-	@constant EDEN_E_TIMEOUT Timed out.
-	@constant EDEN_E_INVALID_COMMAND Invalid command.
-	@constant EDEN_E_INVALID_ENUM Invalid enumeration.
-	@constant EDEN_E_THREADS An error occured during a thread-management operation.
-	@constant EDEN_E_FILE_NOT_FOUND File not found.
-	@constant EDEN_E_LENGTH_UNAVAILABLE Length not available.
+        @constant EDEN_E_OUT_OF_MEMORY Out of memory.
+        @constant EDEN_E_OVERFLOW Overflow.
+        @constant EDEN_E_NODATA Data was requested but none was available.
+        @constant EDEN_E_IOERROR Error during input / output operation.
+        @constant EDEN_E_EOF End of file reached.
+        @constant EDEN_E_TIMEOUT Timed out.
+        @constant EDEN_E_INVALID_COMMAND Invalid command.
+        @constant EDEN_E_INVALID_ENUM Invalid enumeration.
+        @constant EDEN_E_THREADS An error occured during a thread-management operation.
+        @constant EDEN_E_FILE_NOT_FOUND File not found.
+        @constant EDEN_E_LENGTH_UNAVAILABLE Length not available.
     @constant EDEN_E_GENERIC_TOOLBOX Error returned from System tool.
-	@constant EDEN_E_LIBRARY_NOT_AVAILABLE A required library is not installed.
-	@constant EDEN_E_LIBRARY_TOO_OLD The minimum version requirement of a library was not met.
-	@constant EDEN_E_LIBRARY_TOO_NEW The maximum version requirement of a library was not met.
+        @constant EDEN_E_LIBRARY_NOT_AVAILABLE A required library is not installed.
+        @constant EDEN_E_LIBRARY_TOO_OLD The minimum version requirement of a library was not met.
+        @constant EDEN_E_LIBRARY_TOO_NEW The maximum version requirement of a library was not met.
     @constant EDEN_E_HARDWARE_GENERIC Hardware error.
-	@constant EDEN_E_HARDWARE_NOT_AVAILABLE Required hardware is not available.
-	@constant EDEN_E_BIRD_CONFIGURATION The bird hardware is incorrectly configured.
-	@constant EDEN_E_BIRD_PHASEERROR Data from the bird was lost and arrived from the bird out-of-phase.
+        @constant EDEN_E_HARDWARE_NOT_AVAILABLE Required hardware is not available.
+        @constant EDEN_E_BIRD_CONFIGURATION The bird hardware is incorrectly configured.
+        @constant EDEN_E_BIRD_PHASEERROR Data from the bird was lost and arrived from the bird out-of-phase.
     @constant EDEN_E_NET_GENERIC Network error.
-	@constant EDEN_E_NET_NOT_AVAILABLE Network not available.
-	@constant EDEN_E_NET_NOT_CONNECTED Network not connected.
+        @constant EDEN_E_NET_NOT_AVAILABLE Network not available.
+        @constant EDEN_E_NET_NOT_CONNECTED Network not connected.
  */
-enum {
-	EDEN_E_NONE					=    0,
-	EDEN_E_GENERIC				=   -1,
-	EDEN_E_OUT_OF_MEMORY		=   -2,
-	EDEN_E_OVERFLOW				=   -3,
-	EDEN_E_NODATA				=   -4,
-	EDEN_E_IOERROR				=   -5,
-	EDEN_E_EOF					=	-6,
-	EDEN_E_TIMEOUT				=   -7,
-	EDEN_E_INVALID_COMMAND		=   -8,
-	EDEN_E_INVALID_ENUM			=   -9,
-	EDEN_E_THREADS				=   -10,
-	EDEN_E_FILE_NOT_FOUND		=   -11,
-	EDEN_E_LENGTH_UNAVAILABLE	=	-12,
-	EDEN_E_GENERIC_TOOLBOX		=   -10001,
-	EDEN_E_LIBRARY_NOT_AVAILABLE =	-10002,
-	EDEN_E_LIBRARY_TOO_OLD		=	-10003,
-	EDEN_E_LIBRARY_TOO_NEW		=	-10004,
-	EDEN_E_HARDWARE_GENERIC		=   -11001,
-	EDEN_E_HARDWARE_NOT_AVAILABLE = -11002,
-	EDEN_E_BIRD_CONFIGURATION	=   -11202,
-	EDEN_E_BIRD_PHASEERROR		=   -11203,
-	EDEN_E_NET_GENERIC			=   -12001,
-	EDEN_E_NET_NOT_AVAILABLE	=	-12002,
-	EDEN_E_NET_NOT_CONNECTED	=   -12003,
+enum
+{
+    EDEN_E_NONE                   = 0,
+    EDEN_E_GENERIC                = -1,
+    EDEN_E_OUT_OF_MEMORY          = -2,
+    EDEN_E_OVERFLOW               = -3,
+    EDEN_E_NODATA                 = -4,
+    EDEN_E_IOERROR                = -5,
+    EDEN_E_EOF                    = -6,
+    EDEN_E_TIMEOUT                = -7,
+    EDEN_E_INVALID_COMMAND        = -8,
+    EDEN_E_INVALID_ENUM           = -9,
+    EDEN_E_THREADS                = -10,
+    EDEN_E_FILE_NOT_FOUND         = -11,
+    EDEN_E_LENGTH_UNAVAILABLE     = -12,
+    EDEN_E_GENERIC_TOOLBOX        = -10001,
+    EDEN_E_LIBRARY_NOT_AVAILABLE  = -10002,
+    EDEN_E_LIBRARY_TOO_OLD        = -10003,
+    EDEN_E_LIBRARY_TOO_NEW        = -10004,
+    EDEN_E_HARDWARE_GENERIC       = -11001,
+    EDEN_E_HARDWARE_NOT_AVAILABLE = -11002,
+    EDEN_E_BIRD_CONFIGURATION     = -11202,
+    EDEN_E_BIRD_PHASEERROR        = -11203,
+    EDEN_E_NET_GENERIC            = -12001,
+    EDEN_E_NET_NOT_AVAILABLE      = -12002,
+    EDEN_E_NET_NOT_CONNECTED      = -12003,
 };
 
 // ============================================================================
-//	Public types.
+//      Public types.
 // ============================================================================
 /*!
-	@typedef EDEN_E_t
-	@abstract Return type of routines in the Eden Library.
-	@discussion
-		Zero and positive values are used to report success, and possibly, return data.
-		An error is indicated by a value less than zero. Symbolic values for the error
-		codes are available.
-*/
+        @typedef EDEN_E_t
+        @abstract Return type of routines in the Eden Library.
+        @discussion
+                Zero and positive values are used to report success, and possibly, return data.
+                An error is indicated by a value less than zero. Symbolic values for the error
+                codes are available.
+ */
 typedef signed int EDEN_E_t;
 
 // ============================================================================
-//	Public globals.
+//      Public globals.
 // ============================================================================
 
 // ============================================================================
-//	Public functions.
+//      Public functions.
 // ============================================================================
- 
+
 /*!
     @function
     @abstract Produce an error string from an Eden Library error code.
     @discussion
-		Produces a null-terminated ASCII string with a description of the error
-		represented by the supplied code, followed by the code itself, in brackets.
-		See also EdenError_strerror_r, EdenError_perror.
+                Produces a null-terminated ASCII string with a description of the error
+                represented by the supplied code, followed by the code itself, in brackets.
+                See also EdenError_strerror_r, EdenError_perror.
     @param code The code to produce the string for, as returned by various routines
-		in the Eden Library.
+                in the Eden Library.
     @result Pointer to a null-terminated constant character string.
     @seealso EdenError_strerror_r EdenError_strerror_r
  */
-const char *EdenError_strerror(const EDEN_E_t code);
+const char* EdenError_strerror(const EDEN_E_t code);
 
 /*!
-	@function
-	@abstract Produce an error string from an Eden Library error code.
-	@discussion
-		Produces an ASCII string with a description of the error
-		corresponding to the supplied code, and copies up to buflen
-		characters of the string into strerrbuf
-		See also EdenError_strerror, EdenError_perror.
-	@param code The code to produce the string for, as returned by various routines
-		in the Eden Library.
-	@param strerrbuf Buffer to copy the error string into.
-	@param buflen Number of characters available in strerrbuf. The null
-		terminator counts as one character.
-	@result
-		Returns 0 on success.
-		If the error number is not recognized, returns EINVAL as a warning.
-		If insufficient storage is provided in strerrbuf (as specified in buflen)
-		to contain the error string, returns ERANGE and strerrbuf
-		will contain an error message that has been truncated and NUL terminated
-		to fit the length specified by buflen.
+        @function
+        @abstract Produce an error string from an Eden Library error code.
+        @discussion
+                Produces an ASCII string with a description of the error
+                corresponding to the supplied code, and copies up to buflen
+                characters of the string into strerrbuf
+                See also EdenError_strerror, EdenError_perror.
+        @param code The code to produce the string for, as returned by various routines
+                in the Eden Library.
+        @param strerrbuf Buffer to copy the error string into.
+        @param buflen Number of characters available in strerrbuf. The null
+                terminator counts as one character.
+        @result
+                Returns 0 on success.
+                If the error number is not recognized, returns EINVAL as a warning.
+                If insufficient storage is provided in strerrbuf (as specified in buflen)
+                to contain the error string, returns ERANGE and strerrbuf
+                will contain an error message that has been truncated and NUL terminated
+                to fit the length specified by buflen.
     @seealso EdenError_strerror EdenError_strerror
  */
 int EdenError_strerror_r(const EDEN_E_t code, char *strerrbuf, const size_t buflen);
@@ -189,14 +190,14 @@ int EdenError_strerror_r(const EDEN_E_t code, char *strerrbuf, const size_t bufl
     @function
     @abstract Print an Eden Library error message and code to stderr, with optional string.
     @discussion
-		Finds the error message corresponding to the supplied code,
-		and writes it, followed by a newline, to the standard error file
-		descriptor.  If the argument string is non-NULL and does not point
-		to the null character, this string is prepended to the message string
-		and separated from it by a colon and space (": "); otherwise, only
-		the error message string is printed.
-	@param code The code to produce the string for, as returned by various routines
-		in the Eden Library.
+                Finds the error message corresponding to the supplied code,
+                and writes it, followed by a newline, to the standard error file
+                descriptor.  If the argument string is non-NULL and does not point
+                to the null character, this string is prepended to the message string
+                and separated from it by a colon and space (": "); otherwise, only
+                the error message string is printed.
+        @param code The code to produce the string for, as returned by various routines
+                in the Eden Library.
     @seealso EdenError_strerror EdenError_strerror
     @seealso EdenError_strerror_r EdenError_strerror_r
  */
@@ -205,6 +206,4 @@ void EdenError_perror(const EDEN_E_t code, const char *string);
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !__EdenError_h__
-

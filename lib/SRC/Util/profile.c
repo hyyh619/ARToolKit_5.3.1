@@ -57,49 +57,55 @@ long profTable[MAX_PROF_NUM];
 int  profCount[MAX_PROF_NUM];
 
 static long s;
-static int us, num = -1;
+static int  us, num = -1;
 
 void profileClear(void)
 {
-	num = -1;
+    num = -1;
 }
 
 void profileSet(int n)
 {
     int i;
+
 #ifdef _WIN32
     struct _timeb sys_time;
 
     _ftime(&sys_time);
-    if(num != -1) {
-		profTable[num] += ((long)sys_time.time - s) * 1000000L + sys_time.millitm * 1000L - us;
+    if (num != -1)
+    {
+        profTable[num] += ((long)sys_time.time - s) * 1000000L + sys_time.millitm * 1000L - us;
         profCount[num]++;
     }
+
 #else
-    struct timeval     time;
+    struct timeval time;
 
 #  if defined(__linux) || defined(__APPLE__)
-    gettimeofday( &time, NULL );
+    gettimeofday(&time, NULL);
 #  else
-    gettimeofday( &time );
+    gettimeofday(&time);
 #  endif
-    if(num != -1) {
-        profTable[num] += (time.tv_sec  - s) * 1000000L + time.tv_usec - us; // Add elapsed microseconds to previously set profile,
+    if (num != -1)
+    {
+        profTable[num] += (time.tv_sec - s) * 1000000L + time.tv_usec - us;  // Add elapsed microseconds to previously set profile,
         profCount[num]++; // and count one more measurement.
     }
 #endif
-    else {
-        for(i = 0; i < MAX_PROF_NUM; i++) {
+    else
+    {
+        for (i = 0; i < MAX_PROF_NUM; i++)
+        {
             profTable[i] = 0;
             profCount[i] = 0;
         }
     }
 
 #ifdef _WIN32
-    s = (long)sys_time.time;
+    s  = (long)sys_time.time;
     us = sys_time.millitm * 1000L;
 #else
-    s = time.tv_sec;
+    s  = time.tv_sec;
     us = time.tv_usec;
 #endif
     num = n;
@@ -107,20 +113,24 @@ void profileSet(int n)
 
 void profilePrint(void)
 {
-    int i;
+    int    i;
     double sum = 0;
 
     LOG("\n=== PROFILE RESULT ===\n");
-    for(i = 0; i < MAX_PROF_NUM; i++) {
+
+    for (i = 0; i < MAX_PROF_NUM; i++)
+    {
         sum += profTable[i];
     }
 
-    for(i = 0; i < MAX_PROF_NUM; i++) {
-        if(profTable[i] == 0) {
+    for (i = 0; i < MAX_PROF_NUM; i++)
+    {
+        if (profTable[i] == 0)
+        {
             continue;
         }
+
         LOG("REGION %2d : %6.3lf%% (%lf sec)\n", i,
-                profTable[i] / sum * 100.0, profTable[i] / profCount[i] / 1000000.0);
+            profTable[i] / sum * 100.0, profTable[i] / profCount[i] / 1000000.0);
     }
 }
-

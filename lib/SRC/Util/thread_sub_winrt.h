@@ -71,9 +71,8 @@ extern "C" {
 #endif
 
 #ifdef _WINRT
-    
-int arCreateDetachedThreadWinRT(void *(*start_routine)(THREAD_HANDLE_T*), THREAD_HANDLE_T*flag);
 
+int arCreateDetachedThreadWinRT(void*(*start_routine)(THREAD_HANDLE_T*), THREAD_HANDLE_T *flag);
 #endif // _WIN32
 #endif // _WINRT
 

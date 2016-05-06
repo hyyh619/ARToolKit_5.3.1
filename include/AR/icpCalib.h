@@ -1,5 +1,5 @@
 /*
- *	icpCalib.h
+ *      icpCalib.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -44,25 +44,26 @@
 extern "C" {
 #endif
 
-#define      ICP_CALIB_STEREO_MAX_LOOP                        100
-#define      ICP_CALIB_STEREO_BREAK_LOOP_ERROR_THRESH         0.001
-#define      ICP_CALIB_STEREO_BREAK_LOOP_ERROR_RATIO_THRESH   0.99
+#define      ICP_CALIB_STEREO_MAX_LOOP                      100
+#define      ICP_CALIB_STEREO_BREAK_LOOP_ERROR_THRESH       0.001
+#define      ICP_CALIB_STEREO_BREAK_LOOP_ERROR_RATIO_THRESH 0.99
 
 
-typedef struct {
-    ICP2DCoordT   *screenCoordL;
-    ICP2DCoordT   *screenCoordR;
-    ICP3DCoordT   *worldCoordL;
-    ICP3DCoordT   *worldCoordR;
-    int            numL;
-    int            numR;
-    ARdouble       initMatXw2Xcl[3][4];
+typedef struct
+{
+    ICP2DCoordT *screenCoordL;
+    ICP2DCoordT *screenCoordR;
+    ICP3DCoordT *worldCoordL;
+    ICP3DCoordT *worldCoordR;
+    int         numL;
+    int         numR;
+    ARdouble    initMatXw2Xcl[3][4];
 } ICPCalibDataT;
 
-int icpCalibStereo( ICPCalibDataT data[], int num,
-                    ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble initTransL2R[3][4],
-                    ARdouble matTransL2R[3][4],
-                    ARdouble *err );
+int icpCalibStereo(ICPCalibDataT data[], int num,
+                   ARdouble matXcl2Ul[3][4], ARdouble matXcr2Ur[3][4], ARdouble initTransL2R[3][4],
+                   ARdouble matTransL2R[3][4],
+                   ARdouble * err);
 
 #ifdef __cplusplus
 }

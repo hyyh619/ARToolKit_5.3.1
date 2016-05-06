@@ -42,12 +42,14 @@
 #include <stdio.h>
 #include <AR/video.h>
 
-static AR2VideoParamT   *g_vid = NULL;
+static AR2VideoParamT *g_vid = NULL;
 
 int arVideoGetDefaultDevice(void)
 {
 #if defined(AR_DEFAULT_INPUT_V4L)
     return AR_VIDEO_DEVICE_V4L;
+#elif defined(AR_DEFAULT_INPUT_V4L2)
+    return AR_VIDEO_DEVICE_V4L2;
 #elif defined(AR_DEFAULT_INPUT_DV)
     return AR_VIDEO_DEVICE_DV;
 #elif defined(AR_DEFAULT_INPUT_1394CAM)
@@ -90,7 +92,6 @@ int arVideoOpen(const char *config)
     }
 
     g_vid = ar2VideoOpen(config);
-
     if (g_vid == NULL)
         return -1;
 
@@ -106,7 +107,6 @@ int arVideoOpenAsync(const char *config, void (*callback)(void*), void *userdata
     }
 
     g_vid = ar2VideoOpenAsync(config, callback, userdata);
-
     if (g_vid == NULL)
         return -1;
 
@@ -120,7 +120,7 @@ int arVideoClose(void)
     if (g_vid == NULL)
         return -1;
 
-    ret = ar2VideoClose(g_vid);
+    ret   = ar2VideoClose(g_vid);
     g_vid = NULL;
 
     return ret;
@@ -182,7 +182,6 @@ ARUint8* arVideoGetImage(void)
         return NULL;
 
     buffer = ar2VideoGetImage(g_vid);
-
     if (buffer == NULL)
         return (NULL);
 
@@ -308,22 +307,26 @@ int arVideoUtilGetPixelSize(const AR_PIXEL_FORMAT arPixelFormat)
     case AR_PIXEL_FORMAT_RGB:
     case AR_PIXEL_FORMAT_BGR:
         return 3;
+
     case AR_PIXEL_FORMAT_RGBA:
     case AR_PIXEL_FORMAT_BGRA:
     case AR_PIXEL_FORMAT_ABGR:
     case AR_PIXEL_FORMAT_ARGB:
         return 4;
+
     case AR_PIXEL_FORMAT_MONO:
     case AR_PIXEL_FORMAT_420v:     // Report only size of luma pixels (i.e. plane 0).
     case AR_PIXEL_FORMAT_420f:     // Report only size of luma pixels (i.e. plane 0).
     case AR_PIXEL_FORMAT_NV21:     // Report only size of luma pixels (i.e. plane 0).
         return 1;
+
     case AR_PIXEL_FORMAT_2vuy:
     case AR_PIXEL_FORMAT_yuvs:
     case AR_PIXEL_FORMAT_RGB_565:
     case AR_PIXEL_FORMAT_RGBA_5551:
     case AR_PIXEL_FORMAT_RGBA_4444:
         return 2;
+
     default:
         return (0);
     }

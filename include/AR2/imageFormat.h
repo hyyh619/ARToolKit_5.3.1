@@ -44,24 +44,25 @@ extern "C" {
 #include <stdio.h>
 #include <AR2/config.h>
 
-#define   AR2_DEFAULT_JPEG_IMAGE_QUALITY   80
+#define   AR2_DEFAULT_JPEG_IMAGE_QUALITY 80
 
 
-typedef struct {
-    ARUint8       *image;
-    int           nc;
-    int           xsize;
-    int           ysize;
-    float         dpi;
+typedef struct
+{
+    ARUint8 *image;
+    int     nc;
+    int     xsize;
+    int     ysize;
+    float   dpi;
 } AR2JpegImageT;
 
 /*   jpeg.c   */
 
-AR2JpegImageT *ar2ReadJpegImage  ( const char *filename, const char *ext );
-AR2JpegImageT *ar2ReadJpegImage2 ( FILE *fp );
-int            ar2WriteJpegImage ( const char *filename, const char *ext, AR2JpegImageT *jpegImage, int quality );
-int            ar2WriteJpegImage2( FILE *fp, AR2JpegImageT *jpegImage, int quality );
-int            ar2FreeJpegImage  ( AR2JpegImageT **jpegImage );
+AR2JpegImageT* ar2ReadJpegImage(const char *filename, const char *ext);
+AR2JpegImageT* ar2ReadJpegImage2(FILE *fp);
+int            ar2WriteJpegImage(const char *filename, const char *ext, AR2JpegImageT *jpegImage, int quality);
+int            ar2WriteJpegImage2(FILE *fp, AR2JpegImageT *jpegImage, int quality);
+int            ar2FreeJpegImage(AR2JpegImageT **jpegImage);
 
 #ifdef __cplusplus
 }

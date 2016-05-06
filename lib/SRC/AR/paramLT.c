@@ -51,7 +51,6 @@ int arParamLTSave(char *filename, char *ext, ARParamLT *paramLT)
     len = strlen(filename) + strlen(ext) + 2;
     arMalloc(buf, char, len);
     sprintf(buf, "%s.%s", filename, ext);
-
     if ((fp = fopen(buf, "wb")) == NULL)
     {
         ARLOGe("Error: Unable to open file '%s' for writing.\n", buf);
@@ -81,16 +80,16 @@ int arParamLTSave(char *filename, char *ext, ARParamLT *paramLT)
         return -1;
     }
 
-    //if( fwrite( paramLT->paramLTi.i2o, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
+    // if( fwrite( paramLT->paramLTi.i2o, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
     //   != paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2 ) {
     //    fclose(fp);
     //    return -1;
-    //}
-    //if( fwrite( paramLT->paramLTi.o2i, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
+    // }
+    // if( fwrite( paramLT->paramLTi.o2i, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
     //   != paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2 ) {
     //    fclose(fp);
     //    return -1;
-    //}
+    // }
 
     fclose(fp);
 
@@ -107,7 +106,6 @@ ARParamLT* arParamLTLoad(char *filename, char *ext)
     len = strlen(filename) + strlen(ext) + 2;
     arMalloc(buf, char, len);
     sprintf(buf, "%s.%s", filename, ext);
-
     if ((fp = fopen(buf, "rb")) == NULL)
     {
         ARLOGe("Error: Unable to open file '%s' for reading.\n", buf);
@@ -128,16 +126,16 @@ ARParamLT* arParamLTLoad(char *filename, char *ext)
 
     arMalloc(paramLT->paramLTf.i2o, float, paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2);
     arMalloc(paramLT->paramLTf.o2i, float, paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2);
-    //arMalloc(paramLT->paramLTi.i2o, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
-    //arMalloc(paramLT->paramLTi.o2i, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
+    // arMalloc(paramLT->paramLTi.i2o, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
+    // arMalloc(paramLT->paramLTi.o2i, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
 
     if (fread(paramLT->paramLTf.i2o, sizeof(float), paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2, fp)
         != paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2)
     {
         free(paramLT->paramLTf.i2o);
         free(paramLT->paramLTf.o2i);
-        //free(paramLT->paramLTi.i2o);
-        //free(paramLT->paramLTi.o2i);
+        // free(paramLT->paramLTi.i2o);
+        // free(paramLT->paramLTi.o2i);
         free(paramLT);
         fclose(fp);
         return NULL;
@@ -148,14 +146,14 @@ ARParamLT* arParamLTLoad(char *filename, char *ext)
     {
         free(paramLT->paramLTf.i2o);
         free(paramLT->paramLTf.o2i);
-        //free(paramLT->paramLTi.i2o);
-        //free(paramLT->paramLTi.o2i);
+        // free(paramLT->paramLTi.i2o);
+        // free(paramLT->paramLTi.o2i);
         free(paramLT);
         fclose(fp);
         return NULL;
     }
 
-    //if( fread( paramLT->paramLTi.i2o, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
+    // if( fread( paramLT->paramLTi.i2o, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
     //   != paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2 ) {
     //    free(paramLT->paramLTf.i2o);
     //    free(paramLT->paramLTf.o2i);
@@ -164,8 +162,8 @@ ARParamLT* arParamLTLoad(char *filename, char *ext)
     //    free(paramLT);
     //    fclose(fp);
     //    return NULL;
-    //}
-    //if( fread( paramLT->paramLTi.o2i, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
+    // }
+    // if( fread( paramLT->paramLTi.o2i, sizeof(short), paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2, fp )
     //   != paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2 ) {
     //    free(paramLT->paramLTf.i2o);
     //    free(paramLT->paramLTf.o2i);
@@ -174,12 +172,11 @@ ARParamLT* arParamLTLoad(char *filename, char *ext)
     //    free(paramLT);
     //    fclose(fp);
     //    return NULL;
-    //}
+    // }
 
     fclose(fp);
 
     return paramLT;
-
 }
 
 ARParamLT* arParamLTCreate(ARParam *param, int offset)
@@ -192,7 +189,7 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
     float     *i2of, *o2if;
     int       i, j;
 
-    //short   *i2oi, *o2ii;
+    // short   *i2oi, *o2ii;
 
     arMalloc(paramLT, ARParamLT, 1);
     paramLT->param = *param;
@@ -207,20 +204,20 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
     arMalloc(paramLT->paramLTf.i2o, float, paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2);
     arMalloc(paramLT->paramLTf.o2i, float, paramLT->paramLTf.xsize * paramLT->paramLTf.ysize * 2);
 
-    //paramLT->paramLTi.xsize = param->xsize + offset*2;
-    //paramLT->paramLTi.ysize = param->ysize + offset*2;
-    //paramLT->paramLTi.xOff = offset;
-    //paramLT->paramLTi.yOff = offset;
-    //arMalloc(paramLT->paramLTi.i2o, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
-    //arMalloc(paramLT->paramLTi.o2i, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
+    // paramLT->paramLTi.xsize = param->xsize + offset*2;
+    // paramLT->paramLTi.ysize = param->ysize + offset*2;
+    // paramLT->paramLTi.xOff = offset;
+    // paramLT->paramLTi.yOff = offset;
+    // arMalloc(paramLT->paramLTi.i2o, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
+    // arMalloc(paramLT->paramLTi.o2i, short, paramLT->paramLTi.xsize*paramLT->paramLTi.ysize*2);
 
     dist_factor           = param->dist_factor; // OpenCV distortion model
     dist_function_version = param->dist_function_version;
     i2of                  = paramLT->paramLTf.i2o;
     o2if                  = paramLT->paramLTf.o2i;
 
-    //i2oi = paramLT->paramLTi.i2o;
-    //o2ii = paramLT->paramLTi.o2i;
+    // i2oi = paramLT->paramLTi.i2o;
+    // o2ii = paramLT->paramLTi.o2i;
 
     // Traverse each pixel to calculate Ideal2Observ and Observ2Ideal.
     for (j = 0; j < paramLT->paramLTf.ysize; j++)
@@ -229,15 +226,15 @@ ARParamLT* arParamLTCreate(ARParam *param, int offset)
         {
             arParamIdeal2Observ(dist_factor, (float)(i - offset), (float)(j - offset), &ox, &oy, dist_function_version);
             *(i2of++) = (float)ox;
-            //*(i2oi++) = (int)(ox+0.5F);
+            // *(i2oi++) = (int)(ox+0.5F);
             *(i2of++) = (float)oy;
-            //*(i2oi++) = (int)(oy+0.5F);
+            // *(i2oi++) = (int)(oy+0.5F);
 
             arParamObserv2Ideal(dist_factor, (float)(i - offset), (float)(j - offset), &ix, &iy, dist_function_version);
             *(o2if++) = (float)ix;
-            //*(o2ii++) = (int)(ix+0.5F);
+            // *(o2ii++) = (int)(ix+0.5F);
             *(o2if++) = (float)iy;
-            //*(o2ii++) = (int)(iy+0.5F);
+            // *(o2ii++) = (int)(iy+0.5F);
         }
     }
 
@@ -251,15 +248,15 @@ int arParamLTFree(ARParamLT **paramLT_p)
 
     free((*paramLT_p)->paramLTf.i2o);
     free((*paramLT_p)->paramLTf.o2i);
-    //free((*paramLT_p)->paramLTi.i2o);
-    //free((*paramLT_p)->paramLTi.o2i);
+    // free((*paramLT_p)->paramLTi.i2o);
+    // free((*paramLT_p)->paramLTi.o2i);
     free(*paramLT_p);
     *paramLT_p = NULL;
     return 0;
 }
 
 /*
-   int arParamIdeal2ObservLTi( ARParamLTi *paramLTi, int    ix, int    iy, int    *ox, int    *oy)
+   int arParamIdeal2ObservLTi( const ARParamLTi *paramLTi, const int    ix, const int    iy, int    *ox, int    *oy)
    {
     int      px, py;
     short   *lt;
@@ -276,7 +273,7 @@ int arParamLTFree(ARParamLT **paramLT_p)
    }
  */
 
-int arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, float  *ox, float  *oy)
+int arParamIdeal2ObservLTf(const ARParamLTf *paramLTf, const float ix, const float iy, float  *ox, float  *oy)
 {
     int   px, py;
     float *lt;
@@ -295,7 +292,7 @@ int arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, float  *ox,
 }
 
 /*
-   int arParamObserv2IdealLTi( ARParamLTi *paramLTi, int    ox, int    oy, int    *ix, int    *iy)
+   int arParamObserv2IdealLTi( const ARParamLTi *paramLTi, const int    ox, const int    oy, int    *ix, int    *iy)
    {
     int      px, py;
     short   *lt;
@@ -312,7 +309,7 @@ int arParamIdeal2ObservLTf(ARParamLTf *paramLTf, float ix, float iy, float  *ox,
    }
  */
 
-int arParamObserv2IdealLTf(ARParamLTf *paramLTf, float ox, float oy, float  *ix, float  *iy)
+int arParamObserv2IdealLTf(const ARParamLTf *paramLTf, const float ox, const float oy, float  *ix, float  *iy)
 {
     int   px, py;
     float *lt;

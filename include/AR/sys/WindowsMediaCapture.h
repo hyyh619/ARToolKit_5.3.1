@@ -49,67 +49,66 @@
 
 class WindowsMediaCapture
 {
-
 public:
-    WindowsMediaCapture(void)/* : m_stopLockCondVar {}*/;
-	virtual ~WindowsMediaCapture(void);
+WindowsMediaCapture(void) /* : m_stopLockCondVar {}*/;
+virtual ~WindowsMediaCapture(void);
 
-	// Setup/tear down functions
-	bool StartCapture(int width,
-					  int height,
-					  Platform::String^ pixelFormat = Windows::Media::MediaProperties::MediaEncodingSubtypes::Rgb24, // Raw formats: Rgb24, Rgb32, Nv12, Argb32, Bgra8, Yv12, Yuy2, Iyuv
-					  int preferredDeviceIndex = 0,
-					  Windows::Devices::Enumeration::Panel preferredLocation = Windows::Devices::Enumeration::Panel::Unknown,
-					  void (*errorCallback)(void *) = NULL,
-				      void *errorCallbackUserdata = NULL
-					);
-	bool Capturing() const; // Returns true if between StartCapture() and StopCapture().
-	uint8_t *GetFrame(); // Returns NULL if no new frame available, or pointer to frame buffer if new frame is available. Dimensions of buffer are width()*height()*Bpp(). If non-NULL buffer returned, then any previous non-NULL buffer is invalidated.
-	void StopCapture();
+// Setup/tear down functions
+bool StartCapture(int width,
+                  int height,
+                  Platform::String ^ pixelFormat = Windows::Media::MediaProperties::MediaEncodingSubtypes::Rgb24,                         // Raw formats: Rgb24, Rgb32, Nv12, Argb32, Bgra8, Yv12, Yuy2, Iyuv
+                  int preferredDeviceIndex = 0,
+                  Windows::Devices::Enumeration::Panel preferredLocation = Windows::Devices::Enumeration::Panel::Unknown,
+                  void (*errorCallback)(void*) = NULL,
+                  void *errorCallbackUserdata = NULL
+                  );
+bool Capturing() const;         // Returns true if between StartCapture() and StopCapture().
+uint8_t* GetFrame();         // Returns NULL if no new frame available, or pointer to frame buffer if new frame is available. Dimensions of buffer are width()*height()*Bpp(). If non-NULL buffer returned, then any previous non-NULL buffer is invalidated.
+void StopCapture();
 
-	int width() const;
-	int height() const;
-	int Bpp() const;
-    bool flipV() const;
-    void setFlipV(bool flag);
-    
-	Windows::Devices::Enumeration::Panel deviceLocation() const;
-    std::string deviceName() const;
-	void WindowsMediaCapture::showSettings(void);
+int width() const;
+int height() const;
+int Bpp() const;
+bool flipV() const;
+void setFlipV(bool flag);
+
+Windows::Devices::Enumeration::Panel deviceLocation() const;
+std::string deviceName() const;
+void WindowsMediaCapture::showSettings(void);
 
 private:
-    //Disable Copy ctor and assignment
-	WindowsMediaCapture(const WindowsMediaCapture& other) = delete; // Copy constructor not implemented.
-	auto operator=(const WindowsMediaCapture& other) -> WindowsMediaCapture& = delete; // Copy assignment operator not implemented.
-    //Disable Move ctor and assignment
-    WindowsMediaCapture(WindowsMediaCapture&&) = delete;
-    auto operator=(WindowsMediaCapture&&) -> WindowsMediaCapture& = delete;
+// Disable Copy ctor and assignment
+WindowsMediaCapture(const WindowsMediaCapture&other)                  = delete; // Copy constructor not implemented.
+auto operator=(const WindowsMediaCapture&other)->WindowsMediaCapture& = delete;            // Copy assignment operator not implemented.
+// Disable Move ctor and assignment
+WindowsMediaCapture(WindowsMediaCapture&&)                  = delete;
+auto operator=(WindowsMediaCapture&&)->WindowsMediaCapture& = delete;
 
-	bool initDevices();
-	void _GrabFrameAsync(Media::CaptureFrameGrabber^ frameGrabber);
+bool initDevices();
+void _GrabFrameAsync(Media::CaptureFrameGrabber ^ frameGrabber);
 
-	bool m_started;
-	int m_width;
-	int m_height;
-	int m_Bpp;
-    bool m_flipV;
-	Platform::String^ m_pixelFormat;
-	Platform::Agile<Windows::Devices::Enumeration::DeviceInformationCollection> m_devices;
-	Platform::Agile<Windows::Media::Capture::MediaCapture> m_mediaCapture;
-	int m_deviceIndex;
-	Windows::Devices::Enumeration::Panel m_deviceLocation;
-	std::string m_deviceName;
-	::Media::CaptureFrameGrabber^ m_frameGrabber;
-	bool m_frameGrabberInited;
-	long m_frameCountIn;
-	long m_frameCountOut;
-	uint8_t *m_buf0;
-	uint8_t *m_buf1;
-	int m_bufNext;
-	std::mutex m_bufLock;
-    void (*m_errorCallback)(void *);
-    void *m_errorCallbackUserdata;
-    bool m_frameGrabberIsDone;
-    std::mutex m_stopLockMutex;
-    std::condition_variable m_stopLockCondVar;
+bool m_started;
+int  m_width;
+int  m_height;
+int  m_Bpp;
+bool m_flipV;
+Platform::String ^ m_pixelFormat;
+Platform::Agile<Windows::Devices::Enumeration::DeviceInformationCollection> m_devices;
+Platform::Agile<Windows::Media::Capture::MediaCapture>                      m_mediaCapture;
+int                                                                         m_deviceIndex;
+Windows::Devices::Enumeration::Panel                                        m_deviceLocation;
+std::string                                                                 m_deviceName;
+::Media::CaptureFrameGrabber ^ m_frameGrabber;
+bool                    m_frameGrabberInited;
+long                    m_frameCountIn;
+long                    m_frameCountOut;
+uint8_t                 *m_buf0;
+uint8_t                 *m_buf1;
+int                     m_bufNext;
+std::mutex              m_bufLock;
+void                    (*m_errorCallback)(void*);
+void                    *m_errorCallbackUserdata;
+bool                    m_frameGrabberIsDone;
+std::mutex              m_stopLockMutex;
+std::condition_variable m_stopLockCondVar;
 };

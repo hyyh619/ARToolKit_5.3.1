@@ -35,15 +35,15 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 1.0
- * Date: 01/12/11
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 1.0
+* Date: 01/12/11
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,294 +51,404 @@
 #include <AR/ar.h>
 #include <AR/arMulti.h>
 
-#define  THRESH_1            4.0
-#define  THRESH_2           20.0
+#define  THRESH_1 4.0
+#define  THRESH_2 20.0
 
 static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
-                                               ARMarkerInfo *marker_infoL, int marker_numL,
-                                               ARMarkerInfo *marker_infoR, int marker_numR, 
-                                               ARMultiMarkerInfoT *config, int robustFlag);
+                                                 ARMarkerInfo *marker_infoL, int marker_numL,
+                                                 ARMarkerInfo *marker_infoR, int marker_numR,
+                                                 ARMultiMarkerInfoT *config, int robustFlag);
 
 
 ARdouble  arGetTransMatMultiSquareStereo(AR3DStereoHandle *handle,
-                                       ARMarkerInfo *marker_infoL, int marker_numL,
-                                       ARMarkerInfo *marker_infoR, int marker_numR, 
-                                       ARMultiMarkerInfoT *config)
+                                         ARMarkerInfo *marker_infoL, int marker_numL,
+                                         ARMarkerInfo *marker_infoR, int marker_numR,
+                                         ARMultiMarkerInfoT *config)
 {
-    return arGetTransMatMultiSquareStereo2(handle, marker_infoL, marker_numL, marker_infoR, marker_numR, 
+    return arGetTransMatMultiSquareStereo2(handle, marker_infoL, marker_numL, marker_infoR, marker_numR,
                                            config, 0);
 }
 
 ARdouble  arGetTransMatMultiSquareStereoRobust(AR3DStereoHandle *handle,
-                                             ARMarkerInfo *marker_infoL, int marker_numL,
-                                             ARMarkerInfo *marker_infoR, int marker_numR, 
-                                             ARMultiMarkerInfoT *config)
+                                               ARMarkerInfo *marker_infoL, int marker_numL,
+                                               ARMarkerInfo *marker_infoR, int marker_numR,
+                                               ARMultiMarkerInfoT *config)
 {
-    return arGetTransMatMultiSquareStereo2(handle, marker_infoL, marker_numL, marker_infoR, marker_numR, 
+    return arGetTransMatMultiSquareStereo2(handle, marker_infoL, marker_numL, marker_infoR, marker_numR,
                                            config, 1);
 }
 
 
 static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
-                                               ARMarkerInfo *marker_infoL, int marker_numL,
-                                               ARMarkerInfo *marker_infoR, int marker_numR, 
-                                               ARMultiMarkerInfoT *config, int robustFlag)
+                                                 ARMarkerInfo *marker_infoL, int marker_numL,
+                                                 ARMarkerInfo *marker_infoR, int marker_numR,
+                                                 ARMultiMarkerInfoT *config, int robustFlag)
 
 {
-    ARdouble                *pos2dL = NULL, *pos3dL = NULL;
-    ARdouble                *pos2dR = NULL, *pos3dR = NULL;
-    ARdouble                trans1[3][4], trans2[3][4];
-    ARdouble                err, err2;
-    int                   max, maxArea;
-    int                   vnumL, vnumR;
-    int                   dir;
-    int                   i, j, k;
+    ARdouble *pos2dL = NULL, *pos3dL = NULL;
+    ARdouble *pos2dR = NULL, *pos3dR = NULL;
+    ARdouble trans1[3][4], trans2[3][4];
+    ARdouble err, err2;
+    int      max, maxArea;
+    int      vnumL, vnumR;
+    int      dir;
+    int      i, j, k;
 
-    for( i = 0; i < config->marker_num; i++ ) {
+    for (i = 0; i < config->marker_num; i++)
+    {
         k = -1;
-        if( config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE ) {
-            for( j = 0; j < marker_numL; j++ ) {
-                if( marker_infoL[j].idPatt != config->marker[i].patt_id ) continue;
-                if( marker_infoL[j].cfPatt < 0.50 ) continue;
-                if( k == -1 ) k = j;
-                else if( marker_infoL[k].cfPatt < marker_infoL[j].cfPatt ) k = j;
+        if (config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE)
+        {
+            for (j = 0; j < marker_numL; j++)
+            {
+                if (marker_infoL[j].idPatt != config->marker[i].patt_id)
+                    continue;
+
+                if (marker_infoL[j].cfPatt < 0.50)
+                    continue;
+
+                if (k == -1)
+                    k = j;
+                else if (marker_infoL[k].cfPatt < marker_infoL[j].cfPatt)
+                    k = j;
             }
+
             config->marker[i].visible = k;
-            if( k >= 0 ) {
+            if (k >= 0)
+            {
                 marker_infoL[k].dir = marker_infoL[k].dirPatt;
             }
         }
-        else {
-            for( j = 0; j < marker_numL; j++ ) {
-                if( marker_infoL[j].idMatrix != config->marker[i].patt_id ) continue;
-                if( marker_infoL[j].cfMatrix < 0.50 ) continue;
-                if( k == -1 ) k = j;
-                else if( marker_infoL[k].cfMatrix < marker_infoL[j].cfMatrix ) k = j;
+        else
+        {
+            for (j = 0; j < marker_numL; j++)
+            {
+                if (marker_infoL[j].idMatrix != config->marker[i].patt_id)
+                    continue;
+
+                if (marker_infoL[j].cfMatrix < 0.50)
+                    continue;
+
+                if (k == -1)
+                    k = j;
+                else if (marker_infoL[k].cfMatrix < marker_infoL[j].cfMatrix)
+                    k = j;
             }
+
             config->marker[i].visible = k;
-            if( k >= 0 ) {
+            if (k >= 0)
+            {
                 marker_infoL[k].dir = marker_infoL[k].dirMatrix;
             }
         }
 
         k = -1;
-        if( config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE ) {
-            for( j = 0; j < marker_numR; j++ ) {
-                if( marker_infoR[j].idPatt != config->marker[i].patt_id ) continue;
-                if( marker_infoR[j].cfPatt < 0.50 ) continue;
-                if( k == -1 ) k = j;
-                else if( marker_infoR[k].cfPatt < marker_infoR[j].cfPatt ) k = j;
+        if (config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE)
+        {
+            for (j = 0; j < marker_numR; j++)
+            {
+                if (marker_infoR[j].idPatt != config->marker[i].patt_id)
+                    continue;
+
+                if (marker_infoR[j].cfPatt < 0.50)
+                    continue;
+
+                if (k == -1)
+                    k = j;
+                else if (marker_infoR[k].cfPatt < marker_infoR[j].cfPatt)
+                    k = j;
             }
+
             config->marker[i].visibleR = k;
-            if( k >= 0 ) {
+            if (k >= 0)
+            {
                 marker_infoR[k].dir = marker_infoR[k].dirPatt;
             }
         }
-        else {
-            for( j = 0; j < marker_numR; j++ ) {
-                if( marker_infoR[j].idMatrix != config->marker[i].patt_id ) continue;
-                if( marker_infoR[j].cfMatrix < 0.50 ) continue;
-                if( k == -1 ) k = j;
-                else if( marker_infoR[k].cfMatrix < marker_infoR[j].cfMatrix ) k = j;
+        else
+        {
+            for (j = 0; j < marker_numR; j++)
+            {
+                if (marker_infoR[j].idMatrix != config->marker[i].patt_id)
+                    continue;
+
+                if (marker_infoR[j].cfMatrix < 0.50)
+                    continue;
+
+                if (k == -1)
+                    k = j;
+                else if (marker_infoR[k].cfMatrix < marker_infoR[j].cfMatrix)
+                    k = j;
             }
+
             config->marker[i].visibleR = k;
-            if( k >= 0 ) {
+            if (k >= 0)
+            {
                 marker_infoR[k].dir = marker_infoR[k].dirMatrix;
             }
         }
     }
 
     vnumL = 0;
-    for( i = 0; i < config->marker_num; i++ ) {
-        if( (j=config->marker[i].visible) == -1 ) continue;
 
-        err = arGetTransMatSquareStereo( handle, &marker_infoL[j], NULL, config->marker[i].width, trans2 );
-        if( err > THRESH_1 ) {
+    for (i = 0; i < config->marker_num; i++)
+    {
+        if ((j = config->marker[i].visible) == -1)
+            continue;
+
+        err = arGetTransMatSquareStereo(handle, &marker_infoL[j], NULL, config->marker[i].width, trans2);
+        if (err > THRESH_1)
+        {
             config->marker[i].visible = -1;
-//ARLOG("err = %f\n", err);
+// ARLOG("err = %f\n", err);
             continue;
         }
 
-        if( vnumL == 0 || maxArea < marker_infoL[j].area ) {
+        if (vnumL == 0 || maxArea < marker_infoL[j].area)
+        {
             maxArea = marker_infoL[j].area;
-            max = i; 
-            for( j = 0; j < 3; j++ ) { 
-                for( k = 0; k < 4; k++ ) trans1[j][k] = trans2[j][k];
+            max     = i;
+
+            for (j = 0; j < 3; j++)
+            {
+                for (k = 0; k < 4; k++)
+                    trans1[j][k] = trans2[j][k];
             }
         }
+
         vnumL++;
     }
-    vnumR = 0;
-    for( i = 0; i < config->marker_num; i++ ) {
-        if( (j=config->marker[i].visibleR) == -1 ) continue;
 
-        err = arGetTransMatSquareStereo( handle, NULL, &marker_infoR[j], config->marker[i].width, trans2 );
-        if( err > THRESH_1 ) {
+    vnumR = 0;
+
+    for (i = 0; i < config->marker_num; i++)
+    {
+        if ((j = config->marker[i].visibleR) == -1)
+            continue;
+
+        err = arGetTransMatSquareStereo(handle, NULL, &marker_infoR[j], config->marker[i].width, trans2);
+        if (err > THRESH_1)
+        {
             config->marker[i].visibleR = -1;
-//ARLOG("err = %f\n", err);
+// ARLOG("err = %f\n", err);
             continue;
         }
 
-        if( (vnumL == 0 && vnumR == 0) || maxArea < marker_infoR[j].area ) {
+        if ((vnumL == 0 && vnumR == 0) || maxArea < marker_infoR[j].area)
+        {
             maxArea = marker_infoR[j].area;
-            max = i; 
-            for( j = 0; j < 3; j++ ) { 
-                for( k = 0; k < 4; k++ ) trans1[j][k] = trans2[j][k];
+            max     = i;
+
+            for (j = 0; j < 3; j++)
+            {
+                for (k = 0; k < 4; k++)
+                    trans1[j][k] = trans2[j][k];
             }
         }
+
         vnumR++;
     }
-//ARLOG("vnumL=%d, vnumR=%d\n", vnumL, vnumR);
-    if( vnumL == 0 && vnumR == 0 ) { 
+
+// ARLOG("vnumL=%d, vnumR=%d\n", vnumL, vnumR);
+    if ((vnumL == 0 && vnumR == 0) || (vnumL < config->min_submarker && vnumR < config->min_submarker))
+    {
         config->prevF = 0;
-//ARLOG("**** NG.\n");
+// ARLOG("**** NG.\n");
         return -1;
     }
 
 
-    if(vnumL > 0) {
-        arMalloc(pos2dL, ARdouble, vnumL*4*2);
-        arMalloc(pos3dL, ARdouble, vnumL*4*3);
+    if (vnumL > 0)
+    {
+        arMalloc(pos2dL, ARdouble, vnumL * 4 * 2);
+        arMalloc(pos3dL, ARdouble, vnumL * 4 * 3);
     }
-    if(vnumR > 0) {
-        arMalloc(pos2dR, ARdouble, vnumR*4*2);
-        arMalloc(pos3dR, ARdouble, vnumR*4*3);
+
+    if (vnumR > 0)
+    {
+        arMalloc(pos2dR, ARdouble, vnumR * 4 * 2);
+        arMalloc(pos3dR, ARdouble, vnumR * 4 * 3);
     }
 
     j = 0;
-    for( i = 0; i < config->marker_num; i++ ) {
-        if( (k=config->marker[i].visible) < 0 ) continue;
-        dir = marker_infoL[k].dir;
-        pos2dL[j*8+0] = marker_infoL[k].vertex[(4-dir)%4][0];
-        pos2dL[j*8+1] = marker_infoL[k].vertex[(4-dir)%4][1];
-        pos2dL[j*8+2] = marker_infoL[k].vertex[(5-dir)%4][0];
-        pos2dL[j*8+3] = marker_infoL[k].vertex[(5-dir)%4][1];
-        pos2dL[j*8+4] = marker_infoL[k].vertex[(6-dir)%4][0];
-        pos2dL[j*8+5] = marker_infoL[k].vertex[(6-dir)%4][1];
-        pos2dL[j*8+6] = marker_infoL[k].vertex[(7-dir)%4][0];
-        pos2dL[j*8+7] = marker_infoL[k].vertex[(7-dir)%4][1];
-        pos3dL[j*12+0] = config->marker[i].pos3d[0][0];
-        pos3dL[j*12+1] = config->marker[i].pos3d[0][1];
-        pos3dL[j*12+2] = config->marker[i].pos3d[0][2];
-        pos3dL[j*12+3] = config->marker[i].pos3d[1][0];
-        pos3dL[j*12+4] = config->marker[i].pos3d[1][1];
-        pos3dL[j*12+5] = config->marker[i].pos3d[1][2];
-        pos3dL[j*12+6] = config->marker[i].pos3d[2][0];
-        pos3dL[j*12+7] = config->marker[i].pos3d[2][1];
-        pos3dL[j*12+8] = config->marker[i].pos3d[2][2];
-        pos3dL[j*12+9] = config->marker[i].pos3d[3][0];
-        pos3dL[j*12+10] = config->marker[i].pos3d[3][1];
-        pos3dL[j*12+11] = config->marker[i].pos3d[3][2];
+
+    for (i = 0; i < config->marker_num; i++)
+    {
+        if ((k = config->marker[i].visible) < 0)
+            continue;
+
+        dir                 = marker_infoL[k].dir;
+        pos2dL[j * 8 + 0]   = marker_infoL[k].vertex[(4 - dir) % 4][0];
+        pos2dL[j * 8 + 1]   = marker_infoL[k].vertex[(4 - dir) % 4][1];
+        pos2dL[j * 8 + 2]   = marker_infoL[k].vertex[(5 - dir) % 4][0];
+        pos2dL[j * 8 + 3]   = marker_infoL[k].vertex[(5 - dir) % 4][1];
+        pos2dL[j * 8 + 4]   = marker_infoL[k].vertex[(6 - dir) % 4][0];
+        pos2dL[j * 8 + 5]   = marker_infoL[k].vertex[(6 - dir) % 4][1];
+        pos2dL[j * 8 + 6]   = marker_infoL[k].vertex[(7 - dir) % 4][0];
+        pos2dL[j * 8 + 7]   = marker_infoL[k].vertex[(7 - dir) % 4][1];
+        pos3dL[j * 12 + 0]  = config->marker[i].pos3d[0][0];
+        pos3dL[j * 12 + 1]  = config->marker[i].pos3d[0][1];
+        pos3dL[j * 12 + 2]  = config->marker[i].pos3d[0][2];
+        pos3dL[j * 12 + 3]  = config->marker[i].pos3d[1][0];
+        pos3dL[j * 12 + 4]  = config->marker[i].pos3d[1][1];
+        pos3dL[j * 12 + 5]  = config->marker[i].pos3d[1][2];
+        pos3dL[j * 12 + 6]  = config->marker[i].pos3d[2][0];
+        pos3dL[j * 12 + 7]  = config->marker[i].pos3d[2][1];
+        pos3dL[j * 12 + 8]  = config->marker[i].pos3d[2][2];
+        pos3dL[j * 12 + 9]  = config->marker[i].pos3d[3][0];
+        pos3dL[j * 12 + 10] = config->marker[i].pos3d[3][1];
+        pos3dL[j * 12 + 11] = config->marker[i].pos3d[3][2];
         j++;
     }
 
     j = 0;
-    for( i = 0; i < config->marker_num; i++ ) {
-        if( (k=config->marker[i].visibleR) < 0 ) continue;
-        dir = marker_infoR[k].dir;
-        pos2dR[j*8+0] = marker_infoR[k].vertex[(4-dir)%4][0];
-        pos2dR[j*8+1] = marker_infoR[k].vertex[(4-dir)%4][1];
-        pos2dR[j*8+2] = marker_infoR[k].vertex[(5-dir)%4][0];
-        pos2dR[j*8+3] = marker_infoR[k].vertex[(5-dir)%4][1];
-        pos2dR[j*8+4] = marker_infoR[k].vertex[(6-dir)%4][0];
-        pos2dR[j*8+5] = marker_infoR[k].vertex[(6-dir)%4][1];
-        pos2dR[j*8+6] = marker_infoR[k].vertex[(7-dir)%4][0];
-        pos2dR[j*8+7] = marker_infoR[k].vertex[(7-dir)%4][1];
-        pos3dR[j*12+0] = config->marker[i].pos3d[0][0];
-        pos3dR[j*12+1] = config->marker[i].pos3d[0][1];
-        pos3dR[j*12+2] = config->marker[i].pos3d[0][2];
-        pos3dR[j*12+3] = config->marker[i].pos3d[1][0];
-        pos3dR[j*12+4] = config->marker[i].pos3d[1][1];
-        pos3dR[j*12+5] = config->marker[i].pos3d[1][2];
-        pos3dR[j*12+6] = config->marker[i].pos3d[2][0];
-        pos3dR[j*12+7] = config->marker[i].pos3d[2][1];
-        pos3dR[j*12+8] = config->marker[i].pos3d[2][2];
-        pos3dR[j*12+9] = config->marker[i].pos3d[3][0];
-        pos3dR[j*12+10] = config->marker[i].pos3d[3][1];
-        pos3dR[j*12+11] = config->marker[i].pos3d[3][2];
+
+    for (i = 0; i < config->marker_num; i++)
+    {
+        if ((k = config->marker[i].visibleR) < 0)
+            continue;
+
+        dir                 = marker_infoR[k].dir;
+        pos2dR[j * 8 + 0]   = marker_infoR[k].vertex[(4 - dir) % 4][0];
+        pos2dR[j * 8 + 1]   = marker_infoR[k].vertex[(4 - dir) % 4][1];
+        pos2dR[j * 8 + 2]   = marker_infoR[k].vertex[(5 - dir) % 4][0];
+        pos2dR[j * 8 + 3]   = marker_infoR[k].vertex[(5 - dir) % 4][1];
+        pos2dR[j * 8 + 4]   = marker_infoR[k].vertex[(6 - dir) % 4][0];
+        pos2dR[j * 8 + 5]   = marker_infoR[k].vertex[(6 - dir) % 4][1];
+        pos2dR[j * 8 + 6]   = marker_infoR[k].vertex[(7 - dir) % 4][0];
+        pos2dR[j * 8 + 7]   = marker_infoR[k].vertex[(7 - dir) % 4][1];
+        pos3dR[j * 12 + 0]  = config->marker[i].pos3d[0][0];
+        pos3dR[j * 12 + 1]  = config->marker[i].pos3d[0][1];
+        pos3dR[j * 12 + 2]  = config->marker[i].pos3d[0][2];
+        pos3dR[j * 12 + 3]  = config->marker[i].pos3d[1][0];
+        pos3dR[j * 12 + 4]  = config->marker[i].pos3d[1][1];
+        pos3dR[j * 12 + 5]  = config->marker[i].pos3d[1][2];
+        pos3dR[j * 12 + 6]  = config->marker[i].pos3d[2][0];
+        pos3dR[j * 12 + 7]  = config->marker[i].pos3d[2][1];
+        pos3dR[j * 12 + 8]  = config->marker[i].pos3d[2][2];
+        pos3dR[j * 12 + 9]  = config->marker[i].pos3d[3][0];
+        pos3dR[j * 12 + 10] = config->marker[i].pos3d[3][1];
+        pos3dR[j * 12 + 11] = config->marker[i].pos3d[3][2];
         j++;
     }
 
-    if( config->prevF == 0 ) {
-        arUtilMatMul( trans1, config->marker[max].itrans, trans2 );
-        if( robustFlag ) {
-            err = arGetTransMatStereo( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                       (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-            if( err >= THRESH_2 ) {
-                icpStereoSetInlierProbability( handle->icpStereoHandle, 0.8 );
-                err = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                 (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                if( err >= THRESH_2 ) {
-                    icpStereoSetInlierProbability( handle->icpStereoHandle, 0.6 );
-                    err = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                     (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                    if( err >= THRESH_2 ) {
-                        icpStereoSetInlierProbability( handle->icpStereoHandle, 0.4 );
-                        err = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                         (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                        if( err >= THRESH_2 ) {
-                            icpStereoSetInlierProbability( handle->icpStereoHandle, 0.0 );
-                            err = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                             (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
+    if (config->prevF == 0)
+    {
+        arUtilMatMul((const ARdouble (*)[4])trans1, (const ARdouble (*)[4])config->marker[max].itrans, trans2);
+        if (robustFlag)
+        {
+            err = arGetTransMatStereo(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                      (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+            if (err >= THRESH_2)
+            {
+                icpStereoSetInlierProbability(handle->icpStereoHandle, 0.8);
+                err = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                if (err >= THRESH_2)
+                {
+                    icpStereoSetInlierProbability(handle->icpStereoHandle, 0.6);
+                    err = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                    (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                    if (err >= THRESH_2)
+                    {
+                        icpStereoSetInlierProbability(handle->icpStereoHandle, 0.4);
+                        err = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                        (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                        if (err >= THRESH_2)
+                        {
+                            icpStereoSetInlierProbability(handle->icpStereoHandle, 0.0);
+                            err = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                            (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
                         }
                     }
                 }
             }
         }
-        else {
-            err = arGetTransMatStereo( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                       (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
+        else
+        {
+            err = arGetTransMatStereo(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                      (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
         }
     }
-    else {
-        arUtilMatMul( trans1, config->marker[max].itrans, trans2 );
-        if( robustFlag ) {
-            err2 = arGetTransMatStereo( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                        (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, trans1 );
-            err = arGetTransMatStereo( handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                              (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-            if( err2 < err ) {
-                for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+    else
+    {
+        arUtilMatMul((const ARdouble (*)[4])trans1, (const ARdouble (*)[4])config->marker[max].itrans, trans2);
+        if (robustFlag)
+        {
+            err2 = arGetTransMatStereo(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                       (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, trans1);
+            err = arGetTransMatStereo(handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                      (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+            if (err2 < err)
+            {
+                for (j = 0; j < 3; j++)
+                    for (i = 0; i < 4; i++)
+                        config->trans[j][i] = trans1[j][i];
+
                 err = err2;
             }
-            if( err >= THRESH_2 ) {
-                icpStereoSetInlierProbability( handle->icpStereoHandle, 0.8 );
-                err2 = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                  (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, trans1 );
-                err = arGetTransMatStereoRobust( handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                        (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                if( err2 < err ) {
-                    for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+
+            if (err >= THRESH_2)
+            {
+                icpStereoSetInlierProbability(handle->icpStereoHandle, 0.8);
+                err2 = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                 (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, trans1);
+                err = arGetTransMatStereoRobust(handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                if (err2 < err)
+                {
+                    for (j = 0; j < 3; j++)
+                        for (i = 0; i < 4; i++)
+                            config->trans[j][i] = trans1[j][i];
+
                     err = err2;
                 }
-                if( err >= THRESH_2 ) {
-                    icpStereoSetInlierProbability( handle->icpStereoHandle, 0.6 );
-                    err2 = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                      (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, trans1 );
-                    err = arGetTransMatStereoRobust( handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                            (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                    if( err2 < err ) {
-                        for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+
+                if (err >= THRESH_2)
+                {
+                    icpStereoSetInlierProbability(handle->icpStereoHandle, 0.6);
+                    err2 = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                     (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, trans1);
+                    err = arGetTransMatStereoRobust(handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                    (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                    if (err2 < err)
+                    {
+                        for (j = 0; j < 3; j++)
+                            for (i = 0; i < 4; i++)
+                                config->trans[j][i] = trans1[j][i];
+
                         err = err2;
                     }
-                    if( err >= THRESH_2 ) {
-                        icpStereoSetInlierProbability( handle->icpStereoHandle, 0.4 );
-                        err2 = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                          (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, trans1 );
-                        err = arGetTransMatStereoRobust( handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                                (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                        if( err2 < err ) {
-                            for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+
+                    if (err >= THRESH_2)
+                    {
+                        icpStereoSetInlierProbability(handle->icpStereoHandle, 0.4);
+                        err2 = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                         (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, trans1);
+                        err = arGetTransMatStereoRobust(handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                        (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                        if (err2 < err)
+                        {
+                            for (j = 0; j < 3; j++)
+                                for (i = 0; i < 4; i++)
+                                    config->trans[j][i] = trans1[j][i];
+
                             err = err2;
                         }
-                        if( err >= THRESH_2 ) {
-                            icpStereoSetInlierProbability( handle->icpStereoHandle, 0.0 );
-                            err2 = arGetTransMatStereoRobust( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                              (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, trans1 );
-                            err = arGetTransMatStereoRobust( handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                                                    (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-                            if( err2 < err ) {
-                                for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+
+                        if (err >= THRESH_2)
+                        {
+                            icpStereoSetInlierProbability(handle->icpStereoHandle, 0.0);
+                            err2 = arGetTransMatStereoRobust(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                             (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, trans1);
+                            err = arGetTransMatStereoRobust(handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                                            (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+                            if (err2 < err)
+                            {
+                                for (j = 0; j < 3; j++)
+                                    for (i = 0; i < 4; i++)
+                                        config->trans[j][i] = trans1[j][i];
+
                                 err = err2;
                             }
                         }
@@ -346,31 +456,41 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
                 }
             }
         }
-        else {
-            err2 = arGetTransMatStereo( handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                        (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, trans1 );
-            err = arGetTransMatStereo( handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL*4,
-                                                              (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR*4, config->trans );
-            if( err2 < err ) {
-                for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+        else
+        {
+            err2 = arGetTransMatStereo(handle, trans2, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                       (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, trans1);
+            err = arGetTransMatStereo(handle, config->trans, (ARdouble (*)[2])pos2dL, (ARdouble (*)[3])pos3dL, vnumL * 4,
+                                      (ARdouble (*)[2])pos2dR, (ARdouble (*)[3])pos3dR, vnumR * 4, config->trans);
+            if (err2 < err)
+            {
+                for (j = 0; j < 3; j++)
+                    for (i = 0; i < 4; i++)
+                        config->trans[j][i] = trans1[j][i];
+
                 err = err2;
             }
         }
     }
 
-    if( vnumL > 0 ) {
+    if (vnumL > 0)
+    {
         free(pos3dL);
         free(pos2dL);
     }
-    if( vnumR > 0 ) {
+
+    if (vnumR > 0)
+    {
         free(pos3dR);
         free(pos2dR);
-   }
+    }
 
-    if( err < THRESH_2 ) {
+    if (err < THRESH_2)
+    {
         config->prevF = 1;
     }
-    else {
+    else
+    {
         config->prevF = 0;
     }
 

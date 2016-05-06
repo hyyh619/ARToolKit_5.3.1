@@ -38,87 +38,109 @@
 #include "feature_store.h"
 #include "binary_hierarchical_clustering.h"
 
-namespace vision {
-    
-    template<int NUM_BYTES_PER_FEATURE>
-    class Keyframe {
-    public:
-        
-        typedef Keyframe<NUM_BYTES_PER_FEATURE> keyframe_t;
-        typedef BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE> index_t;
-        
-        Keyframe() : mWidth(0), mHeight(0) {}
-        ~Keyframe() {}
-        
-        /**
-         * Get/Set image width.
-         */
-        inline void setWidth(int width) { mWidth = width; }
-        inline int width() const { return mWidth; }
-        
-        /**
-         * Get/Set image height.
-         */
-        inline void setHeight(int height) { mHeight = height; }
-        inline int height() const { return mHeight; }
-        
-        /**
-         * @return Feature store.
-         */
-        inline BinaryFeatureStore& store() { return mStore; }
-        inline const BinaryFeatureStore& store() const { return mStore; }
-        
-        /**
-         * @return Index over the features.
-         */
-        inline const index_t& index() const { return mIndex; }
-        
-        /**
-         * Build an index for the features.
-         */
-        void buildIndex();
-        
-        /**
-         * Copy a keyframe.
-         */
-        void copy(const keyframe_t& keyframe) {
-            mWidth = keyframe.mWidth;
-            mHeight = keyframe.mHeight;
-            mStore.copy(keyframe.store());
-        }
-        
-        //
-        // Serialization
-        //
-        
-        /*template<class Archive>
-        void serialize(Archive & ar, const unsigned int version) {
-            ar & mWidth;
-            ar & mHeight;
-            ar & mStore;
-        }*/
-        
-    private:
-        
-        // Image width and height
-        int mWidth;
-        int mHeight;
-        
-        // Feature store
-        BinaryFeatureStore mStore;
-        
-        // Feature index
-        index_t mIndex;
-        
-    }; // Keyframe
-    
-    template<int NUM_BYTES_PER_FEATURE>
-    void Keyframe<NUM_BYTES_PER_FEATURE>::buildIndex() {
-        mIndex.setNumHypotheses(128);
-        mIndex.setNumCenters(8);
-        mIndex.setMaxNodesToPop(8);
-        mIndex.setMinFeaturesPerNode(16);
-        mIndex.build(&mStore.features()[0], (int)mStore.size());
-    }
-    
+namespace vision
+{
+template<int NUM_BYTES_PER_FEATURE>
+class Keyframe
+{
+public:
+
+typedef Keyframe<NUM_BYTES_PER_FEATURE> keyframe_t;
+typedef BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE> index_t;
+
+Keyframe() : mWidth(0), mHeight(0) {}
+~Keyframe() {}
+
+/**
+ * Get/Set image width.
+ */
+inline void setWidth(int width)
+{
+    mWidth = width;
+}
+inline int width() const
+{
+    return mWidth;
+}
+
+/**
+ * Get/Set image height.
+ */
+inline void setHeight(int height)
+{
+    mHeight = height;
+}
+inline int height() const
+{
+    return mHeight;
+}
+
+/**
+ * @return Feature store.
+ */
+inline BinaryFeatureStore&store()
+{
+    return mStore;
+}
+inline const BinaryFeatureStore&store() const
+{
+    return mStore;
+}
+
+/**
+ * @return Index over the features.
+ */
+inline const index_t&index() const
+{
+    return mIndex;
+}
+
+/**
+ * Build an index for the features.
+ */
+void buildIndex();
+
+/**
+ * Copy a keyframe.
+ */
+void copy(const keyframe_t&keyframe)
+{
+    mWidth  = keyframe.mWidth;
+    mHeight = keyframe.mHeight;
+    mStore.copy(keyframe.store());
+}
+
+//
+// Serialization
+//
+
+/*template<class Archive>
+   void serialize(Archive & ar, const unsigned int version) {
+    ar & mWidth;
+    ar & mHeight;
+    ar & mStore;
+   }*/
+
+private:
+
+// Image width and height
+int mWidth;
+int mHeight;
+
+// Feature store
+BinaryFeatureStore mStore;
+
+// Feature index
+index_t mIndex;
+};     // Keyframe
+
+template<int NUM_BYTES_PER_FEATURE>
+void Keyframe<NUM_BYTES_PER_FEATURE>::buildIndex()
+{
+    mIndex.setNumHypotheses(128);
+    mIndex.setNumCenters(8);
+    mIndex.setMaxNodesToPop(8);
+    mIndex.setMinFeaturesPerNode(16);
+    mIndex.build(&mStore.features()[0], (int)mStore.size());
+}
 } // vision

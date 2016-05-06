@@ -38,42 +38,52 @@
 #include <string>
 #include <iostream>
 
-namespace vision {
-    
-    /**
-     * Print a matrix to the console.
-     */
-    template<typename T, typename TCAST>
-    inline void PrintMatrix(std::ostream& os, const T* X, size_t width, size_t height, const std::string& str) {
-        os << str << " = [" << std::endl;
-        for(size_t i = 0; i < height; i++) {
-            os << "\t";
-            for(size_t j = 0; j < width; j++) {
-                os << (TCAST)X[i*width+j];
-                if(j < width-1) {
-                    os << " ";
-                }
+namespace vision
+{
+/**
+ * Print a matrix to the console.
+ */
+template<typename T, typename TCAST>
+inline void PrintMatrix(std::ostream&os, const T *X, size_t width, size_t height, const std::string&str)
+{
+    os << str << " = [" << std::endl;
+
+    for (size_t i = 0; i < height; i++)
+    {
+        os << "\t";
+
+        for (size_t j = 0; j < width; j++)
+        {
+            os << (TCAST)X[i * width + j];
+            if (j < width - 1)
+            {
+                os << " ";
             }
-            os << std::endl;
         }
-        os << "];" << std::endl;
+
+        os << std::endl;
     }
-    template<typename T>
-    inline void PrintMatrix(std::ostream& os, const T* X, size_t width, size_t height, const std::string& str) {
-        PrintMatrix<T, T>(os, X, width, height, str);
-    }
-    template<typename T, typename TCAST>
-    inline void PrintMatrix(const T* X, size_t width, size_t height, const std::string& str) {
-        PrintMatrix(std::cout, X, width, height, str);
-    }
-    template<typename T>
-    inline void PrintMatrix(const T* X, size_t width, size_t height, const std::string& str) {
-        PrintMatrix<T, T>(std::cout, X, width, height, str);
-    }
-    
-    /**
-     * Print a binary string.
-     */
-    void PrintBinaryString(const unsigned char* bitstring, int size, const char* str);
-    
+
+    os << "];" << std::endl;
+}
+template<typename T>
+inline void PrintMatrix(std::ostream&os, const T *X, size_t width, size_t height, const std::string&str)
+{
+    PrintMatrix<T, T>(os, X, width, height, str);
+}
+template<typename T, typename TCAST>
+inline void PrintMatrix(const T *X, size_t width, size_t height, const std::string&str)
+{
+    PrintMatrix(std::cout, X, width, height, str);
+}
+template<typename T>
+inline void PrintMatrix(const T *X, size_t width, size_t height, const std::string&str)
+{
+    PrintMatrix<T, T>(std::cout, X, width, height, str);
+}
+
+/**
+ * Print a binary string.
+ */
+void PrintBinaryString(const unsigned char *bitstring, int size, const char *str);
 } // vision

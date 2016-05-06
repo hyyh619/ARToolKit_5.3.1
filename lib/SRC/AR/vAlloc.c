@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #ifndef __APPLE__
@@ -55,15 +55,17 @@
 #include <math.h>
 #include <AR/ar.h>
 
-ARVec *arVecAlloc( int clm )
+ARVec* arVecAlloc(int clm)
 {
-    ARVec     *v;
+    ARVec *v;
 
-    v = (ARVec *)malloc(sizeof(ARVec));
-    if( v == NULL ) return NULL;
+    v = (ARVec*)malloc(sizeof(ARVec));
+    if (v == NULL)
+        return NULL;
 
-    v->v = (ARdouble *)malloc(sizeof(ARdouble) * clm);
-    if( v->v == NULL ) {
+    v->v = (ARdouble*)malloc(sizeof(ARdouble) * clm);
+    if (v->v == NULL)
+    {
         free(v);
         return NULL;
     }

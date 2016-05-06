@@ -35,82 +35,93 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
 #include <AR/ar.h>
 
-int arParamClear( ARParam *param, int xsize, int ysize, int dist_function_version )
+int arParamClear(ARParam *param, int xsize, int ysize, int dist_function_version)
 {
-    if (!param) return (-1);
-    
-    param->xsize = xsize;
-    param->ysize = ysize;
-	param->dist_function_version = dist_function_version;
+    if (!param)
+        return (-1);
 
-    param->mat[0][0] =   1.0;
-    param->mat[0][1] =   0.0;
-    param->mat[0][2] = xsize/2.0;
-    param->mat[0][3] =   0.0;
-    param->mat[1][0] =   0.0;
-    param->mat[1][1] =   1.0;
-    param->mat[1][2] = ysize/2.0;
-    param->mat[1][3] =   0.0;
-    param->mat[2][0] =   0.0;
-    param->mat[2][1] =   0.0;
-    param->mat[2][2] =   1.0;
-    param->mat[2][3] =   0.0;
+    param->xsize                 = xsize;
+    param->ysize                 = ysize;
+    param->dist_function_version = dist_function_version;
 
-    return arParamDistFactorClear( param->dist_factor, xsize, ysize, param->dist_function_version );
+    param->mat[0][0] = 1.0;
+    param->mat[0][1] = 0.0;
+    param->mat[0][2] = xsize / 2.0;
+    param->mat[0][3] = 0.0;
+    param->mat[1][0] = 0.0;
+    param->mat[1][1] = 1.0;
+    param->mat[1][2] = ysize / 2.0;
+    param->mat[1][3] = 0.0;
+    param->mat[2][0] = 0.0;
+    param->mat[2][1] = 0.0;
+    param->mat[2][2] = 1.0;
+    param->mat[2][3] = 0.0;
+
+    return arParamDistFactorClear(param->dist_factor, xsize, ysize, param->dist_function_version);
 }
 
 
-int arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xsize, int ysize, int dist_function_version )
+int arParamDistFactorClear(ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xsize, int ysize, int dist_function_version)
 {
-    if (!dist_factor) return (-1);
+    if (!dist_factor)
+        return (-1);
 
-	if (dist_function_version == 4) {
-		dist_factor[0] = 0.0;           /*  k1  */
-		dist_factor[1] = 0.0;           /*  k2  */
-		dist_factor[2] = 0.0;           /*  p1  */
-		dist_factor[3] = 0.0;           /*  p2  */
-		dist_factor[4] = 1.0;           /*  fx  */
-		dist_factor[5] = 1.0;           /*  fx  */
-		dist_factor[6] = xsize / 2.0;   /*  x0  */
-		dist_factor[7] = ysize / 2.0;   /*  y0  */
-		dist_factor[8] = 1.0;           /*  Size adjust */
-		return 0;
-	} else if (dist_function_version == 3) {
-		dist_factor[0] = xsize / 2.0;
-		dist_factor[1] = ysize / 2.0;
-		dist_factor[2] = 1.0;
-		dist_factor[3] = 1.0;
-		dist_factor[4] = 0.0;
-		dist_factor[5] = 0.0;
-		return 0;
-	} else if (dist_function_version == 2) {
-		dist_factor[0] = xsize / 2.0;
-		dist_factor[1] = ysize / 2.0;
-		dist_factor[2] = 1.0;
-		dist_factor[3] = 0.0;
-		dist_factor[4] = 0.0;
-		return 0;		
-	} else if (dist_function_version == 1) {
-		dist_factor[0] = xsize / 2.0;
-		dist_factor[1] = ysize / 2.0;
-		dist_factor[2] = 1.0;
-		dist_factor[3] = 0.0;
-		return 0;		
-	} else {
-		return -1;
-	}
+    if (dist_function_version == 4)
+    {
+        dist_factor[0] = 0.0;                   /*  k1  */
+        dist_factor[1] = 0.0;                   /*  k2  */
+        dist_factor[2] = 0.0;                   /*  p1  */
+        dist_factor[3] = 0.0;                   /*  p2  */
+        dist_factor[4] = 1.0;                   /*  fx  */
+        dist_factor[5] = 1.0;                   /*  fx  */
+        dist_factor[6] = xsize / 2.0;           /*  x0  */
+        dist_factor[7] = ysize / 2.0;           /*  y0  */
+        dist_factor[8] = 1.0;                   /*  Size adjust */
+        return 0;
+    }
+    else if (dist_function_version == 3)
+    {
+        dist_factor[0] = xsize / 2.0;
+        dist_factor[1] = ysize / 2.0;
+        dist_factor[2] = 1.0;
+        dist_factor[3] = 1.0;
+        dist_factor[4] = 0.0;
+        dist_factor[5] = 0.0;
+        return 0;
+    }
+    else if (dist_function_version == 2)
+    {
+        dist_factor[0] = xsize / 2.0;
+        dist_factor[1] = ysize / 2.0;
+        dist_factor[2] = 1.0;
+        dist_factor[3] = 0.0;
+        dist_factor[4] = 0.0;
+        return 0;
+    }
+    else if (dist_function_version == 1)
+    {
+        dist_factor[0] = xsize / 2.0;
+        dist_factor[1] = ysize / 2.0;
+        dist_factor[2] = 1.0;
+        dist_factor[3] = 0.0;
+        return 0;
+    }
+    else
+    {
+        return -1;
+    }
 }

@@ -35,55 +35,54 @@
 
 #pragma once
 
-//#include <boost/serialization/serialization.hpp>
+// #include <boost/serialization/serialization.hpp>
 
-namespace vision {
+namespace vision
+{
+/**
+ * Represents a feature point in the visual database.
+ */
+class FeaturePoint
+{
+public:
 
-    /**
-     * Represents a feature point in the visual database.
-     */
-    class FeaturePoint {
-    public:
-        
-        FeaturePoint() : x(0), y(0), angle(0), scale(0), maxima(true) {}
-        FeaturePoint(float _x, float _y, float _angle, float _scale, bool _maxima)
-        : x(_x), y(_y), angle(_angle), scale(_scale), maxima(_maxima) {}
-        ~FeaturePoint() {}
+FeaturePoint() : x(0), y(0), angle(0), scale(0), maxima(true) {}
+FeaturePoint(float _x, float _y, float _angle, float _scale, bool _maxima)
+    : x(_x), y(_y), angle(_angle), scale(_scale), maxima(_maxima) {}
+~FeaturePoint() {}
 
-        /** 
-         * The (x,y) location of the center of the feature.
-         */
-        float x, y;
+/**
+ * The (x,y) location of the center of the feature.
+ */
+float x, y;
 
-        /**
-         * The orientation of the feature in the range [0,2*pi)
-         */
-        float angle;
+/**
+ * The orientation of the feature in the range [0,2*pi)
+ */
+float angle;
 
-        /**
-         * The radius (scale) of the feature in the image.
-         */
-        float scale;
+/**
+ * The radius (scale) of the feature in the image.
+ */
+float scale;
 
-        /**
-         * TRUE if this is maxima, FALSE if a minima.
-         */
-        bool maxima;
-        
-        //
-        // Serialization
-        //
-        
-        /*template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
-        {
-            ar & x;
-            ar & y;
-            ar & angle;
-            ar & scale;
-            ar & maxima;
-        }*/
-        
-    }; // FeaturePoint
-    
+/**
+ * TRUE if this is maxima, FALSE if a minima.
+ */
+bool maxima;
+
+//
+// Serialization
+//
+
+/*template<class Archive>
+   void serialize(Archive & ar, const unsigned int version)
+   {
+    ar & x;
+    ar & y;
+    ar & angle;
+    ar & scale;
+    ar & maxima;
+   }*/
+};     // FeaturePoint
 } // vision

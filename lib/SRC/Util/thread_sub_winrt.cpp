@@ -53,22 +53,21 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 
-int arCreateDetachedThreadWinRT(void *(*start_routine)(THREAD_HANDLE_T*), THREAD_HANDLE_T*flag)
+int arCreateDetachedThreadWinRT(void*(*start_routine)(THREAD_HANDLE_T*), THREAD_HANDLE_T *flag)
 {
-        auto workItemHandler = ref new WorkItemHandler([=](IAsyncAction^)
+    auto workItemHandler = ref new WorkItemHandler([ = ] (IAsyncAction ^)
+    {
+        // Run the user callback.
+        try
         {
-            // Run the user callback.
-            try
-            {
-                start_routine(flag);
-            }
-            catch (...) { }
-            
-        }, CallbackContext::Any);
+            start_routine(flag);
+        }
+        catch (...)
+        { }
+    }, CallbackContext::Any);
 
-        ThreadPool::RunAsync(workItemHandler, WorkItemPriority::Normal, WorkItemOptions::TimeSliced);
+    ThreadPool::RunAsync(workItemHandler, WorkItemPriority::Normal, WorkItemOptions::TimeSliced);
 
-		return 0;
+    return 0;
 }
-
 #endif // !_WINRT

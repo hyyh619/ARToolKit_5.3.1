@@ -47,83 +47,86 @@ extern "C" {
 #endif
 
 
-#define  AR2_TEMPLATE_NULL_PIXEL     0x1000
+#define  AR2_TEMPLATE_NULL_PIXEL 0x1000
 
 
-typedef struct {
-    int          xsize, ysize;      /* template size         */
-    int          xts1, xts2;        /* template size         */
-    int          yts1, yts2;        /* template size         */
-    ARUint16    *img1;              /* template for mode 0   */
-    int          vlen;              /* length of vector *img */
-    int          sum;
-    int          validNum;
+typedef struct
+{
+    int      xsize, ysize;          /* template size         */
+    int      xts1, xts2;            /* template size         */
+    int      yts1, yts2;            /* template size         */
+    ARUint16 *img1;                 /* template for mode 0   */
+    int      vlen;                  /* length of vector *img */
+    int      sum;
+    int      validNum;
 } AR2TemplateT;
 
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-typedef struct {
-    int          xsize, ysize;      /* template size         */
-    int          xts1, xts2;        /* template size         */
-    int          yts1, yts2;        /* template size         */
-    ARUint16    *img1[3];           /* template for mode 0   */
-    int          vlen[3];           /* length of vector *img */
-    int          sum[3];
-    int          validNum;
+typedef struct
+{
+    int      xsize, ysize;          /* template size         */
+    int      xts1, xts2;            /* template size         */
+    int      yts1, yts2;            /* template size         */
+    ARUint16 *img1[3];              /* template for mode 0   */
+    int      vlen[3];               /* length of vector *img */
+    int      sum[3];
+    int      validNum;
 } AR2Template2T;
 #endif
 
 
-typedef struct {
-    int     snum;
-    int     level;
-    int     num;
-    int     flag;                   // Set to -1 to indicate that this candidate is the last candidate in the list/array (i.e. candidate count has reached AR2_TRACKING_CANDIDATE_MAX). 0 to indicate a valid candidate. Set to 1 to indicate that this template has been chosen as a candidate.
-    float   sx, sy;
+typedef struct
+{
+    int   snum;
+    int   level;
+    int   num;
+    int   flag;                     // Set to -1 to indicate that this candidate is the last candidate in the list/array (i.e. candidate count has reached AR2_TRACKING_CANDIDATE_MAX). 0 to indicate a valid candidate. Set to 1 to indicate that this template has been chosen as a candidate.
+    float sx, sy;
 } AR2TemplateCandidateT;
 
 
 
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-AR2TemplateT  *ar2GenTemplate  ( int ts1, int ts2 );
-AR2Template2T *ar2GenTemplate2 ( int ts1, int ts2 );
-int            ar2FreeTemplate ( AR2TemplateT  *templ  );
-int            ar2FreeTemplate2( AR2Template2T *templ2 );
+AR2TemplateT* ar2GenTemplate(int ts1, int ts2);
+AR2Template2T* ar2GenTemplate2(int ts1, int ts2);
+int            ar2FreeTemplate(AR2TemplateT  *templ);
+int            ar2FreeTemplate2(AR2Template2T *templ2);
 
-int ar2SetTemplateSub ( ARParamLT *cparamLT, float  trans[3][4], AR2ImageSetT *imageSet,
-                        AR2FeaturePointsT *featurePoints, int num, int blurLevel,
-                        AR2TemplateT *templ );
-int ar2SetTemplate2Sub( ARParamLT *cparamLT, float  trans[3][4], AR2ImageSetT *imageSet,
-                        AR2FeaturePointsT *featurePoints, int num, int blurLevel,
-                        AR2Template2T *templ2 );
+int ar2SetTemplateSub(const ARParamLT *cparamLT, const float trans[3][4], AR2ImageSetT *imageSet,
+                      AR2FeaturePointsT *featurePoints, int num, int blurLevel,
+                      AR2TemplateT *templ);
+int ar2SetTemplate2Sub(const ARParamLT *cparamLT, const float trans[3][4], AR2ImageSetT *imageSet,
+                       AR2FeaturePointsT *featurePoints, int num, int blurLevel,
+                       AR2Template2T *templ2);
 #else
-AR2TemplateT  *ar2GenTemplate ( int ts1, int ts2 );
-int            ar2FreeTemplate( AR2TemplateT  *templ  );
+AR2TemplateT* ar2GenTemplate(int ts1, int ts2);
+int            ar2FreeTemplate(AR2TemplateT  *templ);
 
-int ar2SetTemplateSub ( ARParamLT *cparamLT, float  trans[3][4], AR2ImageSetT *imageSet,
-                        AR2FeaturePointsT *featurePoints, int num,
-                        AR2TemplateT *templ );
+int ar2SetTemplateSub(const ARParamLT *cparamLT, const float trans[3][4], AR2ImageSetT *imageSet,
+                      AR2FeaturePointsT *featurePoints, int num,
+                      AR2TemplateT *templ);
 #endif
 
 
-int ar2GetBestMatching ( ARUint8 *img, ARUint8 *mfImage, int xsize, int ysize, AR_PIXEL_FORMAT pixFormat,
-                         AR2TemplateT *mtemp, int rx, int ry,
-                         int search[3][2], int *bx, int *by, float *val);
+int ar2GetBestMatching (ARUint8 * img, ARUint8 * mfImage, int xsize, int ysize, AR_PIXEL_FORMAT pixFormat,
+                        AR2TemplateT * mtemp, int rx, int ry,
+                        int search[3][2], int *bx, int *by, float *val);
 
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-int ar2GetBestMatching2( ARUint8 *img, ARUint8 *mfImage, int xsize, int ysize, AR_PIXEL_FORMAT pixFormat,
-                         AR2Template2T *mtemp, int rx, int ry,
-                         int search[3][2], int *bx, int *by, float *val, int *blurLevel);
+int ar2GetBestMatching2(ARUint8 * img, ARUint8 * mfImage, int xsize, int ysize, AR_PIXEL_FORMAT pixFormat,
+                        AR2Template2T * mtemp, int rx, int ry,
+                        int search[3][2], int *bx, int *by, float *val, int *blurLevel);
 #else
 int ar2GetBestMatching2(void);
 #endif
 
-int ar2GetResolution( ARParamLT *cparamLT, float  trans[3][4], float  pos[2], float  dpi[2] );
-int ar2GetResolution2( ARParam *cparam, float  trans[3][4], float  pos[2], float  dpi[2] );
+int ar2GetResolution(const ARParamLT * cparamLT, const float trans[3][4], const float pos[2], float dpi[2]);
+int ar2GetResolution2(const ARParam * cparam, const float trans[3][4], const float pos[2], float dpi[2]);
 
 // Returns -1 if no template selected, otherwise returns the 0-based index of the selected template
 // and sets 'flag' of the template to 1.
-int ar2SelectTemplate( AR2TemplateCandidateT *candidate, AR2TemplateCandidateT *prevFeature, int num,
-                       float  pos[4][2], int xsize, int ysize );
+int ar2SelectTemplate(AR2TemplateCandidateT * candidate, AR2TemplateCandidateT * prevFeature, int num,
+                      float pos[4][2], int xsize, int ysize);
 
 
 

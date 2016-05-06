@@ -40,21 +40,21 @@
 #include <cmath>
 
 #ifndef NDEBUG
-#   define ASSERT(condition, message) \
-    do { \
-        if(!(condition)) { \
-            std::cerr << "Assertion `" #condition "` failed in " << __FILE__ \
-            << " line " << __LINE__ << ": " << message << std::endl; \
-            std::abort(); \
-        } \
+#   define ASSERT(condition, message)                                          \
+    do {                                                                       \
+        if (!(condition)) {                                                    \
+            std::cerr << "Assertion `" #condition "` failed in " << __FILE__   \
+                      << " line " << __LINE__ << ": " << message << std::endl; \
+            std::abort();                                                      \
+        }                                                                      \
     } while (false)
 #else
 #   define ASSERT(condition, message) do { } while (false)
 #endif
 
 #define CHECK_TRUE(condition, message) \
-    if(!(condition)) { \
-        ASSERT(false, message); \
+    if (!(condition)) {                \
+        ASSERT(false, message);        \
     }
 
 #ifndef NDEBUG
@@ -63,5 +63,7 @@
 #   define DEBUG_BLOCK(X)
 #endif
 
-#define ASSERT_NAN(x) ASSERT(!std::isnan(x), "NaN")
-#define ASSERT_INF(x) ASSERT(!std::isinf(x), "INF")
+#define isnan(x)      ((x) != (x))
+#define isinf(x)      (!isnan(x) && isnan(x - x))
+#define ASSERT_NAN(x) ASSERT(!isnan(x), "NaN")
+#define ASSERT_INF(x) ASSERT(!isinf(x), "INF")

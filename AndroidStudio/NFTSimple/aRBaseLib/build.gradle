@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+android.buildTypes {
+    release {
+        minifyEnabled = false
+        proguardFiles += file('proguard-rules.txt')
+    }
+}
+
+android.productFlavors {
+}
+
+dependencies {
+    //compile 'com.android.support:support-v4:23.0.1'
+    //compile 'com.android.support:support-v4:13.0.+'
+    //compile 'com.android.support:appcompat-v7:23.0.1' //Only required when the target device API level is greater than
+}                                                       //the compile and target of the app being deployed to the device

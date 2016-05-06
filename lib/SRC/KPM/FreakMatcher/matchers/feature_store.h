@@ -38,102 +38,135 @@
 #include <vector>
 #include "feature_point.h"
 
-//#include <boost/serialization/serialization.hpp>
-//#include <boost/serialization/vector.hpp>
+// #include <boost/serialization/serialization.hpp>
+// #include <boost/serialization/vector.hpp>
 
-namespace vision {
+namespace vision
+{
+/**
+ * Represents a container for features and point information.
+ */
+class BinaryFeatureStore
+{
+public:
 
-    /**
-     * Represents a container for features and point information.
-     */
-    class BinaryFeatureStore {
-    public:
-        
-        BinaryFeatureStore(int bytesPerFeature)
-        : mNumBytesPerFeature(bytesPerFeature) {}
-        BinaryFeatureStore()
-        : mNumBytesPerFeature(0) {}
-        ~BinaryFeatureStore() {}
-    
-        /**
-         * Resize the feature store to hold NUMFEATURES.
-         */
-        inline void resize(size_t numFeatures) {
-            mFeatures.resize(mNumBytesPerFeature*numFeatures, 0);
-            mPoints.resize(numFeatures);
-        }
-        
-        /**
-         * @return Number of features.
-         */
-        inline size_t size() const {
-            return mPoints.size();
-        }
-        
-        /**
-         * Set number of bytes per feature.
-         */
-        inline void setNumBytesPerFeature(int bytesPerFeature) { mNumBytesPerFeature = bytesPerFeature; }
-        
-        /**
-         * @return Number of bytes per feature
-         */
-        inline int numBytesPerFeature() const { return mNumBytesPerFeature; }
-        
-        /**
-         * @return Vector of features
-         */
-        inline std::vector<unsigned char>& features() { return mFeatures; }
-        inline const std::vector<unsigned char>& features() const { return mFeatures; }
-        
-        /**
-         * @return Specific feature with an index
-         */
-        inline unsigned char* feature(size_t i) { return &mFeatures[i*mNumBytesPerFeature]; }
-        inline const unsigned char* feature(size_t i) const { return &mFeatures[i*mNumBytesPerFeature]; }
-        
-        /**
-         * @return Vector of feature points
-         */
-        inline std::vector<FeaturePoint>& points() { return mPoints; }
-        inline const std::vector<FeaturePoint>& points() const { return mPoints; }
-        
-        /**
-         * @return Specific point with an index
-         */
-        inline FeaturePoint& point(size_t i) { return mPoints[i]; }
-        inline const FeaturePoint& point(size_t i) const { return mPoints[i]; }
-    
-        /**
-         * Copy a feature store.
-         */
-        void copy(const BinaryFeatureStore& store) {
-            mNumBytesPerFeature = store.mNumBytesPerFeature;
-            mFeatures = store.mFeatures;
-            mPoints = store.mPoints;
-        }
-        
-        //
-        // Serialization
-        //
-        
-        /*template<class Archive>
-        void serialize(Archive & ar, const unsigned int version) {
-            ar & mNumBytesPerFeature;
-            ar & mFeatures;
-            ar & mPoints;
-        }*/
-        
-    private:
-    
-        // Number of bytes per feature
-        int mNumBytesPerFeature;
-        
-        // Vector of features
-        std::vector<unsigned char> mFeatures;
-    
-        // Vector of feature points
-        std::vector<FeaturePoint> mPoints;
-    };
+BinaryFeatureStore(int bytesPerFeature)
+    : mNumBytesPerFeature(bytesPerFeature) {}
+BinaryFeatureStore()
+    : mNumBytesPerFeature(0) {}
+~BinaryFeatureStore() {}
 
+/**
+ * Resize the feature store to hold NUMFEATURES.
+ */
+inline void resize(size_t numFeatures)
+{
+    mFeatures.resize(mNumBytesPerFeature * numFeatures, 0);
+    mPoints.resize(numFeatures);
+}
+
+/**
+ * @return Number of features.
+ */
+inline size_t size() const
+{
+    return mPoints.size();
+}
+
+/**
+ * Set number of bytes per feature.
+ */
+inline void setNumBytesPerFeature(int bytesPerFeature)
+{
+    mNumBytesPerFeature = bytesPerFeature;
+}
+
+/**
+ * @return Number of bytes per feature
+ */
+inline int numBytesPerFeature() const
+{
+    return mNumBytesPerFeature;
+}
+
+/**
+ * @return Vector of features
+ */
+inline std::vector<unsigned char>&features()
+{
+    return mFeatures;
+}
+inline const std::vector<unsigned char>&features() const
+{
+    return mFeatures;
+}
+
+/**
+ * @return Specific feature with an index
+ */
+inline unsigned char* feature(size_t i)
+{
+    return &mFeatures[i * mNumBytesPerFeature];
+}
+inline const unsigned char* feature(size_t i) const
+{
+    return &mFeatures[i * mNumBytesPerFeature];
+}
+
+/**
+ * @return Vector of feature points
+ */
+inline std::vector<FeaturePoint>&points()
+{
+    return mPoints;
+}
+inline const std::vector<FeaturePoint>&points() const
+{
+    return mPoints;
+}
+
+/**
+ * @return Specific point with an index
+ */
+inline FeaturePoint&point(size_t i)
+{
+    return mPoints[i];
+}
+inline const FeaturePoint&point(size_t i) const
+{
+    return mPoints[i];
+}
+
+/**
+ * Copy a feature store.
+ */
+void copy(const BinaryFeatureStore&store)
+{
+    mNumBytesPerFeature = store.mNumBytesPerFeature;
+    mFeatures           = store.mFeatures;
+    mPoints             = store.mPoints;
+}
+
+//
+// Serialization
+//
+
+/*template<class Archive>
+   void serialize(Archive & ar, const unsigned int version) {
+    ar & mNumBytesPerFeature;
+    ar & mFeatures;
+    ar & mPoints;
+   }*/
+
+private:
+
+// Number of bytes per feature
+int mNumBytesPerFeature;
+
+// Vector of features
+std::vector<unsigned char> mFeatures;
+
+// Vector of feature points
+std::vector<FeaturePoint> mPoints;
+};
 } // vision

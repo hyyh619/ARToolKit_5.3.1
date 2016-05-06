@@ -1083,10 +1083,8 @@ static void* ar2VideoInternalThread(void *arg)
     }
     else
     {
-
         while (vdgIsGrabbing(vid->pVdg))
         {
-
 #ifdef AR_VIDEO_SUPPORT_OLD_QUICKTIME
             // Get a lock to access QuickTime (for SGIdle()), but only if more than one thread is running.
             if (gGrabberActiveCount > 1)
@@ -1132,7 +1130,6 @@ static void* ar2VideoInternalThread(void *arg)
                 // Write status information onto the frame if so desired.
                 if (vid->showFPS)
                 {
-
                     // Variables for fps counter.
                     // float                            fps = 0;
                     // float                            averagefps = 0;
@@ -1352,7 +1349,6 @@ AR2VideoParamQuickTimeT* ar2VideoOpenQuickTime(const char *config)
 
         for (;;)
         {
-
             if (itsAMovie)
             {
                 if (!gMoviesActiveCount)
@@ -1383,11 +1379,9 @@ AR2VideoParamQuickTimeT* ar2VideoOpenQuickTime(const char *config)
                 vid->itsAMovie = 1;
                 vid->movie     = movie;
                 return (vid);
-
             }
             else
             {
-
                 while (*a == ' ' || *a == '\t')
                     a++;                                             // Skip whitespace.
 
@@ -1527,7 +1521,6 @@ AR2VideoParamQuickTimeT* ar2VideoOpenQuickTime(const char *config)
 
                 while (*a != ' ' && *a != '\t' && *a != '\0')
                     a++;                                                           // Skip to next whitespace.
-
             }
         }
     }
@@ -1616,7 +1609,6 @@ AR2VideoParamQuickTimeT* ar2VideoOpenQuickTime(const char *config)
     // If there are no active grabbers, init QuickTime.
     if (gGrabberActiveCount == 0)
     {
-
 #ifdef _WIN32
         if ((err_s = InitializeQTML(0)) != noErr)
         {
@@ -1762,7 +1754,6 @@ AR2VideoParamQuickTimeT* ar2VideoOpenQuickTime(const char *config)
                 vid->milliSecPerFrame = (1000L << 16) / vid->frameRate;
             else
                 vid->milliSecPerFrame = 40;  // Aim for 25 fps.
-
         }
     }
 
@@ -2219,7 +2210,6 @@ int ar2VideoCapStopQuickTime(AR2VideoParamQuickTimeT *vid)
 
         if (vid->pVdg)
         {
-
 #ifdef AR_VIDEO_SUPPORT_OLD_QUICKTIME
             // Get a hold on the QuickTime toolbox.
             if (gGrabberActiveCount > 1)
@@ -2254,7 +2244,6 @@ int ar2VideoCapStopQuickTime(AR2VideoParamQuickTimeT *vid)
                 }
             }
 #endif      // AR_VIDEO_SUPPORT_OLD_QUICKTIME
-
         }
     }
 
@@ -2428,7 +2417,6 @@ AR2VideoBufferT* ar2VideoGetImageQuickTime(AR2VideoParamQuickTimeT *vid)
         // So, do we have a new frame from the sequence grabber?
         if (vid->status & AR_VIDEO_QUICKTIME_STATUS_BIT_READY)
         {
-
             // ARLOGe("For vid @ %p got frame %ld.\n", vid, vid->frameCount);
             // If triple-buffering, time to copy buffer.
             if (vid->bufCopyFlag)
@@ -2467,7 +2455,6 @@ AR2VideoBufferT* ar2VideoGetImageQuickTime(AR2VideoParamQuickTimeT *vid)
             vid->status                  &= ~AR_VIDEO_QUICKTIME_STATUS_BIT_READY; // Clear ready bit.
             (vid->arVideoBuffer).fillFlag = 1;
             return (&(vid->arVideoBuffer));
-
         }
         else
         {

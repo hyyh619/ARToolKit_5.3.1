@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -56,18 +56,23 @@
 #  define SQRT sqrt
 #endif
 
-ARdouble arVecHousehold( ARVec *x )
+ARdouble arVecHousehold(ARVec *x)
 {
     ARdouble s, t;
-    int    i;
+    int      i;
 
-    s = SQRT( arVecInnerproduct(x,x) );
+    s = SQRT(arVecInnerproduct(x, x));
 
-    if( s != 0.0 ) {
-        if(x->v[0] < 0) s = -s;
+    if (s != 0.0)
+    {
+        if (x->v[0] < 0)
+            s = -s;
+
         x->v[0] += s;
-        t = 1 / SQRT(x->v[0] * s);
-        for( i = 0; i < x->clm; i++ ) {
+        t        = 1 / SQRT(x->v[0] * s);
+
+        for (i = 0; i < x->clm; i++)
+        {
             x->v[i] *= t;
         }
     }

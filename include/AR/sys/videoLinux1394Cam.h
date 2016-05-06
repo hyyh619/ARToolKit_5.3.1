@@ -1,5 +1,5 @@
 /*
- *	videoLinux1394Cam.h
+ *      videoLinux1394Cam.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -43,5 +43,4 @@
 #else
 #include <AR/sys/videoLinux1394CamV1.h>
 #endif
-
 #endif

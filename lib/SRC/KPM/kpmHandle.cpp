@@ -43,97 +43,105 @@
 #include "AnnMatch2.h"
 #endif
 
-static KpmHandle *kpmCreateHandleCore( ARParamLT *cparamLT, int xsize, int ysize, int poseMode, AR_PIXEL_FORMAT pixFormat );
+static KpmHandle* kpmCreateHandleCore(ARParamLT *cparamLT, int xsize, int ysize, int poseMode, AR_PIXEL_FORMAT pixFormat);
 
-KpmHandle *kpmCreateHandle( ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat )
+KpmHandle* kpmCreateHandle(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat)
 {
-    return kpmCreateHandleCore( cparamLT, cparamLT->param.xsize, cparamLT->param.ysize, KpmPose6DOF, pixFormat);
+    return kpmCreateHandleCore(cparamLT, cparamLT->param.xsize, cparamLT->param.ysize, KpmPose6DOF, pixFormat);
 }
 
-KpmHandle *kpmCreateHandleHomography( int xsize, int ysize, AR_PIXEL_FORMAT pixFormat )
+KpmHandle* kpmCreateHandleHomography(int xsize, int ysize, AR_PIXEL_FORMAT pixFormat)
 {
-    return kpmCreateHandleCore( NULL, xsize, ysize, KpmPoseHomography, pixFormat );
+    return kpmCreateHandleCore(NULL, xsize, ysize, KpmPoseHomography, pixFormat);
 }
 
-KpmHandle *kpmCreateHandle2( int xsize, int ysize, AR_PIXEL_FORMAT pixFormat )
+KpmHandle* kpmCreateHandle2(int xsize, int ysize, AR_PIXEL_FORMAT pixFormat)
 {
-    return kpmCreateHandleCore( NULL, xsize, ysize, KpmPoseHomography, pixFormat );
+    return kpmCreateHandleCore(NULL, xsize, ysize, KpmPoseHomography, pixFormat);
 }
 
-static KpmHandle *kpmCreateHandleCore( ARParamLT *cparamLT, int xsize, int ysize, int poseMode, AR_PIXEL_FORMAT pixFormat )
+static KpmHandle* kpmCreateHandleCore(ARParamLT *cparamLT, int xsize, int ysize, int poseMode, AR_PIXEL_FORMAT pixFormat)
 {
-    KpmHandle       *kpmHandle;
+    KpmHandle *kpmHandle;
+
 #if !BINARY_FEATURE
     int surfXSize, surfYSize;
 #endif
-    
-    if (pixFormat != AR_PIXEL_FORMAT_MONO && pixFormat != AR_PIXEL_FORMAT_420v && pixFormat != AR_PIXEL_FORMAT_420f && pixFormat != AR_PIXEL_FORMAT_NV21) {
+
+    if (pixFormat != AR_PIXEL_FORMAT_MONO && pixFormat != AR_PIXEL_FORMAT_420v && pixFormat != AR_PIXEL_FORMAT_420f && pixFormat != AR_PIXEL_FORMAT_NV21)
+    {
         ARLOGw("Performance warning: KPM processing is not using a mono pixel format.\n");
     }
 
-    arMallocClear( kpmHandle, KpmHandle, 1 );
+    arMallocClear(kpmHandle, KpmHandle, 1);
 
 #if BINARY_FEATURE
-    //kpmHandle->freakMatcherOpencv       = new vision::VisualDatabaseOpencvFacade;
-    kpmHandle->freakMatcher             = new vision::VisualDatabaseFacade;
+    kpmHandle->freakMatcher = new vision::VisualDatabaseFacade;
 #else
-    kpmHandle->ann2                     = NULL;
-#endif
-    
-    kpmHandle->cparamLT                = cparamLT;
-    kpmHandle->poseMode                = poseMode;
-    kpmHandle->xsize                   = xsize;
-    kpmHandle->ysize                   = ysize;
-    kpmHandle->pixFormat               = pixFormat;
-    kpmHandle->procMode                = KpmDefaultProcMode;
-    kpmHandle->detectedMaxFeature      = -1;
-#if !BINARY_FEATURE
-    kpmHandle->surfThreadNum           = -1;
-#endif
-    
-    kpmHandle->refDataSet.refPoint     = NULL;
-    kpmHandle->refDataSet.num          = 0;
-    kpmHandle->refDataSet.pageInfo     = NULL;
-    kpmHandle->refDataSet.pageNum      = 0;
-
-    kpmHandle->inDataSet.coord         = NULL;
-    kpmHandle->inDataSet.num           = 0;
-
-#if !BINARY_FEATURE
-    kpmHandle->preRANSAC.num           = 0;
-    kpmHandle->preRANSAC.match         = NULL;
-    kpmHandle->aftRANSAC.num           = 0;
-    kpmHandle->aftRANSAC.match         = NULL;
-
-    kpmHandle->skipRegion.regionMax    = 0;
-    kpmHandle->skipRegion.regionNum    = 0;
-    kpmHandle->skipRegion.region       = NULL;
+    kpmHandle->ann2 = NULL;
 #endif
 
-    kpmHandle->result                  = NULL;
-    kpmHandle->resultNum               = 0;
+    kpmHandle->cparamLT           = cparamLT;
+    kpmHandle->poseMode           = poseMode;
+    kpmHandle->xsize              = xsize;
+    kpmHandle->ysize              = ysize;
+    kpmHandle->pixFormat          = pixFormat;
+    kpmHandle->procMode           = KpmDefaultProcMode;
+    kpmHandle->detectedMaxFeature = -1;
+#if !BINARY_FEATURE
+    kpmHandle->surfThreadNum = -1;
+#endif
+
+    kpmHandle->refDataSet.refPoint = NULL;
+    kpmHandle->refDataSet.num      = 0;
+    kpmHandle->refDataSet.pageInfo = NULL;
+    kpmHandle->refDataSet.pageNum  = 0;
+
+    kpmHandle->inDataSet.coord = NULL;
+    kpmHandle->inDataSet.num   = 0;
 
 #if !BINARY_FEATURE
-    switch (kpmHandle->procMode) {
-        case KpmProcFullSize:     surfXSize = xsize;     surfYSize = ysize;     break;
-        case KpmProcHalfSize:     surfXSize = xsize/2;   surfYSize = ysize/2;   break;
-        case KpmProcQuatSize:     surfXSize = xsize/4;   surfYSize = ysize/4;   break;
-        case KpmProcOneThirdSize: surfXSize = xsize/3;   surfYSize = ysize/3;   break;
-        case KpmProcTwoThirdSize: surfXSize = xsize/3*2; surfYSize = ysize/3*2; break;
-        default: ARLOGe("Error: Unknown kpmProcMode %d.\n", kpmHandle->procMode); goto bail; break;
+    kpmHandle->preRANSAC.num   = 0;
+    kpmHandle->preRANSAC.match = NULL;
+    kpmHandle->aftRANSAC.num   = 0;
+    kpmHandle->aftRANSAC.match = NULL;
+
+    kpmHandle->skipRegion.regionMax = 0;
+    kpmHandle->skipRegion.regionNum = 0;
+    kpmHandle->skipRegion.region    = NULL;
+#endif
+
+    kpmHandle->result    = NULL;
+    kpmHandle->resultNum = 0;
+
+#if !BINARY_FEATURE
+    switch (kpmHandle->procMode)
+    {
+    case KpmProcFullSize:     surfXSize = xsize;     surfYSize = ysize;     break;
+
+    case KpmProcHalfSize:     surfXSize = xsize / 2;   surfYSize = ysize / 2;   break;
+
+    case KpmProcQuatSize:     surfXSize = xsize / 4;   surfYSize = ysize / 4;   break;
+
+    case KpmProcOneThirdSize: surfXSize = xsize / 3;   surfYSize = ysize / 3;   break;
+
+    case KpmProcTwoThirdSize: surfXSize = xsize / 3 * 2; surfYSize = ysize / 3 * 2; break;
+
+    default: ARLOGe("Error: Unknown kpmProcMode %d.\n", kpmHandle->procMode); goto bail; break;
     }
 
     kpmHandle->surfHandle = surfSubCreateHandle(surfXSize, surfYSize, AR_PIXEL_FORMAT_MONO);
-    if (!kpmHandle->surfHandle) {
+    if (!kpmHandle->surfHandle)
+    {
         ARLOGe("Error: unable to initialise KPM feature matching.\n");
         goto bail;
     }
-    
+
     surfSubSetMaxPointNum(kpmHandle->surfHandle, kpmHandle->detectedMaxFeature);
 #endif
-    
+
     return kpmHandle;
-    
+
 #if !BINARY_FEATURE
 bail:
     free(kpmHandle);
@@ -143,75 +151,94 @@ bail:
 
 int kpmHandleGetXSize(const KpmHandle *kpmHandle)
 {
-    if (!kpmHandle) return 0;
+    if (!kpmHandle)
+        return 0;
+
     return kpmHandle->xsize;
 }
 
 int kpmHandleGetYSize(const KpmHandle *kpmHandle)
 {
-    if (!kpmHandle) return 0;
+    if (!kpmHandle)
+        return 0;
+
     return kpmHandle->ysize;
 }
 
 AR_PIXEL_FORMAT kpmHandleGetPixelFormat(const KpmHandle *kpmHandle)
 {
-    if (!kpmHandle) return AR_PIXEL_FORMAT_INVALID;
+    if (!kpmHandle)
+        return AR_PIXEL_FORMAT_INVALID;
+
     return kpmHandle->pixFormat;
 }
 
-int kpmSetProcMode( KpmHandle *kpmHandle,  KPM_PROC_MODE mode )
+int kpmSetProcMode(KpmHandle *kpmHandle,  KPM_PROC_MODE mode)
 {
 #if !BINARY_FEATURE
-   int    thresh;
-    int    maxPointNum;
+    int thresh;
+    int maxPointNum;
     int surfXSize, surfYSize;
 #endif
-    
-    if( kpmHandle == NULL ) return -1;
-    
-    if( kpmHandle->procMode == mode ) return 0;
+
+    if (kpmHandle == NULL)
+        return -1;
+
+    if (kpmHandle->procMode == mode)
+        return 0;
+
     kpmHandle->procMode = mode;
 
 #if !BINARY_FEATURE
-    surfSubGetThresh( kpmHandle->surfHandle, &thresh );
-    surfSubGetMaxPointNum( kpmHandle->surfHandle, &maxPointNum );
-    
-    surfSubDeleteHandle( &(kpmHandle->surfHandle) );
+    surfSubGetThresh(kpmHandle->surfHandle, &thresh);
+    surfSubGetMaxPointNum(kpmHandle->surfHandle, &maxPointNum);
 
-    switch (kpmHandle->procMode) {
-        case KpmProcFullSize:     surfXSize = kpmHandle->xsize;     surfYSize = kpmHandle->ysize;     break;
-        case KpmProcHalfSize:     surfXSize = kpmHandle->xsize/2;   surfYSize = kpmHandle->ysize/2;   break;
-        case KpmProcQuatSize:     surfXSize = kpmHandle->xsize/4;   surfYSize = kpmHandle->ysize/4;   break;
-        case KpmProcOneThirdSize: surfXSize = kpmHandle->xsize/3;   surfYSize = kpmHandle->ysize/3;   break;
-        case KpmProcTwoThirdSize: surfXSize = kpmHandle->xsize/3*2; surfYSize = kpmHandle->ysize/3*2; break;
-        default: ARLOGe("Error: Unknown kpmProcMode %d.\n", kpmHandle->procMode); goto bail; break;
+    surfSubDeleteHandle(&(kpmHandle->surfHandle));
+
+    switch (kpmHandle->procMode)
+    {
+    case KpmProcFullSize:     surfXSize = kpmHandle->xsize;     surfYSize = kpmHandle->ysize;     break;
+
+    case KpmProcHalfSize:     surfXSize = kpmHandle->xsize / 2;   surfYSize = kpmHandle->ysize / 2;   break;
+
+    case KpmProcQuatSize:     surfXSize = kpmHandle->xsize / 4;   surfYSize = kpmHandle->ysize / 4;   break;
+
+    case KpmProcOneThirdSize: surfXSize = kpmHandle->xsize / 3;   surfYSize = kpmHandle->ysize / 3;   break;
+
+    case KpmProcTwoThirdSize: surfXSize = kpmHandle->xsize / 3 * 2; surfYSize = kpmHandle->ysize / 3 * 2; break;
+
+    default: ARLOGe("Error: Unknown kpmProcMode %d.\n", kpmHandle->procMode); goto bail; break;
     }
+
     kpmHandle->surfHandle = surfSubCreateHandle(surfXSize, surfYSize, AR_PIXEL_FORMAT_MONO);
-    if (!kpmHandle->surfHandle) {
+    if (!kpmHandle->surfHandle)
+    {
         ARLOGe("Error: unable to initialise KPM feature matching.\n");
         goto bail;
     }
 
-    surfSubSetThresh( kpmHandle->surfHandle, thresh );
-    surfSubSetMaxPointNum( kpmHandle->surfHandle, maxPointNum );
+    surfSubSetThresh(kpmHandle->surfHandle, thresh);
+    surfSubSetMaxPointNum(kpmHandle->surfHandle, maxPointNum);
 #endif
-    
+
     return 0;
-    
+
 #if !BINARY_FEATURE
 bail:
     return (-1);
 #endif
 }
 
-int kpmGetProcMode( KpmHandle *kpmHandle, KPM_PROC_MODE *mode )
+int kpmGetProcMode(KpmHandle *kpmHandle, KPM_PROC_MODE *mode)
 {
-    if( kpmHandle == NULL ) return -1;
+    if (kpmHandle == NULL)
+        return -1;
+
     *mode = kpmHandle->procMode;
     return 0;
 }
 
-int kpmSetDetectedFeatureMax( KpmHandle *kpmHandle, int  detectedMaxFeature )
+int kpmSetDetectedFeatureMax(KpmHandle *kpmHandle, int detectedMaxFeature)
 {
     kpmHandle->detectedMaxFeature = detectedMaxFeature;
 #if !BINARY_FEATURE
@@ -220,13 +247,13 @@ int kpmSetDetectedFeatureMax( KpmHandle *kpmHandle, int  detectedMaxFeature )
     return 0;
 }
 
-int kpmGetDetectedFeatureMax( KpmHandle *kpmHandle, int *detectedMaxFeature )
+int kpmGetDetectedFeatureMax(KpmHandle *kpmHandle, int *detectedMaxFeature)
 {
     *detectedMaxFeature = kpmHandle->detectedMaxFeature;
     return 0;
 }
 
-int kpmSetSurfThreadNum( KpmHandle *kpmHandle, int surfThreadNum )
+int kpmSetSurfThreadNum(KpmHandle *kpmHandle, int surfThreadNum)
 {
 #if !BINARY_FEATURE
     kpmHandle->surfThreadNum = surfThreadNum;
@@ -237,47 +264,57 @@ int kpmSetSurfThreadNum( KpmHandle *kpmHandle, int surfThreadNum )
 
 
 
-int kpmDeleteHandle( KpmHandle **kpmHandle )
+int kpmDeleteHandle(KpmHandle **kpmHandle)
 {
-    if( *kpmHandle == NULL ) return -1;
+    if (*kpmHandle == NULL)
+        return -1;
 
 #if BINARY_FEATURE
-    //delete (*kpmHandle)->freakMatcherOpencv;
     delete (*kpmHandle)->freakMatcher;
 #else
-    CAnnMatch2  *ann2 = (CAnnMatch2 *)((*kpmHandle)->ann2);
+    CAnnMatch2 *ann2 = (CAnnMatch2*)((*kpmHandle)->ann2);
     delete ann2;
 
-    surfSubDeleteHandle( &((*kpmHandle)->surfHandle) );
-    
+    surfSubDeleteHandle(&((*kpmHandle)->surfHandle));
 #endif
-    
-    if( (*kpmHandle)->refDataSet.refPoint != NULL ) {
-        free( (*kpmHandle)->refDataSet.refPoint );
+
+    if ((*kpmHandle)->refDataSet.refPoint != NULL)
+    {
+        free((*kpmHandle)->refDataSet.refPoint);
     }
-    if( (*kpmHandle)->refDataSet.pageInfo != NULL ) {
-        free( (*kpmHandle)->refDataSet.pageInfo );
+
+    if ((*kpmHandle)->refDataSet.pageInfo != NULL)
+    {
+        free((*kpmHandle)->refDataSet.pageInfo);
     }
+
 #if !BINARY_FEATURE
-    if( (*kpmHandle)->preRANSAC.match != NULL ) {
-        free( (*kpmHandle)->preRANSAC.match );
-    }
-    if( (*kpmHandle)->aftRANSAC.match != NULL ) {
-        free( (*kpmHandle)->aftRANSAC.match );
+    if ((*kpmHandle)->preRANSAC.match != NULL)
+    {
+        free((*kpmHandle)->preRANSAC.match);
     }
 
-    if( (*kpmHandle)->skipRegion.region != NULL ) {
-        free( (*kpmHandle)->skipRegion.region );
+    if ((*kpmHandle)->aftRANSAC.match != NULL)
+    {
+        free((*kpmHandle)->aftRANSAC.match);
+    }
+
+    if ((*kpmHandle)->skipRegion.region != NULL)
+    {
+        free((*kpmHandle)->skipRegion.region);
     }
 #endif
-    if( (*kpmHandle)->result != NULL ) {
-        free( (*kpmHandle)->result );
-    }
-    if( (*kpmHandle)->inDataSet.coord != NULL ) {
-        free( (*kpmHandle)->inDataSet.coord );
+    if ((*kpmHandle)->result != NULL)
+    {
+        free((*kpmHandle)->result);
     }
 
-    free( *kpmHandle );
+    if ((*kpmHandle)->inDataSet.coord != NULL)
+    {
+        free((*kpmHandle)->inDataSet.coord);
+    }
+
+    free(*kpmHandle);
     *kpmHandle = NULL;
 
     return 0;

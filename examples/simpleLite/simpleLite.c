@@ -51,7 +51,7 @@
  */
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 
 #include <stdio.h>
@@ -72,7 +72,7 @@
 #include <AR/gsub_lite.h>
 
 // ============================================================================
-//	Constants
+//      Constants
 // ============================================================================
 
 #define VIEW_SCALEFACTOR  1.0                       // Units received from ARToolKit tracking will be multiplied by this factor before being used in OpenGL drawing.
@@ -80,7 +80,7 @@
 #define VIEW_DISTANCE_MAX 10000.0                   // Objects further away from the camera than this will not be displayed. OpenGL units.
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // Preferences.
@@ -116,7 +116,7 @@ static float                     gDrawRotateAngle = 0;  // For use in drawing.
 
 
 // ============================================================================
-//	Function prototypes.
+//      Function prototypes.
 // ============================================================================
 
 static void print(const char *text, const float x, const float y, int calculateXFromRightEdge, int calculateYFromTopEdge);
@@ -125,7 +125,7 @@ static void printHelpKeys();
 static void printMode();
 
 // ============================================================================
-//	Functions
+//      Functions
 // ============================================================================
 
 // Something to look at, draw a rotating colour cube.
@@ -145,8 +145,10 @@ static void DrawCube(void)
         {255, 0, 255, 255}, {255, 0, 0, 255}, {0, 0, 0, 255}, {0, 0, 255, 255}
     };
     const GLubyte cube_faces[6][4] =    /* ccw-winding */
-    { /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
-               /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
+    {   /* +z */
+        {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
+        /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7}
+    };
 
     glPushMatrix(); // Save world coordinate system.
     glRotatef(gDrawRotateAngle, 0.0f, 0.0f, 1.0f); // Rotate about z axis.
@@ -181,7 +183,6 @@ static void DrawCubeUpdate(float timeDelta)
     if (gDrawRotate)
     {
         gDrawRotateAngle += timeDelta * 45.0f;         // Rotate cube at 45 degrees per second.
-
         if (gDrawRotateAngle > 360.0f)
             gDrawRotateAngle -= 360.0f;
     }
@@ -214,7 +215,6 @@ static int setupCamera(const char *cparam_name, char *vconf, ARParamLT **cparamL
 
     // Get the format in which the camera is returning pixels.
     pixFormat = arVideoGetPixelFormat();
-
     if (pixFormat == AR_PIXEL_FORMAT_INVALID)
     {
         ARLOGe("setupCamera(): Camera is using unsupported pixel format.\n");
@@ -396,7 +396,6 @@ static void Keyboard(unsigned char key, int x, int y)
 
     case 's':
     case 'S':
-
         if (!gARTImageSavePlease)
             gARTImageSavePlease = TRUE;
 
@@ -405,7 +404,6 @@ static void Keyboard(unsigned char key, int x, int y)
     case '?':
     case '/':
         gShowHelp++;
-
         if (gShowHelp > 1)
             gShowHelp = 0;
 
@@ -425,7 +423,6 @@ static void Keyboard(unsigned char key, int x, int y)
         int threshhold;
         arGetLabelingThresh(gARHandle, &threshhold);
         threshhold += threshChange;
-
         if (threshhold < 0)
             threshhold = 0;
 
@@ -434,7 +431,6 @@ static void Keyboard(unsigned char key, int x, int y)
 
         arSetLabelingThresh(gARHandle, threshhold);
     }
-
 }
 
 static void mainLoop(void)
@@ -451,7 +447,6 @@ static void mainLoop(void)
     // Find out how long since mainLoop() last ran.
     ms        = glutGet(GLUT_ELAPSED_TIME);
     s_elapsed = (float)(ms - ms_prev) * 0.001f;
-
     if (s_elapsed < 0.01f)
         return;                        // Don't update more often than 100 Hz.
 
@@ -469,7 +464,6 @@ static void mainLoop(void)
         {
             char imageNumberText[15];
             sprintf(imageNumberText, "image-%04d.jpg", imageNumber++);
-
             if (arVideoSaveImageJPEG(gARHandle->xsize, gARHandle->ysize, gARHandle->arPixelFormat, gARTImage, imageNumberText, 75, 0) < 0)
             {
                 ARLOGe("Error saving video image.\n");
@@ -498,7 +492,6 @@ static void mainLoop(void)
                     k = j;                          // First marker detected.
                 else if (gARHandle->markerInfo[j].cf > gARHandle->markerInfo[k].cf)
                     k = j;                                                                                 // Higher confidence marker detected.
-
             }
         }
 
@@ -519,8 +512,8 @@ static void mainLoop(void)
 }
 
 //
-//	This function is called on events when the visibility of the
-//	GLUT window changes (including when it first becomes visible).
+//      This function is called on events when the visibility of the
+//      GLUT window changes (including when it first becomes visible).
 //
 static void Visibility(int visible)
 {
@@ -535,8 +528,8 @@ static void Visibility(int visible)
 }
 
 //
-//	This function is called when the
-//	GLUT window is resized.
+//      This function is called when the
+//      GLUT window is resized.
 //
 static void Reshape(int w, int h)
 {
@@ -587,7 +580,7 @@ static void Display(void)
     {
         // Calculate the camera position relative to the marker.
         // Replace VIEW_SCALEFACTOR with 1.0 to make one drawing unit equal to 1.0 ARToolKit units (usually millimeters).
-        arglCameraViewRH(gPatt_trans, m, VIEW_SCALEFACTOR);
+        arglCameraViewRH((const ARdouble (*)[4])gPatt_trans, m, VIEW_SCALEFACTOR);
 #ifdef ARDOUBLE_IS_FLOAT
         glLoadMatrixf(m);
 #else
@@ -599,7 +592,6 @@ static void Display(void)
 
         // All lighting and geometry to be drawn relative to the marker goes here.
         DrawCube();
-
     }     // gPatt_found
 
     // Any 2D overlays go here.
@@ -635,7 +627,7 @@ int main(int argc, char **argv)
     char glutGamemode[32];
     char cparam_name[] = "Data/camera_para.dat";
     char vconf[]       = "";
-    char patt_name[]   = "Data/patt.hiro";
+    char patt_name[]   = "Data/hiro.patt";
 
     //
     // Library inits.
@@ -653,13 +645,12 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    // 
+    //
     // Graphics setup.
     //
 
     // Set up GL context(s) for OpenGL to draw into.
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-
     if (!windowed)
     {
         if (windowRefresh)
@@ -791,7 +782,6 @@ static void printHelpKeys()
     for (i = 0; i < helpTextLineCount; i++)
     {
         w = (float)glutBitmapLength(GLUT_BITMAP_HELVETICA_10, (unsigned char*)helpText[i]);
-
         if (w > bw)
             bw = w;
     }
@@ -818,7 +808,6 @@ static void printMode()
     // Image size and processing mode.
     arVideoGetSize(&xsize, &ysize);
     arGetImageProcMode(gARHandle, &mode);
-
     if (mode == AR_IMAGE_PROC_FRAME_IMAGE)
         text_p = "full frame";
     else
@@ -847,7 +836,6 @@ static void printMode()
     }
 
     snprintf(text, sizeof(text), "Threshold mode: %s", text_p);
-
     if (threshMode != AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE)
     {
         arGetLabelingThresh(gARHandle, &thresh);
@@ -887,5 +875,4 @@ static void printMode()
     snprintf(text, sizeof(text), "Drawing into %dx%d window", windowWidth, windowHeight);
     print(text, 2.0f,  (line - 1) * 12.0f + 2.0f, 0, 1);
     line++;
-
 }

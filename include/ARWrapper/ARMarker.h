@@ -51,89 +51,87 @@ class ARController; // Forward declaration of owner.
 /**
  * Base class for supported marker types.
  */
-class ARMarker {
-    
+class ARMarker
+{
 private:
-    ARFilterTransMatInfo *m_ftmi;
-    ARdouble   m_filterCutoffFrequency;
-    ARdouble   m_filterSampleRate;
+ARFilterTransMatInfo *m_ftmi;
+ARdouble             m_filterCutoffFrequency;
+ARdouble             m_filterSampleRate;
 
 protected:
-    ARdouble trans[3][4];                   ///< Transformation from camera to this marker. If stereo, transform from left camera to this marker.
-	/**
-	 * Allocates space for patterns within this marker.
-	 * @param count	The number of patterns to allocate
-	 */
-	void allocatePatterns(int count);
+ARdouble trans[3][4];                       ///< Transformation from camera to this marker. If stereo, transform from left camera to this marker.
+/**
+ * Allocates space for patterns within this marker.
+ * @param count The number of patterns to allocate
+ */
+void allocatePatterns(int count);
 
-	/**
-	 * Frees allocated patterns and resets the pattern count to zero.
-	 */
-	void freePatterns();
+/**
+ * Frees allocated patterns and resets the pattern count to zero.
+ */
+void freePatterns();
 
-    ARdouble m_positionScaleFactor;
+ARdouble m_positionScaleFactor;
 
 public:
-    
-	enum MarkerType {
-		SINGLE,								///< A standard single square marker
-		MULTI,								///< A composite marker made up of multiple single markers
-        NFT                                 ///< A rectangular textured marker backed by an NFT data set.
-	};
 
-	int UID;								///< Internal unique ID (note: not the same as ARToolKit pattern ID)
-	MarkerType type;						///< Type of marker: single, multi, ...
-	
-    // Factory methods.
-    static std::vector<ARMarker *> newFromConfigDataFile(const char *markersConfigDataFilePath, ARPattHandle *arPattHandle, int *patternDetectionMode_out);
-    static ARMarker* newWithConfig(const char* cfg, ARPattHandle *arPattHandle);
-    
-	
-    // Inputs from subclasses.
-    bool visiblePrev;                       ///< Whether or not the marker was visible prior to last update.
-	bool visible;							///< Whether or not the marker is visible at current time.
-    
-    // Output.
-	ARdouble transformationMatrix[16];		///< Transformation suitable for use in OpenGL
-	ARdouble transformationMatrixR[16];		///< Transformation suitable for use in OpenGL
-	
-	int patternCount;						///< Number of patterns in this marker (1 for single)
-	ARPattern** patterns;					///< Array of pointers to patterns
-
-	/**
-	 * Constructor takes the type of this marker.
-	 */
-	ARMarker(MarkerType type);
-
-	virtual ~ARMarker();
-	
-    void setPositionScalefactor(ARdouble scale);
-    ARdouble positionScalefactor();
-    
-	/**
-	 * Completes an update begun in the parent class, performing filtering, generating
-     * OpenGL view matrix and notifying listeners (just a log message at the moment).
-     * Subclasses should first do their required updates, set visible, visiblePrev,
-     * and trans[3][4] then call ARMarker::update().
-	 * @return true if successful, false if an error occurred
-	 */
-    virtual bool update(ARdouble transL2R[3][4] = NULL);
-
-	/**
-	 * Returns the specified pattern within this marker.
-	 * @param n		The pattern to retrieve
-	 */
-	ARPattern* getPattern(int n);
-    
-    // Filter control.
-    void setFiltered(bool flag);
-    bool isFiltered();
-    ARdouble filterSampleRate();
-    void setFilterSampleRate(ARdouble rate);
-    ARdouble filterCutoffFrequency();
-    void setFilterCutoffFrequency(ARdouble freq);
-
+enum MarkerType
+{
+    SINGLE,                                                                     ///< A standard single square marker
+    MULTI,                                                                      ///< A composite marker made up of multiple single markers
+    NFT                                     ///< A rectangular textured marker backed by an NFT data set.
 };
 
+int        UID;                                                                 ///< Internal unique ID (note: not the same as ARToolKit pattern ID)
+MarkerType type;                                                        ///< Type of marker: single, multi, ...
 
+// Factory methods.
+static std::vector<ARMarker*> newFromConfigDataFile(const char *markersConfigDataFilePath, ARPattHandle *arPattHandle, int *patternDetectionMode_out);
+static ARMarker* newWithConfig(const char *cfg, ARPattHandle *arPattHandle);
+
+
+// Inputs from subclasses.
+bool visiblePrev;                           ///< Whether or not the marker was visible prior to last update.
+bool visible;                                                           ///< Whether or not the marker is visible at current time.
+
+// Output.
+ARdouble transformationMatrix[16];                      ///< Transformation suitable for use in OpenGL
+ARdouble transformationMatrixR[16];                     ///< Transformation suitable for use in OpenGL
+
+int       patternCount;                                                 ///< Number of patterns in this marker (1 for single)
+ARPattern **patterns;                                           ///< Array of pointers to patterns
+
+/**
+ * Constructor takes the type of this marker.
+ */
+ARMarker(MarkerType type);
+
+virtual ~ARMarker();
+
+void setPositionScalefactor(ARdouble scale);
+ARdouble positionScalefactor();
+
+/**
+ * Completes an update begun in the parent class, performing filtering, generating
+ * OpenGL view matrix and notifying listeners (just a log message at the moment).
+ * Subclasses should first do their required updates, set visible, visiblePrev,
+ * and trans[3][4] then call ARMarker::update().
+ * @return true if successful, false if an error occurred
+ */
+virtual bool update(const ARdouble transL2R[3][4] = NULL);
+
+/**
+ * Returns the specified pattern within this marker.
+ * @param n             The pattern to retrieve
+ */
+ARPattern* getPattern(int n);
+
+// Filter control.
+void setFiltered(bool flag);
+bool isFiltered();
+ARdouble filterSampleRate();
+void setFilterSampleRate(ARdouble rate);
+ARdouble filterCutoffFrequency();
+void setFilterCutoffFrequency(ARdouble freq);
+};
 #endif // !ARMARKER_H

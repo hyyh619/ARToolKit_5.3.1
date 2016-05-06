@@ -36,11 +36,12 @@
 #include <AR/video.h>
 #include <string.h> // strdup(), asprintf()
 
-struct _ASPECT_RATIOS_ENTRY {
-    int width;
-    int height;
+struct _ASPECT_RATIOS_ENTRY
+{
+    int                   width;
+    int                   height;
     AR_VIDEO_ASPECT_RATIO aspectRatio;
-    char *name;
+    char                  *name;
 };
 
 const static struct _ASPECT_RATIOS_ENTRY aspectRatios[] =
@@ -56,7 +57,7 @@ const static struct _ASPECT_RATIOS_ENTRY aspectRatios[] =
     {16, 9,  AR_VIDEO_ASPECT_RATIO_16_9, "16:9"},  // 1.778: 640x360, 960x540, 1024x576, 1280x720 (720p), 1600x900, 1920x1080 (1080p)
     {9,  5,  AR_VIDEO_ASPECT_RATIO_9_5, "9:5"},    // 1.8:   864x480
     {17, 9,  AR_VIDEO_ASPECT_RATIO_17_9, "17:9"},  // 1.889: 2040x1080
-    
+
     // Some values that are close to standard ratios.
     {683, 384, AR_VIDEO_ASPECT_RATIO_16_9, "16:9"}, // ~1.778: 1366x768
     {85,  48,  AR_VIDEO_ASPECT_RATIO_16_9, "16:9"}, // ~1.778: 1360x768
@@ -69,62 +70,80 @@ const static struct _ASPECT_RATIOS_ENTRY aspectRatios[] =
     {37,  30,  AR_VIDEO_ASPECT_RATIO_11_9, "11:9"}, // ~1.233: 592x480
     {192, 145, AR_VIDEO_ASPECT_RATIO_4_3, "4:3"}    // ~1.324: 1152x870
 };
-#define _ASPECT_RATIOS_COUNT (sizeof(aspectRatios)/sizeof(aspectRatios[0]))
+#define _ASPECT_RATIOS_COUNT (sizeof(aspectRatios) / sizeof(aspectRatios[0]))
 
 AR_VIDEO_ASPECT_RATIO arVideoUtilFindAspectRatio(int w, int h)
 {
     int i;
-    
+
     // Reduce.
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-#define PRIMES_COUNT (sizeof(primes)/sizeof(primes[0]))
+
+#define PRIMES_COUNT (sizeof(primes) / sizeof(primes[0]))
 
     int w_lcd = w, h_lcd = h;
-    for (i = 0; i < PRIMES_COUNT; i++) {
+
+    for (i = 0; i < PRIMES_COUNT; i++)
+    {
         int prime = primes[i];
-        while (w_lcd >= prime && h_lcd >= prime && w_lcd % prime == 0 && h_lcd % prime == 0) {
+
+        while (w_lcd >= prime && h_lcd >= prime && w_lcd % prime == 0 && h_lcd % prime == 0)
+        {
             w_lcd /= prime; h_lcd /= prime;
         }
     }
-    
+
     // Find.
-    for (i = 0; i < _ASPECT_RATIOS_COUNT; i++) {
-        if (w_lcd == aspectRatios[i].width && h_lcd == aspectRatios[i].height) return aspectRatios[i].aspectRatio;
+    for (i = 0; i < _ASPECT_RATIOS_COUNT; i++)
+    {
+        if (w_lcd == aspectRatios[i].width && h_lcd == aspectRatios[i].height)
+            return aspectRatios[i].aspectRatio;
     }
+
     return (AR_VIDEO_ASPECT_RATIO_UNIQUE);
 }
 
-char *arVideoUtilFindAspectRatioName(int w, int h)
+char* arVideoUtilFindAspectRatioName(int w, int h)
 {
-    int i;
+    int        i;
     const char format[] = "%d:%d";
+
 #ifdef _WIN32
     int len;
 #endif
     char *ret;
-    
+
     // Reduce.
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-#define PRIMES_COUNT (sizeof(primes)/sizeof(primes[0]))
-    
+#define PRIMES_COUNT (sizeof(primes) / sizeof(primes[0]))
+
     int w_lcd = w, h_lcd = h;
-    for (i = 0; i < PRIMES_COUNT; i++) {
+
+    for (i = 0; i < PRIMES_COUNT; i++)
+    {
         int prime = primes[i];
-        while (w_lcd >= prime && h_lcd >= prime && w_lcd % prime == 0 && h_lcd % prime == 0) {
+
+        while (w_lcd >= prime && h_lcd >= prime && w_lcd % prime == 0 && h_lcd % prime == 0)
+        {
             w_lcd /= prime; h_lcd /= prime;
         }
     }
-    
+
     // Find.
-    for (i = 0; i < _ASPECT_RATIOS_COUNT; i++) {
-        if (w_lcd == aspectRatios[i].width && h_lcd == aspectRatios[i].height) return (strdup(aspectRatios[i].name));
+    for (i = 0; i < _ASPECT_RATIOS_COUNT; i++)
+    {
+        if (w_lcd == aspectRatios[i].width && h_lcd == aspectRatios[i].height)
+            return (strdup(aspectRatios[i].name));
     }
+
 #ifdef _WIN32
     len = _scprintf(format, w, h);
-    if (len >= 0) {
-        ret = (char *)malloc((len + 1)*sizeof(char)); // +1 for nul-term.
+    if (len >= 0)
+    {
+        ret = (char*)malloc((len + 1) * sizeof(char)); // +1 for nul-term.
         sprintf(ret, format, w, h);
     }
+
 #else
     asprintf(&ret, format, w, h);
 #endif

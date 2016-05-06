@@ -53,7 +53,7 @@
 
 
 // ============================================================================
-//	Includes
+//      Includes
 // ============================================================================
 
 #include <stdio.h>
@@ -71,30 +71,30 @@
 #include <AR/gsub_lite.h>
 
 // ============================================================================
-//	Constants
+//      Constants
 // ============================================================================
 
-#define VIEW_SCALEFACTOR                1.0         // Use ARToolKit units (millimeters) for drawing.
-#define VIEW_DISTANCE_MIN               5.0         // Objects closer to the camera than this will not be displayed.
-#define VIEW_DISTANCE_MAX               3000.0          // Objects further away from the camera than this will not be displayed.
+#define VIEW_SCALEFACTOR  1.0                       // Use ARToolKit units (millimeters) for drawing.
+#define VIEW_DISTANCE_MIN 5.0                       // Objects closer to the camera than this will not be displayed.
+#define VIEW_DISTANCE_MAX 3000.0                        // Objects further away from the camera than this will not be displayed.
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // Preferences.
 static int prefWindowed = TRUE;
-static int prefWidth = 640;                                     // Fullscreen mode width.
-static int prefHeight = 480;                            // Fullscreen mode height.
-static int prefDepth = 32;                                      // Fullscreen mode bit depth.
-static int prefRefresh = 0;                                     // Fullscreen mode refresh rate. Set to 0 to use default rate.
+static int prefWidth    = 640;                                  // Fullscreen mode width.
+static int prefHeight   = 480;                          // Fullscreen mode height.
+static int prefDepth    = 32;                                   // Fullscreen mode bit depth.
+static int prefRefresh  = 0;                                    // Fullscreen mode refresh rate. Set to 0 to use default rate.
 
 // Image acquisition.
 static ARUint8 *gARTImage = NULL;
 
 // Marker detection.
-static ARHandle     *gARHandle = NULL;
-static ARPattHandle *gARPattHandle = NULL;
+static ARHandle     *gARHandle             = NULL;
+static ARPattHandle *gARPattHandle         = NULL;
 static long         gCallCountMarkerDetect = 0;
 
 // Transformation matrix retrieval.
@@ -104,14 +104,14 @@ static int                gPatt_found = FALSE;          // Per-marker, but we ar
 static ARMultiMarkerInfoT *gMultiConfig;
 
 // Drawing.
-static ARParamLT                 *gCparamLT = NULL;
-static ARGL_CONTEXT_SETTINGS_REF gArglSettings = NULL;
-static int                       gDrawRotate = FALSE;
+static ARParamLT                 *gCparamLT       = NULL;
+static ARGL_CONTEXT_SETTINGS_REF gArglSettings    = NULL;
+static int                       gDrawRotate      = FALSE;
 static float                     gDrawRotateAngle = 0;  // For use in drawing.
 
 
 // ============================================================================
-//	Functions
+//      Functions
 // ============================================================================
 
 // Colour cube data.
@@ -126,8 +126,10 @@ static const GLubyte cube_vertex_colors[8][4] =
     {255, 0, 255, 255}, {255, 0, 0, 255}, {0, 0, 0, 255}, {0, 0, 255, 255}
 };
 static const GLubyte cube_faces[6][4] =    /* ccw-winding */
-{ /* +z */ {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
-           /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7} };
+{   /* +z */
+    {3, 2, 1, 0}, /* -y */ {2, 3, 7, 6}, /* +y */ {0, 1, 5, 4},
+    /* -x */ {3, 0, 4, 7}, /* +x */ {1, 2, 6, 5}, /* -z */ {4, 5, 6, 7}
+};
 
 static void DrawCubeMarkerMask(void)
 {
@@ -373,9 +375,11 @@ static void Keyboard(unsigned char key, int x, int y)
         cleanup();
         exit(0);
         break;
+
     case ' ':
         gDrawRotate = !gDrawRotate;
         break;
+
     case 'C':
     case 'c':
         ARLOGe("*** Camera - %f (frame/sec)\n", (double)gCallCountMarkerDetect / arUtilTimer());
@@ -383,18 +387,22 @@ static void Keyboard(unsigned char key, int x, int y)
         arUtilTimerReset();
         debugReportMode(gARHandle);
         break;
+
     case '-':
         threshChange = -5;
         break;
+
     case '+':
     case '=':
         threshChange = +5;
         break;
+
     case 'D':
     case 'd':
         arGetDebugMode(gARHandle, &mode);
         arSetDebugMode(gARHandle, !mode);
         break;
+
     case 'B':
     case 'b':
         arGetLabelingMode(gARHandle, &mode);
@@ -404,6 +412,7 @@ static void Keyboard(unsigned char key, int x, int y)
             arSetLabelingMode(gARHandle, AR_LABELING_BLACK_REGION);
 
         break;
+
     case '?':
     case '/':
         ARLOG("Keys:\n");
@@ -416,6 +425,7 @@ static void Keyboard(unsigned char key, int x, int y)
         ARLOG("\nAdditionally, the ARVideo library supplied the following help text:\n");
         arVideoDispOption();
         break;
+
     default:
         break;
     }
@@ -434,7 +444,6 @@ static void Keyboard(unsigned char key, int x, int y)
         arSetLabelingThresh(gARHandle, threshhold);
         ARLOG("Threshhold changed to %d.\n", threshhold);
     }
-
 }
 
 static void mainLoop(void)
@@ -448,7 +457,7 @@ static void mainLoop(void)
     int j, k;
 
     // Find out how long since mainLoop() last ran.
-    ms = glutGet(GLUT_ELAPSED_TIME);
+    ms        = glutGet(GLUT_ELAPSED_TIME);
     s_elapsed = (float)(ms - ms_prev) * 0.001f;
     if (s_elapsed < 0.01f)
         return;                        // Don't update more often than 100 Hz.
@@ -495,8 +504,8 @@ static void mainLoop(void)
 }
 
 //
-//	This function is called on events when the visibility of the
-//	GLUT window changes (including when it first becomes visible).
+//      This function is called on events when the visibility of the
+//      GLUT window changes (including when it first becomes visible).
 //
 static void Visibility(int visible)
 {
@@ -511,8 +520,8 @@ static void Visibility(int visible)
 }
 
 //
-//	This function is called when the
-//	GLUT window is resized.
+//      This function is called when the
+//      GLUT window is resized.
 //
 static void Reshape(int w, int h)
 {
@@ -557,14 +566,13 @@ static void Display(void)
     glLoadIdentity();
     // Lighting and geometry that moves with the camera should go here.
     // (I.e. must be specified before viewing transformations.)
-    //none
+    // none
 
     if (gPatt_found)
     {
-
         // Calculate the camera position relative to the marker.
         // Replace VIEW_SCALEFACTOR with 1.0 to make one drawing unit equal to 1.0 ARToolKit units (usually millimeters).
-        arglCameraViewRH(gPatt_trans, m, VIEW_SCALEFACTOR);
+        arglCameraViewRH((const ARdouble (*)[4])gPatt_trans, m, VIEW_SCALEFACTOR);
 #ifdef ARDOUBLE_IS_FLOAT
         glLoadMatrixf(m);
 #else
@@ -578,11 +586,10 @@ static void Display(void)
 
         // All lighting and geometry to be drawn relative to the marker goes here.
         DrawCube();
-
     }     // gPatt_found
 
     // Any 2D overlays go here.
-    //none
+    // none
 
     glutSwapBuffers();
 }
@@ -591,8 +598,8 @@ int main(int argc, char **argv)
 {
     char       glutGamemode[32];
     const char *cparam_name = "Data/camera_para.dat";
-    char       vconf[] = "";
-    const char *patt_name = "Data/cubeMarkerConfig.dat";
+    char       vconf[]      = "";
+    const char *patt_name   = "Data/cubeMarkerConfig.dat";
 
     //
     // Library inits.

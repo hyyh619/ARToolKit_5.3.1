@@ -19,19 +19,15 @@
 
 namespace cvflann
 {
-
 namespace anyimpl
 {
-
 struct bad_any_cast
-{
-};
+{};
 
 struct empty_any
-{
-};
+{};
 
-inline std::ostream& operator <<(std::ostream& out, const empty_any&)
+inline std::ostream&operator <<(std::ostream&out, const empty_any&)
 {
     out << "[empty_any]";
     return out;
@@ -39,14 +35,14 @@ inline std::ostream& operator <<(std::ostream& out, const empty_any&)
 
 struct base_any_policy
 {
-    virtual void static_delete(void** x) = 0;
-    virtual void copy_from_value(void const* src, void** dest) = 0;
-    virtual void clone(void* const* src, void** dest) = 0;
-    virtual void move(void* const* src, void** dest) = 0;
-    virtual void* get_value(void** src) = 0;
-    virtual ::size_t get_size() = 0;
-    virtual const std::type_info& type() = 0;
-    virtual void print(std::ostream& out, void* const* src) = 0;
+    virtual void                static_delete(void **x)                       = 0;
+    virtual void                copy_from_value(void const *src, void **dest) = 0;
+    virtual void                clone(void* const *src, void **dest)          = 0;
+    virtual void                move(void* const *src, void **dest)           = 0;
+    virtual void                * get_value(void **src)                       = 0;
+    virtual ::size_t            get_size()                                    = 0;
+    virtual const std::type_info&type()                                       = 0;
+    virtual void                print(std::ostream&out, void* const *src)     = 0;
 
 #ifdef OPENCV_CAN_BREAK_BINARY_COMPATIBILITY
     virtual ~base_any_policy() {}
@@ -56,55 +52,81 @@ struct base_any_policy
 template<typename T>
 struct typed_base_any_policy : base_any_policy
 {
-    virtual ::size_t get_size() { return sizeof(T); }
-    virtual const std::type_info& type() { return typeid(T); }
-
+    virtual ::size_t get_size()
+    {
+        return sizeof(T);
+    }
+    virtual const std::type_info&type()
+    {
+        return typeid(T);
+    }
 };
 
 template<typename T>
 struct small_any_policy : typed_base_any_policy<T>
 {
     virtual void static_delete(void**) { }
-    virtual void copy_from_value(void const* src, void** dest)
+    virtual void copy_from_value(void const *src, void **dest)
     {
-        new (dest) T(* reinterpret_cast<T const*>(src));
+        new (dest) T(*reinterpret_cast<T const*>(src));
     }
-    virtual void clone(void* const* src, void** dest) { *dest = *src; }
-    virtual void move(void* const* src, void** dest) { *dest = *src; }
-    virtual void* get_value(void** src) { return reinterpret_cast<void*>(src); }
-    virtual void print(std::ostream& out, void* const* src) { out << *reinterpret_cast<T const*>(src); }
+    virtual void clone(void* const *src, void **dest)
+    {
+        *dest = *src;
+    }
+    virtual void move(void* const *src, void **dest)
+    {
+        *dest = *src;
+    }
+    virtual void* get_value(void **src)
+    {
+        return reinterpret_cast<void*>(src);
+    }
+    virtual void print(std::ostream&out, void* const *src)
+    {
+        out << *reinterpret_cast<T const*>(src);
+    }
 };
 
 template<typename T>
 struct big_any_policy : typed_base_any_policy<T>
 {
-    virtual void static_delete(void** x)
+    virtual void static_delete(void **x)
     {
-        if (* x) delete (* reinterpret_cast<T**>(x)); *x = NULL;
+        if (*x)
+            delete (*reinterpret_cast<T**>(x));
+
+        *x = NULL;
     }
-    virtual void copy_from_value(void const* src, void** dest)
+    virtual void copy_from_value(void const *src, void **dest)
     {
         *dest = new T(*reinterpret_cast<T const*>(src));
     }
-    virtual void clone(void* const* src, void** dest)
+    virtual void clone(void* const *src, void **dest)
     {
         *dest = new T(**reinterpret_cast<T* const*>(src));
     }
-    virtual void move(void* const* src, void** dest)
+    virtual void move(void* const *src, void **dest)
     {
         (*reinterpret_cast<T**>(dest))->~T();
         **reinterpret_cast<T**>(dest) = **reinterpret_cast<T* const*>(src);
     }
-    virtual void* get_value(void** src) { return *src; }
-    virtual void print(std::ostream& out, void* const* src) { out << *reinterpret_cast<T const*>(*src); }
+    virtual void* get_value(void **src)
+    {
+        return *src;
+    }
+    virtual void print(std::ostream&out, void* const *src)
+    {
+        out << *reinterpret_cast<T const*>(*src);
+    }
 };
 
-template<> inline void big_any_policy<flann_centers_init_t>::print(std::ostream& out, void* const* src)
+template<> inline void big_any_policy<flann_centers_init_t>::print(std::ostream&out, void* const *src)
 {
     out << int(*reinterpret_cast<flann_centers_init_t const*>(*src));
 }
 
-template<> inline void big_any_policy<flann_algorithm_t>::print(std::ostream& out, void* const* src)
+template<> inline void big_any_policy<flann_algorithm_t>::print(std::ostream&out, void* const *src)
 {
     out << int(*reinterpret_cast<flann_algorithm_t const*>(*src));
 }
@@ -132,8 +154,8 @@ struct choose_policy<any>
 };
 
 /// Specializations for small types.
-#define SMALL_POLICY(TYPE) \
-    template<> \
+#define SMALL_POLICY(TYPE)                                            \
+    template<>                                                        \
     struct choose_policy<TYPE> { typedef small_any_policy<TYPE> type; \
     }
 
@@ -157,19 +179,19 @@ base_any_policy* get_policy()
     static typename choose_policy<T>::type policy;
     return &policy;
 }
-} // namespace anyimpl
+}   // namespace anyimpl
 
 struct any
 {
 private:
     // fields
-    anyimpl::base_any_policy* policy;
-    void* object;
+    anyimpl::base_any_policy *policy;
+    void                     *object;
 
 public:
     /// Initializing constructor.
-    template <typename T>
-    any(const T& x)
+    template<typename T>
+    any(const T&x)
         : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL)
     {
         assign(x);
@@ -181,14 +203,14 @@ public:
     { }
 
     /// Special initializing constructor for string literals.
-    any(const char* x)
+    any(const char *x)
         : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL)
     {
         assign(x);
     }
 
     /// Copy constructor.
-    any(const any& x)
+    any(const any&x)
         : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL)
     {
         assign(x);
@@ -201,7 +223,7 @@ public:
     }
 
     /// Assignment function from another any.
-    any& assign(const any& x)
+    any&assign(const any&x)
     {
         reset();
         policy = x.policy;
@@ -210,8 +232,8 @@ public:
     }
 
     /// Assignment function.
-    template <typename T>
-    any& assign(const T& x)
+    template<typename T>
+    any&assign(const T&x)
     {
         reset();
         policy = anyimpl::get_policy<T>();
@@ -221,41 +243,46 @@ public:
 
     /// Assignment operator.
     template<typename T>
-    any& operator=(const T& x)
+    any&operator=(const T&x)
     {
         return assign(x);
     }
 
     /// Assignment operator, specialed for literal strings.
     /// They have types like const char [6] which don't work as expected.
-    any& operator=(const char* x)
+    any&operator=(const char *x)
     {
         return assign(x);
     }
 
     /// Utility functions
-    any& swap(any& x)
+    any&swap(any&x)
     {
         std::swap(policy, x.policy);
         std::swap(object, x.object);
+
         return *this;
     }
 
     /// Cast operator. You can only cast to the original type.
     template<typename T>
-    T& cast()
+    T&cast()
     {
-        if (policy->type() != typeid(T)) throw anyimpl::bad_any_cast();
-        T* r = reinterpret_cast<T*>(policy->get_value(&object));
+        if (policy->type() != typeid(T))
+            throw anyimpl::bad_any_cast();
+
+        T *r = reinterpret_cast<T*>(policy->get_value(&object));
         return *r;
     }
 
     /// Cast operator. You can only cast to the original type.
     template<typename T>
-    const T& cast() const
+    const T&cast() const
     {
-        if (policy->type() != typeid(T)) throw anyimpl::bad_any_cast();
-        T* r = reinterpret_cast<T*>(policy->get_value(const_cast<void **>(&object)));
+        if (policy->type() != typeid(T))
+            throw anyimpl::bad_any_cast();
+
+        T *r = reinterpret_cast<T*>(policy->get_value(const_cast<void**>(&object)));
         return *r;
     }
 
@@ -273,7 +300,7 @@ public:
     }
 
     /// Returns true if the two types are the same.
-    bool compatible(const any& x) const
+    bool compatible(const any&x) const
     {
         return policy->type() == x.policy->type();
     }
@@ -285,20 +312,18 @@ public:
         return policy->type() == typeid(T);
     }
 
-    const std::type_info& type() const
+    const std::type_info&type() const
     {
         return policy->type();
     }
 
-    friend std::ostream& operator <<(std::ostream& out, const any& any_val);
+    friend std::ostream&operator <<(std::ostream&out, const any&any_val);
 };
 
-inline std::ostream& operator <<(std::ostream& out, const any& any_val)
+inline std::ostream&operator <<(std::ostream&out, const any&any_val)
 {
-    any_val.policy->print(out,&any_val.object);
+    any_val.policy->print(out, &any_val.object);
     return out;
 }
-
 }
-
 #endif // OPENCV_FLANN_ANY_H_

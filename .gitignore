@@ -10,7 +10,7 @@ include/AR/config.h
 *~
 
 # remove bin
-bin/*
+
 
 # remove doc
 doc/*
@@ -20,7 +20,7 @@ doc/*
 *.dylib
 
 # cscope files
-cscope.*
+cscope*.out
 
 # ctags
 tags
@@ -34,14 +34,33 @@ ctags.files
 *.obj
 *.pdb
 *.idb
-*.dll
-*.lib
+AR*.dll
+AR*.lib
+KPMd.lib
 *.exe
 *.xml
-*.vbs
 *.txt
 *.exp
 *.gif
 *.avi
 VisualStudio/vs120/Debug/*
 VisualStudio/vs120/Release/*
+
+# android
+android/libs/*
+android/obj/local/
+android/obj/local/armeabi/objs/*
+android/obj/local/armeabi-v7a/objs/*
+AndroidStudio/NFTSimple/*gradle/*
+AndroidStudio/NFTSimple/*idea/*
+AndroidStudio/NFTSimple/aRBaseLib/build/*
+AndroidStudio/NFTSimple/nftSimple/build/*
+AndroidStudio/NFTSimple/build/*
+AndroidStudio/NFTSimple/nftSimple/src/main/libs/armeabi-v7a/libARWrapper.so
+AndroidStudio/NFTSimple/nftSimple/src/main/libs/armeabi/libARWrapper.so
+android/obj/local/armeabi/libARWrapper.so
+android/obj/local/armeabi-v7a/libARWrapper.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi/libnftSimpleNative.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi/libc++_shared.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libnftSimpleNative.so
+AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libc++_shared.so

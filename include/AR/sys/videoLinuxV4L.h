@@ -1,5 +1,5 @@
 /*
- *	videoLinuxV4L.h
+ *      videoLinuxV4L.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -35,22 +35,22 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 5.4
- * Date: 2004/01/01
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 5.4
+* Date: 2004/01/01
+*
+*******************************************************/
 
 #ifndef AR_VIDEO_LINUX_V4L_H
 #define AR_VIDEO_LINUX_V4L_H
 
 #include <stdlib.h>
 #include <linux/types.h>
-//#include <linux/videodev.h>
+// #include <linux/videodev.h>
 #include <libv4l1-videodev.h>
 #include <pthread.h>
 #include <AR/ar.h>
@@ -60,56 +60,58 @@
 extern "C" {
 #endif
 
-#define   AR2VIDEO_V4L_STATUS_IDLE    0
-#define   AR2VIDEO_V4L_STATUS_RUN     1
-#define   AR2VIDEO_V4L_STATUS_STOP    2
+#define   AR2VIDEO_V4L_STATUS_IDLE 0
+#define   AR2VIDEO_V4L_STATUS_RUN  1
+#define   AR2VIDEO_V4L_STATUS_STOP 2
 
-typedef struct {
-    AR2VideoBufferT     in;
-    AR2VideoBufferT     wait;
-    AR2VideoBufferT     out;
-    pthread_mutex_t     mutex;
+typedef struct
+{
+    AR2VideoBufferT in;
+    AR2VideoBufferT wait;
+    AR2VideoBufferT out;
+    pthread_mutex_t mutex;
 } AR2VideoBufferV4LT;
 
-typedef struct {
-    char                   dev[256];
-    int                    width;
-    int                    height;
-    int                    channel;
-    int                    mode;
-    AR_PIXEL_FORMAT        format;
-    int                    debug;
-    double                 contrast;
-    double                 brightness;
-    double                 hue;
-    double                 whiteness;
-    double                 color;
+typedef struct
+{
+    char            dev[256];
+    int             width;
+    int             height;
+    int             channel;
+    int             mode;
+    AR_PIXEL_FORMAT format;
+    int             debug;
+    double          contrast;
+    double          brightness;
+    double          hue;
+    double          whiteness;
+    double          color;
 
-    int                    fd;
-    int                    status;
-    int                    video_cont_num;
-    ARUint8                *map;
-    struct video_mbuf      vm;
-    struct video_mmap      vmm;
-    pthread_t              capture;
-    AR2VideoBufferV4LT     buffer;
+    int                fd;
+    int                status;
+    int                video_cont_num;
+    ARUint8            *map;
+    struct video_mbuf  vm;
+    struct video_mmap  vmm;
+    pthread_t          capture;
+    AR2VideoBufferV4LT buffer;
 } AR2VideoParamV4LT;
 
 
-int                  ar2VideoDispOptionV4L     ( void );
-AR2VideoParamV4LT   *ar2VideoOpenV4L           ( const char *config );
-int                  ar2VideoCloseV4L          ( AR2VideoParamV4LT *vid );
-int                  ar2VideoGetIdV4L          ( AR2VideoParamV4LT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                  ar2VideoGetSizeV4L        ( AR2VideoParamV4LT *vid, int *x,int *y );
-AR_PIXEL_FORMAT      ar2VideoGetPixelFormatV4L ( AR2VideoParamV4LT *vid );
-AR2VideoBufferT     *ar2VideoGetImageV4L       ( AR2VideoParamV4LT *vid );
-int                  ar2VideoCapStartV4L       ( AR2VideoParamV4LT *vid );
-int                  ar2VideoCapStopV4L        ( AR2VideoParamV4LT *vid );
+int                  ar2VideoDispOptionV4L(void);
+AR2VideoParamV4LT* ar2VideoOpenV4L(const char *config);
+int                  ar2VideoCloseV4L(AR2VideoParamV4LT *vid);
+int                  ar2VideoGetIdV4L(AR2VideoParamV4LT *vid, ARUint32 *id0, ARUint32 *id1);
+int                  ar2VideoGetSizeV4L(AR2VideoParamV4LT *vid, int *x, int *y);
+AR_PIXEL_FORMAT      ar2VideoGetPixelFormatV4L(AR2VideoParamV4LT *vid);
+AR2VideoBufferT* ar2VideoGetImageV4L(AR2VideoParamV4LT *vid);
+int                  ar2VideoCapStartV4L(AR2VideoParamV4LT *vid);
+int                  ar2VideoCapStopV4L(AR2VideoParamV4LT *vid);
 
-int                    ar2VideoGetParamiV4L    ( AR2VideoParamV4LT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiV4L    ( AR2VideoParamV4LT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdV4L    ( AR2VideoParamV4LT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdV4L    ( AR2VideoParamV4LT *vid, int paramName, double  value );
+int                    ar2VideoGetParamiV4L(AR2VideoParamV4LT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiV4L(AR2VideoParamV4LT *vid, int paramName, int value);
+int                    ar2VideoGetParamdV4L(AR2VideoParamV4LT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdV4L(AR2VideoParamV4LT *vid, int paramName, double value);
 
 
 #ifdef  __cplusplus

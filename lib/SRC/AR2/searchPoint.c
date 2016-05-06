@@ -43,38 +43,44 @@
 #include <AR2/coord.h>
 #include <AR2/searchPoint.h>
 
-void ar2GetSearchPoint( ARParamLT *cparamLT,
-                        float  trans1[3][4], float  trans2[3][4], float  trans3[3][4],
-                        AR2FeatureCoordT *feature,
-                        int search[3][2] )
+void ar2GetSearchPoint(const ARParamLT *cparamLT,
+                       const float trans1[3][4], const float trans2[3][4], const float trans3[3][4],
+                       AR2FeatureCoordT *feature,
+                       int search[3][2])
 {
-    float    mx, my;
-    float    ox1, ox2, ox3;
-    float    oy1, oy2, oy3;
+    float mx, my;
+    float ox1, ox2, ox3;
+    float oy1, oy2, oy3;
 
     mx = feature->mx;
     my = feature->my;
 
-    if( trans1 == NULL
-     || ar2MarkerCoord2ScreenCoord( cparamLT, trans1, mx, my, &ox1, &oy1 ) < 0 ) {
+    if (trans1 == NULL
+        || ar2MarkerCoord2ScreenCoord(cparamLT, trans1, mx, my, &ox1, &oy1) < 0)
+    {
         goto nosearch1;
     }
+
     search[0][0] = (int)ox1;
     search[0][1] = (int)oy1;
 
-    if( trans2 == NULL
-     || ar2MarkerCoord2ScreenCoord( cparamLT, trans2, mx, my, &ox2, &oy2 ) < 0 ) {
+    if (trans2 == NULL
+        || ar2MarkerCoord2ScreenCoord(cparamLT, trans2, mx, my, &ox2, &oy2) < 0)
+    {
         goto nosearch2;
     }
-    search[1][0] = (int)(2*ox1 - ox2);
-    search[1][1] = (int)(2*oy1 - oy2);
 
-    if( trans3 == NULL
-     || ar2MarkerCoord2ScreenCoord( cparamLT, trans3, mx, my, &ox3, &oy3 ) < 0 ) {
+    search[1][0] = (int)(2 * ox1 - ox2);
+    search[1][1] = (int)(2 * oy1 - oy2);
+
+    if (trans3 == NULL
+        || ar2MarkerCoord2ScreenCoord(cparamLT, trans3, mx, my, &ox3, &oy3) < 0)
+    {
         goto nosearch3;
     }
-    search[2][0] = (int)(3*ox1 - 3*ox2 + ox3);
-    search[2][1] = (int)(3*oy1 - 3*oy2 + oy3);
+
+    search[2][0] = (int)(3 * ox1 - 3 * ox2 + ox3);
+    search[2][1] = (int)(3 * oy1 - 3 * oy2 + oy3);
 
     return;
 

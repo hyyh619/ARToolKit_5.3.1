@@ -1,5 +1,5 @@
 /*
- *	video.h
+ *      video.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -57,78 +57,79 @@
 extern "C" {
 #endif
 
-#define  AR_VIDEO_DEVICE_DUMMY              0
-#define  AR_VIDEO_DEVICE_V4L                1
-#define  AR_VIDEO_DEVICE_DV                 2
-#define  AR_VIDEO_DEVICE_1394CAM            3
-#define  AR_VIDEO_DEVICE_SGI                4
-#define  AR_VIDEO_DEVICE_WINDOWS_DIRECTSHOW 5
-#define  AR_VIDEO_DEVICE_WINDOWS_DRAGONFLY  6
-#define  AR_VIDEO_DEVICE_RESERVED1          7
-#define  AR_VIDEO_DEVICE_RESERVED2          8
-#define  AR_VIDEO_DEVICE_QUICKTIME          9
-#define  AR_VIDEO_DEVICE_WINDOWS_DSVIDEOLIB 10
-#define  AR_VIDEO_DEVICE_GSTREAMER          11
-#define  AR_VIDEO_DEVICE_IPHONE             12
-#define  AR_VIDEO_DEVICE_QUICKTIME7         13
-#define  AR_VIDEO_DEVICE_IMAGE              14
-#define  AR_VIDEO_DEVICE_ANDROID            15
-#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_FOUNDATION   16
-#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_CAPTURE      17
-#define  AR_VIDEO_DEVICE_MAX                        17
+#define  AR_VIDEO_DEVICE_DUMMY                    0
+#define  AR_VIDEO_DEVICE_V4L                      1
+#define  AR_VIDEO_DEVICE_DV                       2
+#define  AR_VIDEO_DEVICE_1394CAM                  3
+#define  AR_VIDEO_DEVICE_SGI                      4
+#define  AR_VIDEO_DEVICE_WINDOWS_DIRECTSHOW       5
+#define  AR_VIDEO_DEVICE_WINDOWS_DRAGONFLY        6
+#define  AR_VIDEO_DEVICE_RESERVED1                7
+#define  AR_VIDEO_DEVICE_RESERVED2                8
+#define  AR_VIDEO_DEVICE_QUICKTIME                9
+#define  AR_VIDEO_DEVICE_WINDOWS_DSVIDEOLIB       10
+#define  AR_VIDEO_DEVICE_GSTREAMER                11
+#define  AR_VIDEO_DEVICE_IPHONE                   12
+#define  AR_VIDEO_DEVICE_QUICKTIME7               13
+#define  AR_VIDEO_DEVICE_IMAGE                    14
+#define  AR_VIDEO_DEVICE_ANDROID                  15
+#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_FOUNDATION 16
+#define  AR_VIDEO_DEVICE_WINDOWS_MEDIA_CAPTURE    17
+#define  AR_VIDEO_DEVICE_V4L2                     18
+#define  AR_VIDEO_DEVICE_MAX                      18
 
 
-#define  AR_VIDEO_1394_BRIGHTNESS                      65
-#define  AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON           66
-#define  AR_VIDEO_1394_BRIGHTNESS_AUTO_ON              67
-#define  AR_VIDEO_1394_BRIGHTNESS_MAX_VAL              68
-#define  AR_VIDEO_1394_BRIGHTNESS_MIN_VAL              69
-#define  AR_VIDEO_1394_EXPOSURE                        70
-#define  AR_VIDEO_1394_EXPOSURE_FEATURE_ON             71
-#define  AR_VIDEO_1394_EXPOSURE_AUTO_ON                72
-#define  AR_VIDEO_1394_EXPOSURE_MAX_VAL                73
-#define  AR_VIDEO_1394_EXPOSURE_MIN_VAL                74
-#define  AR_VIDEO_1394_WHITE_BALANCE                   75
-#define  AR_VIDEO_1394_WHITE_BALANCE_UB                76
-#define  AR_VIDEO_1394_WHITE_BALANCE_VR                77
-#define  AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON        78
-#define  AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON           79
-#define  AR_VIDEO_1394_WHITE_BALANCE_MAX_VAL           80
-#define  AR_VIDEO_1394_WHITE_BALANCE_MIN_VAL           81
-#define  AR_VIDEO_1394_SHUTTER_SPEED                   82
-#define  AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON        83
-#define  AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON           84
-#define  AR_VIDEO_1394_SHUTTER_SPEED_MAX_VAL           85
-#define  AR_VIDEO_1394_SHUTTER_SPEED_MIN_VAL           86
-#define  AR_VIDEO_1394_GAIN                            87
-#define  AR_VIDEO_1394_GAIN_FEATURE_ON                 88
-#define  AR_VIDEO_1394_GAIN_AUTO_ON                    89
-#define  AR_VIDEO_1394_GAIN_MAX_VAL                    90
-#define  AR_VIDEO_1394_GAIN_MIN_VAL                    91
-#define  AR_VIDEO_1394_FOCUS                           92
-#define  AR_VIDEO_1394_FOCUS_FEATURE_ON                93
-#define  AR_VIDEO_1394_FOCUS_AUTO_ON                   94
-#define  AR_VIDEO_1394_FOCUS_MAX_VAL                   95
-#define  AR_VIDEO_1394_FOCUS_MIN_VAL                   96
-#define  AR_VIDEO_1394_GAMMA                           97
-#define  AR_VIDEO_1394_GAMMA_FEATURE_ON                98
-#define  AR_VIDEO_1394_GAMMA_AUTO_ON                   99
-#define  AR_VIDEO_1394_GAMMA_MAX_VAL                  100
-#define  AR_VIDEO_1394_GAMMA_MIN_VAL                  101
+#define  AR_VIDEO_1394_BRIGHTNESS               65
+#define  AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON    66
+#define  AR_VIDEO_1394_BRIGHTNESS_AUTO_ON       67
+#define  AR_VIDEO_1394_BRIGHTNESS_MAX_VAL       68
+#define  AR_VIDEO_1394_BRIGHTNESS_MIN_VAL       69
+#define  AR_VIDEO_1394_EXPOSURE                 70
+#define  AR_VIDEO_1394_EXPOSURE_FEATURE_ON      71
+#define  AR_VIDEO_1394_EXPOSURE_AUTO_ON         72
+#define  AR_VIDEO_1394_EXPOSURE_MAX_VAL         73
+#define  AR_VIDEO_1394_EXPOSURE_MIN_VAL         74
+#define  AR_VIDEO_1394_WHITE_BALANCE            75
+#define  AR_VIDEO_1394_WHITE_BALANCE_UB         76
+#define  AR_VIDEO_1394_WHITE_BALANCE_VR         77
+#define  AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON 78
+#define  AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON    79
+#define  AR_VIDEO_1394_WHITE_BALANCE_MAX_VAL    80
+#define  AR_VIDEO_1394_WHITE_BALANCE_MIN_VAL    81
+#define  AR_VIDEO_1394_SHUTTER_SPEED            82
+#define  AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON 83
+#define  AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON    84
+#define  AR_VIDEO_1394_SHUTTER_SPEED_MAX_VAL    85
+#define  AR_VIDEO_1394_SHUTTER_SPEED_MIN_VAL    86
+#define  AR_VIDEO_1394_GAIN                     87
+#define  AR_VIDEO_1394_GAIN_FEATURE_ON          88
+#define  AR_VIDEO_1394_GAIN_AUTO_ON             89
+#define  AR_VIDEO_1394_GAIN_MAX_VAL             90
+#define  AR_VIDEO_1394_GAIN_MIN_VAL             91
+#define  AR_VIDEO_1394_FOCUS                    92
+#define  AR_VIDEO_1394_FOCUS_FEATURE_ON         93
+#define  AR_VIDEO_1394_FOCUS_AUTO_ON            94
+#define  AR_VIDEO_1394_FOCUS_MAX_VAL            95
+#define  AR_VIDEO_1394_FOCUS_MIN_VAL            96
+#define  AR_VIDEO_1394_GAMMA                    97
+#define  AR_VIDEO_1394_GAMMA_FEATURE_ON         98
+#define  AR_VIDEO_1394_GAMMA_AUTO_ON            99
+#define  AR_VIDEO_1394_GAMMA_MAX_VAL            100
+#define  AR_VIDEO_1394_GAMMA_MIN_VAL            101
 
-#define  AR_VIDEO_WINDS_SHOW_PROPERTIES               129
+#define  AR_VIDEO_WINDS_SHOW_PROPERTIES 129
 
-#define  AR_VIDEO_FOCUS_MODE                          301 // i
-#define  AR_VIDEO_FOCUS_MANUAL_DISTANCE               302 // d
-#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_X           303 // d
-#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y           304 // d
+#define  AR_VIDEO_FOCUS_MODE                301           // i
+#define  AR_VIDEO_FOCUS_MANUAL_DISTANCE     302           // d
+#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_X 303           // d
+#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y 304           // d
 
-#define  AR_VIDEO_GET_VERSION                     INT_MAX
+#define  AR_VIDEO_GET_VERSION INT_MAX
 
-#define  AR_VIDEO_FOCUS_MODE_FIXED                    0
-#define  AR_VIDEO_FOCUS_MODE_AUTO                     1
-#define  AR_VIDEO_FOCUS_MODE_POINT_OF_INTEREST        2
-#define  AR_VIDEO_FOCUS_MODE_MANUAL                   3
+#define  AR_VIDEO_FOCUS_MODE_FIXED             0
+#define  AR_VIDEO_FOCUS_MODE_AUTO              1
+#define  AR_VIDEO_FOCUS_MODE_POINT_OF_INTEREST 2
+#define  AR_VIDEO_FOCUS_MODE_MANUAL            3
 
 /*!
     @typedef
@@ -148,56 +149,56 @@ extern "C" {
  */
 typedef struct
 {
-    ARUint8            *buff;
-    ARUint8           **bufPlanes;
+    ARUint8      *buff;
+    ARUint8      **bufPlanes;
     unsigned int bufPlaneCount;
-    int fillFlag;
-    ARUint32 time_sec;
-    ARUint32 time_usec;
+    int          fillFlag;
+    ARUint32     time_sec;
+    ARUint32     time_usec;
 } AR2VideoBufferT;
 
-#define AR_VIDEO_POSITION_UNKNOWN     0x0000 // Camera physical position on device unknown.
-#define AR_VIDEO_POSITION_FRONT       0x0008 // Camera is on front of device pointing towards user.
-#define AR_VIDEO_POSITION_BACK        0x0010 // Camera is on back of device pointing away from user.
-#define AR_VIDEO_POSITION_LEFT        0x0018 // Camera is on left of device pointing to user's left.
-#define AR_VIDEO_POSITION_RIGHT       0x0020 // Camera is on right of device pointing to user's right.
-#define AR_VIDEO_POSITION_TOP         0x0028 // Camera is on top of device pointing toward ceiling when device is held upright.
-#define AR_VIDEO_POSITION_BOTTOM      0x0030 // Camera is on bottom of device pointing towards floor when device is held upright.
-#define AR_VIDEO_POSITION_OTHER       0x0038 // Camera physical position on device is known but none of the above.
+#define AR_VIDEO_POSITION_UNKNOWN 0x0000     // Camera physical position on device unknown.
+#define AR_VIDEO_POSITION_FRONT   0x0008     // Camera is on front of device pointing towards user.
+#define AR_VIDEO_POSITION_BACK    0x0010     // Camera is on back of device pointing away from user.
+#define AR_VIDEO_POSITION_LEFT    0x0018     // Camera is on left of device pointing to user's left.
+#define AR_VIDEO_POSITION_RIGHT   0x0020     // Camera is on right of device pointing to user's right.
+#define AR_VIDEO_POSITION_TOP     0x0028     // Camera is on top of device pointing toward ceiling when device is held upright.
+#define AR_VIDEO_POSITION_BOTTOM  0x0030     // Camera is on bottom of device pointing towards floor when device is held upright.
+#define AR_VIDEO_POSITION_OTHER   0x0038     // Camera physical position on device is known but none of the above.
 
-#define AR_VIDEO_STEREO_MODE_MONO                        0x0000
-#define AR_VIDEO_STEREO_MODE_LEFT                        0x0040
-#define AR_VIDEO_STEREO_MODE_RIGHT                       0x0080
-#define AR_VIDEO_STEREO_MODE_FRAME_SEQUENTIAL            0x00C0
-#define AR_VIDEO_STEREO_MODE_SIDE_BY_SIDE                0x0100
-#define AR_VIDEO_STEREO_MODE_OVER_UNDER                  0x0140
-#define AR_VIDEO_STEREO_MODE_HALF_SIDE_BY_SIDE           0x0180
-#define AR_VIDEO_STEREO_MODE_OVER_UNDER_HALF_HEIGHT      0x01C0
-#define AR_VIDEO_STEREO_MODE_ROW_INTERLACED              0x0200
-#define AR_VIDEO_STEREO_MODE_COLUMN_INTERLACED           0x0240
-#define AR_VIDEO_STEREO_MODE_ROW_AND_COLUMN_INTERLACED   0x0280
-#define AR_VIDEO_STEREO_MODE_ANAGLYPH_RG                 0x02C0
-#define AR_VIDEO_STEREO_MODE_ANAGLYPH_RB                 0x0300
-#define AR_VIDEO_STEREO_MODE_RESERVED0                   0x0340
-#define AR_VIDEO_STEREO_MODE_RESERVED1                   0x0380
-#define AR_VIDEO_STEREO_MODE_RESERVED2                   0x03C0
+#define AR_VIDEO_STEREO_MODE_MONO                      0x0000
+#define AR_VIDEO_STEREO_MODE_LEFT                      0x0040
+#define AR_VIDEO_STEREO_MODE_RIGHT                     0x0080
+#define AR_VIDEO_STEREO_MODE_FRAME_SEQUENTIAL          0x00C0
+#define AR_VIDEO_STEREO_MODE_SIDE_BY_SIDE              0x0100
+#define AR_VIDEO_STEREO_MODE_OVER_UNDER                0x0140
+#define AR_VIDEO_STEREO_MODE_HALF_SIDE_BY_SIDE         0x0180
+#define AR_VIDEO_STEREO_MODE_OVER_UNDER_HALF_HEIGHT    0x01C0
+#define AR_VIDEO_STEREO_MODE_ROW_INTERLACED            0x0200
+#define AR_VIDEO_STEREO_MODE_COLUMN_INTERLACED         0x0240
+#define AR_VIDEO_STEREO_MODE_ROW_AND_COLUMN_INTERLACED 0x0280
+#define AR_VIDEO_STEREO_MODE_ANAGLYPH_RG               0x02C0
+#define AR_VIDEO_STEREO_MODE_ANAGLYPH_RB               0x0300
+#define AR_VIDEO_STEREO_MODE_RESERVED0                 0x0340
+#define AR_VIDEO_STEREO_MODE_RESERVED1                 0x0380
+#define AR_VIDEO_STEREO_MODE_RESERVED2                 0x03C0
 
-#define AR_VIDEO_SOURCE_INFO_FLAG_OFFLINE       0x0001      // 0 = unknown or not offline, 1 = offline.
-#define AR_VIDEO_SOURCE_INFO_FLAG_IN_USE        0x0002      // 0 = unknown or not in use, 1 = in use.
-#define AR_VIDEO_SOURCE_INFO_FLAG_OPEN_ASYNC    0x0004      // 0 = open normally, 1 = open async.
-#define AR_VIDEO_SOURCE_INFO_POSITION_MASK      0x0038      // compare (value & AR_VIDEO_SOURCE_INFO_POSITION_MASK) against enums.
-#define AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK   0x03C0      // compare (value & AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK) against enums.
+#define AR_VIDEO_SOURCE_INFO_FLAG_OFFLINE     0x0001        // 0 = unknown or not offline, 1 = offline.
+#define AR_VIDEO_SOURCE_INFO_FLAG_IN_USE      0x0002        // 0 = unknown or not in use, 1 = in use.
+#define AR_VIDEO_SOURCE_INFO_FLAG_OPEN_ASYNC  0x0004        // 0 = open normally, 1 = open async.
+#define AR_VIDEO_SOURCE_INFO_POSITION_MASK    0x0038        // compare (value & AR_VIDEO_SOURCE_INFO_POSITION_MASK) against enums.
+#define AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK 0x03C0        // compare (value & AR_VIDEO_SOURCE_INFO_STEREO_MODE_MASK) against enums.
 
 typedef struct
 {
-    char *name;             // UTF-8 encoded string.
-    char *UID;              // UTF-8 encoded string.
+    char         *name;     // UTF-8 encoded string.
+    char         *UID;      // UTF-8 encoded string.
     unsigned int flags;
 } ARVideoSourceInfoT;
 
 typedef struct
 {
-    int count;
+    int                count;
     ARVideoSourceInfoT *info;
 } ARVideoSourceInfoListT;
 
@@ -222,6 +223,9 @@ typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void*);
 #endif
 #ifdef AR_INPUT_V4L
 #include <AR/sys/videoLinuxV4L.h>
+#endif
+#ifdef AR_INPUT_V4L2
+#include <AR/sys/videoLinuxV4L2.h>
 #endif
 #ifdef AR_INPUT_DV
 #include <AR/sys/videoLinuxDV.h>
@@ -270,58 +274,61 @@ typedef void (*AR_VIDEO_FRAME_READY_CALLBACK)(void*);
 typedef union
 {
 #ifdef AR_INPUT_DUMMY
-    AR2VideoParamDummyT         *dummy;
+    AR2VideoParamDummyT *dummy;
 #endif
 #ifdef AR_INPUT_V4L
-    AR2VideoParamV4LT           *v4l;
+    AR2VideoParamV4LT *v4l;
+#endif
+#ifdef AR_INPUT_V4L2
+    AR2VideoParamV4L2T *v4l2;
 #endif
 #ifdef AR_INPUT_DV
-    AR2VideoParamDVT            *dv;
+    AR2VideoParamDVT *dv;
 #endif
 #ifdef AR_INPUT_1394CAM
-    AR2VideoParam1394T          *cam1394;
+    AR2VideoParam1394T *cam1394;
 #endif
 #ifdef AR_INPUT_SGI
-    AR2VideoParamSGIT           *sgi;
+    AR2VideoParamSGIT *sgi;
 #endif
 #ifdef AR_INPUT_WINDOWS_DIRECTSHOW
-    AR2VideoParamWinDST         *winDS;
+    AR2VideoParamWinDST *winDS;
 #endif
 #ifdef AR_INPUT_WINDOWS_DSVIDEOLIB
-    AR2VideoParamWinDSVLT       *winDSVL;
+    AR2VideoParamWinDSVLT *winDSVL;
 #endif
 #ifdef AR_INPUT_WINDOWS_DRAGONFLY
-    AR2VideoParamWinDFT         *winDF;
+    AR2VideoParamWinDFT *winDF;
 #endif
 #ifdef AR_INPUT_QUICKTIME
-    AR2VideoParamQuickTimeT     *quickTime;
+    AR2VideoParamQuickTimeT *quickTime;
 #endif
 #ifdef AR_INPUT_GSTREAMER
-    AR2VideoParamGStreamerT     *gstreamer;
+    AR2VideoParamGStreamerT *gstreamer;
 #endif
 #ifdef AR_INPUT_IPHONE
-    AR2VideoParamiPhoneT        *iPhone;
+    AR2VideoParamiPhoneT *iPhone;
 #endif
 #ifdef AR_INPUT_QUICKTIME7
-    AR2VideoParamQuickTime7T    *quickTime7;
+    AR2VideoParamQuickTime7T *quickTime7;
 #endif
 #ifdef AR_INPUT_IMAGE
-    AR2VideoParamImageT         *image;
+    AR2VideoParamImageT *image;
 #endif
 #ifdef AR_INPUT_ANDROID
-    AR2VideoParamAndroidT       *android;
+    AR2VideoParamAndroidT *android;
 #endif
 #ifdef AR_INPUT_WINDOWS_MEDIA_FOUNDATION
-    AR2VideoParamWinMFT         *winMF;
+    AR2VideoParamWinMFT *winMF;
 #endif
 #ifdef AR_INPUT_WINDOWS_MEDIA_CAPTURE
-    AR2VideoParamWinMCT         *winMC;
+    AR2VideoParamWinMCT *winMC;
 #endif
 } AR2VideoDeviceHandleT;
 
 typedef struct
 {
-    int deviceType;
+    int                   deviceType;
     AR2VideoDeviceHandleT device;
 } AR2VideoParamT;
 

@@ -51,7 +51,6 @@
 #  include <OpenGLES/ES1/gl.h>
 #  include <OpenGLES/ES1/glext.h>
 #endif
-
 #endif
 
 #ifdef __cplusplus
@@ -86,7 +85,7 @@ void glStateCacheFlush();
 
 // Depth testing.
 #ifdef DISABLE_GL_STATE_CACHE
-#define glStateCacheEnableDepthTest() glEnable(GL_DEPTH_TEST)
+#define glStateCacheEnableDepthTest()  glEnable(GL_DEPTH_TEST)
 #define glStateCacheDisableDepthTest() glDisable(GL_DEPTH_TEST)
 #else
 void glStateCacheEnableDepthTest();
@@ -95,9 +94,9 @@ void glStateCacheDisableDepthTest();
 
 // Client-side vertex and normal operations.
 #ifdef DISABLE_GL_STATE_CACHE
-#define glStateCacheEnableClientStateVertexArray() glEnableClientState(GL_VERTEX_ARRAY)
+#define glStateCacheEnableClientStateVertexArray()  glEnableClientState(GL_VERTEX_ARRAY)
 #define glStateCacheDisableClientStateVertexArray() glDisableClientState(GL_VERTEX_ARRAY)
-#define glStateCacheEnableClientStateNormalArray() glEnableClientState(GL_NORMAL_ARRAY)
+#define glStateCacheEnableClientStateNormalArray()  glEnableClientState(GL_NORMAL_ARRAY)
 #define glStateCacheDisableClientStateNormalArray() glDisableClientState(GL_NORMAL_ARRAY)
 #else
 void glStateCacheEnableClientStateVertexArray();
@@ -107,7 +106,7 @@ void glStateCacheDisableClientStateNormalArray();
 #endif
 // No longer included in cached state. Definitions retained here for backwards compatibility.
 #define glStateCacheVertexPtr(size, type, stride, ptr) glVertexPointer(size, type, stride, ptr)
-#define glStateCacheNormalPtr(type, stride, ptr) glNormalPointer(type, stride, ptr)
+#define glStateCacheNormalPtr(type, stride, ptr)       glNormalPointer(type, stride, ptr)
 
 // Client-side texture operations.
 // The glStateCacheEnableClientStateTexCoordArray()/glStateCacheDisableClientStateTexCoordArray()
@@ -118,7 +117,7 @@ void glStateCacheDisableClientStateNormalArray();
 #else
 #  define glStateCacheClientActiveTexture(texture)
 #endif
-#define glStateCacheEnableClientStateTexCoordArray() glEnableClientState(GL_TEXTURE_COORD_ARRAY)
+#define glStateCacheEnableClientStateTexCoordArray()  glEnableClientState(GL_TEXTURE_COORD_ARRAY)
 #define glStateCacheDisableClientStateTexCoordArray() glDisableClientState(GL_TEXTURE_COORD_ARRAY)
 #else
 void glStateCacheClientActiveTexture(GLenum texture);
@@ -127,7 +126,7 @@ void glStateCacheDisableClientStateTexCoordArray();
 #endif
 // No longer included in cached state. Definitions retained here for backwards compatibility.
 #define glStateCacheTexCoordPtr(size, type, stride, ptr) glTexCoordPointer(size, type, stride, ptr)
-    
+
 // Server-side texture operations.
 // The glStateCacheBindTexture2D()/glStateCacheEnableTex2D()/glStateCacheDisableTex2D() and glStateCacheTexEnv*()
 // operations all operate on the current active texture set with glStateCacheActiveTexture().
@@ -137,12 +136,12 @@ void glStateCacheDisableClientStateTexCoordArray();
 #else
 #  define glStateCacheActiveTexture(texture)
 #endif
-#define glStateCacheBindTexture2D(name) glBindTexture(GL_TEXTURE_2D, name)
-#define glStateCacheEnableTex2D() glEnable(GL_TEXTURE_2D)
-#define glStateCacheDisableTex2D() glDisable(GL_TEXTURE_2D)
-#define glStateCacheTexEnvMode(mode) glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, mode)
-#define glStateCacheTexEnvSrc0(source) glTexEnvi(GL_TEXTURE_ENV, GL_SRC0_RGB, source)
-#define glStateCacheTexEnvSrc1(source) glTexEnvi(GL_TEXTURE_ENV, GL_SRC1_RGB, source)
+#define glStateCacheBindTexture2D(name)    glBindTexture(GL_TEXTURE_2D, name)
+#define glStateCacheEnableTex2D()          glEnable(GL_TEXTURE_2D)
+#define glStateCacheDisableTex2D()         glDisable(GL_TEXTURE_2D)
+#define glStateCacheTexEnvMode(mode)       glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, mode)
+#define glStateCacheTexEnvSrc0(source)     glTexEnvi(GL_TEXTURE_ENV, GL_SRC0_RGB, source)
+#define glStateCacheTexEnvSrc1(source)     glTexEnvi(GL_TEXTURE_ENV, GL_SRC1_RGB, source)
 #define glStateCacheTexEnvCombine(combine) glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, combine)
 #else
 #define GLSTATECACHE_MAX_COMBINED_TEXTURE_IMAGE_UNITS 8 // Minimum value for GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS is 8
@@ -158,10 +157,10 @@ void glStateCacheTexEnvCombine(GLint combine);
 
 // Materials and lighting.
 #ifdef DISABLE_GL_STATE_CACHE
-#define glStateCacheEnableLighting() glEnable(GL_LIGHTING)
-#define glStateCacheDisableLighting() glDisable(GL_LIGHTING)
+#define glStateCacheEnableLighting()        glEnable(GL_LIGHTING)
+#define glStateCacheDisableLighting()       glDisable(GL_LIGHTING)
 #define glStateCacheMaterialv(pname, param) glMaterialfv(GL_FRONT_AND_BACK, pname, param)
-#define glStateCacheMaterial(pname, param) glMaterialf(GL_FRONT_AND_BACK, pname, param)
+#define glStateCacheMaterial(pname, param)  glMaterialf(GL_FRONT_AND_BACK, pname, param)
 #else
 void glStateCacheEnableLighting();
 void glStateCacheDisableLighting();
@@ -171,8 +170,8 @@ void glStateCacheMaterial(GLenum pname, GLfloat param);
 
 // Blending.
 #ifdef DISABLE_GL_STATE_CACHE
-#define glStateCacheEnableBlend() glEnable(GL_BLEND)
-#define glStateCacheDisableBlend() glDisable(GL_BLEND)
+#define glStateCacheEnableBlend()               glEnable(GL_BLEND)
+#define glStateCacheDisableBlend()              glDisable(GL_BLEND)
 #define glStateCacheBlendFunc(sfactor, dfactor) glBlendFunc(sfactor, dfactor)
 #else
 void glStateCacheEnableBlend();
@@ -183,12 +182,12 @@ void glStateCacheBlendFunc(GLenum sfactor, GLenum dfactor);
 // Buffer masking operations.
 #ifdef DISABLE_GL_STATE_CACHE
 #define glStateCacheColorMask(red, green, blue, alpha) glColorMask(red, green, blue, alpha)
-#define glStateCacheDepthMask(flag) glDepthMask(flag)
+#define glStateCacheDepthMask(flag)                    glDepthMask(flag)
 #else
 void glStateCacheColorMask(GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
 void glStateCacheDepthMask(GLboolean flag);
 #endif
-    
+
 // Pixel transfer.
 #ifdef DISABLE_GL_STATE_CACHE
 #define glStateCachePixelStoreUnpackAlignment(param) glPixelStorei(GL_UNPACK_ALIGNMENT, param)
@@ -199,5 +198,4 @@ void glStateCachePixelStoreUnpackAlignment(GLint param);
 #ifdef __cplusplus
 }
 #endif
-        
 #endif // !__glStateCache_h__

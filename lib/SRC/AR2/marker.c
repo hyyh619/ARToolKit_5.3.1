@@ -41,99 +41,120 @@
 #include <AR2/marker.h>
 #include <AR2/util.h>
 
-static char *get_buff( char *buf, int n, FILE *fp );
+static char* get_buff(char *buf, int n, FILE *fp);
 
-int ar2FreeMarkerSet( AR2MarkerSetT **markerSet )
+int ar2FreeMarkerSet(AR2MarkerSetT **markerSet)
 {
-    if( *markerSet == NULL ) return -1;
+    if (*markerSet == NULL)
+        return -1;
 
-    free( (*markerSet)->marker );
-    free( *markerSet );
+    free((*markerSet)->marker);
+    free(*markerSet);
     *markerSet = NULL;
 
     return 0;
 }
 
-AR2MarkerSetT *ar2ReadMarkerSet( char *filename, char *ext, ARPattHandle  *pattHandle )
+AR2MarkerSetT* ar2ReadMarkerSet(char *filename, char *ext, ARPattHandle  *pattHandle)
 {
-    //COVHI10394
-    FILE          *fp = NULL;
+    // COVHI10394
+    FILE          *fp        = NULL;
     AR2MarkerSetT *markerSet = NULL;
-    char          buf[256], buf1[256]/*, buf2[256]*/;
+    char          buf[256], buf1[256] /*, buf2[256]*/;
     int           i, j;
 
     char namebuf[512];
+
     sprintf(namebuf, "%s.%s", filename, ext);
-    if( (fp=fopen(namebuf, "r")) == NULL ) return NULL;
+    if ((fp = fopen(namebuf, "r")) == NULL)
+        return NULL;
 
-    arMalloc( markerSet, AR2MarkerSetT, 1 );
+    arMalloc(markerSet, AR2MarkerSetT, 1);
 
-    if( get_buff(buf, 256, fp) == NULL ) {
-        free( markerSet );
-        markerSet = NULL;
-        goto done;
-    }
-    if( sscanf(buf, "%d", &(markerSet->num)) != 1 ) {
-        free( markerSet );
-        markerSet = NULL;
-        goto done;
-    }
-    if( markerSet->num <= 0 ) {
+    if (get_buff(buf, 256, fp) == NULL)
+    {
         free(markerSet);
         markerSet = NULL;
         goto done;
     }
 
-    arMalloc( markerSet->marker, AR2MarkerT, markerSet->num );
+    if (sscanf(buf, "%d", &(markerSet->num)) != 1)
+    {
+        free(markerSet);
+        markerSet = NULL;
+        goto done;
+    }
 
-    for( i = 0; i < markerSet->num; i++ ) {
-        if( get_buff(buf, 256, fp) == NULL ) {
-            free( markerSet->marker );
-            free( markerSet );
-            markerSet = NULL;
-            goto done;
-        }
-        if( sscanf(buf, "%s", buf1) != 1 ) {
-            free( markerSet->marker );
-            free( markerSet );
-            markerSet = NULL;
-            goto done;
-        }
-        //ar2UtilDivideExt(buf1, buf, buf2);
-        if( (markerSet->marker[i].pattId = arPattLoad(pattHandle, buf1)) < 0 ) {
-            free( markerSet->marker );
-            free( markerSet );
-            markerSet = NULL;
-            goto done;
-        }
+    if (markerSet->num <= 0)
+    {
+        free(markerSet);
+        markerSet = NULL;
+        goto done;
+    }
 
-        if( get_buff(buf, 256, fp) == NULL ) {
-            free( markerSet->marker );
-            free( markerSet );
-            markerSet = NULL;
-            goto done;
-        }
-        if( sscanf(buf, "%f", &(markerSet->marker[i].width)) != 1 ) {
-            free( markerSet->marker );
-            free( markerSet );
+    arMalloc(markerSet->marker, AR2MarkerT, markerSet->num);
+
+    for (i = 0; i < markerSet->num; i++)
+    {
+        if (get_buff(buf, 256, fp) == NULL)
+        {
+            free(markerSet->marker);
+            free(markerSet);
             markerSet = NULL;
             goto done;
         }
 
-        for( j = 0; j < 3; j++ ) {
-            if( get_buff(buf, 256, fp) == NULL ) {
-                free( markerSet->marker );
-                free( markerSet );
+        if (sscanf(buf, "%s", buf1) != 1)
+        {
+            free(markerSet->marker);
+            free(markerSet);
+            markerSet = NULL;
+            goto done;
+        }
+
+        // ar2UtilDivideExt(buf1, buf, buf2);
+        if ((markerSet->marker[i].pattId = arPattLoad(pattHandle, buf1)) < 0)
+        {
+            free(markerSet->marker);
+            free(markerSet);
+            markerSet = NULL;
+            goto done;
+        }
+
+        if (get_buff(buf, 256, fp) == NULL)
+        {
+            free(markerSet->marker);
+            free(markerSet);
+            markerSet = NULL;
+            goto done;
+        }
+
+        if (sscanf(buf, "%f", &(markerSet->marker[i].width)) != 1)
+        {
+            free(markerSet->marker);
+            free(markerSet);
+            markerSet = NULL;
+            goto done;
+        }
+
+        for (j = 0; j < 3; j++)
+        {
+            if (get_buff(buf, 256, fp) == NULL)
+            {
+                free(markerSet->marker);
+                free(markerSet);
                 markerSet = NULL;
                 goto done;
             }
-            if( sscanf(buf, "%f %f %f %f",
-                            &(markerSet->marker[i].transI2M[j][0]),
-                            &(markerSet->marker[i].transI2M[j][1]),
-                            &(markerSet->marker[i].transI2M[j][2]),
-                            &(markerSet->marker[i].transI2M[j][3])) != 4 ) {
-                free( markerSet->marker );
-                free( markerSet );
+
+            if (sscanf(buf, "%f %f %f %f",
+                       &(markerSet->marker[i].transI2M[j][0]),
+                       &(markerSet->marker[i].transI2M[j][1]),
+                       &(markerSet->marker[i].transI2M[j][2]),
+                       &(markerSet->marker[i].transI2M[j][3])) != 4)
+            {
+                free(markerSet->marker);
+                free(markerSet);
                 markerSet = NULL;
                 goto done;
             }
@@ -145,14 +166,17 @@ done:
     return markerSet;
 }
 
-static char *get_buff( char *buf, int n, FILE *fp )
+static char* get_buff(char *buf, int n, FILE *fp)
 {
     char *ret;
 
-    for(;;) {
-        ret = fgets( buf, n, fp );
-        if( ret == NULL ) return(NULL);
-        if( buf[0] != '\n' && buf[0] != '#' ) return(ret);
+    for (;;)
+    {
+        ret = fgets(buf, n, fp);
+        if (ret == NULL)
+            return(NULL);
+
+        if (buf[0] != '\n' && buf[0] != '#')
+            return(ret);
     }
 }
-

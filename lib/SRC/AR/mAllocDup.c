@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -55,17 +55,19 @@
 #endif
 #include <AR/ar.h>
 
-ARMat *arMatrixAllocDup(ARMat *source)
+ARMat* arMatrixAllocDup(ARMat *source)
 {
-	ARMat *dest;
+    ARMat *dest;
 
-	dest = arMatrixAlloc(source->row, source->clm);
-        if( dest == NULL ) return NULL;
+    dest = arMatrixAlloc(source->row, source->clm);
+    if (dest == NULL)
+        return NULL;
 
-	if( arMatrixDup(dest, source) < 0 ) {
-		arMatrixFree(dest);
-		return NULL;
-	}
+    if (arMatrixDup(dest, source) < 0)
+    {
+        arMatrixFree(dest);
+        return NULL;
+    }
 
-	return dest;
+    return dest;
 }

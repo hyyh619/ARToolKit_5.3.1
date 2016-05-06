@@ -17,16 +17,16 @@ Next steps.
 About this archive.
 -------------------
 
-This archive contains the ARToolKit libraries, utilities and examples, version 5.3.1.
+This archive contains the ARToolKit libraries, utilities and examples, version 5.3.2.
 
-ARToolKit version 5.3.1 is released under the GNU Lesser General Public License version 3, with some additional permissions. Example code is generally released under a more permissive disclaimer; please read the file LICENSE.txt for more information.
+ARToolKit version 5.3.2 is released under the GNU Lesser General Public License version 3, with some additional permissions. Example code is generally released under a more permissive disclaimer; please read the file LICENSE.txt for more information.
 
 ARToolKit is designed to build on Windows, Macintosh OS X, Linux, iOS and Android platforms.
 
 This archive was assembled by:
     Philip Lamb
     http://www.artoolkit.org
-    2015-10-05
+    2016-03-23
 
 
 Installing
@@ -85,7 +85,16 @@ An explanation of the sourcecode of this example can be found on the page http:/
   Linux:
   
 	* simpleLite can be launched from a terminal window thus:
-	
+	  First, set the environment variable ARTOOLKIT5_VCONF to indicate the video device to be used;
+	  for example, to use a V4L2 camera, do 
+	    export ARTOOLKIT5_VCONF="-device=LinuxV4L2"
+	    
+	    or to use a camera driven via GStreamer, do
+	    
+	    export ARTOOLKIT5_VCONF="-device=GStreamer"
+	    
+	    then cd to the bin directory and do
+	    
 		./simpleLite
 		
 		
@@ -100,7 +109,7 @@ Required external software
   
 	Windows: Microsoft Visual Studio 2013 and Microsoft Visual Studio 2010 SP1 are supported. The free Microsoft Visual Studio Express Edition will also work.
 	Mac OS X: Xcode tools v5.1 under Mac OS X 10.9 or later is required. Xcode 6 under Mac OS X 10.10 is recommended. Xcode may be obtained free from Apple at http://developer.apple.com/xcode/.
-    Linux: Clang and LLVM's libc++ are required. Packages: 'clang', 'libc++-dev'.
+    Linux: g++ with libstdc++, or Clang and LLVM's libc++ are required. For the latter, install Packages: 'clang', 'libc++-dev'.
 	
   Where ARToolKit libraries require external DLLs, these are generally supplied with ARToolKit. Exceptions are listed below.
 
@@ -116,10 +125,11 @@ Required external software
 
   Linux
 	ARToolKit follows the Linux model whereby required software is externally installed. The following packages are required to be installed in your package manager to run the ARToolKit examples. (Additional packages required to build ARToolKit from source are listed on that help page.)
-    * C++ runtime: package 'libc++1'.
+    * C++ runtime: use the standard libstdc++ or install the package 'libc++1'.
 	* OpenGL: Package 'xorg'
+	* OpenCV (unless building with Clang). Packages: 'libopencv-dev'.
 	* GLUT: Package 'freeglut3'. Alternatively, GLUT can be built from source and is also included in the MESA 3D libraries:
-	* Video4Linux, lib1394dc, or GStreamer. Packages: 'libv4l2-0", 'libdc1394-22' (for lib1394 version 2.x) or 'libdc1394-13' (for lib1394 version 1.x), and 'libgstreamer0.10'.
+	* Video4Linux, lib1394dc, or GStreamer. Packages: 'libv4l2-0', 'libdc1394-22' (for lib1394 version 2.x) or 'libdc1394-13' (for lib1394 version 1.x), and 'libgstreamer0.10'.
 	* OpenSceneGraph (optional; The ARToolKit OSG renderer requires OpenSceneGraph). Package 'openscenegraph'.
 	* OpenVRML (optional; the ARToolKit VRML renderer requires OpenVRML): Binary deb packages are available from http://www.openvrml.org/.
 	
@@ -144,7 +154,7 @@ Opening the project files
 Release notes.
 --------------
 
-This release contains ARToolKit v5.3.1.
+This release contains ARToolKit v5.3.2.
 
 The major change in ARToolKit v5.3 was a new version of libKPM based on the FREAK detector framework, contributed by DAQRI. See "libKPM usage" below.
 

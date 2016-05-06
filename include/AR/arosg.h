@@ -39,14 +39,14 @@
     @header arosg
     @abstract   C-interface to OpenSceneGraph for augmented reality applications.
     @discussion
-        arosg is intended to provide access to the modern plugin-based scene graph   
+        arosg is intended to provide access to the modern plugin-based scene graph
         OpenSceneGraph, and its attendant model formats and graphical capabilities.
- 
+
         arosg provides a C-based interface to a limited subset of the
         functionality of OpenSceneGraph. As of version 1.0 of arosg, the
         supported functionality is primarily 3D model loading and drawing.
     @availability Available ARToolKit v4.4.2 and later.
-*/
+ */
 
 #ifndef AR_OSG_H
 #define AR_OSG_H
@@ -56,7 +56,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
+
 #ifdef _WIN32
 #  ifdef LIBAROSG_EXPORTS
 #    define AR_DLL_API __declspec(dllexport)
@@ -107,8 +107,8 @@ typedef struct _AROSG AROSG; // (Forward definition of opaque structure).
         byte (bits 7-0).
     @availability Available in ARToolKit v4.4.2 and later.
  */
-AR_DLL_API     unsigned int arOSGGetVersion();
-    
+AR_DLL_API unsigned int arOSGGetVersion();
+
 /*!
     @function
     @abstract   Create a settings structure for use with all other arOSG functions.
@@ -116,8 +116,8 @@ AR_DLL_API     unsigned int arOSGGetVersion();
         All other arOSG functions require a reference to settings and global data.
         Use this function to create and initialise such a structure.
     @result      Pointer to the new AROSG settings structure.
-*/
-AR_DLL_API     AROSG *arOSGInit();
+ */
+AR_DLL_API AROSG* arOSGInit();
 
 /*!
     @function
@@ -163,8 +163,8 @@ AR_DLL_API     AROSG *arOSGInit();
         in the ARToolKit distribution in the directory bin/OSG for examples.
     @result     An index value with which the loaded model can be referred to, in the range [0, AR_OSG_MODELS_MAX - 1],
         or, in case of error, a value less than 0.
-*/
-AR_DLL_API     int arOSGLoadModel(AROSG *arOsg, const char *modelDescriptionFilePath);
+ */
+AR_DLL_API int arOSGLoadModel(AROSG *arOsg, const char *modelDescriptionFilePath);
 
 /*!
     @function
@@ -179,7 +179,7 @@ AR_DLL_API     int arOSGLoadModel(AROSG *arOsg, const char *modelDescriptionFile
         or, in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
  */
-AR_DLL_API     int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const ARdouble translation[3], const ARdouble rotation[4], const ARdouble scale[3]);
+AR_DLL_API int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const ARdouble translation[3], const ARdouble rotation[4], const ARdouble scale[3]);
 
 /*!
     @function
@@ -188,8 +188,8 @@ AR_DLL_API     int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, cons
         Frees the memory associated with an OSG model.
     @param      arOsg Pointer to the AROSG settings structure from which the model should be unloaded. (See arOSGInit().)
     @result     0, or in case of error, a value less than 0.
-*/
-AR_DLL_API     int arOSGUnloadModel(AROSG *arOsg, const int index);
+ */
+AR_DLL_API int arOSGUnloadModel(AROSG *arOsg, const int index);
 
 /*!
     @function
@@ -200,8 +200,8 @@ AR_DLL_API     int arOSGUnloadModel(AROSG *arOsg, const int index);
     @param      index The index of the model to adjust the visibility of. See arOSGLoadModel().
     @param      visible 0 to hide, or non-zero to show.
     @result     0, or in case of error, a value less than 0.
-*/
-AR_DLL_API     int arOSGSetModelVisibility(AROSG *arOsg, const int index, const int visible);
+ */
+AR_DLL_API int arOSGSetModelVisibility(AROSG *arOsg, const int index, const int visible);
 
 /*!
     @function
@@ -213,8 +213,8 @@ AR_DLL_API     int arOSGSetModelVisibility(AROSG *arOsg, const int index, const 
     @param      visible Pointer to a location, which on return will contain 0 if hidden, or 1 if shown.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
-*/
-AR_DLL_API     int arOSGGetModelVisibility(AROSG *arOsg, const int index, int *visible);
+ */
+AR_DLL_API int arOSGGetModelVisibility(AROSG *arOsg, const int index, int *visible);
 
 /*!
     @function
@@ -226,9 +226,9 @@ AR_DLL_API     int arOSGGetModelVisibility(AROSG *arOsg, const int index, int *v
     @param      lit 0 to disable lighting, or non-zero to enable.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
-*/
-AR_DLL_API     int arOSGSetModelLighting(AROSG *arOsg, const int index, const int lit);
-    
+ */
+AR_DLL_API int arOSGSetModelLighting(AROSG *arOsg, const int index, const int lit);
+
 /*!
     @function
     @abstract   Find out if lighting for model is on or off.
@@ -239,9 +239,9 @@ AR_DLL_API     int arOSGSetModelLighting(AROSG *arOsg, const int index, const in
     @param      lit Pointer to a location, which on return will contain 0 if lighting disable, or 1 if enabled.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
-*/
-AR_DLL_API     int arOSGGetModelLighting(AROSG *arOsg, const int index, int *lit);
-    
+ */
+AR_DLL_API int arOSGGetModelLighting(AROSG *arOsg, const int index, int *lit);
+
 /*!
     @function
     @abstract   Set transparency for a model on or off.
@@ -255,8 +255,8 @@ AR_DLL_API     int arOSGGetModelLighting(AROSG *arOsg, const int index, int *lit
     @param      transparent 0 to disable transparency, or non-zero to enable.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6. and later.
-*/
-AR_DLL_API     int arOSGSetModelTransparency(AROSG *arOsg, const int index, const int transparent);
+ */
+AR_DLL_API int arOSGSetModelTransparency(AROSG *arOsg, const int index, const int transparent);
 
 /*!
     @function
@@ -268,8 +268,8 @@ AR_DLL_API     int arOSGSetModelTransparency(AROSG *arOsg, const int index, cons
     @param      pause 0 to resume the animation, 1 to pause it.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.7 and later.
-*/
-AR_DLL_API     int arOSGSetModelAnimationPause(AROSG *arOsg, const int index, const int pause);
+ */
+AR_DLL_API int arOSGSetModelAnimationPause(AROSG *arOsg, const int index, const int pause);
 
 /*!
     @function
@@ -281,8 +281,8 @@ AR_DLL_API     int arOSGSetModelAnimationPause(AROSG *arOsg, const int index, co
     @result     0, or in case of error, a value less than 0.
     @param animationTime A pointer to a double, which will be filled with the animation time (should one be available), or 0 if no animation time is defined.
     @availability Available in ARToolKit v4.6.7 and later.
-*/
-AR_DLL_API     int arOSGGetModelAnimationTime(AROSG *arOsg, const int index, double *animationTime);
+ */
+AR_DLL_API int arOSGGetModelAnimationTime(AROSG *arOsg, const int index, double *animationTime);
 
 /*!
     @function
@@ -293,8 +293,8 @@ AR_DLL_API     int arOSGGetModelAnimationTime(AROSG *arOsg, const int index, dou
     @param      index The index of the model of which the animation should be reset. See arOSGLoadModel().
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.7 and later.
-*/
-AR_DLL_API     int arOSGSetModelAnimationReset(AROSG *arOsg, const int index);
+ */
+AR_DLL_API int arOSGSetModelAnimationReset(AROSG *arOsg, const int index);
 
 /*!
     @function
@@ -310,8 +310,8 @@ AR_DLL_API     int arOSGSetModelAnimationReset(AROSG *arOsg, const int index);
         ad infinitum.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.7 and later.
-*/
-AR_DLL_API     int arOSGSetModelAnimationLoopModeOverride(AROSG *arOsg, const int index, const int mode);
+ */
+AR_DLL_API int arOSGSetModelAnimationLoopModeOverride(AROSG *arOsg, const int index, const int mode);
 
 /*!
     @function
@@ -320,8 +320,8 @@ AR_DLL_API     int arOSGSetModelAnimationLoopModeOverride(AROSG *arOsg, const in
     @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
     @param      p A 4x4 OpenGL transform matrix (column-major order) representing the projection transform.
     @result     0, or in case of error, a value less than 0.
-*/
-AR_DLL_API     int arOSGSetProjection(AROSG *arOsg, ARdouble p[16]);
+ */
+AR_DLL_API int arOSGSetProjection(AROSG * arOsg, ARdouble p[16]);
 
 /*!
     @function
@@ -332,7 +332,7 @@ AR_DLL_API     int arOSGSetProjection(AROSG *arOsg, ARdouble p[16]);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
  */
-AR_DLL_API     int arOSGGetProjection(AROSG *arOsg, ARdouble *p);
+AR_DLL_API int arOSGGetProjection(AROSG *arOsg, ARdouble *p);
 
 /*!
     @function
@@ -343,7 +343,7 @@ AR_DLL_API     int arOSGGetProjection(AROSG *arOsg, ARdouble *p);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v5.0 and later.
  */
-AR_DLL_API     int arOSGSetFrontFace(AROSG *arOsg, int winding);
+AR_DLL_API int arOSGSetFrontFace(AROSG *arOsg, int winding);
 
 /*!
     @function
@@ -354,7 +354,7 @@ AR_DLL_API     int arOSGSetFrontFace(AROSG *arOsg, int winding);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v5.0 and later.
  */
-AR_DLL_API     int arOSGGetFrontFace(AROSG *arOsg, int *winding);
+AR_DLL_API int arOSGGetFrontFace(AROSG *arOsg, int *winding);
 
 /*!
     @function
@@ -364,8 +364,8 @@ AR_DLL_API     int arOSGGetFrontFace(AROSG *arOsg, int *winding);
     @param      index The index of the model to adjust the pose of. See arOSGLoadModel().
     @param      modelview A 4x4 OpenGL transform matrix (column-major order) representing the modelview transform of the model.
     @result     0, or in case of error, a value less than 0.
-*/
-AR_DLL_API     int arOSGSetModelPose(AROSG *arOsg, const int index, const ARdouble modelview[16]);
+ */
+AR_DLL_API int arOSGSetModelPose(AROSG *arOsg, const int index, const ARdouble modelview[16]);
 
 /*!
     @function
@@ -377,7 +377,7 @@ AR_DLL_API     int arOSGSetModelPose(AROSG *arOsg, const int index, const ARdoub
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
  */
-AR_DLL_API     int arOSGGetModelPose(AROSG *arOsg, const int index, ARdouble *modelview);
+AR_DLL_API int arOSGGetModelPose(AROSG *arOsg, const int index, ARdouble *modelview);
 
 /*!
     @function
@@ -388,8 +388,8 @@ AR_DLL_API     int arOSGGetModelPose(AROSG *arOsg, const int index, ARdouble *mo
     @param      model A 4x4 OpenGL transform matrix (column-major order) representing the local transform of the model.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.5 and later.
-*/
-AR_DLL_API     int arOSGSetModelLocalPose(AROSG *arOsg, const int index, const ARdouble model[16]);
+ */
+AR_DLL_API int arOSGSetModelLocalPose(AROSG *arOsg, const int index, const ARdouble model[16]);
 
 /*!
     @function
@@ -401,7 +401,7 @@ AR_DLL_API     int arOSGSetModelLocalPose(AROSG *arOsg, const int index, const A
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.5 and later.
  */
-AR_DLL_API     int arOSGGetModelLocalPose(AROSG *arOsg, const int index, ARdouble *model);
+AR_DLL_API int arOSGGetModelLocalPose(AROSG *arOsg, const int index, ARdouble *model);
 
 /*!
     @function
@@ -419,7 +419,7 @@ AR_DLL_API     int arOSGGetModelLocalPose(AROSG *arOsg, const int index, ARdoubl
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.3 and later.
  */
-AR_DLL_API     int arOSGSetModelOutline(AROSG *arOsg, const int index, const int width, const unsigned char rgba[4]);
+AR_DLL_API int arOSGSetModelOutline(AROSG *arOsg, const int index, const int width, const unsigned char rgba[4]);
 
 /*!
     @function
@@ -434,25 +434,25 @@ AR_DLL_API     int arOSGSetModelOutline(AROSG *arOsg, const int index, const int
     @param      p2 Required; a vector specifying the location of the other end of the line segment, in world coordinates.
     @result     1 if an intersection was found, 0 if no intersection was found, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
-*/
-AR_DLL_API     int arOSGGetModelIntersection(AROSG *arOsg, const int index, const ARdouble p1[3], const ARdouble p2[3]);
+ */
+AR_DLL_API int arOSGGetModelIntersection(AROSG *arOsg, const int index, const ARdouble p1[3], const ARdouble p2[3]);
 
 /*!
     @constant
     @abstract   Variable to supply to arOSGSetDrawTime to direct OpenSceneGraph to use its internal reference time.
     @discussion
-        OSG maintains its own internal reference time for animation and simulation 
+        OSG maintains its own internal reference time for animation and simulation
         rendering. If you wish to render using OSG's reference time, supply this
         value to arOSGSetDrawTime.
     @seealso arOSGSetDrawTime arOSGSetDrawTime
-*/
+ */
 extern const double AR_OSG_TIME_USE_REFERENCE_TIME;
 
 /*!
     @function
     @abstract   Process scenegraph-related events, including drawing all visible models.
     @discussion
-        OSG maintains its own internal reference time for animation and simulation 
+        OSG maintains its own internal reference time for animation and simulation
         rendering. If you wish to render at particular time instants or at non-unit
         timescales, you can manipulate the timeline for following arOSGDraw calls by
         calling this function with the time (in decimal seconds) supplied in the
@@ -463,9 +463,9 @@ extern const double AR_OSG_TIME_USE_REFERENCE_TIME;
     @result     0, or in case of error, a value less than 0.
     @seealso AR_OSG_TIME_USE_REFERENCE_TIME AR_OSG_TIME_USE_REFERENCE_TIME
     @seealso arOSGDraw arOSGDraw
-*/
-AR_DLL_API     int arOSGSetDrawTime(AROSG *arOsg, double time);
-    
+ */
+AR_DLL_API int arOSGSetDrawTime(AROSG *arOsg, double time);
+
 /*!
     @function
     @abstract   Process scenegraph-related events, including drawing all visible models.
@@ -475,8 +475,8 @@ AR_DLL_API     int arOSGSetDrawTime(AROSG *arOsg, double time);
         should save any sensitive state prior to calling this function, and restore that state upon return.
     @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
     @result     0, or in case of error, a value less than 0.
-*/
-AR_DLL_API     int arOSGDraw(AROSG *arOsg);
+ */
+AR_DLL_API int arOSGDraw(AROSG *arOsg);
 
 /*!
     @function
@@ -489,8 +489,8 @@ AR_DLL_API     int arOSGDraw(AROSG *arOsg);
     @param      w The new window width, in pixels.
     @param      h The new window height, in pixels.
  */
-AR_DLL_API     void arOSGHandleReshape(AROSG *arOsg, const int w, const int h);
-    
+AR_DLL_API void arOSGHandleReshape(AROSG *arOsg, const int w, const int h);
+
 /*!
     @function
     @abstract   Inform OpenSceneGraph that a window reshape has occured (i.e. changes to window size have occured).
@@ -504,7 +504,7 @@ AR_DLL_API     void arOSGHandleReshape(AROSG *arOsg, const int w, const int h);
     @param      width The new viewport width, in pixels.
     @param      height The new viewport height, in pixels.
  */
-AR_DLL_API     void arOSGHandleReshape2(AROSG *arOsg, const int left, const int bottom, const int width, const int height);
+AR_DLL_API void arOSGHandleReshape2(AROSG *arOsg, const int left, const int bottom, const int width, const int height);
 
 /*!
     @function
@@ -517,8 +517,8 @@ AR_DLL_API     void arOSGHandleReshape2(AROSG *arOsg, const int left, const int 
     @param      state 0 for a mouse-button-down event, and 1 for a mouse-button-up (button released) event.
     @param      x The mouse x location in window relative coordinates when the mouse button was pressed.
     @param      y The mouse y location in window relative coordinates.
-*/
-AR_DLL_API     void arOSGHandleMouseDownUp(AROSG *arOsg, const int button, const int state, const int x, const int y);
+ */
+AR_DLL_API void arOSGHandleMouseDownUp(AROSG *arOsg, const int button, const int state, const int x, const int y);
 
 /*!
     @function
@@ -527,8 +527,8 @@ AR_DLL_API     void arOSGHandleMouseDownUp(AROSG *arOsg, const int button, const
     @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
     @param      x The mouse x location in window relative coordinates.
     @param      y The mouse y location in window relative coordinates.
-*/
-AR_DLL_API     void arOSGHandleMouseMove(AROSG *arOsg, int x, int y);
+ */
+AR_DLL_API void arOSGHandleMouseMove(AROSG *arOsg, int x, int y);
 
 /*!
     @function
@@ -541,8 +541,8 @@ AR_DLL_API     void arOSGHandleMouseMove(AROSG *arOsg, int x, int y);
         &lt;osgGA/GUIEventAdapter&gt; under the enum "KeyCode".
     @param      x The mouse x location in window relative coordinates when the key was pressed -- presently ignored.
     @param      y The mouse y location in window relative coordinates when the key was pressed -- presently ignored.
-*/
-AR_DLL_API     void arOSGHandleKeyboard(AROSG *arOsg, int key, int x, int y);
+ */
+AR_DLL_API void arOSGHandleKeyboard(AROSG *arOsg, int key, int x, int y);
 
 /*!
     @function
@@ -551,13 +551,10 @@ AR_DLL_API     void arOSGHandleKeyboard(AROSG *arOsg, int key, int x, int y);
         If you have finished with an AROSG settings structure in your running program,
         you can unload its internal data by calling arOSGFinal.
     @param      arOsg Pointer to the AROSG settings structure to be disposed of. (See arOSGInit().)
-*/
-AR_DLL_API     void arOSGFinal(AROSG *arOsg);
+ */
+AR_DLL_API void arOSGFinal(AROSG *arOsg);
 
 #ifdef __cplusplus
 }
 #endif
-
 #endif // !AR_OSG_H
-
-

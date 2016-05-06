@@ -45,34 +45,33 @@
 /**
  * Multiple marker type of ARMarker.
  */
-class ARMarkerMulti : public ARMarker {
-
+class ARMarkerMulti : public ARMarker
+{
 private:
-    bool m_loaded;
-    
+bool m_loaded;
+
 protected:
-    bool unload();
+bool unload();
 
 public:
 
-	ARMultiMarkerInfoT *config;							///< Structure holding information about the multimarker patterns
-	bool robustFlag;									///< Flag specifying which pose estimation approach to use
-	
-	ARMarkerMulti();
-	~ARMarkerMulti();
+ARMultiMarkerInfoT *config;                                                             ///< Structure holding information about the multimarker patterns
+bool               robustFlag;                                                                  ///< Flag specifying which pose estimation approach to use
 
-	bool load(const char *multiConfig, ARPattHandle *arPattHandle);
+ARMarkerMulti();
+~ARMarkerMulti();
 
-	/**
-	 * Updates the marker with new tracking info.
-     * Then calls ARMarker::update()
-     * @param markerInfo		Array containing detected marker information
-     * @param markerNum			Number of items in the array
-     * @param ar3DHandle        AR3DHandle used to extract marker pose.
-     */
-	bool updateWithDetectedMarkers(ARMarkerInfo *markerInfo, int markerNum, AR3DHandle *ar3DHandle);
+bool load(const char *multiConfig, ARPattHandle *arPattHandle);
 
-    bool updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, ARMarkerInfo* markerInfoR, int markerNumR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]);
+/**
+ * Updates the marker with new tracking info.
+ * Then calls ARMarker::update()
+ * @param markerInfo            Array containing detected marker information
+ * @param markerNum                     Number of items in the array
+ * @param ar3DHandle        AR3DHandle used to extract marker pose.
+ */
+bool updateWithDetectedMarkers(ARMarkerInfo *markerInfo, int markerNum, AR3DHandle *ar3DHandle);
+
+bool updateWithDetectedMarkersStereo(ARMarkerInfo * markerInfoL, int markerNumL, ARMarkerInfo * markerInfoR, int markerNumR, AR3DStereoHandle * handle, ARdouble transL2R[3][4]);
 };
-
 #endif // !ARMARKERMULTI_H

@@ -42,10 +42,8 @@ class OSGPRESENTATION_EXPORT PickEventHandler : public osgGA::GUIEventHandler
 
         void setJumpData(const JumpData& jumpData) { _jumpData = jumpData; }
         const JumpData& getJumpData() const { return _jumpData; }
-        
-        virtual bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa, osg::Object* object, osg::NodeVisitor* nv);
 
-        virtual void accept(osgGA::GUIEventHandlerVisitor& v);
+        virtual bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa, osg::Object* object, osg::NodeVisitor* nv);
 
         virtual void getUsage(osg::ApplicationUsage& usage) const;
 

@@ -44,21 +44,23 @@
 extern "C" {
 #endif
 
-typedef struct {
-    float         width;
-    int           pattId;
-    float         transI2M[3][4];
+typedef struct
+{
+    float width;
+    int   pattId;
+    float transI2M[3][4];
 } AR2MarkerT;
 
-typedef struct {
-    AR2MarkerT    *marker;
-    int           num;
+typedef struct
+{
+    AR2MarkerT *marker;
+    int        num;
 } AR2MarkerSetT;
 
 
 /*   marker.c   */
-AR2MarkerSetT  *ar2ReadMarkerSet( char *filename, char *ext, ARPattHandle  *pattHandle );
-int             ar2FreeMarkerSet( AR2MarkerSetT **markerSet );
+AR2MarkerSetT* ar2ReadMarkerSet(char *filename, char *ext, ARPattHandle  *pattHandle);
+int             ar2FreeMarkerSet(AR2MarkerSetT **markerSet);
 
 #ifdef __cplusplus
 }

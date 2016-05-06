@@ -59,113 +59,159 @@
 #include "video1394V1Private.h"
 
 
-int ar2VideoSetValue1394( AR2VideoParam1394T *vid, int paramName, int value )
+int ar2VideoSetValue1394(AR2VideoParam1394T *vid, int paramName, int value)
 {
     unsigned int ub, vr;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            if( dc1394_set_brightness(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set brightness to %d.\n", value);
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_EXPOSURE:
-            if( dc1394_set_exposure(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set exposure to %d.\n", value);
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_WHITE_BALANCE_UB:
-            if( dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, &ub, &vr) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get white balance.\n");
-                return -1;
-            }
-            if( dc1394_set_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, value, vr) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set white balance.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_WHITE_BALANCE_VR:
-            if( dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, &ub, &vr) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get white balance.\n");
-                return -1;
-            }
-            if( dc1394_set_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, ub, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set white balance to %d.\n", value);
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            if( dc1394_set_shutter(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set shutter speed to %d.\n", value);
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_GAIN:
-            if( dc1394_set_gain(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set gain to %d.\n", value);
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_FOCUS:
-            if( dc1394_set_focus(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to set focus to %d.\n", value);
-                return -1;
-            }
-            return 0;
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        if (dc1394_set_brightness(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set brightness to %d.\n", value);
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_EXPOSURE:
+        if (dc1394_set_exposure(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set exposure to %d.\n", value);
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_WHITE_BALANCE_UB:
+        if (dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, &ub, &vr) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get white balance.\n");
+            return -1;
+        }
+
+        if (dc1394_set_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, value, vr) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set white balance.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_WHITE_BALANCE_VR:
+        if (dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, &ub, &vr) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get white balance.\n");
+            return -1;
+        }
+
+        if (dc1394_set_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, ub, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set white balance to %d.\n", value);
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        if (dc1394_set_shutter(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set shutter speed to %d.\n", value);
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_GAIN:
+        if (dc1394_set_gain(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set gain to %d.\n", value);
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_FOCUS:
+        if (dc1394_set_focus(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to set focus to %d.\n", value);
+            return -1;
+        }
+
+        return 0;
     }
 
     return -1;
 }
 
-int ar2VideoGetValue1394( AR2VideoParam1394T *vid, int paramName, int *value )
+int ar2VideoGetValue1394(AR2VideoParam1394T *vid, int paramName, int *value)
 {
     unsigned int ub, vr;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            if( dc1394_get_brightness(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get brightness.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_EXPOSURE:
-            if( dc1394_get_exposure(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get exposure.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_WHITE_BALANCE_UB:
-            if( dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, (unsigned int *)value, &vr) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get white balance ub.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_WHITE_BALANCE_VR:
-            if( dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, &ub, (unsigned int *)value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get white balance vr.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            if( dc1394_get_shutter(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get shutter speed.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_GAIN:
-            if( dc1394_get_gain(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get gain.\n");
-                return -1;
-            }
-            return 0;
-        case AR_VIDEO_1394_FOCUS:
-            if( dc1394_get_focus(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS ) {
-                ARLOGe("unable to get focus.\n");
-                return -1;
-            }
-            return 0;
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        if (dc1394_get_brightness(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get brightness.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_EXPOSURE:
+        if (dc1394_get_exposure(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get exposure.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_WHITE_BALANCE_UB:
+        if (dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, (unsigned int*)value, &vr) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get white balance ub.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_WHITE_BALANCE_VR:
+        if (dc1394_get_white_balance(ar2VideoGetPortParam(vid->port)->handle, vid->node, &ub, (unsigned int*)value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get white balance vr.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        if (dc1394_get_shutter(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get shutter speed.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_GAIN:
+        if (dc1394_get_gain(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get gain.\n");
+            return -1;
+        }
+
+        return 0;
+
+    case AR_VIDEO_1394_FOCUS:
+        if (dc1394_get_focus(ar2VideoGetPortParam(vid->port)->handle, vid->node, value) != DC1394_SUCCESS)
+        {
+            ARLOGe("unable to get focus.\n");
+            return -1;
+        }
+
+        return 0;
     }
 
     return -1;
@@ -173,40 +219,51 @@ int ar2VideoGetValue1394( AR2VideoParam1394T *vid, int paramName, int *value )
 
 
 
-int ar2VideoGetAutoOn1394( AR2VideoParam1394T *vid, int paramName, int *value )
+int ar2VideoGetAutoOn1394(AR2VideoParam1394T *vid, int paramName, int *value)
 {
-    unsigned int   feature;
+    unsigned int feature;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            feature = FEATURE_BRIGHTNESS;
-            break;
-        case AR_VIDEO_1394_EXPOSURE:
-            feature = FEATURE_EXPOSURE;
-            break;
-        case AR_VIDEO_1394_WHITE_BALANCE:
-            feature = FEATURE_WHITE_BALANCE;
-            break;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            feature = FEATURE_SHUTTER;
-            break;
-        case AR_VIDEO_1394_GAIN:
-            feature = FEATURE_GAIN;
-            break;
-        case AR_VIDEO_1394_FOCUS:
-            feature = FEATURE_FOCUS;
-            break;
-        default:
-            return -1;
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        feature = FEATURE_BRIGHTNESS;
+        break;
+
+    case AR_VIDEO_1394_EXPOSURE:
+        feature = FEATURE_EXPOSURE;
+        break;
+
+    case AR_VIDEO_1394_WHITE_BALANCE:
+        feature = FEATURE_WHITE_BALANCE;
+        break;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        feature = FEATURE_SHUTTER;
+        break;
+
+    case AR_VIDEO_1394_GAIN:
+        feature = FEATURE_GAIN;
+        break;
+
+    case AR_VIDEO_1394_FOCUS:
+        feature = FEATURE_FOCUS;
+        break;
+
+    default:
+        return -1;
     }
 
-    if( dc1394_has_auto_mode(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t *)value) != DC1394_SUCCESS ) {
+    if (dc1394_has_auto_mode(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t*)value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to check auto mode.\n");
         return -1;
     }
-    if( *value == 0 ) return 0;
 
-    if( dc1394_is_feature_auto(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t *)value) != DC1394_SUCCESS ) {
+    if (*value == 0)
+        return 0;
+
+    if (dc1394_is_feature_auto(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t*)value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to check auto mode.\n");
         return -1;
     }
@@ -214,45 +271,58 @@ int ar2VideoGetAutoOn1394( AR2VideoParam1394T *vid, int paramName, int *value )
     return 0;
 }
 
-int ar2VideoSetAutoOn1394( AR2VideoParam1394T *vid, int paramName, int value )
+int ar2VideoSetAutoOn1394(AR2VideoParam1394T *vid, int paramName, int value)
 {
-    unsigned int   feature;
-    int            v;
+    unsigned int feature;
+    int          v;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            feature = FEATURE_BRIGHTNESS;
-            break;
-        case AR_VIDEO_1394_EXPOSURE:
-            feature = FEATURE_EXPOSURE;
-            break;
-        case AR_VIDEO_1394_WHITE_BALANCE:
-            feature = FEATURE_WHITE_BALANCE;
-            break;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            feature = FEATURE_SHUTTER;
-            break;
-        case AR_VIDEO_1394_GAIN:
-            feature = FEATURE_GAIN;
-            break;
-        case AR_VIDEO_1394_FOCUS:
-            feature = FEATURE_FOCUS;
-            break;
-        default:
-            return -1;
-    }
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        feature = FEATURE_BRIGHTNESS;
+        break;
 
-    if( dc1394_has_auto_mode(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t *)&v) != DC1394_SUCCESS ) {
-        ARLOGe("unable to set auto mode.\n");
-        return -1;
-    }
-    if( v == 0 ) {
-        if( value == 0 ) return 0;
-        ARLOGe("unable to set auto mode.\n");
+    case AR_VIDEO_1394_EXPOSURE:
+        feature = FEATURE_EXPOSURE;
+        break;
+
+    case AR_VIDEO_1394_WHITE_BALANCE:
+        feature = FEATURE_WHITE_BALANCE;
+        break;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        feature = FEATURE_SHUTTER;
+        break;
+
+    case AR_VIDEO_1394_GAIN:
+        feature = FEATURE_GAIN;
+        break;
+
+    case AR_VIDEO_1394_FOCUS:
+        feature = FEATURE_FOCUS;
+        break;
+
+    default:
         return -1;
     }
 
-    if( dc1394_auto_on_off(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, value) != DC1394_SUCCESS ) {
+    if (dc1394_has_auto_mode(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t*)&v) != DC1394_SUCCESS)
+    {
+        ARLOGe("unable to set auto mode.\n");
+        return -1;
+    }
+
+    if (v == 0)
+    {
+        if (value == 0)
+            return 0;
+
+        ARLOGe("unable to set auto mode.\n");
+        return -1;
+    }
+
+    if (dc1394_auto_on_off(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to set auto mode.\n");
         return -1;
     }
@@ -260,40 +330,51 @@ int ar2VideoSetAutoOn1394( AR2VideoParam1394T *vid, int paramName, int value )
     return 0;
 }
 
-int ar2VideoGetFeatureOn1394( AR2VideoParam1394T *vid, int paramName, int *value )
+int ar2VideoGetFeatureOn1394(AR2VideoParam1394T *vid, int paramName, int *value)
 {
-    unsigned int   feature;
+    unsigned int feature;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            feature = FEATURE_BRIGHTNESS;
-            break;
-        case AR_VIDEO_1394_EXPOSURE:
-            feature = FEATURE_EXPOSURE;
-            break;
-        case AR_VIDEO_1394_WHITE_BALANCE:
-            feature = FEATURE_WHITE_BALANCE;
-            break;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            feature = FEATURE_SHUTTER;
-            break;
-        case AR_VIDEO_1394_GAIN:
-            feature = FEATURE_GAIN;
-            break;
-        case AR_VIDEO_1394_FOCUS:
-            feature = FEATURE_FOCUS;
-            break;
-        default:
-            return -1;
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        feature = FEATURE_BRIGHTNESS;
+        break;
+
+    case AR_VIDEO_1394_EXPOSURE:
+        feature = FEATURE_EXPOSURE;
+        break;
+
+    case AR_VIDEO_1394_WHITE_BALANCE:
+        feature = FEATURE_WHITE_BALANCE;
+        break;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        feature = FEATURE_SHUTTER;
+        break;
+
+    case AR_VIDEO_1394_GAIN:
+        feature = FEATURE_GAIN;
+        break;
+
+    case AR_VIDEO_1394_FOCUS:
+        feature = FEATURE_FOCUS;
+        break;
+
+    default:
+        return -1;
     }
 
-    if( dc1394_is_feature_present(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t *)value) != DC1394_SUCCESS ) {
+    if (dc1394_is_feature_present(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t*)value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to check feature.\n");
         return -1;
     }
-    if( *value == 0 ) return 0;
 
-    if( dc1394_is_feature_on(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t *)value) != DC1394_SUCCESS ) {
+    if (*value == 0)
+        return 0;
+
+    if (dc1394_is_feature_on(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t*)value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to check feature.\n");
         return -1;
     }
@@ -301,45 +382,58 @@ int ar2VideoGetFeatureOn1394( AR2VideoParam1394T *vid, int paramName, int *value
     return 0;
 }
 
-int ar2VideoSetFeatureOn1394( AR2VideoParam1394T *vid, int paramName, int value )
+int ar2VideoSetFeatureOn1394(AR2VideoParam1394T *vid, int paramName, int value)
 {
-    unsigned int   feature;
-    int            v;
+    unsigned int feature;
+    int          v;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            feature = FEATURE_BRIGHTNESS;
-            break;
-        case AR_VIDEO_1394_EXPOSURE:
-            feature = FEATURE_EXPOSURE;
-            break;
-        case AR_VIDEO_1394_WHITE_BALANCE:
-            feature = FEATURE_WHITE_BALANCE;
-            break;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            feature = FEATURE_SHUTTER;
-            break;
-        case AR_VIDEO_1394_GAIN:
-            feature = FEATURE_GAIN;
-            break;
-        case AR_VIDEO_1394_FOCUS:
-            feature = FEATURE_FOCUS;
-            break;
-        default:
-            return -1;
-    }
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        feature = FEATURE_BRIGHTNESS;
+        break;
 
-    if( dc1394_is_feature_present(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t *)&v) != DC1394_SUCCESS ) {
-        ARLOGe("unable to turn feature on.\n");
-        return -1;
-    }
-    if( v == 0 ) {
-        if( value == 0 ) return 0;
-        ARLOGe("unable to turn feature on.\n");
+    case AR_VIDEO_1394_EXPOSURE:
+        feature = FEATURE_EXPOSURE;
+        break;
+
+    case AR_VIDEO_1394_WHITE_BALANCE:
+        feature = FEATURE_WHITE_BALANCE;
+        break;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        feature = FEATURE_SHUTTER;
+        break;
+
+    case AR_VIDEO_1394_GAIN:
+        feature = FEATURE_GAIN;
+        break;
+
+    case AR_VIDEO_1394_FOCUS:
+        feature = FEATURE_FOCUS;
+        break;
+
+    default:
         return -1;
     }
 
-    if( dc1394_feature_on_off(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, value) != DC1394_SUCCESS ) {
+    if (dc1394_is_feature_present(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (dc1394bool_t*)&v) != DC1394_SUCCESS)
+    {
+        ARLOGe("unable to turn feature on.\n");
+        return -1;
+    }
+
+    if (v == 0)
+    {
+        if (value == 0)
+            return 0;
+
+        ARLOGe("unable to turn feature on.\n");
+        return -1;
+    }
+
+    if (dc1394_feature_on_off(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to set auto mode.\n");
         return -1;
     }
@@ -347,34 +441,42 @@ int ar2VideoSetFeatureOn1394( AR2VideoParam1394T *vid, int paramName, int value 
     return 0;
 }
 
-int ar2VideoGetMaxValue1394( AR2VideoParam1394T *vid, int paramName, int *value )
+int ar2VideoGetMaxValue1394(AR2VideoParam1394T *vid, int paramName, int *value)
 {
-    unsigned int   feature;
+    unsigned int feature;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            feature = FEATURE_BRIGHTNESS;
-            break;
-        case AR_VIDEO_1394_EXPOSURE:
-            feature = FEATURE_EXPOSURE;
-            break;
-        case AR_VIDEO_1394_WHITE_BALANCE:
-            feature = FEATURE_WHITE_BALANCE;
-            break;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            feature = FEATURE_SHUTTER;
-            break;
-        case AR_VIDEO_1394_GAIN:
-            feature = FEATURE_GAIN;
-            break;
-        case AR_VIDEO_1394_FOCUS:
-            feature = FEATURE_FOCUS;
-            break;
-        default:
-            return -1;
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        feature = FEATURE_BRIGHTNESS;
+        break;
+
+    case AR_VIDEO_1394_EXPOSURE:
+        feature = FEATURE_EXPOSURE;
+        break;
+
+    case AR_VIDEO_1394_WHITE_BALANCE:
+        feature = FEATURE_WHITE_BALANCE;
+        break;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        feature = FEATURE_SHUTTER;
+        break;
+
+    case AR_VIDEO_1394_GAIN:
+        feature = FEATURE_GAIN;
+        break;
+
+    case AR_VIDEO_1394_FOCUS:
+        feature = FEATURE_FOCUS;
+        break;
+
+    default:
+        return -1;
     }
 
-    if( dc1394_get_max_value(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (unsigned int *)value) != DC1394_SUCCESS ) {
+    if (dc1394_get_max_value(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (unsigned int*)value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to get max value.\n");
         return -1;
     }
@@ -382,34 +484,42 @@ int ar2VideoGetMaxValue1394( AR2VideoParam1394T *vid, int paramName, int *value 
     return 0;
 }
 
-int ar2VideoGetMinValue1394( AR2VideoParam1394T *vid, int paramName, int *value )
+int ar2VideoGetMinValue1394(AR2VideoParam1394T *vid, int paramName, int *value)
 {
-    unsigned int   feature;
+    unsigned int feature;
 
-    switch( paramName ) {
-        case AR_VIDEO_1394_BRIGHTNESS:
-            feature = FEATURE_BRIGHTNESS;
-            break;
-        case AR_VIDEO_1394_EXPOSURE:
-            feature = FEATURE_EXPOSURE;
-            break;
-        case AR_VIDEO_1394_WHITE_BALANCE:
-            feature = FEATURE_WHITE_BALANCE;
-            break;
-        case AR_VIDEO_1394_SHUTTER_SPEED:
-            feature = FEATURE_SHUTTER;
-            break;
-        case AR_VIDEO_1394_GAIN:
-            feature = FEATURE_GAIN;
-            break;
-        case AR_VIDEO_1394_FOCUS:
-            feature = FEATURE_FOCUS;
-            break;
-        default:
-            return -1;
+    switch (paramName)
+    {
+    case AR_VIDEO_1394_BRIGHTNESS:
+        feature = FEATURE_BRIGHTNESS;
+        break;
+
+    case AR_VIDEO_1394_EXPOSURE:
+        feature = FEATURE_EXPOSURE;
+        break;
+
+    case AR_VIDEO_1394_WHITE_BALANCE:
+        feature = FEATURE_WHITE_BALANCE;
+        break;
+
+    case AR_VIDEO_1394_SHUTTER_SPEED:
+        feature = FEATURE_SHUTTER;
+        break;
+
+    case AR_VIDEO_1394_GAIN:
+        feature = FEATURE_GAIN;
+        break;
+
+    case AR_VIDEO_1394_FOCUS:
+        feature = FEATURE_FOCUS;
+        break;
+
+    default:
+        return -1;
     }
 
-    if( dc1394_get_min_value(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (unsigned int *)value) != DC1394_SUCCESS ) {
+    if (dc1394_get_min_value(ar2VideoGetPortParam(vid->port)->handle, vid->node, feature, (unsigned int*)value) != DC1394_SUCCESS)
+    {
         ARLOGe("unable to get max value.\n");
         return -1;
     }
@@ -417,114 +527,139 @@ int ar2VideoGetMinValue1394( AR2VideoParam1394T *vid, int paramName, int *value 
     return 0;
 }
 
-int ar2VideoSaveParam1394( AR2VideoParam1394T *vid, char *filename )
+int ar2VideoSaveParam1394(AR2VideoParam1394T *vid, char *filename)
 {
-    FILE    *fp;
-    int     value;
+    FILE *fp;
+    int  value;
 
-    if( (fp=fopen(filename, "w")) == NULL ) return -1;
+    if ((fp = fopen(filename, "w")) == NULL)
+        return -1;
 
     ar2VideoGetParami1394(vid, AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON, &value);
-    if( value == 1 ) {
+    if (value == 1)
+    {
         fprintf(fp, "AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON\t1\n");
         ar2VideoGetParami1394(vid, AR_VIDEO_1394_BRIGHTNESS_AUTO_ON, &value);
-        if( value == 0 ) {
+        if (value == 0)
+        {
             fprintf(fp, "AR_VIDEO_1394_BRIGHTNESS_AUTO_ON\t0\n");
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_BRIGHTNESS, &value);
             fprintf(fp, "AR_VIDEO_1394_BRIGHTNESS\t%d\n", value);
         }
-        else {
+        else
+        {
             fprintf(fp, "AR_VIDEO_1394_BRIGHTNESS_AUTO_ON\t1\n");
         }
     }
-    else {
+    else
+    {
         fprintf(fp, "AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON\t0\n");
     }
 
     ar2VideoGetParami1394(vid, AR_VIDEO_1394_EXPOSURE_FEATURE_ON, &value);
-    if( value == 1 ) {
+    if (value == 1)
+    {
         fprintf(fp, "AR_VIDEO_1394_EXPOSURE_FEATURE_ON\t1\n");
         ar2VideoGetParami1394(vid, AR_VIDEO_1394_EXPOSURE_AUTO_ON, &value);
-        if( value == 0 ) {
+        if (value == 0)
+        {
             fprintf(fp, "AR_VIDEO_1394_EXPOSURE_AUTO_ON\t0\n");
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_EXPOSURE, &value);
             fprintf(fp, "AR_VIDEO_1394_EXPOSURE\t%d\n", value);
         }
-        else {
+        else
+        {
             fprintf(fp, "AR_VIDEO_1394_EXPOSURE_AUTO_ON\t1\n");
         }
     }
-    else {
+    else
+    {
         fprintf(fp, "AR_VIDEO_1394_EXPOSURE_FEATURE_ON\t0\n");
     }
 
     ar2VideoGetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON, &value);
-    if( value == 1 ) {
+    if (value == 1)
+    {
         fprintf(fp, "AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON\t1\n");
         ar2VideoGetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON, &value);
-        if( value == 0 ) {
+        if (value == 0)
+        {
             fprintf(fp, "AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON\t0\n");
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_UB, &value);
             fprintf(fp, "AR_VIDEO_1394_WHITE_BALANCE_UB\t%d\n", value);
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_VR, &value);
             fprintf(fp, "AR_VIDEO_1394_WHITE_BALANCE_VR\t%d\n", value);
         }
-        else {
+        else
+        {
             fprintf(fp, "AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON\t1\n");
         }
     }
-    else {
+    else
+    {
         fprintf(fp, "AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON\t0\n");
     }
 
     ar2VideoGetParami1394(vid, AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON, &value);
-    if( value == 1 ) {
+    if (value == 1)
+    {
         fprintf(fp, "AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON\t1\n");
         ar2VideoGetParami1394(vid, AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON, &value);
-        if( value == 0 ) {
+        if (value == 0)
+        {
             fprintf(fp, "AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON\t0\n");
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_SHUTTER_SPEED, &value);
             fprintf(fp, "AR_VIDEO_1394_SHUTTER_SPEED\t%d\n", value);
         }
-        else {
+        else
+        {
             fprintf(fp, "AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON\t1\n");
         }
     }
-    else {
+    else
+    {
         fprintf(fp, "AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON\t0\n");
     }
 
     ar2VideoGetParami1394(vid, AR_VIDEO_1394_GAIN_FEATURE_ON, &value);
-    if( value == 1 ) {
+    if (value == 1)
+    {
         fprintf(fp, "AR_VIDEO_1394_GAIN_FEATURE_ON\t1\n");
         ar2VideoGetParami1394(vid, AR_VIDEO_1394_GAIN_AUTO_ON, &value);
-        if( value == 0 ) {
+        if (value == 0)
+        {
             fprintf(fp, "AR_VIDEO_1394_GAIN_AUTO_ON\t0\n");
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_GAIN, &value);
             fprintf(fp, "AR_VIDEO_1394_GAIN\t%d\n", value);
         }
-        else {
+        else
+        {
             fprintf(fp, "AR_VIDEO_1394_GAIN_AUTO_ON\t1\n");
         }
     }
-    else {
+    else
+    {
         fprintf(fp, "AR_VIDEO_1394_GAIN_FEATURE_ON\t0\n");
     }
 
     ar2VideoGetParami1394(vid, AR_VIDEO_1394_FOCUS_FEATURE_ON, &value);
-    if( value == 1 ) {
+    if (value == 1)
+    {
         fprintf(fp, "AR_VIDEO_1394_FOCUS_FEATURE_ON\t1\n");
         ar2VideoGetParami1394(vid, AR_VIDEO_1394_FOCUS_AUTO_ON, &value);
-        if( value == 0 ) {
+        if (value == 0)
+        {
             fprintf(fp, "AR_VIDEO_1394_FOCUS_AUTO_ON\t0\n");
             ar2VideoGetParami1394(vid, AR_VIDEO_1394_FOCUS, &value);
             fprintf(fp, "AR_VIDEO_1394_FOCUS\t%d\n", value);
         }
-        else {
+        else
+        {
             fprintf(fp, "AR_VIDEO_1394_FOCUS_AUTO_ON\t1\n");
         }
     }
-    else {
+    else
+    {
         fprintf(fp, "AR_VIDEO_1394_FOCUS_FEATURE_ON\t0\n");
     }
 
@@ -533,84 +668,113 @@ int ar2VideoSaveParam1394( AR2VideoParam1394T *vid, char *filename )
     return 0;
 }
 
-int ar2VideoLoadParam1394( AR2VideoParam1394T *vid, char *filename )
+int ar2VideoLoadParam1394(AR2VideoParam1394T *vid, char *filename)
 {
-    FILE    *fp;
-    int     value;
-    char    buf[512], buf1[512], buf2[512];
-    int     ret = 0;
+    FILE *fp;
+    int  value;
+    char buf[512], buf1[512], buf2[512];
+    int  ret = 0;
 
-    if( (fp=fopen(filename, "r")) == NULL ) return -1;
+    if ((fp = fopen(filename, "r")) == NULL)
+        return -1;
 
-    for(;;) {
-        if( fgets(buf, 512, fp) == NULL ) break;
-        if( buf[0] == '#' || buf[0] == '\n' ) continue;
+    for (;;)
+    {
+        if (fgets(buf, 512, fp) == NULL)
+            break;
+
+        if (buf[0] == '#' || buf[0] == '\n')
+            continue;
+
         buf1[0] = '\0';
-        if( sscanf(buf, "%s %d", buf1, &value) != 2 ) {
-            if( buf1[0] == '\0' ) continue;
+        if (sscanf(buf, "%s %d", buf1, &value) != 2)
+        {
+            if (buf1[0] == '\0')
+                continue;
+
             ARLOGe("Error: %s\n", buf);
             ret = -1;
             continue;
         }
 
-        if( strcmp(buf1, "AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON") == 0 ) {
+        if (strcmp(buf1, "AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_BRIGHTNESS_FEATURE_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_BRIGHTNESS_AUTO_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_BRIGHTNESS_AUTO_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_BRIGHTNESS_AUTO_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_BRIGHTNESS") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_BRIGHTNESS") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_BRIGHTNESS, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_EXPOSURE_FEATURE_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_EXPOSURE_FEATURE_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_EXPOSURE_FEATURE_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_EXPOSURE_AUTO_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_EXPOSURE_AUTO_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_EXPOSURE_AUTO_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_EXPOSURE") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_EXPOSURE") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_EXPOSURE, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_FEATURE_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_AUTO_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_UB") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_UB") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_UB, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_VR") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_WHITE_BALANCE_VR") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_WHITE_BALANCE_VR, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_SHUTTER_SPEED_FEATURE_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_SHUTTER_SPEED_AUTO_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_SHUTTER_SPEED") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_SHUTTER_SPEED") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_SHUTTER_SPEED, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_GAIN_FEATURE_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_GAIN_FEATURE_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_GAIN_FEATURE_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_GAIN_AUTO_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_GAIN_AUTO_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_GAIN_AUTO_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_GAIN") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_GAIN") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_GAIN, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_FOCUS_FEATURE_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_FOCUS_FEATURE_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_FOCUS_FEATURE_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_FOCUS_AUTO_ON") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_FOCUS_AUTO_ON") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_FOCUS_AUTO_ON, value);
         }
-        else if( strcmp(buf1, "AR_VIDEO_1394_FOCUS") == 0 ) {
+        else if (strcmp(buf1, "AR_VIDEO_1394_FOCUS") == 0)
+        {
             ar2VideoSetParami1394(vid, AR_VIDEO_1394_FOCUS, value);
         }
-        else {
+        else
+        {
             ARLOGe("Unknown command: %s\n", buf1);
             ret = -1;
             continue;

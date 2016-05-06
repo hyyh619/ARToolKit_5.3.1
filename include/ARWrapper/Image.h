@@ -41,11 +41,11 @@
 /**
  * Simple color representation using four float values.
  */
-struct Color {
-    float r;		///< Red component
-    float g;		///< Green component
-    float b;		///< Blue component
-    float a;		///< Alpha component
+struct Color
+{
+    float r;            ///< Red component
+    float g;            ///< Green component
+    float b;            ///< Blue component
+    float a;            ///< Alpha component
 };
-
 #endif // !IMAGE_H

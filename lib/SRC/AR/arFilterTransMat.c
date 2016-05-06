@@ -37,20 +37,23 @@
 
 #include <AR/arFilterTransMat.h>
 
-struct _ARFilterTransMatInfo {
+struct _ARFilterTransMatInfo
+{
     ARdouble alpha;
     ARdouble q[4];
     ARdouble p[3];
 };
 
-#define MAX(x,y) (x > y ? x : y)
-#define MIN(x,y) (x < y ? x : y)
-#define CLAMP(x,r1,r2) (MIN(MAX(x,r1),r2))
+#define MAX(x, y)        (x > y ? x : y)
+#define MIN(x, y)        (x < y ? x : y)
+#define CLAMP(x, r1, r2) (MIN(MAX(x, r1), r2))
 
-ARFilterTransMatInfo *arFilterTransMatInit(const ARdouble sampleRate, const ARdouble cutoffFreq)
+ARFilterTransMatInfo* arFilterTransMatInit(const ARdouble sampleRate, const ARdouble cutoffFreq)
 {
-    ARFilterTransMatInfo *ftmi = (ARFilterTransMatInfo *)malloc(sizeof(ARFilterTransMatInfo));
-    if (ftmi) {
+    ARFilterTransMatInfo *ftmi = (ARFilterTransMatInfo*)malloc(sizeof(ARFilterTransMatInfo));
+
+    if (ftmi)
+    {
 #ifdef ARDOUBLE_IS_FLOAT
         ftmi->q[0] = 0.0f;
         ftmi->q[1] = 0.0f;
@@ -68,20 +71,25 @@ ARFilterTransMatInfo *arFilterTransMatInit(const ARdouble sampleRate, const ARdo
         ftmi->p[1] = 0.0;
         ftmi->p[2] = 0.0;
 #endif
-        if (arFilterTransMatSetParams(ftmi, sampleRate, cutoffFreq) < 0) {
+        if (arFilterTransMatSetParams(ftmi, sampleRate, cutoffFreq) < 0)
+        {
             free (ftmi);
             ftmi = NULL;
         }
     }
+
     return (ftmi);
 }
 
 int arFilterTransMatSetParams(ARFilterTransMatInfo *ftmi, const ARdouble sampleRate, const ARdouble cutoffFreq)
 {
     ARdouble dt, RC;
- 
-    if (!ftmi) return (-1);
-    if (!sampleRate || !cutoffFreq) return (-2);
+
+    if (!ftmi)
+        return (-1);
+
+    if (!sampleRate || !cutoffFreq)
+        return (-2);
 
 #ifdef ARDOUBLE_IS_FLOAT
     dt = 1.0f / sampleRate;
@@ -91,20 +99,24 @@ int arFilterTransMatSetParams(ARFilterTransMatInfo *ftmi, const ARdouble sampleR
     RC = 1.0 / cutoffFreq;
 #endif
     ftmi->alpha = dt / (dt + RC);
-    
+
     return (0);
 }
 
 int arFilterTransMat(ARFilterTransMatInfo *ftmi, ARdouble m[3][4], const int reset)
 {
     ARdouble q[4], p[3], alpha, oneminusalpha, omega, cosomega, sinomega, s0, s1;
-    
-    if (!ftmi) return (-1);
-    
-    if (arUtilMat2QuatPos(m, q, p) < 0) return (-2);
+
+    if (!ftmi)
+        return (-1);
+
+    if (arUtilMat2QuatPos((const ARdouble (*)[4])m, q, p) < 0)
+        return (-2);
+
     arUtilQuatNorm(q);
-    
-    if (reset) {
+
+    if (reset)
+    {
         ftmi->q[0] = q[0];
         ftmi->q[1] = q[1];
         ftmi->q[2] = q[2];
@@ -112,70 +124,86 @@ int arFilterTransMat(ARFilterTransMatInfo *ftmi, ARdouble m[3][4], const int res
         ftmi->p[0] = p[0];
         ftmi->p[1] = p[1];
         ftmi->p[2] = p[2];
-    } else {
+    }
+    else
+    {
         alpha = ftmi->alpha;
 #ifdef ARDOUBLE_IS_FLOAT
         oneminusalpha = 1.0f - alpha;
 #else
         oneminusalpha = 1.0 - alpha;
 #endif
-        
+
         // SLERP for orientation.
-        cosomega = q[0]*ftmi->q[0] + q[1]*ftmi->q[1] + q[2]*ftmi->q[2] + q[3]*ftmi->q[3]; // cos of angle between vectors.
+        cosomega = q[0] * ftmi->q[0] + q[1] * ftmi->q[1] + q[2] * ftmi->q[2] + q[3] * ftmi->q[3]; // cos of angle between vectors.
 #ifdef ARDOUBLE_IS_FLOAT
-        if (cosomega < 0.0f) {
+        if (cosomega < 0.0f)
+        {
             cosomega = -cosomega;
-            q[0] = -q[0];
-            q[1] = -q[1];
-            q[2] = -q[2];
-            q[3] = -q[3];
-        } 
-        if (cosomega > 0.9995f) {
-            s0 = oneminusalpha;
-            s1 = alpha;
-        } else {
-            omega = acosf(cosomega);
-            sinomega = sinf(omega);
-            s0 = sinf(oneminusalpha * omega) / sinomega;
-            s1 = sinf(alpha * omega) / sinomega;
+            q[0]     = -q[0];
+            q[1]     = -q[1];
+            q[2]     = -q[2];
+            q[3]     = -q[3];
         }
-#else
-        if (cosomega < 0.0) {
-            cosomega = -cosomega;
-            q[0] = -q[0];
-            q[1] = -q[1];
-            q[2] = -q[2];
-            q[3] = -q[3];
-        } 
-        if (cosomega > 0.9995) {
+
+        if (cosomega > 0.9995f)
+        {
             s0 = oneminusalpha;
             s1 = alpha;
-        } else {
-            omega = acos(cosomega);
+        }
+        else
+        {
+            omega    = acosf(cosomega);
+            sinomega = sinf(omega);
+            s0       = sinf(oneminusalpha * omega) / sinomega;
+            s1       = sinf(alpha * omega) / sinomega;
+        }
+
+#else
+        if (cosomega < 0.0)
+        {
+            cosomega = -cosomega;
+            q[0]     = -q[0];
+            q[1]     = -q[1];
+            q[2]     = -q[2];
+            q[3]     = -q[3];
+        }
+
+        if (cosomega > 0.9995)
+        {
+            s0 = oneminusalpha;
+            s1 = alpha;
+        }
+        else
+        {
+            omega    = acos(cosomega);
             sinomega = sin(omega);
-            s0 = sin(oneminusalpha * omega) / sinomega;
-            s1 = sin(alpha * omega) / sinomega;
+            s0       = sin(oneminusalpha * omega) / sinomega;
+            s1       = sin(alpha * omega) / sinomega;
         }
 #endif
-        ftmi->q[0] = q[0]*s1 + ftmi->q[0]*s0;
-        ftmi->q[1] = q[1]*s1 + ftmi->q[1]*s0;
-        ftmi->q[2] = q[2]*s1 + ftmi->q[2]*s0;
-        ftmi->q[3] = q[3]*s1 + ftmi->q[3]*s0;
+        ftmi->q[0] = q[0] * s1 + ftmi->q[0] * s0;
+        ftmi->q[1] = q[1] * s1 + ftmi->q[1] * s0;
+        ftmi->q[2] = q[2] * s1 + ftmi->q[2] * s0;
+        ftmi->q[3] = q[3] * s1 + ftmi->q[3] * s0;
         arUtilQuatNorm(ftmi->q);
-        
+
         // Linear interpolation for position.
-        ftmi->p[0] = p[0]*alpha + ftmi->p[0]*oneminusalpha;
-        ftmi->p[1] = p[1]*alpha + ftmi->p[1]*oneminusalpha;
-        ftmi->p[2] = p[2]*alpha + ftmi->p[2]*oneminusalpha;
+        ftmi->p[0] = p[0] * alpha + ftmi->p[0] * oneminusalpha;
+        ftmi->p[1] = p[1] * alpha + ftmi->p[1] * oneminusalpha;
+        ftmi->p[2] = p[2] * alpha + ftmi->p[2] * oneminusalpha;
     }
-    
-    if (arUtilQuatPos2Mat(ftmi->q, ftmi->p, m) < 0) return (-2);
-    
+
+    if (arUtilQuatPos2Mat(ftmi->q, ftmi->p, m) < 0)
+        return (-2);
+
     return (0);
 }
 
 void arFilterTransMatFinal(ARFilterTransMatInfo *ftmi)
 {
-    if (!ftmi) return;
+    if (!ftmi)
+        return;
+
     free (ftmi);
 }

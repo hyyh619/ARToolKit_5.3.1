@@ -37,12 +37,13 @@
 
 #include <ARWrapper/AndroidFeatures.h>
 
-#if TARGET_PLATFORM_ANDROID 
+#if TARGET_PLATFORM_ANDROID
 
-long nanoTime() {
-	struct timespec now;
-	clock_gettime(CLOCK_MONOTONIC, &now);
-	return (long)now.tv_sec*1000000000LL + now.tv_nsec;
+long nanoTime()
+{
+    struct timespec now;
+
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    return (long)now.tv_sec * 1000000000LL + now.tv_nsec;
 }
-
 #endif

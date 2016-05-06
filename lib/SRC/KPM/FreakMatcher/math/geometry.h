@@ -38,96 +38,108 @@
 #include "linear_algebra.h"
 #include "indexing.h"
 
-namespace vision {
+namespace vision
+{
+/**
+ * Find which side of a line a point is on (+,-).
+ *
+ * @param[in] A First point on line
+ * @param[in] B Second point on line
+ * @param[in] C Arbitrary third point
+ */
+template<typename T>
+inline T LinePointSide(const T A[2], const T B[], const T C[2])
+{
+    return ((B[0] - A[0]) * (C[1] - A[1]) - (B[1] - A[1]) * (C[0] - A[0]));
+}
 
-    /**
-	 * Find which side of a line a point is on (+,-).
-	 *
-	 * @param[in] A First point on line
-	 * @param[in] B Second point on line
-	 * @param[in] C Arbitrary third point
-	 */
-	template<typename T>
-	inline T LinePointSide(const T A[2], const T B[], const T C[2]) {
-		return ((B[0]-A[0])*(C[1]-A[1])-(B[1]-A[1])*(C[0]-A[0]));
-	}
-    
-    /**
-     * Check the geometric consistency between three correspondences.
-     */
-    template<typename T>
-    inline bool Homography3PointsGeometricallyConsistent(const T x1[2], const T x2[2], const T x3[2],
-                                                         const T x1p[2], const T x2p[2], const T x3p[2]) {
-        if(((LinePointSide(x1, x2, x3) > 0) ^ (LinePointSide(x1p, x2p, x3p) > 0)) == true) {
-            return false;
-        }
-        return true;
+/**
+ * Check the geometric consistency between three correspondences.
+ */
+template<typename T>
+inline bool Homography3PointsGeometricallyConsistent(const T x1[2], const T x2[2], const T x3[2],
+                                                     const T x1p[2], const T x2p[2], const T x3p[2])
+{
+    if (((LinePointSide(x1, x2, x3) > 0) ^ (LinePointSide(x1p, x2p, x3p) > 0)) == true)
+    {
+        return false;
     }
-    
-    /**
-     * Check the geometric consistency between four correspondences.
-     */
-    template<typename T>
-    inline bool Homography4PointsGeometricallyConsistent(const T x1[2], const T x2[2], const T x3[2], const T x4[2],
-                                                         const T x1p[2], const T x2p[2], const T x3p[2], const T x4p[2]) {
-        if(((LinePointSide(x1, x2, x3) > 0) ^ (LinePointSide(x1p, x2p, x3p) > 0)) == true)
-            return false;
-        if(((LinePointSide(x2, x3, x4) > 0) ^ (LinePointSide(x2p, x3p, x4p) > 0)) == true)
-            return false;
-        if(((LinePointSide(x3, x4, x1) > 0) ^ (LinePointSide(x3p, x4p, x1p) > 0)) == true)
-            return false;
-        if(((LinePointSide(x4, x1, x2) > 0) ^ (LinePointSide(x4p, x1p, x2p) > 0)) == true)
-            return false;
-        return true;
-    }
-    
-    /**
-     * Check if four points form a convex quadrilaternal.
-     */
-    template<typename T>
-    bool QuadrilateralConvex(const T x1[2], const T x2[2], const T x3[2], const T x4[2]) {
-        int s;
-        
-        s  = LinePointSide(x1, x2, x3) > 0 ? 1 : -1;
-        s += LinePointSide(x2, x3, x4) > 0 ? 1 : -1;
-        s += LinePointSide(x3, x4, x1) > 0 ? 1 : -1;
-        s += LinePointSide(x4, x1, x2) > 0 ? 1 : -1;
-        
-        return (std::abs(s) == 4);
-    }
-    
-    /**
-     * Compute the area of a triangle.
-     */
-    template<typename T>
-	inline T AreaOfTriangle(const T u[2], const T v[2]) {
-		T a = u[0]*v[1] - u[1]*v[0];
-		return std::abs(a)*0.5;
-	}
-    
-    /**
-     * Find the smallest area for each triangle formed by 4 points.
-     */
-    template<typename T>
-    T SmallestTriangleArea(const T x1[2], const T x2[2], const T x3[2], const T x4[2]) {
-		T v12[2];
-		T v13[2];
-		T v14[2];
-		T v32[2];
-		T v34[2];
-        
-		SubVector2(v12, x2, x1);
-		SubVector2(v13, x3, x1);
-		SubVector2(v14, x4, x1);
-		SubVector2(v32, x2, x3);
-		SubVector2(v34, x4, x3);
-		
-        T a1 = AreaOfTriangle(v12, v13);
-		T a2 = AreaOfTriangle(v13, v14);
-		T a3 = AreaOfTriangle(v12, v14);
-		T a4 = AreaOfTriangle(v32, v34);
-		
-		return min4(a1, a2, a3, a4);
-	}
-    
+
+    return true;
+}
+
+/**
+ * Check the geometric consistency between four correspondences.
+ */
+template<typename T>
+inline bool Homography4PointsGeometricallyConsistent(const T x1[2], const T x2[2], const T x3[2], const T x4[2],
+                                                     const T x1p[2], const T x2p[2], const T x3p[2], const T x4p[2])
+{
+    if (((LinePointSide(x1, x2, x3) > 0) ^ (LinePointSide(x1p, x2p, x3p) > 0)) == true)
+        return false;
+
+    if (((LinePointSide(x2, x3, x4) > 0) ^ (LinePointSide(x2p, x3p, x4p) > 0)) == true)
+        return false;
+
+    if (((LinePointSide(x3, x4, x1) > 0) ^ (LinePointSide(x3p, x4p, x1p) > 0)) == true)
+        return false;
+
+    if (((LinePointSide(x4, x1, x2) > 0) ^ (LinePointSide(x4p, x1p, x2p) > 0)) == true)
+        return false;
+
+    return true;
+}
+
+/**
+ * Check if four points form a convex quadrilaternal.
+ */
+template<typename T>
+bool QuadrilateralConvex(const T x1[2], const T x2[2], const T x3[2], const T x4[2])
+{
+    int s;
+
+    s  = LinePointSide(x1, x2, x3) > 0 ? 1 : -1;
+    s += LinePointSide(x2, x3, x4) > 0 ? 1 : -1;
+    s += LinePointSide(x3, x4, x1) > 0 ? 1 : -1;
+    s += LinePointSide(x4, x1, x2) > 0 ? 1 : -1;
+
+    return (std::abs(s) == 4);
+}
+
+/**
+ * Compute the area of a triangle.
+ */
+template<typename T>
+inline T AreaOfTriangle(const T u[2], const T v[2])
+{
+    T a = u[0] * v[1] - u[1] * v[0];
+
+    return std::abs(a) * 0.5;
+}
+
+/**
+ * Find the smallest area for each triangle formed by 4 points.
+ */
+template<typename T>
+T SmallestTriangleArea(const T x1[2], const T x2[2], const T x3[2], const T x4[2])
+{
+    T v12[2];
+    T v13[2];
+    T v14[2];
+    T v32[2];
+    T v34[2];
+
+    SubVector2(v12, x2, x1);
+    SubVector2(v13, x3, x1);
+    SubVector2(v14, x4, x1);
+    SubVector2(v32, x2, x3);
+    SubVector2(v34, x4, x3);
+
+    T a1 = AreaOfTriangle(v12, v13);
+    T a2 = AreaOfTriangle(v13, v14);
+    T a3 = AreaOfTriangle(v12, v14);
+    T a4 = AreaOfTriangle(v32, v34);
+
+    return min4(a1, a2, a3, a4);
+}
 } // vision

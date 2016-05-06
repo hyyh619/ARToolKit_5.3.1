@@ -1,5 +1,5 @@
 /*
- *	videoiPhone.h
+ *      videoiPhone.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -33,8 +33,8 @@
  *
  *  Author(s): Philip Lamb
  *
- *	Rev		Date		Who		Changes
- *	1.0.0	2008-05-04	PRL		Written.
+ *      Rev             Date            Who             Changes
+ *      1.0.0   2008-05-04      PRL             Written.
  *
  */
 
@@ -48,7 +48,8 @@
 extern "C" {
 #endif
 
-enum {
+enum
+{
     AR_VIDEO_PARAM_IPHONE_WILL_CAPTURE_NEXT_FRAME,
     AR_VIDEO_PARAM_IPHONE_IS_USING_COREVIDEO,
     AR_VIDEO_PARAM_IOS_DEVICE,
@@ -58,7 +59,8 @@ enum {
     AR_VIDEO_PARAM_IOS_CAMERA_POSITION
 };
 
-typedef enum {
+typedef enum
+{
     AR_VIDEO_IOS_FOCUS_NONE = 0,
     AR_VIDEO_IOS_FOCUS_MACRO,
     AR_VIDEO_IOS_FOCUS_0_3M,
@@ -66,8 +68,9 @@ typedef enum {
     AR_VIDEO_IOS_FOCUS_INF
 } AR_VIDEO_IOS_FOCUS;
 
-typedef enum {
-    AR_VIDEO_IOS_CAMERA_POSITION_UNKNOWN = -1,
+typedef enum
+{
+    AR_VIDEO_IOS_CAMERA_POSITION_UNKNOWN     = -1,
     AR_VIDEO_IOS_CAMERA_POSITION_UNSPECIFIED = 0,
     AR_VIDEO_IOS_CAMERA_POSITION_REAR,
     AR_VIDEO_IOS_CAMERA_POSITION_FRONT,
@@ -76,8 +79,9 @@ typedef enum {
     AR_VIDEO_IOS_CAMERA_POSITION_FRONT_STEREO_LEFT,
     AR_VIDEO_IOS_CAMERA_POSITION_FRONT_STEREO_RIGHT
 } AR_VIDEO_IOS_CAMERA_POSITION;
-    
-typedef enum {
+
+typedef enum
+{
     AR_VIDEO_IOS_DEVICE_IPHONE3G = 1,
     AR_VIDEO_IOS_DEVICE_IPHONE3GS,
     AR_VIDEO_IOS_DEVICE_IPHONE4,
@@ -98,45 +102,48 @@ typedef enum {
     AR_VIDEO_IOS_DEVICE_IPADAIR,
     AR_VIDEO_IOS_DEVICE_IPADMINI2,
     AR_VIDEO_IOS_DEVICE_IPADMINI3,
+    AR_VIDEO_IOS_DEVICE_IPADMINI4,
     AR_VIDEO_IOS_DEVICE_IPADAIR2,
     AR_VIDEO_IOS_DEVICE_IPHONE6,
-    AR_VIDEO_IOS_DEVICE_IPHONE6PLUS
+    AR_VIDEO_IOS_DEVICE_IPHONE6PLUS,
+    AR_VIDEO_IOS_DEVICE_IPHONE6S,
+    AR_VIDEO_IOS_DEVICE_IPHONE6SPLUS
 } AR_VIDEO_IOS_DEVICE;
-    
-    
+
+
 typedef struct _AR2VideoParamiPhoneT AR2VideoParamiPhoneT;
 
 
-int                    ar2VideoDispOptioniPhone     ( void );
-AR2VideoParamiPhoneT  *ar2VideoOpeniPhone           ( const char *config );
-int                    ar2VideoCloseiPhone          ( AR2VideoParamiPhoneT *vid );
-int                    ar2VideoGetIdiPhone          ( AR2VideoParamiPhoneT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeiPhone        ( AR2VideoParamiPhoneT *vid, int *x,int *y );
-int                    ar2VideoGetPixelFormatiPhone ( AR2VideoParamiPhoneT *vid );
-AR2VideoBufferT       *ar2VideoGetImageiPhone       ( AR2VideoParamiPhoneT *vid );
-int                    ar2VideoCapStartiPhone       ( AR2VideoParamiPhoneT *vid );
-int                    ar2VideoCapStopiPhone        ( AR2VideoParamiPhoneT *vid );
+int                    ar2VideoDispOptioniPhone(void);
+AR2VideoParamiPhoneT* ar2VideoOpeniPhone(const char *config);
+int                    ar2VideoCloseiPhone(AR2VideoParamiPhoneT *vid);
+int                    ar2VideoGetIdiPhone(AR2VideoParamiPhoneT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeiPhone(AR2VideoParamiPhoneT *vid, int *x, int *y);
+int                    ar2VideoGetPixelFormatiPhone(AR2VideoParamiPhoneT *vid);
+AR2VideoBufferT* ar2VideoGetImageiPhone(AR2VideoParamiPhoneT *vid);
+int                    ar2VideoCapStartiPhone(AR2VideoParamiPhoneT *vid);
+int                    ar2VideoCapStopiPhone(AR2VideoParamiPhoneT *vid);
 
-int                    ar2VideoGetParamiiPhone      ( AR2VideoParamiPhoneT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiiPhone      ( AR2VideoParamiPhoneT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdiPhone      ( AR2VideoParamiPhoneT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdiPhone      ( AR2VideoParamiPhoneT *vid, int paramName, double  value );
-int                    ar2VideoGetParamsiPhone      ( AR2VideoParamiPhoneT *vid, const int paramName, char **value );
-int                    ar2VideoSetParamsiPhone      ( AR2VideoParamiPhoneT *vid, const int paramName, const char  *value );
+int                    ar2VideoGetParamiiPhone(AR2VideoParamiPhoneT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiiPhone(AR2VideoParamiPhoneT *vid, int paramName, int value);
+int                    ar2VideoGetParamdiPhone(AR2VideoParamiPhoneT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdiPhone(AR2VideoParamiPhoneT *vid, int paramName, double value);
+int                    ar2VideoGetParamsiPhone(AR2VideoParamiPhoneT *vid, const int paramName, char **value);
+int                    ar2VideoSetParamsiPhone(AR2VideoParamiPhoneT *vid, const int paramName, const char  *value);
 
 int ar2VideoSetBufferSizeiPhone(AR2VideoParamiPhoneT *vid, const int width, const int height);
 int ar2VideoGetBufferSizeiPhone(AR2VideoParamiPhoneT *vid, int *width, int *height);
-void ar2VideoSetGotImageFunctioniPhone(AR2VideoParamiPhoneT *vid, void (*gotImageFunc)(AR2VideoBufferT *, void *), void *userData);
-void (*ar2VideoGetGotImageFunctioniPhone(AR2VideoParamiPhoneT *vid))(AR2VideoBufferT *, void *);
+void ar2VideoSetGotImageFunctioniPhone(AR2VideoParamiPhoneT *vid, void (*gotImageFunc)(AR2VideoBufferT*, void*), void *userData);
+void (*ar2VideoGetGotImageFunctioniPhone(AR2VideoParamiPhoneT * vid))(AR2VideoBufferT*, void*);
 
-int                    ar2VideoGetCParamiPhone      (AR2VideoParamiPhoneT *vid, ARParam *cparam);
-AR2VideoParamiPhoneT  *ar2VideoOpenAsynciPhone      (const char *config, void (*callback)(void *), void *userdata);
+int                    ar2VideoGetCParamiPhone(AR2VideoParamiPhoneT *vid, ARParam *cparam);
+AR2VideoParamiPhoneT* ar2VideoOpenAsynciPhone(const char *config, void (*callback)(void*), void *userdata);
 
 // videoiPhone uses underlying native classes (CameraVideo, MovieVideo).
 // This function retrieves a pointer, allowing direct access to the underlying native
 // object instance.
 #ifdef __OBJC__
-id ar2VideoGetNativeVideoInstanceiPhone(AR2VideoParamiPhoneT *vid); 
+id ar2VideoGetNativeVideoInstanceiPhone(AR2VideoParamiPhoneT *vid);
 #endif
 
 #ifdef  __cplusplus

@@ -35,90 +35,95 @@
 
 #pragma once
 
-namespace vision {
+namespace vision
+{
+/**
+ * The total number of receptors from all the rings and
+ * the center receptor.
+ *
+ * NUM_RINGS*NUM_RECEPTORS_PER_RING+1
+ */
+static const int freak84_num_receptors = 37;
 
-    /**
-     * The total number of receptors from all the rings and
-     * the center receptor.
-     *
-     * NUM_RINGS*NUM_RECEPTORS_PER_RING+1
-     */
-    static const int freak84_num_receptors = 37;
-    
-    /**
-     * Total number of rings. This does not include the center receptor.
-     */
-    static const int freak84_num_rings = 6;
-    
-    /**
-     * Total number of receptor per ring.
-     */
-    static const int freak84_num_receptors_per_ring = 6;
-    
-    /**
-     * SIGMA value for the center receptor and the receptors 
-     * in all the rings.
-     */
+/**
+ * Total number of rings. This does not include the center receptor.
+ */
+static const int freak84_num_rings = 6;
 
-    static const float freak84_sigma_center = 0.100000;
-    static const float freak84_sigma_ring0 = 0.175000;
-    static const float freak84_sigma_ring1 = 0.250000;
-    static const float freak84_sigma_ring2 = 0.325000;
-    static const float freak84_sigma_ring3 = 0.400000;
-    static const float freak84_sigma_ring4 = 0.475000;
-    static const float freak84_sigma_ring5 = 0.550000;
-    
-    /**
-     * (x,y) locations of each receptor in the ring.
-     */
+/**
+ * Total number of receptor per ring.
+ */
+static const int freak84_num_receptors_per_ring = 6;
 
-    static const float freak84_points_ring0[] = {
-        0.000000, 0.362783,
-        -0.314179, 0.181391,
-        -0.314179, -0.181391,
-        -0.000000, -0.362783,
-        0.314179, -0.181391,
-        0.314179, 0.181391
-    };
-    static const float freak84_points_ring1[] = {
-        -0.595502, 0.000000,
-        -0.297751, -0.515720,
-        0.297751, -0.515720,
-        0.595502, -0.000000,
-        0.297751, 0.515720,
-        -0.297751, 0.515720
-    };
-    static const float freak84_points_ring2[] = {
-        -0.000000, -0.741094,
-        0.641806, -0.370547,
-        0.641806, 0.370547,
-        0.000000, 0.741094,
-        -0.641806, 0.370547,
-        -0.641806, -0.370547
-    };
-    static const float freak84_points_ring3[] = {
-        0.847306, -0.000000,
-        0.423653, 0.733789,
-        -0.423653, 0.733789,
-        -0.847306, 0.000000,
-        -0.423653, -0.733789,
-        0.423653, -0.733789
-    };
-    static const float freak84_points_ring4[] = {
-        0.000000, 0.930969,
-        -0.806243, 0.465485,
-        -0.806243, -0.465485,
-        -0.000000, -0.930969,
-        0.806243, -0.465485,
-        0.806243, 0.465485
-    };
-    static const float freak84_points_ring5[] = {
-        -1.000000, 0.000000,
-        -0.500000, -0.866025,
-        0.500000, -0.866025,
-        1.000000, -0.000000,
-        0.500000, 0.866025,
-        -0.500000, 0.866025
-    };
-    
+/**
+ * SIGMA value for the center receptor and the receptors
+ * in all the rings.
+ */
+
+static const float freak84_sigma_center = 0.100000;
+static const float freak84_sigma_ring0  = 0.175000;
+static const float freak84_sigma_ring1  = 0.250000;
+static const float freak84_sigma_ring2  = 0.325000;
+static const float freak84_sigma_ring3  = 0.400000;
+static const float freak84_sigma_ring4  = 0.475000;
+static const float freak84_sigma_ring5  = 0.550000;
+
+/**
+ * (x,y) locations of each receptor in the ring.
+ */
+
+static const float freak84_points_ring0[] =
+{
+    0.000000, 0.362783,
+    -0.314179, 0.181391,
+    -0.314179, -0.181391,
+    -0.000000, -0.362783,
+    0.314179, -0.181391,
+    0.314179, 0.181391
+};
+static const float freak84_points_ring1[] =
+{
+    -0.595502, 0.000000,
+    -0.297751, -0.515720,
+    0.297751, -0.515720,
+    0.595502, -0.000000,
+    0.297751, 0.515720,
+    -0.297751, 0.515720
+};
+static const float freak84_points_ring2[] =
+{
+    -0.000000, -0.741094,
+    0.641806, -0.370547,
+    0.641806, 0.370547,
+    0.000000, 0.741094,
+    -0.641806, 0.370547,
+    -0.641806, -0.370547
+};
+static const float freak84_points_ring3[] =
+{
+    0.847306, -0.000000,
+    0.423653, 0.733789,
+    -0.423653, 0.733789,
+    -0.847306, 0.000000,
+    -0.423653, -0.733789,
+    0.423653, -0.733789
+};
+static const float freak84_points_ring4[] =
+{
+    0.000000, 0.930969,
+    -0.806243, 0.465485,
+    -0.806243, -0.465485,
+    -0.000000, -0.930969,
+    0.806243, -0.465485,
+    0.806243, 0.465485
+};
+static const float freak84_points_ring5[] =
+{
+    -1.000000, 0.000000,
+    -0.500000, -0.866025,
+    0.500000, -0.866025,
+    1.000000, -0.000000,
+    0.500000, 0.866025,
+    -0.500000, 0.866025
+};
 } // vision

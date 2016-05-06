@@ -35,32 +35,36 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
 #include <AR/ar.h>
 
-int arVecDisp( ARVec *v )
+int arVecDisp(ARVec *v)
 {
-    int    c;
-    
-    if( v == NULL ) return -1;
+    int c;
+
+    if (v == NULL)
+        return -1;
 
     ARLOG(" === vector (%d) ===\n", v->clm);
     ARLOG(" |");
-    for( c = 0; c < v->clm; c++ ){
-	ARLOG( " %10g", v->v[c] );
+
+    for (c = 0; c < v->clm; c++)
+    {
+        ARLOG(" %10g", v->v[c]);
     }
+
     ARLOG(" |\n");
     ARLOG(" ===================\n");
 

@@ -35,15 +35,15 @@
  *
  */
 /*
-	Original version for VRML97-0.8.7 by Hirokazu Kato.
- 
-	Updated for OpenVRML-0.14.3 by Raphael Grasset.
-	-remove vrmlScene since we use reference now.
-	-remove culling pb
+        Original version for VRML97-0.8.7 by Hirokazu Kato.
 
-	Updated for OpenVRML-0.16.1 by Philip Lamb. 2006-11-15.
-	- add arVrmlBrowser class and Boost dependencies.
-*/
+        Updated for OpenVRML-0.14.3 by Raphael Grasset.
+        -remove vrmlScene since we use reference now.
+        -remove culling pb
+
+        Updated for OpenVRML-0.16.1 by Philip Lamb. 2006-11-15.
+        - add arVrmlBrowser class and Boost dependencies.
+ */
 
 #include <iostream>
 #include <math.h>
@@ -56,110 +56,123 @@
 
 using namespace openvrml;
 
-arVrmlBrowser::arVrmlBrowser(): openvrml::browser(std::cout, std::cerr)
-{
-}
+arVrmlBrowser::arVrmlBrowser() : openvrml::browser(std::cout, std::cerr)
+{}
 
 std::auto_ptr<openvrml::resource_istream>
-arVrmlBrowser::do_get_resource(const std::string & uri)
+arVrmlBrowser::do_get_resource(const std::string&uri)
 {
-	using std::auto_ptr;
-	using std::invalid_argument;
-	using std::string;
-	using openvrml::resource_istream;
-	
-	class file_resource_istream : public resource_istream {
-		std::string url_;
-		std::filebuf buf_;
-		
-	public:
-		explicit file_resource_istream(const std::string & path): resource_istream(&this->buf_)
-		{
-			if (!this->buf_.open(path.c_str(), ios_base::in | ios_base::binary)) {
-				this->setstate(ios_base::badbit);
-			}
-		}
-			
-		void url(const std::string & str) throw (std::bad_alloc)
-		{
-			this->url_ = str;
-		}
-			
-	private:
-		virtual const std::string do_url() const throw ()
-		{
-			return this->url_;
-		}
-			
-		virtual const std::string do_type() const throw ()
-		{
-			//
-			// A real application should use OS facilities for this.  This
-            // is a crude hack because sdl-viewer uses std::filebuf in
-            // order to remain simple and portable.
-			//
-			using std::find;
-			using std::string;
-			using boost::algorithm::iequals;
-			using boost::next;
-			string media_type = "application/octet-stream";
-			const string::const_reverse_iterator dot_pos =
-				find(this->url_.rbegin(), this->url_.rend(), '.');
-			if (dot_pos == this->url_.rend()
-				|| next(dot_pos.base()) == this->url_.end()) {
-				return media_type;
-			}
-			const string::const_iterator hash_pos =
-				find(next(dot_pos.base()), this->url_.end(), '#');
-			const string ext(dot_pos.base(), hash_pos);
-			if (iequals(ext, "wrl")) {
-                media_type = openvrml::vrml_media_type;
-			} else if (iequals(ext, "x3dv")) {
-                media_type = openvrml::x3d_vrml_media_type;
-			} else if (iequals(ext, "png")) {
-				media_type = "image/png";
-			} else if (iequals(ext, "jpg") || iequals(ext, "jpeg")) {
-				media_type = "image/jpeg";
-			}
-			return media_type;
-		}
-			
-		virtual bool do_data_available() const throw ()
-		{
-			return !!(*this);
-		}
-	}; // class file_resource_istream
-	
-	const string scheme = uri.substr(0, uri.find_first_of(':'));
-	if (scheme != "file") {
-		throw invalid_argument('\"' + scheme + "\" URI scheme not supported");
-	}
-	//
-	// file://
-	//        ^
-	// 01234567
-	static const string::size_type authority_start_index = 7;
+    using std::auto_ptr;
+    using std::invalid_argument;
+    using std::string;
+    using openvrml::resource_istream;
 
-	//
-	// On Windows we want to start at the drive letter, which is after the
-	// first slash in the path.
-	//
-	// We ignore the content of the authority; a smarter implementation
-	// should confirm that it is localhost, the machine name, or zero
-	// length.
-	//
-	string::size_type path_start_index =
+    class file_resource_istream : public resource_istream
+    {
+    std::string  url_;
+    std::filebuf buf_;
+
+public:
+    explicit file_resource_istream(const std::string&path) : resource_istream(&this->buf_)
+    {
+        if (!this->buf_.open(path.c_str(), ios_base::in | ios_base::binary))
+        {
+            this->setstate(ios_base::badbit);
+        }
+    }
+
+    void url(const std::string&str) throw (std::bad_alloc)
+    {
+        this->url_ = str;
+    }
+
+private:
+    virtual const std::string do_url() const throw ()
+    {
+        return this->url_;
+    }
+
+    virtual const std::string do_type() const throw ()
+    {
+        //
+        // A real application should use OS facilities for this.  This
+        // is a crude hack because sdl-viewer uses std::filebuf in
+        // order to remain simple and portable.
+        //
+        using std::find;
+        using std::string;
+        using boost::algorithm::iequals;
+        using boost::next;
+        string                               media_type = "application/octet-stream";
+        const string::const_reverse_iterator dot_pos    =
+            find(this->url_.rbegin(), this->url_.rend(), '.');
+        if (dot_pos == this->url_.rend()
+            || next(dot_pos.base()) == this->url_.end())
+        {
+            return media_type;
+        }
+
+        const string::const_iterator hash_pos =
+            find(next(dot_pos.base()), this->url_.end(), '#');
+        const string ext(dot_pos.base(), hash_pos);
+        if (iequals(ext, "wrl"))
+        {
+            media_type = openvrml::vrml_media_type;
+        }
+        else if (iequals(ext, "x3dv"))
+        {
+            media_type = openvrml::x3d_vrml_media_type;
+        }
+        else if (iequals(ext, "png"))
+        {
+            media_type = "image/png";
+        }
+        else if (iequals(ext, "jpg") || iequals(ext, "jpeg"))
+        {
+            media_type = "image/jpeg";
+        }
+
+        return media_type;
+    }
+
+    virtual bool do_data_available() const throw ()
+    {
+        return !!(*this);
+    }
+    };     // class file_resource_istream
+
+    const string scheme = uri.substr(0, uri.find_first_of(':'));
+    if (scheme != "file")
+    {
+        throw invalid_argument('\"' + scheme + "\" URI scheme not supported");
+    }
+
+    //
+    // file://
+    //        ^
+    // 01234567
+    static const string::size_type authority_start_index = 7;
+
+    //
+    // On Windows we want to start at the drive letter, which is after the
+    // first slash in the path.
+    //
+    // We ignore the content of the authority; a smarter implementation
+    // should confirm that it is localhost, the machine name, or zero
+    // length.
+    //
+    string::size_type path_start_index =
 # ifdef _WIN32
-		uri.find_first_of('/', authority_start_index) + 1;
+        uri.find_first_of('/', authority_start_index) + 1;
 # else
-		uri.find_first_of('/', authority_start_index);
+        uri.find_first_of('/', authority_start_index);
 # endif
-	string path = uri.substr(path_start_index);
-	
-	auto_ptr<resource_istream> in(new file_resource_istream(path));
-	static_cast<file_resource_istream *>(in.get())->url(uri);
-	
-	return in;
+    string path = uri.substr(path_start_index);
+
+    auto_ptr<resource_istream> in(new file_resource_istream(path));
+    static_cast<file_resource_istream*>(in.get())->url(uri);
+
+    return in;
 }
 
 
@@ -182,13 +195,11 @@ arVrmlViewer::arVrmlViewer()
 }
 
 arVrmlViewer::~arVrmlViewer() throw()
-{
-  
-}
+{}
 
 void arVrmlViewer::timerUpdate()
-{ 
-	this->update(0.0);
+{
+    this->update(0.0);
 }
 
 
@@ -200,15 +211,17 @@ void arVrmlViewer::setInternalLight(bool flag)
 
 void arVrmlViewer::redraw()
 {
-	//double start = browser::current_time();
+    // double start = browser::current_time();
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslated( translation[0], translation[1], translation[2] );
-    if (rotation[0] != 0.0) {
+    glTranslated(translation[0], translation[1], translation[2]);
+    if (rotation[0] != 0.0)
+    {
         glRotated(rotation[0], rotation[1], rotation[2], rotation[3]);
     }
+
     glScaled(scale[0], scale[1], scale[2]);
-	
+
 #if USE_STENCIL_SHAPE
     glEnable(GL_STENCIL_TEST);
     glStencilFunc(GL_ALWAYS, 1, 1);
@@ -218,129 +231,131 @@ void arVrmlViewer::redraw()
     glDepthFunc(GL_LEQUAL);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_FOG);          // this is a global attribute
-    //glDisable(GL_TEXTURE_2D);
+    // glDisable(GL_TEXTURE_2D);
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
-	
-	if (internal_light) {
-		if (lit) glEnable(GL_LIGHTING); // lit is from <openvrml/gl/viewer.h>.
-		glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-		glEnable(GL_NORMALIZE);
-		glDisable(GL_COLOR_MATERIAL);
-		glDisable(GL_BLEND);
-		glShadeModel(GL_SMOOTH);
-		
-		for (int i = 0; i < max_lights; ++i) {
-			light_info_[i].type = light_unused;
-			GLenum light = (GLenum) (GL_LIGHT0 + i);
-			glDisable(light);
-		}
-	}
-	
-    objects = 0;
+
+    if (internal_light)
+    {
+        if (lit)
+            glEnable(GL_LIGHTING);              // lit is from <openvrml/gl/viewer.h>.
+
+        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+        glEnable(GL_NORMALIZE);
+        glDisable(GL_COLOR_MATERIAL);
+        glDisable(GL_BLEND);
+        glShadeModel(GL_SMOOTH);
+
+        for (int i = 0; i < max_lights; ++i)
+        {
+            light_info_[i].type = light_unused;
+            GLenum light = (GLenum) (GL_LIGHT0 + i);
+            glDisable(light);
+        }
+    }
+
+    objects        = 0;
     nested_objects = 0;
-    sensitive = 0;
-	
+    sensitive      = 0;
+
     browser()->render();
-	
-	if (internal_light) {
-		if (lit) glDisable(GL_LIGHTING);
-	}
+
+    if (internal_light)
+    {
+        if (lit)
+            glDisable(GL_LIGHTING);
+    }
+
     glDisable(GL_BLEND);
     glDisable(GL_CULL_FACE);
-    //glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	
+    // glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 }
 
-void  arVrmlViewer::post_redraw()
+void arVrmlViewer::post_redraw()
+{}
+void arVrmlViewer::set_cursor(cursor_style c)
+{}
+
+void arVrmlViewer::swap_buffers()
+{}
+
+void arVrmlViewer::set_timer(double t)
+{}
+
+
+void arVrmlViewer::set_viewpoint(const openvrml::vec3f&position,
+                                 const openvrml::rotation&orientation,
+                                 float fieldOfView,
+                                 float avatarSize,
+                                 float visibilityLimit)
+{}
+
+viewer::object_t arVrmlViewer::insert_background(const std::vector<float>&groundAngle,
+                                                 const std::vector<color>&groundColor,
+                                                 const std::vector<float>&skyAngle,
+                                                 const std::vector<color>&skyColor,
+                                                 const image&front,
+                                                 const image&back,
+                                                 const image&left,
+                                                 const image&right,
+                                                 const image&top,
+                                                 const image&bottom)
 {
-
-}
-void  arVrmlViewer::set_cursor(cursor_style c)
-{
-
-}
-
-void  arVrmlViewer::swap_buffers()
-{
-
-}
-
-void  arVrmlViewer::set_timer(double t)
-{
-
-}
-
-
-void arVrmlViewer::set_viewpoint(const openvrml::vec3f & position,
-				 const openvrml::rotation & orientation,
-				 float fieldOfView,
-				 float avatarSize,
-				 float visibilityLimit)
-{
-
-}
-
-viewer::object_t arVrmlViewer::insert_background(const std::vector<float> & groundAngle,
-												 const std::vector<color> & groundColor,
-												 const std::vector<float> & skyAngle,
-												 const std::vector<color> & skyColor,
-												 const image & front,
-												 const image & back,
-												 const image & left,
-												 const image & right,
-												 const image & top,
-												 const image & bottom)
-{
-	return 0;
+    return 0;
 }
 
 viewer::object_t arVrmlViewer::insert_dir_light(float ambientIntensity,
-				  float intensity,
-				  const openvrml::color & color,
-				  const openvrml::vec3f & direction)
+                                                float intensity,
+                                                const openvrml::color&color,
+                                                const openvrml::vec3f&direction)
 {
-    if (internal_light) return gl::viewer::insert_dir_light(ambientIntensity, intensity, color, direction);
+    if (internal_light)
+        return gl::viewer::insert_dir_light(ambientIntensity, intensity, color, direction);
+
     return 0;
 }
 
 viewer::object_t arVrmlViewer::insert_point_light(float ambientIntensity,
-				    const openvrml::vec3f & attenuation,
-				    const openvrml::color & color,
-				    float intensity,
-				    const openvrml::vec3f & location,
-				    float radius)
+                                                  const openvrml::vec3f&attenuation,
+                                                  const openvrml::color&color,
+                                                  float intensity,
+                                                  const openvrml::vec3f&location,
+                                                  float radius)
 {
-	if (internal_light) return gl::viewer::insert_point_light(ambientIntensity, attenuation, color, intensity, location, radius);
+    if (internal_light)
+        return gl::viewer::insert_point_light(ambientIntensity, attenuation, color, intensity, location, radius);
 
     return 0;
 }
 
- 
+
 viewer::object_t arVrmlViewer::insert_spot_light(float ambientIntensity,
-				   const openvrml::vec3f & attenuation,
-				   float beamWidth,
-				   const openvrml::color & color,
-				   float cutOffAngle,
-				   const openvrml::vec3f & direction,
-				   float intensity,
-				   const openvrml::vec3f & location,
-				   float radius)
+                                                 const openvrml::vec3f&attenuation,
+                                                 float beamWidth,
+                                                 const openvrml::color&color,
+                                                 float cutOffAngle,
+                                                 const openvrml::vec3f&direction,
+                                                 float intensity,
+                                                 const openvrml::vec3f&location,
+                                                 float radius)
 {
-    if (internal_light) return gl::viewer::insert_spot_light(ambientIntensity, attenuation, beamWidth, color,cutOffAngle, direction, intensity, location, radius);
+    if (internal_light)
+        return gl::viewer::insert_spot_light(ambientIntensity, attenuation, beamWidth, color, cutOffAngle, direction, intensity, location, radius);
+
     return 0;
 }
 
- bounding_volume::intersection
-arVrmlViewer::intersect_view_volume(const bounding_volume & bvolume) const
+bounding_volume::intersection
+arVrmlViewer::intersect_view_volume(const bounding_volume&bvolume) const
 {
-  // if( d_cull ) {
-  //return  openvrml::viewer::intersect_view_volume(bvolume);
-	// }
-	// else {
-         return bounding_volume::inside;
-	//}
+    // if( d_cull ) {
+    // return  openvrml::viewer::intersect_view_volume(bvolume);
+    // }
+    // else {
+    return bounding_volume::inside;
+    // }
 }

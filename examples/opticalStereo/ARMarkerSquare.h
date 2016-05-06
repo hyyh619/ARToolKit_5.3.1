@@ -1,8 +1,8 @@
 /*
- *	ARMarkerSquare.h
+ *      ARMarkerSquare.h
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit NFT with models rendered in OSG,
+ *      Demonstration of ARToolKit NFT with models rendered in OSG,
  *  and marker pose estimates filtered to reduce jitter.
  *
  *  Press '?' while running for help on available key commands.
@@ -67,38 +67,41 @@ typedef unsigned char bool;
 extern "C" {
 #endif
 
-typedef struct {
+typedef struct
+{
     ARdouble v[3];
 } ARVec3;
 
-typedef struct {
+typedef struct
+{
     ARdouble T[16]; // Position and orientation, column-major order. (position(x,y,z) = {T[12], T[13], T[14]}
 } ARPose;
 
 extern const ARPose ARPoseUnity;
 
-typedef struct _ARMarkerSquare {
-    // ARMarker protected 
-    bool       valid;
-    bool       validPrev;
-    ARdouble   trans[3][4];
-    ARPose     pose;
-    ARdouble   marker_width;
-    ARdouble   marker_height;
+typedef struct _ARMarkerSquare
+{
+    // ARMarker protected
+    bool     valid;
+    bool     validPrev;
+    ARdouble trans[3][4];
+    ARPose   pose;
+    ARdouble marker_width;
+    ARdouble marker_height;
     // ARMarker private
     ARFilterTransMatInfo *ftmi;
-    ARdouble   filterCutoffFrequency;
-    ARdouble   filterSampleRate;
+    ARdouble             filterCutoffFrequency;
+    ARdouble             filterSampleRate;
     // ARMarkerSquare
-    int        patt_id; // ARToolKit pattern ID.
-    int        patt_type;
-    ARdouble   marker_coord[4][2]; // Window coords. of marker corners.
-    ARdouble   matchingThreshold;
-    char      *patternPathname;
+    int      patt_id;   // ARToolKit pattern ID.
+    int      patt_type;
+    ARdouble marker_coord[4][2];   // Window coords. of marker corners.
+    ARdouble matchingThreshold;
+    char     *patternPathname;
 } ARMarkerSquare;
 
-#define    AR_PATTERN_TYPE_TEMPLATE    0
-#define    AR_PATTERN_TYPE_MATRIX      1
+#define    AR_PATTERN_TYPE_TEMPLATE 0
+#define    AR_PATTERN_TYPE_MATRIX   1
 
 void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHandle, ARMarkerSquare **markersSquare_out, int *markersSquareCount_out, int *patternDetectionMode_out);
 

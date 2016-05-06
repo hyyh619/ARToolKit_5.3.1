@@ -5,9 +5,9 @@
 //  Various OS-related bits and pieces.
 //
 //  Copyright (c) 2004-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
-//	
-//	Rev		Date		Who		Changes
-//	1.0.0	2004-04-23	PRL		Added functions for checking keyboard.
+//
+//      Rev             Date            Who             Changes
+//      1.0.0   2004-04-23      PRL             Added functions for checking keyboard.
 //
 
 // @@BEGIN_EDEN_LICENSE_HEADER@@
@@ -42,11 +42,11 @@
 
 /*!
 
-	@header EdenUtil
-	@abstract Miscellaneous utility routines.
-	@discussion
-		EdenUtil forms one part of the Eden library.
-	@copyright 2004-2013 Philip Lamb
+        @header EdenUtil
+        @abstract Miscellaneous utility routines.
+        @discussion
+                EdenUtil forms one part of the Eden library.
+        @copyright 2004-2013 Philip Lamb
  */
 
 #ifndef __EdenUtil_h__
@@ -55,9 +55,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 // ============================================================================
-//	Public includes
+//      Public includes
 // ============================================================================
 
 #ifndef __Eden_h__
@@ -66,15 +66,15 @@ extern "C" {
 
 
 // ============================================================================
-//	Public defines and types
+//      Public defines and types
 // ============================================================================
 
 // ============================================================================
-//	Global variables
+//      Global variables
 // ============================================================================
 
 // ============================================================================
-//	Public functions
+//      Public functions
 // ============================================================================
 
 /*!
@@ -82,7 +82,7 @@ extern "C" {
     @abstract Do any required setup so that we can check for single keypresses.
     @discussion
     @result     (description)
-*/
+ */
 EDEN_BOOL EdenKeyboardHitSetup(void);
 
 /*!
@@ -90,7 +90,7 @@ EDEN_BOOL EdenKeyboardHitSetup(void);
     @abstract Check to see if the user has pressed a key on the keyboard.
     @discussion
     @result     (description)
-*/
+ */
 EDEN_BOOL EdenKeyboardHit(void);
 
 /*!
@@ -98,7 +98,7 @@ EDEN_BOOL EdenKeyboardHit(void);
     @abstract Do any required cleanup from our use of single keypress detection.
     @discussion
     @result     (description)
-*/
+ */
 EDEN_BOOL EdenKeyboardHitCleanup(void);
 
 /*!
@@ -108,11 +108,11 @@ EDEN_BOOL EdenKeyboardHitCleanup(void);
         Given a full or partial pathname passed in string path,
         returns a pointer to the first char of the filename
         portion of path.
-	@param path Full or partial pathname.
+        @param path Full or partial pathname.
     @result A pointer to the first char of the filename
         portion of path.
-*/
-char *EdenGetFileNameFromPath(const char *path);
+ */
+char* EdenGetFileNameFromPath(const char *path);
 
 /*!
     @function
@@ -122,13 +122,13 @@ char *EdenGetFileNameFromPath(const char *path);
         returns a string with the extension portion of path,
         i.e. the text after the rightmost '.' character, if any.
         If the filename contains no '.', NULL is returned.
-	@param path Full or partial pathname.
+        @param path Full or partial pathname.
     @param convertToLowercase If convertToLowercase is TRUE, uppercase
         ASCII characters in the extension will be converted to lowercase.
     @result A string with the extension portion of path.
         NB: The returned string must be freed by the caller.
-*/
-char *EdenGetFileExtensionFromPath(const char *path, int convertToLowercase);
+ */
+char* EdenGetFileExtensionFromPath(const char *path, int convertToLowercase);
 
 /*!
     @function
@@ -137,11 +137,11 @@ char *EdenGetFileExtensionFromPath(const char *path, int convertToLowercase);
         Given a full or partial pathname passed in string path,
         returns a string with the directory name portion of path.
         The string is not terminated by the directory separator.
-	@param path Full or partial pathname.
+        @param path Full or partial pathname.
     @result A string with the directory name portion of path.
         NB: The returned string must be freed by the caller.
-*/
-char *EdenGetDirectoryNameFromPath(const char *path);
+ */
+char* EdenGetDirectoryNameFromPath(const char *path);
 
 /*!
     @function
@@ -153,9 +153,9 @@ char *EdenGetDirectoryNameFromPath(const char *path);
         otherwise, the path as a NULL-terminated dynamically-allocated
         string. N.B.: free() MUST be called on the returned string
         when it is finished with.
-*/
-char *EdenGetExecutablePath(void);
-    
+ */
+char* EdenGetExecutablePath(void);
+
 
 /*!
     @function
@@ -163,22 +163,21 @@ char *EdenGetExecutablePath(void);
     @discussion
         Given a full or partial pathname passed in string path,
         returns a string with the file URI for that path.
- 
+
         Partial pathnames are handled by concatening with the
         process's current working directory.
-	@param path Full or partial pathname.
- 
+        @param path Full or partial pathname.
+
         On Windows, both partial pathnames, full pathnames including
         the drive letter, or UNC pathnames (beginning with "\\" are
         all OK.
     @result A string with the the file URI for that path.
         NB: The returned string must be freed by the caller (by
         calling free() once its use is complete).
-*/
-char *EdenGetFileURI(const char *path);
+ */
+char* EdenGetFileURI(const char *path);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif	/* !__EdenUtil_h__ */
+#endif  /* !__EdenUtil_h__ */

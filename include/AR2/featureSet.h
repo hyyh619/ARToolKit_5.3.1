@@ -45,61 +45,65 @@
 extern "C" {
 #endif
 
-typedef struct {
-    float   *map;
-    int     xsize;
-    int     ysize;
+typedef struct
+{
+    float *map;
+    int   xsize;
+    int   ysize;
 } AR2FeatureMapT;
 
-typedef struct {
-    int               x;
-    int               y;
-    float             mx;
-    float             my;
-    float             maxSim;
+typedef struct
+{
+    int   x;
+    int   y;
+    float mx;
+    float my;
+    float maxSim;
 } AR2FeatureCoordT;
 
 // One AR2FeaturePointsT holds the feature coordinates for one scalefactor of one image.
-typedef struct {
-    AR2FeatureCoordT  *coord;
-    int               num;
-    int               scale;
-    float             maxdpi;
-    float             mindpi;
+typedef struct
+{
+    AR2FeatureCoordT *coord;
+    int              num;
+    int              scale;
+    float            maxdpi;
+    float            mindpi;
 } AR2FeaturePointsT;
 
 // Structure to hold a set of one or more AR2FeaturePointsT structures for one image.
-typedef struct {
+typedef struct
+{
     AR2FeaturePointsT *list;
     int               num;
 } AR2FeatureSetT;
 
 
-AR2FeatureMapT *ar2GenFeatureMap( AR2ImageT *image,
-                                  int ts1, int ts2,
-                                  int search_size1, int search_size2,
-                                  float  max_sim_thresh, float  sd_thresh );
+AR2FeatureMapT* ar2GenFeatureMap(AR2ImageT *image,
+                                 int ts1, int ts2,
+                                 int search_size1, int search_size2,
+                                 float max_sim_thresh, float sd_thresh);
 
-AR2FeatureMapT *ar2ReadFeatureMap( char *filename, char *ext );
+AR2FeatureMapT* ar2ReadFeatureMap(char *filename, char *ext);
 
-int ar2SaveFeatureMap( char *filename, char *ext, AR2FeatureMapT *featureMap );
+int ar2SaveFeatureMap(char *filename, char *ext, AR2FeatureMapT *featureMap);
 
-int ar2FreeFeatureMap( AR2FeatureMapT *featureMap );
+int ar2FreeFeatureMap(AR2FeatureMapT *featureMap);
 
 
-int ar2PrintFeatureInfo( AR2ImageT *image, AR2FeatureMapT *featureMap, int ts1, int ts2, int search_size2, int cx, int cy );
+int ar2PrintFeatureInfo(AR2ImageT *image, AR2FeatureMapT *featureMap, int ts1, int ts2, int search_size2, int cx, int cy);
 
-AR2FeatureCoordT *ar2SelectFeature( AR2ImageT *image, AR2FeatureMapT *featureMap,
+AR2FeatureCoordT* ar2SelectFeature(AR2ImageT *image, AR2FeatureMapT *featureMap,
+                                   int ts1, int ts2, int search_size2, int occ_size,
+                                   float max_sim_thresh, float min_sim_thresh, float sd_thresh, int *num);
+
+AR2FeatureCoordT* ar2SelectFeature2(AR2ImageT *image, AR2FeatureMapT *featureMap,
                                     int ts1, int ts2, int search_size2, int occ_size,
-                                    float  max_sim_thresh, float  min_sim_thresh, float  sd_thresh, int *num );
+                                    float max_sim_thresh, float min_sim_thresh, float sd_thresh, int *num);
 
-AR2FeatureCoordT *ar2SelectFeature2( AR2ImageT *image, AR2FeatureMapT *featureMap,
-                                     int ts1, int ts2, int search_size2, int occ_size,
-                                     float  max_sim_thresh, float  min_sim_thresh, float  sd_thresh, int *num );
-
-AR2FeatureSetT *ar2ReadFeatureSet( char *filename, char *ext );
-int             ar2SaveFeatureSet( char *filename, char *ext, AR2FeatureSetT *featureSet );
-int             ar2FreeFeatureSet( AR2FeatureSetT **featureSet );
+AR2FeatureSetT* ar2ReadFeatureSet(char *filename, char *ext);
+int             ar2SaveFeatureSet(char *filename, char *ext, AR2FeatureSetT *featureSet);
+int             ar2FreeFeatureSet(AR2FeatureSetT **featureSet);
 
 #ifdef __cplusplus
 }

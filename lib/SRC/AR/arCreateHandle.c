@@ -105,7 +105,7 @@ int arDeleteHandle(ARHandle *handle)
         handle->arImageProcInfo = NULL;
     }
 
-    //if( handle->arParamLT != NULL ) arParamLTFree( &handle->arParamLT );
+    // if( handle->arParamLT != NULL ) arParamLTFree( &handle->arParamLT );
     free(handle->labelInfo.labelImage);
 #if !AR_DISABLE_LABELING_DEBUG_MODE
     if (handle->labelInfo.bwImage)

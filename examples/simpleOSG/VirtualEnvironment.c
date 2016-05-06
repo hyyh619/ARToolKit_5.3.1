@@ -1,8 +1,8 @@
 /*
- *	VirtualEnvironment.c
+ *      VirtualEnvironment.c
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit NFT with models rendered in OSG,
+ *      Demonstration of ARToolKit NFT with models rendered in OSG,
  *  and marker pose estimates filtered to reduce jitter.
  *
  *  Press '?' while running for help on available key commands.
@@ -185,7 +185,6 @@ int VirtualEnvironmentInit(const char *objectListFile)
 
     for (i = 0; i < numObjects; i++)
     {
-
         // Read in all info relating to the object.
 
         // Read model file path (relative to objects description file).
@@ -288,7 +287,6 @@ int VirtualEnvironmentInit(const char *objectListFile)
         }
 
         objectCount++;
-
     }
 
     ARLOGd("Virtual Environment initialised.\n");

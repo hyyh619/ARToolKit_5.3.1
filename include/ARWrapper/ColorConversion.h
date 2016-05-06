@@ -39,5 +39,4 @@
 #define COLORCONVERSION_H
 
 void color_convert_common(unsigned char *pY, unsigned char *pUV, int width, int height, unsigned char *buffer);
-
 #endif // !COLORCONVERSION_H

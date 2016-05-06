@@ -36,7 +36,6 @@
 
 namespace cvflann
 {
-
 /**
  * A start-stop timer class.
  *
@@ -44,50 +43,48 @@ namespace cvflann
  */
 class StartStopTimer
 {
-    clock_t startTime;
+clock_t startTime;
 
 public:
-    /**
-     * Value of the timer.
-     */
-    double value;
+/**
+ * Value of the timer.
+ */
+double value;
 
 
-    /**
-     * Constructor.
-     */
-    StartStopTimer()
-    {
-        reset();
-    }
-
-    /**
-     * Starts the timer.
-     */
-    void start()
-    {
-        startTime = clock();
-    }
-
-    /**
-     * Stops the timer and updates timer value.
-     */
-    void stop()
-    {
-        clock_t stopTime = clock();
-        value += ( (double)stopTime - startTime) / CLOCKS_PER_SEC;
-    }
-
-    /**
-     * Resets the timer value to 0.
-     */
-    void reset()
-    {
-        value = 0;
-    }
-
-};
-
+/**
+ * Constructor.
+ */
+StartStopTimer()
+{
+    reset();
 }
 
+/**
+ * Starts the timer.
+ */
+void start()
+{
+    startTime = clock();
+}
+
+/**
+ * Stops the timer and updates timer value.
+ */
+void stop()
+{
+    clock_t stopTime = clock();
+
+    value += ((double)stopTime - startTime) / CLOCKS_PER_SEC;
+}
+
+/**
+ * Resets the timer value to 0.
+ */
+void reset()
+{
+    value = 0;
+}
+};
+}
 #endif // FLANN_TIMER_H

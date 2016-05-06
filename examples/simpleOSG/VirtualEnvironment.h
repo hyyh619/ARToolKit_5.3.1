@@ -1,8 +1,8 @@
 /*
- *	VirtualEnvironment.h
+ *      VirtualEnvironment.h
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit NFT with models rendered in OSG,
+ *      Demonstration of ARToolKit NFT with models rendered in OSG,
  *  and marker pose estimates filtered to reduce jitter.
  *
  *  Press '?' while running for help on available key commands.
@@ -72,7 +72,7 @@ void VirtualEnvironmentHandleARMarkerDisappeared(int markerIndex);
 
 // ARView notification handlers.
 void VirtualEnvironmentHandleARViewUpdatedCameraLens(ARdouble *projection_in);
-//void VirtualEnvironmentHandleARViewUpdatedCameraPose(GLfloat *modelview_in);
+// void VirtualEnvironmentHandleARViewUpdatedCameraPose(GLfloat *modelview_in);
 void VirtualEnvironmentHandleARViewUpdatedViewport(int *viewPort_in);
 void VirtualEnvironmentHandleARViewDrawPreCamera(void);
 void VirtualEnvironmentHandleARViewDrawPostCamera(void);

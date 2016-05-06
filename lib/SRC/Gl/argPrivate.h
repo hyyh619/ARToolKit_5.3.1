@@ -47,60 +47,60 @@ extern "C" {
 
 // Make sure that required OpenGL constant definitions are available at compile-time.
 // N.B. These should not be used unless the renderer indicates (at run-time) that it supports them.
-	
+
 // Define constants for extensions which became core in OpenGL 1.2
 #ifndef GL_VERSION_1_2
 #  if GL_EXT_bgra
-#    define GL_BGR							GL_BGR_EXT
-#    define GL_BGRA							GL_BGRA_EXT
+#    define GL_BGR  GL_BGR_EXT
+#    define GL_BGRA GL_BGRA_EXT
 #  else
-#    define GL_BGR							0x80E0
-#    define GL_BGRA							0x80E1
+#    define GL_BGR  0x80E0
+#    define GL_BGRA 0x80E1
 #  endif
 #  ifndef GL_APPLE_packed_pixels
-#    define GL_UNSIGNED_INT_8_8_8_8			0x8035
-#    define GL_UNSIGNED_INT_8_8_8_8_REV		0x8367
+#    define GL_UNSIGNED_INT_8_8_8_8     0x8035
+#    define GL_UNSIGNED_INT_8_8_8_8_REV 0x8367
 #  endif
 #  if GL_SGIS_texture_edge_clamp
-#    define GL_CLAMP_TO_EDGE				GL_CLAMP_TO_EDGE_SGIS
+#    define GL_CLAMP_TO_EDGE GL_CLAMP_TO_EDGE_SGIS
 #  else
-#    define GL_CLAMP_TO_EDGE				0x812F
+#    define GL_CLAMP_TO_EDGE 0x812F
 #  endif
 #endif
-	
+
 // Define constants for extensions which became core in OpenGL 3.1
 #ifndef GL_VERSION_3_1
 #  if GL_NV_texture_rectangle
-#    define GL_TEXTURE_RECTANGLE            GL_TEXTURE_RECTANGLE_NV
-#    define GL_PROXY_TEXTURE_RECTANGLE		GL_PROXY_TEXTURE_RECTANGLE_NV
-#    define GL_MAX_RECTANGLE_TEXTURE_SIZE   GL_MAX_RECTANGLE_TEXTURE_SIZE_NV
+#    define GL_TEXTURE_RECTANGLE          GL_TEXTURE_RECTANGLE_NV
+#    define GL_PROXY_TEXTURE_RECTANGLE    GL_PROXY_TEXTURE_RECTANGLE_NV
+#    define GL_MAX_RECTANGLE_TEXTURE_SIZE GL_MAX_RECTANGLE_TEXTURE_SIZE_NV
 #  elif GL_EXT_texture_rectangle
-#    define GL_TEXTURE_RECTANGLE            GL_TEXTURE_RECTANGLE_EXT
-#    define GL_PROXY_TEXTURE_RECTANGLE      GL_PROXY_TEXTURE_RECTANGLE_EXT
-#    define GL_MAX_RECTANGLE_TEXTURE_SIZE   GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
+#    define GL_TEXTURE_RECTANGLE          GL_TEXTURE_RECTANGLE_EXT
+#    define GL_PROXY_TEXTURE_RECTANGLE    GL_PROXY_TEXTURE_RECTANGLE_EXT
+#    define GL_MAX_RECTANGLE_TEXTURE_SIZE GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT
 #  else
-#    define GL_TEXTURE_RECTANGLE            0x84F5
-#    define GL_PROXY_TEXTURE_RECTANGLE      0x84F7
-#    define GL_MAX_RECTANGLE_TEXTURE_SIZE   0x84F8
+#    define GL_TEXTURE_RECTANGLE          0x84F5
+#    define GL_PROXY_TEXTURE_RECTANGLE    0x84F7
+#    define GL_MAX_RECTANGLE_TEXTURE_SIZE 0x84F8
 #  endif
 #endif
 
 // Define constants for extensions (not yet core).
 #ifndef GL_APPLE_ycbcr_422
-#  define GL_YCBCR_422_APPLE				0x85B9
-#  define GL_UNSIGNED_SHORT_8_8_APPLE		0x85BA
-#  define GL_UNSIGNED_SHORT_8_8_REV_APPLE	0x85BB
+#  define GL_YCBCR_422_APPLE              0x85B9
+#  define GL_UNSIGNED_SHORT_8_8_APPLE     0x85BA
+#  define GL_UNSIGNED_SHORT_8_8_REV_APPLE 0x85BB
 #endif
 #ifndef GL_EXT_abgr
-#  define GL_ABGR_EXT						0x8000
+#  define GL_ABGR_EXT 0x8000
 #endif
 
 
-ARGWindowHandle   *argGetWinHandle( void );
-ARGViewportHandle *argGetCurrentVPHandle( void );
-int                argSetCurrentVPHandle( ARGViewportHandle *vp );
-void               argClearDisplayList( ARGDisplayList *dispList );
-int                argGetCurrentScale(ARGViewportHandle *vp, ARdouble *sx, ARdouble *sy, ARdouble *offx, ARdouble *offy );
+ARGWindowHandle* argGetWinHandle(void);
+ARGViewportHandle* argGetCurrentVPHandle(void);
+int                argSetCurrentVPHandle(ARGViewportHandle *vp);
+void               argClearDisplayList(ARGDisplayList *dispList);
+int                argGetCurrentScale(ARGViewportHandle *vp, ARdouble *sx, ARdouble *sy, ARdouble *offx, ARdouble *offy);
 
 
 

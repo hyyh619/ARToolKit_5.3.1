@@ -35,29 +35,29 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 4.0
- * Date: 03/08/13
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 4.0
+* Date: 03/08/13
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <AR/ar.h>
 
 #ifdef ARDOUBLE_IS_FLOAT
-#  define _0_5 0.5f
-#  define _0_05 0.05f
-#  define _0_0 0.0f
+#  define _0_5    0.5f
+#  define _0_05   0.05f
+#  define _0_0    0.0f
 #  define EPSILON 0.0001f
 #  define FABS(x) fabsf(x)
 #else
-#  define _0_5 0.5
-#  define _0_05 0.05
-#  define _0_0 0.0
+#  define _0_5    0.5
+#  define _0_05   0.05
+#  define _0_0    0.0
 #  define EPSILON 0.0001
 #  define FABS(x) fabs(x)
 #endif
@@ -67,58 +67,73 @@ int arGetLine(int x_coord[], int y_coord[], int coord_num, int vertex[], ARParam
 {
     ARMat    *input, *evec;
     ARVec    *ev, *mean;
-    ARdouble   w1;
+    ARdouble w1;
     int      st, ed, n;
     int      i, j;
 
-    ev     = arVecAlloc( 2 );
-    mean   = arVecAlloc( 2 );
-    evec   = arMatrixAlloc( 2, 2 );
-    for( i = 0; i < 4; i++ ) {
-        w1 = (ARdouble)(vertex[i+1]-vertex[i]+1) * _0_05 + _0_5;
-        st = (int)(vertex[i]   + w1);
-        ed = (int)(vertex[i+1] - w1);
-        n = ed - st + 1;
-        input  = arMatrixAlloc( n, 2 );
-        for( j = 0; j < n; j++ ) {
+    ev   = arVecAlloc(2);
+    mean = arVecAlloc(2);
+    evec = arMatrixAlloc(2, 2);
+
+    for (i = 0; i < 4; i++)
+    {
+        w1    = (ARdouble)(vertex[i + 1] - vertex[i] + 1) * _0_05 + _0_5;
+        st    = (int)(vertex[i] + w1);
+        ed    = (int)(vertex[i + 1] - w1);
+        n     = ed - st + 1;
+        input = arMatrixAlloc(n, 2);
+
+        for (j = 0; j < n; j++)
+        {
 #ifdef ARDOUBLE_IS_FLOAT
-            if (arParamObserv2IdealLTf( paramLTf, (float)x_coord[st+j], (float)y_coord[st+j],
-                                       &(input->m[j*2+0]), &(input->m[j*2+1]) ) < 0) goto bail;
+            if (arParamObserv2IdealLTf(paramLTf, (float)x_coord[st + j], (float)y_coord[st + j],
+                                       &(input->m[j * 2 + 0]), &(input->m[j * 2 + 1])) < 0)
+                goto bail;
+
 #else
             float m0, m1;
-            if (arParamObserv2IdealLTf( paramLTf, (float)x_coord[st+j], (float)y_coord[st+j], &m0, &m1 ) < 0) goto bail;
-            input->m[j*2+0] = (ARdouble)m0;
-            input->m[j*2+1] = (ARdouble)m1;
+            if (arParamObserv2IdealLTf(paramLTf, (float)x_coord[st + j], (float)y_coord[st + j], &m0, &m1) < 0)
+                goto bail;
+
+            input->m[j * 2 + 0] = (ARdouble)m0;
+            input->m[j * 2 + 1] = (ARdouble)m1;
 #endif
-            //arParamObserv2Ideal( dist_factor, (ARdouble)x_coord[st+j], (ARdouble)y_coord[st+j],
+            // arParamObserv2Ideal( dist_factor, (ARdouble)x_coord[st+j], (ARdouble)y_coord[st+j],
             //                     &(input->m[j*2+0]), &(input->m[j*2+1]), dist_function_version );
         }
-        if( arMatrixPCA(input, evec, ev, mean) < 0 ) goto bail;
-        line[i][0] =  evec->m[1];
-        line[i][1] = -evec->m[0];
-        line[i][2] = -(line[i][0]*mean->v[0] + line[i][1]*mean->v[1]);
-        arMatrixFree( input );
-    }
-    arMatrixFree( evec );
-    arVecFree( mean );
-    arVecFree( ev );
 
-    for( i = 0; i < 4; i++ ) {
-        w1 = line[(i+3)%4][0] * line[i][1] - line[i][0] * line[(i+3)%4][1];
-        //if( w1 == _0_0 ) return(-1); // lines are parallel.
-        if( FABS(w1) < EPSILON ) return(-1); // lines are close to parallel.
-        v[i][0] = (  line[(i+3)%4][1] * line[i][2]
-                   - line[i][1] * line[(i+3)%4][2] ) / w1;
-        v[i][1] = (  line[i][0] * line[(i+3)%4][2]
-                   - line[(i+3)%4][0] * line[i][2] ) / w1;
+        if (arMatrixPCA(input, evec, ev, mean) < 0)
+            goto bail;
+
+        line[i][0] = evec->m[1];
+        line[i][1] = -evec->m[0];
+        line[i][2] = -(line[i][0] * mean->v[0] + line[i][1] * mean->v[1]);
+        arMatrixFree(input);
+    }
+
+    arMatrixFree(evec);
+    arVecFree(mean);
+    arVecFree(ev);
+
+    for (i = 0; i < 4; i++)
+    {
+        w1 = line[(i + 3) % 4][0] * line[i][1] - line[i][0] * line[(i + 3) % 4][1];
+        // if( w1 == _0_0 ) return(-1); // lines are parallel.
+        if (FABS(w1) < EPSILON)
+            return(-1);                      // lines are close to parallel.
+
+        v[i][0] = (line[(i + 3) % 4][1] * line[i][2]
+                   - line[i][1] * line[(i + 3) % 4][2]) / w1;
+        v[i][1] = (line[i][0] * line[(i + 3) % 4][2]
+                   - line[(i + 3) % 4][0] * line[i][2]) / w1;
     }
 
     return 0;
-    
+
 bail:
-    arMatrixFree( input );
-    arMatrixFree( evec );
-    arVecFree( mean );
-    arVecFree( ev );
+    arMatrixFree(input);
+    arMatrixFree(evec);
+    arVecFree(mean);
+    arVecFree(ev);
     return -1;
 }

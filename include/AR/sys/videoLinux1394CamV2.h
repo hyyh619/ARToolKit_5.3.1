@@ -1,5 +1,5 @@
 /*
- *	videoLinux1394CamV2.h
+ *      videoLinux1394CamV2.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -39,7 +39,7 @@
 #define AR_VIDEO_LINUX_1394CAM2_H
 
 #include <stdlib.h>
-//#include <dc1394/utils.h>
+// #include <dc1394/utils.h>
 #include <dc1394/control.h>
 #include <pthread.h>
 #include <AR/ar.h>
@@ -50,23 +50,25 @@ extern "C" {
 #endif
 
 
-#define   AR2VIDEO_1394_STATUS_IDLE    0
-#define   AR2VIDEO_1394_STATUS_RUN     1
-#define   AR2VIDEO_1394_STATUS_STOP    2
+#define   AR2VIDEO_1394_STATUS_IDLE 0
+#define   AR2VIDEO_1394_STATUS_RUN  1
+#define   AR2VIDEO_1394_STATUS_STOP 2
 
-typedef struct {
-    AR2VideoBufferT     in;
-    AR2VideoBufferT     wait;
-    AR2VideoBufferT     out;
-    pthread_mutex_t     mutex;
+typedef struct
+{
+    AR2VideoBufferT in;
+    AR2VideoBufferT wait;
+    AR2VideoBufferT out;
+    pthread_mutex_t mutex;
 } AR2VideoBuffer1394T;
 
-typedef struct {
-    int                    mode;
-    int                    rate;
-    int                    speed;
-    int                    format7;
-    int                    debug;
+typedef struct
+{
+    int mode;
+    int rate;
+    int speed;
+    int format7;
+    int debug;
 
     uint32_t               guid[2];
     int                    width;
@@ -75,7 +77,7 @@ typedef struct {
     int                    dma_buf_num;
     int                    internal_id;
     int                    status;
-    dc1394camera_t        *camera;
+    dc1394camera_t         *camera;
     dc1394video_mode_t     int_mode;
     dc1394video_modes_t    modes;
     dc1394framerate_t      int_rate;
@@ -88,37 +90,37 @@ typedef struct {
 } AR2VideoParam1394T;
 
 
-int                   ar2VideoDispOption1394     ( void );
-AR2VideoParam1394T   *ar2VideoOpen1394           ( const char *config );
-int                   ar2VideoClose1394          ( AR2VideoParam1394T *vid );
-int                   ar2VideoGetId1394          ( AR2VideoParam1394T *vid, ARUint32 *id0, ARUint32 *id1 );
-int                   ar2VideoGetSize1394        ( AR2VideoParam1394T *vid, int *x,int *y );
-AR_PIXEL_FORMAT       ar2VideoGetPixelFormat1394 ( AR2VideoParam1394T *vid );
-AR2VideoBufferT      *ar2VideoGetImage1394       ( AR2VideoParam1394T *vid );
-int                   ar2VideoCapStart1394       ( AR2VideoParam1394T *vid );
-int                   ar2VideoCapStop1394        ( AR2VideoParam1394T *vid );
+int                   ar2VideoDispOption1394(void);
+AR2VideoParam1394T* ar2VideoOpen1394(const char *config);
+int                   ar2VideoClose1394(AR2VideoParam1394T *vid);
+int                   ar2VideoGetId1394(AR2VideoParam1394T *vid, ARUint32 *id0, ARUint32 *id1);
+int                   ar2VideoGetSize1394(AR2VideoParam1394T *vid, int *x, int *y);
+AR_PIXEL_FORMAT       ar2VideoGetPixelFormat1394(AR2VideoParam1394T *vid);
+AR2VideoBufferT* ar2VideoGetImage1394(AR2VideoParam1394T *vid);
+int                   ar2VideoCapStart1394(AR2VideoParam1394T *vid);
+int                   ar2VideoCapStop1394(AR2VideoParam1394T *vid);
 
-int                    ar2VideoGetParami1394     ( AR2VideoParam1394T *vid, int paramName, int *value );
-int                    ar2VideoSetParami1394     ( AR2VideoParam1394T *vid, int paramName, int  value );
-int                    ar2VideoGetParamd1394     ( AR2VideoParam1394T *vid, int paramName, double *value );
-int                    ar2VideoSetParamd1394     ( AR2VideoParam1394T *vid, int paramName, double  value );
+int                    ar2VideoGetParami1394(AR2VideoParam1394T *vid, int paramName, int *value);
+int                    ar2VideoSetParami1394(AR2VideoParam1394T *vid, int paramName, int value);
+int                    ar2VideoGetParamd1394(AR2VideoParam1394T *vid, int paramName, double *value);
+int                    ar2VideoSetParamd1394(AR2VideoParam1394T *vid, int paramName, double value);
 
-int                    ar2VideoGetValue1394                   ( AR2VideoParam1394T *vid, int paramName, int *value );
-int                    ar2VideoSetValue1394                   ( AR2VideoParam1394T *vid, int paramName, int  value );
-int                    ar2VideoGetAutoOn1394                  ( AR2VideoParam1394T *vid, int paramName, int *value );
-int                    ar2VideoSetAutoOn1394                  ( AR2VideoParam1394T *vid, int paramName, int  value );
-int                    ar2VideoGetFeatureOn1394               ( AR2VideoParam1394T *vid, int paramName, int *value );
-int                    ar2VideoSetFeatureOn1394               ( AR2VideoParam1394T *vid, int paramName, int  value );
-int                    ar2VideoGetMaxValue1394                ( AR2VideoParam1394T *vid, int paramName, int *value );
-int                    ar2VideoGetMinValue1394                ( AR2VideoParam1394T *vid, int paramName, int *value );
+int                    ar2VideoGetValue1394(AR2VideoParam1394T *vid, int paramName, int *value);
+int                    ar2VideoSetValue1394(AR2VideoParam1394T *vid, int paramName, int value);
+int                    ar2VideoGetAutoOn1394(AR2VideoParam1394T *vid, int paramName, int *value);
+int                    ar2VideoSetAutoOn1394(AR2VideoParam1394T *vid, int paramName, int value);
+int                    ar2VideoGetFeatureOn1394(AR2VideoParam1394T *vid, int paramName, int *value);
+int                    ar2VideoSetFeatureOn1394(AR2VideoParam1394T *vid, int paramName, int value);
+int                    ar2VideoGetMaxValue1394(AR2VideoParam1394T *vid, int paramName, int *value);
+int                    ar2VideoGetMinValue1394(AR2VideoParam1394T *vid, int paramName, int *value);
 
-int                    ar2VideoGetAbsValue1394                ( AR2VideoParam1394T *vid, int paramName, ARdouble *value );
-int                    ar2VideoSetAbsValue1394                ( AR2VideoParam1394T *vid, int paramName, ARdouble  value );
-int                    ar2VideoGetAbsMaxValue1394             ( AR2VideoParam1394T *vid, int paramName, ARdouble *value );
-int                    ar2VideoGetAbsMinValue1394             ( AR2VideoParam1394T *vid, int paramName, ARdouble *value );
+int                    ar2VideoGetAbsValue1394(AR2VideoParam1394T *vid, int paramName, ARdouble *value);
+int                    ar2VideoSetAbsValue1394(AR2VideoParam1394T *vid, int paramName, ARdouble value);
+int                    ar2VideoGetAbsMaxValue1394(AR2VideoParam1394T *vid, int paramName, ARdouble *value);
+int                    ar2VideoGetAbsMinValue1394(AR2VideoParam1394T *vid, int paramName, ARdouble *value);
 
-int                    ar2VideoSaveParam1394                  ( AR2VideoParam1394T *vid, char *filename );
-int                    ar2VideoLoadParam1394                  ( AR2VideoParam1394T *vid, char *filename );
+int                    ar2VideoSaveParam1394(AR2VideoParam1394T *vid, char *filename);
+int                    ar2VideoLoadParam1394(AR2VideoParam1394T *vid, char *filename);
 #ifdef  __cplusplus
 }
 #endif

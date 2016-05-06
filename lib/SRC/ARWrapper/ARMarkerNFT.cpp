@@ -45,73 +45,87 @@ ARMarkerNFT::ARMarkerNFT() : ARMarker(NFT),
     m_nftScale(1.0f),
     pageNo(-1),
     datasetPathname(NULL)
-{
-}
+{}
 
 ARMarkerNFT::~ARMarkerNFT()
 {
-	if (m_loaded) unload();
+    if (m_loaded)
+        unload();
 }
 
-bool ARMarkerNFT::load(const char* dataSetPathname_in)
+bool ARMarkerNFT::load(const char *dataSetPathname_in)
 {
-    if (m_loaded) unload();
-    
-	visible = visiblePrev = false;
-	
+    if (m_loaded)
+        unload();
+
+    visible = visiblePrev = false;
+
     // Load AR2 data.
     ARController::logv("Loading %s.fset.", dataSetPathname_in);
-    if ((surfaceSet = ar2ReadSurfaceSet(dataSetPathname_in, "fset", NULL)) == NULL) {
+    if ((surfaceSet = ar2ReadSurfaceSet(dataSetPathname_in, "fset", NULL)) == NULL)
+    {
         ARController::logv("Error reading data from %s.fset", dataSetPathname_in);
         return (false);
     }
- 	datasetPathname = strdup(dataSetPathname_in);
-    
+
+    datasetPathname = strdup(dataSetPathname_in);
+
     allocatePatterns(1);
     patterns[0]->loadISet(surfaceSet->surface[0].imageSet, m_nftScale);
-   
+
     m_loaded = true;
-    
-	return true;
+
+    return true;
 }
 
 bool ARMarkerNFT::unload()
 {
-    if (m_loaded) {
+    if (m_loaded)
+    {
         freePatterns();
         pageNo = -1;
-        if (surfaceSet) {
+        if (surfaceSet)
+        {
             ARController::logv("Unloading %s.fset.", datasetPathname);
             ar2FreeSurfaceSet(&surfaceSet); // Sets surfaceSet to NULL.
         }
-        if (datasetPathname) {
+
+        if (datasetPathname)
+        {
             free(datasetPathname);
             datasetPathname = NULL;
         }
-        
+
         m_loaded = false;
     }
-	return true;
+
+    return true;
 }
 
 bool ARMarkerNFT::updateWithNFTResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4])
 {
-    if (!m_loaded) return false;
-    
-	visiblePrev = visible;
-    
+    if (!m_loaded)
+        return false;
+
+    visiblePrev = visible;
+
     // The marker will only have a pageNo if the data has actually been loaded by a call to ARController::loadNFTData().
-	if (pageNo >= 0 && pageNo == detectedPage) {
+    if (pageNo >= 0 && pageNo == detectedPage)
+    {
         visible = true;
-        for (int j = 0; j < 3; j++) {
+
+        for (int j = 0; j < 3; j++)
+        {
             trans[j][0] = (ARdouble)trackingTrans[j][0];
             trans[j][1] = (ARdouble)trackingTrans[j][1];
             trans[j][2] = (ARdouble)trackingTrans[j][2];
             trans[j][3] = (ARdouble)(trackingTrans[j][3] * m_nftScale);
         }
-	} else visible = false;
+    }
+    else
+        visible = false;
 
-	return (ARMarker::update(transL2R)); // Parent class will finish update.
+    return (ARMarker::update(transL2R));     // Parent class will finish update.
 }
 
 void ARMarkerNFT::setNFTScale(const float scale)
@@ -124,5 +138,4 @@ float ARMarkerNFT::getNFTScale()
 {
     return (m_nftScale);
 }
-
 #endif // HAVE_NFT

@@ -37,15 +37,15 @@
  *
  */
 /*******************************************************
- *
- * Author: Hirokazu Kato
- *
- *         kato@sys.es.osaka-u.ac.jp
- *
- * Revision: 4.1
- * Date: 2005/08/26
- *
- *******************************************************/
+*
+* Author: Hirokazu Kato
+*
+*         kato@sys.es.osaka-u.ac.jp
+*
+* Revision: 4.1
+* Date: 2005/08/26
+*
+*******************************************************/
 
 #ifndef AR_VIDEO_WIN_DS_PRIVATE_H
 #define AR_VIDEO_WIN_DS_PRIVATE_H
@@ -56,62 +56,70 @@
 #include <stdio.h>
 #include <AR/video.h>
 
-#define		AR2VIDEO_WINDS_DEVICE_MAX			10
+#define         AR2VIDEO_WINDS_DEVICE_MAX 10
 
 
-#define		AR2VIDEO_WINDS_STATUS_IDLE			 0
-#define		AR2VIDEO_WINDS_STATUS_RUN			 1
+#define         AR2VIDEO_WINDS_STATUS_IDLE 0
+#define         AR2VIDEO_WINDS_STATUS_RUN  1
 
 
-typedef struct {
-	IGraphBuilder			*pGraph;
-	ICreateDevEnum			*pDevEnum;
-	IEnumMoniker			*pClassEnum;
-	IMediaControl			*pMediaControl;
-	int						 devNum;
-	char					*devName[AR2VIDEO_WINDS_DEVICE_MAX];
-	int						 devStatus[AR2VIDEO_WINDS_DEVICE_MAX];
-	int						 runCount;
+typedef struct
+{
+    IGraphBuilder  *pGraph;
+    ICreateDevEnum *pDevEnum;
+    IEnumMoniker   *pClassEnum;
+    IMediaControl  *pMediaControl;
+    int            devNum;
+    char           *devName[AR2VIDEO_WINDS_DEVICE_MAX];
+    int            devStatus[AR2VIDEO_WINDS_DEVICE_MAX];
+    int            runCount;
 } AR2VideoWinDSDeviceInfoT;
 
 
 
-typedef struct {
-    AR2VideoBufferT			 in;
-    AR2VideoBufferT		 	 wait;
-    AR2VideoBufferT			 out;
-	HANDLE					 buffMutex;
-	void					*pBmpBuffer;
-	long					 bmpBufferSize;
-	int						 width;
-	int						 height;
-	int						 flipH;
-	int						 flipV;
-	int                      status;
+typedef struct
+{
+    AR2VideoBufferT in;
+    AR2VideoBufferT wait;
+    AR2VideoBufferT out;
+    HANDLE          buffMutex;
+    void            *pBmpBuffer;
+    long            bmpBufferSize;
+    int             width;
+    int             height;
+    int             flipH;
+    int             flipV;
+    int             status;
 } AR2VideoBufferWinDST;
 
 class ARSampleGrabberCB : public ISampleGrabberCB
 {
 public:
-    AR2VideoBufferWinDST     buffer;
-	ISampleGrabber			*pGrabber;
+AR2VideoBufferWinDST buffer;
+ISampleGrabber       *pGrabber;
 
-	ARSampleGrabberCB(int flipH, int flipV);
+ARSampleGrabberCB(int flipH, int flipV);
 
-    STDMETHODIMP_(ULONG) AddRef() { return 1; }
-    STDMETHODIMP_(ULONG) Release() { return 2; }
+STDMETHODIMP_(ULONG) AddRef()
+{
+    return 1;
+}
+STDMETHODIMP_(ULONG) Release()
+{
+    return 2;
+}
 
-    STDMETHODIMP QueryInterface(REFIID riid, void **ppvObject);
-    STDMETHODIMP SampleCB(double Time, IMediaSample *pSample);
-    STDMETHODIMP BufferCB(double Time, BYTE *pBuffer, long BufferLen);
+STDMETHODIMP QueryInterface(REFIID riid, void **ppvObject);
+STDMETHODIMP SampleCB(double Time, IMediaSample *pSample);
+STDMETHODIMP BufferCB(double Time, BYTE *pBuffer, long BufferLen);
 };
 
-typedef struct {
-	IBaseFilter				*pVideoCapFilter;
-	IBaseFilter				*pVideoGrabFilter;
-	ARSampleGrabberCB		*grabberCallback;
-	int						 showPropertiesFlag;
-	int						 devNum;
+typedef struct
+{
+    IBaseFilter       *pVideoCapFilter;
+    IBaseFilter       *pVideoGrabFilter;
+    ARSampleGrabberCB *grabberCallback;
+    int               showPropertiesFlag;
+    int               devNum;
 } AR2VideoParamWinDS2T;
-
 #endif

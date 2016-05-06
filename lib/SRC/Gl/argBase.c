@@ -42,40 +42,45 @@
 #include "argPrivate.h"
 #define ARG_BASE_DO_NOT_INIT_GLUT
 
-static int                  initWinPosX = 0;
-static int                  initWinPosY = 0;
-static ARGWindowHandle     *winHandle = NULL;
-static ARGViewportHandle   *currentVP = NULL;
+static int               initWinPosX = 0;
+static int               initWinPosY = 0;
+static ARGWindowHandle   *winHandle  = NULL;
+static ARGViewportHandle *currentVP  = NULL;
 #ifndef ARG_BASE_DO_NOT_INIT_GLUT
-static int                  initF = 0;
+static int initF = 0;
 #endif
 
-int argSetWindow( ARGWindowHandle *w )
+int argSetWindow(ARGWindowHandle *w)
 {
-        winHandle = w;
-        glutSetWindow( w->winID );
-        return 0;
+    winHandle = w;
+    glutSetWindow(w->winID);
+    return 0;
 }
 
-int argInitWindowPos( int xpos, int ypos )
+int argInitWindowPos(int xpos, int ypos)
 {
     initWinPosX = xpos;
     initWinPosY = ypos;
     return 0;
 }
 
-ARGWindowHandle *argCreateWindow( int xsize, int ysize )
+ARGWindowHandle* argCreateWindow(int xsize, int ysize)
 {
-    ARGWindowHandle  *w;
-#ifndef ARG_BASE_DO_NOT_INIT_GLUT
-    int               argc = 1;
-    char             *argv[1] = {"ARToolKit"};
+    ARGWindowHandle *w;
 
-    if( initF == 0 ) { glutInit(&argc, argv); initF = 1; }
+#ifndef ARG_BASE_DO_NOT_INIT_GLUT
+    int  argc     = 1;
+    char *argv[1] = {"ARToolKit"};
+
+    if (initF == 0)
+    {
+        glutInit(&argc, argv); initF = 1;
+    }
 #endif
-	
-    w = (ARGWindowHandle *)malloc(sizeof(ARGWindowHandle));
-    if( w == NULL ) return NULL;
+
+    w = (ARGWindowHandle*)malloc(sizeof(ARGWindowHandle));
+    if (w == NULL)
+        return NULL;
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_ALPHA | GLUT_DEPTH | GLUT_STENCIL);
     glutInitWindowPosition(initWinPosX, initWinPosY);
@@ -84,34 +89,42 @@ ARGWindowHandle *argCreateWindow( int xsize, int ysize )
     w->xsize = xsize;
     w->ysize = ysize;
 
-    if (glutExtensionSupported("GL_ARB_texture_rectangle") || glutExtensionSupported("GL_EXT_texture_rectangle") || glutExtensionSupported("GL_NV_texture_rectangle")) {
+    if (glutExtensionSupported("GL_ARB_texture_rectangle") || glutExtensionSupported("GL_EXT_texture_rectangle") || glutExtensionSupported("GL_NV_texture_rectangle"))
+    {
         w->possibleTextureRectangle = 1;
         glGetIntegerv(GL_MAX_RECTANGLE_TEXTURE_SIZE, &(w->maxTextureRectangleSize));
-    } else {
-		w->possibleTextureRectangle = 0;
-	}
+    }
+    else
+    {
+        w->possibleTextureRectangle = 0;
+    }
 
-    glutKeyboardFunc( argDefaultKeyFunc );
+    glutKeyboardFunc(argDefaultKeyFunc);
 
     winHandle = w;
-    glutSetWindow( w->winID );
+    glutSetWindow(w->winID);
 
     return w;
 }
 
-ARGWindowHandle *argCreateFullWindow( void )
+ARGWindowHandle* argCreateFullWindow(void)
 {
-    ARGWindowHandle  *w;
-    int               xsize, ysize;
-#ifndef ARG_BASE_DO_NOT_INIT_GLUT
-    int               argc = 1;
-    char             *argv[1] = {"ARToolKit"};
+    ARGWindowHandle *w;
+    int             xsize, ysize;
 
-    if( initF == 0 ) { glutInit(&argc, argv); initF = 1; }
+#ifndef ARG_BASE_DO_NOT_INIT_GLUT
+    int  argc     = 1;
+    char *argv[1] = {"ARToolKit"};
+
+    if (initF == 0)
+    {
+        glutInit(&argc, argv); initF = 1;
+    }
 #endif
-	
-    w = (ARGWindowHandle *)malloc(sizeof(ARGWindowHandle));
-    if( w == NULL ) return (NULL);
+
+    w = (ARGWindowHandle*)malloc(sizeof(ARGWindowHandle));
+    if (w == NULL)
+        return (NULL);
 
     xsize = glutGet(GLUT_SCREEN_WIDTH);
     ysize = glutGet(GLUT_SCREEN_HEIGHT);
@@ -124,24 +137,28 @@ ARGWindowHandle *argCreateFullWindow( void )
     w->ysize = ysize;
     glutFullScreen();
 
-    if( glutExtensionSupported("GL_ARB_texture_rectangle") || glutExtensionSupported("GL_EXT_texture_rectangle") || glutExtensionSupported("GL_NV_texture_rectangle") ) {
+    if (glutExtensionSupported("GL_ARB_texture_rectangle") || glutExtensionSupported("GL_EXT_texture_rectangle") || glutExtensionSupported("GL_NV_texture_rectangle"))
+    {
         w->possibleTextureRectangle = 1;
         glGetIntegerv(GL_MAX_RECTANGLE_TEXTURE_SIZE, &(w->maxTextureRectangleSize));
-    } else {
-		w->possibleTextureRectangle = 0;
-	}
+    }
+    else
+    {
+        w->possibleTextureRectangle = 0;
+    }
 
-    glutKeyboardFunc( argDefaultKeyFunc );
+    glutKeyboardFunc(argDefaultKeyFunc);
 
     winHandle = w;
-    glutSetWindow( w->winID );
+    glutSetWindow(w->winID);
 
     return w;
 }
 
-int argGetScreenSize( int *xsize, int *ysize )
+int argGetScreenSize(int *xsize, int *ysize)
 {
-    if( winHandle == NULL ) return -1;
+    if (winHandle == NULL)
+        return -1;
 
     *xsize = glutGet(GLUT_SCREEN_WIDTH);
     *ysize = glutGet(GLUT_SCREEN_HEIGHT);
@@ -149,9 +166,10 @@ int argGetScreenSize( int *xsize, int *ysize )
     return 0;
 }
 
-int argGetWindowSize( int *xsize, int *ysize )
+int argGetWindowSize(int *xsize, int *ysize)
 {
-    if( winHandle == NULL ) return -1;
+    if (winHandle == NULL)
+        return -1;
 
     *xsize = winHandle->xsize;
     *ysize = winHandle->ysize;
@@ -159,9 +177,10 @@ int argGetWindowSize( int *xsize, int *ysize )
     return 0;
 }
 
-int argSetWindowSize( int xsize, int ysize )
+int argSetWindowSize(int xsize, int ysize)
 {
-    if( winHandle == NULL ) return -1;
+    if (winHandle == NULL)
+        return -1;
 
     winHandle->xsize = xsize;
     winHandle->ysize = ysize;
@@ -169,16 +188,19 @@ int argSetWindowSize( int xsize, int ysize )
     return 0;
 }
 
-ARGViewportHandle *argCreateViewport( ARGViewport *viewport )
+ARGViewportHandle* argCreateViewport(ARGViewport *viewport)
 {
     ARGViewportHandle *handle;
 
-    if( winHandle == NULL ) {
-        if( argCreateWindow(viewport->sx+viewport->xsize, viewport->sy+viewport->ysize) < 0 ) return NULL;
+    if (winHandle == NULL)
+    {
+        if (argCreateWindow(viewport->sx + viewport->xsize, viewport->sy + viewport->ysize) < 0)
+            return NULL;
     }
 
-    handle = (ARGViewportHandle *)malloc(sizeof(ARGViewportHandle));
-    if( handle == NULL ) return NULL;
+    handle = (ARGViewportHandle*)malloc(sizeof(ARGViewportHandle));
+    if (handle == NULL)
+        return NULL;
 
     handle->viewport               = *viewport;
     handle->cparam                 = NULL;
@@ -200,25 +222,29 @@ ARGViewportHandle *argCreateViewport( ARGViewport *viewport )
     return handle;
 }
 
-int argViewportSetViewport( ARGViewportHandle *argVPhandle, ARGViewport *viewport )
+int argViewportSetViewport(ARGViewportHandle *argVPhandle, ARGViewport *viewport)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
     argVPhandle->viewport = *viewport;
 
     return 0;
 }
 
-int argViewportSetCparam( ARGViewportHandle *argVPhandle, ARParam *cparam )
+int argViewportSetCparam(ARGViewportHandle *argVPhandle, ARParam *cparam)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
-    argClearDisplayList( &(argVPhandle->dispList) );
-    argClearDisplayList( &(argVPhandle->dispListHalf) );
+    argClearDisplayList(&(argVPhandle->dispList));
+    argClearDisplayList(&(argVPhandle->dispListHalf));
 
-    if( argVPhandle->cparam == NULL ) {
-        argVPhandle->cparam = (ARParam *)malloc(sizeof(ARParam));
-        if( argVPhandle->cparam == NULL ) return -1;
+    if (argVPhandle->cparam == NULL)
+    {
+        argVPhandle->cparam = (ARParam*)malloc(sizeof(ARParam));
+        if (argVPhandle->cparam == NULL)
+            return -1;
     }
 
     *(argVPhandle->cparam) = *cparam;
@@ -226,122 +252,134 @@ int argViewportSetCparam( ARGViewportHandle *argVPhandle, ARParam *cparam )
     return 0;
 }
 
-int argViewportSetImageSize( ARGViewportHandle *argVPhandle, int xsize, int ysize )
+int argViewportSetImageSize(ARGViewportHandle *argVPhandle, int xsize, int ysize)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
-    argClearDisplayList( &(argVPhandle->dispList) );
-    argClearDisplayList( &(argVPhandle->dispListHalf) );
+    argClearDisplayList(&(argVPhandle->dispList));
+    argClearDisplayList(&(argVPhandle->dispListHalf));
 
-    if( argVPhandle->cparam == NULL ) {
-        argVPhandle->cparam = (ARParam *)malloc(sizeof(ARParam));
-        if( argVPhandle->cparam == NULL ) return -1;
+    if (argVPhandle->cparam == NULL)
+    {
+        argVPhandle->cparam = (ARParam*)malloc(sizeof(ARParam));
+        if (argVPhandle->cparam == NULL)
+            return -1;
     }
-    arParamClear( argVPhandle->cparam, xsize, ysize, AR_DIST_FUNCTION_VERSION_DEFAULT );
+
+    arParamClear(argVPhandle->cparam, xsize, ysize, AR_DIST_FUNCTION_VERSION_DEFAULT);
 
     return 0;
 }
 
-int argViewportSetClipPlane( ARGViewportHandle *argVPhandle, ARGClipPlane *clipPlane )
+int argViewportSetClipPlane(ARGViewportHandle *argVPhandle, ARGClipPlane *clipPlane)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
     argVPhandle->clipPlane = *clipPlane;
 
     return 0;
 }
 
-int argViewportSetDispMethod( ARGViewportHandle *argVPhandle, int dispMethod )
+int argViewportSetDispMethod(ARGViewportHandle *argVPhandle, int dispMethod)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
-    argClearDisplayList( &(argVPhandle->dispList) );
-    argClearDisplayList( &(argVPhandle->dispListHalf) );
+    argClearDisplayList(&(argVPhandle->dispList));
+    argClearDisplayList(&(argVPhandle->dispListHalf));
 
     argVPhandle->dispMethod = dispMethod;
 
     return 0;
 }
 
-int argViewportSetDispMode( ARGViewportHandle *argVPhandle, int dispMode )
+int argViewportSetDispMode(ARGViewportHandle *argVPhandle, int dispMode)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
     argVPhandle->dispMode = dispMode;
 
     return 0;
 }
 
-int argViewportSetFlipMode( ARGViewportHandle *argVPhandle, int flipMode )
+int argViewportSetFlipMode(ARGViewportHandle *argVPhandle, int flipMode)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
     argVPhandle->flipMode = flipMode;
 
     return 0;
 }
 
-int argViewportSetDistortionMode( ARGViewportHandle *argVPhandle, int distortionMode )
+int argViewportSetDistortionMode(ARGViewportHandle *argVPhandle, int distortionMode)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
-    argClearDisplayList( &(argVPhandle->dispList) );
-    argClearDisplayList( &(argVPhandle->dispListHalf) );
+    argClearDisplayList(&(argVPhandle->dispList));
+    argClearDisplayList(&(argVPhandle->dispListHalf));
 
     argVPhandle->distortionMode = distortionMode;
 
     return 0;
 }
 
-int argViewportSetPixFormat( ARGViewportHandle *argVPhandle, int pixFormat )
+int argViewportSetPixFormat(ARGViewportHandle *argVPhandle, int pixFormat)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
     argVPhandle->pixFormat = pixFormat;
 
     return 0;
 }
 
-int argViewportSetDispScale( ARGViewportHandle *argVPhandle, ARdouble scale )
+int argViewportSetDispScale(ARGViewportHandle *argVPhandle, ARdouble scale)
 {
-    if( argVPhandle == NULL ) return -1;
+    if (argVPhandle == NULL)
+        return -1;
 
     argVPhandle->scale = scale;
 
     return 0;
 }
 
-ARGViewportHandle *argGetCurrentVPHandle( void )
+ARGViewportHandle* argGetCurrentVPHandle(void)
 {
     return currentVP;
 }
 
-int argSetCurrentVPHandle( ARGViewportHandle *vp )
+int argSetCurrentVPHandle(ARGViewportHandle *vp)
 {
     currentVP = vp;
     return 0;
 }
 
-void argClearDisplayList( ARGDisplayList *dispList )
+void argClearDisplayList(ARGDisplayList *dispList)
 {
-    GLuint    texId;
+    GLuint texId;
 
-    if( dispList->texId != -1 ) {
+    if (dispList->texId != -1)
+    {
         texId = dispList->texId;
-        glDeleteTextures( 1, &(texId) );
+        glDeleteTextures(1, &(texId));
         dispList->texId = -1;
     }
 
-    if( dispList->listIndex != -1 ) {
-        glDeleteLists( dispList->listIndex, 1 );
+    if (dispList->listIndex != -1)
+    {
+        glDeleteLists(dispList->listIndex, 1);
         dispList->listIndex = -1;
     }
 
     return;
 }
 
-ARGWindowHandle *argGetWinHandle( void )
+ARGWindowHandle* argGetWinHandle(void)
 {
     return winHandle;
 }
-

@@ -37,22 +37,21 @@
 
 #include <cctype>
 #include <cstring>
-namespace vision {
+namespace vision
+{
+/**
+ * Compute the gradients of an image in polar coordinates.
+ */
+void ComputePolarGradients(float *gradient,
+                           const float *im,
+                           size_t width,
+                           size_t height);
 
-    /**
-     * Compute the gradients of an image in polar coordinates.
-     */
-    void ComputePolarGradients(float* gradient,
-                               const float* im,
-                               size_t width,
-                               size_t height);
-    
-    /**
-     * Compute the spatial derivates (dx,dy).
-     */
-    void ComputeGradients(float* gradient,
-                          const float* im,
-                          size_t width,
-                          size_t height);
-    
+/**
+ * Compute the spatial derivates (dx,dy).
+ */
+void ComputeGradients(float *gradient,
+                      const float *im,
+                      size_t width,
+                      size_t height);
 } // vision

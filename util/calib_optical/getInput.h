@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 #define INPUT_MAX_LENGTH_DEFAULT 1023
-    
+
 // Begin processing for user-supplied input.
 // prompt Points to a string which will be used as the prompt.
 // minLength Minimum number of characters required. Pass 0 if no minimum required.
@@ -55,11 +55,11 @@ int getInputStart(const unsigned char *prompt, unsigned int minLength, unsigned 
 // The buffer remains valid after completion of input, up until the next call to getInputStart() or a call to getInputFinish().
 // If the user has cancelled input with the ESC key, NULL will be returned.
 // If the user has not entered any input, this will point to a null string.
-unsigned char *getInput();
+unsigned char* getInput();
 
 // Get the combined string consisting of the prompt, the current input, and the cursor character. This function is designed for presentation to the user.
 // If the user has cancelled input with the ESC key, NULL will be returned.
-unsigned char *getInputPromptAndInputAndCursor();
+unsigned char* getInputPromptAndInputAndCursor();
 
 // If the user has pressed either ESC to cancel input, or RETURN to complete input,
 // this function will return 1, otherwise 0 is returned.
@@ -71,7 +71,7 @@ int getInputIsComplete();
 // This function MUST be called on a different thread to that being used to pass
 // keystrokes via getInputProcessKey().
 void getInputWaitUntilComplete();
-    
+
 // Use this function to pass user-generated keystrokes for processing as input.
 // The ASCII character set is supported.
 // This function may be called on a different thread from getInputIsComplete().

@@ -1,5 +1,5 @@
 /*
- *	videoWindowsDSVideoLib.h
+ *      videoWindowsDSVideoLib.h
  *  ARToolKit5
  *
  *  This file is part of ARToolKit.
@@ -33,27 +33,27 @@
  *
  *  Author(s): Thomas Pintaric, Philip Lamb
  *
- *	Rev		Date		Who		Changes
- *	2.68.2	2004-07-20	PRL		Rewrite for ARToolKit 2.68.2
- *	2.71.0	2005-08-05	PRL		Incorporate DSVL-0.0.8b
+ *      Rev             Date            Who             Changes
+ *      2.68.2  2004-07-20      PRL             Rewrite for ARToolKit 2.68.2
+ *      2.71.0  2005-08-05      PRL             Incorporate DSVL-0.0.8b
  *
  */
 /*
-	========================================================================
-	PROJECT: DirectShow Video Processing Library
-	Version: 0.0.8 (05/04/2005)
-	========================================================================
-	Author:  Thomas Pintaric, Vienna University of Technology
-	Contact: pintaric@ims.tuwien.ac.at http://ims.tuwien.ac.at/~thomas
-	=======================================================================
-	
-	Copyright (C) 2005  Vienna University of Technology
-	
-	For further information please contact Thomas Pintaric under
-	<pintaric@ims.tuwien.ac.at> or write to Thomas Pintaric,
-	Vienna University of Technology, Favoritenstr. 9-11/E188/2, A-1040
-	Vienna, Austria.
-	========================================================================
+        ========================================================================
+        PROJECT: DirectShow Video Processing Library
+        Version: 0.0.8 (05/04/2005)
+        ========================================================================
+        Author:  Thomas Pintaric, Vienna University of Technology
+        Contact: pintaric@ims.tuwien.ac.at http://ims.tuwien.ac.at/~thomas
+        =======================================================================
+
+        Copyright (C) 2005  Vienna University of Technology
+
+        For further information please contact Thomas Pintaric under
+        <pintaric@ims.tuwien.ac.at> or write to Thomas Pintaric,
+        Vienna University of Technology, Favoritenstr. 9-11/E188/2, A-1040
+        Vienna, Austria.
+        ========================================================================
  */
 
 #ifndef AR_VIDEO_WIN_DSVL_H
@@ -71,20 +71,20 @@ extern "C" {
 
 typedef struct _AR2VideoParamWinDSVLT AR2VideoParamWinDSVLT;
 
-int                    ar2VideoDispOptionWinDSVL   ( void );
-AR2VideoParamWinDSVLT *ar2VideoOpenWinDSVL         ( const char *config );
-int                    ar2VideoCloseWinDSVL        ( AR2VideoParamWinDSVLT *vid );
-int                    ar2VideoGetIdWinDSVL        ( AR2VideoParamWinDSVLT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeWinDSVL      ( AR2VideoParamWinDSVLT *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinDSVL ( AR2VideoParamWinDSVLT *vid );
-AR2VideoBufferT       *ar2VideoGetImageWinDSVL     ( AR2VideoParamWinDSVLT *vid );
-int                    ar2VideoCapStartWinDSVL     ( AR2VideoParamWinDSVLT *vid );
-int                    ar2VideoCapStopWinDSVL      ( AR2VideoParamWinDSVLT *vid );
+int                    ar2VideoDispOptionWinDSVL(void);
+AR2VideoParamWinDSVLT* ar2VideoOpenWinDSVL(const char *config);
+int                    ar2VideoCloseWinDSVL(AR2VideoParamWinDSVLT *vid);
+int                    ar2VideoGetIdWinDSVL(AR2VideoParamWinDSVLT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeWinDSVL(AR2VideoParamWinDSVLT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinDSVL(AR2VideoParamWinDSVLT *vid);
+AR2VideoBufferT* ar2VideoGetImageWinDSVL(AR2VideoParamWinDSVLT *vid);
+int                    ar2VideoCapStartWinDSVL(AR2VideoParamWinDSVLT *vid);
+int                    ar2VideoCapStopWinDSVL(AR2VideoParamWinDSVLT *vid);
 
-int                    ar2VideoGetParamiWinDSVL    ( AR2VideoParamWinDSVLT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiWinDSVL    ( AR2VideoParamWinDSVLT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdWinDSVL    ( AR2VideoParamWinDSVLT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdWinDSVL    ( AR2VideoParamWinDSVLT *vid, int paramName, double  value );
+int                    ar2VideoGetParamiWinDSVL(AR2VideoParamWinDSVLT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiWinDSVL(AR2VideoParamWinDSVLT *vid, int paramName, int value);
+int                    ar2VideoGetParamdWinDSVL(AR2VideoParamWinDSVLT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdWinDSVL(AR2VideoParamWinDSVLT *vid, int paramName, double value);
 
 #ifdef  __cplusplus
 }

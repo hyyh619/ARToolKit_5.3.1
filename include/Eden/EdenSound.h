@@ -2,9 +2,9 @@
 //  EdenSound.h
 //  The Eden Library
 //
-//	Copyright (c) 2012-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
+//      Copyright (c) 2012-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
 //
-//	Rev		Date		Who		Changes
+//      Rev             Date            Who             Changes
 //  1.0     2012-12-23  PRL     Initial version
 //
 
@@ -51,7 +51,7 @@ extern "C" {
 
 typedef struct _EdenSound EdenSound_t;
 
-EdenSound_t *EdenSoundLoad(const char *pathname);
+EdenSound_t* EdenSoundLoad(const char *pathname);
 void        EdenSoundUnload(EdenSound_t **sound_p);
 void        EdenSoundPlay(EdenSound_t *sound);
 EDEN_BOOL   EdenSoundIsPlaying(EdenSound_t *sound);
@@ -66,5 +66,5 @@ float       EdenSoundGetPlaybackTimeInSecs(EdenSound_t *sound);
 
 #ifdef __cplusplus
 }
-#endif //__cplusplus
+#endif // __cplusplus
 #endif // !__EdenSound_h__

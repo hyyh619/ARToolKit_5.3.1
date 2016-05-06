@@ -25,92 +25,110 @@
 #ifndef EIGEN_STEM_FUNCTION
 #define EIGEN_STEM_FUNCTION
 
-/** \ingroup MatrixFunctions_Module 
-  * \brief Stem functions corresponding to standard mathematical functions.
-  */
-template <typename Scalar>
+/** \ingroup MatrixFunctions_Module
+ * \brief Stem functions corresponding to standard mathematical functions.
+ */
+template<typename Scalar>
 class StdStemFunctions
 {
-  public:
+public:
 
-    /** \brief The exponential function (and its derivatives). */
-    static Scalar exp(Scalar x, int)
+/** \brief The exponential function (and its derivatives). */
+static Scalar exp(Scalar x, int)
+{
+    return std::exp(x);
+}
+
+/** \brief Cosine (and its derivatives). */
+static Scalar cos(Scalar x, int n)
+{
+    Scalar res;
+
+    switch (n % 4)
     {
-      return std::exp(x);
+    case 0:
+        res = std::cos(x);
+        break;
+
+    case 1:
+        res = -std::sin(x);
+        break;
+
+    case 2:
+        res = -std::cos(x);
+        break;
+
+    case 3:
+        res = std::sin(x);
+        break;
     }
 
-    /** \brief Cosine (and its derivatives). */
-    static Scalar cos(Scalar x, int n)
+    return res;
+}
+
+/** \brief Sine (and its derivatives). */
+static Scalar sin(Scalar x, int n)
+{
+    Scalar res;
+
+    switch (n % 4)
     {
-      Scalar res;
-      switch (n % 4) {
-      case 0: 
-	res = std::cos(x);
-	break;
-      case 1:
-	res = -std::sin(x);
-	break;
-      case 2:
-	res = -std::cos(x);
-	break;
-      case 3:
-	res = std::sin(x);
-	break;
-      }
-      return res;
+    case 0:
+        res = std::sin(x);
+        break;
+
+    case 1:
+        res = std::cos(x);
+        break;
+
+    case 2:
+        res = -std::sin(x);
+        break;
+
+    case 3:
+        res = -std::cos(x);
+        break;
     }
 
-    /** \brief Sine (and its derivatives). */
-    static Scalar sin(Scalar x, int n)
+    return res;
+}
+
+/** \brief Hyperbolic cosine (and its derivatives). */
+static Scalar cosh(Scalar x, int n)
+{
+    Scalar res;
+
+    switch (n % 2)
     {
-      Scalar res;
-      switch (n % 4) {
-      case 0:
-	res = std::sin(x);
-	break;
-      case 1:
-	res = std::cos(x);
-	break;
-      case 2:
-	res = -std::sin(x);
-	break;
-      case 3:
-	res = -std::cos(x);
-	break;
-      }
-      return res;
+    case 0:
+        res = std::cosh(x);
+        break;
+
+    case 1:
+        res = std::sinh(x);
+        break;
     }
 
-    /** \brief Hyperbolic cosine (and its derivatives). */
-    static Scalar cosh(Scalar x, int n)
+    return res;
+}
+
+/** \brief Hyperbolic sine (and its derivatives). */
+static Scalar sinh(Scalar x, int n)
+{
+    Scalar res;
+
+    switch (n % 2)
     {
-      Scalar res;
-      switch (n % 2) {
-      case 0:
-	res = std::cosh(x);
-	break;
-      case 1:
-	res = std::sinh(x);
-	break;
-      }
-      return res;
-    }
-	
-    /** \brief Hyperbolic sine (and its derivatives). */
-    static Scalar sinh(Scalar x, int n)
-    {
-      Scalar res;
-      switch (n % 2) {
-      case 0:
-	res = std::sinh(x);
-	break;
-      case 1:
-	res = std::cosh(x);
-	break;
-      }
-      return res;
+    case 0:
+        res = std::sinh(x);
+        break;
+
+    case 1:
+        res = std::cosh(x);
+        break;
     }
 
+    return res;
+}
 }; // end of class StdStemFunctions
-
 #endif // EIGEN_STEM_FUNCTION

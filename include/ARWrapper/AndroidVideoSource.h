@@ -44,52 +44,49 @@
 #if TARGET_PLATFORM_ANDROID
 
 /**
- * Video input implementation for Android. On Android, video capture occurs in Java, and the frame data 
- * is passed across to the native code using JNI. Therefore, ARToolKit cannot open the camera and 
- * initiate video capture in the same way as it does on other platforms. Instead, the video source remains 
+ * Video input implementation for Android. On Android, video capture occurs in Java, and the frame data
+ * is passed across to the native code using JNI. Therefore, ARToolKit cannot open the camera and
+ * initiate video capture in the same way as it does on other platforms. Instead, the video source remains
  * closed until the first frame arrives over JNI.
  */
-class AndroidVideoSource : public VideoSource {
-
+class AndroidVideoSource : public VideoSource
+{
 private:
 
-	bool newFrameArrived;
-    ARUint8 *localFrameBuffer;
-    size_t frameBufferSize;
+bool    newFrameArrived;
+ARUint8 *localFrameBuffer;
+size_t  frameBufferSize;
 
-    static void getVideoReadyAndroidCparamCallback(const ARParam *cparam_p, void *userdata);
-    bool getVideoReadyAndroid2(const ARParam *cparam_p);
+static void getVideoReadyAndroidCparamCallback(const ARParam *cparam_p, void *userdata);
+bool getVideoReadyAndroid2(const ARParam *cparam_p);
 
 protected:
-    
-    AR2VideoParamT *gVid;
-    int gCameraIndex;
-    bool gCameraIsFrontFacing;
+
+AR2VideoParamT *gVid;
+int            gCameraIndex;
+bool           gCameraIsFrontFacing;
 
 public:
 
-	AndroidVideoSource();
+AndroidVideoSource();
 
-	bool getVideoReadyAndroid(const int width, const int height, const int cameraIndex, const bool cameraIsFrontFacing);
+bool getVideoReadyAndroid(const int width, const int height, const int cameraIndex, const bool cameraIsFrontFacing);
 
-	virtual bool open();
+virtual bool open();
 
-    /**
-     * Returns the size of current frame.
-     * @return		Size of the buffer containing the current video frame
-     */
-    size_t getFrameSize();
-    
-	void acceptImage(ARUint8* ptr);
+/**
+ * Returns the size of current frame.
+ * @return              Size of the buffer containing the current video frame
+ */
+size_t getFrameSize();
 
-	virtual bool captureFrame();
+void acceptImage(ARUint8 *ptr);
 
-	virtual bool close();
+virtual bool captureFrame();
 
-	virtual const char* getName();
+virtual bool close();
 
+virtual const char* getName();
 };
-
 #endif
-
 #endif // !ANDROIDVIDEOSOURCE_H

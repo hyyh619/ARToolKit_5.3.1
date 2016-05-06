@@ -39,33 +39,44 @@
 #include <KPM/kpm.h>
 #include "kpmPrivate.h"
 
-int kpmGetRefDataSet( KpmHandle *kpmHandle, KpmRefDataSet **refDataSet )
+int kpmGetRefDataSet(KpmHandle *kpmHandle, KpmRefDataSet **refDataSet)
 {
-    if( kpmHandle == NULL ) return -1;
-    if( refDataSet == NULL ) return -1;
+    if (kpmHandle == NULL)
+        return -1;
+
+    if (refDataSet == NULL)
+        return -1;
 
     *refDataSet = &(kpmHandle->refDataSet);
 
     return 0;
 }
 
-int kpmGetInDataSet( KpmHandle *kpmHandle, KpmInputDataSet **inDataSet )
+int kpmGetInDataSet(KpmHandle *kpmHandle, KpmInputDataSet **inDataSet)
 {
-    if( kpmHandle == NULL ) return -1;
-    if( inDataSet == NULL ) return -1;
+    if (kpmHandle == NULL)
+        return -1;
+
+    if (inDataSet == NULL)
+        return -1;
 
     *inDataSet = &(kpmHandle->inDataSet);
     return 0;
 }
 
 #if !BINARY_FEATURE
-int kpmGetMatchingResult( KpmHandle *kpmHandle, KpmMatchResult **preRANSAC, KpmMatchResult **aftRANSAC )
+int kpmGetMatchingResult(KpmHandle *kpmHandle, KpmMatchResult **preRANSAC, KpmMatchResult **aftRANSAC)
 {
-    if( kpmHandle == NULL ) return -1;
-    if( preRANSAC != NULL ) {
+    if (kpmHandle == NULL)
+        return -1;
+
+    if (preRANSAC != NULL)
+    {
         *preRANSAC = &(kpmHandle->preRANSAC);
     }
-    if( aftRANSAC != NULL ) {
+
+    if (aftRANSAC != NULL)
+    {
         *aftRANSAC = &(kpmHandle->aftRANSAC);
     }
 
@@ -73,18 +84,26 @@ int kpmGetMatchingResult( KpmHandle *kpmHandle, KpmMatchResult **preRANSAC, KpmM
 }
 #endif
 
-int kpmGetPose( KpmHandle *kpmHandle, float pose[3][4], int *pageNo, float *error )
+int kpmGetPose(KpmHandle *kpmHandle, float pose[3][4], int *pageNo, float *error)
 {
-    int     i, j;
+    int i, j;
 
-    if( kpmHandle == NULL ) return -1;
-    if( kpmHandle->refDataSet.pageNum == 0 ) return -1;
+    if (kpmHandle == NULL)
+        return -1;
 
-    for(int pageLoop= 0; pageLoop < kpmHandle->resultNum; pageLoop++) {
-        if( kpmHandle->result[pageLoop].camPoseF == 0 ) {
-            for(j=0;j<3;j++) for(i=0;i<4;i++) pose[j][i] = kpmHandle->result[pageLoop].camPose[j][i];
+    if (kpmHandle->refDataSet.pageNum == 0)
+        return -1;
+
+    for (int pageLoop = 0; pageLoop < kpmHandle->resultNum; pageLoop++)
+    {
+        if (kpmHandle->result[pageLoop].camPoseF == 0)
+        {
+            for (j = 0; j < 3; j++)
+                for (i = 0; i < 4; i++)
+                    pose[j][i] = kpmHandle->result[pageLoop].camPose[j][i];
+
             *pageNo = kpmHandle->result[pageLoop].pageNo;
-            *error = kpmHandle->result[pageLoop].error;
+            *error  = kpmHandle->result[pageLoop].error;
             return 0;
         }
     }
@@ -92,11 +111,12 @@ int kpmGetPose( KpmHandle *kpmHandle, float pose[3][4], int *pageNo, float *erro
     return -1;
 }
 
-int kpmGetResult( KpmHandle *kpmHandle, KpmResult **result, int *resultNum )
+int kpmGetResult(KpmHandle *kpmHandle, KpmResult **result, int *resultNum)
 {
-    if( kpmHandle == NULL ) return -1;
+    if (kpmHandle == NULL)
+        return -1;
 
-    *result = kpmHandle->result;
+    *result    = kpmHandle->result;
     *resultNum = kpmHandle->resultNum;
 
     return 0;

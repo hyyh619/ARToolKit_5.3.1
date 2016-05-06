@@ -1,8 +1,8 @@
 /*
- *	ARMarkerSquare.h
+ *      ARMarkerSquare.h
  *  ARToolKit5
  *
- *	Demonstration of ARToolKit NFT with models rendered in OSG,
+ *      Demonstration of ARToolKit NFT with models rendered in OSG,
  *  and marker pose estimates filtered to reduce jitter.
  *
  *  Press '?' while running for help on available key commands.
@@ -68,9 +68,9 @@ extern "C" {
 #endif
 
 #ifdef ARDOUBLE_IS_FLOAT
-#define ARDOUBLE_FORMAT_STR         "%f"
+#define ARDOUBLE_FORMAT_STR "%f"
 #else
-#define ARDOUBLE_FORMAT_STR         "%lf"
+#define ARDOUBLE_FORMAT_STR "%lf"
 #endif
 
 typedef struct
@@ -106,8 +106,8 @@ typedef struct _ARMarkerSquare
     char     *patternPathname;
 } ARMarkerSquare;
 
-#define    AR_PATTERN_TYPE_TEMPLATE    0
-#define    AR_PATTERN_TYPE_MATRIX      1
+#define    AR_PATTERN_TYPE_TEMPLATE 0
+#define    AR_PATTERN_TYPE_MATRIX   1
 
 void newMarkers(const char *markersConfigDataFilePathC, ARPattHandle *arPattHandle, ARMarkerSquare **markersSquare_out, int *markersSquareCount_out, int *patternDetectionMode_out);
 

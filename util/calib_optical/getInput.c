@@ -50,17 +50,17 @@
 #include <pthread.h>
 
 // ASCII keycodes.
-#define ASCII_ESC	27
-#define ASCII_HT	9
-#define ASCII_BS	8
-#define ASCII_CR	13
-#define ASCII_DEL	127
+#define ASCII_ESC 27
+#define ASCII_HT  9
+#define ASCII_BS  8
+#define ASCII_CR  13
+#define ASCII_DEL 127
 
-static unsigned char *inputBuf = NULL;
-static unsigned int promptLength = 0;
+static unsigned char *inputBuf         = NULL;
+static unsigned int  promptLength      = 0;
 static unsigned char *inputBufInputPtr = NULL;
-static unsigned int inputLength = 0;
-static unsigned int inputComplete = FALSE;
+static unsigned int  inputLength       = 0;
+static unsigned int  inputComplete     = FALSE;
 
 static unsigned int inputMinLength;
 static unsigned int inputMaxLength;
@@ -69,53 +69,67 @@ static unsigned int inputFPOnly;
 static unsigned int inputAlphaOnly;
 
 static pthread_mutex_t inputCompleteLock;
-static pthread_cond_t inputCompleteCond;
+static pthread_cond_t  inputCompleteCond;
 
 int getInputStart(const unsigned char *prompt, unsigned int minLength, unsigned int maxLength, int intOnly, int fpOnly, int alphaOnly)
 {
-    if (maxLength == 0) inputMaxLength = INPUT_MAX_LENGTH_DEFAULT;
-    else inputMaxLength = maxLength;
-    
-    if (minLength > inputMaxLength) return (FALSE);
+    if (maxLength == 0)
+        inputMaxLength = INPUT_MAX_LENGTH_DEFAULT;
+    else
+        inputMaxLength = maxLength;
+
+    if (minLength > inputMaxLength)
+        return (FALSE);
+
     inputMinLength = minLength;
-    
-    if (prompt) {
-        promptLength = (unsigned int)strlen((const char *)prompt);
+
+    if (prompt)
+    {
+        promptLength = (unsigned int)strlen((const char*)prompt);
     }
-    
-    if (inputBuf) free(inputBuf);
-    inputBuf = (unsigned char *)malloc(promptLength + inputMaxLength + 2); // +1 for cursor and +1 for nul-terminator.
-    if (!inputBuf) {
+
+    if (inputBuf)
+        free(inputBuf);
+
+    inputBuf = (unsigned char*)malloc(promptLength + inputMaxLength + 2);  // +1 for cursor and +1 for nul-terminator.
+    if (!inputBuf)
+    {
         ARLOGe("Out of memory!!\n");
         return (FALSE);
     }
-    if (prompt) {
-        strncpy((char *)inputBuf, (const char *)prompt, promptLength);
+
+    if (prompt)
+    {
+        strncpy((char*)inputBuf, (const char*)prompt, promptLength);
     }
-    inputBufInputPtr = inputBuf + promptLength;
+
+    inputBufInputPtr    = inputBuf + promptLength;
     inputBufInputPtr[0] = '\0';
-    inputLength = 0;
-    inputComplete = FALSE;
-    
-    inputIntOnly = intOnly;
-    inputFPOnly = fpOnly;
+    inputLength         = 0;
+    inputComplete       = FALSE;
+
+    inputIntOnly   = intOnly;
+    inputFPOnly    = fpOnly;
     inputAlphaOnly = alphaOnly;
-    
+
     pthread_mutex_init(&inputCompleteLock, NULL);
     pthread_cond_init(&inputCompleteCond, NULL);
-    
+
     return (TRUE);
 }
 
-unsigned char *getInput()
+unsigned char* getInput()
 {
-    if (inputBufInputPtr) {
+    if (inputBufInputPtr)
+    {
         inputBufInputPtr[inputLength] = '\0'; // Overwrite any cursor character.
         return (inputBufInputPtr);
-    } else return (NULL);
+    }
+    else
+        return (NULL);
 }
 
-unsigned char *getInputPromptAndInputAndCursor()
+unsigned char* getInputPromptAndInputAndCursor()
 {
 #ifdef _WIN32
     struct _timeb sys_time;
@@ -123,36 +137,48 @@ unsigned char *getInputPromptAndInputAndCursor()
     struct timeval time;
 #endif
     int showCursor;
-    
-    if (inputBuf) {
+
+    if (inputBuf)
+    {
 #ifdef _WIN32
         _ftime(&sys_time);
-        if (sys_time.millitm < 500ul) showCursor = TRUE;
-        else showCursor = FALSE;
+        if (sys_time.millitm < 500ul)
+            showCursor = TRUE;
+        else
+            showCursor = FALSE;
+
 #else
 #  if defined(__linux) || defined(__APPLE__)
-        gettimeofday( &time, NULL );
+        gettimeofday(&time, NULL);
 #  else
-        gettimeofday( &time );
+        gettimeofday(&time);
 #  endif
-        if (time.tv_usec < 500000) showCursor = TRUE;
-        else showCursor = FALSE;
+        if (time.tv_usec < 500000)
+            showCursor = TRUE;
+        else
+            showCursor = FALSE;
 #endif
-        if (showCursor) {
-            inputBufInputPtr[inputLength] = '|';
-            inputBufInputPtr[inputLength + 1] = '\0';
-        } else {
-            inputBufInputPtr[inputLength] = ' ';
+        if (showCursor)
+        {
+            inputBufInputPtr[inputLength]     = '|';
             inputBufInputPtr[inputLength + 1] = '\0';
         }
+        else
+        {
+            inputBufInputPtr[inputLength]     = ' ';
+            inputBufInputPtr[inputLength + 1] = '\0';
+        }
+
         return (inputBuf);
-    } else return (NULL);
+    }
+    else
+        return (NULL);
 }
 
 int getInputIsComplete()
 {
     int ret;
-    
+
     pthread_mutex_lock(&inputCompleteLock);
     ret = inputComplete;
     pthread_mutex_unlock(&inputCompleteLock);
@@ -162,9 +188,11 @@ int getInputIsComplete()
 void getInputWaitUntilComplete()
 {
     pthread_mutex_lock(&inputCompleteLock);
-    if (!inputComplete) {
+    if (!inputComplete)
+    {
         pthread_cond_wait(&inputCompleteCond, &inputCompleteLock);
     }
+
     pthread_mutex_unlock(&inputCompleteLock);
 }
 
@@ -178,37 +206,56 @@ static void getInputComplete()
 
 void getInputProcessKey(const unsigned char keyAsciiCode)
 {
-    if (!inputBufInputPtr || inputComplete) return;
-    
-    switch (keyAsciiCode) {
-		case ASCII_ESC:
-            free(inputBuf);
-            inputBuf = inputBufInputPtr = NULL;
-            inputLength = 0;
+    if (!inputBufInputPtr || inputComplete)
+        return;
+
+    switch (keyAsciiCode)
+    {
+    case ASCII_ESC:
+        free(inputBuf);
+        inputBuf    = inputBufInputPtr = NULL;
+        inputLength = 0;
+        getInputComplete();
+        break;
+
+    case ASCII_CR:
+        if (inputLength >= inputMinLength)
+        {
             getInputComplete();
-            break;
-		case ASCII_CR:
-			if (inputLength >= inputMinLength) {
-                getInputComplete();
-            }
-			break;
-        case ASCII_BS:
-		case ASCII_DEL:
-			if (inputLength > 0) {
-				inputLength--;
-				inputBufInputPtr[inputLength] = '\0';
-			}
-			break;
-		default:
-            if (inputLength == inputMaxLength) break;
-			if (keyAsciiCode < 0x20) break; // Throw away all other control characters.
-            if (inputIntOnly && (keyAsciiCode < '0' || keyAsciiCode > '9')) break;
-            if (inputFPOnly && (keyAsciiCode < '0' || keyAsciiCode > '9') && keyAsciiCode != '.') break;
-            if (inputAlphaOnly && (keyAsciiCode < 'A' || keyAsciiCode > 'Z') && (keyAsciiCode < 'a' || keyAsciiCode > 'z')) break;
-            inputBufInputPtr[inputLength++] = keyAsciiCode;
+        }
+
+        break;
+
+    case ASCII_BS:
+    case ASCII_DEL:
+        if (inputLength > 0)
+        {
+            inputLength--;
             inputBufInputPtr[inputLength] = '\0';
-			break;
-	}
+        }
+
+        break;
+
+    default:
+        if (inputLength == inputMaxLength)
+            break;
+
+        if (keyAsciiCode < 0x20)
+            break;                                      // Throw away all other control characters.
+
+        if (inputIntOnly && (keyAsciiCode < '0' || keyAsciiCode > '9'))
+            break;
+
+        if (inputFPOnly && (keyAsciiCode < '0' || keyAsciiCode > '9') && keyAsciiCode != '.')
+            break;
+
+        if (inputAlphaOnly && (keyAsciiCode < 'A' || keyAsciiCode > 'Z') && (keyAsciiCode < 'a' || keyAsciiCode > 'z'))
+            break;
+
+        inputBufInputPtr[inputLength++] = keyAsciiCode;
+        inputBufInputPtr[inputLength]   = '\0';
+        break;
+    }
 }
 
 void getInputFinish()
@@ -216,10 +263,12 @@ void getInputFinish()
     pthread_mutex_destroy(&inputCompleteLock);
     pthread_cond_destroy(&inputCompleteCond);
 
-    if (inputBufInputPtr) {
+    if (inputBufInputPtr)
+    {
         free(inputBuf);
-        inputBuf = inputBufInputPtr = NULL;
+        inputBuf    = inputBufInputPtr = NULL;
         inputLength = 0;
     }
+
     inputComplete = FALSE;
 }

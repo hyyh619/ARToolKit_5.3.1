@@ -94,7 +94,7 @@
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ARd.lib;osg.lib;osgDB.lib;osgFX.lib;osgGA.lib;osgViewer.lib;osgUtil.lib;OpenThreads.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ARd.lib;osgd.lib;osgDBd.lib;osgFXd.lib;osgViewerd.lib;osgUtild.lib;OpenThreadsd.lib;osgGAd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib;$(ProjectDir)..\..\lib\win32-i386;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>

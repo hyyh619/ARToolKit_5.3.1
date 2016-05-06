@@ -47,10 +47,10 @@ extern "C" {
 #endif
 
 /*   searchPoint.c   */
-void ar2GetSearchPoint( ARParamLT *cparamLT,
-                        float  trans1[3][4], float  trans2[3][4], float  trans3[3][4],
-                        AR2FeatureCoordT *feature,
-                        int search[3][2] );
+void ar2GetSearchPoint(const ARParamLT * cparamLT,
+                       const float trans1[3][4], const float trans2[3][4], const float trans3[3][4],
+                       AR2FeatureCoordT * feature,
+                       int search[3][2]);
 
 
 #ifdef __cplusplus

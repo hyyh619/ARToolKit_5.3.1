@@ -28,114 +28,123 @@
 #ifndef EIGEN_HYBRIDNONLINEARSOLVER_H
 #define EIGEN_HYBRIDNONLINEARSOLVER_H
 
-namespace HybridNonLinearSolverSpace { 
-    enum Status {
-        Running = -1,
-        ImproperInputParameters = 0,
-        RelativeErrorTooSmall = 1,
-        TooManyFunctionEvaluation = 2,
-        TolTooSmall = 3,
-        NotMakingProgressJacobian = 4,
-        NotMakingProgressIterations = 5,
-        UserAsked = 6
-    };
+namespace HybridNonLinearSolverSpace
+{
+enum Status
+{
+    Running                     = -1,
+    ImproperInputParameters     = 0,
+    RelativeErrorTooSmall       = 1,
+    TooManyFunctionEvaluation   = 2,
+    TolTooSmall                 = 3,
+    NotMakingProgressJacobian   = 4,
+    NotMakingProgressIterations = 5,
+    UserAsked                   = 6
+};
 }
 
 /**
-  * \ingroup NonLinearOptimization_Module
-  * \brief Finds a zero of a system of n
-  * nonlinear functions in n variables by a modification of the Powell
-  * hybrid method ("dogleg").
-  *
-  * The user must provide a subroutine which calculates the
-  * functions. The Jacobian is either provided by the user, or approximated
-  * using a forward-difference method.
-  *
-  */
-template<typename FunctorType, typename Scalar=double>
+ * \ingroup NonLinearOptimization_Module
+ * \brief Finds a zero of a system of n
+ * nonlinear functions in n variables by a modification of the Powell
+ * hybrid method ("dogleg").
+ *
+ * The user must provide a subroutine which calculates the
+ * functions. The Jacobian is either provided by the user, or approximated
+ * using a forward-difference method.
+ *
+ */
+template<typename FunctorType, typename Scalar = double>
 class HybridNonLinearSolver
 {
 public:
-    typedef DenseIndex Index;
+typedef DenseIndex Index;
 
-    HybridNonLinearSolver(FunctorType &_functor)
-        : functor(_functor) { nfev=njev=iter = 0;  fnorm= 0.; useExternalScaling=false;}
+HybridNonLinearSolver(FunctorType&_functor)
+    : functor(_functor)
+{
+    nfev = njev = iter = 0;  fnorm = 0.; useExternalScaling = false;
+}
 
-    struct Parameters {
-        Parameters()
-            : factor(Scalar(100.))
-            , maxfev(1000)
-            , xtol(internal::sqrt(NumTraits<Scalar>::epsilon()))
-            , nb_of_subdiagonals(-1)
-            , nb_of_superdiagonals(-1)
-            , epsfcn(Scalar(0.)) {}
-        Scalar factor;
-        Index maxfev;   // maximum number of function evaluation
-        Scalar xtol;
-        Index nb_of_subdiagonals;
-        Index nb_of_superdiagonals;
-        Scalar epsfcn;
-    };
-    typedef Matrix< Scalar, Dynamic, 1 > FVectorType;
-    typedef Matrix< Scalar, Dynamic, Dynamic > JacobianType;
-    /* TODO: if eigen provides a triangular storage, use it here */
-    typedef Matrix< Scalar, Dynamic, Dynamic > UpperTriangularType;
+struct Parameters
+{
+    Parameters()
+        : factor(Scalar(100.))
+        , maxfev(1000)
+        , xtol(internal::sqrt(NumTraits<Scalar>::epsilon()))
+        , nb_of_subdiagonals(-1)
+        , nb_of_superdiagonals(-1)
+        , epsfcn(Scalar(0.)) {}
+    Scalar factor;
+    Index  maxfev;      // maximum number of function evaluation
+    Scalar xtol;
+    Index  nb_of_subdiagonals;
+    Index  nb_of_superdiagonals;
+    Scalar epsfcn;
+};
+typedef Matrix<Scalar, Dynamic, 1> FVectorType;
+typedef Matrix<Scalar, Dynamic, Dynamic> JacobianType;
+/* TODO: if eigen provides a triangular storage, use it here */
+typedef Matrix<Scalar, Dynamic, Dynamic> UpperTriangularType;
 
-    HybridNonLinearSolverSpace::Status hybrj1(
-            FVectorType  &x,
-            const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
-            );
+HybridNonLinearSolverSpace::Status hybrj1(
+    FVectorType&x,
+    const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
+    );
 
-    HybridNonLinearSolverSpace::Status solveInit(FVectorType  &x);
-    HybridNonLinearSolverSpace::Status solveOneStep(FVectorType  &x);
-    HybridNonLinearSolverSpace::Status solve(FVectorType  &x);
+HybridNonLinearSolverSpace::Status solveInit(FVectorType&x);
+HybridNonLinearSolverSpace::Status solveOneStep(FVectorType&x);
+HybridNonLinearSolverSpace::Status solve(FVectorType&x);
 
-    HybridNonLinearSolverSpace::Status hybrd1(
-            FVectorType  &x,
-            const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
-            );
+HybridNonLinearSolverSpace::Status hybrd1(
+    FVectorType&x,
+    const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
+    );
 
-    HybridNonLinearSolverSpace::Status solveNumericalDiffInit(FVectorType  &x);
-    HybridNonLinearSolverSpace::Status solveNumericalDiffOneStep(FVectorType  &x);
-    HybridNonLinearSolverSpace::Status solveNumericalDiff(FVectorType  &x);
+HybridNonLinearSolverSpace::Status solveNumericalDiffInit(FVectorType&x);
+HybridNonLinearSolverSpace::Status solveNumericalDiffOneStep(FVectorType&x);
+HybridNonLinearSolverSpace::Status solveNumericalDiff(FVectorType&x);
 
-    void resetParameters(void) { parameters = Parameters(); }
-    Parameters parameters;
-    FVectorType  fvec, qtf, diag;
-    JacobianType fjac;
-    UpperTriangularType R;
-    Index nfev;
-    Index njev;
-    Index iter;
-    Scalar fnorm;
-    bool useExternalScaling; 
+void resetParameters(void)
+{
+    parameters = Parameters();
+}
+Parameters          parameters;
+FVectorType         fvec, qtf, diag;
+JacobianType        fjac;
+UpperTriangularType R;
+Index               nfev;
+Index               njev;
+Index               iter;
+Scalar              fnorm;
+bool                useExternalScaling;
 private:
-    FunctorType &functor;
-    Index n;
-    Scalar sum;
-    bool sing;
-    Scalar temp;
-    Scalar delta;
-    bool jeval;
-    Index ncsuc;
-    Scalar ratio;
-    Scalar pnorm, xnorm, fnorm1;
-    Index nslow1, nslow2;
-    Index ncfail;
-    Scalar actred, prered;
-    FVectorType wa1, wa2, wa3, wa4;
+FunctorType &functor;
+Index       n;
+Scalar      sum;
+bool        sing;
+Scalar      temp;
+Scalar      delta;
+bool        jeval;
+Index       ncsuc;
+Scalar      ratio;
+Scalar      pnorm, xnorm, fnorm1;
+Index       nslow1, nslow2;
+Index       ncfail;
+Scalar      actred, prered;
+FVectorType wa1, wa2, wa3, wa4;
 
-    HybridNonLinearSolver& operator=(const HybridNonLinearSolver&);
+HybridNonLinearSolver&operator=(const HybridNonLinearSolver&);
 };
 
 
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::hybrj1(
-        FVectorType  &x,
-        const Scalar tol
-        )
+HybridNonLinearSolver<FunctorType, Scalar>::hybrj1(
+    FVectorType&x,
+    const Scalar tol
+    )
 {
     n = x.size();
 
@@ -144,8 +153,8 @@ HybridNonLinearSolver<FunctorType,Scalar>::hybrj1(
         return HybridNonLinearSolverSpace::ImproperInputParameters;
 
     resetParameters();
-    parameters.maxfev = 100*(n+1);
-    parameters.xtol = tol;
+    parameters.maxfev = 100 * (n + 1);
+    parameters.xtol   = tol;
     diag.setConstant(n, 1.);
     useExternalScaling = true;
     return solve(x);
@@ -153,7 +162,7 @@ HybridNonLinearSolver<FunctorType,Scalar>::hybrj1(
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::solveInit(FVectorType  &x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveInit(FVectorType&x)
 {
     n = x.size();
 
@@ -163,15 +172,17 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveInit(FVectorType  &x)
     fjac.resize(n, n);
     if (!useExternalScaling)
         diag.resize(n);
-    assert( (!useExternalScaling || diag.size()==n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
+
+    assert((!useExternalScaling || diag.size() == n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
 
     /* Function Body */
     nfev = 0;
     njev = 0;
 
     /*     check the input parameters for errors. */
-    if (n <= 0 || parameters.xtol < 0. || parameters.maxfev <= 0 || parameters.factor <= 0. )
+    if (n <= 0 || parameters.xtol < 0. || parameters.maxfev <= 0 || parameters.factor <= 0.)
         return HybridNonLinearSolverSpace::ImproperInputParameters;
+
     if (useExternalScaling)
         for (Index j = 0; j < n; ++j)
             if (diag[j] <= 0.)
@@ -180,13 +191,14 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveInit(FVectorType  &x)
     /*     evaluate the function at the starting point */
     /*     and calculate its norm. */
     nfev = 1;
-    if ( functor(x, fvec) < 0)
+    if (functor(x, fvec) < 0)
         return HybridNonLinearSolverSpace::UserAsked;
+
     fnorm = fvec.stableNorm();
 
     /*     initialize iteration counter and monitors. */
-    iter = 1;
-    ncsuc = 0;
+    iter   = 1;
+    ncsuc  = 0;
     ncfail = 0;
     nslow1 = 0;
     nslow2 = 0;
@@ -196,28 +208,30 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveInit(FVectorType  &x)
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveOneStep(FVectorType&x)
 {
-    assert(x.size()==n); // check the caller is not cheating us
+    assert(x.size() == n); // check the caller is not cheating us
 
-    Index j;
+    Index                                j;
     std::vector<JacobiRotation<Scalar> > v_givens(n), w_givens(n);
 
     jeval = true;
 
     /* calculate the jacobian matrix. */
-    if ( functor.df(x, fjac) < 0)
+    if (functor.df(x, fjac) < 0)
         return HybridNonLinearSolverSpace::UserAsked;
+
     ++njev;
 
     wa2 = fjac.colwise().blueNorm();
 
     /* on the first iteration and if external scaling is not used, scale according */
     /* to the norms of the columns of the initial jacobian. */
-    if (iter == 1) {
+    if (iter == 1)
+    {
         if (!useExternalScaling)
             for (j = 0; j < n; ++j)
-                diag[j] = (wa2[j]==0.) ? 1. : wa2[j];
+                diag[j] = (wa2[j] == 0.) ? 1. : wa2[j];
 
         /* on the first iteration, calculate the norm of the scaled x */
         /* and initialize the step bound delta. */
@@ -243,22 +257,24 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
     if (!useExternalScaling)
         diag = diag.cwiseMax(wa2);
 
-    while (true) {
+    while (true)
+    {
         /* determine the direction p. */
         internal::dogleg<Scalar>(R, diag, qtf, delta, wa1);
 
         /* store the direction p and x + p. calculate the norm of p. */
-        wa1 = -wa1;
-        wa2 = x + wa1;
+        wa1   = -wa1;
+        wa2   = x + wa1;
         pnorm = diag.cwiseProduct(wa1).stableNorm();
 
         /* on the first iteration, adjust the initial step bound. */
         if (iter == 1)
-            delta = (std::min)(delta,pnorm);
+            delta = (std::min)(delta, pnorm);
 
         /* evaluate the function at x + p and calculate its norm. */
-        if ( functor(wa2, wa4) < 0)
+        if (functor(wa2, wa4) < 0)
             return HybridNonLinearSolverSpace::UserAsked;
+
         ++nfev;
         fnorm1 = wa4.stableNorm();
 
@@ -268,8 +284,8 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
             actred = 1. - internal::abs2(fnorm1 / fnorm);
 
         /* compute the scaled predicted reduction. */
-        wa3 = R.template triangularView<Upper>()*wa1 + qtf;
-        temp = wa3.stableNorm();
+        wa3    = R.template triangularView<Upper>() * wa1 + qtf;
+        temp   = wa3.stableNorm();
         prered = 0.;
         if (temp < fnorm) /* Computing 2nd power */
             prered = 1. - internal::abs2(temp / fnorm);
@@ -280,26 +296,32 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
             ratio = actred / prered;
 
         /* update the step bound. */
-        if (ratio < Scalar(.1)) {
+        if (ratio < Scalar(.1))
+        {
             ncsuc = 0;
             ++ncfail;
             delta = Scalar(.5) * delta;
-        } else {
+        }
+        else
+        {
             ncfail = 0;
             ++ncsuc;
             if (ratio >= Scalar(.5) || ncsuc > 1)
                 delta = (std::max)(delta, pnorm / Scalar(.5));
-            if (internal::abs(ratio - 1.) <= Scalar(.1)) {
+
+            if (internal::abs(ratio - 1.) <= Scalar(.1))
+            {
                 delta = pnorm / Scalar(.5);
             }
         }
 
         /* test for successful iteration. */
-        if (ratio >= Scalar(1e-4)) {
+        if (ratio >= Scalar(1e-4))
+        {
             /* successful iteration. update x, fvec, and their norms. */
-            x = wa2;
-            wa2 = diag.cwiseProduct(x);
-            fvec = wa4;
+            x     = wa2;
+            wa2   = diag.cwiseProduct(x);
+            fvec  = wa4;
             xnorm = wa2.stableNorm();
             fnorm = fnorm1;
             ++iter;
@@ -309,8 +331,10 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
         ++nslow1;
         if (actred >= Scalar(.001))
             nslow1 = 0;
+
         if (jeval)
             ++nslow2;
+
         if (actred >= Scalar(.1))
             nslow2 = 0;
 
@@ -321,10 +345,13 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
         /* tests for termination and stringent tolerances. */
         if (nfev >= parameters.maxfev)
             return HybridNonLinearSolverSpace::TooManyFunctionEvaluation;
+
         if (Scalar(.1) * (std::max)(Scalar(.1) * delta, pnorm) <= NumTraits<Scalar>::epsilon() * xnorm)
             return HybridNonLinearSolverSpace::TolTooSmall;
+
         if (nslow2 == 5)
             return HybridNonLinearSolverSpace::NotMakingProgressJacobian;
+
         if (nslow1 == 10)
             return HybridNonLinearSolverSpace::NotMakingProgressIterations;
 
@@ -334,11 +361,12 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
 
         /* calculate the rank one modification to the jacobian */
         /* and update qtf if necessary. */
-        wa1 = diag.cwiseProduct( diag.cwiseProduct(wa1)/pnorm );
+        wa1 = diag.cwiseProduct(diag.cwiseProduct(wa1) / pnorm);
         wa2 = fjac.transpose() * wa4;
         if (ratio >= Scalar(1e-4))
             qtf = wa2;
-        wa2 = (wa2-wa3)/pnorm;
+
+        wa2 = (wa2 - wa3) / pnorm;
 
         /* compute the qr factorization of the updated jacobian. */
         internal::r1updt<Scalar>(R, wa1, v_givens, w_givens, wa2, wa3, &sing);
@@ -347,18 +375,22 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
 
         jeval = false;
     }
+
     return HybridNonLinearSolverSpace::Running;
 }
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::solve(FVectorType  &x)
+HybridNonLinearSolver<FunctorType, Scalar>::solve(FVectorType&x)
 {
     HybridNonLinearSolverSpace::Status status = solveInit(x);
-    if (status==HybridNonLinearSolverSpace::ImproperInputParameters)
+
+    if (status == HybridNonLinearSolverSpace::ImproperInputParameters)
         return status;
-    while (status==HybridNonLinearSolverSpace::Running)
+
+    while (status == HybridNonLinearSolverSpace::Running)
         status = solveOneStep(x);
+
     return status;
 }
 
@@ -366,10 +398,10 @@ HybridNonLinearSolver<FunctorType,Scalar>::solve(FVectorType  &x)
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::hybrd1(
-        FVectorType  &x,
-        const Scalar tol
-        )
+HybridNonLinearSolver<FunctorType, Scalar>::hybrd1(
+    FVectorType&x,
+    const Scalar tol
+    )
 {
     n = x.size();
 
@@ -378,8 +410,8 @@ HybridNonLinearSolver<FunctorType,Scalar>::hybrd1(
         return HybridNonLinearSolverSpace::ImproperInputParameters;
 
     resetParameters();
-    parameters.maxfev = 200*(n+1);
-    parameters.xtol = tol;
+    parameters.maxfev = 200 * (n + 1);
+    parameters.xtol   = tol;
 
     diag.setConstant(n, 1.);
     useExternalScaling = true;
@@ -388,12 +420,15 @@ HybridNonLinearSolver<FunctorType,Scalar>::hybrd1(
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffInit(FVectorType  &x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffInit(FVectorType&x)
 {
     n = x.size();
 
-    if (parameters.nb_of_subdiagonals<0) parameters.nb_of_subdiagonals= n-1;
-    if (parameters.nb_of_superdiagonals<0) parameters.nb_of_superdiagonals= n-1;
+    if (parameters.nb_of_subdiagonals < 0)
+        parameters.nb_of_subdiagonals = n - 1;
+
+    if (parameters.nb_of_superdiagonals < 0)
+        parameters.nb_of_superdiagonals = n - 1;
 
     wa1.resize(n); wa2.resize(n); wa3.resize(n); wa4.resize(n);
     qtf.resize(n);
@@ -401,15 +436,17 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffInit(FVectorType  &
     fvec.resize(n);
     if (!useExternalScaling)
         diag.resize(n);
-    assert( (!useExternalScaling || diag.size()==n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
+
+    assert((!useExternalScaling || diag.size() == n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
 
     /* Function Body */
     nfev = 0;
     njev = 0;
 
     /*     check the input parameters for errors. */
-    if (n <= 0 || parameters.xtol < 0. || parameters.maxfev <= 0 || parameters.nb_of_subdiagonals< 0 || parameters.nb_of_superdiagonals< 0 || parameters.factor <= 0. )
+    if (n <= 0 || parameters.xtol < 0. || parameters.maxfev <= 0 || parameters.nb_of_subdiagonals < 0 || parameters.nb_of_superdiagonals < 0 || parameters.factor <= 0.)
         return HybridNonLinearSolverSpace::ImproperInputParameters;
+
     if (useExternalScaling)
         for (Index j = 0; j < n; ++j)
             if (diag[j] <= 0.)
@@ -418,13 +455,14 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffInit(FVectorType  &
     /*     evaluate the function at the starting point */
     /*     and calculate its norm. */
     nfev = 1;
-    if ( functor(x, fvec) < 0)
+    if (functor(x, fvec) < 0)
         return HybridNonLinearSolverSpace::UserAsked;
+
     fnorm = fvec.stableNorm();
 
     /*     initialize iteration counter and monitors. */
-    iter = 1;
-    ncsuc = 0;
+    iter   = 1;
+    ncsuc  = 0;
     ncfail = 0;
     nslow1 = 0;
     nslow2 = 0;
@@ -434,30 +472,35 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffInit(FVectorType  &
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType  &x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffOneStep(FVectorType&x)
 {
-    assert(x.size()==n); // check the caller is not cheating us
+    assert(x.size() == n); // check the caller is not cheating us
 
-    Index j;
+    Index                                j;
     std::vector<JacobiRotation<Scalar> > v_givens(n), w_givens(n);
 
     jeval = true;
-    if (parameters.nb_of_subdiagonals<0) parameters.nb_of_subdiagonals= n-1;
-    if (parameters.nb_of_superdiagonals<0) parameters.nb_of_superdiagonals= n-1;
+    if (parameters.nb_of_subdiagonals < 0)
+        parameters.nb_of_subdiagonals = n - 1;
+
+    if (parameters.nb_of_superdiagonals < 0)
+        parameters.nb_of_superdiagonals = n - 1;
 
     /* calculate the jacobian matrix. */
-    if (internal::fdjac1(functor, x, fvec, fjac, parameters.nb_of_subdiagonals, parameters.nb_of_superdiagonals, parameters.epsfcn) <0)
+    if (internal::fdjac1(functor, x, fvec, fjac, parameters.nb_of_subdiagonals, parameters.nb_of_superdiagonals, parameters.epsfcn) < 0)
         return HybridNonLinearSolverSpace::UserAsked;
-    nfev += (std::min)(parameters.nb_of_subdiagonals+parameters.nb_of_superdiagonals+ 1, n);
+
+    nfev += (std::min)(parameters.nb_of_subdiagonals + parameters.nb_of_superdiagonals + 1, n);
 
     wa2 = fjac.colwise().blueNorm();
 
     /* on the first iteration and if external scaling is not used, scale according */
     /* to the norms of the columns of the initial jacobian. */
-    if (iter == 1) {
+    if (iter == 1)
+    {
         if (!useExternalScaling)
             for (j = 0; j < n; ++j)
-                diag[j] = (wa2[j]==0.) ? 1. : wa2[j];
+                diag[j] = (wa2[j] == 0.) ? 1. : wa2[j];
 
         /* on the first iteration, calculate the norm of the scaled x */
         /* and initialize the step bound delta. */
@@ -483,22 +526,24 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
     if (!useExternalScaling)
         diag = diag.cwiseMax(wa2);
 
-    while (true) {
+    while (true)
+    {
         /* determine the direction p. */
         internal::dogleg<Scalar>(R, diag, qtf, delta, wa1);
 
         /* store the direction p and x + p. calculate the norm of p. */
-        wa1 = -wa1;
-        wa2 = x + wa1;
+        wa1   = -wa1;
+        wa2   = x + wa1;
         pnorm = diag.cwiseProduct(wa1).stableNorm();
 
         /* on the first iteration, adjust the initial step bound. */
         if (iter == 1)
-            delta = (std::min)(delta,pnorm);
+            delta = (std::min)(delta, pnorm);
 
         /* evaluate the function at x + p and calculate its norm. */
-        if ( functor(wa2, wa4) < 0)
+        if (functor(wa2, wa4) < 0)
             return HybridNonLinearSolverSpace::UserAsked;
+
         ++nfev;
         fnorm1 = wa4.stableNorm();
 
@@ -508,8 +553,8 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
             actred = 1. - internal::abs2(fnorm1 / fnorm);
 
         /* compute the scaled predicted reduction. */
-        wa3 = R.template triangularView<Upper>()*wa1 + qtf;
-        temp = wa3.stableNorm();
+        wa3    = R.template triangularView<Upper>() * wa1 + qtf;
+        temp   = wa3.stableNorm();
         prered = 0.;
         if (temp < fnorm) /* Computing 2nd power */
             prered = 1. - internal::abs2(temp / fnorm);
@@ -520,26 +565,32 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
             ratio = actred / prered;
 
         /* update the step bound. */
-        if (ratio < Scalar(.1)) {
+        if (ratio < Scalar(.1))
+        {
             ncsuc = 0;
             ++ncfail;
             delta = Scalar(.5) * delta;
-        } else {
+        }
+        else
+        {
             ncfail = 0;
             ++ncsuc;
             if (ratio >= Scalar(.5) || ncsuc > 1)
                 delta = (std::max)(delta, pnorm / Scalar(.5));
-            if (internal::abs(ratio - 1.) <= Scalar(.1)) {
+
+            if (internal::abs(ratio - 1.) <= Scalar(.1))
+            {
                 delta = pnorm / Scalar(.5);
             }
         }
 
         /* test for successful iteration. */
-        if (ratio >= Scalar(1e-4)) {
+        if (ratio >= Scalar(1e-4))
+        {
             /* successful iteration. update x, fvec, and their norms. */
-            x = wa2;
-            wa2 = diag.cwiseProduct(x);
-            fvec = wa4;
+            x     = wa2;
+            wa2   = diag.cwiseProduct(x);
+            fvec  = wa4;
             xnorm = wa2.stableNorm();
             fnorm = fnorm1;
             ++iter;
@@ -549,8 +600,10 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
         ++nslow1;
         if (actred >= Scalar(.001))
             nslow1 = 0;
+
         if (jeval)
             ++nslow2;
+
         if (actred >= Scalar(.1))
             nslow2 = 0;
 
@@ -561,10 +614,13 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
         /* tests for termination and stringent tolerances. */
         if (nfev >= parameters.maxfev)
             return HybridNonLinearSolverSpace::TooManyFunctionEvaluation;
+
         if (Scalar(.1) * (std::max)(Scalar(.1) * delta, pnorm) <= NumTraits<Scalar>::epsilon() * xnorm)
             return HybridNonLinearSolverSpace::TolTooSmall;
+
         if (nslow2 == 5)
             return HybridNonLinearSolverSpace::NotMakingProgressJacobian;
+
         if (nslow1 == 10)
             return HybridNonLinearSolverSpace::NotMakingProgressIterations;
 
@@ -574,11 +630,12 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
 
         /* calculate the rank one modification to the jacobian */
         /* and update qtf if necessary. */
-        wa1 = diag.cwiseProduct( diag.cwiseProduct(wa1)/pnorm );
+        wa1 = diag.cwiseProduct(diag.cwiseProduct(wa1) / pnorm);
         wa2 = fjac.transpose() * wa4;
         if (ratio >= Scalar(1e-4))
             qtf = wa2;
-        wa2 = (wa2-wa3)/pnorm;
+
+        wa2 = (wa2 - wa3) / pnorm;
 
         /* compute the qr factorization of the updated jacobian. */
         internal::r1updt<Scalar>(R, wa1, v_givens, w_givens, wa2, wa3, &sing);
@@ -587,21 +644,24 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
 
         jeval = false;
     }
+
     return HybridNonLinearSolverSpace::Running;
 }
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiff(FVectorType  &x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiff(FVectorType&x)
 {
     HybridNonLinearSolverSpace::Status status = solveNumericalDiffInit(x);
-    if (status==HybridNonLinearSolverSpace::ImproperInputParameters)
+
+    if (status == HybridNonLinearSolverSpace::ImproperInputParameters)
         return status;
-    while (status==HybridNonLinearSolverSpace::Running)
+
+    while (status == HybridNonLinearSolverSpace::Running)
         status = solveNumericalDiffOneStep(x);
+
     return status;
 }
 
-//vim: ai ts=4 sts=4 et sw=4
+// vim: ai ts=4 sts=4 et sw=4
 #endif // EIGEN_HYBRIDNONLINEARSOLVER_H
-

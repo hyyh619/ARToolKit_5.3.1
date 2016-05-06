@@ -54,168 +54,168 @@
 #endif
 
 /**
- * Base class for different video source implementations. A video source provides video frames to the 
- * ARToolKit tracking module. Video sources contain information about the video, such as size and pixel 
- * format, camera parameters for distortion compensation, as well as the raw video data itself. Different 
- * video source implementations are required to provide a standard interface for video input, even though 
+ * Base class for different video source implementations. A video source provides video frames to the
+ * ARToolKit tracking module. Video sources contain information about the video, such as size and pixel
+ * format, camera parameters for distortion compensation, as well as the raw video data itself. Different
+ * video source implementations are required to provide a standard interface for video input, even though
  * different platforms handle video input quite differently.
  */
-class VideoSource {
-
+class VideoSource
+{
 protected:
 
-	typedef enum {
-		DEVICE_CLOSED,					///< Device is closed.
-		DEVICE_OPEN,					///< Device is open.
-        DEVICE_GETTING_READY,           ///< Device is moving from open to running.
-		DEVICE_RUNNING					///< Device is open and able to be queried.
-	} DeviceState;
-    
-	DeviceState deviceState;			///< Current state of the video device
+typedef enum
+{
+    DEVICE_CLOSED,                                              ///< Device is closed.
+    DEVICE_OPEN,                                                ///< Device is open.
+    DEVICE_GETTING_READY,               ///< Device is moving from open to running.
+    DEVICE_RUNNING                                              ///< Device is open and able to be queried.
+} DeviceState;
 
-	char* cameraParam;					///< Camera parameter filename
-	char* cameraParamBuffer;
-	size_t cameraParamBufferLen;
-	ARParamLT *cparamLT;				///< Camera paramaters
+DeviceState deviceState;                                ///< Current state of the video device
 
-	char* videoConfiguration;			///< Video configuration string
+char      *cameraParam;                                         ///< Camera parameter filename
+char      *cameraParamBuffer;
+size_t    cameraParamBufferLen;
+ARParamLT *cparamLT;                                    ///< Camera paramaters
 
-	int videoWidth;						///< Width of the video frame in pixels
-	int videoHeight;					///< Height of the video frame in pixels
+char *videoConfiguration;                               ///< Video configuration string
 
-	AR_PIXEL_FORMAT pixelFormat;		///< Pixel format from ARToolKit enumeration.
+int videoWidth;                                                 ///< Width of the video frame in pixels
+int videoHeight;                                                ///< Height of the video frame in pixels
+
+AR_PIXEL_FORMAT pixelFormat;                    ///< Pixel format from ARToolKit enumeration.
 #if defined(HAVE_ARM_NEON) || defined(HAVE_ARM64_NEON)
-    int m_fastPath;
+int m_fastPath;
 #endif
 #ifndef _WINRT
-	GLenum glPixIntFormat;
-    GLenum glPixFormat;
-    GLenum glPixType;
+GLenum glPixIntFormat;
+GLenum glPixFormat;
+GLenum glPixType;
 #endif
 
-    ARUint8 *frameBuffer;               ///< Pointer to latest frame. Set by concrete subclass to point to frame data.
-    ARUint8 *frameBuffer2;              ///< For bi-planar formats, pointer to plane 2 of latest frame. Set by concrete subclass to point to frame data.
-	int frameStamp;						///< Latest framestamp. Incremented in the concrete subclass when a new frame arrives.
-    
-    int m_error;
-    void setError(int error);
+ARUint8 *frameBuffer;                   ///< Pointer to latest frame. Set by concrete subclass to point to frame data.
+ARUint8 *frameBuffer2;                  ///< For bi-planar formats, pointer to plane 2 of latest frame. Set by concrete subclass to point to frame data.
+int     frameStamp;                                             ///< Latest framestamp. Incremented in the concrete subclass when a new frame arrives.
 
-	/**
-	 * The constructor is not public because instances are created using a factory method.
-	 * @see newVideoSource()
-	 */
-	VideoSource();
-	
+int m_error;
+void setError(int error);
+
+/**
+ * The constructor is not public because instances are created using a factory method.
+ * @see newVideoSource()
+ */
+VideoSource();
+
 public:
 
-	/**
-	 * Returns the correct VideoSource subclass for use on the current platform.
-	 * @return New instance of an appropriate VideoSource
-	 */
-	static VideoSource* newVideoSource();
-    
-	virtual ~VideoSource();
+/**
+ * Returns the correct VideoSource subclass for use on the current platform.
+ * @return New instance of an appropriate VideoSource
+ */
+static VideoSource* newVideoSource();
 
-    int getError();
+virtual ~VideoSource();
 
-    /**
-	 * Returns true if the video source is open
-	 * @return	true if the video source is open
-	 */
-	bool isOpen();
+int getError();
 
-	/**
-	 * Returns true if the video source is open and ready to be queried.
-	 * @return	true if the video source is open and frame details are known
-	 */
-	bool isRunning();
-    
-	/**
-	 * Sets initial parameters which will be used when the video source
-     * is opened.
-     */
-	void configure(const char* vconf, const char* cparaName, const char* cparaBuff, size_t cparaBuffLen);
+/**
+ * Returns true if the video source is open
+ * @return      true if the video source is open
+ */
+bool isOpen();
+
+/**
+ * Returns true if the video source is open and ready to be queried.
+ * @return      true if the video source is open and frame details are known
+ */
+bool isRunning();
+
+/**
+ * Sets initial parameters which will be used when the video source
+ * is opened.
+ */
+void configure(const char *vconf, const char *cparaName, const char *cparaBuff, size_t cparaBuffLen);
 
 
-	/**
-	 * Returns the camera parameters for the video source.
-	 * @return  the camera parameters
-	 */
-	ARParamLT* getCameraParameters();
+/**
+ * Returns the camera parameters for the video source.
+ * @return  the camera parameters
+ */
+ARParamLT* getCameraParameters();
 
-	/**
-	 * Returns the width of the video in pixels.
-	 * @return		Width of the video in pixels
-	 */
-	int getVideoWidth();
-	
-	/**
-	 * Returns the height of the video in pixels.
-	 * @return		Height of the video in pixels
-	 */
-	int getVideoHeight();
+/**
+ * Returns the width of the video in pixels.
+ * @return              Width of the video in pixels
+ */
+int getVideoWidth();
 
-	/**
-	 * Returns the pixel format of the video.
-	 * @return		Pixel format of the video
-	 */
-	AR_PIXEL_FORMAT getPixelFormat();
+/**
+ * Returns the height of the video in pixels.
+ * @return              Height of the video in pixels
+ */
+int getVideoHeight();
 
-	/**
-	 * Returns the name of this video source variation. This method must be provided by 
-	 * the subclass.
-	 * @return		Name of the video source
-	 */
-	virtual const char* getName() = 0;
-	
-	/**
-	 * Opens the video source. This method must be provided by the subclass.
-	 * @return		true if the video source was opened successfully, false if a fatal error occured.
-	 */
-	virtual bool open() = 0;
-	
-	/**
-	 * Closes the video source. This method must be provided by the subclass.
-	 * @return		true if the video source was closed successfully, otherwise false.
-	 */
-	virtual bool close() = 0;
+/**
+ * Returns the pixel format of the video.
+ * @return              Pixel format of the video
+ */
+AR_PIXEL_FORMAT getPixelFormat();
 
-	/**
-	 * Asks the video source to capture a frame. This method must be provided by the subclass.
-	 * @return		true if the video source captured a frame, otherwise false
-	 */
-	virtual bool captureFrame() = 0;
+/**
+ * Returns the name of this video source variation. This method must be provided by
+ * the subclass.
+ * @return              Name of the video source
+ */
+virtual const char* getName() = 0;
 
-	/**
-	 * Returns the current frame.
-	 * @return		Pointer to the buffer containing the current video frame
-	 */
-	ARUint8* getFrame();
+/**
+ * Opens the video source. This method must be provided by the subclass.
+ * @return              true if the video source was opened successfully, false if a fatal error occured.
+ */
+virtual bool open() = 0;
 
-	/**
-	 * Returns the current frame stamp. If the returned value has changed since the last 
-	 * time this function was called, then the caller can assume a new frame is available.
-	 * @return		The current frame stamp, incremented on each new frame arrival
-	 */
-	int getFrameStamp();
+/**
+ * Closes the video source. This method must be provided by the subclass.
+ * @return              true if the video source was closed successfully, otherwise false.
+ */
+virtual bool close() = 0;
 
-	/**
-	 * Populates the provided color buffer with the current video frame.
-	 * @param buffer	The color buffer to populate with frame data
-	 * @return			true if the buffer was updated successfully, otherwise false
-	 */
-	bool updateTexture(Color* buffer);
+/**
+ * Asks the video source to capture a frame. This method must be provided by the subclass.
+ * @return              true if the video source captured a frame, otherwise false
+ */
+virtual bool captureFrame() = 0;
 
-    bool fastPath();
-    bool updateTexture32(uint32_t *buffer);
-    
+/**
+ * Returns the current frame.
+ * @return              Pointer to the buffer containing the current video frame
+ */
+ARUint8* getFrame();
+
+/**
+ * Returns the current frame stamp. If the returned value has changed since the last
+ * time this function was called, then the caller can assume a new frame is available.
+ * @return              The current frame stamp, incremented on each new frame arrival
+ */
+int getFrameStamp();
+
+/**
+ * Populates the provided color buffer with the current video frame.
+ * @param buffer        The color buffer to populate with frame data
+ * @return                      true if the buffer was updated successfully, otherwise false
+ */
+bool updateTexture(Color *buffer);
+
+bool fastPath();
+bool updateTexture32(uint32_t *buffer);
+
 #ifndef _WINRT
-	/**
-	 * Updates the specified OpenGL texture with the current video frame
-	 * @param textureID	The OpenGL texture ID to which the video frame should be uploaded
-	 */
-	void updateTextureGL(int textureID);
+/**
+ * Updates the specified OpenGL texture with the current video frame
+ * @param textureID     The OpenGL texture ID to which the video frame should be uploaded
+ */
+void updateTextureGL(int textureID);
 #endif
 };
-
 #endif // !VIDEOSOURCE_H

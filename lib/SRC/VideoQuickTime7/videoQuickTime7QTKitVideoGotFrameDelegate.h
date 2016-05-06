@@ -33,13 +33,13 @@
  *
  *  Author(s): Philip Lamb
  *
- *	Rev		Date		Who		Changes
- *	1.0.0	2010-07-01	PRL		Written.
+ *      Rev             Date            Who             Changes
+ *      1.0.0   2010-07-01      PRL             Written.
  *
  */
 
-@interface videoQuickTime7QTKitVideoGotFrameDelegate : NSObject <QTKitVideoGotFrameDelegate>
+@interface videoQuickTime7QTKitVideoGotFrameDelegate : NSObject<QTKitVideoGotFrameDelegate>
 
-- (void) QTKitVideoGotFrame:(id)sender userData:(void *)data;
+- (void) QTKitVideoGotFrame:(id)sender userData:(void*)data;
 
 @end

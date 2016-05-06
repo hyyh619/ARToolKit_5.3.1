@@ -38,72 +38,87 @@
 #include "cholesky.h"
 #include "linear_algebra.h"
 
-namespace vision {
+namespace vision
+{
+/**
+ * Solve the system A*x=b where A is a square right triangular matrix
+ *
+ * @param[out] x Solution to the system of equations
+ * @param[in] A n x n square matrix
+ * @param[in] b n x 1 vector
+ * @param[in] n Dimension of A
+ */
+template<typename T>
+bool SolveRightTriangularSystem(T *x, const T *A, const T *b, int n, T threshold = 0)
+{
+    x[n - 1] = b[n - 1] / A[n * n - 1];
 
-    /**
-	 * Solve the system A*x=b where A is a square right triangular matrix
-	 *
-	 * @param[out] x Solution to the system of equations
-	 * @param[in] A n x n square matrix
-	 * @param[in] b n x 1 vector
-	 * @param[in] n Dimension of A
-	 */
-	template<typename T>
-    bool SolveRightTriangularSystem(T* x, const T* A, const T* b, int n, T threshold = 0) {
-        x[n-1] = b[n-1]/A[n*n-1];
-		for(int i = n-2; i >= 0; i--) {
-			const T* Ai = &A[i*n];
-            if(std::abs(Ai[i]) <= threshold) {
-                return false;
-            }
-            x[i] = (b[i] - DotProduct(Ai+i+1, x+i+1, n-i-1)) / Ai[i];
-		}
-        return true;
-	}
-	
-	/**
-	 * Solve the system A*x=b where A is a square left triangular matrix
-	 *
-	 * @param[out] x Solution to the system of equations
-	 * @param[in] A n x n square matrix
-	 * @param[in] b n x 1 vector
-	 * @param[in] n Dimension of A
-	 */
-	template<typename T>
-    bool SolveLeftTriangularSystem(T* x, const T* A, const T* b, int n, T threshold = 0) {
-		for(int i = 0; i < n; i++) {
-			const T* Ai = &A[i*n];
-            if(std::abs(Ai[i]) <= threshold) {
-                return false;
-            }
-            x[i] = (b[i] - DotProduct(Ai, x, i)) / Ai[i];
-		}
-        return true;
-	}
+    for (int i = n - 2; i >= 0; i--)
+    {
+        const T *Ai = &A[i * n];
+        if (std::abs(Ai[i]) <= threshold)
+        {
+            return false;
+        }
 
-    /**
-     * Solve the system A*x=b where A is a symmetric positive-definite matrix.
-     */
-    template<typename T, int N>
-    inline bool SolvePositiveDefiniteSystem(T* x, const T* A, const T* b, T threshold) {
-        T L[N*N];
-        T y[N];
-        
-        // A=L*L'
-        if(!Cholesky<T>(L, N, A, N, N, 0)) {
-            return false;
-        }
-        SymmetricExtendLowerToUpper(L, N);
-        
-        if(!SolveLeftTriangularSystem(y, L, b, N, threshold)) {
-            return false;
-        }
-        
-        if(!SolveRightTriangularSystem(x, L, y, N, threshold)) {
-            return false;
-        }
-        
-        return true;
+        x[i] = (b[i] - DotProduct(Ai + i + 1, x + i + 1, n - i - 1)) / Ai[i];
     }
-    
+
+    return true;
+}
+
+/**
+ * Solve the system A*x=b where A is a square left triangular matrix
+ *
+ * @param[out] x Solution to the system of equations
+ * @param[in] A n x n square matrix
+ * @param[in] b n x 1 vector
+ * @param[in] n Dimension of A
+ */
+template<typename T>
+bool SolveLeftTriangularSystem(T *x, const T *A, const T *b, int n, T threshold = 0)
+{
+    for (int i = 0; i < n; i++)
+    {
+        const T *Ai = &A[i * n];
+        if (std::abs(Ai[i]) <= threshold)
+        {
+            return false;
+        }
+
+        x[i] = (b[i] - DotProduct(Ai, x, i)) / Ai[i];
+    }
+
+    return true;
+}
+
+/**
+ * Solve the system A*x=b where A is a symmetric positive-definite matrix.
+ */
+template<typename T, int N>
+inline bool SolvePositiveDefiniteSystem(T *x, const T *A, const T *b, T threshold)
+{
+    T L[N * N];
+    T y[N];
+
+    // A=L*L'
+    if (!Cholesky<T>(L, N, A, N, N, 0))
+    {
+        return false;
+    }
+
+    SymmetricExtendLowerToUpper(L, N);
+
+    if (!SolveLeftTriangularSystem(y, L, b, N, threshold))
+    {
+        return false;
+    }
+
+    if (!SolveRightTriangularSystem(x, L, y, N, threshold))
+    {
+        return false;
+    }
+
+    return true;
+}
 } // vision

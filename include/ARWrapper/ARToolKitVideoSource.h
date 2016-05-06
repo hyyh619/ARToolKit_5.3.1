@@ -43,30 +43,29 @@
 #if !TARGET_PLATFORM_ANDROID
 
 /**
- * Video source implementation using the ARToolKit arVideo module. This video source uses ARToolKit's 
- * built in video capture functions, and can therefore be used on any platform on which arVideo works, 
+ * Video source implementation using the ARToolKit arVideo module. This video source uses ARToolKit's
+ * built in video capture functions, and can therefore be used on any platform on which arVideo works,
  * including Windows, Linux and OSX.
  */
-class ARToolKitVideoSource : public VideoSource {
-
+class ARToolKitVideoSource : public VideoSource
+{
 protected:
 
-    AR2VideoParamT *gVid;
+AR2VideoParamT *gVid;
 
 public:
 
-	ARToolKitVideoSource();
+ARToolKitVideoSource();
 
-	virtual const char* getName();
+virtual const char* getName();
 
-	virtual bool open();
+virtual bool open();
 
-	virtual bool captureFrame();
+bool open2();
 
-	virtual bool close();
+virtual bool captureFrame();
 
+virtual bool close();
 };
-
 #endif
-
 #endif // !#ifndef ARTOOLKITVIDEOSOURCE_H

@@ -24,6 +24,29 @@
 namespace osgAnimation
 {
 
+    // The idea is to compute a bounding box with a factor x of the first step we compute the bounding box
+    class OSGANIMATION_EXPORT RigComputeBoundingBoxCallback : public osg::Drawable::ComputeBoundingBoxCallback
+    {
+    public:
+        RigComputeBoundingBoxCallback(double factor = 2.0): _computed(false), _factor(factor) {}
+
+        RigComputeBoundingBoxCallback(const RigComputeBoundingBoxCallback& rhs, const osg::CopyOp& copyop) :
+            osg::Drawable::ComputeBoundingBoxCallback(rhs, copyop),
+            _computed(false),
+            _factor(rhs._factor) {}
+
+        META_Object(osgAnimation, RigComputeBoundingBoxCallback);
+
+
+        void reset() { _computed = false; }
+        virtual osg::BoundingBox computeBound(const osg::Drawable& drawable) const;
+    protected:
+        mutable bool _computed;
+        double _factor;
+        mutable osg::BoundingBox _boundingBox;
+    };
+
+
     class OSGANIMATION_EXPORT RigGeometry : public osg::Geometry
     {
     public:
@@ -70,19 +93,6 @@ namespace osgAnimation
 
         void copyFrom(osg::Geometry& from);
 
-    protected:
-
-        osg::ref_ptr<osg::Geometry> _geometry;
-        osg::ref_ptr<RigTransform> _rigTransformImplementation;
-
-        VertexInfluenceSet _vertexInfluenceSet;
-        osg::ref_ptr<VertexInfluenceMap> _vertexInfluenceMap;
-
-        osg::Matrix _matrixFromSkeletonToGeometry;
-        osg::Matrix _invMatrixFromSkeletonToGeometry;
-        osg::observer_ptr<Skeleton> _root;
-        bool _needToComputeMatrix;
-
         struct FindNearestParentSkeleton : public osg::NodeVisitor
         {
             osg::ref_ptr<Skeleton> _root;
@@ -96,41 +106,60 @@ namespace osgAnimation
             }
         };
 
+    protected:
 
-        struct UpdateVertex : public osg::Drawable::UpdateCallback
-        {
-            virtual void update(osg::NodeVisitor*, osg::Drawable* drw)
-            {
-                RigGeometry* geom = dynamic_cast<RigGeometry*>(drw);
-                if (!geom)
-                    return;
-                if (!geom->getSkeleton() && !geom->getParents().empty())
-                {
-                    FindNearestParentSkeleton finder;
-                    if (geom->getParents().size() > 1)
-                        osg::notify(osg::WARN) << "A RigGeometry should not have multi parent ( " << geom->getName() << " )" << std::endl;
-                    geom->getParents()[0]->accept(finder);
+        osg::ref_ptr<osg::Geometry> _geometry;
+        osg::ref_ptr<RigTransform> _rigTransformImplementation;
 
-                    if (!finder._root.valid())
-                    {
-                        osg::notify(osg::WARN) << "A RigGeometry did not find a parent skeleton for RigGeomtry ( " << geom->getName() << " )" << std::endl;
-                        return;
-                    }
-                    geom->buildVertexInfluenceSet();
-                    geom->setSkeleton(finder._root.get());
-                }
+        VertexInfluenceSet _vertexInfluenceSet;
+        osg::ref_ptr<VertexInfluenceMap> _vertexInfluenceMap;
 
-                if (!geom->getSkeleton())
-                    return;
+        osg::Matrix _matrixFromSkeletonToGeometry;
+        osg::Matrix _invMatrixFromSkeletonToGeometry;
+        osg::observer_ptr<Skeleton> _root;
+        bool _needToComputeMatrix;
 
-                if (geom->getNeedToComputeMatrix())
-                    geom->computeMatrixFromRootSkeleton();
 
-                geom->update();
-            }
-        };
    };
 
+
+    struct UpdateRigGeometry : public osg::Drawable::UpdateCallback
+    {
+        UpdateRigGeometry() {}
+
+        UpdateRigGeometry(const UpdateRigGeometry&, const osg::CopyOp&) {}
+
+        META_Object(osgAnimation, UpdateRigGeometry);
+
+        virtual void update(osg::NodeVisitor*, osg::Drawable* drw) {
+            RigGeometry* geom = dynamic_cast<RigGeometry*>(drw);
+            if(!geom)
+                return;
+            if(!geom->getSkeleton() && !geom->getParents().empty())
+            {
+                RigGeometry::FindNearestParentSkeleton finder;
+                if(geom->getParents().size() > 1)
+                    osg::notify(osg::WARN) << "A RigGeometry should not have multi parent ( " << geom->getName() << " )" << std::endl;
+                geom->getParents()[0]->accept(finder);
+
+                if(!finder._root.valid())
+                {
+                    osg::notify(osg::WARN) << "A RigGeometry did not find a parent skeleton for RigGeometry ( " << geom->getName() << " )" << std::endl;
+                    return;
+                }
+                geom->buildVertexInfluenceSet();
+                geom->setSkeleton(finder._root.get());
+            }
+
+            if(!geom->getSkeleton())
+                return;
+
+            if(geom->getNeedToComputeMatrix())
+                geom->computeMatrixFromRootSkeleton();
+
+            geom->update();
+        }
+    };
 }
 
 #endif

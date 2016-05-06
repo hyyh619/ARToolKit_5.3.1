@@ -5,23 +5,24 @@
 /* Copyright (c) Mark J. Kilgard, 1995. */
 
 /* This program is freely distributable without licensing fees
- and is provided without guarantee or warrantee expressed or
- implied. This program is -not- in the public domain. */
+   and is provided without guarantee or warrantee expressed or
+   implied. This program is -not- in the public domain. */
 
-//#include "glutint.h"
+// #include "glutint.h"
 #include "glutstroke.h"
 
 /* CENTRY */
 int
 glutStrokeWidth(GLUTstrokeFont font, int c)
 {
-    StrokeFontPtr fontinfo;
+    StrokeFontPtr       fontinfo;
     const StrokeCharRec *ch;
-    
+
     fontinfo = (StrokeFontPtr) font;
-    
+
     if (c < 0 || c >= fontinfo->num_chars)
         return 0;
+
     ch = &(fontinfo->ch[c]);
     if (ch)
         return ch->right;
@@ -32,24 +33,27 @@ glutStrokeWidth(GLUTstrokeFont font, int c)
 int
 glutStrokeLength(GLUTstrokeFont font, const unsigned char *string)
 {
-    int c, length;
-    StrokeFontPtr fontinfo;
+    int                 c, length;
+    StrokeFontPtr       fontinfo;
     const StrokeCharRec *ch;
-    
+
     fontinfo = (StrokeFontPtr) font;
-    
+
     length = 0;
-    for (; *string != '\0'; string++) {
+
+    for (; *string != '\0'; string++)
+    {
         c = *string;
-        if (c >= 0 && c < fontinfo->num_chars) {
+        if (c >= 0 && c < fontinfo->num_chars)
+        {
             ch = &(fontinfo->ch[c]);
             if (ch)
                 length += ch->right;
         }
     }
+
     return length;
 }
 
 /* ENDCENTRY */
-
 #endif

@@ -10,5 +10,4 @@
     #pragma clang diagnostic pop
   #endif
 #endif
-
 #endif // EIGEN_WARNINGS_DISABLED

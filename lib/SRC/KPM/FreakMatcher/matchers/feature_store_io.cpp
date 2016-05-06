@@ -35,34 +35,35 @@
 
 #include "feature_store_io.h"
 
-//#include <boost/archive/binary_iarchive.hpp>
-//#include <boost/archive/binary_oarchive.hpp>
+// #include <boost/archive/binary_iarchive.hpp>
+// #include <boost/archive/binary_oarchive.hpp>
 
 #include <iostream>
 #include <fstream>
 
 using namespace vision;
 
-namespace vision {
-    
-    bool SaveFeatureStore(const BinaryFeatureStore& store, const std::string& filename) {
-        /*std::ofstream ofs(filename.c_str());
-        if(ofs.is_open() == false) {
-            return false;
-        }
-        boost::archive::binary_oarchive oa(ofs);
-        oa & store;*/
-        return true;
-    }
-    
-    bool LoadFeatureStore(BinaryFeatureStore& store, const std::string& filename) {
-        /*std::ifstream ifs(filename.c_str());
-        if(ifs.is_open() == false) {
-            return false;
-        }
-        boost::archive::binary_iarchive ia(ifs);
-        ia & store;*/
-        return true;
-    }
-    
+namespace vision
+{
+bool SaveFeatureStore(const BinaryFeatureStore&store, const std::string&filename)
+{
+    /*std::ofstream ofs(filename.c_str());
+       if(ofs.is_open() == false) {
+        return false;
+       }
+       boost::archive::binary_oarchive oa(ofs);
+       oa & store;*/
+    return true;
+}
+
+bool LoadFeatureStore(BinaryFeatureStore&store, const std::string&filename)
+{
+    /*std::ifstream ifs(filename.c_str());
+       if(ifs.is_open() == false) {
+        return false;
+       }
+       boost::archive::binary_iarchive ia(ifs);
+       ia & store;*/
+    return true;
+}
 } // vision

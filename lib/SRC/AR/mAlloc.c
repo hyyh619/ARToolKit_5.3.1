@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -55,44 +55,50 @@
 #endif
 #include <AR/ar.h>
 
-ARMat *arMatrixAlloc(int row, int clm)
+ARMat* arMatrixAlloc(int row, int clm)
 {
-	ARMat *m;
+    ARMat *m;
 
-	m = (ARMat *)malloc(sizeof(ARMat));
-	if( m == NULL ) return NULL;
+    m = (ARMat*)malloc(sizeof(ARMat));
+    if (m == NULL)
+        return NULL;
 
-	m->m = (ARdouble *)malloc(sizeof(ARdouble) * row * clm);
-	if(m->m == NULL) {
-		free(m);
-		return NULL;
-	}
-	else {
-		m->row = row;
-		m->clm = clm;
-	}
+    m->m = (ARdouble*)malloc(sizeof(ARdouble) * row * clm);
+    if (m->m == NULL)
+    {
+        free(m);
+        return NULL;
+    }
+    else
+    {
+        m->row = row;
+        m->clm = clm;
+    }
 
-	return m;
+    return m;
 }
 
 #ifndef ARDOUBLE_IS_FLOAT
-ARMatf *arMatrixAllocf(int row, int clm)
+ARMatf* arMatrixAllocf(int row, int clm)
 {
-	ARMatf *m;
-    
-	m = (ARMatf *)malloc(sizeof(ARMatf));
-	if( m == NULL ) return NULL;
-    
-	m->m = (float *)malloc(sizeof(float) * row * clm);
-	if(m->m == NULL) {
-		free(m);
-		return NULL;
-	}
-	else {
-		m->row = row;
-		m->clm = clm;
-	}
-    
-	return m;
+    ARMatf *m;
+
+    m = (ARMatf*)malloc(sizeof(ARMatf));
+    if (m == NULL)
+        return NULL;
+
+    m->m = (float*)malloc(sizeof(float) * row * clm);
+    if (m->m == NULL)
+    {
+        free(m);
+        return NULL;
+    }
+    else
+    {
+        m->row = row;
+        m->clm = clm;
+    }
+
+    return m;
 }
 #endif

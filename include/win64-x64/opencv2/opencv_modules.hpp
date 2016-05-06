@@ -4,7 +4,7 @@
  * This file defines the list of modules available in current build configuration
  *
  *
-*/
+ */
 
 #define HAVE_OPENCV_CALIB3D
 #define HAVE_OPENCV_CONTRIB
@@ -25,5 +25,3 @@
 #define HAVE_OPENCV_TS
 #define HAVE_OPENCV_VIDEO
 #define HAVE_OPENCV_VIDEOSTAB
-
-

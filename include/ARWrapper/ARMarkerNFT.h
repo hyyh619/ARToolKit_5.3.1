@@ -47,32 +47,30 @@
 /**
  * NFT marker type of ARMarker.
  */
-class ARMarkerNFT : public ARMarker {
-
+class ARMarkerNFT : public ARMarker
+{
 private:
-    bool m_loaded;
-    float m_nftScale;
+bool  m_loaded;
+float m_nftScale;
 
 protected:
-    bool unload();
+bool unload();
 
 public:
-	bool robustFlag;									///< Flag specifying which pose estimation approach to use
-    int pageNo;
-    char *datasetPathname;
-    AR2SurfaceSetT *surfaceSet;
-    
-	ARMarkerNFT();
-	~ARMarkerNFT();
+bool           robustFlag;                                                                      ///< Flag specifying which pose estimation approach to use
+int            pageNo;
+char           *datasetPathname;
+AR2SurfaceSetT *surfaceSet;
 
-	bool load(const char* dataSetPathname_in);
+ARMarkerNFT();
+~ARMarkerNFT();
 
-	bool updateWithNFTResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4] = NULL);
+bool load(const char *dataSetPathname_in);
 
-    void setNFTScale(const float scale);
-    float getNFTScale();
+bool updateWithNFTResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4] = NULL);
+
+void setNFTScale(const float scale);
+float getNFTScale();
 };
-
 #endif // HAVE_NFT
-
 #endif // !ARMARKERNFT_H

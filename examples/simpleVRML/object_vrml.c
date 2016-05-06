@@ -1,7 +1,7 @@
 /*
- *	object_vrml.c
+ *      object_vrml.c
  *
- *  ARToolKit object parsing function 
+ *  ARToolKit object parsing function
  *  - reads in object data from object file in Data/object_data
  *
  *  Press '?' while running for help on available key commands.
@@ -58,115 +58,147 @@
 #include <AR/arvrml.h>
 #include "object_vrml.h"
 
-static char *get_buff(char *buf, int n, FILE *fp)
+static char* get_buff(char *buf, int n, FILE *fp)
 {
-    char *ret;
+    char   *ret;
     size_t l;
-    
-    do {
+
+    do
+    {
         ret = fgets(buf, n, fp);
-        if (ret == NULL) return (NULL); // EOF or error.
-        
+        if (ret == NULL)
+            return (NULL);              // EOF or error.
+
         // Remove NLs and CRs from end of string.
         l = strlen(buf);
-        while (l > 0) {
-            if (buf[l - 1] != '\n' && buf[l - 1] != '\r') break;
+
+        while (l > 0)
+        {
+            if (buf[l - 1] != '\n' && buf[l - 1] != '\r')
+                break;
+
             l--;
             buf[l] = '\0';
         }
-    } while (buf[0] == '#' || buf[0] == '\0'); // Reject comments and blank lines.
-    
+    }
+    while (buf[0] == '#' || buf[0] == '\0');   // Reject comments and blank lines.
+
     return (ret);
 }
 
-ObjectData_T *read_VRMLdata(char *name, int *objectnum)
+ObjectData_T* read_VRMLdata(char *name, int *objectnum)
 {
-    FILE          *fp;
-    ObjectData_T  *object;
-    char           buf[256], buf1[256];
-    int            i;
+    FILE         *fp;
+    ObjectData_T *object;
+    char         buf[256], buf1[256];
+    int          i;
 
-	ARLOGi("Opening model file %s\n", name);
+    ARLOGi("Opening model file %s\n", name);
 
-    if ((fp=fopen(name, "r")) == NULL) return(NULL);
+    if ((fp = fopen(name, "r")) == NULL)
+        return(NULL);
 
     get_buff(buf, 256, fp);
-    if (sscanf(buf, "%d", objectnum) != 1) {
-		fclose(fp); return(NULL);
-	}
+    if (sscanf(buf, "%d", objectnum) != 1)
+    {
+        fclose(fp); return(NULL);
+    }
 
-	ARLOGi("Loading %d models.\n", *objectnum);
+    ARLOGi("Loading %d models.\n", *objectnum);
 
-    if (!(object = (ObjectData_T *)malloc(sizeof(ObjectData_T) * (*objectnum)))) goto bail;
-	if (!(object->pattHandle = arPattCreateHandle())) {
-		ARLOGe("Error: Couldn't create pattern handle.\n");
-		goto bail1;
-	};
-	
-    for (i = 0; i < *objectnum; i++) {
-		
+    if (!(object = (ObjectData_T*)malloc(sizeof(ObjectData_T) * (*objectnum))))
+        goto bail;
+
+    if (!(object->pattHandle = arPattCreateHandle()))
+    {
+        ARLOGe("Error: Couldn't create pattern handle.\n");
+        goto bail1;
+    }
+
+    ;
+
+    for (i = 0; i < *objectnum; i++)
+    {
         get_buff(buf, 256, fp);
-        if (sscanf(buf, "%s %s", buf1, object[i].name) != 2) {
+        if (sscanf(buf, "%s %s", buf1, object[i].name) != 2)
+        {
             ARLOGe("Error reading config file; expected object type and file name.\n");
             goto bail2;
         }
-		ARLOGi("Model %d: %20s\n", i + 1, &(object[i].name[0]));
-		
-        if (strcmp(buf1, "VRML") == 0) {
+
+        ARLOGi("Model %d: %20s\n", i + 1, &(object[i].name[0]));
+
+        if (strcmp(buf1, "VRML") == 0)
+        {
             object[i].vrml_id = arVrmlLoadFile(object[i].name);
-            if (object[i].vrml_id < 0) {
-            	ARLOGe("VRML load error!! Unable to load %s.\n", object[i].name);
+            if (object[i].vrml_id < 0)
+            {
+                ARLOGe("VRML load error!! Unable to load %s.\n", object[i].name);
                 goto bail2;
             }
-			ARLOGi("- VRML id %d \n", object[i].vrml_id);
-        } else {
-			object[i].vrml_id = -1;
-		}
-		object[i].vrml_id_orig = object[i].vrml_id;
-		object[i].visible = 0;
 
-        get_buff(buf, 256, fp);
-        if (sscanf(buf, "%s", buf1) != 1) {
-            ARLOGe("Error reading config file; expected pattern file name.\n");
-			goto bail3;
-		}
-        if ((object[i].id = arPattLoad(object->pattHandle, buf1)) < 0) {
-            ARLOGe("Pattern load error!! Unable to load %s.\n", buf1);
-			goto bail3;
-		}
-
-        get_buff(buf, 256, fp);
-        if (sscanf(buf, "%lf", &object[i].marker_width) != 1) {
-            ARLOGe("Error reading config file; expected marker width.\n");
-			goto bail4;
-		}
-
-        get_buff(buf, 256, fp);
-        if (sscanf(buf, "%lf %lf", &object[i].marker_center[0], &object[i].marker_center[1]) != 2) {
-            ARLOGe("Error reading config file; expected marker center x and center y.\n");
-			goto bail4;
+            ARLOGi("- VRML id %d \n", object[i].vrml_id);
         }
-        
+        else
+        {
+            object[i].vrml_id = -1;
+        }
+
+        object[i].vrml_id_orig = object[i].vrml_id;
+        object[i].visible      = 0;
+
+        get_buff(buf, 256, fp);
+        if (sscanf(buf, "%s", buf1) != 1)
+        {
+            ARLOGe("Error reading config file; expected pattern file name.\n");
+            goto bail3;
+        }
+
+        if ((object[i].id = arPattLoad(object->pattHandle, buf1)) < 0)
+        {
+            ARLOGe("Pattern load error!! Unable to load %s.\n", buf1);
+            goto bail3;
+        }
+
+        get_buff(buf, 256, fp);
+        if (sscanf(buf, "%lf", &object[i].marker_width) != 1)
+        {
+            ARLOGe("Error reading config file; expected marker width.\n");
+            goto bail4;
+        }
+
+        get_buff(buf, 256, fp);
+        if (sscanf(buf, "%lf %lf", &object[i].marker_center[0], &object[i].marker_center[1]) != 2)
+        {
+            ARLOGe("Error reading config file; expected marker center x and center y.\n");
+            goto bail4;
+        }
     }
 
     fclose(fp);
 
-    return( object );
+    return(object);
 
 bail4:
-	arPattFree(object->pattHandle, object[i].id);
+    arPattFree(object->pattHandle, object[i].id);
 bail3:
-	if (object[i].vrml_id != -1) arVrmlFree(object[i].vrml_id);
+    if (object[i].vrml_id != -1)
+        arVrmlFree(object[i].vrml_id);
+
 bail2:
-	// Unload anything loaded before the error.
-	for (i--; i >= 0; i--) {
-		arPattFree(object->pattHandle, object[i].id);
-		if (object[i].vrml_id != -1) arVrmlFree(object[i].vrml_id);
-	}
-	arPattDeleteHandle(object->pattHandle);
+
+    // Unload anything loaded before the error.
+    for (i--; i >= 0; i--)
+    {
+        arPattFree(object->pattHandle, object[i].id);
+        if (object[i].vrml_id != -1)
+            arVrmlFree(object[i].vrml_id);
+    }
+
+    arPattDeleteHandle(object->pattHandle);
 bail1:
-	free(object);
+    free(object);
 bail:
-	fclose(fp);
-	return (NULL);
+    fclose(fp);
+    return (NULL);
 }

@@ -53,43 +53,42 @@
  * Currently, the encapsulated information is the pose relative to the marker
  * origin, and (for template markers only) the visual appearance of the pattern.
  */
-class ARPattern {
-
+class ARPattern
+{
 public:
-    
-    enum PATTERN_TYPE {
-        PATTERN_TYPE_NONE = 0,
-        PATTERN_TYPE_TEMPLATE,
-        PATTERN_TYPE_MATRIX,
-        PATTERN_TYPE_ISET
-    };
 
-	ARPattern();
-	~ARPattern();
-
-    bool loadTemplate(int patternID, const ARPattHandle *arPattHandle, float width);
-    bool loadMatrix(int barcodeID, AR_MATRIX_CODE_TYPE type, float width);
-#if HAVE_NFT
-    bool loadISet(const AR2ImageSetT *imageSet, float nftScale);
-#endif
-
-	ARdouble m_matrix[16];	///< Transform of the pattern from origin.
-	float m_width;          ///< Width of the pattern in mm.
-    float m_height;         ///< Height of the pattern in mm.
-    int m_imageSizeX;
-    int m_imageSizeY;
-	Color *m_image;			///< Image of the pattern
-    
-private:
-
-    PATTERN_TYPE m_pattType;
-
-	bool loadImage(ARPattHandle *arPattHandle);
-	void freeImage();
-    
-    // Template/matrix.
-    int m_patternID;        ///< ID of the pattern (ARToolKit internal ID)
-
+enum PATTERN_TYPE
+{
+    PATTERN_TYPE_NONE = 0,
+    PATTERN_TYPE_TEMPLATE,
+    PATTERN_TYPE_MATRIX,
+    PATTERN_TYPE_ISET
 };
 
+ARPattern();
+~ARPattern();
+
+bool loadTemplate(int patternID, const ARPattHandle *arPattHandle, float width);
+bool loadMatrix(int barcodeID, AR_MATRIX_CODE_TYPE type, float width);
+#if HAVE_NFT
+bool loadISet(const AR2ImageSetT *imageSet, float nftScale);
+#endif
+
+ARdouble m_matrix[16];          ///< Transform of the pattern from origin.
+float    m_width;               ///< Width of the pattern in mm.
+float    m_height;          ///< Height of the pattern in mm.
+int      m_imageSizeX;
+int      m_imageSizeY;
+Color    *m_image;                      ///< Image of the pattern
+
+private:
+
+PATTERN_TYPE m_pattType;
+
+bool loadImage(ARPattHandle *arPattHandle);
+void freeImage();
+
+// Template/matrix.
+int m_patternID;            ///< ID of the pattern (ARToolKit internal ID)
+};
 #endif // !ARPATTERN_H

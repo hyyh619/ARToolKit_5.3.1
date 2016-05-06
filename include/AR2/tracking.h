@@ -35,12 +35,12 @@
  *
  */
 /*!
-	@header tracking
-	@abstract ARToolKit NFT core routines.
-	@discussion
+        @header tracking
+        @abstract ARToolKit NFT core routines.
+        @discussion
         This header declares essential types and API for the NFT portion of the
         ARToolKit SDK.
- 
+
         For compile-time per-machine and NFT configuration, see &lt;AR2/config.h&gt;.
     @copyright 2015 Daqri, LLC.
  */
@@ -55,92 +55,97 @@
 #include <AR2/template.h>
 #include <AR2/marker.h>
 
-#define    AR2_TRACKING_6DOF                   1
-#define    AR2_TRACKING_HOMOGRAPHY             2
+#define    AR2_TRACKING_6DOF       1
+#define    AR2_TRACKING_HOMOGRAPHY 2
 
-#define    AR2_TRACKING_DEFAULT_THREAD_NUM    -1
+#define    AR2_TRACKING_DEFAULT_THREAD_NUM -1
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct {
-    AR2ImageSetT         *imageSet;
-    AR2FeatureSetT       *featureSet;
-    AR2MarkerSetT        *markerSet;
-    float                 trans[3][4];
-    float                 itrans[3][4];
-    char                 *jpegName;
+typedef struct
+{
+    AR2ImageSetT   *imageSet;
+    AR2FeatureSetT *featureSet;
+    AR2MarkerSetT  *markerSet;
+    float          trans[3][4];
+    float          itrans[3][4];
+    char           *jpegName;
 } AR2SurfaceT;
 
-typedef struct {
-    AR2SurfaceT          *surface;
+typedef struct
+{
+    AR2SurfaceT           *surface;
     int                   num;
     float                 trans1[3][4];
     float                 trans2[3][4];
     float                 trans3[3][4];
     int                   contNum;
-    AR2TemplateCandidateT     prevFeature[AR2_SEARCH_FEATURE_MAX+1];
+    AR2TemplateCandidateT prevFeature[AR2_SEARCH_FEATURE_MAX + 1];
 } AR2SurfaceSetT;
 
-typedef struct {
-    float             sim;
-    float             pos2d[2];
-    float             pos3d[3];
+typedef struct
+{
+    float sim;
+    float pos2d[2];
+    float pos3d[3];
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-    int               blurLevel;
+    int blurLevel;
 #endif
 } AR2Tracking2DResultT;
 
 
-typedef struct _AR2HandleT           AR2HandleT;
-typedef struct _AR2Tracking2DParamT  AR2Tracking2DParamT;
+typedef struct _AR2HandleT AR2HandleT;
+typedef struct _AR2Tracking2DParamT AR2Tracking2DParamT;
 
 // Structure to pass parameters to threads spawned to run ar2Tracking2d().
-struct _AR2Tracking2DParamT {
-    struct _AR2HandleT      *ar2Handle;  // Reference to parent AR2HandleT.
-    AR2SurfaceSetT          *surfaceSet;
-    AR2TemplateCandidateT   *candidate;
-    ARUint8                 *dataPtr;    // Input image.
-    ARUint8                 *mfImage;    // (Internally allocated buffer same size as input image).
-    AR2TemplateT            *templ;
+struct _AR2Tracking2DParamT
+{
+    struct _AR2HandleT    *ar2Handle;    // Reference to parent AR2HandleT.
+    AR2SurfaceSetT        *surfaceSet;
+    AR2TemplateCandidateT *candidate;
+    ARUint8               *dataPtr;      // Input image.
+    ARUint8               *mfImage;      // (Internally allocated buffer same size as input image).
+    AR2TemplateT          *templ;
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-    AR2Template2T           *templ2;
+    AR2Template2T *templ2;
 #endif
-    AR2Tracking2DResultT     result;
-    int                      ret;
+    AR2Tracking2DResultT result;
+    int                  ret;
 };
 
-struct _AR2HandleT {
-    int               trackingMode;
-    int               xsize;
-    int               ysize;
-    ARParamLT        *cparamLT;
-    ICPHandleT       *icpHandle;
-    AR_PIXEL_FORMAT   pixFormat;
+struct _AR2HandleT
+{
+    int             trackingMode;
+    int             xsize;
+    int             ysize;
+    ARParamLT       *cparamLT;
+    ICPHandleT      *icpHandle;
+    AR_PIXEL_FORMAT pixFormat;
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-    int               blurMethod;
-    int               blurLevel;
+    int blurMethod;
+    int blurLevel;
 #endif
-    int               searchSize;
-    int               templateSize1;
-    int               templateSize2;
-    int               searchFeatureNum;
-    float             simThresh;
-    float             trackingThresh;
+    int   searchSize;
+    int   templateSize1;
+    int   templateSize2;
+    int   searchFeatureNum;
+    float simThresh;
+    float trackingThresh;
     /*--------------------------------*/
-    float                     wtrans1[AR2_TRACKING_SURFACE_MAX][3][4];
-    float                     wtrans2[AR2_TRACKING_SURFACE_MAX][3][4];
-    float                     wtrans3[AR2_TRACKING_SURFACE_MAX][3][4];
-    float                     pos[AR2_SEARCH_FEATURE_MAX+AR2_THREAD_MAX][2];
-    float                     pos2d[AR2_SEARCH_FEATURE_MAX][2];
-    float                     pos3d[AR2_SEARCH_FEATURE_MAX][3];
-    AR2TemplateCandidateT     candidate[AR2_TRACKING_CANDIDATE_MAX+1];
-    AR2TemplateCandidateT     candidate2[AR2_TRACKING_CANDIDATE_MAX+1];
-    AR2TemplateCandidateT     usedFeature[AR2_SEARCH_FEATURE_MAX];
-    int                       threadNum;
-    struct _AR2Tracking2DParamT       arg[AR2_THREAD_MAX];
-    THREAD_HANDLE_T          *threadHandle[AR2_THREAD_MAX];
+    float                       wtrans1[AR2_TRACKING_SURFACE_MAX][3][4];
+    float                       wtrans2[AR2_TRACKING_SURFACE_MAX][3][4];
+    float                       wtrans3[AR2_TRACKING_SURFACE_MAX][3][4];
+    float                       pos[AR2_SEARCH_FEATURE_MAX + AR2_THREAD_MAX][2];
+    float                       pos2d[AR2_SEARCH_FEATURE_MAX][2];
+    float                       pos3d[AR2_SEARCH_FEATURE_MAX][3];
+    AR2TemplateCandidateT       candidate[AR2_TRACKING_CANDIDATE_MAX + 1];
+    AR2TemplateCandidateT       candidate2[AR2_TRACKING_CANDIDATE_MAX + 1];
+    AR2TemplateCandidateT       usedFeature[AR2_SEARCH_FEATURE_MAX];
+    int                         threadNum;
+    struct _AR2Tracking2DParamT arg[AR2_THREAD_MAX];
+    THREAD_HANDLE_T             *threadHandle[AR2_THREAD_MAX];
 };
 
 
@@ -169,14 +174,14 @@ struct _AR2HandleT {
     @seealso ar2CreateHandle ar2CreateHandle
     @seealso ar2ReadSurfaceSet ar2ReadSurfaceSet
  */
-int             ar2Tracking              ( AR2HandleT *ar2Handle, AR2SurfaceSetT *surfaceSet,
-                                           ARUint8 *dataPtr, float  trans[3][4], float  *err );
-void           *ar2Tracking2d            ( THREAD_HANDLE_T *threadHandle );
+int ar2Tracking              (AR2HandleT * ar2Handle, AR2SurfaceSetT * surfaceSet,
+                              ARUint8 * dataPtr, float trans[3][4], float  *err);
+void* ar2Tracking2d(THREAD_HANDLE_T *threadHandle);
 /*
-int             ar2Tracking2d            ( AR2HandleT *ar2Handle, AR2SurfaceSetT *surfaceSet,
+   int             ar2Tracking2d            ( AR2HandleT *ar2Handle, AR2SurfaceSetT *surfaceSet,
                                            AR2TemplateCandidateT *candidate,
                                            ARUint8 *dataPtr, AR2Tracking2DResultT *result    );
-*/
+ */
 
 /*!
     @function
@@ -184,7 +189,7 @@ int             ar2Tracking2d            ( AR2HandleT *ar2Handle, AR2SurfaceSetT
     @discussion
         Allocates, initialises and reads the contents of a surface set from storage.
         The surface set is usually generated by the genTexData utility, or equivalent.
-        
+
         Once the surface set is no longer required, it should be disposed of by calling ar2FreeSurfaceSet().
     @param filename Pathname of the surface set to be loaded, less any filename extension.
     @param ext Filename extension of the surface set to be loaded. Ususally this will be "fset".
@@ -193,12 +198,12 @@ int             ar2Tracking2d            ( AR2HandleT *ar2Handle, AR2SurfaceSetT
     @result A pointer to the loaded AR2SurfaceSetT, or NULL in case of error.
     @seealso ar2FreeSurfaceSet ar2FreeSurfaceSet
  */
-AR2SurfaceSetT *ar2ReadSurfaceSet        ( const char *filename, const char *ext, ARPattHandle *pattHandle          );
+AR2SurfaceSetT* ar2ReadSurfaceSet(const char *filename, const char *ext, ARPattHandle *pattHandle);
 
 /*!
     @function
     @abstract Finalise and dispose of an NFT texture tracking surface set.
-    @discussion 
+    @discussion
         Once a surface set (read by ar2ReadSurfaceSet()) is no longer required, it should be disposed
         of by calling ar2FreeSurfaceSet().
     @param surfaceSet Pointer to a location pointing to an AR2SurfaceSetT. On return,
@@ -206,7 +211,7 @@ AR2SurfaceSetT *ar2ReadSurfaceSet        ( const char *filename, const char *ext
     @result 0 if successful, -1 otherwise.
     @seealso ar2ReadSurfaceSet ar2ReadSurfaceSet
  */
-int             ar2FreeSurfaceSet        ( AR2SurfaceSetT **surfaceSet                       );
+int             ar2FreeSurfaceSet(AR2SurfaceSetT **surfaceSet);
 
 /*!
     @function
@@ -222,7 +227,7 @@ int             ar2FreeSurfaceSet        ( AR2SurfaceSetT **surfaceSet          
     @result 0 if successful, or -1 in case of error.
     @seealso ar2Tracking ar2Tracking
  */
-int             ar2SetInitTrans          ( AR2SurfaceSetT *surfaceSet, float  trans[3][4]    );
+int ar2SetInitTrans          (AR2SurfaceSetT * surfaceSet, float trans[3][4]);
 
 /*!
     @function
@@ -244,12 +249,12 @@ int             ar2SetInitTrans          ( AR2SurfaceSetT *surfaceSet, float  tr
     @seealso ar2CreateHandleHomography ar2CreateHandleHomography
     @seealso ar2DeleteHandle ar2DeleteHandle
  */
-AR2HandleT     *ar2CreateHandle          ( ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat, int threadNum );
+AR2HandleT* ar2CreateHandle(ARParamLT *cparamLT, AR_PIXEL_FORMAT pixFormat, int threadNum);
 
 /*!
     @function
     @abstract Allocate and initialise essential structures for NFT texture tracking, using homography-only tracking.
-    @discussion 
+    @discussion
         Homography tracking assumes that the camera has zero lens-distortion, and this does not depend on
         camera parameters. It is therefore unable to provide correctly calibrated position measurements,
         but the resulting pose is suitable for visual overlay purposes.
@@ -264,7 +269,7 @@ AR2HandleT     *ar2CreateHandle          ( ARParamLT *cparamLT, AR_PIXEL_FORMAT 
     @seealso ar2CreateHandle ar2CreateHandle
     @seealso ar2DeleteHandle ar2DeleteHandle
  */
-AR2HandleT     *ar2CreateHandleHomography      ( int xsize, int ysize, AR_PIXEL_FORMAT pixFormat, int threadNum );
+AR2HandleT* ar2CreateHandleHomography(int xsize, int ysize, AR_PIXEL_FORMAT pixFormat, int threadNum);
 
 /*!
     @function
@@ -278,13 +283,13 @@ AR2HandleT     *ar2CreateHandleHomography      ( int xsize, int ysize, AR_PIXEL_
     @seealso ar2CreateHandle ar2CreateHandle
     @seealso ar2CreateHandleHomography ar2CreateHandleHomography
  */
-int             ar2DeleteHandle          ( AR2HandleT **ar2Handle );
+int             ar2DeleteHandle(AR2HandleT **ar2Handle);
 
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-int             ar2SetBlurMethod         ( AR2HandleT *ar2Handle, int  blurMethod        );
-int             ar2GetBlurMethod         ( AR2HandleT *ar2Handle, int *blurMethod        );
-int             ar2SetBlurLevel          ( AR2HandleT *ar2Handle, int  blurLevel         );
-int             ar2GetBlurLevel          ( AR2HandleT *ar2Handle, int *blurLevel         );
+int             ar2SetBlurMethod(AR2HandleT *ar2Handle, int blurMethod);
+int             ar2GetBlurMethod(AR2HandleT *ar2Handle, int *blurMethod);
+int             ar2SetBlurLevel(AR2HandleT *ar2Handle, int blurLevel);
+int             ar2GetBlurLevel(AR2HandleT *ar2Handle, int *blurLevel);
 #endif
 
 /*!
@@ -295,113 +300,113 @@ int             ar2GetBlurLevel          ( AR2HandleT *ar2Handle, int *blurLevel
         the feature will be searched for in the next frame. Value is radius of the search
         window, in pixels. I.e. searchSize pixels either size of the current feature position
         will be searched for the new location of the feature.
- 
+
         A larger search window allows for greater movement of a feature between frames
         (e.g. faster optical motion, or same degree of optical motion but at a higher frame
         resolution), at the cost of greater search effort. Search effort increases with
         the square of the search radius.
- 
+
         Default value is AR2_DEFAULT_SEARCH_SIZE, as defined in &lt;AR2/config.h&gt;
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param searchSize The new search size to use.
     @result -1 in case of error, or 0 otherwise.
     @seealso ar2GetSearchSize ar2GetSearchSize
  */
-int             ar2SetSearchSize         ( AR2HandleT *ar2Handle, int  searchSize        );
+int             ar2SetSearchSize(AR2HandleT *ar2Handle, int searchSize);
 
 /*!
     @function
     @abstract Get feature point search window size.
     @discussion
         See the discussion under ar2SetSearchSize.
- 
+
         Default value is AR2_DEFAULT_SEARCH_SIZE, as defined in &lt;AR2/config.h&gt;
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param searchSize Pointer to an int, which on return will be filled with the current search size in use.
     @result -1 in case of error, or 0 otherwise.
     @seealso ar2SetSearchSize ar2SetSearchSize
  */
-int             ar2GetSearchSize         ( AR2HandleT *ar2Handle, int *searchSize        );
+int             ar2GetSearchSize(AR2HandleT *ar2Handle, int *searchSize);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param templateSize1
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2SetTemplateSize1      ( AR2HandleT *ar2Handle, int  templateSize1     );
+int             ar2SetTemplateSize1(AR2HandleT *ar2Handle, int templateSize1);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param templateSize1
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2GetTemplateSize1      ( AR2HandleT *ar2Handle, int *templateSize1     );
+int             ar2GetTemplateSize1(AR2HandleT *ar2Handle, int *templateSize1);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param templateSize2
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2SetTemplateSize2      ( AR2HandleT *ar2Handle, int  templateSize2     );
+int             ar2SetTemplateSize2(AR2HandleT *ar2Handle, int templateSize2);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param templateSize2
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2GetTemplateSize2      ( AR2HandleT *ar2Handle, int *templateSize2     );
+int             ar2GetTemplateSize2(AR2HandleT *ar2Handle, int *templateSize2);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param searchTemplateMax
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2SetSearchFeatureNum   ( AR2HandleT *ar2Handle, int  searchTemplateMax );
+int             ar2SetSearchFeatureNum(AR2HandleT *ar2Handle, int searchTemplateMax);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param searchTemplateMax
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2GetSearchFeatureNum   ( AR2HandleT *ar2Handle, int *searchTemplateMax );
+int             ar2GetSearchFeatureNum(AR2HandleT *ar2Handle, int *searchTemplateMax);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param simThresh
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2SetSimThresh          ( AR2HandleT *ar2Handle, float   simThresh      );
+int             ar2SetSimThresh(AR2HandleT *ar2Handle, float simThresh);
 
 /*!
     @function
-    @abstract 
-    @discussion 
+    @abstract
+    @discussion
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param simThresh
     @result -1 in case of error, or 0 otherwise.
  */
-int             ar2GetSimThresh          ( AR2HandleT *ar2Handle, float  *simThresh      );
+int             ar2GetSimThresh(AR2HandleT *ar2Handle, float  *simThresh);
 
 /*!
     @function
@@ -412,9 +417,9 @@ int             ar2GetSimThresh          ( AR2HandleT *ar2Handle, float  *simThr
         indicates less goodness-of-fit of the pose estimate to the data. If only high-quality
         pose estimates are desired, this function can be used to lower the acceptable maximum
         error value.
- 
+
         The actual error value itself is reported in parameter 'err' of function ar2Tracking.
- 
+
         Default value is AR2_DEFAULT_TRACKING_THRESH, as defined in &lt;AR2/config.h&gt;
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param trackingThresh floating point value to use as the new tracking threshold.
@@ -422,21 +427,21 @@ int             ar2GetSimThresh          ( AR2HandleT *ar2Handle, float  *simThr
     @seealso ar2GetTrackingThresh ar2GetTrackingThresh
     @seealso ar2Tracking ar2Tracking
  */
-int             ar2SetTrackingThresh     ( AR2HandleT *ar2Handle, float   trackingThresh );
+int             ar2SetTrackingThresh(AR2HandleT *ar2Handle, float trackingThresh);
 
 /*!
     @function
     @abstract Get threshold value for acceptable pose estimate error.
     @discussion
         See the discussion under ar2SetTrackingThresh.
- 
+
         Default value is AR2_DEFAULT_TRACKING_THRESH, as defined in &lt;AR2/config.h&gt;
     @param ar2Handle Tracking settings structure, as returned via ar2CreateHandle.
     @param trackingThresh Pointer to a float, which on return will be filled with the threshold value.
     @result -1 in case of error, or 0 otherwise.
     @seealso ar2SetTrackingThresh ar2SetTrackingThresh
-*/
-int             ar2GetTrackingThresh     ( AR2HandleT *ar2Handle, float  *trackingThresh );
+ */
+int             ar2GetTrackingThresh(AR2HandleT *ar2Handle, float  *trackingThresh);
 
 /*!
     @function
@@ -452,7 +457,7 @@ int             ar2GetTrackingThresh     ( AR2HandleT *ar2Handle, float  *tracki
     @seealso ar2CreateHandleHomography ar2CreateHandleHomography
     @seealso ar2GetTrackingMode ar2GetTrackingMode
  */
-int             ar2SetTrackingMode       ( AR2HandleT *ar2Handle, int  trackingMode      );
+int             ar2SetTrackingMode(AR2HandleT *ar2Handle, int trackingMode);
 
 /*!
     @function
@@ -465,7 +470,7 @@ int             ar2SetTrackingMode       ( AR2HandleT *ar2Handle, int  trackingM
     @seealso ar2CreateHandleHomography ar2CreateHandleHomography
     @seealso ar2SetTrackingMode ar2SetTrackingMode
  */
-int             ar2GetTrackingMode       ( AR2HandleT *ar2Handle, int *trackingMode      );
+int             ar2GetTrackingMode(AR2HandleT *ar2Handle, int *trackingMode);
 
 #ifdef __cplusplus
 }

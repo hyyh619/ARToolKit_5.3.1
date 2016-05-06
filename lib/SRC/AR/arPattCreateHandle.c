@@ -66,7 +66,7 @@ ARPattHandle* arPattCreateHandle2(const int pattSize, const int patternCountMax)
 
     pattHandle->patt_num     = 0;
     pattHandle->patt_num_max = patternCountMax;
-    //pattHandle->pattRatio = AR_PATT_RATIO;
+    // pattHandle->pattRatio = AR_PATT_RATIO;
     pattHandle->pattSize = pattSize;
 
     arMalloc(pattHandle->pattf, int, patternCountMax);

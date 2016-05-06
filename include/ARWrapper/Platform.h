@@ -62,10 +62,10 @@
 #        error ARToolKit for Windows Store requires Windows 8.1 or later. Please compile with Visual Studio 2013 or later with Windows 8.1 SDK installed and with _WIN32_WINNT=0x0603 in your project compiler settings (setting /D_WIN32_WINNT=0x0603).
 #      endif
 #    else
-#      define TARGET_PLATFORM_WINDOWS		1
+#      define TARGET_PLATFORM_WINDOWS 1
 #    endif
 #  else
-#    define TARGET_PLATFORM_WINDOWS		1
+#    define TARGET_PLATFORM_WINDOWS 1
 #  endif
 
 #elif __APPLE__
@@ -74,31 +74,30 @@
 #  include <AvailabilityMacros.h>
 #  if TARGET_IPHONE_SIMULATOR
 #  elif TARGET_OS_IPHONE
-#    define TARGET_PLATFORM_IOS			1
+#    define TARGET_PLATFORM_IOS 1
 #  elif TARGET_OS_MAC
-#    define TARGET_PLATFORM_OSX			1
+#    define TARGET_PLATFORM_OSX 1
 #  endif
 
 #elif defined ANDROID
 
-#  define TARGET_PLATFORM_ANDROID		1
+#  define TARGET_PLATFORM_ANDROID 1
 
 #elif __linux__
 
-# define TARGET_PLATFORM_LINUX			1
+# define TARGET_PLATFORM_LINUX 1
 
 #else
 
 #  error Unsupported platform.
-
 #endif
 
 // Configure preprocessor definitions for current platform
 
 #if TARGET_PLATFORM_WINDOWS
 
-#  define EXPORT_API __declspec(dllexport) 
-#  define CALL_CONV __stdcall
+#  define EXPORT_API __declspec(dllexport)
+#  define CALL_CONV  __stdcall
 #  define LOGI(...) fprintf(stdout, __VA_ARGS__)
 #  define LOGE(...) fprintf(stderr, __VA_ARGS__)
 
@@ -128,15 +127,12 @@
 
 #  define EXPORT_API
 #  define CALL_CONV
-#  define LOGI(...)  __android_log_print(ANDROID_LOG_INFO,"libARWrapper",__VA_ARGS__)
-#  define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,"libARWrapper",__VA_ARGS__)
+#  define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "libARWrapper", __VA_ARGS__)
+#  define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "libARWrapper", __VA_ARGS__)
 
 // Utility preprocessor directive so only one change needed if Java class name changes
-#  define JNIFUNCTION(sig) Java_org_artoolkit_ar_base_NativeInterface_##sig
-
+#  define JNIFUNCTION(sig) Java_org_artoolkit_ar_base_NativeInterface_ ## sig
 #endif
 
-typedef void (CALL_CONV *PFN_LOGCALLBACK)(const char* msg);
-
-
+typedef void (CALL_CONV * PFN_LOGCALLBACK)(const char *msg);
 #endif // !PLATFORM_H

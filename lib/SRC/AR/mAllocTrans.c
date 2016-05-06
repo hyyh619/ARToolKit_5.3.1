@@ -35,16 +35,16 @@
  *
  */
 /*******************************************************
- *
- * Author: Shinsaku Hiura, Hirokazu Kato
- *
- *         shinsaku@sys.es.osaka-u.ac.jp
- *         kato@sys.im.hiroshima-cu.ac.jp
- *
- * Revision: 2.1
- * Date: 99/07/16
- *
- *******************************************************/
+*
+* Author: Shinsaku Hiura, Hirokazu Kato
+*
+*         shinsaku@sys.es.osaka-u.ac.jp
+*         kato@sys.im.hiroshima-cu.ac.jp
+*
+* Revision: 2.1
+* Date: 99/07/16
+*
+*******************************************************/
 
 #include <stdio.h>
 #include <math.h>
@@ -55,34 +55,38 @@
 #endif
 #include <AR/ar.h>
 
-ARMat *arMatrixAllocTrans(ARMat *source)
+ARMat* arMatrixAllocTrans(ARMat *source)
 {
-	ARMat *dest;
+    ARMat *dest;
 
-	dest = arMatrixAlloc(source->clm, source->row);
-	if( dest == NULL ) return NULL;
+    dest = arMatrixAlloc(source->clm, source->row);
+    if (dest == NULL)
+        return NULL;
 
-	if( arMatrixTrans(dest, source) < 0 ) {
-		arMatrixFree(dest);
-		return NULL;
-	}
+    if (arMatrixTrans(dest, source) < 0)
+    {
+        arMatrixFree(dest);
+        return NULL;
+    }
 
-	return dest;
+    return dest;
 }
 
 #ifndef ARDOUBLE_IS_FLOAT
-ARMatf *arMatrixAllocTransf(ARMatf *source)
+ARMatf* arMatrixAllocTransf(ARMatf *source)
 {
-	ARMatf *dest;
+    ARMatf *dest;
 
-	dest = arMatrixAllocf(source->clm, source->row);
-	if( dest == NULL ) return NULL;
+    dest = arMatrixAllocf(source->clm, source->row);
+    if (dest == NULL)
+        return NULL;
 
-	if( arMatrixTransf(dest, source) < 0 ) {
-		arMatrixFreef(dest);
-		return NULL;
-	}
+    if (arMatrixTransf(dest, source) < 0)
+    {
+        arMatrixFreef(dest);
+        return NULL;
+    }
 
-	return dest;
+    return dest;
 }
 #endif
