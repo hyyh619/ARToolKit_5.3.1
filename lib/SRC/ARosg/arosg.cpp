@@ -306,8 +306,6 @@ int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const ARdouble tran
         return (-1);
     }
 
-    ;
-
 #ifndef DEBUG_AROSG_MODELLOADING
     osg::ref_ptr<osg::Node> model = NULL;
 
@@ -351,7 +349,7 @@ int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const ARdouble tran
     }
 
 #else
-    // For debugging purposes: colour cube.
+    // For debugging purposes: color cube.
     int              i;
     const osg::Vec3f cube_vertices[8] =
     {
