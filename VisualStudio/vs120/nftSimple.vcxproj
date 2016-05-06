@@ -89,7 +89,7 @@
       </DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>AR.lib;ARICP.lib;ARgsub_lite.lib;ARvideo.lib;AR2.lib;pthreadVC2.lib;KPM.lib;ARUtil.lib;libjpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>AR.lib;ARICP.lib;ARgsub_lite.lib;ARvideo.lib;AR2.lib;pthreadVC2.lib;KPM.lib;ARUtil.lib;libjpeg.lib;ARosg.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\win32-i386;$(ProjectDir)..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
