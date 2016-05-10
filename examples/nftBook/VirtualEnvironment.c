@@ -135,7 +135,7 @@ int VirtualEnvironmentInit(const char *objectListFile)
 
     ARLOGd("Initialising Virtual Environment.\n");
 
-    // One-time OSG initialisation.
+    // One-time OSG initialization.
     if (!VirtualEnvironment_AROSG)
     {
         VirtualEnvironment_AROSG = arOSGInit();
@@ -152,6 +152,10 @@ int VirtualEnvironmentInit(const char *objectListFile)
         ARLOGe("Error: unable to open object data file '%s'.\n", objectListFile);
         perror(NULL);
         goto bail1;
+    }
+    else
+    {
+        ARLOGe("Error: open object data file '%s'.\n", objectListFile);
     }
 
     // First line is number of objects to read.

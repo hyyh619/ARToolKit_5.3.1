@@ -137,7 +137,7 @@ int main(int argc, char **argv)
     char       glutGamemode[32];
     const char *cparam_name               = "Data2/camera_para_640x480.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
-    const char objectDataFilename[]       = "Data/cow.dat"; //"Data/objects.dat";
+    const char objectDataFilename[]       = "OSG/sterowiec-lwo.dat"; //"Data/cow.dat";
 
 #ifdef WIN32
     char vconf[] = "-device=WinDS -showDialog  -flipV";
