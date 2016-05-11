@@ -47,7 +47,6 @@ VisualStudio/vs120/Release/*
 # android
 *.d
 *.o
-android/jni/curl/libs/*
 android/libs/*
 AndroidStudio/NFTSimple/*gradle/*
 AndroidStudio/NFTSimple/*idea/*
