@@ -16,7 +16,6 @@ include/AR/config.h
 doc/*
 
 # librarys
-*.a
 *.dylib
 
 # cscope files
@@ -46,10 +45,10 @@ VisualStudio/vs120/Debug/*
 VisualStudio/vs120/Release/*
 
 # android
+*.d
+*.o
+android/jni/curl/libs/*
 android/libs/*
-android/obj/local/
-android/obj/local/armeabi/objs/*
-android/obj/local/armeabi-v7a/objs/*
 AndroidStudio/NFTSimple/*gradle/*
 AndroidStudio/NFTSimple/*idea/*
 AndroidStudio/NFTSimple/aRBaseLib/build/*
