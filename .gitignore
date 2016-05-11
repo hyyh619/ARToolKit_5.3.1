@@ -65,3 +65,4 @@ AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libc++_shared.so
 AndroidStudio/NFTSimple/VisualStudio/NFTSimpleNative/Debug/NFTSimpleNative.log
 AndroidStudio/NFTSimple/local.properties
 AndroidStudio/NFTSimple/NFTSimple.iml
+*.iml
