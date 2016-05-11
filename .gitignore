@@ -62,3 +62,7 @@ AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi/libnftSimpleNative.so
 AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi/libc++_shared.so
 AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libnftSimpleNative.so
 AndroidStudio/NFTSimple/nftSimple/src/main/jniLibs/armeabi-v7a/libc++_shared.so
+*.tlog
+AndroidStudio/NFTSimple/VisualStudio/NFTSimpleNative/Debug/NFTSimpleNative.log
+AndroidStudio/NFTSimple/local.properties
+AndroidStudio/NFTSimple/NFTSimple.iml
