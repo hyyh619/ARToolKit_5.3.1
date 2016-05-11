@@ -38,7 +38,6 @@ AR*.dll
 AR*.lib
 KPMd.lib
 *.exe
-*.xml
 *.txt
 *.exp
 *.gif
