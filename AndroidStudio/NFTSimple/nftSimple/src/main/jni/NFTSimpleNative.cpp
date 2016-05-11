@@ -68,6 +68,7 @@
 #include "ARMarkerNFT.h"
 #include "TrackingSub.h"
 #include "NFTSimple.h"
+#include "VirtualEnvironment.h"
 
 // ============================================================================
 // Types
@@ -151,6 +152,7 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
 // Preferences.
 static const char *g_cparaName              = "Data/camera_para.dat";   ///< Camera parameters file
 static const char *markerConfigDataFilename = "Data/markers.dat";
+static const char *objectDataFilename       = "OSG/sterowiec-lwo.dat";
 
 // Image acquisition.
 static AR2VideoParamT  *g_Vid                               = NULL;
@@ -321,7 +323,11 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
 JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeDestroy(JNIEnv * env, jobject object))
 {
     LOGD("nativeDestroy\n");
+
+    VirtualEnvironmentFinal();
+
     DeleteMarkers(&g_pMarkersNFT, &g_nMarkersNFTCount);
+
     return (true);
 }
 
@@ -670,20 +676,21 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeVideoFrame(JNIEnv * env, jobject
             if (!g_pMarkersNFT[i].validPrev)
             {
                 // Marker has become visible, tell any dependent objects.
-                // ARMarkerAppearedNotification
+                VirtualEnvironmentHandleARMarkerAppeared(i);
             }
 
             // We have a new pose, so set that.
             arglCameraViewRHf(g_pMarkersNFT[i].trans, g_pMarkersNFT[i].pose.T, 1.0f /*VIEW_SCALEFACTOR*/);
+
             // Tell any dependent objects about the update.
-            // ARMarkerUpdatedPoseNotification
+            VirtualEnvironmentHandleARMarkerWasUpdated(i, g_pMarkersNFT[i].pose);
         }
         else
         {
             if (g_pMarkersNFT[i].validPrev)
             {
                 // Marker has ceased to be visible, tell any dependent objects.
-                // ARMarkerDisappearedNotification
+                VirtualEnvironmentHandleARMarkerDisappeared(i);
             }
         }
     }
@@ -861,7 +868,7 @@ static bool layoutARView(void)
     LOGD("Viewport={%d, %d, %d, %d}\n", left, bottom, w, h);
 
     // Call through to anyone else who needs to know about changes in the ARView layout here.
-    // --->
+    VirtualEnvironmentHandleARViewUpdatedViewport(viewPort);
 
     gARViewLayoutRequired = false;
 
@@ -886,6 +893,10 @@ static bool InitARView(void)
         LOGE("Unable to setup argl.\n");
         return (false);
     }
+
+    // Load objects (i.e. OSG models).
+    VirtualEnvironmentInit(objectDataFilename);
+    VirtualEnvironmentHandleARViewUpdatedCameraLens(cameraLens);
 
     LOGD("argl setup OK.\n");
 
@@ -942,6 +953,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
     // Lighting and geometry that moves with the camera should be added here.
     // (I.e. should be specified before camera pose transform.)
     // --->
+    VirtualEnvironmentHandleARViewDrawPreCamera();
 
     // Draw an object on all valid markers.
     for (int i = 0; i < g_nMarkersNFTCount; i++)
@@ -959,6 +971,7 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
 
         // All lighting and geometry to be drawn in world coordinates goes here.
         // --->
+        VirtualEnvironmentHandleARViewDrawPostCamera();
     }
 
     // If you added external OpenGL code above, and that code doesn't use the glStateCache routines,

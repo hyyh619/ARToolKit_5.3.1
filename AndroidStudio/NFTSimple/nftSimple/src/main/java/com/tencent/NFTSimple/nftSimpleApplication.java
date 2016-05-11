@@ -87,5 +87,6 @@ public class nftSimpleApplication extends Application {
 		AssetHelper assetHelper = new AssetHelper(getAssets());        
 		assetHelper.cacheAssetFolder(getInstance(), "Data");
 		assetHelper.cacheAssetFolder(getInstance(), "DataNFT");
+		assetHelper.cacheAssetFolder(getInstance(), "OSG");
     }
 }
