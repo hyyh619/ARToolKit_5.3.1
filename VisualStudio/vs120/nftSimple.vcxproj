@@ -105,11 +105,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\examples\nftSimple\ARMarkerNFT.c" />
+    <ClCompile Include="..\..\examples\nftSimple\ARMarkerNFT.cpp" />
     <ClCompile Include="..\..\examples\nftSimple\Main.cpp" />
-    <ClCompile Include="..\..\examples\nftSimple\NFTSimple.c" />
-    <ClCompile Include="..\..\examples\nftSimple\TrackingSub.c" />
-    <ClCompile Include="..\..\examples\nftSimple\VirtualEnvironment.c" />
+    <ClCompile Include="..\..\examples\nftSimple\NFTSimple.cpp" />
+    <ClCompile Include="..\..\examples\nftSimple\TrackingSub.cpp" />
+    <ClCompile Include="..\..\examples\nftSimple\VirtualEnvironment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\examples\nftSimple\ARMarkerNFT.h" />
