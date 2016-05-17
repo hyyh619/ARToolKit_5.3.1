@@ -163,7 +163,7 @@ void arLogSetLogger(AR_LOG_LOGGER_CALLBACK callback, int callBackOnlyIfOnSameThr
     {                                                    \
         if (((V) = (T*)malloc(sizeof(T) * (S))) == NULL) \
         {                                                \
-            ARLOGe("Out of memory!!\n"); exit(1);        \
+            ARLOGe("%s(%d): Out of memory!!\n", __FUNCTION__, __LINE__); exit(1);        \
         }                                                \
     }
 
@@ -171,7 +171,7 @@ void arLogSetLogger(AR_LOG_LOGGER_CALLBACK callback, int callBackOnlyIfOnSameThr
     {                                                   \
         if (((V) = (T*)calloc((S), sizeof(T))) == NULL) \
         {                                               \
-            ARLOGe("Out of memory!!\n"); exit(1);       \
+            ARLOGe("%s(%d): Out of memory!!\n", __FUNCTION__, __LINE__); exit(1);       \
         }                                               \
     }
 
