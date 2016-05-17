@@ -89,9 +89,9 @@ AR2ImageSetT* ar2GenImageSet(ARUint8 *image, int xsize, int ysize, int nc, float
 
 AR2ImageSetT* ar2ReadImageSet(char *filename)
 {
-    FILE          *fp;
-    AR2JpegImageT *jpgImage;
-    AR2ImageSetT  *imageSet;
+    FILE          *fp = NULL;
+    AR2JpegImageT *jpgImage = NULL;
+    AR2ImageSetT  *imageSet = NULL;
     float         dpi;
     int           i, k1;
 

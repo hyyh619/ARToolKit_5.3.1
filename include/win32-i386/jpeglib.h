@@ -276,9 +276,9 @@ struct jpeg_common_struct
      */
 };
 
-typedef struct jpeg_common_struct*j_common_ptr;
-typedef struct jpeg_compress_struct*j_compress_ptr;
-typedef struct jpeg_decompress_struct*j_decompress_ptr;
+typedef struct jpeg_common_struct* j_common_ptr;
+typedef struct jpeg_compress_struct* j_compress_ptr;
+typedef struct jpeg_decompress_struct* j_decompress_ptr;
 
 
 /* Master record for a compression instance */
