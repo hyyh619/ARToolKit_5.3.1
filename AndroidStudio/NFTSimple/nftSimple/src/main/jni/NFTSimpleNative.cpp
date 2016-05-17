@@ -152,7 +152,7 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
 // Preferences.
 static const char *g_cparaName              = "Data/camera_para.dat";   ///< Camera parameters file
 static const char *markerConfigDataFilename = "Data/markers.dat";
-static const char *objectDataFilename       = "OSG/sterowiec-lwo.dat";
+static const char *objectDataFilename       = "OSG/axes.dat";
 
 // Image acquisition.
 static AR2VideoParamT  *g_Vid                               = NULL;

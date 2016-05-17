@@ -66,9 +66,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.c" />
-    <ClCompile Include="..\..\..\..\examples\nftSimple\NFTSimple.c" />
-    <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.c" />
+    <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.cpp" />
+    <ClCompile Include="..\..\..\..\examples\nftSimple\NFTSimple.cpp" />
+    <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.cpp" />
+    <ClCompile Include="..\..\..\..\examples\nftSimple\VirtualEnvironment.cpp" />
     <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\color_convert_common.c" />
     <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\cparamSearch.c" />
     <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\nxjson.c" />
@@ -81,6 +82,7 @@
     <ClInclude Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.h" />
     <ClInclude Include="..\..\..\..\examples\nftSimple\NFTSimple.h" />
     <ClInclude Include="..\..\..\..\examples\nftSimple\TrackingSub.h" />
+    <ClInclude Include="..\..\..\..\examples\nftSimple\VirtualEnvironment.h" />
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\android_os_build_codes.h" />
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\camera_activity.hpp" />
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\color_convert_common.h" />

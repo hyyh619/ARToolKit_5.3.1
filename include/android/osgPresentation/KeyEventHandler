@@ -33,7 +33,7 @@ class OSGPRESENTATION_EXPORT KeyEventHandler : public osgGA::GUIEventHandler
 
         void setKey(int key) { _key = key; }
         int getKey() const { return _key; }
-        
+
         void setOperation(osgPresentation::Operation operation) { _operation = operation; }
         osgPresentation::Operation getOperation() const { return _operation; }
 
@@ -48,14 +48,12 @@ class OSGPRESENTATION_EXPORT KeyEventHandler : public osgGA::GUIEventHandler
 
         virtual bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa, osg::Object* object, osg::NodeVisitor* nv);
 
-        virtual void accept(osgGA::GUIEventHandlerVisitor& v);
-
         virtual void getUsage(osg::ApplicationUsage& usage) const;
 
         void doOperation();
 
         int                                 _key;
-        
+
         std::string                         _command;
         osgPresentation::KeyPosition        _keyPos;
         osgPresentation::Operation          _operation;

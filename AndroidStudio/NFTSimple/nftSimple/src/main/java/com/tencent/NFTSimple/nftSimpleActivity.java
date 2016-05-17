@@ -82,7 +82,7 @@ public class nftSimpleActivity extends Activity
     // Load the native libraries.
     static
     {
-        System.loadLibrary("c++_shared");
+        //System.loadLibrary("c++_shared");
         System.loadLibrary("NFTSimpleNative");
     }
 

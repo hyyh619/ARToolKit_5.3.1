@@ -63,7 +63,7 @@
 #ifdef _WIN32
 #  define snprintf _snprintf
 #endif
-#include <string.h>
+#include <string>
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
     char       glutGamemode[32];
     const char *cparam_name               = "Data2/camera_para_640x480.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
-    const char objectDataFilename[]       = "OSG/sterowiec-lwo.dat";; // "OSG/sterowiec-lwo.dat"; //"Data/cow.dat";
+    const char objectDataFilename[] = "OSG/axes.dat"; // "OSG/sterowiec-lwo.dat"; //"Data/cow.dat";
 
 #ifdef WIN32
     char vconf[] = "-device=WinDS -showDialog  -flipV";

@@ -65,7 +65,7 @@ class OSG_EXPORT StateSet : public Object
 
 
         /** A vector of osg::Object pointers which is used to store the parent(s) of this Stateset, the parents could be osg::Node or osg::Drawable.*/
-        typedef std::vector<Object*> ParentList;
+        typedef std::vector<Node*> ParentList;
 
         /** Get the parent list of this StateSet. */
         inline const ParentList& getParents() const { return _parents; }
@@ -74,13 +74,13 @@ class OSG_EXPORT StateSet : public Object
           * prevent modification of the parent list.*/
         inline ParentList getParents() { return _parents; }
 
-        inline Object* getParent(unsigned int i)  { return _parents[i]; }
+        inline Node* getParent(unsigned int i)  { return _parents[i]; }
         /**
          * Get a single const parent of this StateSet.
          * @param i index of the parent to get.
          * @return the parent i.
          */
-        inline const Object* getParent(unsigned int i) const  { return _parents[i]; }
+        inline const Node* getParent(unsigned int i) const  { return _parents[i]; }
 
         /**
          * Get the number of parents of this StateSet.
@@ -308,6 +308,35 @@ class OSG_EXPORT StateSet : public Object
         /** return the const list of all Uniforms contained in this const StateSet.*/
         inline const UniformList& getUniformList() const { return _uniformList; }
 
+
+        typedef std::pair<std::string, StateAttribute::OverrideValue> DefinePair;
+        typedef std::map<std::string, DefinePair> DefineList;
+
+        /** Added define pass on to shaders that use utilize that define, as specified by the GLSL #pragma import_defines(..) and #pragma requires(..). */
+        void setDefine(const std::string& defineName, StateAttribute::OverrideValue value=StateAttribute::ON);
+
+        /** Added define with value to pass on to shaders that use utilize that define, as specified by the GLSL #pragma import_defines(..) and #pragma requires(..). */
+        void setDefine(const std::string& defineName, const std::string& defineValue, StateAttribute::OverrideValue value=StateAttribute::ON);
+
+        DefinePair* getDefinePair(const std::string& defineName) { DefineList::iterator itr = _defineList.find(defineName); return (itr!=_defineList.end()) ? &(itr->second) : 0; }
+        const DefinePair* getDefinePair(const std::string& defineName) const { DefineList::const_iterator itr = _defineList.find(defineName); return (itr!=_defineList.end()) ? &(itr->second) : 0; }
+
+
+        /** Remove define*/
+        void removeDefine(const std::string& defineName);
+
+
+        /** Set the list of defines to pass on to shaders.*/
+        void setDefineList(const DefineList& dl) { _defineList = dl; }
+
+        /** Get the list of defines to pass on to shaders.*/
+        DefineList& getDefineList() { return _defineList; }
+
+        /** Get the const list of defines to pass on to shaders.*/
+        const DefineList& getDefineList() const { return _defineList; }
+
+
+
         enum RenderingHint
         {
             DEFAULT_BIN = 0,
@@ -333,9 +362,11 @@ class OSG_EXPORT StateSet : public Object
 
         enum RenderBinMode
         {
-            INHERIT_RENDERBIN_DETAILS,
-            USE_RENDERBIN_DETAILS,
-            OVERRIDE_RENDERBIN_DETAILS
+            INHERIT_RENDERBIN_DETAILS   =0,
+            USE_RENDERBIN_DETAILS       =1,
+            OVERRIDE_RENDERBIN_DETAILS  =2,
+            PROTECTED_RENDERBIN_DETAILS =4,
+            OVERRIDE_PROTECTED_RENDERBIN_DETAILS = OVERRIDE_RENDERBIN_DETAILS|PROTECTED_RENDERBIN_DETAILS
         };
 
         /** Set the render bin details.*/
@@ -378,13 +409,16 @@ class OSG_EXPORT StateSet : public Object
         inline bool getNestRenderBins() const { return _nestRenderBins; }
 
 
-        struct Callback : public virtual osg::Object
+        struct OSG_EXPORT Callback : public virtual osg::Callback
         {
             Callback() {}
 
             Callback(const Callback&,const CopyOp&) {}
 
             META_Object(osg,Callback);
+
+            /** override Callback::run() entry point to adapt to StateAttributeCallback::run(..) method.*/
+            virtual bool run(osg::Object* object, osg::Object* data);
 
             /** do customized callback code.*/
             virtual void operator() (StateSet*, NodeVisitor*) {}
@@ -453,8 +487,8 @@ class OSG_EXPORT StateSet : public Object
 
         StateSet& operator = (const StateSet&) { return *this; }
 
-        void addParent(osg::Object* object);
-        void removeParent(osg::Object* object);
+        void addParent(osg::Node* object);
+        void removeParent(osg::Node* object);
 
         ParentList _parents;
         friend class osg::Node;
@@ -469,6 +503,7 @@ class OSG_EXPORT StateSet : public Object
         TextureAttributeList                _textureAttributeList;
 
         UniformList                         _uniformList;
+        DefineList                          _defineList;
 
         inline ModeList& getOrCreateTextureModeList(unsigned int unit)
         {

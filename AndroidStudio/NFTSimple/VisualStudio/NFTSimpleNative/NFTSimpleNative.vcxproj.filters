@@ -18,16 +18,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\nftSimple\src\main\jni\NFTSimpleNative.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\examples\nftSimple\NFTSimple.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\color_convert_common.c">
@@ -47,6 +38,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\lib\SRC\VideoAndroid\videoAndroidNativeCapture.cpp">
       <Filter>VideoAndroid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\examples\nftSimple\ARMarkerNFT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\examples\nftSimple\NFTSimple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\examples\nftSimple\TrackingSub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\examples\nftSimple\VirtualEnvironment.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\videoAndroidNativeCapture.h">
       <Filter>VideoAndroid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\examples\nftSimple\VirtualEnvironment.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
