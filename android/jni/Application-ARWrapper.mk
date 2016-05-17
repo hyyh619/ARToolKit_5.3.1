@@ -48,6 +48,6 @@ APP_MODULES		:= ARWrapper
 APP_ABI 		:= armeabi-v7a armeabi
 APP_PLATFORM    := android-15
 # orig: APP_STL := c++_shared
-APP_STL 		:= c++_static
+APP_STL 		:= gnustl_static 
 APP_CPPFLAGS 	:= -frtti -fexceptions
 NDK_TOOLCHAIN_VERSION := clang
