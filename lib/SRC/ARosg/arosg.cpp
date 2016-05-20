@@ -37,7 +37,7 @@
 
 #include <AR/arosg.h>
 #include <stdio.h>
-#include <string.h>
+#include <string>
 #include <osg/Config>
 #include <osg/Node>
 #include <osg/FrontFace>
@@ -45,12 +45,12 @@
 #include <osg/LightModel>
 #include <osgViewer/Viewer>
 #include <osgDB/ReadFile>
+#include <osgDB/FileNameUtils>
 #include <osgFX/Outline>
 #include <osg/AnimationPath>
 #include <osg/NodeVisitor>
 #include <osg/Texture2D>
 #include <osg/TextureRectangle>
-#include <osgDB/FileNameUtils>
 
 #ifdef _WIN32
 #  include <windows.h>
@@ -129,7 +129,7 @@ double getAnimationTime(void)
     if (_selectedCallbacks.size() < 1)
         return (0.0);
 
-    return (_selectedCallbacks[0]->getAnimationTime());     // Hardcoded [0] = gets the time on only the first callback found.
+    return (_selectedCallbacks[0]->getAnimationTime());     // Hard-coded [0] = gets the time on only the first callback found.
 }
 
 typedef std::vector<osg::ref_ptr<osg::AnimationPathCallback> > SelectedCallbacks;
