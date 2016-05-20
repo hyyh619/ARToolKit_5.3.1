@@ -51,7 +51,7 @@
 MY_LOCAL_PATH := $(call my-dir)
 LOCAL_PATH := $(MY_LOCAL_PATH)
 
-STL_PATH=$(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a
+STL_PATH := $(NDK_ROOT)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a
 
 # Pull ARToolKit into the build
 include $(CLEAR_VARS)
@@ -63,13 +63,12 @@ define add_artoolkit_module
     LOCAL_SRC_FILES:=lib$1.a
     include $(PREBUILT_STATIC_LIBRARY)
 endef
-ARTOOLKIT_LIBS := ar2 kpm util eden argsub_es armulti ar aricp jpeg arvideo arosg zlib png
-ARTOOLKIT_LIBS += osgdb_osga osgdb_osg osgdb_ive osgdb_jpeg osgdb_gif gif tiff osgdb_bmp osgdb_tga osgdb_freetype ft2 osgAnimation osgFX \
-                  osgParticle osgPresentation osgShadow osgSim osgTerrain osgText osgVolume osgWidget osgViewer osgGA osgDB osgUtil \
-                  osgdb_deprecated_osg osgdb_deprecated_osganimation osgdb_deprecated_osgfx  osgdb_deprecated_osgparticle \
-                  osgdb_deprecated_osgshadow osgdb_deprecated_osgsim osgdb_deprecated_osgterrain osgdb_deprecated_osgtext \
-                  osgdb_deprecated_osgviewer osgdb_deprecated_osgvolume osgdb_deprecated_osgwidget osg OpenThreads \
-                  osgManipulator osgdb_curl osgdb_lwo osgdb_tiff osgdb_png
+ARTOOLKIT_LIBS := eden argsub_es armulti arosg ar aricp arvideo util kpm ar2
+ARTOOLKIT_LIBS += OpenThreads osg osgAnimation osgDB osgFX osgGA osgParticle osgPresentation osgShadow osgSim osgTerrain \
+                  osgText osgViewer osgUtil osgVolume osgWidget osgdb_osg osgdb_ive osgdb_jpeg jpeg osgdb_gif gif osgdb_tiff \
+                  tiff osgdb_bmp osgdb_png png osgdb_tga osgdb_freetype ft2 osgdb_deprecated_osg osgdb_deprecated_osganimation \
+                  osgdb_deprecated_osgfx  osgdb_deprecated_osgparticle osgdb_deprecated_osgshadow osgdb_deprecated_osgsim \
+                  osgdb_deprecated_osgterrain osgdb_deprecated_osgtext osgdb_deprecated_osgviewer osgdb_deprecated_osgvolume osgdb_deprecated_osgwidget
 LOCAL_PATH := $(ARTOOLKIT_LIBDIR)
 $(foreach module,$(ARTOOLKIT_LIBS),$(eval $(call add_artoolkit_module,$(module))))
 
@@ -114,19 +113,17 @@ LOCAL_C_INCLUDES += $(ARTOOLKIT_DIR)/../include/android \
                     $(ARTOOLKIT_DIR)/../include \
                     $(ARTOOLKIT_DIR)/../examples/nftSimple
 
-#LOCAL_LDLIBS +=  -lgnustl_static
-#LOCAL_LDLIBS += -L$(STL_PATH)  -lsupc++
-LOCAL_LDLIBS += -L$(STL_PATH) -lgnustl_static -lsupc++
-LOCAL_LDLIBS += -llog -lGLESv1_CM -lz -lGLESv2
+#LOCAL_LDLIBS += -L$(STL_PATH) -lgnustl_static -lsupc++
+LOCAL_LDLIBS += -llog -lz -lGLESv1_CM
 LOCAL_WHOLE_STATIC_LIBRARIES += ar
-LOCAL_STATIC_LIBRARIES += ar2 arosg kpm util eden argsub_es armulti aricp cpufeatures jpeg arvideo zlib png
-LOCAL_STATIC_LIBRARIES += osgdb_osga osgdb_osg osgdb_ive osgdb_jpeg osgdb_gif gif tiff osgdb_bmp osgdb_tga osgdb_freetype ft2 osgAnimation osgFX \
-                          osgParticle osgPresentation osgShadow osgSim osgTerrain osgText osgVolume osgWidget osgViewer osgGA osgDB osgUtil \
-                          osgdb_deprecated_osg osgdb_deprecated_osganimation osgdb_deprecated_osgfx  osgdb_deprecated_osgparticle \
-                          osgdb_deprecated_osgshadow osgdb_deprecated_osgsim osgdb_deprecated_osgterrain osgdb_deprecated_osgtext \
-                          osgdb_deprecated_osgviewer osgdb_deprecated_osgvolume osgdb_deprecated_osgwidget osg OpenThreads \
-                          osgManipulator osgdb_curl osgdb_lwo osgdb_tiff osgdb_png
-#benet-delete: osgdb_tiff osgdb_png
+LOCAL_STATIC_LIBRARIES += eden argsub_es armulti arosg aricp cpufeatures arvideo util kpm ar2
+LOCAL_STATIC_LIBRARIES += osgdb_osg osgdb_ive osgdb_jpeg jpeg osgdb_gif gif osgdb_tiff tiff osgdb_bmp \
+                          osgdb_png png osgdb_tga osgdb_freetype ft2 osgAnimation osgFX osgParticle \
+                          osgPresentation osgShadow osgSim osgTerrain osgText osgVolume osgWidget osgViewer \
+                          osgGA osgDB osgUtil osgdb_deprecated_osg osgdb_deprecated_osganimation osgdb_deprecated_osgfx \
+                          osgdb_deprecated_osgparticle osgdb_deprecated_osgshadow osgdb_deprecated_osgsim \
+                          osgdb_deprecated_osgterrain osgdb_deprecated_osgtext osgdb_deprecated_osgviewer \
+                          osgdb_deprecated_osgvolume osgdb_deprecated_osgwidget osg OpenThreads
 #LOCAL_SHARED_LIBRARIES += $(CURL_LIBS)
 LOCAL_STATIC_LIBRARIES += $(CURL_LIBS)
 

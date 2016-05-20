@@ -84,6 +84,19 @@ public class nftSimpleActivity extends Activity
     {
         //System.loadLibrary("c++_shared");
         System.loadLibrary("NFTSimpleNative");
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     // Lifecycle functions.

@@ -69,6 +69,7 @@
 #include "TrackingSub.h"
 #include "NFTSimple.h"
 #include "VirtualEnvironment.h"
+#include "osgPlugins.h"
 
 // ============================================================================
 // Types
@@ -152,7 +153,7 @@ static void* LoadNFTDataAsync(THREAD_HANDLE_T *threadHandle);
 // Preferences.
 static const char *g_cparaName              = "Data/camera_para.dat";   ///< Camera parameters file
 static const char *markerConfigDataFilename = "Data/markers.dat";
-static const char *objectDataFilename       = "OSG/axes.dat";
+static const char *objectDataFilename       = "OSG/p51d-jw-animated.dat";
 
 // Image acquisition.
 static AR2VideoParamT  *g_Vid                               = NULL;
@@ -960,8 +961,9 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
     {
         if (g_pMarkersNFT[i].valid)
         {
-            glLoadMatrixf(g_pMarkersNFT[i].pose.T);
-            DrawCube(40.0f, 0.0f, 0.0f, 20.0f);
+            // benet-del: don't draw cube.
+            //glLoadMatrixf(g_pMarkersNFT[i].pose.T);
+            //DrawCube(40.0f, 0.0f, 0.0f, 20.0f);
         }
     }
 
