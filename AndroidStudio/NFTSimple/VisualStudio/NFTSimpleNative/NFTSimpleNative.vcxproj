@@ -90,6 +90,7 @@
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\nxjson.h" />
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\sqlite3.h" />
     <ClInclude Include="..\..\..\..\lib\SRC\VideoAndroid\videoAndroidNativeCapture.h" />
+    <ClInclude Include="..\..\nftSimple\src\main\jni\osgPlugins.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\nftSimple\src\main\jni\Android.mk" />

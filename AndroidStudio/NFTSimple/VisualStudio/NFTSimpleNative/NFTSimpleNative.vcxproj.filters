@@ -86,6 +86,9 @@
     <ClInclude Include="..\..\..\..\examples\nftSimple\VirtualEnvironment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\nftSimple\src\main\jni\osgPlugins.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\nftSimple\src\main\jni\Android.mk">
