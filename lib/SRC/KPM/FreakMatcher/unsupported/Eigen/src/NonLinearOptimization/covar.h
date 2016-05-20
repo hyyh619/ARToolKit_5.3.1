@@ -2,8 +2,8 @@ namespace internal
 {
 template<typename Scalar>
 void covar(
-    Matrix<Scalar, Dynamic, Dynamic>&r,
-    const VectorXi&ipvt,
+    Matrix<Scalar, Dynamic, Dynamic> &r,
+    const VectorXi &ipvt,
     Scalar tol = sqrt(NumTraits<Scalar>::epsilon()))
 {
     typedef DenseIndex Index;

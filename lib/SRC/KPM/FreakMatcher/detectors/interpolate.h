@@ -140,14 +140,14 @@ inline unsigned char bilinear_interpolation(const unsigned char *im,
  * @param[in] y
  */
 template<typename Tin, typename Tout>
-inline Tout bilinear_interpolation(const Image&im,
+inline Tout bilinear_interpolation(const Image &im,
                                    float x,
                                    float y)
 {
     return bilinear_interpolation<Tin, Tout>((const Tin*)im.get(), im.width(), im.height(), im.step(), x, y);
 }
 template<typename T>
-inline T bilinear_interpolation(const Image&im,
+inline T bilinear_interpolation(const Image &im,
                                 float x,
                                 float y)
 {

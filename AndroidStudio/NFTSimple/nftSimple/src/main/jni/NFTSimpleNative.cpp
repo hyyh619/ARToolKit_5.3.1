@@ -116,7 +116,7 @@ enum viewPortIndices
 #ifdef DEBUG
 #define  LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #else
-#define  LOGD(...) 
+#define  LOGD(...)
 #endif
 #define  LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define  LOGW(...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
@@ -156,10 +156,10 @@ static const char *markerConfigDataFilename = "Data/markers.dat";
 static const char *objectDataFilename       = "OSG/p51d-jw-animated.dat";
 
 // Image acquisition.
-static AR2VideoParamT  *g_Vid                               = NULL;
-static bool            g_videoInited                        = false;    ///< true when ready to receive video frames.
-static int             g_videoWidth                         = 0;        ///< Width of the video frame in pixels.
-static int             g_videoHeight                        = 0;        ///< Height of the video frame in pixels.
+static AR2VideoParamT  *g_Vid        = NULL;
+static bool            g_videoInited = false;                           ///< true when ready to receive video frames.
+static int             g_videoWidth  = 0;                               ///< Width of the video frame in pixels.
+static int             g_videoHeight = 0;                               ///< Height of the video frame in pixels.
 static AR_PIXEL_FORMAT gPixFormat;                                      ///< Pixel format from ARToolKit enumeration.
 static ARUint8         *gVideoFrame                         = NULL;     ///< Buffer containing current video frame.
 static size_t          gVideoFrameSize                      = 0;        ///< Size of buffer containing current video frame.
@@ -168,8 +168,8 @@ static int             gCameraIndex                         = 0;
 static bool            gCameraIsFrontFacing                 = false;
 
 // NFT.
-static THREAD_HANDLE_T *nftDataLoadingThreadHandle          = NULL;
-static int             nftDataLoaded                        = false;
+static THREAD_HANDLE_T *nftDataLoadingThreadHandle = NULL;
+static int             nftDataLoaded               = false;
 
 // NFT results.
 static int   detectedPage = -2; // -2 Tracking not initialized, -1 tracking initialized OK, >= 0 tracking online on page.
@@ -296,7 +296,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
 #endif
 
     g_surfaceSetCount = 0;
-    nftDataLoaded   = false;
+    nftDataLoaded     = false;
 
     LOGD("Cleaning up ARToolKit NFT handles.");
 
@@ -315,7 +315,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeStop(JNIEnv * env, jobject o
     }
 
     ar2VideoClose(g_Vid);
-    g_Vid        = NULL;
+    g_Vid         = NULL;
     g_videoInited = false;
 
     return (true);
@@ -362,8 +362,8 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION_NATIVE(nativeVideoInit(JNIEnv * env, jobj
     g_videoHeight        = h;
     gCameraIndex         = cameraIndex;
     gCameraIsFrontFacing = cameraIsFrontFacing;
-    LOGI("Video camera %d (%s), %dx%d format %s, %d-byte buffer.", 
-        gCameraIndex, (gCameraIsFrontFacing ? "front" : "rear"), w, h, arUtilGetPixelFormatName(gPixFormat), gVideoFrameSize);
+    LOGI("Video camera %d (%s), %dx%d format %s, %d-byte buffer.",
+         gCameraIndex, (gCameraIsFrontFacing ? "front" : "rear"), w, h, arUtilGetPixelFormatName(gPixFormat), gVideoFrameSize);
 
     ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_WIDTH, g_videoWidth);
     ar2VideoSetParami(g_Vid, AR_VIDEO_PARAM_ANDROID_HEIGHT, g_videoHeight);
@@ -962,8 +962,8 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
         if (g_pMarkersNFT[i].valid)
         {
             // benet-del: don't draw cube.
-            //glLoadMatrixf(g_pMarkersNFT[i].pose.T);
-            //DrawCube(40.0f, 0.0f, 0.0f, 20.0f);
+            // glLoadMatrixf(g_pMarkersNFT[i].pose.T);
+            // DrawCube(40.0f, 0.0f, 0.0f, 20.0f);
         }
     }
 
@@ -999,7 +999,10 @@ JNIEXPORT void JNICALL JNIFUNCTION_NATIVE(nativeDrawFrame(JNIEnv * env, jobject 
 
 #ifdef DEBUG
     // Example of 2D drawing. It just draws a white border line. Change the 0 to 1 to enable.
-    const GLfloat square_vertices[4][2] = { {0.5f, 0.5f}, {0.5f, height - 0.5f}, {width - 0.5f, height - 0.5f}, {width - 0.5f, 0.5f} };
+    const GLfloat square_vertices[4][2] =
+    {
+        {0.5f, 0.5f}, {0.5f, height - 0.5f}, {width - 0.5f, height - 0.5f}, {width - 0.5f, 0.5f}
+    };
     glStateCacheDisableLighting();
     glStateCacheDisableTex2D();
     glVertexPointer(2, GL_FLOAT, 0, square_vertices);

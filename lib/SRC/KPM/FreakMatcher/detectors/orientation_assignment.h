@@ -75,7 +75,7 @@ void computeGradients(const GaussianScaleSpacePyramid *pyramid);
  * Compute orientations for a keypont.
  */
 void compute(float *angles,
-             int&num_angles,
+             int &num_angles,
              int octave,
              int scale,
              float x,

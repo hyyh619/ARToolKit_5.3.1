@@ -48,7 +48,7 @@ typedef typename internal::remove_all<MatrixTypeNested>::type _MatrixTypeNested;
 public:
 EIGEN_SPARSE_PUBLIC_INTERFACE(SparseView)
 
-SparseView(const MatrixType&mat, const Scalar&m_reference = Scalar(0),
+SparseView(const MatrixType &mat, const Scalar &m_reference = Scalar(0),
            typename NumTraits<Scalar>::Real m_epsilon = NumTraits<Scalar>::dummy_precision()) :
     m_matrix(mat), m_reference(m_reference), m_epsilon(m_epsilon) {}
 
@@ -83,7 +83,7 @@ class SparseView<MatrixType>::InnerIterator : public _MatrixTypeNested::InnerIte
 {
 public:
 typedef typename _MatrixTypeNested::InnerIterator IterBase;
-InnerIterator(const SparseView&view, Index outer) :
+InnerIterator(const SparseView &view, Index outer) :
     IterBase(view.m_matrix, outer), m_view(view)
 {
     incrementToNonZero();
@@ -100,7 +100,7 @@ EIGEN_STRONG_INLINE InnerIterator&operator++()
 using IterBase::value;
 
 protected:
-const SparseView&m_view;
+const SparseView &m_view;
 
 private:
 void incrementToNonZero()
@@ -113,7 +113,7 @@ void incrementToNonZero()
 };
 
 template<typename Derived>
-const SparseView<Derived> MatrixBase<Derived>::sparseView(const Scalar&m_reference,
+const SparseView<Derived> MatrixBase<Derived>::sparseView(const Scalar &m_reference,
                                                           typename NumTraits<Scalar>::Real m_epsilon) const
 {
     return SparseView<Derived>(derived(), m_reference, m_epsilon);

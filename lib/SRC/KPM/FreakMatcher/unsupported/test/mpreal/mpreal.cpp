@@ -93,7 +93,7 @@ mpreal::mpreal()
     mpfr_set_ui(mp, 0, default_rnd);
 }
 
-mpreal::mpreal(const mpreal&u)
+mpreal::mpreal(const mpreal &u)
 {
     set_custom_malloc();
     mpfr_init2(mp, mpfr_get_prec(u.mp));
@@ -182,7 +182,7 @@ mpreal::mpreal(const char *s, mp_prec_t prec, int base, mp_rnd_t mode)
     mpfr_set_str(mp, s, base, mode);
 }
 
-mpreal::mpreal(const std::string&s, mp_prec_t prec, int base, mp_rnd_t mode)
+mpreal::mpreal(const std::string &s, mp_prec_t prec, int base, mp_rnd_t mode)
 {
     set_custom_malloc();
     mpfr_init2(mp, prec);
@@ -217,7 +217,7 @@ mpreal&mpreal::operator=(const char *s)
     return *this;
 }
 
-const mpreal fma(const mpreal&v1, const mpreal&v2, const mpreal&v3, mp_rnd_t rnd_mode)
+const mpreal fma(const mpreal &v1, const mpreal &v2, const mpreal &v3, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t p1, p2, p3;
@@ -232,7 +232,7 @@ const mpreal fma(const mpreal&v1, const mpreal&v2, const mpreal&v3, mp_rnd_t rnd
     return a;
 }
 
-const mpreal fms(const mpreal&v1, const mpreal&v2, const mpreal&v3, mp_rnd_t rnd_mode)
+const mpreal fms(const mpreal &v1, const mpreal &v2, const mpreal &v3, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t p1, p2, p3;
@@ -247,7 +247,7 @@ const mpreal fms(const mpreal&v1, const mpreal&v2, const mpreal&v3, mp_rnd_t rnd
     return a;
 }
 
-const mpreal agm(const mpreal&v1, const mpreal&v2, mp_rnd_t rnd_mode)
+const mpreal agm(const mpreal &v1, const mpreal &v2, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t p1, p2;
@@ -262,7 +262,7 @@ const mpreal agm(const mpreal&v1, const mpreal&v2, mp_rnd_t rnd_mode)
     return a;
 }
 
-const mpreal hypot(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
+const mpreal hypot(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t yp, xp;
@@ -293,7 +293,7 @@ const mpreal sum(const mpreal tab[], unsigned long int n, mp_rnd_t rnd_mode)
     return x;
 }
 
-const mpreal remainder(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
+const mpreal remainder(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t yp, xp;
@@ -308,7 +308,7 @@ const mpreal remainder(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
     return a;
 }
 
-const mpreal remquo(long *q, const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
+const mpreal remquo(long *q, const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t yp, xp;
@@ -466,12 +466,12 @@ std::string mpreal::to_string(size_t n, int b, mp_rnd_t mode) const
 
 //////////////////////////////////////////////////////////////////////////
 // I/O
-ostream&operator<<(ostream&os, const mpreal&v)
+ostream&operator<<(ostream &os, const mpreal &v)
 {
     return os << v.to_string(static_cast<size_t>(os.precision()));
 }
 
-istream&operator>>(istream&is, mpreal&v)
+istream&operator>>(istream &is, mpreal &v)
 {
     char   c;
     string s = "";

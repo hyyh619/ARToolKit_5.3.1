@@ -59,7 +59,7 @@ public:                                                                         
     list(const list &c) : list_base(c) {}                                                                                    \
     explicit list(size_type num, const value_type &val = value_type()) : list_base(num, val) {}                              \
     list(iterator start, iterator end) : list_base(start, end) {}                                                            \
-    list&operator=(const list&x) {                                                                                           \
+    list&operator=(const list &x) {                                                                                          \
         list_base::operator=(x);                                                                                             \
         return *this;                                                                                                        \
     }                                                                                                                        \
@@ -85,7 +85,7 @@ public:                                                                         
     list(const list &c) : list_base(c) {}                                                       \
     explicit list(size_type num, const value_type &val = value_type()) : list_base(num, val) {} \
     list(iterator start, iterator end) : list_base(start, end) {}                               \
-    list&operator=(const list&x) {                                                              \
+    list&operator=(const list &x) {                                                             \
         list_base::operator=(x);                                                                \
         return *this;                                                                           \
     }
@@ -104,7 +104,7 @@ void resize(size_type new_size)
     resize(new_size, T());
 }
 
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (list_base::size() < new_size)
         list_base::insert(list_base::end(), new_size - list_base::size(), x);
@@ -115,16 +115,16 @@ void resize(size_type new_size, const value_type&x)
 
 #if defined(_LIST_)
 // workaround MSVC std::list implementation
-void push_back(const value_type&x)
+void push_back(const value_type &x)
 {
     list_base::push_back(x);
 }
 using list_base::insert;
-iterator insert(const_iterator position, const value_type&x)
+iterator insert(const_iterator position, const value_type &x)
 {
     return list_base::insert(position, x);
 }
-void insert(const_iterator position, size_type new_size, const value_type&x)
+void insert(const_iterator position, size_type new_size, const value_type &x)
 {
     list_base::insert(position, new_size, x);
 }

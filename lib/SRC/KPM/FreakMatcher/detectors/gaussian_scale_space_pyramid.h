@@ -57,8 +57,8 @@ namespace vision
  * @param[in] y Y location on detected image
  * @param[in] octave The octave of the detected image
  */
-inline void bilinear_upsample_point(float&xp,
-                                    float&yp,
+inline void bilinear_upsample_point(float &xp,
+                                    float &yp,
                                     float x,
                                     float y,
                                     int octave)
@@ -86,9 +86,9 @@ inline void bilinear_upsample_point(float&xp,
  * @param[in] y Y location on detected image
  * @param[in] octave The octave of the detected image
  */
-inline void bilinear_upsample_point(float&xp,
-                                    float&yp,
-                                    float&sp,
+inline void bilinear_upsample_point(float &xp,
+                                    float &yp,
+                                    float &sp,
                                     float x,
                                     float y,
                                     float s,
@@ -113,8 +113,8 @@ inline void bilinear_upsample_point(float&xp,
  * @param[in] y Y location on fine image
  * @param[in] octave The octave to downsample (x,y) to
  */
-inline void bilinear_downsample_point(float&xp,
-                                      float&yp,
+inline void bilinear_downsample_point(float &xp,
+                                      float &yp,
                                       float x,
                                       float y,
                                       int octave)
@@ -139,9 +139,9 @@ inline void bilinear_downsample_point(float&xp,
  * @param[in] s Sigma on fine image
  * @param[in] octave The octave to downsample (x,y) to
  */
-inline void bilinear_downsample_point(float&xp,
-                                      float&yp,
-                                      float&sp,
+inline void bilinear_downsample_point(float &xp,
+                                      float &yp,
+                                      float &sp,
                                       float x,
                                       float y,
                                       float s,
@@ -267,8 +267,8 @@ inline float effectiveSigma(size_t octave, float scale) const
 /**
  * Locate a SIGMA on the pyramid.
  */
-inline void locate(int&octave,
-                   int&scale,
+inline void locate(int &octave,
+                   int &scale,
                    float sigma) const
 {
     // octave = floor(log2(s))
@@ -309,11 +309,11 @@ inline void locate(int&octave,
 /**
  * Locate an (x,y,sigma) specified at the highest resolution on the pyramid.
  */
-inline void locate(float&xp,
-                   float&yp,
-                   float&sigmap,
-                   int&octave,
-                   int&scale,
+inline void locate(float &xp,
+                   float &yp,
+                   float &sigmap,
+                   int &octave,
+                   int &scale,
                    float x,
                    float y,
                    float sigma) const
@@ -362,7 +362,7 @@ void release();
 /**
  * Build the pyramid.
  */
-void build(const Image&image);
+void build(const Image &image);
 
 private:
 
@@ -371,8 +371,8 @@ std::vector<unsigned short> mTemp_us16;
 std::vector<float>          mTemp_f32_1;
 std::vector<float>          mTemp_f32_2;
 
-void apply_filter(Image&dst, const Image&src);
-void apply_filter_twice(Image&dst, const Image&src);
+void apply_filter(Image &dst, const Image &src);
+void apply_filter_twice(Image &dst, const Image &src);
 };
 
 /**

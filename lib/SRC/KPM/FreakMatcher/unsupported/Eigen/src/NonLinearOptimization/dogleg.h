@@ -2,11 +2,11 @@ namespace internal
 {
 template<typename Scalar>
 void dogleg(
-    const Matrix<Scalar, Dynamic, Dynamic>&qrfac,
-    const Matrix<Scalar, Dynamic, 1>&diag,
-    const Matrix<Scalar, Dynamic, 1>&qtb,
+    const Matrix<Scalar, Dynamic, Dynamic> &qrfac,
+    const Matrix<Scalar, Dynamic, 1> &diag,
+    const Matrix<Scalar, Dynamic, 1> &qtb,
     Scalar delta,
-    Matrix<Scalar, Dynamic, 1>&x)
+    Matrix<Scalar, Dynamic, 1> &x)
 {
     typedef DenseIndex Index;
 

@@ -380,9 +380,9 @@ struct TriangularProduct<Mode, LhsIsTriangular, Lhs, false, Rhs, false>
 {
     EIGEN_PRODUCT_PUBLIC_INTERFACE(TriangularProduct)
 
-    TriangularProduct(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs) {}
+    TriangularProduct(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs) {}
 
-    template<typename Dest> void scaleAndAddTo(Dest&dst, Scalar alpha) const
+    template<typename Dest> void scaleAndAddTo(Dest &dst, Scalar alpha) const
     {
         const ActualLhsType lhs = LhsBlasTraits::extract(m_lhs);
         const ActualRhsType rhs = RhsBlasTraits::extract(m_rhs);

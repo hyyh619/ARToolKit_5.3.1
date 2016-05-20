@@ -165,7 +165,7 @@ inline const Block<const CoefficientsType, 1, Dynamic> diagonal(Index i) const
     return Block<const CoefficientsType, 1, Dynamic>(coeffs(), supers() - i, std::max<Index>(0, i), 1, diagonalLength(i));
 }
 
-template<typename Dest> inline void evalTo(Dest&dst) const
+template<typename Dest> inline void evalTo(Dest &dst) const
 {
     dst.resize(rows(), cols());
     dst.setZero();
@@ -324,7 +324,7 @@ typedef typename internal::traits<BandMatrixWrapper>::Scalar Scalar;
 typedef typename internal::traits<BandMatrixWrapper>::CoefficientsType CoefficientsType;
 typedef typename internal::traits<BandMatrixWrapper>::Index Index;
 
-inline BandMatrixWrapper(const CoefficientsType&coeffs, Index rows = _Rows, Index cols = _Cols, Index supers = _Supers, Index subs = _Subs)
+inline BandMatrixWrapper(const CoefficientsType &coeffs, Index rows = _Rows, Index cols = _Cols, Index supers = _Supers, Index subs = _Subs)
     : m_coeffs(coeffs),
     m_rows(rows), m_supers(supers), m_subs(subs)
 {

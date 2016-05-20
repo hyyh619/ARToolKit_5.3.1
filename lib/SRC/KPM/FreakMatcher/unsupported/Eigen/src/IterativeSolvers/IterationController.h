@@ -196,7 +196,7 @@ bool converged(double nr)
     m_resminreach = (std::min)(m_resminreach, m_res);
     return converged();
 }
-template<typename VectorType> bool converged(const VectorType&v)
+template<typename VectorType> bool converged(const VectorType &v)
 {
     return converged(v.squaredNorm());
 }
@@ -215,7 +215,7 @@ bool finished(double nr)
     return (m_nit >= m_maxiter || converged(nr));
 }
 template<typename VectorType>
-bool finished(const MatrixBase<VectorType>&v)
+bool finished(const MatrixBase<VectorType> &v)
 {
     return finished(double(v.squaredNorm()));
 }

@@ -97,13 +97,13 @@ public:
 
 class InnerIterator;
 
-EIGEN_STRONG_INLINE SparseDenseOuterProduct(const Lhs&lhs, const Rhs&rhs)
+EIGEN_STRONG_INLINE SparseDenseOuterProduct(const Lhs &lhs, const Rhs &rhs)
     : m_lhs(lhs), m_rhs(rhs)
 {
     EIGEN_STATIC_ASSERT(!Tr, YOU_MADE_A_PROGRAMMING_MISTAKE);
 }
 
-EIGEN_STRONG_INLINE SparseDenseOuterProduct(const Rhs&rhs, const Lhs&lhs)
+EIGEN_STRONG_INLINE SparseDenseOuterProduct(const Rhs &rhs, const Lhs &lhs)
     : m_lhs(lhs), m_rhs(rhs)
 {
     EIGEN_STATIC_ASSERT(Tr, YOU_MADE_A_PROGRAMMING_MISTAKE);
@@ -137,7 +137,7 @@ class SparseDenseOuterProduct<Lhs, Rhs, Transpose>::InnerIterator : public _LhsN
 {
 typedef typename _LhsNested::InnerIterator Base;
 public:
-EIGEN_STRONG_INLINE InnerIterator(const SparseDenseOuterProduct&prod, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const SparseDenseOuterProduct &prod, Index outer)
     : Base(prod.lhs(), 0), m_outer(outer), m_factor(prod.rhs().coeff(outer))
 {}
 
@@ -182,10 +182,10 @@ class SparseTimeDenseProduct
 public:
 EIGEN_PRODUCT_PUBLIC_INTERFACE(SparseTimeDenseProduct)
 
-SparseTimeDenseProduct(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs)
+SparseTimeDenseProduct(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs)
 {}
 
-template<typename Dest> void scaleAndAddTo(Dest&dest, Scalar alpha) const
+template<typename Dest> void scaleAndAddTo(Dest &dest, Scalar alpha) const
 {
     typedef typename internal::remove_all<Lhs>::type _Lhs;
     typedef typename internal::remove_all<Rhs>::type _Rhs;
@@ -232,10 +232,10 @@ class DenseTimeSparseProduct
 public:
 EIGEN_PRODUCT_PUBLIC_INTERFACE(DenseTimeSparseProduct)
 
-DenseTimeSparseProduct(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs)
+DenseTimeSparseProduct(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs)
 {}
 
-template<typename Dest> void scaleAndAddTo(Dest&dest, Scalar alpha) const
+template<typename Dest> void scaleAndAddTo(Dest &dest, Scalar alpha) const
 {
     typedef typename internal::remove_all<Rhs>::type _Rhs;
     typedef typename _Rhs::InnerIterator RhsInnerIterator;
@@ -254,7 +254,7 @@ DenseTimeSparseProduct&operator=(const DenseTimeSparseProduct&);
 template<typename Derived>
 template<typename OtherDerived>
 inline const typename SparseDenseProductReturnType<Derived, OtherDerived>::Type
-SparseMatrixBase<Derived>::operator*(const MatrixBase<OtherDerived>&other) const
+SparseMatrixBase<Derived>::operator*(const MatrixBase<OtherDerived> &other) const
 {
     return typename SparseDenseProductReturnType<Derived, OtherDerived>::Type(derived(), other.derived());
 }

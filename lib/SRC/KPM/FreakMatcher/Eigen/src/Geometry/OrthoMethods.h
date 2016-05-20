@@ -36,7 +36,7 @@
 template<typename Derived>
 template<typename OtherDerived>
 inline typename MatrixBase<Derived>::template cross_product_return_type<OtherDerived>::type
-MatrixBase<Derived>::cross(const MatrixBase<OtherDerived>&other) const
+MatrixBase<Derived>::cross(const MatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(Derived, 3)
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, 3)
@@ -60,7 +60,7 @@ template<int Arch, typename VectorLhs, typename VectorRhs,
 struct cross3_impl
 {
     inline static typename internal::plain_matrix_type<VectorLhs>::type
-    run(const VectorLhs&lhs, const VectorRhs&rhs)
+    run(const VectorLhs &lhs, const VectorRhs &rhs)
     {
         return typename internal::plain_matrix_type<VectorLhs>::type(
             internal::conj(lhs.coeff(1) * rhs.coeff(2) - lhs.coeff(2) * rhs.coeff(1)),
@@ -84,7 +84,7 @@ struct cross3_impl
 template<typename Derived>
 template<typename OtherDerived>
 inline typename MatrixBase<Derived>::PlainObject
-MatrixBase<Derived>::cross3(const MatrixBase<OtherDerived>&other) const
+MatrixBase<Derived>::cross3(const MatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(Derived, 4)
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, 4)
@@ -111,7 +111,7 @@ MatrixBase<Derived>::cross3(const MatrixBase<OtherDerived>&other) const
 template<typename ExpressionType, int Direction>
 template<typename OtherDerived>
 const typename VectorwiseOp<ExpressionType, Direction>::CrossReturnType
-VectorwiseOp<ExpressionType, Direction>::cross(const MatrixBase<OtherDerived>&other) const
+VectorwiseOp<ExpressionType, Direction>::cross(const MatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, 3)
     EIGEN_STATIC_ASSERT((internal::is_same<Scalar, typename OtherDerived::Scalar>::value),
@@ -146,7 +146,7 @@ struct unitOrthogonal_selector
     typedef typename NumTraits<Scalar>::Real RealScalar;
     typedef typename Derived::Index Index;
     typedef Matrix<Scalar, 2, 1> Vector2;
-    inline static VectorType run(const Derived&src)
+    inline static VectorType run(const Derived &src)
     {
         VectorType perp = VectorType::Zero(src.size());
         Index      maxi = 0;
@@ -170,7 +170,7 @@ struct unitOrthogonal_selector<Derived, 3>
     typedef typename plain_matrix_type<Derived>::type VectorType;
     typedef typename traits<Derived>::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    inline static VectorType run(const Derived&src)
+    inline static VectorType run(const Derived &src)
     {
         VectorType perp;
 
@@ -209,7 +209,7 @@ template<typename Derived>
 struct unitOrthogonal_selector<Derived, 2>
 {
     typedef typename plain_matrix_type<Derived>::type VectorType;
-    inline static VectorType run(const Derived&src)
+    inline static VectorType run(const Derived &src)
     {
         return VectorType(-conj(src.y()), conj(src.x())).normalized();
     }

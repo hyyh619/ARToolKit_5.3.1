@@ -53,7 +53,7 @@ public:
  * The class stores a reference to \p A, so it should not be
  * changed (or destroyed) before compute() is called.
  */
-MatrixFunction(const MatrixType&A, StemFunction f);
+MatrixFunction(const MatrixType &A, StemFunction f);
 
 /** \brief Compute the matrix function.
  *
@@ -64,7 +64,7 @@ MatrixFunction(const MatrixType&A, StemFunction f);
  * is implemented.
  */
 template<typename ResultType>
-void compute(ResultType&result);
+void compute(ResultType &result);
 };
 
 
@@ -95,7 +95,7 @@ public:
  * \param[in]  A      argument of matrix function, should be a square matrix.
  * \param[in]  f      an entire function; \c f(x,n) should compute the n-th derivative of f at x.
  */
-MatrixFunction(const MatrixType&A, StemFunction f) : m_A(A), m_f(f) { }
+MatrixFunction(const MatrixType &A, StemFunction f) : m_A(A), m_f(f) { }
 
 /** \brief Compute the matrix function.
  *
@@ -107,7 +107,7 @@ MatrixFunction(const MatrixType&A, StemFunction f) : m_A(A), m_f(f) { }
  * a real matrix.
  */
 template<typename ResultType>
-void compute(ResultType&result)
+void compute(ResultType &result)
 {
     ComplexMatrix CA = m_A.template cast<ComplexScalar>();
     ComplexMatrix Cresult;
@@ -150,8 +150,8 @@ typedef Matrix<Scalar, Dynamic, Dynamic, Options, RowsAtCompileTime, ColsAtCompi
 
 public:
 
-MatrixFunction(const MatrixType&A, StemFunction f);
-template<typename ResultType> void compute(ResultType&result);
+MatrixFunction(const MatrixType &A, StemFunction f);
+template<typename ResultType> void compute(ResultType &result);
 
 private:
 
@@ -164,9 +164,9 @@ void constructPermutation();
 void permuteSchur();
 void swapEntriesInSchur(Index index);
 void computeBlockAtomic();
-Block<MatrixType> block(MatrixType&A, Index i, Index j);
+Block<MatrixType> block(MatrixType &A, Index i, Index j);
 void computeOffDiagonal();
-DynMatrixType solveTriangularSylvester(const DynMatrixType&A, const DynMatrixType&B, const DynMatrixType&C);
+DynMatrixType solveTriangularSylvester(const DynMatrixType &A, const DynMatrixType &B, const DynMatrixType &C);
 
 typename internal::nested<MatrixType>::type m_A;     /**< \brief Reference to argument of matrix function. */
 StemFunction         *m_f; /**< \brief Stem function for matrix function under consideration */
@@ -199,7 +199,7 @@ MatrixFunction&operator=(const MatrixFunction&);
  * \param[in]  f      an entire function; \c f(x,n) should compute the n-th derivative of f at x.
  */
 template<typename MatrixType>
-MatrixFunction<MatrixType, 1>::MatrixFunction(const MatrixType&A, StemFunction f) :
+MatrixFunction<MatrixType, 1>::MatrixFunction(const MatrixType &A, StemFunction f) :
     m_A(A), m_f(f)
 {
     /* empty body */
@@ -212,7 +212,7 @@ MatrixFunction<MatrixType, 1>::MatrixFunction(const MatrixType&A, StemFunction f
  */
 template<typename MatrixType>
 template<typename ResultType>
-void MatrixFunction<MatrixType, 1>::compute(ResultType&result)
+void MatrixFunction<MatrixType, 1>::compute(ResultType &result)
 {
     computeSchurDecomposition();
     partitionEigenvalues();
@@ -420,7 +420,7 @@ void MatrixFunction<MatrixType, 1>::computeBlockAtomic()
 
 /** \brief Return block of matrix according to blocking given by #m_blockStart */
 template<typename MatrixType>
-Block<MatrixType> MatrixFunction<MatrixType, 1>::block(MatrixType&A, Index i, Index j)
+Block<MatrixType> MatrixFunction<MatrixType, 1>::block(MatrixType &A, Index i, Index j)
 {
     return A.block(m_blockStart(i), m_blockStart(j), m_clusterSize(i), m_clusterSize(j));
 }
@@ -481,9 +481,9 @@ void MatrixFunction<MatrixType, 1>::computeOffDiagonal()
  */
 template<typename MatrixType>
 typename MatrixFunction<MatrixType, 1>::DynMatrixType MatrixFunction<MatrixType, 1>::solveTriangularSylvester(
-    const DynMatrixType&A,
-    const DynMatrixType&B,
-    const DynMatrixType&C)
+    const DynMatrixType &A,
+    const DynMatrixType &B,
+    const DynMatrixType &C)
 {
     eigen_assert(A.rows() == A.cols());
     eigen_assert(A.isUpperTriangular());
@@ -558,7 +558,7 @@ typedef typename internal::stem_function<Scalar>::type StemFunction;
  * matrix function.
  * \param[in] f  Stem function for matrix function under consideration.
  */
-MatrixFunctionReturnValue(const Derived&A, StemFunction f) : m_A(A), m_f(f) { }
+MatrixFunctionReturnValue(const Derived &A, StemFunction f) : m_A(A), m_f(f) { }
 
 /** \brief Compute the matrix function.
  *
@@ -566,7 +566,7 @@ MatrixFunctionReturnValue(const Derived&A, StemFunction f) : m_A(A), m_f(f) { }
  * are as in the constructor.
  */
 template<typename ResultType>
-inline void evalTo(ResultType&result) const
+inline void evalTo(ResultType &result) const
 {
     const typename Derived::PlainObject Aevaluated = m_A.eval();
     MatrixFunction<typename Derived::PlainObject> mf(Aevaluated, m_f);

@@ -28,7 +28,7 @@
 namespace internal
 {
 template<typename ExpressionType, typename Scalar>
-inline void stable_norm_kernel(const ExpressionType&bl, Scalar&ssq, Scalar&scale, Scalar&invScale)
+inline void stable_norm_kernel(const ExpressionType &bl, Scalar &ssq, Scalar &scale, Scalar &invScale)
 {
     Scalar max = bl.cwiseAbs().maxCoeff();
 

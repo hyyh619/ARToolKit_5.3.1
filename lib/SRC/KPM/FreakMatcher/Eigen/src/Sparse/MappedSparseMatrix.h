@@ -169,7 +169,7 @@ template<typename Scalar, int _Flags, typename _Index>
 class MappedSparseMatrix<Scalar, _Flags, _Index>::InnerIterator
 {
 public:
-InnerIterator(const MappedSparseMatrix&mat, Index outer)
+InnerIterator(const MappedSparseMatrix &mat, Index outer)
     : m_matrix(mat),
     m_outer(outer),
     m_id(mat._outerIndexPtr()[outer]),
@@ -216,10 +216,10 @@ inline operator bool() const
 }
 
 protected:
-const MappedSparseMatrix&m_matrix;
-const Index             m_outer;
-Index                   m_id;
-const Index             m_start;
-const Index             m_end;
+const MappedSparseMatrix &m_matrix;
+const Index              m_outer;
+Index                    m_id;
+const Index              m_start;
+const Index              m_end;
 };
 #endif // EIGEN_MAPPED_SPARSEMATRIX_H

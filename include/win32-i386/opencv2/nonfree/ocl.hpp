@@ -80,11 +80,11 @@ int descriptorSize() const;
 int descriptorType() const;
 
 // ! upload host keypoints to device memory
-void uploadKeypoints(const vector<cv::KeyPoint>&keypoints, oclMat&keypointsocl);
+void uploadKeypoints(const vector<cv::KeyPoint> &keypoints, oclMat &keypointsocl);
 // ! download keypoints from device to host memory
-void downloadKeypoints(const oclMat&keypointsocl, vector<KeyPoint>&keypoints);
+void downloadKeypoints(const oclMat &keypointsocl, vector<KeyPoint> &keypoints);
 // ! download descriptors from device to host memory
-void downloadDescriptors(const oclMat&descriptorsocl, vector<float>&descriptors);
+void downloadDescriptors(const oclMat &descriptorsocl, vector<float> &descriptors);
 // ! finds the keypoints using fast hessian detector used in SURF
 // ! supports CV_8UC1 images
 // ! keypoints will have nFeature cols and 6 rows
@@ -95,23 +95,23 @@ void downloadDescriptors(const oclMat&descriptorsocl, vector<float>&descriptors)
 // ! keypoints.ptr<float>(SIZE_ROW)[i] will contain size of i'th feature
 // ! keypoints.ptr<float>(ANGLE_ROW)[i] will contain orientation of i'th feature
 // ! keypoints.ptr<float>(HESSIAN_ROW)[i] will contain response of i'th feature
-void operator()(const oclMat&img, const oclMat&mask, oclMat&keypoints);
+void operator()(const oclMat &img, const oclMat &mask, oclMat &keypoints);
 // ! finds the keypoints and computes their descriptors.
 // ! Optionally it can compute descriptors for the user-provided keypoints and recompute keypoints direction
-void operator()(const oclMat&img, const oclMat&mask, oclMat&keypoints, oclMat&descriptors,
+void operator()(const oclMat &img, const oclMat &mask, oclMat &keypoints, oclMat &descriptors,
                 bool useProvidedKeypoints = false);
-void operator()(const oclMat&img, const oclMat&mask, std::vector<KeyPoint>&keypoints);
-void operator()(const oclMat&img, const oclMat&mask, std::vector<KeyPoint>&keypoints, oclMat&descriptors,
+void operator()(const oclMat &img, const oclMat &mask, std::vector<KeyPoint> &keypoints);
+void operator()(const oclMat &img, const oclMat &mask, std::vector<KeyPoint> &keypoints, oclMat &descriptors,
                 bool useProvidedKeypoints = false);
-void operator()(const oclMat&img, const oclMat&mask, std::vector<KeyPoint>&keypoints, std::vector<float>&descriptors,
+void operator()(const oclMat &img, const oclMat &mask, std::vector<KeyPoint> &keypoints, std::vector<float> &descriptors,
                 bool useProvidedKeypoints = false);
 
 // ! finds the keypoints using fast hessian detector used in SURF
 void operator()(InputArray img, InputArray mask,
-                CV_OUT vector<KeyPoint>&keypoints) const;
+                CV_OUT vector<KeyPoint> &keypoints) const;
 // ! finds the keypoints and computes their descriptors. Optionally it can compute descriptors for the user-provided keypoints
 void operator()(InputArray img, InputArray mask,
-                CV_OUT vector<KeyPoint>&keypoints,
+                CV_OUT vector<KeyPoint> &keypoints,
                 OutputArray descriptors,
                 bool useProvidedKeypoints = false) const;
 
@@ -131,8 +131,8 @@ oclMat sum, mask1, maskSum, intBuffer;
 oclMat det, trace;
 oclMat maxPosBuffer;
 protected:
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask) const;
-void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask) const;
+void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
 };
 }
 }

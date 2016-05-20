@@ -45,19 +45,19 @@ class NoAlias
 {
 typedef typename ExpressionType::Scalar Scalar;
 public:
-NoAlias(ExpressionType&expression) : m_expression(expression) {}
+NoAlias(ExpressionType &expression) : m_expression(expression) {}
 
 /** Behaves like MatrixBase::lazyAssign(other)
  * \sa MatrixBase::lazyAssign() */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE ExpressionType&operator=(const StorageBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator=(const StorageBase<OtherDerived> &other)
 {
     return internal::assign_selector<ExpressionType, OtherDerived, false>::run(m_expression, other.derived());
 }
 
 /** \sa MatrixBase::operator+= */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE ExpressionType&operator+=(const StorageBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator+=(const StorageBase<OtherDerived> &other)
 {
     typedef SelfCwiseBinaryOp<internal::scalar_sum_op<Scalar>, ExpressionType, OtherDerived> SelfAdder;
     SelfAdder tmp(m_expression);
@@ -69,7 +69,7 @@ EIGEN_STRONG_INLINE ExpressionType&operator+=(const StorageBase<OtherDerived>&ot
 
 /** \sa MatrixBase::operator-= */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE ExpressionType&operator-=(const StorageBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator-=(const StorageBase<OtherDerived> &other)
 {
     typedef SelfCwiseBinaryOp<internal::scalar_difference_op<Scalar>, ExpressionType, OtherDerived> SelfAdder;
     SelfAdder tmp(m_expression);
@@ -81,32 +81,32 @@ EIGEN_STRONG_INLINE ExpressionType&operator-=(const StorageBase<OtherDerived>&ot
 
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename ProductDerived, typename Lhs, typename Rhs>
-EIGEN_STRONG_INLINE ExpressionType&operator+=(const ProductBase<ProductDerived, Lhs, Rhs>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator+=(const ProductBase<ProductDerived, Lhs, Rhs> &other)
 {
     other.derived().addTo(m_expression); return m_expression;
 }
 
 template<typename ProductDerived, typename Lhs, typename Rhs>
-EIGEN_STRONG_INLINE ExpressionType&operator-=(const ProductBase<ProductDerived, Lhs, Rhs>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator-=(const ProductBase<ProductDerived, Lhs, Rhs> &other)
 {
     other.derived().subTo(m_expression); return m_expression;
 }
 
 template<typename Lhs, typename Rhs, int NestingFlags>
-EIGEN_STRONG_INLINE ExpressionType&operator+=(const CoeffBasedProduct<Lhs, Rhs, NestingFlags>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator+=(const CoeffBasedProduct<Lhs, Rhs, NestingFlags> &other)
 {
     return m_expression.derived() += CoeffBasedProduct<Lhs, Rhs, NestByRefBit>(other.lhs(), other.rhs());
 }
 
 template<typename Lhs, typename Rhs, int NestingFlags>
-EIGEN_STRONG_INLINE ExpressionType&operator-=(const CoeffBasedProduct<Lhs, Rhs, NestingFlags>&other)
+EIGEN_STRONG_INLINE ExpressionType&operator-=(const CoeffBasedProduct<Lhs, Rhs, NestingFlags> &other)
 {
     return m_expression.derived() -= CoeffBasedProduct<Lhs, Rhs, NestByRefBit>(other.lhs(), other.rhs());
 }
 #endif
 
 protected:
-ExpressionType&m_expression;
+ExpressionType &m_expression;
 };
 
 /** \returns a pseudo expression of \c *this with an operator= assuming

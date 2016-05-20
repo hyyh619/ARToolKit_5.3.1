@@ -47,7 +47,7 @@ namespace vision
 class ImageUtils
 {
 public:
-static bool convertType(Image&dst, const Image&src, float scale)
+static bool convertType(Image &dst, const Image &src, float scale)
 {
     if (src.type() == IMAGE_F32 && dst.type() == IMAGE_UINT8)
     {
@@ -66,7 +66,7 @@ static bool convertType(Image&dst, const Image&src, float scale)
 }
 
 #ifdef USE_OPENCV
-static cv::Mat toOpenCV(Image&im)
+static cv::Mat toOpenCV(Image &im)
 {
     int type = -1;
 
@@ -93,7 +93,7 @@ static cv::Mat toOpenCV(Image&im)
     return opencv_im;
 }
 
-static Image toImage(cv::Mat&im)
+static Image toImage(cv::Mat &im)
 {
     switch (im.type())
     {

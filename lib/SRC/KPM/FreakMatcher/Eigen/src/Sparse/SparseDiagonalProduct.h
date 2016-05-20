@@ -94,7 +94,7 @@ EIGEN_SPARSE_PUBLIC_INTERFACE(SparseDiagonalProduct)
 typedef internal::sparse_diagonal_product_inner_iterator_selector
     <_LhsNested, _RhsNested, SparseDiagonalProduct, LhsMode, RhsMode> InnerIterator;
 
-EIGEN_STRONG_INLINE SparseDiagonalProduct(const Lhs&lhs, const Rhs&rhs)
+EIGEN_STRONG_INLINE SparseDiagonalProduct(const Lhs &lhs, const Rhs &rhs)
     : m_lhs(lhs), m_rhs(rhs)
 {
     eigen_assert(lhs.cols() == rhs.rows() && "invalid sparse matrix * diagonal matrix product");
@@ -134,7 +134,7 @@ typedef typename CwiseUnaryOp<scalar_multiple_op<typename Lhs::Scalar>, const Rh
 typedef typename Lhs::Index Index;
 public:
 inline sparse_diagonal_product_inner_iterator_selector(
-    const SparseDiagonalProductType&expr, Index outer)
+    const SparseDiagonalProductType &expr, Index outer)
     : Base(expr.rhs() * (expr.lhs().diagonal().coeff(outer)), outer)
 {}
 };
@@ -154,7 +154,7 @@ typedef typename CwiseBinaryOp<
 typedef typename Lhs::Index Index;
 public:
 inline sparse_diagonal_product_inner_iterator_selector(
-    const SparseDiagonalProductType&expr, Index outer)
+    const SparseDiagonalProductType &expr, Index outer)
     : Base(expr.rhs().innerVector(outer).cwiseProduct(expr.lhs().diagonal()), 0)
 {}
 };
@@ -168,7 +168,7 @@ typedef typename CwiseUnaryOp<scalar_multiple_op<typename Rhs::Scalar>, const Lh
 typedef typename Lhs::Index Index;
 public:
 inline sparse_diagonal_product_inner_iterator_selector(
-    const SparseDiagonalProductType&expr, Index outer)
+    const SparseDiagonalProductType &expr, Index outer)
     : Base(expr.lhs() * expr.rhs().diagonal().coeff(outer), outer)
 {}
 };
@@ -188,7 +188,7 @@ typedef typename CwiseBinaryOp<
 typedef typename Lhs::Index Index;
 public:
 inline sparse_diagonal_product_inner_iterator_selector(
-    const SparseDiagonalProductType&expr, Index outer)
+    const SparseDiagonalProductType &expr, Index outer)
     : Base(expr.lhs().innerVector(outer).cwiseProduct(expr.rhs().diagonal().transpose()), 0)
 {}
 };
@@ -199,7 +199,7 @@ inline sparse_diagonal_product_inner_iterator_selector(
 template<typename Derived>
 template<typename OtherDerived>
 const SparseDiagonalProduct<Derived, OtherDerived>
-SparseMatrixBase<Derived>::operator*(const DiagonalBase<OtherDerived>&other) const
+SparseMatrixBase<Derived>::operator*(const DiagonalBase<OtherDerived> &other) const
 {
     return SparseDiagonalProduct<Derived, OtherDerived>(this->derived(), other.derived());
 }

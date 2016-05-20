@@ -64,7 +64,7 @@ public:
 
 SVD() {}     // a user who relied on compiler-generated default compiler reported problems with MSVC in 2.0.7
 
-SVD(const MatrixType&matrix)
+SVD(const MatrixType &matrix)
     : m_matU(matrix.rows(), (std::min)(matrix.rows(), matrix.cols())),
     m_matV(matrix.cols(), matrix.cols()),
     m_sigma((std::min)(matrix.rows(), matrix.cols()))
@@ -73,7 +73,7 @@ SVD(const MatrixType&matrix)
 }
 
 template<typename OtherDerived, typename ResultType>
-bool solve(const MatrixBase<OtherDerived>&b, ResultType *result) const;
+bool solve(const MatrixBase<OtherDerived> &b, ResultType *result) const;
 
 const MatrixUType&matrixU() const
 {
@@ -88,7 +88,7 @@ const MatrixVType&matrixV() const
     return m_matV;
 }
 
-void compute(const MatrixType&matrix);
+void compute(const MatrixType &matrix);
 SVD&sort();
 
 template<typename UnitaryType, typename PositiveType>
@@ -114,7 +114,7 @@ SingularValuesType m_sigma;
  * \note this code has been adapted from JAMA (public domain)
  */
 template<typename MatrixType>
-void SVD<MatrixType>::compute(const MatrixType&matrix)
+void SVD<MatrixType>::compute(const MatrixType &matrix)
 {
     const int m  = matrix.rows();
     const int n  = matrix.cols();
@@ -568,7 +568,7 @@ SVD<MatrixType>&SVD<MatrixType>::sort()
  */
 template<typename MatrixType>
 template<typename OtherDerived, typename ResultType>
-bool SVD<MatrixType>::solve(const MatrixBase<OtherDerived>&b, ResultType *result) const
+bool SVD<MatrixType>::solve(const MatrixBase<OtherDerived> &b, ResultType *result) const
 {
     const int rows = m_matU.rows();
 

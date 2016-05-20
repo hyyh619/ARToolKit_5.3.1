@@ -41,9 +41,9 @@
 
 namespace vision
 {
-bool SaveFeatureStore(const BinaryFeatureStore&store,
-                      const std::string&dir,
-                      const db_id_t&db_id,
+bool SaveFeatureStore(const BinaryFeatureStore &store,
+                      const std::string &dir,
+                      const db_id_t &db_id,
                       frame_id_t image_id)
 {
     // Create a DB directory if needed

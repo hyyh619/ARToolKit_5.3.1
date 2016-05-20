@@ -57,11 +57,11 @@ virtual ~ExposureCompensator() {}
 enum { NO, GAIN, GAIN_BLOCKS };
 static Ptr<ExposureCompensator> createDefault(int type);
 
-void feed(const std::vector<Point>&corners, const std::vector<Mat>&images,
-          const std::vector<Mat>&masks);
-virtual void feed(const std::vector<Point>&corners, const std::vector<Mat>&images,
-                  const std::vector<std::pair<Mat, uchar> >&masks)     = 0;
-virtual void apply(int index, Point corner, Mat&image, const Mat&mask) = 0;
+void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
+          const std::vector<Mat> &masks);
+virtual void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
+                  const std::vector<std::pair<Mat, uchar> > &masks)      = 0;
+virtual void apply(int index, Point corner, Mat &image, const Mat &mask) = 0;
 };
 
 
@@ -77,9 +77,9 @@ void apply(int /*index*/, Point /*corner*/, Mat& /*image*/, const Mat& /*mask*/)
 class CV_EXPORTS GainCompensator : public ExposureCompensator
 {
 public:
-void feed(const std::vector<Point>&corners, const std::vector<Mat>&images,
-          const std::vector<std::pair<Mat, uchar> >&masks);
-void apply(int index, Point corner, Mat&image, const Mat&mask);
+void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
+          const std::vector<std::pair<Mat, uchar> > &masks);
+void apply(int index, Point corner, Mat &image, const Mat &mask);
 std::vector<double> gains() const;
 
 private:
@@ -92,9 +92,9 @@ class CV_EXPORTS BlocksGainCompensator : public ExposureCompensator
 public:
 BlocksGainCompensator(int bl_width = 32, int bl_height = 32)
     : bl_width_(bl_width), bl_height_(bl_height) {}
-void feed(const std::vector<Point>&corners, const std::vector<Mat>&images,
-          const std::vector<std::pair<Mat, uchar> >&masks);
-void apply(int index, Point corner, Mat&image, const Mat&mask);
+void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
+          const std::vector<std::pair<Mat, uchar> > &masks);
+void apply(int index, Point corner, Mat &image, const Mat &mask);
 
 private:
 int                       bl_width_, bl_height_;

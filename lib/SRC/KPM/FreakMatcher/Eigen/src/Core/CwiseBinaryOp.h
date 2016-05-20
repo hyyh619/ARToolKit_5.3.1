@@ -138,7 +138,7 @@ typedef typename internal::nested<Rhs>::type RhsNested;
 typedef typename internal::remove_reference<LhsNested>::type _LhsNested;
 typedef typename internal::remove_reference<RhsNested>::type _RhsNested;
 
-EIGEN_STRONG_INLINE CwiseBinaryOp(const Lhs&lhs, const Rhs&rhs, const BinaryOp&func = BinaryOp())
+EIGEN_STRONG_INLINE CwiseBinaryOp(const Lhs &lhs, const Rhs &rhs, const BinaryOp &func = BinaryOp())
     : m_lhs(lhs), m_rhs(rhs), m_functor(func)
 {
     EIGEN_CHECK_BINARY_COMPATIBILIY(BinaryOp, typename Lhs::Scalar, typename Rhs::Scalar);
@@ -230,7 +230,7 @@ EIGEN_STRONG_INLINE PacketScalar packet(Index index) const
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-MatrixBase<Derived>::operator-=(const MatrixBase<OtherDerived>&other)
+MatrixBase<Derived>::operator-=(const MatrixBase<OtherDerived> &other)
 {
     SelfCwiseBinaryOp<internal::scalar_difference_op<Scalar>, Derived, OtherDerived> tmp(derived());
     tmp = other.derived();
@@ -244,7 +244,7 @@ MatrixBase<Derived>::operator-=(const MatrixBase<OtherDerived>&other)
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-MatrixBase<Derived>::operator+=(const MatrixBase<OtherDerived>&other)
+MatrixBase<Derived>::operator+=(const MatrixBase<OtherDerived> &other)
 {
     SelfCwiseBinaryOp<internal::scalar_sum_op<Scalar>, Derived, OtherDerived> tmp(derived());
     tmp = other.derived();

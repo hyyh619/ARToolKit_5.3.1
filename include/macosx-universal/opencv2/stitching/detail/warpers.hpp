@@ -59,17 +59,17 @@ class CV_EXPORTS RotationWarper
 public:
 virtual ~RotationWarper() {}
 
-virtual Point2f warpPoint(const Point2f&pt, const Mat&K, const Mat&R) = 0;
+virtual Point2f warpPoint(const Point2f &pt, const Mat &K, const Mat &R) = 0;
 
-virtual Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap) = 0;
+virtual Rect buildMaps(Size src_size, const Mat &K, const Mat &R, Mat &xmap, Mat &ymap) = 0;
 
-virtual Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-                   Mat&dst) = 0;
+virtual Point warp(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+                   Mat &dst) = 0;
 
-virtual void warpBackward(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-                          Size dst_size, Mat&dst) = 0;
+virtual void warpBackward(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+                          Size dst_size, Mat &dst) = 0;
 
-virtual Rect warpRoi(Size src_size, const Mat&K, const Mat&R) = 0;
+virtual Rect warpRoi(Size src_size, const Mat &K, const Mat &R) = 0;
 
 float getScale() const
 {
@@ -81,9 +81,9 @@ void setScale(float) {}
 
 struct CV_EXPORTS ProjectorBase
 {
-    void setCameraParams(const Mat&K = Mat::eye(3, 3, CV_32F),
-                         const Mat&R = Mat::eye(3, 3, CV_32F),
-                         const Mat&T = Mat::zeros(3, 1, CV_32F));
+    void setCameraParams(const Mat &K = Mat::eye(3, 3, CV_32F),
+                         const Mat &R = Mat::eye(3, 3, CV_32F),
+                         const Mat &T = Mat::zeros(3, 1, CV_32F));
 
     float scale;
     float k[9];
@@ -98,17 +98,17 @@ template<class P>
 class CV_EXPORTS RotationWarperBase : public RotationWarper
 {
 public:
-Point2f warpPoint(const Point2f&pt, const Mat&K, const Mat&R);
+Point2f warpPoint(const Point2f &pt, const Mat &K, const Mat &R);
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap);
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, Mat &xmap, Mat &ymap);
 
-Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           Mat&dst);
+Point warp(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           Mat &dst);
 
-void warpBackward(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-                  Size dst_size, Mat&dst);
+void warpBackward(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+                  Size dst_size, Mat &dst);
 
-Rect warpRoi(Size src_size, const Mat&K, const Mat&R);
+Rect warpRoi(Size src_size, const Mat &K, const Mat &R);
 
 float getScale() const
 {
@@ -122,11 +122,11 @@ void setScale(float val)
 protected:
 
 // Detects ROI of the destination image. It's correct for any projection.
-virtual void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br);
+virtual void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br);
 
 // Detects ROI of the destination image by walking over image border.
 // Correctness for any projection isn't guaranteed.
-void detectResultRoiByBorder(Size src_size, Point&dst_tl, Point&dst_br);
+void detectResultRoiByBorder(Size src_size, Point &dst_tl, Point &dst_br);
 
 P projector_;
 };
@@ -134,8 +134,8 @@ P projector_;
 
 struct CV_EXPORTS PlaneProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -152,24 +152,24 @@ void setScale(float scale)
     projector_.scale = scale;
 }
 
-Point2f warpPoint(const Point2f&pt, const Mat&K, const Mat&R, const Mat&T);
+Point2f warpPoint(const Point2f &pt, const Mat &K, const Mat &R, const Mat &T);
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, const Mat&T, Mat&xmap, Mat&ymap);
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, const Mat &T, Mat &xmap, Mat &ymap);
 
-Point warp(const Mat&src, const Mat&K, const Mat&R, const Mat&T, int interp_mode, int border_mode,
-           Mat&dst);
+Point warp(const Mat &src, const Mat &K, const Mat &R, const Mat &T, int interp_mode, int border_mode,
+           Mat &dst);
 
-Rect warpRoi(Size src_size, const Mat&K, const Mat&R, const Mat&T);
+Rect warpRoi(Size src_size, const Mat &K, const Mat &R, const Mat &T);
 
 protected:
-void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br);
+void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br);
 };
 
 
 struct CV_EXPORTS SphericalProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -184,14 +184,14 @@ SphericalWarper(float scale)
 }
 
 protected:
-void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br);
+void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br);
 };
 
 
 struct CV_EXPORTS CylindricalProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -205,7 +205,7 @@ CylindricalWarper(float scale)
 }
 
 protected:
-void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
+void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br)
 {
     RotationWarperBase<CylindricalProjector>::detectResultRoiByBorder(src_size, dst_tl, dst_br);
 }
@@ -214,8 +214,8 @@ void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
 
 struct CV_EXPORTS FisheyeProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -231,8 +231,8 @@ FisheyeWarper(float scale)
 
 struct CV_EXPORTS StereographicProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -250,8 +250,8 @@ struct CV_EXPORTS CompressedRectilinearProjector : ProjectorBase
 {
     float a, b;
 
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -271,8 +271,8 @@ struct CV_EXPORTS CompressedRectilinearPortraitProjector : ProjectorBase
 {
     float a, b;
 
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -292,8 +292,8 @@ struct CV_EXPORTS PaniniProjector : ProjectorBase
 {
     float a, b;
 
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -313,8 +313,8 @@ struct CV_EXPORTS PaniniPortraitProjector : ProjectorBase
 {
     float a, b;
 
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -332,8 +332,8 @@ PaniniPortraitWarper(float scale, float A = 1, float B = 1)
 
 struct CV_EXPORTS MercatorProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -349,8 +349,8 @@ MercatorWarper(float scale)
 
 struct CV_EXPORTS TransverseMercatorProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -370,7 +370,7 @@ class CV_EXPORTS PlaneWarperGpu : public PlaneWarper
 public:
 PlaneWarperGpu(float scale = 1.f) : PlaneWarper(scale) {}
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, Mat &xmap, Mat &ymap)
 {
     Rect result = buildMaps(src_size, K, R, d_xmap_, d_ymap_);
 
@@ -379,7 +379,7 @@ Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
     return result;
 }
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, const Mat&T, Mat&xmap, Mat&ymap)
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, const Mat &T, Mat &xmap, Mat &ymap)
 {
     Rect result = buildMaps(src_size, K, R, T, d_xmap_, d_ymap_);
 
@@ -388,8 +388,8 @@ Rect buildMaps(Size src_size, const Mat&K, const Mat&R, const Mat&T, Mat&xmap, M
     return result;
 }
 
-Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           Mat&dst)
+Point warp(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           Mat &dst)
 {
     d_src_.upload(src);
     Point result = warp(d_src_, K, R, interp_mode, border_mode, d_dst_);
@@ -397,8 +397,8 @@ Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_
     return result;
 }
 
-Point warp(const Mat&src, const Mat&K, const Mat&R, const Mat&T, int interp_mode, int border_mode,
-           Mat&dst)
+Point warp(const Mat &src, const Mat &K, const Mat &R, const Mat &T, int interp_mode, int border_mode,
+           Mat &dst)
 {
     d_src_.upload(src);
     Point result = warp(d_src_, K, R, T, interp_mode, border_mode, d_dst_);
@@ -406,15 +406,15 @@ Point warp(const Mat&src, const Mat&K, const Mat&R, const Mat&T, int interp_mode
     return result;
 }
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, gpu::GpuMat&xmap, gpu::GpuMat&ymap);
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, gpu::GpuMat &xmap, gpu::GpuMat &ymap);
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, const Mat&T, gpu::GpuMat&xmap, gpu::GpuMat&ymap);
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, const Mat &T, gpu::GpuMat &xmap, gpu::GpuMat &ymap);
 
-Point warp(const gpu::GpuMat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           gpu::GpuMat&dst);
+Point warp(const gpu::GpuMat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           gpu::GpuMat &dst);
 
-Point warp(const gpu::GpuMat&src, const Mat&K, const Mat&R, const Mat&T, int interp_mode, int border_mode,
-           gpu::GpuMat&dst);
+Point warp(const gpu::GpuMat &src, const Mat &K, const Mat &R, const Mat &T, int interp_mode, int border_mode,
+           gpu::GpuMat &dst);
 
 private:
 gpu::GpuMat d_xmap_, d_ymap_, d_src_, d_dst_;
@@ -426,7 +426,7 @@ class CV_EXPORTS SphericalWarperGpu : public SphericalWarper
 public:
 SphericalWarperGpu(float scale) : SphericalWarper(scale) {}
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, Mat &xmap, Mat &ymap)
 {
     Rect result = buildMaps(src_size, K, R, d_xmap_, d_ymap_);
 
@@ -435,8 +435,8 @@ Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
     return result;
 }
 
-Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           Mat&dst)
+Point warp(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           Mat &dst)
 {
     d_src_.upload(src);
     Point result = warp(d_src_, K, R, interp_mode, border_mode, d_dst_);
@@ -444,10 +444,10 @@ Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_
     return result;
 }
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, gpu::GpuMat&xmap, gpu::GpuMat&ymap);
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, gpu::GpuMat &xmap, gpu::GpuMat &ymap);
 
-Point warp(const gpu::GpuMat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           gpu::GpuMat&dst);
+Point warp(const gpu::GpuMat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           gpu::GpuMat &dst);
 
 private:
 gpu::GpuMat d_xmap_, d_ymap_, d_src_, d_dst_;
@@ -459,7 +459,7 @@ class CV_EXPORTS CylindricalWarperGpu : public CylindricalWarper
 public:
 CylindricalWarperGpu(float scale) : CylindricalWarper(scale) {}
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, Mat &xmap, Mat &ymap)
 {
     Rect result = buildMaps(src_size, K, R, d_xmap_, d_ymap_);
 
@@ -468,8 +468,8 @@ Rect buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
     return result;
 }
 
-Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           Mat&dst)
+Point warp(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           Mat &dst)
 {
     d_src_.upload(src);
     Point result = warp(d_src_, K, R, interp_mode, border_mode, d_dst_);
@@ -477,10 +477,10 @@ Point warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_
     return result;
 }
 
-Rect buildMaps(Size src_size, const Mat&K, const Mat&R, gpu::GpuMat&xmap, gpu::GpuMat&ymap);
+Rect buildMaps(Size src_size, const Mat &K, const Mat &R, gpu::GpuMat &xmap, gpu::GpuMat &ymap);
 
-Point warp(const gpu::GpuMat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-           gpu::GpuMat&dst);
+Point warp(const gpu::GpuMat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+           gpu::GpuMat &dst);
 
 private:
 gpu::GpuMat d_xmap_, d_ymap_, d_src_, d_dst_;
@@ -490,8 +490,8 @@ gpu::GpuMat d_xmap_, d_ymap_, d_src_, d_dst_;
 
 struct SphericalPortraitProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -506,13 +506,13 @@ SphericalPortraitWarper(float scale)
 }
 
 protected:
-void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br);
+void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br);
 };
 
 struct CylindricalPortraitProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -525,7 +525,7 @@ CylindricalPortraitWarper(float scale)
 }
 
 protected:
-void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
+void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br)
 {
     RotationWarperBase<CylindricalPortraitProjector>::detectResultRoiByBorder(src_size, dst_tl, dst_br);
 }
@@ -533,8 +533,8 @@ void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
 
 struct PlanePortraitProjector : ProjectorBase
 {
-    void mapForward(float x, float y, float&u, float&v);
-    void mapBackward(float u, float v, float&x, float&y);
+    void mapForward(float x, float y, float &u, float &v);
+    void mapBackward(float u, float v, float &x, float &y);
 };
 
 
@@ -547,7 +547,7 @@ PlanePortraitWarper(float scale)
 }
 
 protected:
-void detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
+void detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br)
 {
     RotationWarperBase<PlanePortraitProjector>::detectResultRoiByBorder(src_size, dst_tl, dst_br);
 }

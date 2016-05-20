@@ -49,7 +49,7 @@ REFERENCE_TIME fps2avg(double fps)
 }
 // -----------------------------------------------------------------------------------------------------------------
 
-HRESULT getPin(IBaseFilter *flt, PIN_DIRECTION dir, int number, CComPtr<IPin>&pRetPin)
+HRESULT getPin(IBaseFilter *flt, PIN_DIRECTION dir, int number, CComPtr<IPin> &pRetPin)
 {
     int       n = 0;
     IPin      *Pin;
@@ -176,7 +176,7 @@ void uuidToString(char *dest, int dest_size, GUID *uuid_p)
 
 // -----------------------------------------------------------------------------------------------------------------
 
-float Round(const float&number, const int num_digits)
+float Round(const float &number, const int num_digits)
 {
     float doComplete5i, doComplete5(number * powf(10.0f, (float) (num_digits + 1)));
 

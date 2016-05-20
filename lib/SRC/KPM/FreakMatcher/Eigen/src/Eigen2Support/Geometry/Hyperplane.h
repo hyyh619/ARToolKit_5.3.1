@@ -66,7 +66,7 @@ inline explicit Hyperplane(int _dim) : m_coeffs(_dim + 1) {}
 /** Construct a plane from its normal \a n and a point \a e onto the plane.
  * \warning the vector normal is assumed to be normalized.
  */
-inline Hyperplane(const VectorType&n, const VectorType&e)
+inline Hyperplane(const VectorType &n, const VectorType &e)
     : m_coeffs(n.size() + 1)
 {
     normal() = n;
@@ -77,7 +77,7 @@ inline Hyperplane(const VectorType&n, const VectorType&e)
  * such that the algebraic equation of the plane is \f$ n \cdot x + d = 0 \f$.
  * \warning the vector normal is assumed to be normalized.
  */
-inline Hyperplane(const VectorType&n, Scalar d)
+inline Hyperplane(const VectorType &n, Scalar d)
     : m_coeffs(n.size() + 1)
 {
     normal() = n;
@@ -87,7 +87,7 @@ inline Hyperplane(const VectorType&n, Scalar d)
 /** Constructs a hyperplane passing through the two points. If the dimension of the ambient space
  * is greater than 2, then there isn't uniqueness, so an arbitrary choice is made.
  */
-static inline Hyperplane Through(const VectorType&p0, const VectorType&p1)
+static inline Hyperplane Through(const VectorType &p0, const VectorType &p1)
 {
     Hyperplane result(p0.size());
 
@@ -99,7 +99,7 @@ static inline Hyperplane Through(const VectorType&p0, const VectorType&p1)
 /** Constructs a hyperplane passing through the three points. The dimension of the ambient space
  * is required to be exactly 3.
  */
-static inline Hyperplane Through(const VectorType&p0, const VectorType&p1, const VectorType&p2)
+static inline Hyperplane Through(const VectorType &p0, const VectorType &p1, const VectorType &p2)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(VectorType, 3)
     Hyperplane result(p0.size());
@@ -113,7 +113,7 @@ static inline Hyperplane Through(const VectorType&p0, const VectorType&p1, const
  * so an arbitrary choice is made.
  */
 // FIXME to be consitent with the rest this could be implemented as a static Through function ??
-explicit Hyperplane(const ParametrizedLine<Scalar, AmbientDimAtCompileTime>&parametrized)
+explicit Hyperplane(const ParametrizedLine<Scalar, AmbientDimAtCompileTime> &parametrized)
 {
     normal() = parametrized.direction().unitOrthogonal();
     offset() = -normal().eigen2_dot(parametrized.origin());
@@ -136,7 +136,7 @@ void normalize(void)
 /** \returns the signed distance between the plane \c *this and a point \a p.
  * \sa absDistance()
  */
-inline Scalar signedDistance(const VectorType&p) const
+inline Scalar signedDistance(const VectorType &p) const
 {
     return p.eigen2_dot(normal()) + offset();
 }
@@ -144,14 +144,14 @@ inline Scalar signedDistance(const VectorType&p) const
 /** \returns the absolute distance between the plane \c *this and a point \a p.
  * \sa signedDistance()
  */
-inline Scalar absDistance(const VectorType&p) const
+inline Scalar absDistance(const VectorType &p) const
 {
     return ei_abs(signedDistance(p));
 }
 
 /** \returns the projection of a point \a p onto the plane \c *this.
  */
-inline VectorType projection(const VectorType&p) const
+inline VectorType projection(const VectorType &p) const
 {
     return p - signedDistance(p) * normal();
 }
@@ -209,7 +209,7 @@ inline Coefficients&coeffs()
  *
  * \note If \a other is approximately parallel to *this, this method will return any point on *this.
  */
-VectorType intersection(const Hyperplane&other)
+VectorType intersection(const Hyperplane &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(VectorType, 2)
     Scalar det = coeffs().coeff(0) * other.coeffs().coeff(1) - coeffs().coeff(1) * other.coeffs().coeff(0);
@@ -237,7 +237,7 @@ VectorType intersection(const Hyperplane&other)
  *               or a more generic Affine transformation. The default is Affine.
  */
 template<typename XprType>
-inline Hyperplane&transform(const MatrixBase<XprType>&mat, TransformTraits traits = Affine)
+inline Hyperplane&transform(const MatrixBase<XprType> &mat, TransformTraits traits = Affine)
 {
     if (traits == Affine)
         normal() = mat.inverse().transpose() * normal();
@@ -258,7 +258,7 @@ inline Hyperplane&transform(const MatrixBase<XprType>&mat, TransformTraits trait
  *               or a more generic Affine transformation. The default is Affine.
  *               Other kind of transformations are not supported.
  */
-inline Hyperplane&transform(const Transform<Scalar, AmbientDimAtCompileTime>&t,
+inline Hyperplane&transform(const Transform<Scalar, AmbientDimAtCompileTime> &t,
                             TransformTraits traits = Affine)
 {
     transform(t.linear(), traits);
@@ -281,7 +281,7 @@ inline typename internal::cast_return_type<Hyperplane,
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Hyperplane(const Hyperplane<OtherScalarType, AmbientDimAtCompileTime>&other)
+inline explicit Hyperplane(const Hyperplane<OtherScalarType, AmbientDimAtCompileTime> &other)
 {
     m_coeffs = other.coeffs().template cast<Scalar>();
 }
@@ -290,7 +290,7 @@ inline explicit Hyperplane(const Hyperplane<OtherScalarType, AmbientDimAtCompile
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Hyperplane&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const Hyperplane &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_coeffs.isApprox(other.m_coeffs, prec);
 }

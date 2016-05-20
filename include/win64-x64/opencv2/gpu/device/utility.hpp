@@ -58,7 +58,7 @@ namespace cv
     ///////////////////////////////////////////////////////////////////////////////
     // swap
 
-    template<typename T> void __device__ __host__ __forceinline__ swap(T&a, T&b)
+    template<typename T> void __device__ __host__ __forceinline__ swap(T &a, T &b)
     {
         const T temp = a;
 
@@ -72,7 +72,7 @@ namespace cv
     struct SingleMask
     {
         explicit __host__ __device__ __forceinline__ SingleMask(PtrStepb mask_) : mask(mask_) {}
-        __host__ __device__ __forceinline__ SingleMask(const SingleMask&mask_) : mask(mask_.mask){}
+        __host__ __device__ __forceinline__ SingleMask(const SingleMask &mask_) : mask(mask_.mask){}
 
         __device__ __forceinline__ bool operator()(int y, int x) const
         {
@@ -86,7 +86,7 @@ namespace cv
     {
         __host__ __device__ __forceinline__ SingleMaskChannels(PtrStepb mask_, int channels_)
             : mask(mask_), channels(channels_) {}
-        __host__ __device__ __forceinline__ SingleMaskChannels(const SingleMaskChannels&mask_)
+        __host__ __device__ __forceinline__ SingleMaskChannels(const SingleMaskChannels &mask_)
             : mask(mask_.mask), channels(mask_.channels){}
 
         __device__ __forceinline__ bool operator()(int y, int x) const
@@ -103,7 +103,7 @@ namespace cv
         explicit __host__ __device__ __forceinline__ MaskCollection(PtrStepb *maskCollection_)
             : maskCollection(maskCollection_) {}
 
-        __device__ __forceinline__ MaskCollection(const MaskCollection&masks_)
+        __device__ __forceinline__ MaskCollection(const MaskCollection &masks_)
             : maskCollection(masks_.maskCollection), curMask(masks_.curMask){}
 
         __device__ __forceinline__ void next()

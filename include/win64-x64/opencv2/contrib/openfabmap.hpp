@@ -86,7 +86,7 @@ struct CV_EXPORTS IMatch
     double likelihood;  // raw loglikelihood
     double match;      // normalised probability
 
-    bool operator<(const IMatch&m) const
+    bool operator<(const IMatch &m) const
     {
         return match < m.match;
     }
@@ -109,56 +109,56 @@ enum
     MOTION_MODEL = 16
 };
 
-FabMap(const Mat&clTree, double PzGe, double PzGNe, int flags,
+FabMap(const Mat &clTree, double PzGe, double PzGNe, int flags,
        int numSamples = 0);
 virtual ~FabMap();
 
 // methods to add training data for sampling method
-virtual void addTraining(const Mat&queryImgDescriptor);
-virtual void addTraining(const vector<Mat>&queryImgDescriptors);
+virtual void addTraining(const Mat &queryImgDescriptor);
+virtual void addTraining(const vector<Mat> &queryImgDescriptors);
 
 // methods to add to the test data
-virtual void add(const Mat&queryImgDescriptor);
-virtual void add(const vector<Mat>&queryImgDescriptors);
+virtual void add(const Mat &queryImgDescriptor);
+virtual void add(const vector<Mat> &queryImgDescriptors);
 
 // accessors
 const vector<Mat>&getTrainingImgDescriptors() const;
 const vector<Mat>&getTestImgDescriptors() const;
 
 // Main FabMap image comparison
-void compare(const Mat&queryImgDescriptor,
-             vector<IMatch>&matches, bool addQuery = false,
-             const Mat&mask = Mat());
-void compare(const Mat&queryImgDescriptor,
-             const Mat&testImgDescriptors, vector<IMatch>&matches,
-             const Mat&mask = Mat());
-void compare(const Mat&queryImgDescriptor,
-             const vector<Mat>&testImgDescriptors,
-             vector<IMatch>&matches, const Mat&mask = Mat());
-void compare(const vector<Mat>&queryImgDescriptors, vector<
-                 IMatch>&matches, bool addQuery = false, const Mat&mask =
+void compare(const Mat &queryImgDescriptor,
+             vector<IMatch> &matches, bool addQuery = false,
+             const Mat &mask = Mat());
+void compare(const Mat &queryImgDescriptor,
+             const Mat &testImgDescriptors, vector<IMatch> &matches,
+             const Mat &mask = Mat());
+void compare(const Mat &queryImgDescriptor,
+             const vector<Mat> &testImgDescriptors,
+             vector<IMatch> &matches, const Mat &mask = Mat());
+void compare(const vector<Mat> &queryImgDescriptors, vector<
+                 IMatch> &matches, bool addQuery = false, const Mat &mask =
                  Mat());
-void compare(const vector<Mat>&queryImgDescriptors,
-             const vector<Mat>&testImgDescriptors,
-             vector<IMatch>&matches, const Mat&mask = Mat());
+void compare(const vector<Mat> &queryImgDescriptors,
+             const vector<Mat> &testImgDescriptors,
+             vector<IMatch> &matches, const Mat &mask = Mat());
 
 protected:
 
-void compareImgDescriptor(const Mat&queryImgDescriptor,
-                          int queryIndex, const vector<Mat>&testImgDescriptors,
-                          vector<IMatch>&matches);
+void compareImgDescriptor(const Mat &queryImgDescriptor,
+                          int queryIndex, const vector<Mat> &testImgDescriptors,
+                          vector<IMatch> &matches);
 
-void addImgDescriptor(const Mat&queryImgDescriptor);
+void addImgDescriptor(const Mat &queryImgDescriptor);
 
 // the getLikelihoods method is overwritten for each different FabMap
 // method.
-virtual void getLikelihoods(const Mat&queryImgDescriptor,
-                            const vector<Mat>&testImgDescriptors,
-                            vector<IMatch>&matches);
-virtual double getNewPlaceLikelihood(const Mat&queryImgDescriptor);
+virtual void getLikelihoods(const Mat &queryImgDescriptor,
+                            const vector<Mat> &testImgDescriptors,
+                            vector<IMatch> &matches);
+virtual double getNewPlaceLikelihood(const Mat &queryImgDescriptor);
 
 // turn likelihoods into probabilities (also add in motion model if used)
-void normaliseDistribution(vector<IMatch>&matches);
+void normaliseDistribution(vector<IMatch> &matches);
 
 // Chow-Liu Tree
 int pq(int q);
@@ -197,14 +197,14 @@ int numSamples;
 class CV_EXPORTS FabMap1 : public FabMap
 {
 public:
-FabMap1(const Mat&clTree, double PzGe, double PzGNe, int flags,
+FabMap1(const Mat &clTree, double PzGe, double PzGNe, int flags,
         int numSamples = 0);
 virtual ~FabMap1();
 protected:
 
 // FabMap1 implementation of likelihood comparison
-void getLikelihoods(const Mat&queryImgDescriptor, const vector<
-                        Mat>&testImgDescriptors, vector<IMatch>&matches);
+void getLikelihoods(const Mat &queryImgDescriptor, const vector<
+                        Mat> &testImgDescriptors, vector<IMatch> &matches);
 };
 
 /*
@@ -214,14 +214,14 @@ void getLikelihoods(const Mat&queryImgDescriptor, const vector<
 class CV_EXPORTS FabMapLUT : public FabMap
 {
 public:
-FabMapLUT(const Mat&clTree, double PzGe, double PzGNe,
+FabMapLUT(const Mat &clTree, double PzGe, double PzGNe,
           int flags, int numSamples = 0, int precision = 6);
 virtual ~FabMapLUT();
 protected:
 
 // FabMap look-up-table implementation of the likelihood comparison
-void getLikelihoods(const Mat&queryImgDescriptor, const vector<
-                        Mat>&testImgDescriptors, vector<IMatch>&matches);
+void getLikelihoods(const Mat &queryImgDescriptor, const vector<
+                        Mat> &testImgDescriptors, vector<IMatch> &matches);
 
 // precomputed data
 int (*table)[8];
@@ -237,7 +237,7 @@ int precision;
 class CV_EXPORTS FabMapFBO : public FabMap
 {
 public:
-FabMapFBO(const Mat&clTree, double PzGe, double PzGNe, int flags,
+FabMapFBO(const Mat &clTree, double PzGe, double PzGNe, int flags,
           int numSamples = 0, double rejectionThreshold = 1e-8, double PsGd =
               1e-8, int bisectionStart = 512, int bisectionIts = 9);
 virtual ~FabMapFBO();
@@ -245,8 +245,8 @@ virtual ~FabMapFBO();
 protected:
 
 // FabMap Fast Bail-out implementation of the likelihood comparison
-void getLikelihoods(const Mat&queryImgDescriptor, const vector<
-                        Mat>&testImgDescriptors, vector<IMatch>&matches);
+void getLikelihoods(const Mat &queryImgDescriptor, const vector<
+                        Mat> &testImgDescriptors, vector<IMatch> &matches);
 
 // stucture used to determine word comparison order
 struct WordStats
@@ -262,17 +262,17 @@ struct WordStats
     mutable double V;
     mutable double M;
 
-    bool operator<(const WordStats&w) const
+    bool operator<(const WordStats &w) const
     {
         return info < w.info;
     }
 };
 
 // private fast bail-out necessary functions
-void setWordStatistics(const Mat&queryImgDescriptor, multiset<WordStats>&wordData);
+void setWordStatistics(const Mat &queryImgDescriptor, multiset<WordStats> &wordData);
 double limitbisection(double v, double m);
 double bennettInequality(double v, double m, double delta);
-static bool compInfo(const WordStats&first, const WordStats&second);
+static bool compInfo(const WordStats &first, const WordStats &second);
 
 // parameters
 double PsGd;
@@ -289,37 +289,37 @@ class CV_EXPORTS FabMap2 : public FabMap
 {
 public:
 
-FabMap2(const Mat&clTree, double PzGe, double PzGNe, int flags);
+FabMap2(const Mat &clTree, double PzGe, double PzGNe, int flags);
 virtual ~FabMap2();
 
 // FabMap2 builds the inverted index and requires an additional training/test
 // add function
-void addTraining(const Mat&queryImgDescriptors)
+void addTraining(const Mat &queryImgDescriptors)
 {
     FabMap::addTraining(queryImgDescriptors);
 }
-void addTraining(const vector<Mat>&queryImgDescriptors);
+void addTraining(const vector<Mat> &queryImgDescriptors);
 
-void add(const Mat&queryImgDescriptors)
+void add(const Mat &queryImgDescriptors)
 {
     FabMap::add(queryImgDescriptors);
 }
-void add(const vector<Mat>&queryImgDescriptors);
+void add(const vector<Mat> &queryImgDescriptors);
 
 protected:
 
 // FabMap2 implementation of the likelihood comparison
-void getLikelihoods(const Mat&queryImgDescriptor, const vector<
-                        Mat>&testImgDescriptors, vector<IMatch>&matches);
-double getNewPlaceLikelihood(const Mat&queryImgDescriptor);
+void getLikelihoods(const Mat &queryImgDescriptor, const vector<
+                        Mat> &testImgDescriptors, vector<IMatch> &matches);
+double getNewPlaceLikelihood(const Mat &queryImgDescriptor);
 
 // the likelihood function using the inverted index
-void getIndexLikelihoods(const Mat&queryImgDescriptor, vector<
-                             double>&defaults, map<int, vector<int> >&invertedMap,
-                         vector<IMatch>&matches);
-void addToIndex(const Mat&queryImgDescriptor,
-                vector<double>&defaults,
-                map<int, vector<int> >&invertedMap);
+void getIndexLikelihoods(const Mat &queryImgDescriptor, vector<
+                             double> &defaults, map<int, vector<int> > &invertedMap,
+                         vector<IMatch> &matches);
+void addToIndex(const Mat &queryImgDescriptor,
+                vector<double> &defaults,
+                map<int, vector<int> > &invertedMap);
 
 // data
 vector<double>       d1, d2, d3, d4;
@@ -345,8 +345,8 @@ ChowLiuTree();
 virtual ~ChowLiuTree();
 
 // add data to the chow-liu tree before calling make
-void add(const Mat&imgDescriptor);
-void add(const vector<Mat>&imgDescriptors);
+void add(const Mat &imgDescriptor);
+void add(const vector<Mat> &imgDescriptors);
 
 const vector<Mat>&getImgDescriptors() const;
 
@@ -369,18 +369,18 @@ double JP(int a, bool za, int b, bool zb);     // a & b
 double CP(int a, bool za, int b, bool zb);     // a | b
 
 // calculating mutual information of all edges
-void createBaseEdges(list<info>&edges, double infoThreshold);
+void createBaseEdges(list<info> &edges, double infoThreshold);
 double calcMutInfo(int word1, int word2);
-static bool sortInfoScores(const info&first, const info&second);
+static bool sortInfoScores(const info &first, const info &second);
 
 // selecting minimum spanning egdges with maximum information
-bool reduceEdgesToMinSpan(list<info>&edges);
+bool reduceEdgesToMinSpan(list<info> &edges);
 
 // building the tree sctructure
-Mat buildTree(int root_word, list<info>&edges);
-void recAddToTree(Mat&cltree, int q, int pq,
-                  list<info>&remaining_edges);
-vector<int> extractChildren(list<info>&remaining_edges, int q);
+Mat buildTree(int root_word, list<info> &edges);
+void recAddToTree(Mat &cltree, int q, int pq,
+                  list<info> &remaining_edges);
+vector<int> extractChildren(list<info> &remaining_edges, int q);
 };
 
 /*
@@ -395,7 +395,7 @@ virtual ~BOWMSCTrainer();
 
 // Returns trained vocabulary (i.e. cluster centers).
 virtual Mat cluster() const;
-virtual Mat cluster(const Mat&descriptors) const;
+virtual Mat cluster(const Mat &descriptors) const;
 
 protected:
 

@@ -104,9 +104,9 @@ bool PreemptiveRobustHomography(T H[9],
                                 int num_points,
                                 const T *test_points,
                                 int num_test_points,
-                                std::vector<T>&hyp /* 9*max_num_hypotheses */,
-                                std::vector<int>&tmp_i /* num_points */,
-                                std::vector<std::pair<T, int> >&hyp_costs /* max_num_hypotheses */,
+                                std::vector<T> &hyp /* 9*max_num_hypotheses */,
+                                std::vector<int> &tmp_i /* num_points */,
+                                std::vector<std::pair<T, int> > &hyp_costs /* max_num_hypotheses */,
                                 T scale = HOMOGRAPHY_DEFAULT_CAUCHY_SCALE,
                                 int max_num_hypotheses = HOMOGRAPHY_DEFAULT_NUM_HYPOTHESES,
                                 int max_trials = HOMOGRAPHY_DEFAULT_MAX_TRIALS,
@@ -271,8 +271,8 @@ inline void HomographyLieJacobian(T J[16], T f[2], const T pp[2], const T p[2], 
     // [ 1, 0, y,  0,  x,   -x,  -x^2, -x*y]
     // [ 0, 1,  0, x, -y, -2*y, -x*y,  -y^2]
 
-    const T&x = p[0];
-    const T&y = p[1];
+    const T &x = p[0];
+    const T &y = p[1];
 
     J[0]  = 1;
     J[1]  = 0;
@@ -315,11 +315,11 @@ inline void CauchyDerivative(T J_r[4], T fp[2], const T f[2], T one_over_scale2)
     T dqdf[2];
     T dfdp[2];
 
-    const T&x = f[0];
-    const T&y = f[1];
-    T      x2 = x * x;
-    T      y2 = y * y;
-    T      r2 = x2 + y2;
+    const T &x = f[0];
+    const T &y = f[1];
+    T       x2 = x * x;
+    T       y2 = y * y;
+    T       r2 = x2 + y2;
 
     bool fu_at_zero = false;
 

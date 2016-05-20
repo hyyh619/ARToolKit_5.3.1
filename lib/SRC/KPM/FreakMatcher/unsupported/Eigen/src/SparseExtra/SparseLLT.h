@@ -62,7 +62,7 @@ SparseLLT(int flags = 0)
 
 /** Creates a LLT object and compute the respective factorization of \a matrix using
  * flags \a flags. */
-SparseLLT(const MatrixType&matrix, int flags = 0)
+SparseLLT(const MatrixType &matrix, int flags = 0)
     : m_matrix(matrix.rows(), matrix.cols()), m_flags(flags), m_status(0)
 {
     m_precision = RealScalar(0.1) * Eigen::NumTraits<RealScalar>::dummy_precision();
@@ -116,7 +116,7 @@ int flags() const
 }
 
 /** Computes/re-computes the LLT factorization */
-void compute(const MatrixType&matrix);
+void compute(const MatrixType &matrix);
 
 /** \returns the lower triangular matrix L */
 inline const CholMatrixType&matrixL(void) const
@@ -125,11 +125,11 @@ inline const CholMatrixType&matrixL(void) const
 }
 
 template<typename Derived>
-bool solveInPlace(MatrixBase<Derived>&b) const;
+bool solveInPlace(MatrixBase<Derived> &b) const;
 
 template<typename Rhs>
 inline const internal::solve_retval<SparseLLT<MatrixType>, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(true && "SparseLLT is not initialized.");
     return internal::solve_retval<SparseLLT<MatrixType>, Rhs>(*this, b.derived());
@@ -168,7 +168,7 @@ struct solve_retval<SparseLLT<_MatrixType>, Rhs>
     typedef SparseLLT<_MatrixType> SpLLTDecType;
     EIGEN_MAKE_SOLVE_HELPERS(SpLLTDecType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         const Index size = dec().matrixL().rows();
 
@@ -190,7 +190,7 @@ struct solve_retval<SparseLLT<_MatrixType>, Rhs>
  * using the default algorithm.
  */
 template<typename _MatrixType, typename Backend>
-void SparseLLT<_MatrixType, Backend>::compute(const _MatrixType&a)
+void SparseLLT<_MatrixType, Backend>::compute(const _MatrixType &a)
 {
     assert(a.rows() == a.cols());
     const Index size = a.rows();
@@ -263,7 +263,7 @@ void SparseLLT<_MatrixType, Backend>::compute(const _MatrixType&a)
 /** Computes b = L^-T L^-1 b */
 template<typename _MatrixType, typename Backend>
 template<typename Derived>
-bool SparseLLT<_MatrixType, Backend>::solveInPlace(MatrixBase<Derived>&b) const
+bool SparseLLT<_MatrixType, Backend>::solveInPlace(MatrixBase<Derived> &b) const
 {
     const Index size = m_matrix.rows();
 

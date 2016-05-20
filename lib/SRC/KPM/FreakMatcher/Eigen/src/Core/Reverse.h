@@ -71,7 +71,7 @@ struct traits<Reverse<MatrixType, Direction> >
 
 template<typename PacketScalar, bool ReversePacket> struct reverse_packet_cond
 {
-    static inline PacketScalar run(const PacketScalar&x)
+    static inline PacketScalar run(const PacketScalar &x)
     {
         return preverse(x);
     }
@@ -79,7 +79,7 @@ template<typename PacketScalar, bool ReversePacket> struct reverse_packet_cond
 
 template<typename PacketScalar> struct reverse_packet_cond<PacketScalar, false>
 {
-    static inline PacketScalar run(const PacketScalar&x)
+    static inline PacketScalar run(const PacketScalar &x)
     {
         return x;
     }
@@ -115,7 +115,7 @@ enum
 typedef internal::reverse_packet_cond<PacketScalar, ReversePacket> reverse_packet;
 public:
 
-inline Reverse(const MatrixType&matrix) : m_matrix(matrix) { }
+inline Reverse(const MatrixType &matrix) : m_matrix(matrix) { }
 
 EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Reverse)
 
@@ -176,7 +176,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_matrix.const_cast_derived().template writePacket<LoadMode>(
         ReverseRow ? m_matrix.rows() - row - OffsetRow : row,
@@ -191,7 +191,7 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_matrix.const_cast_derived().template writePacket<LoadMode>(m_matrix.size() - index - PacketSize, internal::preverse(x));
 }

@@ -58,7 +58,7 @@ namespace cv
     {
         typedef D result_type;
 
-        explicit __host__ __device__ __forceinline__ BrdRowConstant(int width_, const D&val_ = VecTraits<D>::all(0)) : width(width_), val(val_) {}
+        explicit __host__ __device__ __forceinline__ BrdRowConstant(int width_, const D &val_ = VecTraits<D>::all(0)) : width(width_), val(val_) {}
 
         template<typename T> __device__ __forceinline__ D at_low(int x, const T *data) const
         {
@@ -83,7 +83,7 @@ namespace cv
     {
         typedef D result_type;
 
-        explicit __host__ __device__ __forceinline__ BrdColConstant(int height_, const D&val_ = VecTraits<D>::all(0)) : height(height_), val(val_) {}
+        explicit __host__ __device__ __forceinline__ BrdColConstant(int height_, const D &val_ = VecTraits<D>::all(0)) : height(height_), val(val_) {}
 
         template<typename T> __device__ __forceinline__ D at_low(int y, const T *data, size_t step) const
         {
@@ -108,7 +108,7 @@ namespace cv
     {
         typedef D result_type;
 
-        __host__ __device__ __forceinline__ BrdConstant(int height_, int width_, const D&val_ = VecTraits<D>::all(0)) : height(height_), width(width_), val(val_)
+        __host__ __device__ __forceinline__ BrdConstant(int height_, int width_, const D &val_ = VecTraits<D>::all(0)) : height(height_), width(width_), val(val_)
         {}
 
         template<typename T> __device__ __forceinline__ D at(int y, int x, const T *data, size_t step) const
@@ -116,7 +116,7 @@ namespace cv
             return (x >= 0 && x < width && y >= 0 && y < height) ? saturate_cast<D>(((const T*)((const uchar*)data + y * step))[x]) : val;
         }
 
-        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D&src) const
+        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D &src) const
         {
             return (x >= 0 && x < width && y >= 0 && y < height) ? saturate_cast<D>(src(y, x)) : val;
         }
@@ -251,7 +251,7 @@ namespace cv
             return saturate_cast<D>(((const T*)((const char*)data + idx_row(y) * step))[idx_col(x)]);
         }
 
-        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D&src) const
+        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D &src) const
         {
             return saturate_cast<D>(src(idx_row(y), idx_col(x)));
         }
@@ -385,7 +385,7 @@ namespace cv
             return saturate_cast<D>(((const T*)((const char*)data + idx_row(y) * step))[idx_col(x)]);
         }
 
-        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D&src) const
+        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D &src) const
         {
             return saturate_cast<D>(src(idx_row(y), idx_col(x)));
         }
@@ -519,7 +519,7 @@ namespace cv
             return saturate_cast<D>(((const T*)((const char*)data + idx_row(y) * step))[idx_col(x)]);
         }
 
-        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D&src) const
+        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D &src) const
         {
             return saturate_cast<D>(src(idx_row(y), idx_col(x)));
         }
@@ -658,7 +658,7 @@ namespace cv
             return saturate_cast<D>(((const T*)((const char*)data + idx_row(y) * step))[idx_col(x)]);
         }
 
-        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D&src) const
+        template<typename Ptr2D> __device__ __forceinline__ D at(typename Ptr2D::index_type y, typename Ptr2D::index_type x, const Ptr2D &src) const
         {
             return saturate_cast<D>(src(idx_row(y), idx_col(x)));
         }
@@ -675,7 +675,7 @@ namespace cv
         typedef typename B::result_type elem_type;
         typedef typename Ptr2D::index_type index_type;
 
-        __host__ __device__ __forceinline__ BorderReader(const Ptr2D&ptr_, const B&b_) : ptr(ptr_), b(b_) {}
+        __host__ __device__ __forceinline__ BorderReader(const Ptr2D &ptr_, const B &b_) : ptr(ptr_), b(b_) {}
 
         __device__ __forceinline__ elem_type operator ()(index_type y, index_type x) const
         {
@@ -693,7 +693,7 @@ namespace cv
         typedef typename BrdConstant<D>::result_type elem_type;
         typedef typename Ptr2D::index_type index_type;
 
-        __host__ __device__ __forceinline__ BorderReader(const Ptr2D&src_, const BrdConstant<D>&b) :
+        __host__ __device__ __forceinline__ BorderReader(const Ptr2D &src_, const BrdConstant<D> &b) :
             src(src_), height(b.height), width(b.width), val(b.val)
         {}
 

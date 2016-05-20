@@ -53,7 +53,7 @@ typedef typename NumTraits<Scalar>::Real RealScalar;
 JacobiRotation() {}
 
 /** Construct a planar rotation from a cosine-sine pair (\a c, \c s). */
-JacobiRotation(const Scalar&c, const Scalar&s) : m_c(c), m_s(s) {}
+JacobiRotation(const Scalar &c, const Scalar &s) : m_c(c), m_s(s) {}
 
 Scalar&c()
 {
@@ -73,7 +73,7 @@ Scalar s() const
 }
 
 /** Concatenates two planar rotation */
-JacobiRotation operator*(const JacobiRotation&other)
+JacobiRotation operator*(const JacobiRotation &other)
 {
     return JacobiRotation(m_c * other.m_c - internal::conj(m_s) * other.m_s,
                           internal::conj(m_c * internal::conj(other.m_s) + internal::conj(m_s) * internal::conj(other.m_c)));
@@ -95,11 +95,11 @@ template<typename Derived>
 bool makeJacobi(const MatrixBase<Derived>&, typename Derived::Index p, typename Derived::Index q);
 bool makeJacobi(RealScalar x, Scalar y, RealScalar z);
 
-void makeGivens(const Scalar&p, const Scalar&q, Scalar *z = 0);
+void makeGivens(const Scalar &p, const Scalar &q, Scalar *z = 0);
 
 protected:
-void makeGivens(const Scalar&p, const Scalar&q, Scalar *z, internal::true_type);
-void makeGivens(const Scalar&p, const Scalar&q, Scalar *z, internal::false_type);
+void makeGivens(const Scalar &p, const Scalar &q, Scalar *z, internal::true_type);
+void makeGivens(const Scalar &p, const Scalar &q, Scalar *z, internal::false_type);
 
 Scalar m_c, m_s;
 };
@@ -152,7 +152,7 @@ bool JacobiRotation<Scalar>::makeJacobi(RealScalar x, Scalar y, RealScalar z)
  */
 template<typename Scalar>
 template<typename Derived>
-inline bool JacobiRotation<Scalar>::makeJacobi(const MatrixBase<Derived>&m, typename Derived::Index p, typename Derived::Index q)
+inline bool JacobiRotation<Scalar>::makeJacobi(const MatrixBase<Derived> &m, typename Derived::Index p, typename Derived::Index q)
 {
     return makeJacobi(internal::real(m.coeff(p, p)), m.coeff(p, q), internal::real(m.coeff(q, q)));
 }
@@ -174,7 +174,7 @@ inline bool JacobiRotation<Scalar>::makeJacobi(const MatrixBase<Derived>&m, type
  * \sa MatrixBase::applyOnTheLeft(), MatrixBase::applyOnTheRight()
  */
 template<typename Scalar>
-void JacobiRotation<Scalar>::makeGivens(const Scalar&p, const Scalar&q, Scalar *z)
+void JacobiRotation<Scalar>::makeGivens(const Scalar &p, const Scalar &q, Scalar *z)
 {
     makeGivens(p, q, z, typename internal::conditional<NumTraits<Scalar>::IsComplex, internal::true_type, internal::false_type>::type());
 }
@@ -182,7 +182,7 @@ void JacobiRotation<Scalar>::makeGivens(const Scalar&p, const Scalar&q, Scalar *
 
 // specialization for complexes
 template<typename Scalar>
-void JacobiRotation<Scalar>::makeGivens(const Scalar&p, const Scalar&q, Scalar *r, internal::true_type)
+void JacobiRotation<Scalar>::makeGivens(const Scalar &p, const Scalar &q, Scalar *r, internal::true_type)
 {
     if (q == Scalar(0))
     {
@@ -241,7 +241,7 @@ void JacobiRotation<Scalar>::makeGivens(const Scalar&p, const Scalar&q, Scalar *
 
 // specialization for reals
 template<typename Scalar>
-void JacobiRotation<Scalar>::makeGivens(const Scalar&p, const Scalar&q, Scalar *r, internal::false_type)
+void JacobiRotation<Scalar>::makeGivens(const Scalar &p, const Scalar &q, Scalar *r, internal::false_type)
 {
     if (q == Scalar(0))
     {
@@ -296,7 +296,7 @@ void JacobiRotation<Scalar>::makeGivens(const Scalar&p, const Scalar&q, Scalar *
 namespace internal
 {
 template<typename VectorX, typename VectorY, typename OtherScalar>
-void apply_rotation_in_the_plane(VectorX&_x, VectorY&_y, const JacobiRotation<OtherScalar>&j);
+void apply_rotation_in_the_plane(VectorX &_x, VectorY &_y, const JacobiRotation<OtherScalar> &j);
 }
 
 /** \jacobi_module
@@ -307,7 +307,7 @@ void apply_rotation_in_the_plane(VectorX&_x, VectorY&_y, const JacobiRotation<Ot
  */
 template<typename Derived>
 template<typename OtherScalar>
-inline void MatrixBase<Derived>::applyOnTheLeft(Index p, Index q, const JacobiRotation<OtherScalar>&j)
+inline void MatrixBase<Derived>::applyOnTheLeft(Index p, Index q, const JacobiRotation<OtherScalar> &j)
 {
     RowXpr x(this->row(p));
     RowXpr y(this->row(q));
@@ -322,7 +322,7 @@ inline void MatrixBase<Derived>::applyOnTheLeft(Index p, Index q, const JacobiRo
  */
 template<typename Derived>
 template<typename OtherScalar>
-inline void MatrixBase<Derived>::applyOnTheRight(Index p, Index q, const JacobiRotation<OtherScalar>&j)
+inline void MatrixBase<Derived>::applyOnTheRight(Index p, Index q, const JacobiRotation<OtherScalar> &j)
 {
     ColXpr x(this->col(p));
     ColXpr y(this->col(q));
@@ -332,7 +332,7 @@ inline void MatrixBase<Derived>::applyOnTheRight(Index p, Index q, const JacobiR
 namespace internal
 {
 template<typename VectorX, typename VectorY, typename OtherScalar>
-void /*EIGEN_DONT_INLINE*/ apply_rotation_in_the_plane(VectorX&_x, VectorY&_y, const JacobiRotation<OtherScalar>&j)
+void /*EIGEN_DONT_INLINE*/ apply_rotation_in_the_plane(VectorX &_x, VectorY &_y, const JacobiRotation<OtherScalar> &j)
 {
     typedef typename VectorX::Index Index;
     typedef typename VectorX::Scalar Scalar;

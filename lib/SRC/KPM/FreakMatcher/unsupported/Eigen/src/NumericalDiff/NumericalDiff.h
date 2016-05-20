@@ -57,15 +57,15 @@ typedef typename Functor::ValueType ValueType;
 typedef typename Functor::JacobianType JacobianType;
 
 NumericalDiff(Scalar _epsfcn = 0.) : Functor(), epsfcn(_epsfcn) {}
-NumericalDiff(const Functor&f, Scalar _epsfcn = 0.) : Functor(f), epsfcn(_epsfcn) {}
+NumericalDiff(const Functor &f, Scalar _epsfcn = 0.) : Functor(f), epsfcn(_epsfcn) {}
 
 // forward constructors
 template<typename T0>
-NumericalDiff(const T0&a0) : Functor(a0), epsfcn(0) {}
+NumericalDiff(const T0 &a0) : Functor(a0), epsfcn(0) {}
 template<typename T0, typename T1>
-NumericalDiff(const T0&a0, const T1&a1) : Functor(a0, a1), epsfcn(0) {}
+NumericalDiff(const T0 &a0, const T1 &a1) : Functor(a0, a1), epsfcn(0) {}
 template<typename T0, typename T1, typename T2>
-NumericalDiff(const T0&a0, const T1&a1, const T2&a2) : Functor(a0, a1, a2), epsfcn(0) {}
+NumericalDiff(const T0 &a0, const T1 &a1, const T2 &a2) : Functor(a0, a1, a2), epsfcn(0) {}
 
 enum
 {
@@ -76,7 +76,7 @@ enum
 /**
  * return the number of evaluation of functor
  */
-int df(const InputType&_x, JacobianType&jac) const
+int df(const InputType &_x, JacobianType &jac) const
 {
     /* Local variables */
     Scalar h;

@@ -83,11 +83,11 @@ inline explicit AlignedBox(Index _dim) : m_min(_dim), m_max(_dim)
 
 /** Constructs a box with extremities \a _min and \a _max. */
 template<typename OtherVectorType1, typename OtherVectorType2>
-inline AlignedBox(const OtherVectorType1&_min, const OtherVectorType2&_max) : m_min(_min), m_max(_max) {}
+inline AlignedBox(const OtherVectorType1 &_min, const OtherVectorType2 &_max) : m_min(_min), m_max(_max) {}
 
 /** Constructs a box containing a single point \a p. */
 template<typename Derived>
-inline explicit AlignedBox(const MatrixBase<Derived>&a_p)
+inline explicit AlignedBox(const MatrixBase<Derived> &a_p)
 {
     const typename internal::nested<Derived, 2>::type p(a_p.derived());
     m_min = p;
@@ -220,21 +220,21 @@ inline VectorType sample() const
 
 /** \returns true if the point \a p is inside the box \c *this. */
 template<typename Derived>
-inline bool contains(const MatrixBase<Derived>&a_p) const
+inline bool contains(const MatrixBase<Derived> &a_p) const
 {
     const typename internal::nested<Derived, 2>::type p(a_p.derived());
     return (m_min.array() <= p.array()).all() && (p.array() <= m_max.array()).all();
 }
 
 /** \returns true if the box \a b is entirely inside the box \c *this. */
-inline bool contains(const AlignedBox&b) const
+inline bool contains(const AlignedBox &b) const
 {
     return (m_min.array() <= (b.min)().array()).all() && ((b.max)().array() <= m_max.array()).all();
 }
 
 /** Extends \c *this such that it contains the point \a p and returns a reference to \c *this. */
 template<typename Derived>
-inline AlignedBox&extend(const MatrixBase<Derived>&a_p)
+inline AlignedBox&extend(const MatrixBase<Derived> &a_p)
 {
     const typename internal::nested<Derived, 2>::type p(a_p.derived());
     m_min = m_min.cwiseMin(p);
@@ -243,7 +243,7 @@ inline AlignedBox&extend(const MatrixBase<Derived>&a_p)
 }
 
 /** Extends \c *this such that it contains the box \a b and returns a reference to \c *this. */
-inline AlignedBox&extend(const AlignedBox&b)
+inline AlignedBox&extend(const AlignedBox &b)
 {
     m_min = m_min.cwiseMin(b.m_min);
     m_max = m_max.cwiseMax(b.m_max);
@@ -251,7 +251,7 @@ inline AlignedBox&extend(const AlignedBox&b)
 }
 
 /** Clamps \c *this by the box \a b and returns a reference to \c *this. */
-inline AlignedBox&clamp(const AlignedBox&b)
+inline AlignedBox&clamp(const AlignedBox &b)
 {
     m_min = m_min.cwiseMax(b.m_min);
     m_max = m_max.cwiseMin(b.m_max);
@@ -259,20 +259,20 @@ inline AlignedBox&clamp(const AlignedBox&b)
 }
 
 /** Returns an AlignedBox that is the intersection of \a b and \c *this */
-inline AlignedBox intersection(const AlignedBox&b) const
+inline AlignedBox intersection(const AlignedBox &b) const
 {
     return AlignedBox(m_min.cwiseMax(b.m_min), m_max.cwiseMin(b.m_max));
 }
 
 /** Returns an AlignedBox that is the union of \a b and \c *this */
-inline AlignedBox merged(const AlignedBox&b) const
+inline AlignedBox merged(const AlignedBox &b) const
 {
     return AlignedBox(m_min.cwiseMin(b.m_min), m_max.cwiseMax(b.m_max));
 }
 
 /** Translate \c *this by the vector \a t and returns a reference to \c *this. */
 template<typename Derived>
-inline AlignedBox&translate(const MatrixBase<Derived>&a_t)
+inline AlignedBox&translate(const MatrixBase<Derived> &a_t)
 {
     const typename internal::nested<Derived, 2>::type t(a_t.derived());
     m_min += t;
@@ -285,20 +285,20 @@ inline AlignedBox&translate(const MatrixBase<Derived>&a_t)
  * \sa exteriorDistance()
  */
 template<typename Derived>
-inline Scalar squaredExteriorDistance(const MatrixBase<Derived>&a_p) const;
+inline Scalar squaredExteriorDistance(const MatrixBase<Derived> &a_p) const;
 
 /** \returns the squared distance between the boxes \a b and \c *this,
  * and zero if the boxes intersect.
  * \sa exteriorDistance()
  */
-inline Scalar squaredExteriorDistance(const AlignedBox&b) const;
+inline Scalar squaredExteriorDistance(const AlignedBox &b) const;
 
 /** \returns the distance between the point \a p and the box \c *this,
  * and zero if \a p is inside the box.
  * \sa squaredExteriorDistance()
  */
 template<typename Derived>
-inline NonInteger exteriorDistance(const MatrixBase<Derived>&p) const
+inline NonInteger exteriorDistance(const MatrixBase<Derived> &p) const
 {
     return internal::sqrt(NonInteger(squaredExteriorDistance(p)));
 }
@@ -307,7 +307,7 @@ inline NonInteger exteriorDistance(const MatrixBase<Derived>&p) const
  * and zero if the boxes intersect.
  * \sa squaredExteriorDistance()
  */
-inline NonInteger exteriorDistance(const AlignedBox&b) const
+inline NonInteger exteriorDistance(const AlignedBox &b) const
 {
     return internal::sqrt(NonInteger(squaredExteriorDistance(b)));
 }
@@ -327,7 +327,7 @@ inline typename internal::cast_return_type<AlignedBox,
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit AlignedBox(const AlignedBox<OtherScalarType, AmbientDimAtCompileTime>&other)
+inline explicit AlignedBox(const AlignedBox<OtherScalarType, AmbientDimAtCompileTime> &other)
 {
     m_min = (other.min)().template cast<Scalar>();
     m_max = (other.max)().template cast<Scalar>();
@@ -337,7 +337,7 @@ inline explicit AlignedBox(const AlignedBox<OtherScalarType, AmbientDimAtCompile
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const AlignedBox&other, RealScalar prec = ScalarTraits::dummy_precision()) const
+bool isApprox(const AlignedBox &other, RealScalar prec = ScalarTraits::dummy_precision()) const
 {
     return m_min.isApprox(other.m_min, prec) && m_max.isApprox(other.m_max, prec);
 }
@@ -351,7 +351,7 @@ VectorType m_min, m_max;
 
 template<typename Scalar, int AmbientDim>
 template<typename Derived>
-inline Scalar AlignedBox<Scalar, AmbientDim>::squaredExteriorDistance(const MatrixBase<Derived>&a_p) const
+inline Scalar AlignedBox<Scalar, AmbientDim>::squaredExteriorDistance(const MatrixBase<Derived> &a_p) const
 {
     const typename internal::nested<Derived, 2*AmbientDim>::type p(a_p.derived());
     Scalar                                                       dist2 = 0.;
@@ -375,7 +375,7 @@ inline Scalar AlignedBox<Scalar, AmbientDim>::squaredExteriorDistance(const Matr
 }
 
 template<typename Scalar, int AmbientDim>
-inline Scalar AlignedBox<Scalar, AmbientDim>::squaredExteriorDistance(const AlignedBox&b) const
+inline Scalar AlignedBox<Scalar, AmbientDim>::squaredExteriorDistance(const AlignedBox &b) const
 {
     Scalar dist2 = 0.;
     Scalar aux;

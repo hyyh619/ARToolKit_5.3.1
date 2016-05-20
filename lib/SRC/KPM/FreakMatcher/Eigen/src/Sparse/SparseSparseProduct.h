@@ -28,7 +28,7 @@
 namespace internal
 {
 template<typename Lhs, typename Rhs, typename ResultType>
-static void sparse_product_impl2(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+static void sparse_product_impl2(const Lhs &lhs, const Rhs &rhs, ResultType &res)
 {
     typedef typename remove_all<Lhs>::type::Scalar Scalar;
     typedef typename remove_all<Lhs>::type::Index Index;
@@ -115,7 +115,7 @@ static void sparse_product_impl2(const Lhs&lhs, const Rhs&rhs, ResultType&res)
 
 // perform a pseudo in-place sparse * sparse product assuming all matrices are col major
 template<typename Lhs, typename Rhs, typename ResultType>
-static void sparse_product_impl(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+static void sparse_product_impl(const Lhs &lhs, const Rhs &rhs, ResultType &res)
 {
 //   return sparse_product_impl2(lhs,rhs,res);
 
@@ -185,7 +185,7 @@ struct sparse_product_selector<Lhs, Rhs, ResultType, ColMajor, ColMajor, ColMajo
 {
     typedef typename traits<typename remove_all<Lhs>::type>::Scalar Scalar;
 
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
 //     std::cerr << __LINE__ << "\n";
         typename remove_all<ResultType>::type _res(res.rows(), res.cols());
@@ -197,7 +197,7 @@ struct sparse_product_selector<Lhs, Rhs, ResultType, ColMajor, ColMajor, ColMajo
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector<Lhs, Rhs, ResultType, ColMajor, ColMajor, RowMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
 //     std::cerr << __LINE__ << "\n";
         // we need a col-major matrix to hold the result
@@ -211,7 +211,7 @@ struct sparse_product_selector<Lhs, Rhs, ResultType, ColMajor, ColMajor, RowMajo
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector<Lhs, Rhs, ResultType, RowMajor, RowMajor, RowMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
 //     std::cerr << __LINE__ << "\n";
         // let's transpose the product to get a column x column product
@@ -224,7 +224,7 @@ struct sparse_product_selector<Lhs, Rhs, ResultType, RowMajor, RowMajor, RowMajo
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector<Lhs, Rhs, ResultType, RowMajor, RowMajor, ColMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
 //     std::cerr << "here...\n";
         typedef SparseMatrix<typename ResultType::Scalar, ColMajor> ColMajorMatrix;
@@ -250,7 +250,7 @@ struct sparse_product_selector<Lhs, Rhs, ResultType, RowMajor, RowMajor, ColMajo
 // sparse = sparse * sparse
 template<typename Derived>
 template<typename Lhs, typename Rhs>
-inline Derived&SparseMatrixBase<Derived>::operator=(const SparseSparseProduct<Lhs, Rhs>&product)
+inline Derived&SparseMatrixBase<Derived>::operator=(const SparseSparseProduct<Lhs, Rhs> &product)
 {
 //   std::cerr << "there..." << typeid(Lhs).name() << "  " << typeid(Lhs).name() << " " << (Derived::Flags&&RowMajorBit) << "\n";
     internal::sparse_product_selector<
@@ -274,7 +274,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, ColMajor, ColMaj
 {
     typedef typename traits<typename remove_all<Lhs>::type>::Scalar Scalar;
 
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         sparse_product_impl2<Lhs, Rhs, ResultType>(lhs, rhs, res);
     }
@@ -283,7 +283,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, ColMajor, ColMaj
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, ColMajor, ColMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         // prevent warnings until the code is fixed
         EIGEN_UNUSED_VARIABLE(lhs);
@@ -301,7 +301,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, ColMajor, ColMaj
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, RowMajor, ColMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         typedef SparseMatrix<typename ResultType::Scalar, RowMajor> RowMajorMatrix;
         RowMajorMatrix lhsRow = lhs;
@@ -314,7 +314,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, RowMajor, ColMaj
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, RowMajor, ColMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         typedef SparseMatrix<typename ResultType::Scalar, RowMajor> RowMajorMatrix;
         RowMajorMatrix resRow(res.rows(), res.cols());
@@ -329,7 +329,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, ColMajor, RowMaj
 {
     typedef typename traits<typename remove_all<Lhs>::type>::Scalar Scalar;
 
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         typedef SparseMatrix<typename ResultType::Scalar, ColMajor> ColMajorMatrix;
         ColMajorMatrix resCol(res.rows(), res.cols());
@@ -341,7 +341,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, ColMajor, RowMaj
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, ColMajor, RowMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         typedef SparseMatrix<typename ResultType::Scalar, ColMajor> ColMajorMatrix;
         ColMajorMatrix lhsCol = lhs;
@@ -354,7 +354,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, ColMajor, RowMaj
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, RowMajor, RowMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         typedef SparseMatrix<typename ResultType::Scalar, ColMajor> ColMajorMatrix;
         ColMajorMatrix rhsCol = rhs;
@@ -367,7 +367,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, ColMajor, RowMajor, RowMaj
 template<typename Lhs, typename Rhs, typename ResultType>
 struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, RowMajor, RowMajor>
 {
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         typedef SparseMatrix<typename ResultType::Scalar, ColMajor> ColMajorMatrix;
 //     ColMajorMatrix lhsTr(lhs);
@@ -388,7 +388,7 @@ struct sparse_product_selector2<Lhs, Rhs, ResultType, RowMajor, RowMajor, RowMaj
 
 template<typename Derived>
 template<typename Lhs, typename Rhs>
-inline void SparseMatrixBase<Derived>::_experimentalNewProduct(const Lhs&lhs, const Rhs&rhs)
+inline void SparseMatrixBase<Derived>::_experimentalNewProduct(const Lhs &lhs, const Rhs &rhs)
 {
     // derived().resize(lhs.rows(), rhs.cols());
     internal::sparse_product_selector2<
@@ -401,7 +401,7 @@ inline void SparseMatrixBase<Derived>::_experimentalNewProduct(const Lhs&lhs, co
 template<typename Derived>
 template<typename OtherDerived>
 inline const typename SparseSparseProductReturnType<Derived, OtherDerived>::Type
-SparseMatrixBase<Derived>::operator*(const SparseMatrixBase<OtherDerived>&other) const
+SparseMatrixBase<Derived>::operator*(const SparseMatrixBase<OtherDerived> &other) const
 {
     return typename SparseSparseProductReturnType<Derived, OtherDerived>::Type(derived(), other.derived());
 }

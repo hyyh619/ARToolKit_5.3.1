@@ -91,7 +91,7 @@ typedef typename traits<SkylineProduct>::_RhsNested _RhsNested;
 public:
 
 template<typename Lhs, typename Rhs>
-EIGEN_STRONG_INLINE SkylineProduct(const Lhs&lhs, const Rhs&rhs)
+EIGEN_STRONG_INLINE SkylineProduct(const Lhs &lhs, const Rhs &rhs)
     : m_lhs(lhs), m_rhs(rhs)
 {
     eigen_assert(lhs.cols() == rhs.rows());
@@ -143,7 +143,7 @@ RhsNested m_rhs;
 // Note that here we force no inlining and separate the setZero() because GCC messes up otherwise
 
 template<typename Lhs, typename Rhs, typename Dest>
-EIGEN_DONT_INLINE void skyline_row_major_time_dense_product(const Lhs&lhs, const Rhs&rhs, Dest&dst)
+EIGEN_DONT_INLINE void skyline_row_major_time_dense_product(const Lhs &lhs, const Rhs &rhs, Dest &dst)
 {
     typedef typename remove_all<Lhs>::type _Lhs;
     typedef typename remove_all<Rhs>::type _Rhs;
@@ -218,7 +218,7 @@ EIGEN_DONT_INLINE void skyline_row_major_time_dense_product(const Lhs&lhs, const
 }
 
 template<typename Lhs, typename Rhs, typename Dest>
-EIGEN_DONT_INLINE void skyline_col_major_time_dense_product(const Lhs&lhs, const Rhs&rhs, Dest&dst)
+EIGEN_DONT_INLINE void skyline_col_major_time_dense_product(const Lhs &lhs, const Rhs &rhs, Dest &dst)
 {
     typedef typename remove_all<Lhs>::type _Lhs;
     typedef typename remove_all<Rhs>::type _Rhs;
@@ -302,7 +302,7 @@ struct skyline_product_selector<Lhs, Rhs, ResultType, RowMajor>
 {
     typedef typename traits<typename remove_all<Lhs>::type>::Scalar Scalar;
 
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         skyline_row_major_time_dense_product<Lhs, Rhs, ResultType> (lhs, rhs, res);
     }
@@ -313,7 +313,7 @@ struct skyline_product_selector<Lhs, Rhs, ResultType, ColMajor>
 {
     typedef typename traits<typename remove_all<Lhs>::type>::Scalar Scalar;
 
-    static void run(const Lhs&lhs, const Rhs&rhs, ResultType&res)
+    static void run(const Lhs &lhs, const Rhs &rhs, ResultType &res)
     {
         skyline_col_major_time_dense_product<Lhs, Rhs, ResultType> (lhs, rhs, res);
     }
@@ -336,7 +336,7 @@ struct skyline_product_selector<Lhs, Rhs, ResultType, ColMajor>
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const typename SkylineProductReturnType<Derived, OtherDerived>::Type
-SkylineMatrixBase<Derived>::operator*(const MatrixBase<OtherDerived>&other) const
+SkylineMatrixBase<Derived>::operator*(const MatrixBase<OtherDerived> &other) const
 {
     return typename SkylineProductReturnType<Derived, OtherDerived>::Type(derived(), other.derived());
 }

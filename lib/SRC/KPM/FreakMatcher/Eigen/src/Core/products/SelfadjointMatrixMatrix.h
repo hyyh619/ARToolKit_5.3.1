@@ -32,7 +32,7 @@ template<typename Scalar, typename Index, int Pack1, int Pack2, int StorageOrder
 struct symm_pack_lhs
 {
     template<int BlockRows> inline
-    void pack(Scalar *blockA, const const_blas_data_mapper<Scalar, Index, StorageOrder>&lhs, Index cols, Index i, Index&count)
+    void pack(Scalar *blockA, const const_blas_data_mapper<Scalar, Index, StorageOrder> &lhs, Index cols, Index i, Index &count)
     {
         // normal copy
         for (Index k = 0; k < i; k++)
@@ -405,7 +405,7 @@ struct SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, RhsMode, false>
 {
     EIGEN_PRODUCT_PUBLIC_INTERFACE(SelfadjointProductMatrix)
 
-    SelfadjointProductMatrix(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs) {}
+    SelfadjointProductMatrix(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs) {}
 
     enum
     {
@@ -415,7 +415,7 @@ struct SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, RhsMode, false>
         RhsIsSelfAdjoint = (RhsMode & SelfAdjoint) == SelfAdjoint
     };
 
-    template<typename Dest> void scaleAndAddTo(Dest&dst, Scalar alpha) const
+    template<typename Dest> void scaleAndAddTo(Dest &dst, Scalar alpha) const
     {
         eigen_assert(dst.rows() == m_lhs.rows() && dst.cols() == m_rhs.cols());
 

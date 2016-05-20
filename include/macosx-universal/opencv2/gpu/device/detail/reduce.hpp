@@ -71,14 +71,14 @@ namespace cv
     struct For
     {
         template<class PointerTuple, class ValTuple>
-        static __device__ void loadToSmem(const PointerTuple&smem, const ValTuple&val, unsigned int tid)
+        static __device__ void loadToSmem(const PointerTuple &smem, const ValTuple &val, unsigned int tid)
         {
             thrust::get<I>(smem)[tid] = thrust::get<I>(val);
 
             For<I + 1, N>::loadToSmem(smem, val, tid);
         }
         template<class PointerTuple, class ValTuple>
-        static __device__ void loadFromSmem(const PointerTuple&smem, const ValTuple&val, unsigned int tid)
+        static __device__ void loadFromSmem(const PointerTuple &smem, const ValTuple &val, unsigned int tid)
         {
             thrust::get<I>(val) = thrust::get<I>(smem)[tid];
 
@@ -86,7 +86,7 @@ namespace cv
         }
 
         template<class PointerTuple, class ValTuple, class OpTuple>
-        static __device__ void merge(const PointerTuple&smem, const ValTuple&val, unsigned int tid, unsigned int delta, const OpTuple&op)
+        static __device__ void merge(const PointerTuple &smem, const ValTuple &val, unsigned int tid, unsigned int delta, const OpTuple &op)
         {
             typename GetType<typename thrust::tuple_element<I, PointerTuple>::type>::type reg = thrust::get<I>(smem)[tid + delta];
             thrust::get<I>(smem)[tid]                                                         = thrust::get<I>(val) = thrust::get<I>(op)(thrust::get<I>(val), reg);
@@ -94,7 +94,7 @@ namespace cv
             For<I + 1, N>::merge(smem, val, tid, delta, op);
         }
         template<class ValTuple, class OpTuple>
-        static __device__ void mergeShfl(const ValTuple&val, unsigned int delta, unsigned int width, const OpTuple&op)
+        static __device__ void mergeShfl(const ValTuple &val, unsigned int delta, unsigned int width, const OpTuple &op)
         {
             typename GetType<typename thrust::tuple_element<I, ValTuple>::type>::type reg = shfl_down(thrust::get<I>(val), delta, width);
             thrust::get<I>(val)                                                           = thrust::get<I>(op)(thrust::get<I>(val), reg);
@@ -121,41 +121,41 @@ namespace cv
     };
 
     template<typename T>
-    __device__ __forceinline__ void loadToSmem(volatile T *smem, T&val, unsigned int tid)
+    __device__ __forceinline__ void loadToSmem(volatile T *smem, T &val, unsigned int tid)
     {
         smem[tid] = val;
     }
     template<typename T>
-    __device__ __forceinline__ void loadFromSmem(volatile T *smem, T&val, unsigned int tid)
+    __device__ __forceinline__ void loadFromSmem(volatile T *smem, T &val, unsigned int tid)
     {
         val = smem[tid];
     }
     template<typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6, typename P7, typename P8, typename P9,
              typename R0, typename R1, typename R2, typename R3, typename R4, typename R5, typename R6, typename R7, typename R8, typename R9>
-    __device__ __forceinline__ void loadToSmem(const thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>&smem,
-                                               const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>&val,
+    __device__ __forceinline__ void loadToSmem(const thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> &smem,
+                                               const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> &val,
                                                unsigned int tid)
     {
         For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> >::value>::loadToSmem(smem, val, tid);
     }
     template<typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6, typename P7, typename P8, typename P9,
              typename R0, typename R1, typename R2, typename R3, typename R4, typename R5, typename R6, typename R7, typename R8, typename R9>
-    __device__ __forceinline__ void loadFromSmem(const thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>&smem,
-                                                 const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>&val,
+    __device__ __forceinline__ void loadFromSmem(const thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> &smem,
+                                                 const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> &val,
                                                  unsigned int tid)
     {
         For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> >::value>::loadFromSmem(smem, val, tid);
     }
 
     template<typename T, class Op>
-    __device__ __forceinline__ void merge(volatile T *smem, T&val, unsigned int tid, unsigned int delta, const Op&op)
+    __device__ __forceinline__ void merge(volatile T *smem, T &val, unsigned int tid, unsigned int delta, const Op &op)
     {
         T reg = smem[tid + delta];
 
         smem[tid] = val = op(val, reg);
     }
     template<typename T, class Op>
-    __device__ __forceinline__ void mergeShfl(T&val, unsigned int delta, unsigned int width, const Op&op)
+    __device__ __forceinline__ void mergeShfl(T &val, unsigned int delta, unsigned int width, const Op &op)
     {
         T reg = shfl_down(val, delta, width);
 
@@ -164,20 +164,20 @@ namespace cv
     template<typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6, typename P7, typename P8, typename P9,
              typename R0, typename R1, typename R2, typename R3, typename R4, typename R5, typename R6, typename R7, typename R8, typename R9,
              class Op0, class Op1, class Op2, class Op3, class Op4, class Op5, class Op6, class Op7, class Op8, class Op9>
-    __device__ __forceinline__ void merge(const thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>&smem,
-                                          const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>&val,
+    __device__ __forceinline__ void merge(const thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> &smem,
+                                          const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> &val,
                                           unsigned int tid,
                                           unsigned int delta,
-                                          const thrust::tuple<Op0, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8, Op9>&op)
+                                          const thrust::tuple<Op0, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8, Op9> &op)
     {
         For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> >::value>::merge(smem, val, tid, delta, op);
     }
     template<typename R0, typename R1, typename R2, typename R3, typename R4, typename R5, typename R6, typename R7, typename R8, typename R9,
              class Op0, class Op1, class Op2, class Op3, class Op4, class Op5, class Op6, class Op7, class Op8, class Op9>
-    __device__ __forceinline__ void mergeShfl(const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>&val,
+    __device__ __forceinline__ void mergeShfl(const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> &val,
                                               unsigned int delta,
                                               unsigned int width,
-                                              const thrust::tuple<Op0, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8, Op9>&op)
+                                              const thrust::tuple<Op0, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8, Op9> &op)
     {
         For<0, thrust::tuple_size<thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> >::value>::mergeShfl(val, delta, width, op);
     }

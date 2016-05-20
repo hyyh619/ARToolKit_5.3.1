@@ -45,7 +45,7 @@ template<typename _DecompositionType, typename Rhs> struct sparse_solve_retval_b
     typedef ReturnByValue<sparse_solve_retval_base> Base;
     typedef typename Base::Index Index;
 
-    sparse_solve_retval_base(const DecompositionType&dec, const Rhs&rhs)
+    sparse_solve_retval_base(const DecompositionType &dec, const Rhs &rhs)
         : m_dec(dec), m_rhs(rhs)
     {}
 
@@ -66,13 +66,13 @@ template<typename _DecompositionType, typename Rhs> struct sparse_solve_retval_b
         return m_rhs;
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         static_cast<const sparse_solve_retval<DecompositionType, Rhs>*>(this)->evalTo(dst);
     }
 
 protected:
-    const DecompositionType&m_dec;
+    const DecompositionType &m_dec;
     const typename Rhs::Nested m_rhs;
 };
 

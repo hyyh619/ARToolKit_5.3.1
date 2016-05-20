@@ -63,7 +63,7 @@ public:
 typedef MatrixBase<DiagonalProduct> Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(DiagonalProduct)
 
-inline DiagonalProduct(const MatrixType&matrix, const DiagonalType&diagonal)
+inline DiagonalProduct(const MatrixType &matrix, const DiagonalType &diagonal)
     : m_matrix(matrix), m_diagonal(diagonal)
 {
     eigen_assert(diagonal.diagonal().size() == (ProductOrder == OnTheLeft ? matrix.rows() : matrix.cols()));
@@ -126,7 +126,7 @@ const typename DiagonalType::Nested m_diagonal;
 template<typename Derived>
 template<typename DiagonalDerived>
 inline const DiagonalProduct<Derived, DiagonalDerived, OnTheRight>
-MatrixBase<Derived>::operator*(const DiagonalBase<DiagonalDerived>&diagonal) const
+MatrixBase<Derived>::operator*(const DiagonalBase<DiagonalDerived> &diagonal) const
 {
     return DiagonalProduct<Derived, DiagonalDerived, OnTheRight>(derived(), diagonal.derived());
 }
@@ -136,7 +136,7 @@ MatrixBase<Derived>::operator*(const DiagonalBase<DiagonalDerived>&diagonal) con
 template<typename DiagonalDerived>
 template<typename MatrixDerived>
 inline const DiagonalProduct<MatrixDerived, DiagonalDerived, OnTheLeft>
-DiagonalBase<DiagonalDerived>::operator*(const MatrixBase<MatrixDerived>&matrix) const
+DiagonalBase<DiagonalDerived>::operator*(const MatrixBase<MatrixDerived> &matrix) const
 {
     return DiagonalProduct<MatrixDerived, DiagonalDerived, OnTheLeft>(matrix.derived(), derived());
 }

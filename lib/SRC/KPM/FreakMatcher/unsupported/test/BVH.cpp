@@ -29,7 +29,7 @@
 
 namespace Eigen
 {
-template<typename Scalar, int Dim> AlignedBox<Scalar, Dim> bounding_box(const Matrix<Scalar, Dim, 1>&v)
+template<typename Scalar, int Dim> AlignedBox<Scalar, Dim> bounding_box(const Matrix<Scalar, Dim, 1> &v)
 {
     return AlignedBox<Scalar, Dim>(v);
 }
@@ -44,12 +44,12 @@ struct Ball
     typedef Matrix<double, Dim, 1> VectorType;
 
     Ball() {}
-    Ball(const VectorType&c, double r) : center(c), radius(r) {}
+    Ball(const VectorType &c, double r) : center(c), radius(r) {}
 
     VectorType center;
     double     radius;
 };
-template<int Dim> AlignedBox<double, Dim> bounding_box(const Ball<Dim>&b)
+template<int Dim> AlignedBox<double, Dim> bounding_box(const Ball<Dim> &b)
 {
     return AlignedBox<double, Dim>(b.center.array() - b.radius, b.center.array() + b.radius);
 }
@@ -68,14 +68,14 @@ struct BallPointStuff // this class provides functions to be both an intersector
     typedef AlignedBox<double, Dim> BoxType;
 
     BallPointStuff() : calls(0), count(0) {}
-    BallPointStuff(const VectorType&inP) : p(inP), calls(0), count(0) {}
+    BallPointStuff(const VectorType &inP) : p(inP), calls(0), count(0) {}
 
 
-    bool intersectVolume(const BoxType&r)
+    bool intersectVolume(const BoxType &r)
     {
         ++calls; return r.contains(p);
     }
-    bool intersectObject(const BallType&b)
+    bool intersectObject(const BallType &b)
     {
         ++calls;
         if ((b.center - p).squaredNorm() < SQR(b.radius))
@@ -84,19 +84,19 @@ struct BallPointStuff // this class provides functions to be both an intersector
         return false; // continue
     }
 
-    bool intersectVolumeVolume(const BoxType&r1, const BoxType&r2)
+    bool intersectVolumeVolume(const BoxType &r1, const BoxType &r2)
     {
         ++calls; return !(r1.intersection(r2)).isNull();
     }
-    bool intersectVolumeObject(const BoxType&r, const BallType&b)
+    bool intersectVolumeObject(const BoxType &r, const BallType &b)
     {
         ++calls; return r.squaredExteriorDistance(b.center) < SQR(b.radius);
     }
-    bool intersectObjectVolume(const BallType&b, const BoxType&r)
+    bool intersectObjectVolume(const BallType &b, const BoxType &r)
     {
         ++calls; return r.squaredExteriorDistance(b.center) < SQR(b.radius);
     }
-    bool intersectObjectObject(const BallType&b1, const BallType&b2)
+    bool intersectObjectObject(const BallType &b1, const BallType &b2)
     {
         ++calls;
         if ((b1.center - b2.center).norm() < b1.radius + b2.radius)
@@ -104,11 +104,11 @@ struct BallPointStuff // this class provides functions to be both an intersector
 
         return false;
     }
-    bool intersectVolumeObject(const BoxType&r, const VectorType&v)
+    bool intersectVolumeObject(const BoxType &r, const VectorType &v)
     {
         ++calls; return r.contains(v);
     }
-    bool intersectObjectObject(const BallType&b, const VectorType&v)
+    bool intersectObjectObject(const BallType &b, const VectorType &v)
     {
         ++calls;
         if ((b.center - v).squaredNorm() < SQR(b.radius))
@@ -117,35 +117,35 @@ struct BallPointStuff // this class provides functions to be both an intersector
         return false;
     }
 
-    double minimumOnVolume(const BoxType&r)
+    double minimumOnVolume(const BoxType &r)
     {
         ++calls; return r.squaredExteriorDistance(p);
     }
-    double minimumOnObject(const BallType&b)
+    double minimumOnObject(const BallType &b)
     {
         ++calls; return (std::max)(0., (b.center - p).squaredNorm() - SQR(b.radius));
     }
-    double minimumOnVolumeVolume(const BoxType&r1, const BoxType&r2)
+    double minimumOnVolumeVolume(const BoxType &r1, const BoxType &r2)
     {
         ++calls; return r1.squaredExteriorDistance(r2);
     }
-    double minimumOnVolumeObject(const BoxType&r, const BallType&b)
+    double minimumOnVolumeObject(const BoxType &r, const BallType &b)
     {
         ++calls; return SQR((std::max)(0., r.exteriorDistance(b.center) - b.radius));
     }
-    double minimumOnObjectVolume(const BallType&b, const BoxType&r)
+    double minimumOnObjectVolume(const BallType &b, const BoxType &r)
     {
         ++calls; return SQR((std::max)(0., r.exteriorDistance(b.center) - b.radius));
     }
-    double minimumOnObjectObject(const BallType&b1, const BallType&b2)
+    double minimumOnObjectObject(const BallType &b1, const BallType &b2)
     {
         ++calls; return SQR((std::max)(0., (b1.center - b2.center).norm() - b1.radius - b2.radius));
     }
-    double minimumOnVolumeObject(const BoxType&r, const VectorType&v)
+    double minimumOnVolumeObject(const BoxType &r, const VectorType &v)
     {
         ++calls; return r.squaredExteriorDistance(v);
     }
-    double minimumOnObjectObject(const BallType&b, const VectorType&v)
+    double minimumOnObjectObject(const BallType &b, const VectorType &v)
     {
         ++calls; return SQR((std::max)(0., (b.center - v).norm() - b.radius));
     }

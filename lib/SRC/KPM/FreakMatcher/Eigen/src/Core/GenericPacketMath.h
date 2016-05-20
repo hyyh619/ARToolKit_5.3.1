@@ -108,97 +108,97 @@ template<typename T> struct packet_traits : default_packet_traits
 
 /** \internal \returns a + b (coeff-wise) */
 template<typename Packet> inline Packet
-padd(const Packet&a,
-     const Packet&b)
+padd(const Packet &a,
+     const Packet &b)
 {
     return a + b;
 }
 
 /** \internal \returns a - b (coeff-wise) */
 template<typename Packet> inline Packet
-psub(const Packet&a,
-     const Packet&b)
+psub(const Packet &a,
+     const Packet &b)
 {
     return a - b;
 }
 
 /** \internal \returns -a (coeff-wise) */
 template<typename Packet> inline Packet
-pnegate(const Packet&a)
+pnegate(const Packet &a)
 {
     return -a;
 }
 
 /** \internal \returns conj(a) (coeff-wise) */
 template<typename Packet> inline Packet
-pconj(const Packet&a)
+pconj(const Packet &a)
 {
     return conj(a);
 }
 
 /** \internal \returns a * b (coeff-wise) */
 template<typename Packet> inline Packet
-pmul(const Packet&a,
-     const Packet&b)
+pmul(const Packet &a,
+     const Packet &b)
 {
     return a * b;
 }
 
 /** \internal \returns a / b (coeff-wise) */
 template<typename Packet> inline Packet
-pdiv(const Packet&a,
-     const Packet&b)
+pdiv(const Packet &a,
+     const Packet &b)
 {
     return a / b;
 }
 
 /** \internal \returns the min of \a a and \a b  (coeff-wise) */
 template<typename Packet> inline Packet
-pmin(const Packet&a,
-     const Packet&b)
+pmin(const Packet &a,
+     const Packet &b)
 {
     using std::min; return (min)(a, b);
 }
 
 /** \internal \returns the max of \a a and \a b  (coeff-wise) */
 template<typename Packet> inline Packet
-pmax(const Packet&a,
-     const Packet&b)
+pmax(const Packet &a,
+     const Packet &b)
 {
     using std::max; return (max)(a, b);
 }
 
 /** \internal \returns the absolute value of \a a */
 template<typename Packet> inline Packet
-pabs(const Packet&a)
+pabs(const Packet &a)
 {
     return abs(a);
 }
 
 /** \internal \returns the bitwise and of \a a and \a b */
 template<typename Packet> inline Packet
-pand(const Packet&a, const Packet&b)
+pand(const Packet &a, const Packet &b)
 {
     return a & b;
 }
 
 /** \internal \returns the bitwise or of \a a and \a b */
 template<typename Packet> inline Packet
-por(const Packet&a, const Packet&b)
+por(const Packet &a, const Packet &b)
 {
     return a | b;
 }
 
 /** \internal \returns the bitwise xor of \a a and \a b */
 template<typename Packet> inline Packet
-pxor(const Packet&a, const Packet&b)
+pxor(const Packet &a, const Packet &b)
 {
     return a ^ b;
 }
 
 /** \internal \returns the bitwise andnot of \a a and \a b */
 template<typename Packet> inline Packet
-pandnot(const Packet&a, const Packet&b)
+pandnot(const Packet &a, const Packet &b)
 {
     return a & (!b);
 }
@@ -226,26 +226,26 @@ ploaddup(const typename unpacket_traits<Packet>::type *from)
 
 /** \internal \returns a packet with constant coefficients \a a, e.g.: (a,a,a,a) */
 template<typename Packet> inline Packet
-pset1(const typename unpacket_traits<Packet>::type&a)
+pset1(const typename unpacket_traits<Packet>::type &a)
 {
     return a;
 }
 
 /** \internal \brief Returns a packet with coefficients (a,a+1,...,a+packet_size-1). */
 template<typename Scalar> inline typename packet_traits<Scalar>::type
-plset(const Scalar&a)
+plset(const Scalar &a)
 {
     return a;
 }
 
 /** \internal copy the packet \a from to \a *to, \a to must be 16 bytes aligned */
-template<typename Scalar, typename Packet> inline void pstore(Scalar *to, const Packet&from)
+template<typename Scalar, typename Packet> inline void pstore(Scalar *to, const Packet &from)
 {
     (*to) = from;
 }
 
 /** \internal copy the packet \a from to \a *to, (un-aligned store) */
-template<typename Scalar, typename Packet> inline void pstoreu(Scalar *to, const Packet&from)
+template<typename Scalar, typename Packet> inline void pstoreu(Scalar *to, const Packet &from)
 {
     (*to) = from;
 }
@@ -259,7 +259,7 @@ template<typename Scalar> inline void prefetch(const Scalar *addr)
 }
 
 /** \internal \returns the first element of a packet */
-template<typename Packet> inline typename unpacket_traits<Packet>::type pfirst(const Packet&a)
+template<typename Packet> inline typename unpacket_traits<Packet>::type pfirst(const Packet &a)
 {
     return a;
 }
@@ -272,38 +272,38 @@ preduxp(const Packet *vecs)
 }
 
 /** \internal \returns the sum of the elements of \a a*/
-template<typename Packet> inline typename unpacket_traits<Packet>::type predux(const Packet&a)
+template<typename Packet> inline typename unpacket_traits<Packet>::type predux(const Packet &a)
 {
     return a;
 }
 
 /** \internal \returns the product of the elements of \a a*/
-template<typename Packet> inline typename unpacket_traits<Packet>::type predux_mul(const Packet&a)
+template<typename Packet> inline typename unpacket_traits<Packet>::type predux_mul(const Packet &a)
 {
     return a;
 }
 
 /** \internal \returns the min of the elements of \a a*/
-template<typename Packet> inline typename unpacket_traits<Packet>::type predux_min(const Packet&a)
+template<typename Packet> inline typename unpacket_traits<Packet>::type predux_min(const Packet &a)
 {
     return a;
 }
 
 /** \internal \returns the max of the elements of \a a*/
-template<typename Packet> inline typename unpacket_traits<Packet>::type predux_max(const Packet&a)
+template<typename Packet> inline typename unpacket_traits<Packet>::type predux_max(const Packet &a)
 {
     return a;
 }
 
 /** \internal \returns the reversed elements of \a a*/
-template<typename Packet> inline Packet preverse(const Packet&a)
+template<typename Packet> inline Packet preverse(const Packet &a)
 {
     return a;
 }
 
 
 /** \internal \returns \a a with real and imaginary part flipped (for complex type only) */
-template<typename Packet> inline Packet pcplxflip(const Packet&a)
+template<typename Packet> inline Packet pcplxflip(const Packet &a)
 {
     return Packet(imag(a), real(a));
 }
@@ -314,56 +314,56 @@ template<typename Packet> inline Packet pcplxflip(const Packet&a)
 
 /** \internal \returns the sine of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet psin(const Packet&a)
+Packet psin(const Packet &a)
 {
     return sin(a);
 }
 
 /** \internal \returns the cosine of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet pcos(const Packet&a)
+Packet pcos(const Packet &a)
 {
     return cos(a);
 }
 
 /** \internal \returns the tan of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet ptan(const Packet&a)
+Packet ptan(const Packet &a)
 {
     return tan(a);
 }
 
 /** \internal \returns the arc sine of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet pasin(const Packet&a)
+Packet pasin(const Packet &a)
 {
     return asin(a);
 }
 
 /** \internal \returns the arc cosine of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet pacos(const Packet&a)
+Packet pacos(const Packet &a)
 {
     return acos(a);
 }
 
 /** \internal \returns the exp of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet pexp(const Packet&a)
+Packet pexp(const Packet &a)
 {
     return exp(a);
 }
 
 /** \internal \returns the log of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet plog(const Packet&a)
+Packet plog(const Packet &a)
 {
     return log(a);
 }
 
 /** \internal \returns the square-root of \a a (coeff-wise) */
 template<typename Packet> EIGEN_DECLARE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS
-Packet psqrt(const Packet&a)
+Packet psqrt(const Packet &a)
 {
     return sqrt(a);
 }
@@ -375,16 +375,16 @@ Packet psqrt(const Packet&a)
 /** \internal copy a packet with constant coeficient \a a (e.g., [a,a,a,a]) to \a *to. \a to must be 16 bytes aligned */
 // NOTE: this function must really be templated on the packet type (think about different packet types for the same scalar type)
 template<typename Packet>
-inline void pstore1(typename unpacket_traits<Packet>::type *to, const typename unpacket_traits<Packet>::type&a)
+inline void pstore1(typename unpacket_traits<Packet>::type *to, const typename unpacket_traits<Packet>::type &a)
 {
     pstore(to, pset1<Packet>(a));
 }
 
 /** \internal \returns a * b + c (coeff-wise) */
 template<typename Packet> inline Packet
-pmadd(const Packet&a,
-      const Packet&b,
-      const Packet&c)
+pmadd(const Packet &a,
+      const Packet &b,
+      const Packet &c)
 {
     return padd(pmul(a, b), c);
 }
@@ -403,7 +403,7 @@ inline Packet ploadt(const typename unpacket_traits<Packet>::type *from)
 /** \internal copy the packet \a from to \a *to.
  * If StoreMode equals #Aligned, \a to must be 16 bytes aligned */
 template<typename Scalar, typename Packet, int LoadMode>
-inline void pstoret(Scalar *to, const Packet&from)
+inline void pstoret(Scalar *to, const Packet &from)
 {
     if (LoadMode == Aligned)
         pstore(to, from);
@@ -422,7 +422,7 @@ struct palign_impl
 /** \internal update \a first using the concatenation of the \a Offset last elements
  * of \a first and packet_size minus \a Offset first elements of \a second */
 template<int Offset, typename PacketType>
-inline void palign(PacketType&first, const PacketType&second)
+inline void palign(PacketType &first, const PacketType &second)
 {
     palign_impl<Offset, PacketType>::run(first, second);
 }
@@ -431,12 +431,12 @@ inline void palign(PacketType&first, const PacketType&second)
 * Fast complex products (GCC generates a function call which is very slow)
 ***************************************************************************/
 
-template<> inline std::complex<float> pmul(const std::complex<float>&a, const std::complex<float>&b)
+template<> inline std::complex<float> pmul(const std::complex<float> &a, const std::complex<float> &b)
 {
     return std::complex<float>(real(a) * real(b) - imag(a) * imag(b), imag(a) * real(b) + real(a) * imag(b));
 }
 
-template<> inline std::complex<double> pmul(const std::complex<double>&a, const std::complex<double>&b)
+template<> inline std::complex<double> pmul(const std::complex<double> &a, const std::complex<double> &b)
 {
     return std::complex<double>(real(a) * real(b) - imag(a) * imag(b), imag(a) * real(b) + real(a) * imag(b));
 }

@@ -66,7 +66,7 @@ namespace cv
         }
 
         template<typename It, typename T>
-        static __device__ __forceinline__ void fill(It beg, It end, const T&value)
+        static __device__ __forceinline__ void fill(It beg, It end, const T &value)
         {
             for (It t = beg + laneId(); t < end; t += STRIDE)
                 *t = value;

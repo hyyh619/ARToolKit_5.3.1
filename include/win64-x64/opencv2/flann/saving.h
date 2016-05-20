@@ -114,7 +114,7 @@ struct IndexHeader
  * @param index - The index to save
  */
 template<typename Distance>
-void save_header(FILE *stream, const NNIndex<Distance>&index)
+void save_header(FILE *stream, const NNIndex<Distance> &index)
 {
     IndexHeader header;
 
@@ -156,20 +156,20 @@ inline IndexHeader load_header(FILE *stream)
 
 
 template<typename T>
-void save_value(FILE *stream, const T&value, size_t count = 1)
+void save_value(FILE *stream, const T &value, size_t count = 1)
 {
     fwrite(&value, sizeof(value), count, stream);
 }
 
 template<typename T>
-void save_value(FILE *stream, const cvflann::Matrix<T>&value)
+void save_value(FILE *stream, const cvflann::Matrix<T> &value)
 {
     fwrite(&value, sizeof(value), 1, stream);
     fwrite(value.data, sizeof(T), value.rows * value.cols, stream);
 }
 
 template<typename T>
-void save_value(FILE *stream, const std::vector<T>&value)
+void save_value(FILE *stream, const std::vector<T> &value)
 {
     size_t size = value.size();
 
@@ -178,7 +178,7 @@ void save_value(FILE *stream, const std::vector<T>&value)
 }
 
 template<typename T>
-void load_value(FILE *stream, T&value, size_t count = 1)
+void load_value(FILE *stream, T &value, size_t count = 1)
 {
     size_t read_cnt = fread(&value, sizeof(value), count, stream);
 
@@ -189,7 +189,7 @@ void load_value(FILE *stream, T&value, size_t count = 1)
 }
 
 template<typename T>
-void load_value(FILE *stream, cvflann::Matrix<T>&value)
+void load_value(FILE *stream, cvflann::Matrix<T> &value)
 {
     size_t read_cnt = fread(&value, sizeof(value), 1, stream);
 
@@ -208,7 +208,7 @@ void load_value(FILE *stream, cvflann::Matrix<T>&value)
 
 
 template<typename T>
-void load_value(FILE *stream, std::vector<T>&value)
+void load_value(FILE *stream, std::vector<T> &value)
 {
     size_t size;
     size_t read_cnt = fread(&size, sizeof(size_t), 1, stream);

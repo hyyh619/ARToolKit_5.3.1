@@ -6,13 +6,13 @@ namespace internal
 {
 template<typename Scalar>
 void chkder(
-    const Matrix<Scalar, Dynamic, 1>&x,
-    const Matrix<Scalar, Dynamic, 1>&fvec,
-    const Matrix<Scalar, Dynamic, Dynamic>&fjac,
-    Matrix<Scalar, Dynamic, 1>&xp,
-    const Matrix<Scalar, Dynamic, 1>&fvecp,
+    const Matrix<Scalar, Dynamic, 1> &x,
+    const Matrix<Scalar, Dynamic, 1> &fvec,
+    const Matrix<Scalar, Dynamic, Dynamic> &fjac,
+    Matrix<Scalar, Dynamic, 1> &xp,
+    const Matrix<Scalar, Dynamic, 1> &fvecp,
     int mode,
-    Matrix<Scalar, Dynamic, 1>&err
+    Matrix<Scalar, Dynamic, 1> &err
     )
 {
     typedef DenseIndex Index;

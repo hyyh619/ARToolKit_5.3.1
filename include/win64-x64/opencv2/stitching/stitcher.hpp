@@ -148,7 +148,7 @@ const cv::Mat&matchingMask() const
 {
     return matching_mask_;
 }
-void setMatchingMask(const cv::Mat&mask)
+void setMatchingMask(const cv::Mat &mask)
 {
     CV_Assert(mask.type() == CV_8U && mask.cols == mask.rows);
     matching_mask_ = mask.clone();
@@ -220,13 +220,13 @@ void setBlender(Ptr<detail::Blender> b)
 }
 
 Status estimateTransform(InputArray images);
-Status estimateTransform(InputArray images, const std::vector<std::vector<Rect> >&rois);
+Status estimateTransform(InputArray images, const std::vector<std::vector<Rect> > &rois);
 
 Status composePanorama(OutputArray pano);
 Status composePanorama(InputArray images, OutputArray pano);
 
 Status stitch(InputArray images, OutputArray pano);
-Status stitch(InputArray images, const std::vector<std::vector<Rect> >&rois, OutputArray pano);
+Status stitch(InputArray images, const std::vector<std::vector<Rect> > &rois, OutputArray pano);
 
 std::vector<int> component() const
 {

@@ -105,7 +105,7 @@ inline explicit DenseStorage() {}
 inline DenseStorage(internal::constructor_without_unaligned_array_assert)
     : m_data(internal::constructor_without_unaligned_array_assert()) {}
 inline DenseStorage(DenseIndex, DenseIndex, DenseIndex) {}
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data);
 }
@@ -168,7 +168,7 @@ inline explicit DenseStorage() : m_rows(0), m_cols(0) {}
 inline DenseStorage(internal::constructor_without_unaligned_array_assert)
     : m_data(internal::constructor_without_unaligned_array_assert()), m_rows(0), m_cols(0) {}
 inline DenseStorage(DenseIndex, DenseIndex rows, DenseIndex cols) : m_rows(rows), m_cols(cols) {}
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data); std::swap(m_rows, other.m_rows); std::swap(m_cols, other.m_cols);
 }
@@ -208,7 +208,7 @@ inline explicit DenseStorage() : m_rows(0) {}
 inline DenseStorage(internal::constructor_without_unaligned_array_assert)
     : m_data(internal::constructor_without_unaligned_array_assert()), m_rows(0) {}
 inline DenseStorage(DenseIndex, DenseIndex rows, DenseIndex) : m_rows(rows) {}
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data); std::swap(m_rows, other.m_rows);
 }
@@ -248,7 +248,7 @@ inline explicit DenseStorage() : m_cols(0) {}
 inline DenseStorage(internal::constructor_without_unaligned_array_assert)
     : m_data(internal::constructor_without_unaligned_array_assert()), m_cols(0) {}
 inline DenseStorage(DenseIndex, DenseIndex, DenseIndex cols) : m_cols(cols) {}
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data); std::swap(m_cols, other.m_cols);
 }
@@ -297,7 +297,7 @@ inline ~DenseStorage()
 {
     internal::conditional_aligned_delete_auto<T, (_Options&DontAlign) == 0>(m_data, m_rows * m_cols);
 }
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data); std::swap(m_rows, other.m_rows); std::swap(m_cols, other.m_cols);
 }
@@ -357,7 +357,7 @@ inline ~DenseStorage()
 {
     internal::conditional_aligned_delete_auto<T, (_Options&DontAlign) == 0>(m_data, _Rows * m_cols);
 }
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data); std::swap(m_cols, other.m_cols);
 }
@@ -415,7 +415,7 @@ inline ~DenseStorage()
 {
     internal::conditional_aligned_delete_auto<T, (_Options&DontAlign) == 0>(m_data, _Cols * m_rows);
 }
-inline void swap(DenseStorage&other)
+inline void swap(DenseStorage &other)
 {
     std::swap(m_data, other.m_data); std::swap(m_rows, other.m_rows);
 }

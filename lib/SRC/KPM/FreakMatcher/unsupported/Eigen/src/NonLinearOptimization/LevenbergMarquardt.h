@@ -62,7 +62,7 @@ template<typename FunctorType, typename Scalar = double>
 class LevenbergMarquardt
 {
 public:
-LevenbergMarquardt(FunctorType&_functor)
+LevenbergMarquardt(FunctorType &_functor)
     : functor(_functor)
 {
     nfev = njev = iter = 0;  fnorm = gnorm = 0.; useExternalScaling = false;
@@ -91,29 +91,29 @@ typedef Matrix<Scalar, Dynamic, 1> FVectorType;
 typedef Matrix<Scalar, Dynamic, Dynamic> JacobianType;
 
 LevenbergMarquardtSpace::Status lmder1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
     );
 
-LevenbergMarquardtSpace::Status minimize(FVectorType&x);
-LevenbergMarquardtSpace::Status minimizeInit(FVectorType&x);
-LevenbergMarquardtSpace::Status minimizeOneStep(FVectorType&x);
+LevenbergMarquardtSpace::Status minimize(FVectorType &x);
+LevenbergMarquardtSpace::Status minimizeInit(FVectorType &x);
+LevenbergMarquardtSpace::Status minimizeOneStep(FVectorType &x);
 
 static LevenbergMarquardtSpace::Status lmdif1(
-    FunctorType&functor,
-    FVectorType&x,
+    FunctorType &functor,
+    FVectorType &x,
     Index *nfev,
     const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
     );
 
 LevenbergMarquardtSpace::Status lmstr1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
     );
 
-LevenbergMarquardtSpace::Status minimizeOptimumStorage(FVectorType&x);
-LevenbergMarquardtSpace::Status minimizeOptimumStorageInit(FVectorType&x);
-LevenbergMarquardtSpace::Status minimizeOptimumStorageOneStep(FVectorType&x);
+LevenbergMarquardtSpace::Status minimizeOptimumStorage(FVectorType &x);
+LevenbergMarquardtSpace::Status minimizeOptimumStorageInit(FVectorType &x);
+LevenbergMarquardtSpace::Status minimizeOptimumStorageOneStep(FVectorType &x);
 
 void resetParameters(void)
 {
@@ -152,7 +152,7 @@ LevenbergMarquardt&operator=(const LevenbergMarquardt&);
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
 LevenbergMarquardt<FunctorType, Scalar>::lmder1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol
     )
 {
@@ -174,7 +174,7 @@ LevenbergMarquardt<FunctorType, Scalar>::lmder1(
 
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
-LevenbergMarquardt<FunctorType, Scalar>::minimize(FVectorType&x)
+LevenbergMarquardt<FunctorType, Scalar>::minimize(FVectorType &x)
 {
     LevenbergMarquardtSpace::Status status = minimizeInit(x);
 
@@ -192,7 +192,7 @@ LevenbergMarquardt<FunctorType, Scalar>::minimize(FVectorType&x)
 
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
-LevenbergMarquardt<FunctorType, Scalar>::minimizeInit(FVectorType&x)
+LevenbergMarquardt<FunctorType, Scalar>::minimizeInit(FVectorType &x)
 {
     n = x.size();
     m = functor.values();
@@ -237,7 +237,7 @@ LevenbergMarquardt<FunctorType, Scalar>::minimizeInit(FVectorType&x)
 
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
-LevenbergMarquardt<FunctorType, Scalar>::minimizeOneStep(FVectorType&x)
+LevenbergMarquardt<FunctorType, Scalar>::minimizeOneStep(FVectorType &x)
 {
     assert(x.size() == n); // check the caller is not cheating us
 
@@ -400,7 +400,7 @@ LevenbergMarquardt<FunctorType, Scalar>::minimizeOneStep(FVectorType&x)
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
 LevenbergMarquardt<FunctorType, Scalar>::lmstr1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol
     )
 {
@@ -421,7 +421,7 @@ LevenbergMarquardt<FunctorType, Scalar>::lmstr1(
 
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
-LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorageInit(FVectorType&x)
+LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorageInit(FVectorType &x)
 {
     n = x.size();
     m = functor.values();
@@ -472,7 +472,7 @@ LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorageInit(FVectorType&
 
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
-LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorageOneStep(FVectorType&x)
+LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorageOneStep(FVectorType &x)
 {
     assert(x.size() == n); // check the caller is not cheating us
 
@@ -680,7 +680,7 @@ LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorageOneStep(FVectorTy
 
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
-LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorage(FVectorType&x)
+LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorage(FVectorType &x)
 {
     LevenbergMarquardtSpace::Status status = minimizeOptimumStorageInit(x);
 
@@ -699,8 +699,8 @@ LevenbergMarquardt<FunctorType, Scalar>::minimizeOptimumStorage(FVectorType&x)
 template<typename FunctorType, typename Scalar>
 LevenbergMarquardtSpace::Status
 LevenbergMarquardt<FunctorType, Scalar>::lmdif1(
-    FunctorType&functor,
-    FVectorType&x,
+    FunctorType &functor,
+    FVectorType &x,
     Index *nfev,
     const Scalar tol
     )

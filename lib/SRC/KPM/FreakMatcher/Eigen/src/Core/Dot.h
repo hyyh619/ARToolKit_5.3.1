@@ -42,7 +42,7 @@ template<typename T, typename U,
 struct dot_nocheck
 {
     typedef typename scalar_product_traits<typename traits<T>::Scalar, typename traits<U>::Scalar>::ReturnType ResScalar;
-    static inline ResScalar run(const MatrixBase<T>&a, const MatrixBase<U>&b)
+    static inline ResScalar run(const MatrixBase<T> &a, const MatrixBase<U> &b)
     {
         return a.template binaryExpr<scalar_conj_product_op<typename traits<T>::Scalar, typename traits<U>::Scalar> >(b).sum();
     }
@@ -52,7 +52,7 @@ template<typename T, typename U>
 struct dot_nocheck<T, U, true>
 {
     typedef typename scalar_product_traits<typename traits<T>::Scalar, typename traits<U>::Scalar>::ReturnType ResScalar;
-    static inline ResScalar run(const MatrixBase<T>&a, const MatrixBase<U>&b)
+    static inline ResScalar run(const MatrixBase<T> &a, const MatrixBase<U> &b)
     {
         return a.transpose().template binaryExpr<scalar_conj_product_op<typename traits<T>::Scalar, typename traits<U>::Scalar> >(b).sum();
     }
@@ -72,7 +72,7 @@ struct dot_nocheck<T, U, true>
 template<typename Derived>
 template<typename OtherDerived>
 typename internal::scalar_product_traits<typename internal::traits<Derived>::Scalar, typename internal::traits<OtherDerived>::Scalar>::ReturnType
-MatrixBase<Derived>::dot(const MatrixBase<OtherDerived>&other) const
+MatrixBase<Derived>::dot(const MatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
@@ -98,7 +98,7 @@ MatrixBase<Derived>::dot(const MatrixBase<OtherDerived>&other) const
 template<typename Derived>
 template<typename OtherDerived>
 typename internal::traits<Derived>::Scalar
-MatrixBase<Derived>::eigen2_dot(const MatrixBase<OtherDerived>&other) const
+MatrixBase<Derived>::eigen2_dot(const MatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
@@ -175,7 +175,7 @@ template<typename Derived, int p>
 struct lpNorm_selector
 {
     typedef typename NumTraits<typename traits<Derived>::Scalar>::Real RealScalar;
-    inline static RealScalar run(const MatrixBase<Derived>&m)
+    inline static RealScalar run(const MatrixBase<Derived> &m)
     {
         return pow(m.cwiseAbs().array().pow(p).sum(), RealScalar(1) / p);
     }
@@ -184,7 +184,7 @@ struct lpNorm_selector
 template<typename Derived>
 struct lpNorm_selector<Derived, 1>
 {
-    inline static typename NumTraits<typename traits<Derived>::Scalar>::Real run(const MatrixBase<Derived>&m)
+    inline static typename NumTraits<typename traits<Derived>::Scalar>::Real run(const MatrixBase<Derived> &m)
     {
         return m.cwiseAbs().sum();
     }
@@ -193,7 +193,7 @@ struct lpNorm_selector<Derived, 1>
 template<typename Derived>
 struct lpNorm_selector<Derived, 2>
 {
-    inline static typename NumTraits<typename traits<Derived>::Scalar>::Real run(const MatrixBase<Derived>&m)
+    inline static typename NumTraits<typename traits<Derived>::Scalar>::Real run(const MatrixBase<Derived> &m)
     {
         return m.norm();
     }
@@ -202,7 +202,7 @@ struct lpNorm_selector<Derived, 2>
 template<typename Derived>
 struct lpNorm_selector<Derived, Infinity>
 {
-    inline static typename NumTraits<typename traits<Derived>::Scalar>::Real run(const MatrixBase<Derived>&m)
+    inline static typename NumTraits<typename traits<Derived>::Scalar>::Real run(const MatrixBase<Derived> &m)
     {
         return m.cwiseAbs().maxCoeff();
     }
@@ -234,7 +234,7 @@ MatrixBase<Derived>::lpNorm() const
 template<typename Derived>
 template<typename OtherDerived>
 bool MatrixBase<Derived>::isOrthogonal
-    (const MatrixBase<OtherDerived>&other, RealScalar prec) const
+    (const MatrixBase<OtherDerived> &other, RealScalar prec) const
 {
     typename internal::nested<Derived, 2>::type      nested(derived());
     typename internal::nested<OtherDerived, 2>::type otherNested(other.derived());

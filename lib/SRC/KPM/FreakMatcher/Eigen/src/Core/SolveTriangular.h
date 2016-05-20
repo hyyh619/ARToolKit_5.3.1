@@ -69,7 +69,7 @@ struct triangular_solver_selector<Lhs, Rhs, Side, Mode, NoUnrolling, 1>
     typedef blas_traits<Lhs> LhsProductTraits;
     typedef typename LhsProductTraits::ExtractType ActualLhsType;
     typedef Map<Matrix<RhsScalar, Dynamic, 1>, Aligned> MappedRhs;
-    static void run(const Lhs&lhs, Rhs&rhs)
+    static void run(const Lhs &lhs, Rhs &rhs)
     {
         ActualLhsType actualLhs = LhsProductTraits::extract(lhs);
 
@@ -100,7 +100,7 @@ struct triangular_solver_selector<Lhs, Rhs, Side, Mode, NoUnrolling, Dynamic>
     typedef typename Rhs::Index Index;
     typedef blas_traits<Lhs> LhsProductTraits;
     typedef typename LhsProductTraits::DirectLinearAccessType ActualLhsType;
-    static void run(const Lhs&lhs, Rhs&rhs)
+    static void run(const Lhs &lhs, Rhs &rhs)
     {
         const ActualLhsType actualLhs = LhsProductTraits::extract(lhs);
 
@@ -127,7 +127,7 @@ struct triangular_solver_unroller<Lhs, Rhs, Mode, Index, Size, false>
         I       = IsLower ? Index : Size - Index - 1,
         S       = IsLower ? 0     : I + 1
     };
-    static void run(const Lhs&lhs, Rhs&rhs)
+    static void run(const Lhs &lhs, Rhs &rhs)
     {
         if (Index > 0)
             rhs.coeffRef(I) -= lhs.row(I).template segment<Index>(S).transpose()
@@ -149,7 +149,7 @@ struct triangular_solver_unroller<Lhs, Rhs, Mode, Index, Size, true>
 template<typename Lhs, typename Rhs, int Mode>
 struct triangular_solver_selector<Lhs, Rhs, OnTheLeft, Mode, CompleteUnrolling, 1>
 {
-    static void run(const Lhs&lhs, Rhs&rhs)
+    static void run(const Lhs &lhs, Rhs &rhs)
     {
         triangular_solver_unroller<Lhs, Rhs, Mode, 0, Rhs::SizeAtCompileTime>::run(lhs, rhs);
     }
@@ -158,7 +158,7 @@ struct triangular_solver_selector<Lhs, Rhs, OnTheLeft, Mode, CompleteUnrolling, 
 template<typename Lhs, typename Rhs, int Mode>
 struct triangular_solver_selector<Lhs, Rhs, OnTheRight, Mode, CompleteUnrolling, 1>
 {
-    static void run(const Lhs&lhs, Rhs&rhs)
+    static void run(const Lhs &lhs, Rhs &rhs)
     {
         Transpose<const Lhs> trLhs(lhs);
         Transpose<Rhs>       trRhs(rhs);
@@ -183,9 +183,9 @@ struct triangular_solver_selector<Lhs, Rhs, OnTheRight, Mode, CompleteUnrolling,
  */
 template<typename MatrixType, unsigned int Mode>
 template<int Side, typename OtherDerived>
-void TriangularView<MatrixType, Mode>::solveInPlace(const MatrixBase<OtherDerived>&_other) const
+void TriangularView<MatrixType, Mode>::solveInPlace(const MatrixBase<OtherDerived> &_other) const
 {
-    OtherDerived&other = _other.const_cast_derived();
+    OtherDerived &other = _other.const_cast_derived();
 
     eigen_assert(cols() == rows());
     eigen_assert((Side == OnTheLeft && cols() == other.rows()) || (Side == OnTheRight && cols() == other.cols()));
@@ -228,7 +228,7 @@ void TriangularView<MatrixType, Mode>::solveInPlace(const MatrixBase<OtherDerive
 template<typename Derived, unsigned int Mode>
 template<int Side, typename Other>
 const internal::triangular_solve_retval<Side, TriangularView<Derived, Mode>, Other>
-TriangularView<Derived, Mode>::solve(const MatrixBase<Other>&other) const
+TriangularView<Derived, Mode>::solve(const MatrixBase<Other> &other) const
 {
     return internal::triangular_solve_retval<Side, TriangularView, Other>(*this, other.derived());
 }
@@ -248,7 +248,7 @@ template<int Side, typename TriangularType, typename Rhs> struct triangular_solv
     typedef ReturnByValue<triangular_solve_retval> Base;
     typedef typename Base::Index Index;
 
-    triangular_solve_retval(const TriangularType&tri, const Rhs&rhs)
+    triangular_solve_retval(const TriangularType &tri, const Rhs &rhs)
         : m_triangularMatrix(tri), m_rhs(rhs)
     {}
 
@@ -261,7 +261,7 @@ template<int Side, typename TriangularType, typename Rhs> struct triangular_solv
         return m_rhs.cols();
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         if (!(is_same<RhsNestedCleaned, Dest>::value && extract_data(dst) == extract_data(m_rhs)))
             dst = m_rhs;
@@ -270,7 +270,7 @@ template<int Side, typename TriangularType, typename Rhs> struct triangular_solv
     }
 
 protected:
-    const TriangularType&m_triangularMatrix;
+    const TriangularType &m_triangularMatrix;
     const typename Rhs::Nested m_rhs;
 };
 } // namespace internal

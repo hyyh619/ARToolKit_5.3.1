@@ -67,7 +67,7 @@ typedef HouseholderSequence<
  */
 UpperBidiagonalization() : m_householder(), m_bidiagonal(), m_isInitialized(false) {}
 
-UpperBidiagonalization(const MatrixType&matrix)
+UpperBidiagonalization(const MatrixType &matrix)
     : m_householder(matrix.rows(), matrix.cols()),
     m_bidiagonal(matrix.cols(), matrix.cols()),
     m_isInitialized(false)
@@ -75,7 +75,7 @@ UpperBidiagonalization(const MatrixType&matrix)
     compute(matrix);
 }
 
-UpperBidiagonalization&compute(const MatrixType&matrix);
+UpperBidiagonalization&compute(const MatrixType &matrix);
 
 const MatrixType&householder() const
 {
@@ -107,7 +107,7 @@ bool           m_isInitialized;
 };
 
 template<typename _MatrixType>
-UpperBidiagonalization<_MatrixType>&UpperBidiagonalization<_MatrixType>::compute(const _MatrixType&matrix)
+UpperBidiagonalization<_MatrixType>&UpperBidiagonalization<_MatrixType>::compute(const _MatrixType &matrix)
 {
     Index rows = matrix.rows();
     Index cols = matrix.cols();

@@ -49,7 +49,7 @@ typedef SparseMatrixBase StorageBaseType;
 typedef EigenBase<Derived> Base;
 
 template<typename OtherDerived>
-Derived&operator=(const EigenBase<OtherDerived>&other)
+Derived&operator=(const EigenBase<OtherDerived> &other)
 {
     other.derived().evalTo(derived());
     return derived();
@@ -225,7 +225,7 @@ Derived&markAsRValue()
 SparseMatrixBase() : m_isRValue(false)       /* TODO check flags */
 {                                                                    }
 
-inline Derived&operator=(const Derived&other)
+inline Derived&operator=(const Derived &other)
 {
 //       std::cout << "Derived& operator=(const Derived& other)\n";
 //       if (other.isRValue())
@@ -236,7 +236,7 @@ inline Derived&operator=(const Derived&other)
 }
 
 template<typename OtherDerived>
-Derived&operator=(const ReturnByValue<OtherDerived>&other)
+Derived&operator=(const ReturnByValue<OtherDerived> &other)
 {
     other.evalTo(derived());
     return derived();
@@ -244,7 +244,7 @@ Derived&operator=(const ReturnByValue<OtherDerived>&other)
 
 
 template<typename OtherDerived>
-inline void assignGeneric(const OtherDerived&other)
+inline void assignGeneric(const OtherDerived &other)
 {
 //       std::cout << "Derived& operator=(const MatrixBase<OtherDerived>& other)\n";
     // const bool transpose = (Flags & RowMajorBit) != (OtherDerived::Flags & RowMajorBit);
@@ -280,7 +280,7 @@ inline void assignGeneric(const OtherDerived&other)
 
 
 template<typename OtherDerived>
-inline Derived&operator=(const SparseMatrixBase<OtherDerived>&other)
+inline Derived&operator=(const SparseMatrixBase<OtherDerived> &other)
 {
 //       std::cout << typeid(OtherDerived).name() << "\n";
 //       std::cout << Flags << " " << OtherDerived::Flags << "\n";
@@ -318,12 +318,12 @@ inline Derived&operator=(const SparseMatrixBase<OtherDerived>&other)
 }
 
 template<typename Lhs, typename Rhs>
-inline Derived&operator=(const SparseSparseProduct<Lhs, Rhs>&product);
+inline Derived&operator=(const SparseSparseProduct<Lhs, Rhs> &product);
 
 template<typename Lhs, typename Rhs>
-inline void _experimentalNewProduct(const Lhs&lhs, const Rhs&rhs);
+inline void _experimentalNewProduct(const Lhs &lhs, const Rhs &rhs);
 
-friend std::ostream&operator <<(std::ostream&s, const SparseMatrixBase&m)
+friend std::ostream&operator <<(std::ostream &s, const SparseMatrixBase &m)
 {
     if (Flags & RowMajorBit)
     {
@@ -385,15 +385,15 @@ friend std::ostream&operator <<(std::ostream&s, const SparseMatrixBase&m)
 //     operator-(const SparseMatrixBase<OtherDerived> &other) const;
 
 template<typename OtherDerived>
-Derived&operator+=(const SparseMatrixBase<OtherDerived>&other);
+Derived&operator+=(const SparseMatrixBase<OtherDerived> &other);
 template<typename OtherDerived>
-Derived&operator-=(const SparseMatrixBase<OtherDerived>&other);
+Derived&operator-=(const SparseMatrixBase<OtherDerived> &other);
 
 //     template<typename Lhs,typename Rhs>
 //     Derived& operator+=(const Flagged<Product<Lhs,Rhs,CacheFriendlyProduct>, 0, EvalBeforeNestingBit | EvalBeforeAssigningBit>& other);
 
-Derived&operator*=(const Scalar&other);
-Derived&operator/=(const Scalar&other);
+Derived&operator*=(const Scalar &other);
+Derived&operator/=(const Scalar &other);
 
     #define EIGEN_SPARSE_CWISE_PRODUCT_RETURN_TYPE          \
     CwiseBinaryOp <                                         \
@@ -409,7 +409,7 @@ Derived&operator/=(const Scalar&other);
 
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const EIGEN_SPARSE_CWISE_PRODUCT_RETURN_TYPE
-cwiseProduct(const MatrixBase<OtherDerived>&other) const;
+cwiseProduct(const MatrixBase<OtherDerived> &other) const;
 
 //     const SparseCwiseUnaryOp<internal::scalar_multiple_op<typename internal::traits<Derived>::Scalar>, Derived>
 //     operator*(const Scalar& scalar) const;
@@ -424,17 +424,17 @@ cwiseProduct(const MatrixBase<OtherDerived>&other) const;
 // sparse * sparse
 template<typename OtherDerived>
 const typename SparseSparseProductReturnType<Derived, OtherDerived>::Type
-operator*(const SparseMatrixBase<OtherDerived>&other) const;
+operator*(const SparseMatrixBase<OtherDerived> &other) const;
 
 // sparse * diagonal
 template<typename OtherDerived>
 const SparseDiagonalProduct<Derived, OtherDerived>
-operator*(const DiagonalBase<OtherDerived>&other) const;
+operator*(const DiagonalBase<OtherDerived> &other) const;
 
 // diagonal * sparse
 template<typename OtherDerived> friend
 const SparseDiagonalProduct<OtherDerived, Derived>
-operator*(const DiagonalBase<OtherDerived>&lhs, const SparseMatrixBase&rhs)
+operator*(const DiagonalBase<OtherDerived> &lhs, const SparseMatrixBase &rhs)
 {
     return SparseDiagonalProduct<OtherDerived, Derived>(lhs.derived(), rhs.derived());
 }
@@ -442,7 +442,7 @@ operator*(const DiagonalBase<OtherDerived>&lhs, const SparseMatrixBase&rhs)
 /** dense * sparse (return a dense object unless it is an outer product) */
 template<typename OtherDerived> friend
 const typename DenseSparseProductReturnType<OtherDerived, Derived>::Type
-operator*(const MatrixBase<OtherDerived>&lhs, const Derived&rhs)
+operator*(const MatrixBase<OtherDerived> &lhs, const Derived &rhs)
 {
     return typename DenseSparseProductReturnType<OtherDerived, Derived>::Type(lhs.derived(), rhs);
 }
@@ -450,20 +450,20 @@ operator*(const MatrixBase<OtherDerived>&lhs, const Derived&rhs)
 /** sparse * dense (returns a dense object unless it is an outer product) */
 template<typename OtherDerived>
 const typename SparseDenseProductReturnType<Derived, OtherDerived>::Type
-operator*(const MatrixBase<OtherDerived>&other) const;
+operator*(const MatrixBase<OtherDerived> &other) const;
 
 template<typename OtherDerived>
-Derived&operator*=(const SparseMatrixBase<OtherDerived>&other);
+Derived&operator*=(const SparseMatrixBase<OtherDerived> &other);
 
     #ifdef EIGEN2_SUPPORT
 // deprecated
 template<typename OtherDerived>
 typename internal::plain_matrix_type_column_major<OtherDerived>::type
-solveTriangular(const MatrixBase<OtherDerived>&other) const;
+solveTriangular(const MatrixBase<OtherDerived> &other) const;
 
 // deprecated
 template<typename OtherDerived>
-void solveTriangularInPlace(MatrixBase<OtherDerived>&other) const;
+void solveTriangularInPlace(MatrixBase<OtherDerived> &other) const;
 //     template<typename OtherDerived>
 //     void solveTriangularInPlace(SparseMatrixBase<OtherDerived>& other) const;
     #endif // EIGEN2_SUPPORT
@@ -474,8 +474,8 @@ inline const SparseTriangularView<Derived, Mode> triangularView() const;
 template<unsigned int UpLo> inline const SparseSelfAdjointView<Derived, UpLo> selfadjointView() const;
 template<unsigned int UpLo> inline SparseSelfAdjointView<Derived, UpLo> selfadjointView();
 
-template<typename OtherDerived> Scalar dot(const MatrixBase<OtherDerived>&other) const;
-template<typename OtherDerived> Scalar dot(const SparseMatrixBase<OtherDerived>&other) const;
+template<typename OtherDerived> Scalar dot(const MatrixBase<OtherDerived> &other) const;
+template<typename OtherDerived> Scalar dot(const SparseMatrixBase<OtherDerived> &other) const;
 RealScalar squaredNorm() const;
 RealScalar norm()  const;
 //     const PlainObject normalized() const;
@@ -581,7 +581,7 @@ const SparseInnerVectorSet<Derived, Dynamic> innerVectors(Index outerStart, Inde
 
 /** \internal use operator= */
 template<typename DenseDerived>
-void evalTo(MatrixBase<DenseDerived>&dst) const
+void evalTo(MatrixBase<DenseDerived> &dst) const
 {
     dst.setZero();
 
@@ -596,14 +596,14 @@ Matrix<Scalar, RowsAtCompileTime, ColsAtCompileTime> toDense() const
 }
 
 template<typename OtherDerived>
-bool isApprox(const SparseMatrixBase<OtherDerived>&other,
+bool isApprox(const SparseMatrixBase<OtherDerived> &other,
               RealScalar prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return toDense().isApprox(other.toDense(), prec);
 }
 
 template<typename OtherDerived>
-bool isApprox(const MatrixBase<OtherDerived>&other,
+bool isApprox(const MatrixBase<OtherDerived> &other,
               RealScalar prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return toDense().isApprox(other, prec);

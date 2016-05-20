@@ -77,7 +77,7 @@ template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
 VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::~VisualDatabase() {}
 
 template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addImage(const vision::Image&image, id_t id) throw(Exception)
+void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addImage(const vision::Image &image, id_t id) throw(Exception)
 {
     if (mKeyframeMap.find(id) != mKeyframeMap.end())
     {
@@ -151,7 +151,7 @@ void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addKeyframe(keyframe_ptr
 }
 
 template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const vision::Image&image) throw(Exception)
+bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const vision::Image &image) throw(Exception)
 {
     // Allocate pyramid
     if (mPyramid.images().size() == 0 ||
@@ -200,7 +200,7 @@ bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t *
     mMatchedInliers.clear();
     mMatchedId = -1;
 
-    const std::vector<FeaturePoint>&query_points = query_keyframe->store().points();
+    const std::vector<FeaturePoint> &query_points = query_keyframe->store().points();
 
     // Loop over all the images in the database
     typename keyframe_map_t::const_iterator it = mKeyframeMap.begin();
@@ -225,7 +225,7 @@ bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t *
             }
         }
 
-        const std::vector<FeaturePoint>&ref_points = it->second->store().points();
+        const std::vector<FeaturePoint> &ref_points = it->second->store().points();
         // std::cout<<"ref_points-"<<ref_points.size()<<std::endl;
         // std::cout<<"query_points-"<<query_points.size()<<std::endl;
 

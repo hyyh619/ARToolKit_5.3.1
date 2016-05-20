@@ -57,7 +57,7 @@ TiXmlString::TiXmlString (const char *instring)
 }
 
 // TiXmlString copy constructor
-TiXmlString::TiXmlString (const TiXmlString&copy)
+TiXmlString::TiXmlString (const TiXmlString &copy)
 {
     size_t newlen;
     char   *newstring;
@@ -106,7 +106,7 @@ void TiXmlString ::operator =(const char *content)
 }
 
 // = operator. Safe when assign own content
-void TiXmlString ::operator =(const TiXmlString&copy)
+void TiXmlString ::operator =(const TiXmlString &copy)
 {
     size_t newlen;
     char   *newstring;
@@ -271,7 +271,7 @@ unsigned TiXmlString::find(char tofind, unsigned offset) const
 }
 
 
-bool TiXmlString::operator ==(const TiXmlString&compare) const
+bool TiXmlString::operator ==(const TiXmlString &compare) const
 {
     if (allocated && compare.allocated)
     {
@@ -304,7 +304,7 @@ bool TiXmlString::operator ==(const char *compare) const
 }
 
 
-bool TiXmlString::operator <(const TiXmlString&compare) const
+bool TiXmlString::operator <(const TiXmlString &compare) const
 {
     if (allocated && compare.allocated)
     {
@@ -317,7 +317,7 @@ bool TiXmlString::operator <(const TiXmlString&compare) const
 }
 
 
-bool TiXmlString::operator >(const TiXmlString&compare) const
+bool TiXmlString::operator >(const TiXmlString &compare) const
 {
     if (allocated && compare.allocated)
     {

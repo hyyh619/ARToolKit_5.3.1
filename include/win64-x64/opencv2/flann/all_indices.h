@@ -48,7 +48,7 @@ namespace cvflann
 template<typename KDTreeCapability, typename VectorSpace, typename Distance>
 struct index_creator
 {
-    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
+    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType> &dataset, const IndexParams &params, const Distance &distance)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
 
@@ -99,7 +99,7 @@ struct index_creator
 template<typename VectorSpace, typename Distance>
 struct index_creator<False, VectorSpace, Distance>
 {
-    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
+    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType> &dataset, const IndexParams &params, const Distance &distance)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
 
@@ -134,7 +134,7 @@ struct index_creator<False, VectorSpace, Distance>
 template<typename Distance>
 struct index_creator<False, False, Distance>
 {
-    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
+    static NNIndex<Distance>* create(const Matrix<typename Distance::ElementType> &dataset, const IndexParams &params, const Distance &distance)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
 
@@ -163,7 +163,7 @@ struct index_creator<False, False, Distance>
 };
 
 template<typename Distance>
-NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance)
+NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementType> &dataset, const IndexParams &params, const Distance &distance)
 {
     return index_creator<typename Distance::is_kdtree_distance,
                          typename Distance::is_vector_space_distance,

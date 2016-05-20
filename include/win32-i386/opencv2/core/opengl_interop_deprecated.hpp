@@ -299,7 +299,7 @@ enum Style
     STYLE_UNDERLINE = 2
 };
 
-static Ptr<GlFont> get(const std::string&family, int height = 12, Weight weight = WEIGHT_NORMAL, Style style = STYLE_NORMAL);
+static Ptr<GlFont> get(const std::string &family, int height = 12, Weight weight = WEIGHT_NORMAL, Style style = STYLE_NORMAL);
 
 void draw(const char *str, int len) const;
 
@@ -321,7 +321,7 @@ inline Style style() const
 }
 
 private:
-GlFont(const std::string&family, int height, Weight weight, Style style);
+GlFont(const std::string &family, int height, Weight weight, Style style);
 
 std::string family_;
 int         height_;
@@ -337,7 +337,7 @@ GlFont&operator =(const GlFont&);
 // ! render functions
 
 // ! render texture rectangle in window
-CV_EXPORTS void render(const GlTexture&tex,
+CV_EXPORTS void render(const GlTexture &tex,
                        Rect_<double> wndRect = Rect_<double>(0.0, 0.0, 1.0, 1.0),
                        Rect_<double> texRect = Rect_<double>(0.0, 0.0, 1.0, 1.0));
 
@@ -360,9 +360,9 @@ enum
 }
 
 // ! render OpenGL arrays
-CV_EXPORTS void render(const GlArrays&arr, int mode = RenderMode::POINTS, Scalar color = Scalar::all(255));
+CV_EXPORTS void render(const GlArrays &arr, int mode = RenderMode::POINTS, Scalar color = Scalar::all(255));
 
-CV_EXPORTS void render(const std::string&str, const Ptr<GlFont>&font, Scalar color, Point2d pos);
+CV_EXPORTS void render(const std::string &str, const Ptr<GlFont> &font, Scalar color, Point2d pos);
 
 // ! OpenGL camera
 class CV_EXPORTS GlCamera
@@ -375,7 +375,7 @@ void setCameraPos(Point3d pos, double yaw, double pitch, double roll);
 
 void setScale(Point3d scale);
 
-void setProjectionMatrix(const Mat&projectionMatrix, bool transpose = true);
+void setProjectionMatrix(const Mat &projectionMatrix, bool transpose = true);
 void setPerspectiveProjection(double fov, double aspect, double zNear, double zFar);
 void setOrthoProjection(double left, double right, double bottom, double top, double zNear, double zFar);
 

@@ -52,9 +52,9 @@ struct BranchStruct
     DistanceType mindist;     /* Minimum distance to query for all nodes below. */
 
     BranchStruct() {}
-    BranchStruct(const T&aNode, DistanceType dist) : node(aNode), mindist(dist) {}
+    BranchStruct(const T &aNode, DistanceType dist) : node(aNode), mindist(dist) {}
 
-    bool operator<(const BranchStruct<T, DistanceType>&rhs) const
+    bool operator<(const BranchStruct<T, DistanceType> &rhs) const
     {
         return mindist < rhs.mindist;
     }

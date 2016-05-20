@@ -717,7 +717,7 @@ pointer allocate(size_type num, const void *hint = 0)
     return static_cast<pointer>(internal::aligned_malloc(num * sizeof(T)));
 }
 
-void construct(pointer p, const T&value)
+void construct(pointer p, const T &value)
 {
     ::new( p ) T(value);
 }
@@ -769,7 +769,7 @@ inline bool cpuid_is_vendor(int abcd[4], const char *vendor)
     return abcd[1] == ((int*)(vendor))[0] && abcd[3] == ((int*)(vendor))[1] && abcd[2] == ((int*)(vendor))[2];
 }
 
-inline void queryCacheSizes_intel_direct(int&l1, int&l2, int&l3)
+inline void queryCacheSizes_intel_direct(int &l1, int &l2, int &l3)
 {
     int abcd[4];
 
@@ -809,7 +809,7 @@ inline void queryCacheSizes_intel_direct(int&l1, int&l2, int&l3)
     while (cache_type > 0 && cache_id < 16);
 }
 
-inline void queryCacheSizes_intel_codes(int&l1, int&l2, int&l3)
+inline void queryCacheSizes_intel_codes(int &l1, int &l2, int &l3)
 {
     int abcd[4];
 
@@ -956,7 +956,7 @@ inline void queryCacheSizes_intel_codes(int&l1, int&l2, int&l3)
     l3 *= 1024;
 }
 
-inline void queryCacheSizes_intel(int&l1, int&l2, int&l3, int max_std_funcs)
+inline void queryCacheSizes_intel(int &l1, int &l2, int &l3, int max_std_funcs)
 {
     if (max_std_funcs >= 4)
         queryCacheSizes_intel_direct(l1, l2, l3);
@@ -964,7 +964,7 @@ inline void queryCacheSizes_intel(int&l1, int&l2, int&l3, int max_std_funcs)
         queryCacheSizes_intel_codes(l1, l2, l3);
 }
 
-inline void queryCacheSizes_amd(int&l1, int&l2, int&l3)
+inline void queryCacheSizes_amd(int &l1, int &l2, int &l3)
 {
     int abcd[4];
 
@@ -980,7 +980,7 @@ inline void queryCacheSizes_amd(int&l1, int&l2, int&l3)
 
 /** \internal
  * Queries and returns the cache sizes in Bytes of the L1, L2, and L3 data caches respectively */
-inline void queryCacheSizes(int&l1, int&l2, int&l3)
+inline void queryCacheSizes(int &l1, int &l2, int &l3)
 {
   #ifdef EIGEN_CPUID
     int abcd[4];

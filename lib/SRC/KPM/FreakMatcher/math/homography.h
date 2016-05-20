@@ -98,7 +98,7 @@ inline void MultiplyPointSimilarityInhomogenous(T xp[2], const T H[9], const T x
  * Multiply an in-homogenous point by a similarity.
  */
 template<typename T>
-inline void MultiplyPointHomographyInhomogenous(T&xp, T&yp, const T H[9], T x, T y)
+inline void MultiplyPointHomographyInhomogenous(T &xp, T &yp, const T H[9], T x, T y)
 {
     float w = H[6] * x + H[7] * y + H[8];
 

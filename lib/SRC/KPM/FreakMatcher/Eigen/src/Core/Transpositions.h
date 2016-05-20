@@ -80,7 +80,7 @@ const Derived&derived() const
 
 /** Copies the \a other transpositions into \c *this */
 template<typename OtherDerived>
-Derived&operator=(const TranspositionsBase<OtherDerived>&other)
+Derived&operator=(const TranspositionsBase<OtherDerived> &other)
 {
     indices() = other.indices();
     return derived();
@@ -90,7 +90,7 @@ Derived&operator=(const TranspositionsBase<OtherDerived>&other)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-Derived&operator=(const TranspositionsBase&other)
+Derived&operator=(const TranspositionsBase &other)
 {
     indices() = other.indices();
     return derived();
@@ -218,23 +218,23 @@ inline Transpositions() {}
 
 /** Copy constructor. */
 template<typename OtherDerived>
-inline Transpositions(const TranspositionsBase<OtherDerived>&other)
+inline Transpositions(const TranspositionsBase<OtherDerived> &other)
     : m_indices(other.indices()) {}
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 /** Standard copy constructor. Defined only to prevent a default copy constructor
  * from hiding the other templated constructor */
-inline Transpositions(const Transpositions&other) : m_indices(other.indices()) {}
+inline Transpositions(const Transpositions &other) : m_indices(other.indices()) {}
     #endif
 
 /** Generic constructor from expression of the transposition indices. */
 template<typename Other>
-explicit inline Transpositions(const MatrixBase<Other>&indices) : m_indices(indices)
+explicit inline Transpositions(const MatrixBase<Other> &indices) : m_indices(indices)
 {}
 
 /** Copies the \a other transpositions into \c *this */
 template<typename OtherDerived>
-Transpositions&operator=(const TranspositionsBase<OtherDerived>&other)
+Transpositions&operator=(const TranspositionsBase<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
@@ -243,7 +243,7 @@ Transpositions&operator=(const TranspositionsBase<OtherDerived>&other)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-Transpositions&operator=(const Transpositions&other)
+Transpositions&operator=(const Transpositions &other)
 {
     m_indices = other.m_indices;
     return *this;
@@ -303,7 +303,7 @@ inline Map(const Index *indices, Index size)
 
 /** Copies the \a other transpositions into \c *this */
 template<typename OtherDerived>
-Map&operator=(const TranspositionsBase<OtherDerived>&other)
+Map&operator=(const TranspositionsBase<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
@@ -312,7 +312,7 @@ Map&operator=(const TranspositionsBase<OtherDerived>&other)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-Map&operator=(const Map&other)
+Map&operator=(const Map &other)
 {
     m_indices = other.m_indices;
     return *this;
@@ -357,13 +357,13 @@ typedef TranspositionsBase<TranspositionsWrapper> Base;
 typedef typename Traits::IndicesType IndicesType;
 typedef typename IndicesType::Scalar Index;
 
-inline TranspositionsWrapper(IndicesType&indices)
+inline TranspositionsWrapper(IndicesType &indices)
     : m_indices(indices)
 {}
 
 /** Copies the \a other transpositions into \c *this */
 template<typename OtherDerived>
-TranspositionsWrapper&operator=(const TranspositionsBase<OtherDerived>&other)
+TranspositionsWrapper&operator=(const TranspositionsBase<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
@@ -372,7 +372,7 @@ TranspositionsWrapper&operator=(const TranspositionsBase<OtherDerived>&other)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-TranspositionsWrapper&operator=(const TranspositionsWrapper&other)
+TranspositionsWrapper&operator=(const TranspositionsWrapper &other)
 {
     m_indices = other.m_indices;
     return *this;
@@ -400,8 +400,8 @@ const typename IndicesType::Nested m_indices;
  */
 template<typename Derived, typename TranspositionsDerived>
 inline const internal::transposition_matrix_product_retval<TranspositionsDerived, Derived, OnTheRight>
-operator*(const MatrixBase<Derived>&matrix,
-          const TranspositionsBase<TranspositionsDerived>&transpositions)
+operator*(const MatrixBase<Derived> &matrix,
+          const TranspositionsBase<TranspositionsDerived> &transpositions)
 {
     return internal::transposition_matrix_product_retval
            <TranspositionsDerived, Derived, OnTheRight>
@@ -413,8 +413,8 @@ operator*(const MatrixBase<Derived>&matrix,
 template<typename Derived, typename TranspositionDerived>
 inline const internal::transposition_matrix_product_retval
 <TranspositionDerived, Derived, OnTheLeft>
-operator*(const TranspositionsBase<TranspositionDerived>&transpositions,
-          const MatrixBase<Derived>&matrix)
+operator*(const TranspositionsBase<TranspositionDerived> &transpositions,
+          const MatrixBase<Derived> &matrix)
 {
     return internal::transposition_matrix_product_retval
            <TranspositionDerived, Derived, OnTheLeft>
@@ -436,7 +436,7 @@ struct transposition_matrix_product_retval
     typedef typename remove_all<typename MatrixType::Nested>::type MatrixTypeNestedCleaned;
     typedef typename TranspositionType::Index Index;
 
-    transposition_matrix_product_retval(const TranspositionType&tr, const MatrixType&matrix)
+    transposition_matrix_product_retval(const TranspositionType &tr, const MatrixType &matrix)
         : m_transpositions(tr), m_matrix(matrix)
     {}
 
@@ -449,7 +449,7 @@ struct transposition_matrix_product_retval
         return m_matrix.cols();
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         const int size = m_transpositions.size();
         Index     j    = 0;
@@ -468,7 +468,7 @@ struct transposition_matrix_product_retval
     }
 
 protected:
-    const TranspositionType&m_transpositions;
+    const TranspositionType &m_transpositions;
     const typename MatrixType::Nested m_matrix;
 };
 } // end namespace internal
@@ -482,7 +482,7 @@ typedef TranspositionsDerived TranspositionType;
 typedef typename TranspositionType::IndicesType IndicesType;
 public:
 
-Transpose(const TranspositionType&t) : m_transpositions(t) {}
+Transpose(const TranspositionType &t) : m_transpositions(t) {}
 
 inline int size() const
 {
@@ -493,7 +493,7 @@ inline int size() const
  */
 template<typename Derived> friend
 inline const internal::transposition_matrix_product_retval<TranspositionType, Derived, OnTheRight, true>
-operator*(const MatrixBase<Derived>&matrix, const Transpose&trt)
+operator*(const MatrixBase<Derived> &matrix, const Transpose &trt)
 {
     return internal::transposition_matrix_product_retval<TranspositionType, Derived, OnTheRight, true>(trt.m_transpositions, matrix.derived());
 }
@@ -502,12 +502,12 @@ operator*(const MatrixBase<Derived>&matrix, const Transpose&trt)
  */
 template<typename Derived>
 inline const internal::transposition_matrix_product_retval<TranspositionType, Derived, OnTheLeft, true>
-operator*(const MatrixBase<Derived>&matrix) const
+operator*(const MatrixBase<Derived> &matrix) const
 {
     return internal::transposition_matrix_product_retval<TranspositionType, Derived, OnTheLeft, true>(m_transpositions, matrix.derived());
 }
 
 protected:
-const TranspositionType&m_transpositions;
+const TranspositionType &m_transpositions;
 };
 #endif // EIGEN_TRANSPOSITIONS_H

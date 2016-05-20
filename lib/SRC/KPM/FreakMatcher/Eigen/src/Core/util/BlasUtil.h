@@ -56,7 +56,7 @@ template<bool Conjugate> struct conj_if;
 template<> struct conj_if<true>
 {
     template<typename T>
-    inline T operator()(const T&x)
+    inline T operator()(const T &x)
     {
         return conj(x);
     }
@@ -65,7 +65,7 @@ template<> struct conj_if<true>
 template<> struct conj_if<false>
 {
     template<typename T>
-    inline const T&operator()(const T&x)
+    inline const T&operator()(const T &x)
     {
         return x;
     }
@@ -73,11 +73,11 @@ template<> struct conj_if<false>
 
 template<typename Scalar> struct conj_helper<Scalar, Scalar, false, false>
 {
-    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar&x, const Scalar&y, const Scalar&c) const
+    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar &x, const Scalar &y, const Scalar &c) const
     {
         return internal::pmadd(x, y, c);
     }
-    EIGEN_STRONG_INLINE Scalar pmul(const Scalar&x, const Scalar&y) const
+    EIGEN_STRONG_INLINE Scalar pmul(const Scalar &x, const Scalar &y) const
     {
         return internal::pmul(x, y);
     }
@@ -86,12 +86,12 @@ template<typename Scalar> struct conj_helper<Scalar, Scalar, false, false>
 template<typename RealScalar> struct conj_helper<std::complex<RealScalar>, std::complex<RealScalar>, false, true>
 {
     typedef std::complex<RealScalar> Scalar;
-    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar&x, const Scalar&y, const Scalar&c) const
+    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar &x, const Scalar &y, const Scalar &c) const
     {
         return c + pmul(x, y);
     }
 
-    EIGEN_STRONG_INLINE Scalar pmul(const Scalar&x, const Scalar&y) const
+    EIGEN_STRONG_INLINE Scalar pmul(const Scalar &x, const Scalar &y) const
     {
         return Scalar(real(x) * real(y) + imag(x) * imag(y), imag(x) * real(y) - real(x) * imag(y));
     }
@@ -100,12 +100,12 @@ template<typename RealScalar> struct conj_helper<std::complex<RealScalar>, std::
 template<typename RealScalar> struct conj_helper<std::complex<RealScalar>, std::complex<RealScalar>, true, false>
 {
     typedef std::complex<RealScalar> Scalar;
-    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar&x, const Scalar&y, const Scalar&c) const
+    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar &x, const Scalar &y, const Scalar &c) const
     {
         return c + pmul(x, y);
     }
 
-    EIGEN_STRONG_INLINE Scalar pmul(const Scalar&x, const Scalar&y) const
+    EIGEN_STRONG_INLINE Scalar pmul(const Scalar &x, const Scalar &y) const
     {
         return Scalar(real(x) * real(y) + imag(x) * imag(y), real(x) * imag(y) - imag(x) * real(y));
     }
@@ -114,12 +114,12 @@ template<typename RealScalar> struct conj_helper<std::complex<RealScalar>, std::
 template<typename RealScalar> struct conj_helper<std::complex<RealScalar>, std::complex<RealScalar>, true, true>
 {
     typedef std::complex<RealScalar> Scalar;
-    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar&x, const Scalar&y, const Scalar&c) const
+    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar &x, const Scalar &y, const Scalar &c) const
     {
         return c + pmul(x, y);
     }
 
-    EIGEN_STRONG_INLINE Scalar pmul(const Scalar&x, const Scalar&y) const
+    EIGEN_STRONG_INLINE Scalar pmul(const Scalar &x, const Scalar &y) const
     {
         return Scalar(real(x) * real(y) - imag(x) * imag(y), -real(x) * imag(y) - imag(x) * real(y));
     }
@@ -128,11 +128,11 @@ template<typename RealScalar> struct conj_helper<std::complex<RealScalar>, std::
 template<typename RealScalar, bool Conj> struct conj_helper<std::complex<RealScalar>, RealScalar, Conj, false>
 {
     typedef std::complex<RealScalar> Scalar;
-    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar&x, const RealScalar&y, const Scalar&c) const
+    EIGEN_STRONG_INLINE Scalar pmadd(const Scalar &x, const RealScalar &y, const Scalar &c) const
     {
         return padd(c, pmul(x, y));
     }
-    EIGEN_STRONG_INLINE Scalar pmul(const Scalar&x, const RealScalar&y) const
+    EIGEN_STRONG_INLINE Scalar pmul(const Scalar &x, const RealScalar &y) const
     {
         return conj_if<Conj>()(x) * y;
     }
@@ -141,11 +141,11 @@ template<typename RealScalar, bool Conj> struct conj_helper<std::complex<RealSca
 template<typename RealScalar, bool Conj> struct conj_helper<RealScalar, std::complex<RealScalar>, false, Conj>
 {
     typedef std::complex<RealScalar> Scalar;
-    EIGEN_STRONG_INLINE Scalar pmadd(const RealScalar&x, const Scalar&y, const Scalar&c) const
+    EIGEN_STRONG_INLINE Scalar pmadd(const RealScalar &x, const Scalar &y, const Scalar &c) const
     {
         return padd(c, pmul(x, y));
     }
-    EIGEN_STRONG_INLINE Scalar pmul(const RealScalar&x, const Scalar&y) const
+    EIGEN_STRONG_INLINE Scalar pmul(const RealScalar &x, const Scalar &y) const
     {
         return x * conj_if<Conj>()(y);
     }
@@ -153,7 +153,7 @@ template<typename RealScalar, bool Conj> struct conj_helper<RealScalar, std::com
 
 template<typename From, typename To> struct get_factor
 {
-    EIGEN_STRONG_INLINE static To run(const From&x)
+    EIGEN_STRONG_INLINE static To run(const From &x)
     {
         return x;
     }
@@ -161,7 +161,7 @@ template<typename From, typename To> struct get_factor
 
 template<typename Scalar> struct get_factor<Scalar, typename NumTraits<Scalar>::Real>
 {
-    EIGEN_STRONG_INLINE static typename NumTraits<Scalar>::Real run(const Scalar&x)
+    EIGEN_STRONG_INLINE static typename NumTraits<Scalar>::Real run(const Scalar &x)
     {
         return real(x);
     }
@@ -222,7 +222,7 @@ template<typename XprType> struct blas_traits
                                  ExtractType,
                                  typename _ExtractType::PlainObject
                                  >::type DirectLinearAccessType;
-    static inline /*const*/ ExtractType extract(const XprType&x)
+    static inline /*const*/ ExtractType extract(const XprType &x)
     {
         return x;
     }
@@ -246,11 +246,11 @@ struct blas_traits<CwiseUnaryOp<scalar_conjugate_op<Scalar>, NestedXpr> >
         IsComplex       = NumTraits<Scalar>::IsComplex,
         NeedToConjugate = Base::NeedToConjugate ? 0 : IsComplex
     };
-    static inline const ExtractType extract(const XprType&x)
+    static inline const ExtractType extract(const XprType &x)
     {
         return Base::extract(x.nestedExpression());
     }
-    static inline Scalar extractScalarFactor(const XprType&x)
+    static inline Scalar extractScalarFactor(const XprType &x)
     {
         return conj(Base::extractScalarFactor(x.nestedExpression()));
     }
@@ -264,11 +264,11 @@ struct blas_traits<CwiseUnaryOp<scalar_multiple_op<Scalar>, NestedXpr> >
     typedef blas_traits<NestedXpr> Base;
     typedef CwiseUnaryOp<scalar_multiple_op<Scalar>, NestedXpr> XprType;
     typedef typename Base::ExtractType ExtractType;
-    static inline const ExtractType extract(const XprType&x)
+    static inline const ExtractType extract(const XprType &x)
     {
         return Base::extract(x.nestedExpression());
     }
-    static inline Scalar extractScalarFactor(const XprType&x)
+    static inline Scalar extractScalarFactor(const XprType &x)
     {
         return x.functor().m_other * Base::extractScalarFactor(x.nestedExpression());
     }
@@ -282,11 +282,11 @@ struct blas_traits<CwiseUnaryOp<scalar_opposite_op<Scalar>, NestedXpr> >
     typedef blas_traits<NestedXpr> Base;
     typedef CwiseUnaryOp<scalar_opposite_op<Scalar>, NestedXpr> XprType;
     typedef typename Base::ExtractType ExtractType;
-    static inline const ExtractType extract(const XprType&x)
+    static inline const ExtractType extract(const XprType &x)
     {
         return Base::extract(x.nestedExpression());
     }
-    static inline Scalar extractScalarFactor(const XprType&x)
+    static inline Scalar extractScalarFactor(const XprType &x)
     {
         return -Base::extractScalarFactor(x.nestedExpression());
     }
@@ -310,11 +310,11 @@ struct blas_traits<Transpose<NestedXpr> >
     {
         IsTransposed = Base::IsTransposed ? 0 : 1
     };
-    static inline const ExtractType extract(const XprType&x)
+    static inline const ExtractType extract(const XprType &x)
     {
         return Base::extract(x.nestedExpression());
     }
-    static inline Scalar extractScalarFactor(const XprType&x)
+    static inline Scalar extractScalarFactor(const XprType &x)
     {
         return Base::extractScalarFactor(x.nestedExpression());
     }
@@ -328,7 +328,7 @@ struct blas_traits<const T>
 template<typename T, bool HasUsableDirectAccess = blas_traits<T>::HasUsableDirectAccess>
 struct extract_data_selector
 {
-    static const typename T::Scalar* run(const T&m)
+    static const typename T::Scalar* run(const T &m)
     {
         return const_cast<typename T::Scalar*>(&blas_traits<T>::extract(m).coeffRef(0, 0)); // FIXME this should be .data()
     }
@@ -343,7 +343,7 @@ struct extract_data_selector<T, false>
     }
 };
 
-template<typename T> const typename T::Scalar* extract_data(const T&m)
+template<typename T> const typename T::Scalar* extract_data(const T &m)
 {
     return extract_data_selector<T>::run(m);
 }

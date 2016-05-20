@@ -52,7 +52,7 @@ public:                                                                         
     vector(const vector &c) : vector_base(c) {}                                                                                  \
     explicit vector(size_type num, const value_type &val = value_type()) : vector_base(num, val) {}                              \
     vector(iterator start, iterator end) : vector_base(start, end) {}                                                            \
-    vector&operator=(const vector&x) {                                                                                           \
+    vector&operator=(const vector &x) {                                                                                          \
         vector_base::operator=(x);                                                                                               \
         return *this;                                                                                                            \
     }                                                                                                                            \
@@ -75,7 +75,7 @@ public:                                                                         
     vector(const vector &c) : vector_base(c) {}                                                     \
     explicit vector(size_type num, const value_type &val = value_type()) : vector_base(num, val) {} \
     vector(iterator start, iterator end) : vector_base(start, end) {}                               \
-    vector&operator=(const vector&x) {                                                              \
+    vector&operator=(const vector &x) {                                                             \
         vector_base::operator=(x);                                                                  \
         return *this;                                                                               \
     }
@@ -96,36 +96,36 @@ void resize(size_type new_size)
 
 #if defined(_VECTOR_)
 // workaround MSVC std::vector implementation
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (vector_base::size() < new_size)
         vector_base::_Insert_n(vector_base::end(), new_size - vector_base::size(), x);
     else if (new_size < vector_base::size())
         vector_base::erase(vector_base::begin() + new_size, vector_base::end());
 }
-void push_back(const value_type&x)
+void push_back(const value_type &x)
 {
     vector_base::push_back(x);
 }
 using vector_base::insert;
-iterator insert(const_iterator position, const value_type&x)
+iterator insert(const_iterator position, const value_type &x)
 {
     return vector_base::insert(position, x);
 }
-void insert(const_iterator position, size_type new_size, const value_type&x)
+void insert(const_iterator position, size_type new_size, const value_type &x)
 {
     vector_base::insert(position, new_size, x);
 }
 #elif defined(_GLIBCXX_VECTOR) && (!(EIGEN_GNUC_AT_LEAST(4, 1)))
 /* Note that before gcc-4.1 we already have: std::vector::resize(size_type,const T&).
  * However, this specialization is still needed to make the above EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION trick to work. */
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     vector_base::resize(new_size, x);
 }
 #elif defined(_GLIBCXX_VECTOR) && EIGEN_GNUC_AT_LEAST(4, 2)
 // workaround GCC std::vector implementation
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (new_size < vector_base::size())
         vector_base::_M_erase_at_end(this->_M_impl._M_start + new_size);
@@ -135,7 +135,7 @@ void resize(size_type new_size, const value_type&x)
 #else
 // either GCC 4.1 or non-GCC
 // default implementation which should always work.
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (new_size < vector_base::size())
         vector_base::erase(vector_base::begin() + new_size, vector_base::end());

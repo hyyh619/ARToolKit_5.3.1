@@ -83,7 +83,7 @@ using Base::coeffRef;
  * the usage of 'using'. This should be done only for operator=.
  */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Array&operator=(const EigenBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Array&operator=(const EigenBase<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
@@ -98,7 +98,7 @@ EIGEN_STRONG_INLINE Array&operator=(const EigenBase<OtherDerived>&other)
  * remain row-vectors and vectors remain vectors.
  */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Array&operator=(const ArrayBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Array&operator=(const ArrayBase<OtherDerived> &other)
 {
     return Base::_set(other);
 }
@@ -106,7 +106,7 @@ EIGEN_STRONG_INLINE Array&operator=(const ArrayBase<OtherDerived>&other)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-EIGEN_STRONG_INLINE Array&operator=(const Array&other)
+EIGEN_STRONG_INLINE Array&operator=(const Array &other)
 {
     return Base::_set(other);
 }
@@ -159,7 +159,7 @@ EIGEN_STRONG_INLINE explicit Array(Index dim)
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename T0, typename T1>
-EIGEN_STRONG_INLINE Array(const T0&x, const T1&y)
+EIGEN_STRONG_INLINE Array(const T0 &x, const T1 &y)
 {
     Base::_check_template_params();
 
@@ -173,11 +173,11 @@ EIGEN_STRONG_INLINE Array(const T0&x, const T1&y)
  * Matrix() instead. */
 Array(Index rows, Index cols);
 /** constructs an initialized 2D vector with given coefficients */
-Array(const Scalar&x, const Scalar&y);
+Array(const Scalar &x, const Scalar &y);
     #endif
 
 /** constructs an initialized 3D vector with given coefficients */
-EIGEN_STRONG_INLINE Array(const Scalar&x, const Scalar&y, const Scalar&z)
+EIGEN_STRONG_INLINE Array(const Scalar &x, const Scalar &y, const Scalar &z)
 {
     Base::_check_template_params();
 
@@ -187,7 +187,7 @@ EIGEN_STRONG_INLINE Array(const Scalar&x, const Scalar&y, const Scalar&z)
     m_storage.data()[2] = z;
 }
 /** constructs an initialized 4D vector with given coefficients */
-EIGEN_STRONG_INLINE Array(const Scalar&x, const Scalar&y, const Scalar&z, const Scalar&w)
+EIGEN_STRONG_INLINE Array(const Scalar &x, const Scalar &y, const Scalar &z, const Scalar &w)
 {
     Base::_check_template_params();
 
@@ -202,14 +202,14 @@ explicit Array(const Scalar *data);
 
 /** Constructor copying the value of the expression \a other */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Array(const ArrayBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Array(const ArrayBase<OtherDerived> &other)
     : Base(other.rows() * other.cols(), other.rows(), other.cols())
 {
     Base::_check_template_params();
     Base::_set_noalias(other);
 }
 /** Copy constructor */
-EIGEN_STRONG_INLINE Array(const Array&other)
+EIGEN_STRONG_INLINE Array(const Array &other)
     : Base(other.rows() * other.cols(), other.rows(), other.cols())
 {
     Base::_check_template_params();
@@ -217,7 +217,7 @@ EIGEN_STRONG_INLINE Array(const Array&other)
 }
 /** Copy constructor with in-place evaluation */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Array(const ReturnByValue<OtherDerived>&other)
+EIGEN_STRONG_INLINE Array(const ReturnByValue<OtherDerived> &other)
 {
     Base::_check_template_params();
     Base::resize(other.rows(), other.cols());
@@ -227,7 +227,7 @@ EIGEN_STRONG_INLINE Array(const ReturnByValue<OtherDerived>&other)
 
 /** \sa MatrixBase::operator=(const EigenBase<OtherDerived>&) */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Array(const EigenBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Array(const EigenBase<OtherDerived> &other)
     : Base(other.derived().rows() * other.derived().cols(), other.derived().rows(), other.derived().cols())
 {
     Base::_check_template_params();
@@ -240,7 +240,7 @@ EIGEN_STRONG_INLINE Array(const EigenBase<OtherDerived>&other)
  * data pointers.
  */
 template<typename OtherDerived>
-void swap(ArrayBase<OtherDerived> const&other)
+void swap(ArrayBase<OtherDerived> const &other)
 {
     this->_swap(other.derived());
 }

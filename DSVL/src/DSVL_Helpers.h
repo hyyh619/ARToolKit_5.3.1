@@ -32,7 +32,7 @@
 #ifndef __DSVL_HELPERS__
 #define __DSVL_HELPERS__
 
-HRESULT getPin(IBaseFilter *flt, PIN_DIRECTION dir, int number, CComPtr<IPin>&pRetPin);
+HRESULT getPin(IBaseFilter *flt, PIN_DIRECTION dir, int number, CComPtr<IPin> &pRetPin);
 
 HRESULT ConnectFilters(IBaseFilter *filter_out, int out_pin_nr,
                        IBaseFilter *in_filter, int in_pin_nr);
@@ -50,7 +50,7 @@ void uuidToString(char *dest, int dest_size, GUID *uuid_p);
 //              ROUND(2.15, 1)          equals 2.2
 //              ROUND(2.149, 1)         equals 2.1
 //              ROUND(-1.475, 2)        equals -1.48
-float Round(const float&number, const int num_digits);
+float Round(const float &number, const int num_digits);
 double RoundDouble(double doValue, int nPrecision);
 
 HRESULT AddToRot(IUnknown *pUnkGraph, DWORD *pdwRegister);

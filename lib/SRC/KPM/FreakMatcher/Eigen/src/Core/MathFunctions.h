@@ -76,7 +76,7 @@ template<typename Scalar>
 struct real_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar run(const Scalar&x)
+    static inline RealScalar run(const Scalar &x)
     {
         return x;
     }
@@ -85,7 +85,7 @@ struct real_impl
 template<typename RealScalar>
 struct real_impl<std::complex<RealScalar> >
 {
-    static inline RealScalar run(const std::complex<RealScalar>&x)
+    static inline RealScalar run(const std::complex<RealScalar> &x)
     {
         using std::real;
         return real(x);
@@ -121,7 +121,7 @@ struct imag_impl
 template<typename RealScalar>
 struct imag_impl<std::complex<RealScalar> >
 {
-    static inline RealScalar run(const std::complex<RealScalar>&x)
+    static inline RealScalar run(const std::complex<RealScalar> &x)
     {
         using std::imag;
         return imag(x);
@@ -148,11 +148,11 @@ template<typename Scalar>
 struct real_ref_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar&run(Scalar&x)
+    static inline RealScalar&run(Scalar &x)
     {
         return reinterpret_cast<RealScalar*>(&x)[0];
     }
-    static inline const RealScalar&run(const Scalar&x)
+    static inline const RealScalar&run(const Scalar &x)
     {
         return reinterpret_cast<const RealScalar*>(&x)[0];
     }
@@ -165,7 +165,7 @@ struct real_ref_retval
 };
 
 template<typename Scalar>
-inline typename add_const_on_value_type<EIGEN_MATHFUNC_RETVAL(real_ref, Scalar)>::type real_ref(const Scalar&x)
+inline typename add_const_on_value_type<EIGEN_MATHFUNC_RETVAL(real_ref, Scalar)>::type real_ref(const Scalar &x)
 {
     return real_ref_impl<Scalar>::run(x);
 }
@@ -184,11 +184,11 @@ template<typename Scalar, bool IsComplex>
 struct imag_ref_default_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar&run(Scalar&x)
+    static inline RealScalar&run(Scalar &x)
     {
         return reinterpret_cast<RealScalar*>(&x)[1];
     }
-    static inline const RealScalar&run(const Scalar&x)
+    static inline const RealScalar&run(const Scalar &x)
     {
         return reinterpret_cast<RealScalar*>(&x)[1];
     }
@@ -217,7 +217,7 @@ struct imag_ref_retval
 };
 
 template<typename Scalar>
-inline typename add_const_on_value_type<EIGEN_MATHFUNC_RETVAL(imag_ref, Scalar)>::type imag_ref(const Scalar&x)
+inline typename add_const_on_value_type<EIGEN_MATHFUNC_RETVAL(imag_ref, Scalar)>::type imag_ref(const Scalar &x)
 {
     return imag_ref_impl<Scalar>::run(x);
 }
@@ -235,7 +235,7 @@ inline EIGEN_MATHFUNC_RETVAL(imag_ref, Scalar) imag_ref(Scalar & x)
 template<typename Scalar>
 struct conj_impl
 {
-    static inline Scalar run(const Scalar&x)
+    static inline Scalar run(const Scalar &x)
     {
         return x;
     }
@@ -244,7 +244,7 @@ struct conj_impl
 template<typename RealScalar>
 struct conj_impl<std::complex<RealScalar> >
 {
-    static inline std::complex<RealScalar> run(const std::complex<RealScalar>&x)
+    static inline std::complex<RealScalar> run(const std::complex<RealScalar> &x)
     {
         using std::conj;
         return conj(x);
@@ -271,7 +271,7 @@ template<typename Scalar>
 struct abs_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar run(const Scalar&x)
+    static inline RealScalar run(const Scalar &x)
     {
         using std::abs;
         return abs(x);
@@ -298,7 +298,7 @@ template<typename Scalar>
 struct abs2_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar run(const Scalar&x)
+    static inline RealScalar run(const Scalar &x)
     {
         return x * x;
     }
@@ -307,7 +307,7 @@ struct abs2_impl
 template<typename RealScalar>
 struct abs2_impl<std::complex<RealScalar> >
 {
-    static inline RealScalar run(const std::complex<RealScalar>&x)
+    static inline RealScalar run(const std::complex<RealScalar> &x)
     {
         using std::norm;
         return norm(x);
@@ -334,7 +334,7 @@ template<typename Scalar, bool IsComplex>
 struct norm1_default_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar run(const Scalar&x)
+    static inline RealScalar run(const Scalar &x)
     {
         return abs(real(x)) + abs(imag(x));
     }
@@ -343,7 +343,7 @@ struct norm1_default_impl
 template<typename Scalar>
 struct norm1_default_impl<Scalar, false>
 {
-    static inline Scalar run(const Scalar&x)
+    static inline Scalar run(const Scalar &x)
     {
         return abs(x);
     }
@@ -372,7 +372,7 @@ template<typename Scalar>
 struct hypot_impl
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
-    static inline RealScalar run(const Scalar&x, const Scalar&y)
+    static inline RealScalar run(const Scalar &x, const Scalar &y)
     {
         using std::max;
         using std::min;
@@ -404,7 +404,7 @@ inline EIGEN_MATHFUNC_RETVAL(hypot, Scalar) hypot(const Scalar &x, const Scalar 
 template<typename OldType, typename NewType>
 struct cast_impl
 {
-    static inline NewType run(const OldType&x)
+    static inline NewType run(const OldType &x)
     {
         return static_cast<NewType>(x);
     }
@@ -413,7 +413,7 @@ struct cast_impl
 // here, for once, we're plainly returning NewType: we don't want cast to do weird things.
 
 template<typename OldType, typename NewType>
-inline NewType cast(const OldType&x)
+inline NewType cast(const OldType &x)
 {
     return cast_impl<OldType, NewType>::run(x);
 }
@@ -425,7 +425,7 @@ inline NewType cast(const OldType&x)
 template<typename Scalar, bool IsInteger>
 struct sqrt_default_impl
 {
-    static inline Scalar run(const Scalar&x)
+    static inline Scalar run(const Scalar &x)
     {
         using std::sqrt;
         return sqrt(x);
@@ -501,7 +501,7 @@ template<typename Scalar, bool IsInteger>
 struct atan2_default_impl
 {
     typedef Scalar retval;
-    static inline Scalar run(const Scalar&x, const Scalar&y)
+    static inline Scalar run(const Scalar &x, const Scalar &y)
     {
         using std::atan2;
         return atan2(x, y);
@@ -541,7 +541,7 @@ template<typename Scalar, bool IsInteger>
 struct pow_default_impl
 {
     typedef Scalar retval;
-    static inline Scalar run(const Scalar&x, const Scalar&y)
+    static inline Scalar run(const Scalar &x, const Scalar &y)
     {
         using std::pow;
         return pow(x, y);
@@ -613,7 +613,7 @@ template<typename Scalar> inline EIGEN_MATHFUNC_RETVAL(random, Scalar) random();
 template<typename Scalar>
 struct random_default_impl<Scalar, false, false>
 {
-    static inline Scalar run(const Scalar&x, const Scalar&y)
+    static inline Scalar run(const Scalar &x, const Scalar &y)
     {
         return x + (y - x) * Scalar(std::rand()) / Scalar(RAND_MAX);
     }
@@ -675,7 +675,7 @@ struct random_default_impl<Scalar, false, true>
 {
     typedef typename NumTraits<Scalar>::NonInteger NonInteger;
 
-    static inline Scalar run(const Scalar&x, const Scalar&y)
+    static inline Scalar run(const Scalar &x, const Scalar &y)
     {
         return x + Scalar((NonInteger(y) - x + 1) * std::rand() / (RAND_MAX + NonInteger(1)));
     }
@@ -698,7 +698,7 @@ struct random_default_impl<Scalar, false, true>
 template<typename Scalar>
 struct random_default_impl<Scalar, true, false>
 {
-    static inline Scalar run(const Scalar&x, const Scalar&y)
+    static inline Scalar run(const Scalar &x, const Scalar &y)
     {
         return Scalar(random(real(x), real(y)),
                       random(imag(x), imag(y)));
@@ -736,16 +736,16 @@ struct scalar_fuzzy_default_impl<Scalar, false, false>
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
     template<typename OtherScalar>
-    static inline bool isMuchSmallerThan(const Scalar&x, const OtherScalar&y, const RealScalar&prec)
+    static inline bool isMuchSmallerThan(const Scalar &x, const OtherScalar &y, const RealScalar &prec)
     {
         return abs(x) <= abs(y) * prec;
     }
-    static inline bool isApprox(const Scalar&x, const Scalar&y, const RealScalar&prec)
+    static inline bool isApprox(const Scalar &x, const Scalar &y, const RealScalar &prec)
     {
         using std::min;
         return abs(x - y) <= (min)(abs(x), abs(y)) * prec;
     }
-    static inline bool isApproxOrLessThan(const Scalar&x, const Scalar&y, const RealScalar&prec)
+    static inline bool isApproxOrLessThan(const Scalar &x, const Scalar &y, const RealScalar &prec)
     {
         return x <= y || isApprox(x, y, prec);
     }
@@ -756,15 +756,15 @@ struct scalar_fuzzy_default_impl<Scalar, false, true>
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
     template<typename OtherScalar>
-    static inline bool isMuchSmallerThan(const Scalar&x, const Scalar&, const RealScalar&)
+    static inline bool isMuchSmallerThan(const Scalar &x, const Scalar&, const RealScalar&)
     {
         return x == Scalar(0);
     }
-    static inline bool isApprox(const Scalar&x, const Scalar&y, const RealScalar&)
+    static inline bool isApprox(const Scalar &x, const Scalar &y, const RealScalar&)
     {
         return x == y;
     }
-    static inline bool isApproxOrLessThan(const Scalar&x, const Scalar&y, const RealScalar&)
+    static inline bool isApproxOrLessThan(const Scalar &x, const Scalar &y, const RealScalar&)
     {
         return x <= y;
     }
@@ -775,11 +775,11 @@ struct scalar_fuzzy_default_impl<Scalar, true, false>
 {
     typedef typename NumTraits<Scalar>::Real RealScalar;
     template<typename OtherScalar>
-    static inline bool isMuchSmallerThan(const Scalar&x, const OtherScalar&y, const RealScalar&prec)
+    static inline bool isMuchSmallerThan(const Scalar &x, const OtherScalar &y, const RealScalar &prec)
     {
         return abs2(x) <= abs2(y) * prec * prec;
     }
-    static inline bool isApprox(const Scalar&x, const Scalar&y, const RealScalar&prec)
+    static inline bool isApprox(const Scalar &x, const Scalar &y, const RealScalar &prec)
     {
         using std::min;
         return abs2(x - y) <= (min)(abs2(x), abs2(y)) * prec * prec;
@@ -790,21 +790,21 @@ template<typename Scalar>
 struct scalar_fuzzy_impl : scalar_fuzzy_default_impl<Scalar, NumTraits<Scalar>::IsComplex, NumTraits<Scalar>::IsInteger> {};
 
 template<typename Scalar, typename OtherScalar>
-inline bool isMuchSmallerThan(const Scalar&x, const OtherScalar&y,
+inline bool isMuchSmallerThan(const Scalar &x, const OtherScalar &y,
                               typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision())
 {
     return scalar_fuzzy_impl<Scalar>::template isMuchSmallerThan<OtherScalar>(x, y, precision);
 }
 
 template<typename Scalar>
-inline bool isApprox(const Scalar&x, const Scalar&y,
+inline bool isApprox(const Scalar &x, const Scalar &y,
                      typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision())
 {
     return scalar_fuzzy_impl<Scalar>::isApprox(x, y, precision);
 }
 
 template<typename Scalar>
-inline bool isApproxOrLessThan(const Scalar&x, const Scalar&y,
+inline bool isApproxOrLessThan(const Scalar &x, const Scalar &y,
                                typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision())
 {
     return scalar_fuzzy_impl<Scalar>::isApproxOrLessThan(x, y, precision);
@@ -827,7 +827,7 @@ template<> struct scalar_fuzzy_impl<bool>
     typedef bool RealScalar;
 
     template<typename OtherScalar>
-    static inline bool isMuchSmallerThan(const bool&x, const bool&, const bool&)
+    static inline bool isMuchSmallerThan(const bool &x, const bool&, const bool&)
     {
         return !x;
     }
@@ -837,7 +837,7 @@ template<> struct scalar_fuzzy_impl<bool>
         return x == y;
     }
 
-    static inline bool isApproxOrLessThan(const bool&x, const bool&y, const bool&)
+    static inline bool isApproxOrLessThan(const bool &x, const bool &y, const bool&)
     {
         return (!x) || y;
     }

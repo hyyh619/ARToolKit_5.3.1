@@ -59,7 +59,7 @@ namespace internal
  * This function is internally used by constrained_cg.
  */
 template<typename CMatrix, typename CINVMatrix>
-void pseudo_inverse(const CMatrix&C, CINVMatrix&CINV)
+void pseudo_inverse(const CMatrix &C, CINVMatrix &CINV)
 {
     // optimisable : copie de la ligne, precalcul de C * trans(C).
     typedef typename CMatrix::Scalar Scalar;
@@ -118,8 +118,8 @@ void pseudo_inverse(const CMatrix&C, CINVMatrix&CINV)
  */
 template<typename TMatrix, typename CMatrix,
          typename VectorX, typename VectorB, typename VectorF>
-void constrained_cg(const TMatrix&A, const CMatrix&C, VectorX&x,
-                    const VectorB&b, const VectorF&f, IterationController&iter)
+void constrained_cg(const TMatrix &A, const CMatrix &C, VectorX &x,
+                    const VectorB &b, const VectorF &f, IterationController &iter)
 {
     typedef typename TMatrix::Scalar Scalar;
     typedef typename TMatrix::Index Index;

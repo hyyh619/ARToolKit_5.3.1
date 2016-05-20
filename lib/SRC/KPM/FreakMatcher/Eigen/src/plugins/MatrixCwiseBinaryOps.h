@@ -53,7 +53,7 @@ cwiseProduct(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
  */
 template<typename OtherDerived>
 inline const CwiseBinaryOp<std::equal_to<Scalar>, const Derived, const OtherDerived>
-cwiseEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
+cwiseEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 {
     return CwiseBinaryOp<std::equal_to<Scalar>, const Derived, const OtherDerived>(derived(), other.derived());
 }
@@ -72,7 +72,7 @@ cwiseEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
  */
 template<typename OtherDerived>
 inline const CwiseBinaryOp<std::not_equal_to<Scalar>, const Derived, const OtherDerived>
-cwiseNotEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
+cwiseNotEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 {
     return CwiseBinaryOp<std::not_equal_to<Scalar>, const Derived, const OtherDerived>(derived(), other.derived());
 }
@@ -86,7 +86,7 @@ cwiseNotEqual(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
  */
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const CwiseBinaryOp<internal::scalar_min_op<Scalar>, const Derived, const OtherDerived>
-cwiseMin(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
+cwiseMin(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 {
     return CwiseBinaryOp<internal::scalar_min_op<Scalar>, const Derived, const OtherDerived>(derived(), other.derived());
 }
@@ -100,7 +100,7 @@ cwiseMin(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
  */
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const CwiseBinaryOp<internal::scalar_max_op<Scalar>, const Derived, const OtherDerived>
-cwiseMax(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
+cwiseMax(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 {
     return CwiseBinaryOp<internal::scalar_max_op<Scalar>, const Derived, const OtherDerived>(derived(), other.derived());
 }
@@ -114,7 +114,7 @@ cwiseMax(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
  */
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const CwiseBinaryOp<internal::scalar_quotient_op<Scalar>, const Derived, const OtherDerived>
-cwiseQuotient(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
+cwiseQuotient(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 {
     return CwiseBinaryOp<internal::scalar_quotient_op<Scalar>, const Derived, const OtherDerived>(derived(), other.derived());
 }

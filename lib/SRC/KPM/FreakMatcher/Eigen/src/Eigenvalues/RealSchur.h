@@ -114,7 +114,7 @@ RealSchur(Index size = RowsAtCompileTime == Dynamic ? 1 : RowsAtCompileTime)
  * Example: \include RealSchur_RealSchur_MatrixType.cpp
  * Output: \verbinclude RealSchur_RealSchur_MatrixType.out
  */
-RealSchur(const MatrixType&matrix, bool computeU = true)
+RealSchur(const MatrixType &matrix, bool computeU = true)
     : m_matT(matrix.rows(), matrix.cols()),
     m_matU(matrix.rows(), matrix.cols()),
     m_workspaceVector(matrix.rows()),
@@ -176,7 +176,7 @@ const MatrixType&matrixT() const
  * Example: \include RealSchur_compute.cpp
  * Output: \verbinclude RealSchur_compute.out
  */
-RealSchur&compute(const MatrixType&matrix, bool computeU = true);
+RealSchur&compute(const MatrixType &matrix, bool computeU = true);
 
 /** \brief Reports whether previous computation was successful.
  *
@@ -209,14 +209,14 @@ typedef Matrix<Scalar, 3, 1> Vector3s;
 Scalar computeNormOfT();
 Index findSmallSubdiagEntry(Index iu, Scalar norm);
 void splitOffTwoRows(Index iu, bool computeU, Scalar exshift);
-void computeShift(Index iu, Index iter, Scalar&exshift, Vector3s&shiftInfo);
-void initFrancisQRStep(Index il, Index iu, const Vector3s&shiftInfo, Index&im, Vector3s&firstHouseholderVector);
-void performFrancisQRStep(Index il, Index im, Index iu, bool computeU, const Vector3s&firstHouseholderVector, Scalar *workspace);
+void computeShift(Index iu, Index iter, Scalar &exshift, Vector3s &shiftInfo);
+void initFrancisQRStep(Index il, Index iu, const Vector3s &shiftInfo, Index &im, Vector3s &firstHouseholderVector);
+void performFrancisQRStep(Index il, Index im, Index iu, bool computeU, const Vector3s &firstHouseholderVector, Scalar *workspace);
 };
 
 
 template<typename MatrixType>
-RealSchur<MatrixType>&RealSchur<MatrixType>::compute(const MatrixType&matrix, bool computeU)
+RealSchur<MatrixType>&RealSchur<MatrixType>::compute(const MatrixType &matrix, bool computeU)
 {
     assert(matrix.cols() == matrix.rows());
 
@@ -360,7 +360,7 @@ inline void RealSchur<MatrixType>::splitOffTwoRows(Index iu, bool computeU, Scal
 
 /** \internal Form shift in shiftInfo, and update exshift if an exceptional shift is performed. */
 template<typename MatrixType>
-inline void RealSchur<MatrixType>::computeShift(Index iu, Index iter, Scalar&exshift, Vector3s&shiftInfo)
+inline void RealSchur<MatrixType>::computeShift(Index iu, Index iter, Scalar &exshift, Vector3s &shiftInfo)
 {
     shiftInfo.coeffRef(0) = m_matT.coeff(iu, iu);
     shiftInfo.coeffRef(1) = m_matT.coeff(iu - 1, iu - 1);
@@ -405,9 +405,9 @@ inline void RealSchur<MatrixType>::computeShift(Index iu, Index iter, Scalar&exs
 
 /** \internal Compute index im at which Francis QR step starts and the first Householder vector. */
 template<typename MatrixType>
-inline void RealSchur<MatrixType>::initFrancisQRStep(Index il, Index iu, const Vector3s&shiftInfo, Index&im, Vector3s&firstHouseholderVector)
+inline void RealSchur<MatrixType>::initFrancisQRStep(Index il, Index iu, const Vector3s &shiftInfo, Index &im, Vector3s &firstHouseholderVector)
 {
-    Vector3s&v = firstHouseholderVector; // alias to save typing
+    Vector3s &v = firstHouseholderVector; // alias to save typing
 
     for (im = iu - 2; im >= il; --im)
     {
@@ -433,7 +433,7 @@ inline void RealSchur<MatrixType>::initFrancisQRStep(Index il, Index iu, const V
 
 /** \internal Perform a Francis QR step involving rows il:iu and columns im:iu. */
 template<typename MatrixType>
-inline void RealSchur<MatrixType>::performFrancisQRStep(Index il, Index im, Index iu, bool computeU, const Vector3s&firstHouseholderVector, Scalar *workspace)
+inline void RealSchur<MatrixType>::performFrancisQRStep(Index il, Index im, Index iu, bool computeU, const Vector3s &firstHouseholderVector, Scalar *workspace)
 {
     assert(im >= il);
     assert(im <= iu - 2);

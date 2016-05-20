@@ -15,7 +15,7 @@ operator*(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
  */
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const CwiseBinaryOp<internal::scalar_quotient_op<Scalar>, const Derived, const OtherDerived>
-operator/(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived>&other) const
+operator/(const EIGEN_CURRENT_STORAGE_BASE_CLASS<OtherDerived> &other) const
 {
     return CwiseBinaryOp<internal::scalar_quotient_op<Scalar>, const Derived, const OtherDerived>(derived(), other.derived());
 }
@@ -112,13 +112,13 @@ EIGEN_MAKE_CWISE_BINARY_OP(operator!=, std::not_equal_to)
  * \sa operator+=(), operator-()
  */
 inline const CwiseUnaryOp<internal::scalar_add_op<Scalar>, const Derived>
-operator+(const Scalar&scalar) const
+operator+(const Scalar &scalar) const
 {
     return CwiseUnaryOp<internal::scalar_add_op<Scalar>, const Derived>(derived(), internal::scalar_add_op<Scalar>(scalar));
 }
 
 friend inline const CwiseUnaryOp<internal::scalar_add_op<Scalar>, const Derived>
-operator+(const Scalar&scalar, const EIGEN_CURRENT_STORAGE_BASE_CLASS<Derived>&other)
+operator+(const Scalar &scalar, const EIGEN_CURRENT_STORAGE_BASE_CLASS<Derived> &other)
 {
     return other + scalar;
 }
@@ -131,13 +131,13 @@ operator+(const Scalar&scalar, const EIGEN_CURRENT_STORAGE_BASE_CLASS<Derived>&o
  * \sa operator+(), operator-=()
  */
 inline const CwiseUnaryOp<internal::scalar_add_op<Scalar>, const Derived>
-operator-(const Scalar&scalar) const
+operator-(const Scalar &scalar) const
 {
     return *this + (-scalar);
 }
 
 friend inline const CwiseUnaryOp<internal::scalar_add_op<Scalar>, const CwiseUnaryOp<internal::scalar_opposite_op<Scalar>, const Derived> >
-operator-(const Scalar&scalar, const EIGEN_CURRENT_STORAGE_BASE_CLASS<Derived>&other)
+operator-(const Scalar &scalar, const EIGEN_CURRENT_STORAGE_BASE_CLASS<Derived> &other)
 {
     return (-other) + scalar;
 }

@@ -104,7 +104,7 @@ centersAlgFunction chooseCenters;
  *     indices_length = length of indices vector
  *
  */
-void chooseCentersRandom(int k, int *indices, int indices_length, int *centers, int&centers_length)
+void chooseCentersRandom(int k, int *indices, int indices_length, int *centers, int &centers_length)
 {
     UniqueRandom r(indices_length);
 
@@ -152,7 +152,7 @@ void chooseCentersRandom(int k, int *indices, int indices_length, int *centers, 
  *     indices = indices in the dataset
  * Returns:
  */
-void chooseCentersGonzales(int k, int *indices, int indices_length, int *centers, int&centers_length)
+void chooseCentersGonzales(int k, int *indices, int indices_length, int *centers, int &centers_length)
 {
     int n = indices_length;
 
@@ -216,7 +216,7 @@ void chooseCentersGonzales(int k, int *indices, int indices_length, int *centers
  *     indices = indices in the dataset
  * Returns:
  */
-void chooseCentersKMeanspp(int k, int *indices, int indices_length, int *centers, int&centers_length)
+void chooseCentersKMeanspp(int k, int *indices, int indices_length, int *centers, int &centers_length)
 {
     int n = indices_length;
 
@@ -304,7 +304,7 @@ flann_algorithm_t getType() const
  *          inputData = dataset with the input features
  *          params = parameters passed to the hierarchical k-means algorithm
  */
-KMeansIndex(const Matrix<ElementType>&inputData, const IndexParams&params = KMeansIndexParams(),
+KMeansIndex(const Matrix<ElementType> &inputData, const IndexParams &params = KMeansIndexParams(),
             Distance d = Distance())
     : dataset_(inputData), index_params_(params), root_(NULL), indices_(NULL), distance_(d)
 {
@@ -469,7 +469,7 @@ void loadIndex(FILE *stream)
  *     vec = the vector for which to search the nearest neighbors
  *     searchParams = parameters that influence the search algorithm (checks, cb_index)
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     int maxChecks = get_param(searchParams, "checks", 32);
 
@@ -506,7 +506,7 @@ void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const
  *     numClusters = number of clusters to have in the clustering computed
  * Returns: number of cluster centers
  */
-int getClusterCenters(Matrix<DistanceType>&centers)
+int getClusterCenters(Matrix<DistanceType> &centers)
 {
     int numClusters = centers.rows;
 
@@ -611,7 +611,7 @@ void save_tree(FILE *stream, KMeansNodePtr node)
 }
 
 
-void load_tree(FILE *stream, KMeansNodePtr&node)
+void load_tree(FILE *stream, KMeansNodePtr &node)
 {
     node = pool_.allocate<KMeansNode>();
     load_value(stream, *node);
@@ -961,7 +961,7 @@ void computeClustering(KMeansNodePtr node, int *indices, int indices_length, int
  */
 
 
-void findNN(KMeansNodePtr node, ResultSet<DistanceType>&result, const ElementType *vec, int&checks, int maxChecks,
+void findNN(KMeansNodePtr node, ResultSet<DistanceType> &result, const ElementType *vec, int &checks, int maxChecks,
             Heap<BranchSt> *heap)
 {
     // Ignore those clusters that are too far away
@@ -1051,7 +1051,7 @@ int exploreNodeBranches(KMeansNodePtr node, const ElementType *q, DistanceType *
 /**
  * Function the performs exact nearest neighbor search by traversing the entire tree.
  */
-void findExactNN(KMeansNodePtr node, ResultSet<DistanceType>&result, const ElementType *vec)
+void findExactNN(KMeansNodePtr node, ResultSet<DistanceType> &result, const ElementType *vec)
 {
     // Ignore those clusters that are too far away
     {
@@ -1156,7 +1156,7 @@ DistanceType getDistanceToBorder(DistanceType *p, DistanceType *c, DistanceType 
  *     varianceValue = variance of the clustering (return value)
  * Returns:
  */
-int getMinVarianceClusters(KMeansNodePtr root, KMeansNodePtr *clusters, int clusters_length, DistanceType&varianceValue)
+int getMinVarianceClusters(KMeansNodePtr root, KMeansNodePtr *clusters, int clusters_length, DistanceType &varianceValue)
 {
     int clusterCount = 1;
 

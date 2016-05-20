@@ -53,14 +53,14 @@ typedef DenseIndex Index;
 
 protected:
 template<typename OtherPolynomial>
-inline void setPolynomial(const OtherPolynomial&poly)
+inline void setPolynomial(const OtherPolynomial &poly)
 {
     m_roots.resize(poly.size());
 }
 
 public:
 template<typename OtherPolynomial>
-inline PolynomialSolverBase(const OtherPolynomial&poly)
+inline PolynomialSolverBase(const OtherPolynomial &poly)
 {
     setPolynomial(poly());
 }
@@ -86,8 +86,8 @@ public:
  *  number that is considered as real.
  * */
 template<typename Stl_back_insertion_sequence>
-inline void realRoots(Stl_back_insertion_sequence&bi_seq,
-                      const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+inline void realRoots(Stl_back_insertion_sequence &bi_seq,
+                      const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     bi_seq.clear();
 
@@ -102,7 +102,7 @@ inline void realRoots(Stl_back_insertion_sequence&bi_seq,
 
 protected:
 template<typename squaredNormBinaryPredicate>
-inline const RootType&selectComplexRoot_withRespectToNorm(squaredNormBinaryPredicate&pred) const
+inline const RootType&selectComplexRoot_withRespectToNorm(squaredNormBinaryPredicate &pred) const
 {
     Index      res   = 0;
     RealScalar norm2 = internal::abs2(m_roots[0]);
@@ -143,9 +143,9 @@ inline const RootType&smallestRoot() const
 protected:
 template<typename squaredRealPartBinaryPredicate>
 inline const RealScalar&selectRealRoot_withRespectToAbsRealPart(
-    squaredRealPartBinaryPredicate&pred,
-    bool&hasArealRoot,
-    const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+    squaredRealPartBinaryPredicate &pred,
+    bool &hasArealRoot,
+    const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     hasArealRoot = false;
     Index      res = 0;
@@ -186,9 +186,9 @@ inline const RealScalar&selectRealRoot_withRespectToAbsRealPart(
 
 template<typename RealPartBinaryPredicate>
 inline const RealScalar&selectRealRoot_withRespectToRealPart(
-    RealPartBinaryPredicate&pred,
-    bool&hasArealRoot,
-    const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+    RealPartBinaryPredicate &pred,
+    bool &hasArealRoot,
+    const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     hasArealRoot = false;
     Index      res = 0;
@@ -242,8 +242,8 @@ public:
  *  whether or not a root is real.
  */
 inline const RealScalar&absGreatestRealRoot(
-    bool&hasArealRoot,
-    const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+    bool &hasArealRoot,
+    const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     std::greater<Scalar> greater;
 
@@ -266,8 +266,8 @@ inline const RealScalar&absGreatestRealRoot(
  *  whether or not a root is real.
  */
 inline const RealScalar&absSmallestRealRoot(
-    bool&hasArealRoot,
-    const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+    bool &hasArealRoot,
+    const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     std::less<Scalar> less;
 
@@ -290,8 +290,8 @@ inline const RealScalar&absSmallestRealRoot(
  *  whether or not a root is real.
  */
 inline const RealScalar&greatestRealRoot(
-    bool&hasArealRoot,
-    const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+    bool &hasArealRoot,
+    const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     std::greater<Scalar> greater;
 
@@ -314,8 +314,8 @@ inline const RealScalar&greatestRealRoot(
  *  whether or not a root is real.
  */
 inline const RealScalar&smallestRealRoot(
-    bool&hasArealRoot,
-    const RealScalar&absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
+    bool &hasArealRoot,
+    const RealScalar &absImaginaryThreshold = NumTraits<Scalar>::dummy_precision()) const
 {
     std::less<Scalar> less;
 
@@ -378,7 +378,7 @@ typedef EigenSolver<CompanionMatrixType>         EigenSolverType;
 public:
 /** Computes the complex roots of a new polynomial. */
 template<typename OtherPolynomial>
-void compute(const OtherPolynomial&poly)
+void compute(const OtherPolynomial &poly)
 {
     assert(Scalar(0) != poly[poly.size() - 1]);
     internal::companion<Scalar, _Deg> companion(poly);
@@ -389,7 +389,7 @@ void compute(const OtherPolynomial&poly)
 
 public:
 template<typename OtherPolynomial>
-inline PolynomialSolver(const OtherPolynomial&poly)
+inline PolynomialSolver(const OtherPolynomial &poly)
 {
     compute(poly);
 }
@@ -412,7 +412,7 @@ EIGEN_POLYNOMIAL_SOLVER_BASE_INHERITED_TYPES(PS_Base)
 public:
 /** Computes the complex roots of a new polynomial. */
 template<typename OtherPolynomial>
-void compute(const OtherPolynomial&poly)
+void compute(const OtherPolynomial &poly)
 {
     assert(Scalar(0) != poly[poly.size() - 1]);
     m_roots[0] = -poly[0] / poly[poly.size() - 1];

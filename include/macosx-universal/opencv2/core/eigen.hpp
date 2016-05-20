@@ -57,7 +57,7 @@
 namespace cv
 {
 template<typename _Tp, int _rows, int _cols, int _options, int _maxRows, int _maxCols>
-void eigen2cv(const Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCols>&src, Mat&dst)
+void eigen2cv(const Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCols> &src, Mat &dst)
 {
     if (!(src.Flags & Eigen::RowMajorBit))
     {
@@ -74,8 +74,8 @@ void eigen2cv(const Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCol
 }
 
 template<typename _Tp, int _rows, int _cols, int _options, int _maxRows, int _maxCols>
-void cv2eigen(const Mat&src,
-              Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCols>&dst)
+void cv2eigen(const Mat &src,
+              Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCols> &dst)
 {
     CV_DbgAssert(src.rows == _rows && src.cols == _cols);
     if (!(dst.Flags & Eigen::RowMajorBit))
@@ -105,8 +105,8 @@ void cv2eigen(const Mat&src,
 
 // Matx case
 template<typename _Tp, int _rows, int _cols, int _options, int _maxRows, int _maxCols>
-void cv2eigen(const Matx<_Tp, _rows, _cols>&src,
-              Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCols>&dst)
+void cv2eigen(const Matx<_Tp, _rows, _cols> &src,
+              Eigen::Matrix<_Tp, _rows, _cols, _options, _maxRows, _maxCols> &dst)
 {
     if (!(dst.Flags & Eigen::RowMajorBit))
     {
@@ -125,8 +125,8 @@ void cv2eigen(const Matx<_Tp, _rows, _cols>&src,
 }
 
 template<typename _Tp>
-void cv2eigen(const Mat&src,
-              Eigen::Matrix<_Tp, Eigen::Dynamic, Eigen::Dynamic>&dst)
+void cv2eigen(const Mat &src,
+              Eigen::Matrix<_Tp, Eigen::Dynamic, Eigen::Dynamic> &dst)
 {
     dst.resize(src.rows, src.cols);
     if (!(dst.Flags & Eigen::RowMajorBit))
@@ -156,8 +156,8 @@ void cv2eigen(const Mat&src,
 
 // Matx case
 template<typename _Tp, int _rows, int _cols>
-void cv2eigen(const Matx<_Tp, _rows, _cols>&src,
-              Eigen::Matrix<_Tp, Eigen::Dynamic, Eigen::Dynamic>&dst)
+void cv2eigen(const Matx<_Tp, _rows, _cols> &src,
+              Eigen::Matrix<_Tp, Eigen::Dynamic, Eigen::Dynamic> &dst)
 {
     dst.resize(_rows, _cols);
     if (!(dst.Flags & Eigen::RowMajorBit))
@@ -177,8 +177,8 @@ void cv2eigen(const Matx<_Tp, _rows, _cols>&src,
 }
 
 template<typename _Tp>
-void cv2eigen(const Mat&src,
-              Eigen::Matrix<_Tp, Eigen::Dynamic, 1>&dst)
+void cv2eigen(const Mat &src,
+              Eigen::Matrix<_Tp, Eigen::Dynamic, 1> &dst)
 {
     CV_Assert(src.cols == 1);
     dst.resize(src.rows);
@@ -205,8 +205,8 @@ void cv2eigen(const Mat&src,
 
 // Matx case
 template<typename _Tp, int _rows>
-void cv2eigen(const Matx<_Tp, _rows, 1>&src,
-              Eigen::Matrix<_Tp, Eigen::Dynamic, 1>&dst)
+void cv2eigen(const Matx<_Tp, _rows, 1> &src,
+              Eigen::Matrix<_Tp, Eigen::Dynamic, 1> &dst)
 {
     dst.resize(_rows);
 
@@ -228,8 +228,8 @@ void cv2eigen(const Matx<_Tp, _rows, 1>&src,
 
 
 template<typename _Tp>
-void cv2eigen(const Mat&src,
-              Eigen::Matrix<_Tp, 1, Eigen::Dynamic>&dst)
+void cv2eigen(const Mat &src,
+              Eigen::Matrix<_Tp, 1, Eigen::Dynamic> &dst)
 {
     CV_Assert(src.rows == 1);
     dst.resize(src.cols);
@@ -255,8 +255,8 @@ void cv2eigen(const Mat&src,
 
 // Matx
 template<typename _Tp, int _cols>
-void cv2eigen(const Matx<_Tp, 1, _cols>&src,
-              Eigen::Matrix<_Tp, 1, Eigen::Dynamic>&dst)
+void cv2eigen(const Matx<_Tp, 1, _cols> &src,
+              Eigen::Matrix<_Tp, 1, Eigen::Dynamic> &dst)
 {
     dst.resize(_cols);
     if (!(dst.Flags & Eigen::RowMajorBit))

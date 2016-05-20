@@ -37,10 +37,10 @@ typedef Block<const MatrixType, MatrixType::ColsAtCompileTime, MatrixType::ColsA
 QR() : Base() {}
 
 template<typename T>
-explicit QR(const T&t) : Base(t) {}
+explicit QR(const T &t) : Base(t) {}
 
 template<typename OtherDerived, typename ResultType>
-bool solve(const MatrixBase<OtherDerived>&b, ResultType *result) const
+bool solve(const MatrixBase<OtherDerived> &b, ResultType *result) const
 {
     *result = static_cast<const Base*>(this)->solve(b);
     return true;

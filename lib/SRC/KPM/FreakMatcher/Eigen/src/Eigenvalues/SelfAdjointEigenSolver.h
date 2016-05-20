@@ -159,7 +159,7 @@ SelfAdjointEigenSolver(Index size)
  *
  * \sa compute(const MatrixType&, int)
  */
-SelfAdjointEigenSolver(const MatrixType&matrix, int options = ComputeEigenvectors)
+SelfAdjointEigenSolver(const MatrixType &matrix, int options = ComputeEigenvectors)
     : m_eivec(matrix.rows(), matrix.cols()),
     m_eivalues(matrix.cols()),
     m_subdiag(matrix.rows() > 1 ? matrix.rows() - 1 : 1),
@@ -198,7 +198,7 @@ SelfAdjointEigenSolver(const MatrixType&matrix, int options = ComputeEigenvector
  *
  * \sa SelfAdjointEigenSolver(const MatrixType&, int)
  */
-SelfAdjointEigenSolver&compute(const MatrixType&matrix, int options = ComputeEigenvectors);
+SelfAdjointEigenSolver&compute(const MatrixType &matrix, int options = ComputeEigenvectors);
 
 /** \brief Returns the eigenvectors of given matrix.
  *
@@ -314,7 +314,7 @@ ComputationInfo info() const
 static const int m_maxIterations = 30;
 
     #ifdef EIGEN2_SUPPORT
-SelfAdjointEigenSolver(const MatrixType&matrix, bool computeEigenvectors)
+SelfAdjointEigenSolver(const MatrixType &matrix, bool computeEigenvectors)
     : m_eivec(matrix.rows(), matrix.cols()),
     m_eivalues(matrix.cols()),
     m_subdiag(matrix.rows() > 1 ? matrix.rows() - 1 : 1),
@@ -323,7 +323,7 @@ SelfAdjointEigenSolver(const MatrixType&matrix, bool computeEigenvectors)
     compute(matrix, computeEigenvectors);
 }
 
-SelfAdjointEigenSolver(const MatrixType&matA, const MatrixType&matB, bool computeEigenvectors = true)
+SelfAdjointEigenSolver(const MatrixType &matA, const MatrixType &matB, bool computeEigenvectors = true)
     : m_eivec(matA.cols(), matA.cols()),
     m_eivalues(matA.cols()),
     m_subdiag(matA.cols() > 1 ? matA.cols() - 1 : 1),
@@ -332,12 +332,12 @@ SelfAdjointEigenSolver(const MatrixType&matA, const MatrixType&matB, bool comput
     static_cast<GeneralizedSelfAdjointEigenSolver<MatrixType>*>(this)->compute(matA, matB, computeEigenvectors ? ComputeEigenvectors : EigenvaluesOnly);
 }
 
-void compute(const MatrixType&matrix, bool computeEigenvectors)
+void compute(const MatrixType &matrix, bool computeEigenvectors)
 {
     compute(matrix, computeEigenvectors ? ComputeEigenvectors : EigenvaluesOnly);
 }
 
-void compute(const MatrixType&matA, const MatrixType&matB, bool computeEigenvectors = true)
+void compute(const MatrixType &matA, const MatrixType &matB, bool computeEigenvectors = true)
 {
     compute(matA, matB, computeEigenvectors ? ComputeEigenvectors : EigenvaluesOnly);
 }
@@ -376,7 +376,7 @@ static void tridiagonal_qr_step(RealScalar *diag, RealScalar *subdiag, Index sta
 
 template<typename MatrixType>
 SelfAdjointEigenSolver<MatrixType>&SelfAdjointEigenSolver<MatrixType>
-::compute(const MatrixType&matrix, int options)
+::compute(const MatrixType &matrix, int options)
 {
     eigen_assert(matrix.cols() == matrix.rows());
     eigen_assert((options & ~(EigVecMask | GenEigMask)) == 0
@@ -399,8 +399,8 @@ SelfAdjointEigenSolver<MatrixType>&SelfAdjointEigenSolver<MatrixType>
     }
 
     // declare some aliases
-    RealVectorType&diag = m_eivalues;
-    MatrixType    &mat  = m_eivec;
+    RealVectorType &diag = m_eivalues;
+    MatrixType     &mat  = m_eivec;
 
     // map the matrix coefficients to [-1:1] to avoid over- and underflow.
     RealScalar scale = matrix.cwiseAbs().maxCoeff();

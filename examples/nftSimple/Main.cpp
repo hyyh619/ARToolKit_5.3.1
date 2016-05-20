@@ -137,7 +137,7 @@ int main(int argc, char **argv)
     char       glutGamemode[32];
     const char *cparam_name               = "Data2/camera_para_640x480.dat";
     const char markerConfigDataFilename[] = "Data2/pinball-markers.dat";
-    const char objectDataFilename[] = "OSG/axes.dat"; // "OSG/sterowiec-lwo.dat"; //"Data/cow.dat";
+    const char objectDataFilename[]       = "OSG/axes.dat"; // "OSG/sterowiec-lwo.dat"; //"Data/cow.dat";
 
 #ifdef WIN32
     char vconf[] = "-device=WinDS -showDialog  -flipV";
@@ -520,7 +520,7 @@ static void mainLoop(void)
 
                 // We have a new pose, so set that.
                 arglCameraViewRH((const ARdouble(*)[4])g_pMarkersNFT[i].trans, g_pMarkersNFT[i].pose.T, VIEW_SCALEFACTOR);
-                
+
                 // Tell any dependent objects about the update.
                 // --->
                 VirtualEnvironmentHandleARMarkerWasUpdated(i, g_pMarkersNFT[i].pose);

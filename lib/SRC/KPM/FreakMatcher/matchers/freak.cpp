@@ -66,8 +66,8 @@ FREAKExtractor::FREAKExtractor()
     ASSERT(sizeof(freak84_points_ring5) == 48, "Size should be 48 bytes");
 }
 
-void FREAKExtractor::layout84(std::vector<receptor>&receptors,
-                              std::vector<std::vector<int> >&tests)
+void FREAKExtractor::layout84(std::vector<receptor> &receptors,
+                              std::vector<std::vector<int> > &tests)
 {
     const int ring_size = 6;
     const int num_rings = 6;
@@ -144,9 +144,9 @@ void FREAKExtractor::layout84(std::vector<receptor>&receptors,
     }
 }
 
-void FREAKExtractor::extract(BinaryFeatureStore&store,
+void FREAKExtractor::extract(BinaryFeatureStore &store,
                              const GaussianScaleSpacePyramid *pyramid,
-                             const std::vector<FeaturePoint>&points)
+                             const std::vector<FeaturePoint> &points)
 {
 #ifdef FREAK_DEBUG
     mMappedPoints0.clear();

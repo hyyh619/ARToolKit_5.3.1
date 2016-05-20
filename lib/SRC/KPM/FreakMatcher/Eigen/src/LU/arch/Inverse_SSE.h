@@ -54,7 +54,7 @@ struct compute_inverse_size4<Architecture::SSE, float, MatrixType, ResultType>
         StorageOrdersMatch = (MatrixType::Flags&RowMajorBit) == (ResultType::Flags&RowMajorBit)
     };
 
-    static void run(const MatrixType&matrix, ResultType&result)
+    static void run(const MatrixType &matrix, ResultType &result)
     {
         EIGEN_ALIGN16 const unsigned int _Sign_PNNP[4] = { 0x00000000, 0x80000000, 0x80000000, 0x00000000 };
 
@@ -182,7 +182,7 @@ struct compute_inverse_size4<Architecture::SSE, double, MatrixType, ResultType>
         ResultAlignment    = bool(ResultType::Flags & AlignedBit),
         StorageOrdersMatch = (MatrixType::Flags&RowMajorBit) == (ResultType::Flags&RowMajorBit)
     };
-    static void run(const MatrixType&matrix, ResultType&result)
+    static void run(const MatrixType &matrix, ResultType &result)
     {
         const __m128d _Sign_NP = _mm_castsi128_pd(_mm_set_epi32(0x0, 0x0, 0x80000000, 0x0));
         const __m128d _Sign_PN = _mm_castsi128_pd(_mm_set_epi32(0x80000000, 0x0, 0x0, 0x0));

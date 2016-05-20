@@ -105,7 +105,7 @@ void clear()
 
 struct CompareT
 {
-    bool operator()(const T&t_1, const T&t_2) const
+    bool operator()(const T &t_1, const T &t_2) const
     {
         return t_2 < t_1;
     }
@@ -143,7 +143,7 @@ void insert(T value)
  *     value = out parameter used to return the min element
  * Returns: false if heap empty
  */
-bool popMin(T&value)
+bool popMin(T &value)
 {
     if (count == 0)
     {

@@ -405,13 +405,13 @@ void VirtualEnvironmentHandleARViewUpdatedViewport(int *viewPort_in)
     viewPort[1] = viewPort_in[1];
     viewPort[2] = viewPort_in[2];
     viewPort[3] = viewPort_in[3];
-    
+
     arOSGHandleReshape2(VirtualEnvironment_AROSG,
                         viewPort_in[viewPortIndexLeft],
                         viewPort_in[viewPortIndexBottom],
                         viewPort_in[viewPortIndexWidth],
                         viewPort_in[viewPortIndexHeight]);
-    
+
     // Also, since at this point the OSG viewer is valid, we can set the projection now.
     arOSGSetProjection(VirtualEnvironment_AROSG, projection);
 }

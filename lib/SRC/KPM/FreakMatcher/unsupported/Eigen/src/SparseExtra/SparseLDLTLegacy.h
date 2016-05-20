@@ -106,7 +106,7 @@ SparseLDLT(int flags = 0)
 
 /** Creates a LDLT object and compute the respective factorization of \a matrix using
  * flags \a flags. */
-SparseLDLT(const MatrixType&matrix, int flags = 0)
+SparseLDLT(const MatrixType &matrix, int flags = 0)
     : m_matrix(matrix.rows(), matrix.cols()), m_flags(flags), m_status(0)
 {
     eigen_assert((MatrixType::Flags&RowMajorBit) == 0);
@@ -161,13 +161,13 @@ int flags() const
 }
 
 /** Computes/re-computes the LDLT factorization */
-void compute(const MatrixType&matrix);
+void compute(const MatrixType &matrix);
 
 /** Perform a symbolic factorization */
-void _symbolic(const MatrixType&matrix);
+void _symbolic(const MatrixType &matrix);
 /** Perform the actual factorization using the previously
  * computed symbolic factorization */
-bool _numeric(const MatrixType&matrix);
+bool _numeric(const MatrixType &matrix);
 
 /** \returns the lower triangular matrix L */
 inline const CholMatrixType&matrixL(void) const
@@ -182,11 +182,11 @@ inline VectorType vectorD(void) const
 }
 
 template<typename Derived>
-bool solveInPlace(MatrixBase<Derived>&b) const;
+bool solveInPlace(MatrixBase<Derived> &b) const;
 
 template<typename Rhs>
 inline const internal::solve_retval<SparseLDLT<MatrixType>, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(true && "SparseLDLT is not initialized.");
     return internal::solve_retval<SparseLDLT<MatrixType>, Rhs>(*this, b.derived());
@@ -235,7 +235,7 @@ struct solve_retval<SparseLDLT<_MatrixType>, Rhs>
     typedef SparseLDLT<_MatrixType> SpLDLTDecType;
     EIGEN_MAKE_SOLVE_HELPERS(SpLDLTDecType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         // Index size = dec().matrixL().rows();
         eigen_assert(dec().matrixL().rows() == rhs().rows());
@@ -259,14 +259,14 @@ struct solve_retval<SparseLDLT<_MatrixType>, Rhs>
  * using the default algorithm.
  */
 template<typename _MatrixType, typename Backend>
-void SparseLDLT<_MatrixType, Backend>::compute(const _MatrixType&a)
+void SparseLDLT<_MatrixType, Backend>::compute(const _MatrixType &a)
 {
     _symbolic(a);
     m_succeeded = _numeric(a);
 }
 
 template<typename _MatrixType, typename Backend>
-void SparseLDLT<_MatrixType, Backend>::_symbolic(const _MatrixType&a)
+void SparseLDLT<_MatrixType, Backend>::_symbolic(const _MatrixType &a)
 {
     assert(a.rows() == a.cols());
     const Index size = a.rows();
@@ -334,7 +334,7 @@ void SparseLDLT<_MatrixType, Backend>::_symbolic(const _MatrixType&a)
 }
 
 template<typename _MatrixType, typename Backend>
-bool SparseLDLT<_MatrixType, Backend>::_numeric(const _MatrixType&a)
+bool SparseLDLT<_MatrixType, Backend>::_numeric(const _MatrixType &a)
 {
     assert(a.rows() == a.cols());
     const Index size = a.rows();
@@ -428,7 +428,7 @@ bool SparseLDLT<_MatrixType, Backend>::_numeric(const _MatrixType&a)
 /** Computes b = L^-T D^-1 L^-1 b */
 template<typename _MatrixType, typename Backend>
 template<typename Derived>
-bool SparseLDLT<_MatrixType, Backend>::solveInPlace(MatrixBase<Derived>&b) const
+bool SparseLDLT<_MatrixType, Backend>::solveInPlace(MatrixBase<Derived> &b) const
 {
     // Index size = m_matrix.rows();
     eigen_assert(m_matrix.rows() == b.rows());

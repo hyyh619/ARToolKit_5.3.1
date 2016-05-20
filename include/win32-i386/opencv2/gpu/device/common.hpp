@@ -107,7 +107,7 @@ namespace cv
   typedef unsigned int uint;
         #endif
 
-  template<class T> inline void bindTexture(const textureReference *tex, const PtrStepSz<T>&img)
+  template<class T> inline void bindTexture(const textureReference *tex, const PtrStepSz<T> &img)
   {
       cudaChannelFormatDesc desc = cudaCreateChannelDesc<T>();
 

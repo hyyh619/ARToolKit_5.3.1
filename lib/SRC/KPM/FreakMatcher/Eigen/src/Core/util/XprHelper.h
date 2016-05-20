@@ -387,14 +387,14 @@ template<typename Derived, typename Scalar, typename OtherScalar>
 struct special_scalar_op_base<Derived, Scalar, OtherScalar, true>  : public DenseCoeffsBase<Derived>
 {
     const CwiseUnaryOp<scalar_multiple2_op<Scalar, OtherScalar>, Derived>
-    operator*(const OtherScalar&scalar) const
+    operator*(const OtherScalar &scalar) const
     {
         return CwiseUnaryOp<scalar_multiple2_op<Scalar, OtherScalar>, Derived>
                    (*static_cast<const Derived*>(this), scalar_multiple2_op<Scalar, OtherScalar>(scalar));
     }
 
     inline friend const CwiseUnaryOp<scalar_multiple2_op<Scalar, OtherScalar>, Derived>
-    operator*(const OtherScalar&scalar, const Derived&matrix)
+    operator*(const OtherScalar &scalar, const Derived &matrix)
     {
         return static_cast<const special_scalar_op_base&>(matrix).operator*(scalar);
     }

@@ -60,7 +60,7 @@ typedef typename _MatrixTypeNested::InnerIterator MatrixTypeIterator;
 typedef typename MatrixType::Index Index;
 public:
 
-EIGEN_STRONG_INLINE InnerIterator(const CwiseUnaryOpImpl&unaryOp, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const CwiseUnaryOpImpl &unaryOp, Index outer)
     : m_iter(unaryOp.derived().nestedExpression(), outer), m_functor(unaryOp.derived().functor())
 {}
 
@@ -119,7 +119,7 @@ typedef typename _MatrixTypeNested::InnerIterator MatrixTypeIterator;
 typedef typename MatrixType::Index Index;
 public:
 
-EIGEN_STRONG_INLINE InnerIterator(const CwiseUnaryViewImpl&unaryView, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const CwiseUnaryViewImpl &unaryView, Index outer)
     : m_iter(unaryView.derived().nestedExpression(), outer), m_functor(unaryView.derived().functor())
 {}
 
@@ -162,7 +162,7 @@ const ViewOp       m_functor;
 
 template<typename Derived>
 EIGEN_STRONG_INLINE Derived&
-SparseMatrixBase<Derived>::operator*=(const Scalar&other)
+SparseMatrixBase<Derived>::operator*=(const Scalar &other)
 {
     for (Index j = 0; j < outerSize(); ++j)
         for (typename Derived::InnerIterator i(derived(), j); i; ++i)
@@ -173,7 +173,7 @@ SparseMatrixBase<Derived>::operator*=(const Scalar&other)
 
 template<typename Derived>
 EIGEN_STRONG_INLINE Derived&
-SparseMatrixBase<Derived>::operator/=(const Scalar&other)
+SparseMatrixBase<Derived>::operator/=(const Scalar &other)
 {
     for (Index j = 0; j < outerSize(); ++j)
         for (typename Derived::InnerIterator i(derived(), j); i; ++i)

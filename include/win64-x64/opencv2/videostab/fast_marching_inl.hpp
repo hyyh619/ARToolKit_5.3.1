@@ -50,7 +50,7 @@ namespace cv
 namespace videostab
 {
 template<typename Inpaint>
-Inpaint FastMarchingMethod::run(const cv::Mat&mask, Inpaint inpaint)
+Inpaint FastMarchingMethod::run(const cv::Mat &mask, Inpaint inpaint)
 {
     using namespace std;
     using namespace cv;

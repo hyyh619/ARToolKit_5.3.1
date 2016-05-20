@@ -102,7 +102,7 @@ EIGEN_STRONG_INLINE const _Scalar operator()(Index row, Index col) const
 
 public:
 template<typename VectorType>
-void setPolynomial(const VectorType&poly)
+void setPolynomial(const VectorType &poly)
 {
     const Index deg = poly.size() - 1;
 
@@ -112,7 +112,7 @@ void setPolynomial(const VectorType&poly)
 }
 
 template<typename VectorType>
-companion(const VectorType&poly)
+companion(const VectorType &poly)
 {
     setPolynomial(poly);
 }
@@ -142,7 +142,7 @@ protected:
  * the column and the row in order to balance them.
  * */
 bool balanced(Scalar colNorm, Scalar rowNorm,
-              bool&isBalanced, Scalar&colB, Scalar&rowB);
+              bool &isBalanced, Scalar &colB, Scalar &rowB);
 
 /** Helper function for the balancing algorithm.
  * \returns true if the row and the column, having colNorm and rowNorm
@@ -151,7 +151,7 @@ bool balanced(Scalar colNorm, Scalar rowNorm,
  * the column and the row in order to balance them.
  * */
 bool balancedR(Scalar colNorm, Scalar rowNorm,
-               bool&isBalanced, Scalar&colB, Scalar&rowB);
+               bool &isBalanced, Scalar &colB, Scalar &rowB);
 
 public:
 /**
@@ -174,7 +174,7 @@ BottomLeftDiagonal m_bl_diag;
 template<typename _Scalar, int _Deg>
 inline
 bool companion<_Scalar, _Deg>::balanced(Scalar colNorm, Scalar rowNorm,
-                                        bool&isBalanced, Scalar&colB, Scalar&rowB)
+                                        bool &isBalanced, Scalar &colB, Scalar &rowB)
 {
     if (Scalar(0) == colNorm || Scalar(0) == rowNorm)
     {
@@ -222,7 +222,7 @@ bool companion<_Scalar, _Deg>::balanced(Scalar colNorm, Scalar rowNorm,
 template<typename _Scalar, int _Deg>
 inline
 bool companion<_Scalar, _Deg>::balancedR(Scalar colNorm, Scalar rowNorm,
-                                         bool&isBalanced, Scalar&colB, Scalar&rowB)
+                                         bool &isBalanced, Scalar &colB, Scalar &rowB)
 {
     if (Scalar(0) == colNorm || Scalar(0) == rowNorm)
     {

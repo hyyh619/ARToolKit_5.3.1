@@ -89,7 +89,7 @@ void DoGPyramid::compute(const GaussianScaleSpacePyramid *pyramid)
     }
 }
 
-void DoGPyramid::difference_image_binomial(Image&d, const Image&im1, const Image&im2)
+void DoGPyramid::difference_image_binomial(Image &d, const Image &im1, const Image &im2)
 {
     ASSERT(d.type() == IMAGE_F32, "Only F32 images supported");
     ASSERT(im1.type() == IMAGE_F32, "Only F32 images supported");
@@ -203,9 +203,9 @@ void DoGScaleInvariantDetector::extractFeatures(const GaussianScaleSpacePyramid 
 
     for (size_t i = 1; i < mLaplacianPyramid.size() - 1; i++)
     {
-        const Image&im0 = laplacian->get(i - 1);
-        const Image&im1 = laplacian->get(i);
-        const Image&im2 = laplacian->get(i + 1);
+        const Image &im0 = laplacian->get(i - 1);
+        const Image &im1 = laplacian->get(i);
+        const Image &im2 = laplacian->get(i + 1);
 
         int octave = laplacian->octaveFromIndex((int)i);
         int scale  = laplacian->scaleFromIndex((int)i);
@@ -324,7 +324,7 @@ void DoGScaleInvariantDetector::extractFeatures(const GaussianScaleSpacePyramid 
 
                 for (size_t col = 2; col < end_x; col++)
                 {
-                    const float&value = im1_y[col];
+                    const float &value = im1_y[col];
                     FeaturePoint fp;
 
                     // Check laplacian score
@@ -418,7 +418,7 @@ void DoGScaleInvariantDetector::extractFeatures(const GaussianScaleSpacePyramid 
 
                 for (size_t col = 1; col < width_minus_1; col++)
                 {
-                    const float&value = im1_y[col];
+                    const float &value = im1_y[col];
                     FeaturePoint fp;
 
                     // Check laplacian score
@@ -536,7 +536,7 @@ void DoGScaleInvariantDetector::findSubpixelLocations(const GaussianScaleSpacePy
 
     for (size_t i = 0; i < mFeaturePoints.size(); i++)
     {
-        FeaturePoint&kp = mFeaturePoints[i];
+        FeaturePoint &kp = mFeaturePoints[i];
 
         ASSERT(kp.scale < mLaplacianPyramid.numScalePerOctave(), "Feature point scale is out of bounds");
         int lap_index = kp.octave * mLaplacianPyramid.numScalePerOctave() + kp.scale;
@@ -549,9 +549,9 @@ void DoGScaleInvariantDetector::findSubpixelLocations(const GaussianScaleSpacePy
         y = (int)(yp + 0.5f);
 
         // Get Laplacian images
-        const Image&lap0 = mLaplacianPyramid.images()[lap_index - 1];
-        const Image&lap1 = mLaplacianPyramid.images()[lap_index];
-        const Image&lap2 = mLaplacianPyramid.images()[lap_index + 1];
+        const Image &lap0 = mLaplacianPyramid.images()[lap_index - 1];
+        const Image &lap1 = mLaplacianPyramid.images()[lap_index];
+        const Image &lap2 = mLaplacianPyramid.images()[lap_index + 1];
 
         // Compute the Hessian
         if (!ComputeSubpixelHessian(A, b, lap0, lap1, lap2, x, y))
@@ -670,9 +670,9 @@ void DoGScaleInvariantDetector::findFeatureOrientations(const GaussianScaleSpace
 
 namespace vision
 {
-void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t> > > >&buckets,
-                      std::vector<DoGScaleInvariantDetector::FeaturePoint>&outPoints,
-                      const std::vector<DoGScaleInvariantDetector::FeaturePoint>&inPoints,
+void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
+                      std::vector<DoGScaleInvariantDetector::FeaturePoint> &outPoints,
+                      const std::vector<DoGScaleInvariantDetector::FeaturePoint> &inPoints,
                       int num_buckets_X,
                       int num_buckets_Y,
                       int width,
@@ -703,9 +703,9 @@ void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_
     //
     for (size_t i = 0; i < inPoints.size(); i++)
     {
-        const DoGScaleInvariantDetector::FeaturePoint&p = inPoints[i];
-        int binX                                        = p.x / dx;
-        int binY                                        = p.y / dy;
+        const DoGScaleInvariantDetector::FeaturePoint &p = inPoints[i];
+        int binX                                         = p.x / dx;
+        int binY                                         = p.y / dy;
         buckets[binX][binY].push_back(std::make_pair(std::abs(p.score), i));
     }
 
@@ -716,8 +716,8 @@ void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_
     {
         for (size_t j = 0; j < buckets[i].size(); j++)
         {
-            std::vector<std::pair<float, size_t> >&bucket = buckets[i][j];
-            size_t n                                      = std::min<size_t>(bucket.size(), num_points_per_bucket);
+            std::vector<std::pair<float, size_t> > &bucket = buckets[i][j];
+            size_t n                                       = std::min<size_t>(bucket.size(), num_points_per_bucket);
             if (n == 0)
             {
                 continue;

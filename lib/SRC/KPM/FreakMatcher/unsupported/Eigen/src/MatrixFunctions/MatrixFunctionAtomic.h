@@ -53,7 +53,7 @@ MatrixFunctionAtomic(StemFunction f) : m_f(f) { }
  * \param[in]  A  argument of matrix function, should be upper triangular and atomic
  * \returns  f(A), the matrix function evaluated at the given matrix
  */
-MatrixType compute(const MatrixType&A);
+MatrixType compute(const MatrixType &A);
 
 private:
 
@@ -62,7 +62,7 @@ MatrixFunctionAtomic(const MatrixFunctionAtomic&);
 MatrixFunctionAtomic&operator=(const MatrixFunctionAtomic&);
 
 void computeMu();
-bool taylorConverged(Index s, const MatrixType&F, const MatrixType&Fincr, const MatrixType&P);
+bool taylorConverged(Index s, const MatrixType &F, const MatrixType &Fincr, const MatrixType &P);
 
 /** \brief Pointer to scalar function */
 StemFunction *m_f;
@@ -81,7 +81,7 @@ RealScalar m_mu;
 };
 
 template<typename MatrixType>
-MatrixType MatrixFunctionAtomic<MatrixType>::compute(const MatrixType&A)
+MatrixType MatrixFunctionAtomic<MatrixType>::compute(const MatrixType &A)
 {
     // TODO: Use that A is upper triangular
     m_Arows    = A.rows();
@@ -120,8 +120,8 @@ void MatrixFunctionAtomic<MatrixType>::computeMu()
 
 /** \brief Determine whether Taylor series has converged */
 template<typename MatrixType>
-bool MatrixFunctionAtomic<MatrixType>::taylorConverged(Index s, const MatrixType&F,
-                                                       const MatrixType&Fincr, const MatrixType&P)
+bool MatrixFunctionAtomic<MatrixType>::taylorConverged(Index s, const MatrixType &F,
+                                                       const MatrixType &Fincr, const MatrixType &P)
 {
     const Index      n          = F.rows();
     const RealScalar F_norm     = F.cwiseAbs().rowwise().sum().maxCoeff();

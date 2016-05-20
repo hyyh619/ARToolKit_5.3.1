@@ -54,17 +54,17 @@ VisualDatabaseFacade();
 
 void addImage(unsigned char *grayImage, size_t width, size_t height, int image_id);
 
-void addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint>&featurePoints,
-                                    const std::vector<unsigned char>&descriptors,
-                                    const std::vector<vision::Point3d<float> >&points3D,
+void addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint> &featurePoints,
+                                    const std::vector<unsigned char> &descriptors,
+                                    const std::vector<vision::Point3d<float> > &points3D,
                                     size_t width,
                                     size_t height,
                                     int image_id);
 
 void computeFreakFeaturesAndDescriptors(unsigned char *grayImage,
                                         size_t width, size_t height,
-                                        std::vector<FeaturePoint>&featurePoints,
-                                        std::vector<unsigned char>&descriptors);
+                                        std::vector<FeaturePoint> &featurePoints,
+                                        std::vector<unsigned char> &descriptors);
 
 bool query(unsigned char *grayImage, size_t width, size_t height);
 

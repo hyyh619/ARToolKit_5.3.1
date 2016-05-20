@@ -91,7 +91,7 @@ ManageAnimationNodesVisitor() : osg::NodeVisitor(osg::NodeVisitor::TRAVERSE_ALL_
 virtual ~ManageAnimationNodesVisitor()
 {}
 
-virtual void apply(osg::Transform&transform)
+virtual void apply(osg::Transform &transform)
 {
     osg::AnimationPathCallback *apc = dynamic_cast<osg::AnimationPathCallback*>(transform.getUpdateCallback());
 
@@ -148,7 +148,7 @@ virtual ~ResetAnimationNodesVisitor()
 {}
 
 
-virtual void apply(osg::Transform&transform)
+virtual void apply(osg::Transform &transform)
 {
     osg::AnimationPathCallback *apc = dynamic_cast<osg::AnimationPathCallback*>(transform.getUpdateCallback());
 
@@ -179,8 +179,8 @@ virtual void apply(osg::Transform&transform)
 }
 };
 
-osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3&pos, float width, float height, osg::Image *image, bool useTextureRectangle, bool xyPlane, bool option_flip);
-osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3&pos, float width, float height, osg::Image *image, bool useTextureRectangle, bool xyPlane, bool option_flip)
+osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3 &pos, float width, float height, osg::Image *image, bool useTextureRectangle, bool xyPlane, bool option_flip);
+osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3 &pos, float width, float height, osg::Image *image, bool useTextureRectangle, bool xyPlane, bool option_flip)
 {
     bool flip = image->getOrigin() == osg::Image::TOP_LEFT;
 

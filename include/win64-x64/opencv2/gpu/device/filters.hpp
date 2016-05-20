@@ -57,7 +57,7 @@ namespace cv
         typedef typename Ptr2D::elem_type elem_type;
         typedef float index_type;
 
-        explicit __host__ __device__ __forceinline__ PointFilter(const Ptr2D&src_, float fx = 0.f, float fy = 0.f)
+        explicit __host__ __device__ __forceinline__ PointFilter(const Ptr2D &src_, float fx = 0.f, float fy = 0.f)
             : src(src_)
         {
             (void)fx;
@@ -77,7 +77,7 @@ namespace cv
         typedef typename Ptr2D::elem_type elem_type;
         typedef float index_type;
 
-        explicit __host__ __device__ __forceinline__ LinearFilter(const Ptr2D&src_, float fx = 0.f, float fy = 0.f)
+        explicit __host__ __device__ __forceinline__ LinearFilter(const Ptr2D &src_, float fx = 0.f, float fy = 0.f)
             : src(src_)
         {
             (void)fx;
@@ -118,7 +118,7 @@ namespace cv
         typedef float index_type;
         typedef typename TypeVec<float, VecTraits<elem_type>::cn>::vec_type work_type;
 
-        explicit __host__ __device__ __forceinline__ CubicFilter(const Ptr2D&src_, float fx = 0.f, float fy = 0.f)
+        explicit __host__ __device__ __forceinline__ CubicFilter(const Ptr2D &src_, float fx = 0.f, float fy = 0.f)
             : src(src_)
         {
             (void)fx;
@@ -177,7 +177,7 @@ namespace cv
         typedef typename Ptr2D::elem_type elem_type;
         typedef float index_type;
 
-        explicit __host__ __device__ __forceinline__ IntegerAreaFilter(const Ptr2D&src_, float scale_x_, float scale_y_)
+        explicit __host__ __device__ __forceinline__ IntegerAreaFilter(const Ptr2D &src_, float scale_x_, float scale_y_)
             : src(src_), scale_x(scale_x_), scale_y(scale_y_), scale(1.f / (scale_x * scale_y)) {}
 
         __device__ __forceinline__ elem_type operator ()(float y, float x) const
@@ -215,7 +215,7 @@ namespace cv
         typedef typename Ptr2D::elem_type elem_type;
         typedef float index_type;
 
-        explicit __host__ __device__ __forceinline__ AreaFilter(const Ptr2D&src_, float scale_x_, float scale_y_)
+        explicit __host__ __device__ __forceinline__ AreaFilter(const Ptr2D &src_, float scale_x_, float scale_y_)
             : src(src_), scale_x(scale_x_), scale_y(scale_y_){}
 
         __device__ __forceinline__ elem_type operator ()(float y, float x) const

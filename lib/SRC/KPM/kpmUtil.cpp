@@ -75,7 +75,7 @@ int kpmUtilGetCorner(ARUint8 *inImage, AR_PIXEL_FORMAT pixFormat, int xsize, int
 #if BINARY_FEATURE
     vision::VisualDatabaseFacade *freakMatcher = new vision::VisualDatabaseFacade;
     freakMatcher->addImage(inImageBW, xsize, ysize, 1);
-    const std::vector<vision::FeaturePoint>&points = freakMatcher->getQueryFeaturePoints();
+    const std::vector<vision::FeaturePoint> &points = freakMatcher->getQueryFeaturePoints();
     cornerNum = (int)freakMatcher->getQueryFeaturePoints().size();
 #else
     SurfSubHandleT *surfHandle;

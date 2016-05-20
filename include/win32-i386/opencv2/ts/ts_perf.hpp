@@ -175,12 +175,12 @@ enum ERROR_TYPE
 class CV_EXPORTS Regression
 {
 public:
-static Regression&add(TestBase *test, const std::string&name, cv::InputArray array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
-static Regression&addKeypoints(TestBase *test, const std::string&name, const std::vector<cv::KeyPoint>&array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
-static Regression&addMatches(TestBase *test, const std::string&name, const std::vector<cv::DMatch>&array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
-static void Init(const std::string&testSuitName, const std::string&ext = ".xml");
+static Regression&add(TestBase *test, const std::string &name, cv::InputArray array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
+static Regression&addKeypoints(TestBase *test, const std::string &name, const std::vector<cv::KeyPoint> &array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
+static Regression&addMatches(TestBase *test, const std::string &name, const std::vector<cv::DMatch> &array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
+static void Init(const std::string &testSuitName, const std::string &ext = ".xml");
 
-Regression&operator()(const std::string&name, cv::InputArray array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
+Regression&operator()(const std::string &name, cv::InputArray array, double eps = DBL_EPSILON, ERROR_TYPE err = ERROR_ABSOLUTE);
 
 private:
 static Regression&instance();
@@ -203,9 +203,9 @@ cv::FileStorage&write();
 
 static std::string getCurrentTestNodeName();
 static bool isVector(cv::InputArray a);
-static double getElem(cv::Mat&m, int x, int y, int cn = 0);
+static double getElem(cv::Mat &m, int x, int y, int cn = 0);
 
-void init(const std::string&testSuitName, const std::string&ext);
+void init(const std::string &testSuitName, const std::string &ext);
 void write(cv::InputArray array);
 void write(cv::Mat m);
 void verify(cv::FileNode node, cv::InputArray array, double eps, ERROR_TYPE err);
@@ -277,10 +277,10 @@ public:
 TestBase();
 
 static void Init(int argc, const char* const argv[]);
-static void Init(const std::vector<std::string>&availableImpls,
+static void Init(const std::vector<std::string> &availableImpls,
                  int argc, const char* const argv[]);
 static void RecordRunParameters();
-static std::string getDataPath(const std::string&relativePath);
+static std::string getDataPath(const std::string &relativePath);
 static std::string getSelectedImpl();
 
 static enum PERF_STRATEGY getPerformanceStrategy();
@@ -343,7 +343,7 @@ static int64 _calibrate();
 static void warmup_impl(cv::Mat m, int wtype);
 static int getSizeInBytes(cv::InputArray a);
 static cv::Size getSize(cv::InputArray a);
-static void declareArray(SizeVector&sizes, cv::InputOutputArray a, int wtype = 0);
+static void declareArray(SizeVector &sizes, cv::InputOutputArray a, int wtype = 0);
 
 class CV_EXPORTS _declareHelper
 {
@@ -391,12 +391,12 @@ typedef TestBaseWithParam<Size_MatType_t> Size_MatType;
 /*****************************************************************************************\
 *                              Print functions for googletest                             *
 \*****************************************************************************************/
-CV_EXPORTS void PrintTo(const MatType&t, std::ostream *os);
+CV_EXPORTS void PrintTo(const MatType &t, std::ostream *os);
 } // namespace perf
 
 namespace cv
 {
-CV_EXPORTS void PrintTo(const Size&sz, ::std::ostream *os);
+CV_EXPORTS void PrintTo(const Size &sz, ::std::ostream *os);
 } // namespace cv
 
 
@@ -548,7 +548,7 @@ namespace comparators
 template<typename T>
 struct CV_EXPORTS RectLess_
 {
-    bool operator()(const cv::Rect_<T>&r1, const cv::Rect_<T>&r2) const
+    bool operator()(const cv::Rect_<T> &r1, const cv::Rect_<T> &r2) const
     {
         return r1.x < r2.x
                || (r1.x == r2.x && r1.y < r2.y)
@@ -561,7 +561,7 @@ typedef RectLess_<int> RectLess;
 
 struct CV_EXPORTS KeypointGreater
 {
-    bool operator()(const cv::KeyPoint&kp1, const cv::KeyPoint&kp2) const
+    bool operator()(const cv::KeyPoint &kp1, const cv::KeyPoint &kp2) const
     {
         if (kp1.response > kp2.response)
             return true;
@@ -592,6 +592,6 @@ struct CV_EXPORTS KeypointGreater
 };
 }   // namespace comparators
 
-void CV_EXPORTS sort(std::vector<cv::KeyPoint>&pts, cv::InputOutputArray descriptors);
+void CV_EXPORTS sort(std::vector<cv::KeyPoint> &pts, cv::InputOutputArray descriptors);
 } // namespace perf
 #endif // __OPENCV_TS_PERF_HPP__

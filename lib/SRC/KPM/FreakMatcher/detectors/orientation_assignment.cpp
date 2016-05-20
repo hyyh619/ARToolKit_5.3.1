@@ -95,7 +95,7 @@ void OrientationAssignment::computeGradients(const GaussianScaleSpacePyramid *py
     // Loop over each pyramid image and compute the gradients
     for (size_t i = 0; i < pyramid->images().size(); i++)
     {
-        const Image&im = pyramid->images()[i];
+        const Image &im = pyramid->images()[i];
 
         // Compute gradient image
         ASSERT(im.width() == im.step() / sizeof(float), "Step size must be equal to width for now");
@@ -107,7 +107,7 @@ void OrientationAssignment::computeGradients(const GaussianScaleSpacePyramid *py
 }
 
 void OrientationAssignment::compute(float *angles,
-                                    int&num_angles,
+                                    int &num_angles,
                                     int octave,
                                     int scale,
                                     float x,
@@ -127,8 +127,8 @@ void OrientationAssignment::compute(float *angles,
     ASSERT(y >= 0, "y must be positive");
     ASSERT(y < mGradients[octave * mNumScalesPerOctave + scale].height(), "y must be less than the image height");
 
-    int        level = octave * mNumScalesPerOctave + scale;
-    const Image&g    = mGradients[level];
+    int         level = octave * mNumScalesPerOctave + scale;
+    const Image &g    = mGradients[level];
     ASSERT(g.channels() == 2, "Number of channels should be 2");
 
     max_height = 0;

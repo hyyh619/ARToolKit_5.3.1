@@ -9,7 +9,7 @@ namespace Eigen
 {
 namespace internal
 {
-Box2d bounding_box(const Vector2d&v)
+Box2d bounding_box(const Vector2d &v)
 {
     return Box2d(v, v);
 }                                                                     // compute the bounding box of a single point
@@ -21,19 +21,19 @@ struct PointPointMinimizer // how to compute squared distances between points an
     PointPointMinimizer() : calls(0) {}
     typedef double Scalar;
 
-    double minimumOnVolumeVolume(const Box2d&r1, const Box2d&r2)
+    double minimumOnVolumeVolume(const Box2d &r1, const Box2d &r2)
     {
         ++calls; return r1.squaredExteriorDistance(r2);
     }
-    double minimumOnVolumeObject(const Box2d&r, const Vector2d&v)
+    double minimumOnVolumeObject(const Box2d &r, const Vector2d &v)
     {
         ++calls; return r.squaredExteriorDistance(v);
     }
-    double minimumOnObjectVolume(const Vector2d&v, const Box2d&r)
+    double minimumOnObjectVolume(const Vector2d &v, const Box2d &r)
     {
         ++calls; return r.squaredExteriorDistance(v);
     }
-    double minimumOnObjectObject(const Vector2d&v1, const Vector2d&v2)
+    double minimumOnObjectObject(const Vector2d &v1, const Vector2d &v2)
     {
         ++calls; return (v1 - v2).squaredNorm();
     }

@@ -104,7 +104,7 @@ struct umeyama_transform_matrix_type
  */
 template<typename Derived, typename OtherDerived>
 typename internal::umeyama_transform_matrix_type<Derived, OtherDerived>::type
-umeyama(const MatrixBase<Derived>&src, const MatrixBase<OtherDerived>&dst, bool with_scaling = true)
+umeyama(const MatrixBase<Derived> &src, const MatrixBase<OtherDerived> &dst, bool with_scaling = true)
 {
     typedef typename internal::umeyama_transform_matrix_type<Derived, OtherDerived>::type TransformationMatrixType;
     typedef typename internal::traits<TransformationMatrixType>::Scalar Scalar;
@@ -152,8 +152,8 @@ umeyama(const MatrixBase<Derived>&src, const MatrixBase<OtherDerived>&dst, bool 
         S(m - 1) = -1;
 
     // Eq. (40) and (43)
-    const VectorType&d   = svd.singularValues();
-    Index           rank = 0;
+    const VectorType &d   = svd.singularValues();
+    Index            rank = 0;
 
     for (Index i = 0; i < m; ++i)
         if (!internal::isMuchSmallerThan(d.coeff(i), d.coeff(0)))

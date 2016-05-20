@@ -37,7 +37,7 @@ struct selfadjoint_rank2_update_selector;
 template<typename Scalar, typename Index, typename UType, typename VType>
 struct selfadjoint_rank2_update_selector<Scalar, Index, UType, VType, Lower>
 {
-    static void run(Scalar *mat, Index stride, const UType&u, const VType&v, Scalar alpha)
+    static void run(Scalar *mat, Index stride, const UType &u, const VType &v, Scalar alpha)
     {
         const Index size = u.size();
 
@@ -53,7 +53,7 @@ struct selfadjoint_rank2_update_selector<Scalar, Index, UType, VType, Lower>
 template<typename Scalar, typename Index, typename UType, typename VType>
 struct selfadjoint_rank2_update_selector<Scalar, Index, UType, VType, Upper>
 {
-    static void run(Scalar *mat, Index stride, const UType&u, const VType&v, Scalar alpha)
+    static void run(Scalar *mat, Index stride, const UType &u, const VType &v, Scalar alpha)
     {
         const Index size = u.size();
 
@@ -72,7 +72,7 @@ template<bool Cond, typename T> struct conj_expr_if
 template<typename MatrixType, unsigned int UpLo>
 template<typename DerivedU, typename DerivedV>
 SelfAdjointView<MatrixType, UpLo>&SelfAdjointView<MatrixType, UpLo>
-::rankUpdate(const MatrixBase<DerivedU>&u, const MatrixBase<DerivedV>&v, Scalar alpha)
+::rankUpdate(const MatrixBase<DerivedU> &u, const MatrixBase<DerivedV> &v, Scalar alpha)
 {
     typedef internal::blas_traits<DerivedU> UBlasTraits;
     typedef typename UBlasTraits::DirectLinearAccessType ActualUType;
@@ -94,8 +94,8 @@ SelfAdjointView<MatrixType, UpLo>&SelfAdjointView<MatrixType, UpLo>
         actualAlpha = internal::conj(actualAlpha);
 
     internal::selfadjoint_rank2_update_selector<Scalar, Index,
-                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor ^ UBlasTraits::NeedToConjugate, _ActualUType>::type>::type,
-                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor ^ VBlasTraits::NeedToConjugate, _ActualVType>::type>::type,
+                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor^UBlasTraits::NeedToConjugate, _ActualUType>::type>::type,
+                                                typename internal::remove_all<typename internal::conj_expr_if<IsRowMajor^VBlasTraits::NeedToConjugate, _ActualVType>::type>::type,
                                                 (IsRowMajor ? int(UpLo == Upper ? Lower : Upper) : UpLo)>
     ::run(_expression().const_cast_derived().data(), _expression().outerStride(), actualU, actualV, actualAlpha);
 

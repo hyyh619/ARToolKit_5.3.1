@@ -32,7 +32,7 @@
 
 bool TiXmlBase::condenseWhiteSpace = true;
 
-void TiXmlBase::PutString(const TIXML_STRING&str, TIXML_OSTREAM *stream)
+void TiXmlBase::PutString(const TIXML_STRING &str, TIXML_OSTREAM *stream)
 {
     TIXML_STRING buffer;
 
@@ -40,7 +40,7 @@ void TiXmlBase::PutString(const TIXML_STRING&str, TIXML_OSTREAM *stream)
     (*stream) << buffer;
 }
 
-void TiXmlBase::PutString(const TIXML_STRING&str, TIXML_STRING *outString)
+void TiXmlBase::PutString(const TIXML_STRING &str, TIXML_STRING *outString)
 {
     int i = 0;
 
@@ -119,7 +119,7 @@ void TiXmlBase::PutString(const TIXML_STRING&str, TIXML_STRING *outString)
 
 
 // <-- Strange class for a bug fix. Search for STL_STRING_BUG
-TiXmlBase::StringToBuffer::StringToBuffer(const TIXML_STRING&str)
+TiXmlBase::StringToBuffer::StringToBuffer(const TIXML_STRING &str)
 {
     buffer = new char[str.length() + 1];
     if (buffer)
@@ -202,7 +202,7 @@ TiXmlNode* TiXmlNode::LinkEndChild(TiXmlNode *node)
 }
 
 
-TiXmlNode* TiXmlNode::InsertEndChild(const TiXmlNode&addThis)
+TiXmlNode* TiXmlNode::InsertEndChild(const TiXmlNode &addThis)
 {
     TiXmlNode *node = addThis.Clone();
 
@@ -213,7 +213,7 @@ TiXmlNode* TiXmlNode::InsertEndChild(const TiXmlNode&addThis)
 }
 
 
-TiXmlNode* TiXmlNode::InsertBeforeChild(TiXmlNode *beforeThis, const TiXmlNode&addThis)
+TiXmlNode* TiXmlNode::InsertBeforeChild(TiXmlNode *beforeThis, const TiXmlNode &addThis)
 {
     if (!beforeThis || beforeThis->parent != this)
         return 0;
@@ -241,7 +241,7 @@ TiXmlNode* TiXmlNode::InsertBeforeChild(TiXmlNode *beforeThis, const TiXmlNode&a
 }
 
 
-TiXmlNode* TiXmlNode::InsertAfterChild(TiXmlNode *afterThis, const TiXmlNode&addThis)
+TiXmlNode* TiXmlNode::InsertAfterChild(TiXmlNode *afterThis, const TiXmlNode &addThis)
 {
     if (!afterThis || afterThis->parent != this)
         return 0;
@@ -269,7 +269,7 @@ TiXmlNode* TiXmlNode::InsertAfterChild(TiXmlNode *afterThis, const TiXmlNode&add
 }
 
 
-TiXmlNode* TiXmlNode::ReplaceChild(TiXmlNode *replaceThis, const TiXmlNode&withThis)
+TiXmlNode* TiXmlNode::ReplaceChild(TiXmlNode *replaceThis, const TiXmlNode &withThis)
 {
     if (replaceThis->parent != this)
         return 0;
@@ -644,7 +644,7 @@ TiXmlElement::TiXmlElement (const char *_value)
 
 
 #ifdef TIXML_USE_STL
-TiXmlElement::TiXmlElement(const std::string&_value)
+TiXmlElement::TiXmlElement(const std::string &_value)
     : TiXmlNode(TiXmlNode::ELEMENT)
 {
     firstChild = lastChild = 0;
@@ -653,7 +653,7 @@ TiXmlElement::TiXmlElement(const std::string&_value)
 #endif
 
 
-TiXmlElement::TiXmlElement(const TiXmlElement&copy)
+TiXmlElement::TiXmlElement(const TiXmlElement &copy)
     : TiXmlNode(TiXmlNode::ELEMENT)
 {
     firstChild = lastChild = 0;
@@ -661,7 +661,7 @@ TiXmlElement::TiXmlElement(const TiXmlElement&copy)
 }
 
 
-void TiXmlElement::operator=(const TiXmlElement&base)
+void TiXmlElement::operator=(const TiXmlElement &base)
 {
     ClearThis();
     base.CopyTo(this);
@@ -935,7 +935,7 @@ TiXmlDocument::TiXmlDocument(const char *documentName) : TiXmlNode(TiXmlNode::DO
 
 
 #ifdef TIXML_USE_STL
-TiXmlDocument::TiXmlDocument(const std::string&documentName) : TiXmlNode(TiXmlNode::DOCUMENT)
+TiXmlDocument::TiXmlDocument(const std::string &documentName) : TiXmlNode(TiXmlNode::DOCUMENT)
 {
     tabsize = 4;
     value   = documentName;
@@ -944,13 +944,13 @@ TiXmlDocument::TiXmlDocument(const std::string&documentName) : TiXmlNode(TiXmlNo
 #endif
 
 
-TiXmlDocument::TiXmlDocument(const TiXmlDocument&copy) : TiXmlNode(TiXmlNode::DOCUMENT)
+TiXmlDocument::TiXmlDocument(const TiXmlDocument &copy) : TiXmlNode(TiXmlNode::DOCUMENT)
 {
     copy.CopyTo(this);
 }
 
 
-void TiXmlDocument::operator=(const TiXmlDocument&copy)
+void TiXmlDocument::operator=(const TiXmlDocument &copy)
 {
     Clear();
     copy.CopyTo(this);
@@ -1227,13 +1227,13 @@ const double TiXmlAttribute::DoubleValue() const
 }
 
 
-TiXmlComment::TiXmlComment(const TiXmlComment&copy) : TiXmlNode(TiXmlNode::COMMENT)
+TiXmlComment::TiXmlComment(const TiXmlComment &copy) : TiXmlNode(TiXmlNode::COMMENT)
 {
     copy.CopyTo(this);
 }
 
 
-void TiXmlComment::operator=(const TiXmlComment&base)
+void TiXmlComment::operator=(const TiXmlComment &base)
 {
     Clear();
     base.CopyTo(this);
@@ -1324,9 +1324,9 @@ TiXmlDeclaration::TiXmlDeclaration(const char *_version,
 
 
 #ifdef TIXML_USE_STL
-TiXmlDeclaration::TiXmlDeclaration(const std::string&_version,
-                                   const std::string&_encoding,
-                                   const std::string&_standalone)
+TiXmlDeclaration::TiXmlDeclaration(const std::string &_version,
+                                   const std::string &_encoding,
+                                   const std::string &_standalone)
     : TiXmlNode(TiXmlNode::DECLARATION)
 {
     version    = _version;
@@ -1336,14 +1336,14 @@ TiXmlDeclaration::TiXmlDeclaration(const std::string&_version,
 #endif
 
 
-TiXmlDeclaration::TiXmlDeclaration(const TiXmlDeclaration&copy)
+TiXmlDeclaration::TiXmlDeclaration(const TiXmlDeclaration &copy)
     : TiXmlNode(TiXmlNode::DECLARATION)
 {
     copy.CopyTo(this);
 }
 
 
-void TiXmlDeclaration::operator=(const TiXmlDeclaration&copy)
+void TiXmlDeclaration::operator=(const TiXmlDeclaration &copy)
 {
     Clear();
     copy.CopyTo(this);
@@ -1521,7 +1521,7 @@ TiXmlAttribute* TiXmlAttributeSet::Find(const char *name)
 }
 
 #ifdef TIXML_USE_STL
-TIXML_ISTREAM&operator >>(TIXML_ISTREAM&in, TiXmlNode&base)
+TIXML_ISTREAM&operator >>(TIXML_ISTREAM &in, TiXmlNode &base)
 {
     TIXML_STRING tag;
 
@@ -1534,7 +1534,7 @@ TIXML_ISTREAM&operator >>(TIXML_ISTREAM&in, TiXmlNode&base)
 #endif
 
 
-TIXML_OSTREAM&operator<<(TIXML_OSTREAM&out, const TiXmlNode&base)
+TIXML_OSTREAM&operator<<(TIXML_OSTREAM &out, const TiXmlNode &base)
 {
     base.StreamOut (&out);
     return out;
@@ -1542,7 +1542,7 @@ TIXML_OSTREAM&operator<<(TIXML_OSTREAM&out, const TiXmlNode&base)
 
 
 #ifdef TIXML_USE_STL
-std::string&operator<<(std::string&out, const TiXmlNode&base)
+std::string&operator<<(std::string &out, const TiXmlNode &base)
 {
     std::ostringstream os_stream(std::ostringstream::out);
 

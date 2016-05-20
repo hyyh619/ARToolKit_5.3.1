@@ -69,7 +69,7 @@ public:
 typedef typename internal::dense_xpr_base<CwiseNullaryOp>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(CwiseNullaryOp)
 
-CwiseNullaryOp(Index rows, Index cols, const NullaryOp&func = NullaryOp())
+CwiseNullaryOp(Index rows, Index cols, const NullaryOp &func = NullaryOp())
     : m_rows(rows), m_cols(cols), m_functor(func)
 {
     eigen_assert(rows >= 0
@@ -132,7 +132,7 @@ const NullaryOp                                               m_functor;
 template<typename Derived>
 template<typename CustomNullaryOp>
 EIGEN_STRONG_INLINE const CwiseNullaryOp<CustomNullaryOp, Derived>
-DenseBase<Derived>::NullaryExpr(Index rows, Index cols, const CustomNullaryOp&func)
+DenseBase<Derived>::NullaryExpr(Index rows, Index cols, const CustomNullaryOp &func)
 {
     return CwiseNullaryOp<CustomNullaryOp, Derived>(rows, cols, func);
 }
@@ -155,7 +155,7 @@ DenseBase<Derived>::NullaryExpr(Index rows, Index cols, const CustomNullaryOp&fu
 template<typename Derived>
 template<typename CustomNullaryOp>
 EIGEN_STRONG_INLINE const CwiseNullaryOp<CustomNullaryOp, Derived>
-DenseBase<Derived>::NullaryExpr(Index size, const CustomNullaryOp&func)
+DenseBase<Derived>::NullaryExpr(Index size, const CustomNullaryOp &func)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     if (RowsAtCompileTime == 1)
@@ -176,7 +176,7 @@ DenseBase<Derived>::NullaryExpr(Index size, const CustomNullaryOp&func)
 template<typename Derived>
 template<typename CustomNullaryOp>
 EIGEN_STRONG_INLINE const CwiseNullaryOp<CustomNullaryOp, Derived>
-DenseBase<Derived>::NullaryExpr(const CustomNullaryOp&func)
+DenseBase<Derived>::NullaryExpr(const CustomNullaryOp &func)
 {
     return CwiseNullaryOp<CustomNullaryOp, Derived>(RowsAtCompileTime, ColsAtCompileTime, func);
 }
@@ -196,7 +196,7 @@ DenseBase<Derived>::NullaryExpr(const CustomNullaryOp&func)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::ConstantReturnType
-DenseBase<Derived>::Constant(Index rows, Index cols, const Scalar&value)
+DenseBase<Derived>::Constant(Index rows, Index cols, const Scalar &value)
 {
     return DenseBase<Derived>::NullaryExpr(rows, cols, internal::scalar_constant_op<Scalar>(value));
 }
@@ -218,7 +218,7 @@ DenseBase<Derived>::Constant(Index rows, Index cols, const Scalar&value)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::ConstantReturnType
-DenseBase<Derived>::Constant(Index size, const Scalar&value)
+DenseBase<Derived>::Constant(Index size, const Scalar &value)
 {
     return DenseBase<Derived>::NullaryExpr(size, internal::scalar_constant_op<Scalar>(value));
 }
@@ -234,7 +234,7 @@ DenseBase<Derived>::Constant(Index size, const Scalar&value)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::ConstantReturnType
-DenseBase<Derived>::Constant(const Scalar&value)
+DenseBase<Derived>::Constant(const Scalar &value)
 {
     EIGEN_STATIC_ASSERT_FIXED_SIZE(Derived)
     return DenseBase<Derived>::NullaryExpr(RowsAtCompileTime, ColsAtCompileTime, internal::scalar_constant_op<Scalar>(value));
@@ -257,7 +257,7 @@ DenseBase<Derived>::Constant(const Scalar&value)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::SequentialLinSpacedReturnType
-DenseBase<Derived>::LinSpaced(Sequential_t, Index size, const Scalar&low, const Scalar&high)
+DenseBase<Derived>::LinSpaced(Sequential_t, Index size, const Scalar &low, const Scalar &high)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     return DenseBase<Derived>::NullaryExpr(size, internal::linspaced_op<Scalar, false>(low, high, size));
@@ -269,7 +269,7 @@ DenseBase<Derived>::LinSpaced(Sequential_t, Index size, const Scalar&low, const 
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::SequentialLinSpacedReturnType
-DenseBase<Derived>::LinSpaced(Sequential_t, const Scalar&low, const Scalar&high)
+DenseBase<Derived>::LinSpaced(Sequential_t, const Scalar &low, const Scalar &high)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     EIGEN_STATIC_ASSERT_FIXED_SIZE(Derived)
@@ -290,7 +290,7 @@ DenseBase<Derived>::LinSpaced(Sequential_t, const Scalar&low, const Scalar&high)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::RandomAccessLinSpacedReturnType
-DenseBase<Derived>::LinSpaced(Index size, const Scalar&low, const Scalar&high)
+DenseBase<Derived>::LinSpaced(Index size, const Scalar &low, const Scalar &high)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     return DenseBase<Derived>::NullaryExpr(size, internal::linspaced_op<Scalar, true>(low, high, size));
@@ -302,7 +302,7 @@ DenseBase<Derived>::LinSpaced(Index size, const Scalar&low, const Scalar&high)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE const typename DenseBase<Derived>::RandomAccessLinSpacedReturnType
-DenseBase<Derived>::LinSpaced(const Scalar&low, const Scalar&high)
+DenseBase<Derived>::LinSpaced(const Scalar &low, const Scalar &high)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     EIGEN_STATIC_ASSERT_FIXED_SIZE(Derived)
@@ -312,7 +312,7 @@ DenseBase<Derived>::LinSpaced(const Scalar&low, const Scalar&high)
 /** \returns true if all coefficients in this matrix are approximately equal to \a value, to within precision \a prec */
 template<typename Derived>
 bool DenseBase<Derived>::isApproxToConstant
-    (const Scalar&value, RealScalar prec) const
+    (const Scalar &value, RealScalar prec) const
 {
     for (Index j = 0; j < cols(); ++j)
         for (Index i = 0; i < rows(); ++i)
@@ -327,7 +327,7 @@ bool DenseBase<Derived>::isApproxToConstant
  * \returns true if all coefficients in this matrix are approximately equal to \a value, to within precision \a prec */
 template<typename Derived>
 bool DenseBase<Derived>::isConstant
-    (const Scalar&value, RealScalar prec) const
+    (const Scalar &value, RealScalar prec) const
 {
     return isApproxToConstant(value, prec);
 }
@@ -337,7 +337,7 @@ bool DenseBase<Derived>::isConstant
  * \sa setConstant(), Constant(), class CwiseNullaryOp
  */
 template<typename Derived>
-EIGEN_STRONG_INLINE void DenseBase<Derived>::fill(const Scalar&value)
+EIGEN_STRONG_INLINE void DenseBase<Derived>::fill(const Scalar &value)
 {
     setConstant(value);
 }
@@ -347,7 +347,7 @@ EIGEN_STRONG_INLINE void DenseBase<Derived>::fill(const Scalar&value)
  * \sa fill(), setConstant(Index,const Scalar&), setConstant(Index,Index,const Scalar&), setZero(), setOnes(), Constant(), class CwiseNullaryOp, setZero(), setOnes()
  */
 template<typename Derived>
-EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::setConstant(const Scalar&value)
+EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::setConstant(const Scalar &value)
 {
     return derived() = Constant(rows(), cols(), value);
 }
@@ -363,7 +363,7 @@ EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::setConstant(const Scalar&value)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE Derived&
-PlainObjectBase<Derived>::setConstant(Index size, const Scalar&value)
+PlainObjectBase<Derived>::setConstant(Index size, const Scalar &value)
 {
     resize(size);
     return setConstant(value);
@@ -382,7 +382,7 @@ PlainObjectBase<Derived>::setConstant(Index size, const Scalar&value)
  */
 template<typename Derived>
 EIGEN_STRONG_INLINE Derived&
-PlainObjectBase<Derived>::setConstant(Index rows, Index cols, const Scalar&value)
+PlainObjectBase<Derived>::setConstant(Index rows, Index cols, const Scalar &value)
 {
     resize(rows, cols);
     return setConstant(value);
@@ -401,7 +401,7 @@ PlainObjectBase<Derived>::setConstant(Index rows, Index cols, const Scalar&value
  * \sa CwiseNullaryOp
  */
 template<typename Derived>
-EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::setLinSpaced(Index size, const Scalar&low, const Scalar&high)
+EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::setLinSpaced(Index size, const Scalar &low, const Scalar &high)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     return derived() = Derived::NullaryExpr(size, internal::linspaced_op<Scalar, false>(low, high, size));
@@ -739,31 +739,31 @@ bool MatrixBase<Derived>::isIdentity
 
 namespace internal
 {
-    template<typename Derived, bool Big = (Derived::SizeAtCompileTime >= 16)>
-    struct setIdentity_impl
-    {
-        static EIGEN_STRONG_INLINE Derived&run(Derived & m)
-        {
-            return m = Derived::Identity(m.rows(), m.cols());
-        }
-    };
+template<typename Derived, bool Big = (Derived::SizeAtCompileTime> = 16) >
+                                      struct setIdentity_impl
+         {
+             static EIGEN_STRONG_INLINE Derived&run(Derived & m)
+             {
+                 return m = Derived::Identity(m.rows(), m.cols());
+             }
+         };
 
-    template<typename Derived>
-    struct setIdentity_impl<Derived, true>
-    {
-        typedef typename Derived::Index Index;
-        static EIGEN_STRONG_INLINE Derived&run(Derived & m)
-        {
-            m.setZero();
-            const Index size = (std::min)(m.rows(), m.cols());
+         template<typename Derived>
+         struct setIdentity_impl<Derived, true>
+         {
+             typedef typename Derived::Index Index;
+             static EIGEN_STRONG_INLINE Derived&run(Derived & m)
+             {
+                 m.setZero();
+                 const Index size = (std::min)(m.rows(), m.cols());
 
-            for (Index i = 0; i < size; ++i)
-                m.coeffRef(i, i) = typename Derived::Scalar(1);
+                 for (Index i = 0; i < size; ++i)
+                     m.coeffRef(i, i) = typename Derived::Scalar(1);
 
-            return m;
-        }
-    };
-} // end namespace internal
+                 return m;
+             }
+         };
+         } // end namespace internal
 
 /** Writes the identity expression (not necessarily square) into *this.
  *

@@ -381,8 +381,8 @@ CvLevMarq(int nparams, int nerrs, CvTermCriteria criteria =
 void init(int nparams, int nerrs, CvTermCriteria criteria =
               cvTermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, DBL_EPSILON),
           bool completeSymmFlag = false);
-bool update(const CvMat*&param, CvMat*&J, CvMat*&err);
-bool updateAlt(const CvMat*&param, CvMat*&JtJ, CvMat*&JtErr, double*&errNorm);
+bool update(const CvMat* &param, CvMat* &J, CvMat* &err);
+bool updateAlt(const CvMat* &param, CvMat* &JtJ, CvMat* &JtErr, double* &errNorm);
 
 void clear();
 void step();
@@ -515,7 +515,7 @@ enum { CALIB_CB_SYMMETRIC_GRID = 1, CALIB_CB_ASYMMETRIC_GRID = 2,
 // ! finds circles' grid pattern of the specified size in the image
 CV_EXPORTS_W bool findCirclesGrid(InputArray image, Size patternSize,
                                   OutputArray centers, int flags = CALIB_CB_SYMMETRIC_GRID,
-                                  const Ptr<FeatureDetector>&blobDetector = new SimpleBlobDetector());
+                                  const Ptr<FeatureDetector> &blobDetector = new SimpleBlobDetector());
 
 // ! the deprecated function. Use findCirclesGrid() instead of it.
 CV_EXPORTS_W bool findCirclesGridDefault(InputArray image, Size patternSize,
@@ -556,11 +556,11 @@ CV_EXPORTS_W void calibrationMatrixValues(InputArray cameraMatrix,
                                           Size imageSize,
                                           double apertureWidth,
                                           double apertureHeight,
-                                          CV_OUT double&fovx,
-                                          CV_OUT double&fovy,
-                                          CV_OUT double&focalLength,
-                                          CV_OUT Point2d&principalPoint,
-                                          CV_OUT double&aspectRatio);
+                                          CV_OUT double &fovx,
+                                          CV_OUT double &fovy,
+                                          CV_OUT double &focalLength,
+                                          CV_OUT Point2d &principalPoint,
+                                          CV_OUT double &aspectRatio);
 
 // ! finds intrinsic and extrinsic parameters of a stereo camera
 CV_EXPORTS_W double stereoCalibrate(InputArrayOfArrays objectPoints,

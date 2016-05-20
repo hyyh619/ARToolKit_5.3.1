@@ -100,10 +100,10 @@ void ComputeHarrisStrengthImageNeon(float *S,
 /**
  * Prune Harris corners to a maximum number.
  */
-void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > >&buckets,
-                        std::vector<Point2d<int> >&outPoints,
-                        const std::vector<Point2d<int> >&inPoints,
-                        const std::vector<float>&scores,
+void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
+                        std::vector<Point2d<int> > &outPoints,
+                        const std::vector<Point2d<int> > &inPoints,
+                        const std::vector<float> &scores,
                         int num_buckets_X,
                         int num_buckets_Y,
                         int width,
@@ -113,15 +113,15 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
 /**
  * Perform non-max suppression on the Harris strength image.
  */
-void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> >&points,
-                                std::vector<float>&scores,
+void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> > &points,
+                                std::vector<float> &scores,
                                 const float *S,
                                 int width,
                                 int height,
                                 int step,
                                 float tr);
-void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >&points,
-                                std::vector<float>&scores,
+void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> > &points,
+                                std::vector<float> &scores,
                                 const float *S,
                                 int width,
                                 int height,
@@ -131,8 +131,8 @@ void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >&points,
 /**
  * Refine corners.
  */
-void RefineHarrisCorners(std::vector<Point2d<float> >&outPoints,
-                         const std::vector<Point2d<int> >&inPoints,
+void RefineHarrisCorners(std::vector<Point2d<float> > &outPoints,
+                         const std::vector<Point2d<int> > &inPoints,
                          const float *S,
                          int width,
                          int height,

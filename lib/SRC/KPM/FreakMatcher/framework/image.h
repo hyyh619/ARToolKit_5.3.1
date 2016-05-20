@@ -67,8 +67,8 @@ class Image
 public:
 
 Image();
-Image(Image&image);
-Image(const Image&image);
+Image(Image &image);
+Image(const Image &image);
 Image(ImageType type,
       size_t width,
       size_t height,
@@ -189,14 +189,14 @@ inline size_t size() const
 /**
  * Copy functions.
  */
-void deepCopy(const Image&image);
-void shallowCopy(const Image&image);
+void deepCopy(const Image &image);
+void shallowCopy(const Image &image);
 
 /**
  * Copy an image by doing a shallow copy.
  */
-Image&operator=(Image&image);
-Image&operator=(const Image&image);
+Image&operator=(Image &image);
+Image&operator=(const Image &image);
 
 /**
  * Calculate the size of a single unit.

@@ -40,7 +40,7 @@ struct Functor
 struct my_functor : Functor<double>
 {
     my_functor(void) : Functor<double>(3, 15) {}
-    int operator()(const VectorXd&x, VectorXd&fvec) const
+    int operator()(const VectorXd &x, VectorXd &fvec) const
     {
         double tmp1, tmp2, tmp3;
         double y[15] = {1.4e-1, 1.8e-1, 2.2e-1, 2.5e-1, 2.9e-1, 3.2e-1, 3.5e-1,
@@ -57,7 +57,7 @@ struct my_functor : Functor<double>
         return 0;
     }
 
-    int actual_df(const VectorXd&x, MatrixXd&fjac) const
+    int actual_df(const VectorXd &x, MatrixXd &fjac) const
     {
         double tmp1, tmp2, tmp3, tmp4;
 

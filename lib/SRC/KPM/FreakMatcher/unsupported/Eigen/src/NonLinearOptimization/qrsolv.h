@@ -3,13 +3,13 @@ namespace internal
 // TODO : once qrsolv2 is removed, use ColPivHouseholderQR or PermutationMatrix instead of ipvt
 template<typename Scalar>
 void qrsolv(
-    Matrix<Scalar, Dynamic, Dynamic>&s,
+    Matrix<Scalar, Dynamic, Dynamic> &s,
     // TODO : use a PermutationMatrix once lmpar is no more:
-    const VectorXi&ipvt,
-    const Matrix<Scalar, Dynamic, 1>&diag,
-    const Matrix<Scalar, Dynamic, 1>&qtb,
-    Matrix<Scalar, Dynamic, 1>&x,
-    Matrix<Scalar, Dynamic, 1>&sdiag)
+    const VectorXi &ipvt,
+    const Matrix<Scalar, Dynamic, 1> &diag,
+    const Matrix<Scalar, Dynamic, 1> &qtb,
+    Matrix<Scalar, Dynamic, 1> &x,
+    Matrix<Scalar, Dynamic, 1> &sdiag)
 
 {
     typedef DenseIndex Index;

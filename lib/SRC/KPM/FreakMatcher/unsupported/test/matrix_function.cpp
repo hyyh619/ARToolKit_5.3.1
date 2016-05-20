@@ -30,7 +30,7 @@
 #define VERIFY_IS_APPROX_ABS(a, b) VERIFY(test_isApprox_abs(a, b))
 
 template<typename Type1, typename Type2>
-inline bool test_isApprox_abs(const Type1&a, const Type2&b)
+inline bool test_isApprox_abs(const Type1 &a, const Type2 &b)
 {
     return ((a - b).array().abs() < test_precision<typename Type1::RealScalar>()).all();
 }
@@ -123,7 +123,7 @@ struct randomMatrixWithImagEivals<MatrixType, 1>
 
 
 template<typename MatrixType>
-void testMatrixExponential(const MatrixType&A)
+void testMatrixExponential(const MatrixType &A)
 {
     typedef typename internal::traits<MatrixType>::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real RealScalar;
@@ -133,7 +133,7 @@ void testMatrixExponential(const MatrixType&A)
 }
 
 template<typename MatrixType>
-void testHyperbolicFunctions(const MatrixType&A)
+void testHyperbolicFunctions(const MatrixType &A)
 {
     // Need to use absolute error because of possible cancellation when
     // adding/subtracting expA and expmA.
@@ -142,7 +142,7 @@ void testHyperbolicFunctions(const MatrixType&A)
 }
 
 template<typename MatrixType>
-void testGonioFunctions(const MatrixType&A)
+void testGonioFunctions(const MatrixType &A)
 {
     typedef typename MatrixType::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real RealScalar;
@@ -166,7 +166,7 @@ void testGonioFunctions(const MatrixType&A)
 }
 
 template<typename MatrixType>
-void testMatrix(const MatrixType&A)
+void testMatrix(const MatrixType &A)
 {
     testMatrixExponential(A);
     testHyperbolicFunctions(A);
@@ -174,7 +174,7 @@ void testMatrix(const MatrixType&A)
 }
 
 template<typename MatrixType>
-void testMatrixType(const MatrixType&m)
+void testMatrixType(const MatrixType &m)
 {
     // Matrices with clustered eigenvalue lead to different code paths
     // in MatrixFunction.h and are thus useful for testing.

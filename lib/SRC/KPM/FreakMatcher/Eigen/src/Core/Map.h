@@ -157,7 +157,7 @@ inline Index outerStride() const
  * \param data pointer to the array to map
  * \param stride optional Stride object, passing the strides.
  */
-inline Map(PointerArgType data, const StrideType&stride = StrideType())
+inline Map(PointerArgType data, const StrideType &stride = StrideType())
     : Base(cast_to_pointer_type(data)), m_stride(stride)
 {
     PlainObjectType::Base::_check_template_params();
@@ -169,7 +169,7 @@ inline Map(PointerArgType data, const StrideType&stride = StrideType())
  * \param size the size of the vector expression
  * \param stride optional Stride object, passing the strides.
  */
-inline Map(PointerArgType data, Index size, const StrideType&stride = StrideType())
+inline Map(PointerArgType data, Index size, const StrideType &stride = StrideType())
     : Base(cast_to_pointer_type(data), size), m_stride(stride)
 {
     PlainObjectType::Base::_check_template_params();
@@ -182,7 +182,7 @@ inline Map(PointerArgType data, Index size, const StrideType&stride = StrideType
  * \param cols the number of columns of the matrix expression
  * \param stride optional Stride object, passing the strides.
  */
-inline Map(PointerArgType data, Index rows, Index cols, const StrideType&stride = StrideType())
+inline Map(PointerArgType data, Index rows, Index cols, const StrideType &stride = StrideType())
     : Base(cast_to_pointer_type(data), rows, cols), m_stride(stride)
 {
     PlainObjectType::Base::_check_template_params();

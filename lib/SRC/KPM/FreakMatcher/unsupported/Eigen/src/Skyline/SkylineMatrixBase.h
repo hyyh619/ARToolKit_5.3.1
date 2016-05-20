@@ -175,14 +175,14 @@ SkylineMatrixBase() : m_isRValue(false)
     /* TODO check flags */
 }
 
-inline Derived&operator=(const Derived&other)
+inline Derived&operator=(const Derived &other)
 {
     this->operator=<Derived> (other);
     return derived();
 }
 
 template<typename OtherDerived>
-inline void assignGeneric(const OtherDerived&other)
+inline void assignGeneric(const OtherDerived &other)
 {
     derived().resize(other.rows(), other.cols());
 
@@ -197,15 +197,15 @@ inline void assignGeneric(const OtherDerived&other)
 }
 
 template<typename OtherDerived>
-inline Derived&operator=(const SkylineMatrixBase<OtherDerived>&other)
+inline Derived&operator=(const SkylineMatrixBase<OtherDerived> &other)
 {
     // TODO
 }
 
 template<typename Lhs, typename Rhs>
-inline Derived&operator=(const SkylineProduct<Lhs, Rhs, SkylineTimeSkylineProduct>&product);
+inline Derived&operator=(const SkylineProduct<Lhs, Rhs, SkylineTimeSkylineProduct> &product);
 
-friend std::ostream&operator <<(std::ostream&s, const SkylineMatrixBase&m)
+friend std::ostream&operator <<(std::ostream &s, const SkylineMatrixBase &m)
 {
     s << m.derived();
     return s;
@@ -213,11 +213,11 @@ friend std::ostream&operator <<(std::ostream&s, const SkylineMatrixBase&m)
 
 template<typename OtherDerived>
 const typename SkylineProductReturnType<Derived, OtherDerived>::Type
-operator*(const MatrixBase<OtherDerived>&other) const;
+operator*(const MatrixBase<OtherDerived> &other) const;
 
 /** \internal use operator= */
 template<typename DenseDerived>
-void evalTo(MatrixBase<DenseDerived>&dst) const
+void evalTo(MatrixBase<DenseDerived> &dst) const
 {
     dst.setZero();
 

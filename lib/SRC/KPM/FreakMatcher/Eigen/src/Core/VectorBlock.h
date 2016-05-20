@@ -86,7 +86,7 @@ using Base::operator=;
 
 /** Dynamic-size constructor
  */
-inline VectorBlock(VectorType&vector, Index start, Index size)
+inline VectorBlock(VectorType &vector, Index start, Index size)
     : Base(vector,
            IsColVector ? start : 0, IsColVector ? 0 : start,
            IsColVector ? size  : 1, IsColVector ? 1 : size)
@@ -96,7 +96,7 @@ inline VectorBlock(VectorType&vector, Index start, Index size)
 
 /** Fixed-size constructor
  */
-inline VectorBlock(VectorType&vector, Index start)
+inline VectorBlock(VectorType &vector, Index start)
     : Base(vector, IsColVector ? start : 0, IsColVector ? 0 : start)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(VectorBlock);

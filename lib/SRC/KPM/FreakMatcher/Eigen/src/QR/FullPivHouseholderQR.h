@@ -102,7 +102,7 @@ FullPivHouseholderQR(Index rows, Index cols)
     m_isInitialized(false),
     m_usePrescribedThreshold(false) {}
 
-FullPivHouseholderQR(const MatrixType&matrix)
+FullPivHouseholderQR(const MatrixType &matrix)
     : m_qr(matrix.rows(), matrix.cols()),
     m_hCoeffs((std::min)(matrix.rows(), matrix.cols())),
     m_rows_transpositions(matrix.rows()),
@@ -134,7 +134,7 @@ FullPivHouseholderQR(const MatrixType&matrix)
  */
 template<typename Rhs>
 inline const internal::solve_retval<FullPivHouseholderQR, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "FullPivHouseholderQR is not initialized.");
     return internal::solve_retval<FullPivHouseholderQR, Rhs>(*this, b.derived());
@@ -150,7 +150,7 @@ const MatrixType&matrixQR() const
     return m_qr;
 }
 
-FullPivHouseholderQR&compute(const MatrixType&matrix);
+FullPivHouseholderQR&compute(const MatrixType &matrix);
 
 const PermutationType&colsPermutation() const
 {
@@ -304,7 +304,7 @@ const HCoeffsType&hCoeffs() const
  *
  * If you want to come back to the default behavior, call setThreshold(Default_t)
  */
-FullPivHouseholderQR&setThreshold(const RealScalar&threshold)
+FullPivHouseholderQR&setThreshold(const RealScalar &threshold)
 {
     m_usePrescribedThreshold = true;
     m_prescribedThreshold    = threshold;
@@ -390,7 +390,7 @@ typename MatrixType::RealScalar FullPivHouseholderQR<MatrixType>::logAbsDetermin
 }
 
 template<typename MatrixType>
-FullPivHouseholderQR<MatrixType>&FullPivHouseholderQR<MatrixType>::compute(const MatrixType&matrix)
+FullPivHouseholderQR<MatrixType>&FullPivHouseholderQR<MatrixType>::compute(const MatrixType &matrix)
 {
     Index rows = matrix.rows();
     Index cols = matrix.cols();
@@ -485,7 +485,7 @@ struct solve_retval<FullPivHouseholderQR<_MatrixType>, Rhs>
 {
     EIGEN_MAKE_SOLVE_HELPERS(FullPivHouseholderQR<_MatrixType>, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         const Index rows = dec().rows(), cols = dec().cols();
 

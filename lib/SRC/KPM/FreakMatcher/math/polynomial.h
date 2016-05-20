@@ -55,9 +55,9 @@ namespace vision
  * @return True if the quatratic could be fit, otherwise false.
  */
 template<typename T>
-inline bool Quadratic3Points(T&A,
-                             T&B,
-                             T&C,
+inline bool Quadratic3Points(T &A,
+                             T &B,
+                             T &C,
                              const T p1[2],
                              const T p2[2],
                              const T p3[2])
@@ -112,7 +112,7 @@ inline T QuadraticEval(T A, T B, T C, const T x)
  * @return True on success.
  */
 template<typename T>
-inline bool QuadraticCriticalPoint(T&x, T A, T B, T C)
+inline bool QuadraticCriticalPoint(T &x, T A, T B, T C)
 {
     if (A == 0)
     {

@@ -143,7 +143,7 @@ int mNumScalesPerOctave;
  *
  * d = im1 - im2
  */
-void difference_image_binomial(Image&d, const Image&im1, const Image&im2);
+void difference_image_binomial(Image &d, const Image &im1, const Image &im2);
 };
 
 class DoGScaleInvariantDetector
@@ -321,12 +321,12 @@ void pruneFeatures();
 void findFeatureOrientations(const GaussianScaleSpacePyramid *pyramid);
 };     // DoGScaleInvariantDetector
 
-inline void ComputeSubpixelDerivatives(float&Dx,
-                                       float&Dy,
-                                       float&Dxx,
-                                       float&Dyy,
-                                       float&Dxy,
-                                       const Image&im,
+inline void ComputeSubpixelDerivatives(float &Dx,
+                                       float &Dy,
+                                       float &Dxx,
+                                       float &Dyy,
+                                       float &Dxy,
+                                       const Image &im,
                                        int x,
                                        int y)
 {
@@ -347,9 +347,9 @@ inline void ComputeSubpixelDerivatives(float&Dx,
 
 inline void ComputeSubpixelHessianSameOctave(float H[9],
                                              float b[3],
-                                             const Image&lap0,
-                                             const Image&lap1,
-                                             const Image&lap2,
+                                             const Image &lap0,
+                                             const Image &lap1,
+                                             const Image &lap2,
                                              int x,
                                              int y)
 {
@@ -396,9 +396,9 @@ inline void ComputeSubpixelHessianSameOctave(float H[9],
 
 inline void ComputeSubpixelHessianCoarseOctavePair(float H[9],
                                                    float b[3],
-                                                   const Image&lap0,
-                                                   const Image&lap1,
-                                                   const Image&lap2,
+                                                   const Image &lap0,
+                                                   const Image &lap1,
+                                                   const Image &lap2,
                                                    int x,
                                                    int y)
 {
@@ -450,9 +450,9 @@ inline void ComputeSubpixelHessianCoarseOctavePair(float H[9],
 
 inline void ComputeSubpixelHessianFineOctavePair(float H[9],
                                                  float b[3],
-                                                 const Image&lap0,
-                                                 const Image&lap1,
-                                                 const Image&lap2,
+                                                 const Image &lap0,
+                                                 const Image &lap1,
+                                                 const Image &lap2,
                                                  int x,
                                                  int y)
 {
@@ -508,9 +508,9 @@ inline void ComputeSubpixelHessianFineOctavePair(float H[9],
 
 inline bool ComputeSubpixelHessian(float H[9],
                                    float b[3],
-                                   const Image&lap0,
-                                   const Image&lap1,
-                                   const Image&lap2,
+                                   const Image &lap0,
+                                   const Image &lap1,
+                                   const Image &lap2,
                                    int x,
                                    int y)
 {
@@ -538,13 +538,13 @@ inline bool ComputeSubpixelHessian(float H[9],
     return true;
 }
 
-inline bool ComputeEdgeScore(float&score, const float H[9])
+inline bool ComputeEdgeScore(float &score, const float H[9])
 {
     float det;
 
-    const float&Dxx = H[0];
-    const float&Dyy = H[4];
-    const float&Dxy = H[1];
+    const float &Dxx = H[0];
+    const float &Dyy = H[4];
+    const float &Dxy = H[1];
 
     det = (Dxx * Dyy) - sqr(Dxy);
 
@@ -560,9 +560,9 @@ inline bool ComputeEdgeScore(float&score, const float H[9])
     return true;
 }
 
-void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t> > > >&buckets,
-                      std::vector<DoGScaleInvariantDetector::FeaturePoint>&outPoints,
-                      const std::vector<DoGScaleInvariantDetector::FeaturePoint>&inPoints,
+void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
+                      std::vector<DoGScaleInvariantDetector::FeaturePoint> &outPoints,
+                      const std::vector<DoGScaleInvariantDetector::FeaturePoint> &inPoints,
                       int num_buckets_X,
                       int num_buckets_Y,
                       int width,

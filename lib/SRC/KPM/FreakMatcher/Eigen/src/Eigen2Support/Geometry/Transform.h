@@ -93,26 +93,26 @@ public:
 /** Default constructor without initialization of the coefficients. */
 inline Transform() { }
 
-inline Transform(const Transform&other)
+inline Transform(const Transform &other)
 {
     m_matrix = other.m_matrix;
 }
 
-inline explicit Transform(const TranslationType&t)
+inline explicit Transform(const TranslationType &t)
 {
     *this = t;
 }
-inline explicit Transform(const ScalingType&s)
+inline explicit Transform(const ScalingType &s)
 {
     *this = s;
 }
 template<typename Derived>
-inline explicit Transform(const RotationBase<Derived, Dim>&r)
+inline explicit Transform(const RotationBase<Derived, Dim> &r)
 {
     *this = r;
 }
 
-inline Transform&operator=(const Transform&other)
+inline Transform&operator=(const Transform &other)
 {
     m_matrix = other.m_matrix; return *this;
 }
@@ -120,7 +120,7 @@ inline Transform&operator=(const Transform&other)
 template<typename OtherDerived, bool BigMatrix>   // MSVC 2005 will commit suicide if BigMatrix has a default value
 struct construct_from_matrix
 {
-    static inline void run(Transform *transform, const MatrixBase<OtherDerived>&other)
+    static inline void run(Transform *transform, const MatrixBase<OtherDerived> &other)
     {
         transform->matrix() = other;
     }
@@ -128,7 +128,7 @@ struct construct_from_matrix
 
 template<typename OtherDerived> struct construct_from_matrix<OtherDerived, true>
 {
-    static inline void run(Transform *transform, const MatrixBase<OtherDerived>&other)
+    static inline void run(Transform *transform, const MatrixBase<OtherDerived> &other)
     {
         transform->linear() = other;
         transform->translation().setZero();
@@ -139,24 +139,24 @@ template<typename OtherDerived> struct construct_from_matrix<OtherDerived, true>
 
 /** Constructs and initializes a transformation from a Dim^2 or a (Dim+1)^2 matrix. */
 template<typename OtherDerived>
-inline explicit Transform(const MatrixBase<OtherDerived>&other)
+inline explicit Transform(const MatrixBase<OtherDerived> &other)
 {
     construct_from_matrix<OtherDerived, int(OtherDerived::RowsAtCompileTime) == Dim>::run(this, other);
 }
 
 /** Set \c *this from a (Dim+1)^2 matrix. */
 template<typename OtherDerived>
-inline Transform&operator=(const MatrixBase<OtherDerived>&other)
+inline Transform&operator=(const MatrixBase<OtherDerived> &other)
 {
     m_matrix = other; return *this;
 }
 
   #ifdef EIGEN_QT_SUPPORT
-inline Transform(const QMatrix&other);
-inline Transform&operator=(const QMatrix&other);
+inline Transform(const QMatrix &other);
+inline Transform&operator=(const QMatrix &other);
 inline QMatrix toQMatrix(void) const;
-inline Transform(const QTransform&other);
-inline Transform&operator=(const QTransform&other);
+inline Transform(const QTransform &other);
+inline Transform&operator=(const QTransform &other);
 inline QTransform toQTransform(void) const;
   #endif
 
@@ -216,7 +216,7 @@ inline TranslationPart translation()
 // note: this function is defined here because some compilers cannot find the respective declaration
 template<typename OtherDerived>
 inline const typename ei_transform_product_impl<OtherDerived, _Dim, _Dim + 1>::ResultType
-operator *(const MatrixBase<OtherDerived>&other) const
+operator *(const MatrixBase<OtherDerived> &other) const
 {
     return ei_transform_product_impl<OtherDerived, Dim, HDim>::run(*this, other.derived());
 }
@@ -225,14 +225,14 @@ operator *(const MatrixBase<OtherDerived>&other) const
  * The transformation matrix \a a must have a Dim+1 x Dim+1 sizes. */
 template<typename OtherDerived>
 friend inline const typename ProductReturnType<OtherDerived, MatrixType>::Type
-operator *(const MatrixBase<OtherDerived>&a, const Transform&b)
+operator *(const MatrixBase<OtherDerived> &a, const Transform &b)
 {
     return a.derived() * b.matrix();
 }
 
 /** Contatenates two transformations */
 inline const Transform
-operator *(const Transform&other) const
+operator *(const Transform &other) const
 {
     return Transform(m_matrix * other.matrix());
 }
@@ -248,43 +248,43 @@ static const typename MatrixType::IdentityReturnType Identity()
 }
 
 template<typename OtherDerived>
-inline Transform&scale(const MatrixBase<OtherDerived>&other);
+inline Transform&scale(const MatrixBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-inline Transform&prescale(const MatrixBase<OtherDerived>&other);
+inline Transform&prescale(const MatrixBase<OtherDerived> &other);
 
 inline Transform&scale(Scalar s);
 inline Transform&prescale(Scalar s);
 
 template<typename OtherDerived>
-inline Transform&translate(const MatrixBase<OtherDerived>&other);
+inline Transform&translate(const MatrixBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-inline Transform&pretranslate(const MatrixBase<OtherDerived>&other);
+inline Transform&pretranslate(const MatrixBase<OtherDerived> &other);
 
 template<typename RotationType>
-inline Transform&rotate(const RotationType&rotation);
+inline Transform&rotate(const RotationType &rotation);
 
 template<typename RotationType>
-inline Transform&prerotate(const RotationType&rotation);
+inline Transform&prerotate(const RotationType &rotation);
 
 Transform&shear(Scalar sx, Scalar sy);
 Transform&preshear(Scalar sx, Scalar sy);
 
-inline Transform&operator=(const TranslationType&t);
-inline Transform&operator*=(const TranslationType&t)
+inline Transform&operator=(const TranslationType &t);
+inline Transform&operator*=(const TranslationType &t)
 {
     return translate(t.vector());
 }
-inline Transform operator*(const TranslationType&t) const;
+inline Transform operator*(const TranslationType &t) const;
 
-inline Transform&operator=(const ScalingType&t);
-inline Transform&operator*=(const ScalingType&s)
+inline Transform&operator=(const ScalingType &t);
+inline Transform&operator*=(const ScalingType &s)
 {
     return scale(s.coeffs());
 }
-inline Transform operator*(const ScalingType&s) const;
-friend inline Transform operator*(const LinearMatrixType&mat, const Transform&t)
+inline Transform operator*(const ScalingType &s) const;
+friend inline Transform operator*(const LinearMatrixType &mat, const Transform &t)
 {
     Transform res = t;
 
@@ -294,14 +294,14 @@ friend inline Transform operator*(const LinearMatrixType&mat, const Transform&t)
 }
 
 template<typename Derived>
-inline Transform&operator=(const RotationBase<Derived, Dim>&r);
+inline Transform&operator=(const RotationBase<Derived, Dim> &r);
 template<typename Derived>
-inline Transform&operator*=(const RotationBase<Derived, Dim>&r)
+inline Transform&operator*=(const RotationBase<Derived, Dim> &r)
 {
     return rotate(r.toRotationMatrix());
 }
 template<typename Derived>
-inline Transform operator*(const RotationBase<Derived, Dim>&r) const;
+inline Transform operator*(const RotationBase<Derived, Dim> &r) const;
 
 LinearMatrixType rotation() const;
 template<typename RotationMatrixType, typename ScalingMatrixType>
@@ -310,8 +310,8 @@ template<typename ScalingMatrixType, typename RotationMatrixType>
 void computeScalingRotation(ScalingMatrixType *scaling, RotationMatrixType *rotation) const;
 
 template<typename PositionDerived, typename OrientationType, typename ScaleDerived>
-Transform&fromPositionOrientationScale(const MatrixBase<PositionDerived>&position,
-                                       const OrientationType&orientation, const MatrixBase<ScaleDerived>&scale);
+Transform&fromPositionOrientationScale(const MatrixBase<PositionDerived> &position,
+                                       const OrientationType &orientation, const MatrixBase<ScaleDerived> &scale);
 
 inline const MatrixType inverse(TransformTraits traits = Affine) const;
 
@@ -339,7 +339,7 @@ inline typename internal::cast_return_type<Transform, Transform<NewScalarType, D
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Transform(const Transform<OtherScalarType, Dim>&other)
+inline explicit Transform(const Transform<OtherScalarType, Dim> &other)
 {
     m_matrix = other.matrix().template cast<Scalar>();
 }
@@ -348,7 +348,7 @@ inline explicit Transform(const Transform<OtherScalarType, Dim>&other)
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Transform&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const Transform &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_matrix.isApprox(other.m_matrix, prec);
 }
@@ -379,7 +379,7 @@ typedef Transform<double, 3> Transform3d;
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim>
-Transform<Scalar, Dim>::Transform(const QMatrix&other)
+Transform<Scalar, Dim>::Transform(const QMatrix &other)
 {
     *this = other;
 }
@@ -389,7 +389,7 @@ Transform<Scalar, Dim>::Transform(const QMatrix&other)
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim>
-Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const QMatrix&other)
+Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const QMatrix &other)
 {
     EIGEN_STATIC_ASSERT(Dim == 2, YOU_MADE_A_PROGRAMMING_MISTAKE)
     m_matrix << other.m11(), other.m21(), other.dx(),
@@ -418,7 +418,7 @@ QMatrix Transform<Scalar, Dim>::toQMatrix(void) const
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim>
-Transform<Scalar, Dim>::Transform(const QTransform&other)
+Transform<Scalar, Dim>::Transform(const QTransform &other)
 {
     *this = other;
 }
@@ -428,7 +428,7 @@ Transform<Scalar, Dim>::Transform(const QTransform&other)
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim>
-Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const QTransform&other)
+Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const QTransform &other)
 {
     EIGEN_STATIC_ASSERT(Dim == 2, YOU_MADE_A_PROGRAMMING_MISTAKE)
     m_matrix << other.m11(), other.m21(), other.dx(),
@@ -462,7 +462,7 @@ QTransform Transform<Scalar, Dim>::toQTransform(void) const
 template<typename Scalar, int Dim>
 template<typename OtherDerived>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::scale(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim>::scale(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     linear() = (linear() * other.asDiagonal()).lazy();
@@ -487,7 +487,7 @@ inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::scale(Scalar s)
 template<typename Scalar, int Dim>
 template<typename OtherDerived>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::prescale(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim>::prescale(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     m_matrix.template block<Dim, HDim>(0, 0) = (other.asDiagonal() * m_matrix.template block<Dim, HDim>(0, 0)).lazy();
@@ -512,7 +512,7 @@ inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::prescale(Scalar s)
 template<typename Scalar, int Dim>
 template<typename OtherDerived>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::translate(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim>::translate(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     translation() += linear() * other;
@@ -526,7 +526,7 @@ Transform<Scalar, Dim>::translate(const MatrixBase<OtherDerived>&other)
 template<typename Scalar, int Dim>
 template<typename OtherDerived>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::pretranslate(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim>::pretranslate(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     translation() += other;
@@ -553,7 +553,7 @@ Transform<Scalar, Dim>::pretranslate(const MatrixBase<OtherDerived>&other)
 template<typename Scalar, int Dim>
 template<typename RotationType>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::rotate(const RotationType&rotation)
+Transform<Scalar, Dim>::rotate(const RotationType &rotation)
 {
     linear() *= ei_toRotationMatrix<Scalar, Dim>(rotation);
     return *this;
@@ -569,7 +569,7 @@ Transform<Scalar, Dim>::rotate(const RotationType&rotation)
 template<typename Scalar, int Dim>
 template<typename RotationType>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::prerotate(const RotationType&rotation)
+Transform<Scalar, Dim>::prerotate(const RotationType &rotation)
 {
     m_matrix.template block<Dim, HDim>(0, 0) = ei_toRotationMatrix<Scalar, Dim>(rotation)
                                                * m_matrix.template block<Dim, HDim>(0, 0);
@@ -610,7 +610,7 @@ Transform<Scalar, Dim>::preshear(Scalar sx, Scalar sy)
 ******************************************************/
 
 template<typename Scalar, int Dim>
-inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const TranslationType&t)
+inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const TranslationType &t)
 {
     linear().setIdentity();
     translation() = t.vector();
@@ -620,7 +620,7 @@ inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const Translatio
 }
 
 template<typename Scalar, int Dim>
-inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const TranslationType&t) const
+inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const TranslationType &t) const
 {
     Transform res = *this;
 
@@ -629,7 +629,7 @@ inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const Translatio
 }
 
 template<typename Scalar, int Dim>
-inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const ScalingType&s)
+inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const ScalingType &s)
 {
     m_matrix.setZero();
     linear().diagonal()         = s.coeffs();
@@ -638,7 +638,7 @@ inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const ScalingTyp
 }
 
 template<typename Scalar, int Dim>
-inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const ScalingType&s) const
+inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const ScalingType &s) const
 {
     Transform res = *this;
 
@@ -648,7 +648,7 @@ inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const ScalingTyp
 
 template<typename Scalar, int Dim>
 template<typename Derived>
-inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const RotationBase<Derived, Dim>&r)
+inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const RotationBase<Derived, Dim> &r)
 {
     linear() = ei_toRotationMatrix<Scalar, Dim>(r);
     translation().setZero();
@@ -659,7 +659,7 @@ inline Transform<Scalar, Dim>&Transform<Scalar, Dim>::operator=(const RotationBa
 
 template<typename Scalar, int Dim>
 template<typename Derived>
-inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const RotationBase<Derived, Dim>&r) const
+inline Transform<Scalar, Dim> Transform<Scalar, Dim>::operator*(const RotationBase<Derived, Dim> &r) const
 {
     Transform res = *this;
 
@@ -759,8 +759,8 @@ void Transform<Scalar, Dim>::computeScalingRotation(ScalingMatrixType *scaling, 
 template<typename Scalar, int Dim>
 template<typename PositionDerived, typename OrientationType, typename ScaleDerived>
 Transform<Scalar, Dim>&
-Transform<Scalar, Dim>::fromPositionOrientationScale(const MatrixBase<PositionDerived>&position,
-                                                     const OrientationType&orientation, const MatrixBase<ScaleDerived>&scale)
+Transform<Scalar, Dim>::fromPositionOrientationScale(const MatrixBase<PositionDerived> &position,
+                                                     const OrientationType &orientation, const MatrixBase<ScaleDerived> &scale)
 {
     linear()      = ei_toRotationMatrix<Scalar, Dim>(orientation);
     linear()     *= scale.asDiagonal();
@@ -831,7 +831,7 @@ struct ei_transform_product_impl<Other, Dim, HDim, HDim, HDim>
     typedef Transform<typename Other::Scalar, Dim> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef typename ProductReturnType<MatrixType, Other>::Type ResultType;
-    static ResultType run(const TransformType&tr, const Other&other)
+    static ResultType run(const TransformType &tr, const Other &other)
     {
         return tr.matrix() * other;
     }
@@ -843,7 +843,7 @@ struct ei_transform_product_impl<Other, Dim, HDim, Dim, Dim>
     typedef Transform<typename Other::Scalar, Dim> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef TransformType ResultType;
-    static ResultType run(const TransformType&tr, const Other&other)
+    static ResultType run(const TransformType &tr, const Other &other)
     {
         TransformType res;
 
@@ -860,7 +860,7 @@ struct ei_transform_product_impl<Other, Dim, HDim, HDim, 1>
     typedef Transform<typename Other::Scalar, Dim> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef typename ProductReturnType<MatrixType, Other>::Type ResultType;
-    static ResultType run(const TransformType&tr, const Other&other)
+    static ResultType run(const TransformType &tr, const Other &other)
     {
         return tr.matrix() * other;
     }
@@ -872,7 +872,7 @@ struct ei_transform_product_impl<Other, Dim, HDim, Dim, 1>
     typedef typename Other::Scalar Scalar;
     typedef Transform<Scalar, Dim> TransformType;
     typedef Matrix<Scalar, Dim, 1> ResultType;
-    static ResultType run(const TransformType&tr, const Other&other)
+    static ResultType run(const TransformType &tr, const Other &other)
     {
         return ((tr.linear() * other) + tr.translation())
                * (Scalar(1) / ((tr.matrix().template block<1, Dim>(Dim, 0) * other).coeff(0) + tr.matrix().coeff(Dim, Dim)));

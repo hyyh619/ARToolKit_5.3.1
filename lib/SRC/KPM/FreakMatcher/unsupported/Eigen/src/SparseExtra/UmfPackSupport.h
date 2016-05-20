@@ -110,9 +110,9 @@ inline int umfpack_get_numeric(int Lp[], int Lj[], double Lx[], int Up[], int Ui
 inline int umfpack_get_numeric(int Lp[], int Lj[], std::complex<double> Lx[], int Up[], int Ui[], std::complex<double> Ux[],
                                int P[], int Q[], std::complex<double> Dx[], int *do_recip, double Rs[], void *Numeric)
 {
-    double&lx0_real = internal::real_ref(Lx[0]);
-    double&ux0_real = internal::real_ref(Ux[0]);
-    double&dx0_real = internal::real_ref(Dx[0]);
+    double &lx0_real = internal::real_ref(Lx[0]);
+    double &ux0_real = internal::real_ref(Ux[0]);
+    double &dx0_real = internal::real_ref(Dx[0]);
 
     return umfpack_zi_get_numeric(Lp, Lj, Lx ? &lx0_real : 0, 0, Up, Ui, Ux ? &ux0_real : 0, 0, P, Q,
                                   Dx ? &dx0_real : 0, 0, do_recip, Rs, Numeric);
@@ -125,7 +125,7 @@ inline int umfpack_get_determinant(double *Mx, double *Ex, void *NumericHandle, 
 
 inline int umfpack_get_determinant(std::complex<double> *Mx, double *Ex, void *NumericHandle, double User_Info[UMFPACK_INFO])
 {
-    double&mx_real = internal::real_ref(*Mx);
+    double &mx_real = internal::real_ref(*Mx);
 
     return umfpack_zi_get_determinant(&mx_real, 0, Ex, NumericHandle, User_Info);
 }
@@ -154,7 +154,7 @@ SparseLU(int flags = NaturalOrdering)
     : Base(flags), m_numeric(0)
 {}
 
-SparseLU(const MatrixType&matrix, int flags = NaturalOrdering)
+SparseLU(const MatrixType &matrix, int flags = NaturalOrdering)
     : Base(flags), m_numeric(0)
 {
     compute(matrix);
@@ -201,17 +201,17 @@ inline const IntRowVectorType&permutationQ() const
 Scalar determinant() const;
 
 template<typename BDerived, typename XDerived>
-bool solve(const MatrixBase<BDerived>&b, MatrixBase<XDerived> *x) const;
+bool solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> *x) const;
 
 template<typename Rhs>
 inline const internal::solve_retval<SparseLU<MatrixType, UmfPack>, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(true && "SparseLU is not initialized.");
     return internal::solve_retval<SparseLU<MatrixType, UmfPack>, Rhs>(*this, b.derived());
 }
 
-void compute(const MatrixType&matrix);
+void compute(const MatrixType &matrix);
 
 inline Index cols() const
 {
@@ -257,7 +257,7 @@ struct solve_retval<SparseLU<_MatrixType, UmfPack>, Rhs>
     typedef SparseLU<_MatrixType, UmfPack> SpLUDecType;
     EIGEN_MAKE_SOLVE_HELPERS(SpLUDecType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         const int rhsCols = rhs().cols();
 
@@ -280,7 +280,7 @@ struct solve_retval<SparseLU<_MatrixType, UmfPack>, Rhs>
 } // end namespace internal
 
 template<typename MatrixType>
-void SparseLU<MatrixType, UmfPack>::compute(const MatrixType&a)
+void SparseLU<MatrixType, UmfPack>::compute(const MatrixType &a)
 {
     typedef typename MatrixType::Index Index;
     const Index rows = a.rows();
@@ -346,7 +346,7 @@ typename SparseLU<MatrixType, UmfPack>::Scalar SparseLU<MatrixType, UmfPack>::de
 
 template<typename MatrixType>
 template<typename BDerived, typename XDerived>
-bool SparseLU<MatrixType, UmfPack>::solve(const MatrixBase<BDerived>&b, MatrixBase<XDerived> *x) const
+bool SparseLU<MatrixType, UmfPack>::solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> *x) const
 {
     // const int size = m_matrix.rows();
     const int rhsCols = b.cols();

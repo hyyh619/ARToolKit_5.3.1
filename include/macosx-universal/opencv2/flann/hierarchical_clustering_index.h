@@ -105,7 +105,7 @@ centersAlgFunction chooseCenters;
  *     indices_length = length of indices vector
  *
  */
-void chooseCentersRandom(int k, int *dsindices, int indices_length, int *centers, int&centers_length)
+void chooseCentersRandom(int k, int *dsindices, int indices_length, int *centers, int &centers_length)
 {
     UniqueRandom r(indices_length);
 
@@ -153,7 +153,7 @@ void chooseCentersRandom(int k, int *dsindices, int indices_length, int *centers
  *     indices = indices in the dataset
  * Returns:
  */
-void chooseCentersGonzales(int k, int *dsindices, int indices_length, int *centers, int&centers_length)
+void chooseCentersGonzales(int k, int *dsindices, int indices_length, int *centers, int &centers_length)
 {
     int n = indices_length;
 
@@ -217,7 +217,7 @@ void chooseCentersGonzales(int k, int *dsindices, int indices_length, int *cente
  *     indices = indices in the dataset
  * Returns:
  */
-void chooseCentersKMeanspp(int k, int *dsindices, int indices_length, int *centers, int&centers_length)
+void chooseCentersKMeanspp(int k, int *dsindices, int indices_length, int *centers, int &centers_length)
 {
     int n = indices_length;
 
@@ -300,7 +300,7 @@ public:
  *          inputData = dataset with the input features
  *          params = parameters passed to the hierarchical k-means algorithm
  */
-HierarchicalClusteringIndex(const Matrix<ElementType>&inputData, const IndexParams&index_params = HierarchicalClusteringIndexParams(),
+HierarchicalClusteringIndex(const Matrix<ElementType> &inputData, const IndexParams &index_params = HierarchicalClusteringIndexParams(),
                             Distance d = Distance())
     : dataset(inputData), params(index_params), root(NULL), indices(NULL), distance(d)
 {
@@ -459,7 +459,7 @@ void loadIndex(FILE *stream)
  *     vec = the vector for which to search the nearest neighbors
  *     searchParams = parameters that influence the search algorithm (checks)
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     int maxChecks = get_param(searchParams, "checks", 32);
 
@@ -550,7 +550,7 @@ void save_tree(FILE *stream, NodePtr node, int num)
 }
 
 
-void load_tree(FILE *stream, NodePtr&node, int num)
+void load_tree(FILE *stream, NodePtr &node, int num)
 {
     node = pool.allocate<Node>();
     load_value(stream, *node);
@@ -574,7 +574,7 @@ void load_tree(FILE *stream, NodePtr&node, int num)
 
 
 
-void computeLabels(int *dsindices, int indices_length,  int *centers, int centers_length, int *labels, DistanceType&cost)
+void computeLabels(int *dsindices, int indices_length,  int *centers, int centers_length, int *labels, DistanceType &cost)
 {
     cost = 0;
 
@@ -680,8 +680,8 @@ void computeClustering(NodePtr node, int *dsindices, int indices_length, int bra
  */
 
 
-void findNN(NodePtr node, ResultSet<DistanceType>&result, const ElementType *vec, int&checks, int maxChecks,
-            Heap<BranchSt> *heap, std::vector<bool>&checked)
+void findNN(NodePtr node, ResultSet<DistanceType> &result, const ElementType *vec, int &checks, int maxChecks,
+            Heap<BranchSt> *heap, std::vector<bool> &checked)
 {
     if (node->childs == NULL)
     {

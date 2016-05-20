@@ -159,20 +159,20 @@ void arLogSetLogger(AR_LOG_LOGGER_CALLBACK callback, int callBackOnlyIfOnSameThr
 #define ARLOGperror(s) arLog(AR_LOG_LEVEL_ERROR, (s ? "%s: %s\n" : "%s%s\n"), (s ? s : ""), strerror(errno))
 
 
-#define arMalloc(V, T, S)                                \
-    {                                                    \
-        if (((V) = (T*)malloc(sizeof(T) * (S))) == NULL) \
-        {                                                \
-            ARLOGe("%s(%d): Out of memory!!\n", __FUNCTION__, __LINE__); exit(1);        \
-        }                                                \
+#define arMalloc(V, T, S)                                                         \
+    {                                                                             \
+        if (((V) = (T*)malloc(sizeof(T) * (S))) == NULL)                          \
+        {                                                                         \
+            ARLOGe("%s(%d): Out of memory!!\n", __FUNCTION__, __LINE__); exit(1); \
+        }                                                                         \
     }
 
-#define arMallocClear(V, T, S)                          \
-    {                                                   \
-        if (((V) = (T*)calloc((S), sizeof(T))) == NULL) \
-        {                                               \
-            ARLOGe("%s(%d): Out of memory!!\n", __FUNCTION__, __LINE__); exit(1);       \
-        }                                               \
+#define arMallocClear(V, T, S)                                                    \
+    {                                                                             \
+        if (((V) = (T*)calloc((S), sizeof(T))) == NULL)                           \
+        {                                                                         \
+            ARLOGe("%s(%d): Out of memory!!\n", __FUNCTION__, __LINE__); exit(1); \
+        }                                                                         \
     }
 
 typedef char ARInt8;

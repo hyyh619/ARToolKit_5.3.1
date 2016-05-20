@@ -96,7 +96,7 @@ struct LshStats
  * @param stats the stats to display
  * @return the streams
  */
-inline std::ostream&operator <<(std::ostream&out, const LshStats&stats)
+inline std::ostream&operator <<(std::ostream &out, const LshStats &stats)
 {
     int w = 20;
 
@@ -370,7 +370,7 @@ std::vector<size_t> mask_;
 template<>
 inline LshTable<unsigned char>::LshTable(unsigned int feature_size,
                                          unsigned int subsignature_size,
-                                         std::vector<size_t>&indices)
+                                         std::vector<size_t> &indices)
 {
     initialize(subsignature_size);
     // Allocate the mask

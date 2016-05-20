@@ -29,7 +29,7 @@ namespace internal
 {
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename BVH, typename Intersector>
-bool intersect_helper(const BVH&tree, Intersector&intersector, typename BVH::Index root)
+bool intersect_helper(const BVH &tree, Intersector &intersector, typename BVH::Index root)
 {
     typedef typename BVH::Index Index;
     typedef typename BVH::VolumeIterator VolIter;
@@ -64,17 +64,17 @@ bool intersect_helper(const BVH&tree, Intersector&intersector, typename BVH::Ind
 template<typename Volume1, typename Object1, typename Object2, typename Intersector>
 struct intersector_helper1
 {
-    intersector_helper1(const Object2&inStored, Intersector&in) : stored(inStored), intersector(in) {}
-    bool intersectVolume(const Volume1&vol)
+    intersector_helper1(const Object2 &inStored, Intersector &in) : stored(inStored), intersector(in) {}
+    bool intersectVolume(const Volume1 &vol)
     {
         return intersector.intersectVolumeObject(vol, stored);
     }
-    bool intersectObject(const Object1&obj)
+    bool intersectObject(const Object1 &obj)
     {
         return intersector.intersectObjectObject(obj, stored);
     }
-    Object2    stored;
-    Intersector&intersector;
+    Object2     stored;
+    Intersector &intersector;
 private:
     intersector_helper1&operator=(const intersector_helper1&);
 };
@@ -82,17 +82,17 @@ private:
 template<typename Volume2, typename Object2, typename Object1, typename Intersector>
 struct intersector_helper2
 {
-    intersector_helper2(const Object1&inStored, Intersector&in) : stored(inStored), intersector(in) {}
-    bool intersectVolume(const Volume2&vol)
+    intersector_helper2(const Object1 &inStored, Intersector &in) : stored(inStored), intersector(in) {}
+    bool intersectVolume(const Volume2 &vol)
     {
         return intersector.intersectObjectVolume(stored, vol);
     }
-    bool intersectObject(const Object2&obj)
+    bool intersectObject(const Object2 &obj)
     {
         return intersector.intersectObjectObject(stored, obj);
     }
-    Object1    stored;
-    Intersector&intersector;
+    Object1     stored;
+    Intersector &intersector;
 private:
     intersector_helper2&operator=(const intersector_helper2&);
 };
@@ -105,7 +105,7 @@ private:
    \endcode
  */
 template<typename BVH, typename Intersector>
-void BVIntersect(const BVH&tree, Intersector&intersector)
+void BVIntersect(const BVH &tree, Intersector &intersector)
 {
     internal::intersect_helper(tree, intersector, tree.getRootIndex());
 }
@@ -119,7 +119,7 @@ void BVIntersect(const BVH&tree, Intersector&intersector)
    \endcode
  */
 template<typename BVH1, typename BVH2, typename Intersector>
-void BVIntersect(const BVH1&tree1, const BVH2&tree2, Intersector&intersector)    // TODO: tandem descent when it makes sense
+void BVIntersect(const BVH1 &tree1, const BVH2 &tree2, Intersector &intersector)    // TODO: tandem descent when it makes sense
 {
     typedef typename BVH1::Index Index1;
     typedef typename BVH2::Index Index2;
@@ -145,7 +145,7 @@ void BVIntersect(const BVH1&tree1, const BVH2&tree2, Intersector&intersector)   
 
         for (; vBegin1 != vEnd1; ++vBegin1) // go through child volumes of first tree
         {
-            const typename BVH1::Volume&vol1 = tree1.getVolume(*vBegin1);
+            const typename BVH1::Volume &vol1 = tree1.getVolume(*vBegin1);
 
             for (vCur2 = vBegin2; vCur2 != vEnd2; ++vCur2) // go through child volumes of second tree
             {
@@ -183,7 +183,7 @@ namespace internal
 {
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename BVH, typename Minimizer>
-typename Minimizer::Scalar minimize_helper(const BVH&tree, Minimizer&minimizer, typename BVH::Index root, typename Minimizer::Scalar minimum)
+typename Minimizer::Scalar minimize_helper(const BVH &tree, Minimizer &minimizer, typename BVH::Index root, typename Minimizer::Scalar minimum)
 {
     typedef typename Minimizer::Scalar Scalar;
     typedef typename BVH::Index Index;
@@ -222,17 +222,17 @@ template<typename Volume1, typename Object1, typename Object2, typename Minimize
 struct minimizer_helper1
 {
     typedef typename Minimizer::Scalar Scalar;
-    minimizer_helper1(const Object2&inStored, Minimizer&m) : stored(inStored), minimizer(m) {}
-    Scalar minimumOnVolume(const Volume1&vol)
+    minimizer_helper1(const Object2 &inStored, Minimizer &m) : stored(inStored), minimizer(m) {}
+    Scalar minimumOnVolume(const Volume1 &vol)
     {
         return minimizer.minimumOnVolumeObject(vol, stored);
     }
-    Scalar minimumOnObject(const Object1&obj)
+    Scalar minimumOnObject(const Object1 &obj)
     {
         return minimizer.minimumOnObjectObject(obj, stored);
     }
-    Object2  stored;
-    Minimizer&minimizer;
+    Object2   stored;
+    Minimizer &minimizer;
 private:
     minimizer_helper1&operator=(const minimizer_helper1&) {}
 };
@@ -241,17 +241,17 @@ template<typename Volume2, typename Object2, typename Object1, typename Minimize
 struct minimizer_helper2
 {
     typedef typename Minimizer::Scalar Scalar;
-    minimizer_helper2(const Object1&inStored, Minimizer&m) : stored(inStored), minimizer(m) {}
-    Scalar minimumOnVolume(const Volume2&vol)
+    minimizer_helper2(const Object1 &inStored, Minimizer &m) : stored(inStored), minimizer(m) {}
+    Scalar minimumOnVolume(const Volume2 &vol)
     {
         return minimizer.minimumOnObjectVolume(stored, vol);
     }
-    Scalar minimumOnObject(const Object2&obj)
+    Scalar minimumOnObject(const Object2 &obj)
     {
         return minimizer.minimumOnObjectObject(stored, obj);
     }
-    Object1  stored;
-    Minimizer&minimizer;
+    Object1   stored;
+    Minimizer &minimizer;
 private:
     minimizer_helper2&operator=(const minimizer_helper2&);
 };
@@ -266,7 +266,7 @@ private:
    \endcode
  */
 template<typename BVH, typename Minimizer>
-typename Minimizer::Scalar BVMinimize(const BVH&tree, Minimizer&minimizer)
+typename Minimizer::Scalar BVMinimize(const BVH &tree, Minimizer &minimizer)
 {
     return internal::minimize_helper(tree, minimizer, tree.getRootIndex(), (std::numeric_limits<typename Minimizer::Scalar>::max)());
 }
@@ -282,7 +282,7 @@ typename Minimizer::Scalar BVMinimize(const BVH&tree, Minimizer&minimizer)
    \endcode
  */
 template<typename BVH1, typename BVH2, typename Minimizer>
-typename Minimizer::Scalar BVMinimize(const BVH1&tree1, const BVH2&tree2, Minimizer&minimizer)
+typename Minimizer::Scalar BVMinimize(const BVH1 &tree1, const BVH2 &tree2, Minimizer &minimizer)
 {
     typedef typename Minimizer::Scalar Scalar;
     typedef typename BVH1::Index Index1;
@@ -326,7 +326,7 @@ typename Minimizer::Scalar BVMinimize(const BVH1&tree1, const BVH2&tree2, Minimi
 
         for (; vBegin1 != vEnd1; ++vBegin1) // go through child volumes of first tree
         {
-            const typename BVH1::Volume&vol1 = tree1.getVolume(*vBegin1);
+            const typename BVH1::Volume &vol1 = tree1.getVolume(*vBegin1);
 
             for (oCur2 = oBegin2; oCur2 != oEnd2; ++oCur2)// go through child objects of second tree
             {

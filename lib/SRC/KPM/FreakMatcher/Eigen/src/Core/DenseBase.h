@@ -251,38 +251,38 @@ typedef Matrix<typename NumTraits<typename internal::traits<Derived>::Scalar>::R
 
 /** Copies \a other into *this. \returns a reference to *this. */
 template<typename OtherDerived>
-Derived&operator=(const DenseBase<OtherDerived>&other);
+Derived&operator=(const DenseBase<OtherDerived> &other);
 
 /** Special case of the template operator=, in order to prevent the compiler
  * from generating a default operator= (issue hit with g++ 4.1)
  */
-Derived&operator=(const DenseBase&other);
+Derived&operator=(const DenseBase &other);
 
 template<typename OtherDerived>
-Derived&operator=(const EigenBase<OtherDerived>&other);
+Derived&operator=(const EigenBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator+=(const EigenBase<OtherDerived>&other);
+Derived&operator+=(const EigenBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator-=(const EigenBase<OtherDerived>&other);
+Derived&operator-=(const EigenBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator=(const ReturnByValue<OtherDerived>&func);
+Derived&operator=(const ReturnByValue<OtherDerived> &func);
 
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 /** Copies \a other into *this without evaluating other. \returns a reference to *this. */
 template<typename OtherDerived>
-Derived&lazyAssign(const DenseBase<OtherDerived>&other);
+Derived&lazyAssign(const DenseBase<OtherDerived> &other);
 #endif // not EIGEN_PARSED_BY_DOXYGEN
 
-CommaInitializer<Derived> operator<<(const Scalar&s);
+CommaInitializer<Derived> operator<<(const Scalar &s);
 
 template<unsigned int Added, unsigned int Removed>
 const Flagged<Derived, Added, Removed> flagged() const;
 
 template<typename OtherDerived>
-CommaInitializer<Derived> operator<<(const DenseBase<OtherDerived>&other);
+CommaInitializer<Derived> operator<<(const DenseBase<OtherDerived> &other);
 
 Eigen::Transpose<Derived> transpose();
 typedef const Transpose<const Derived> ConstTransposeReturnType;
@@ -291,7 +291,7 @@ void transposeInPlace();
 #ifndef EIGEN_NO_DEBUG
 protected:
 template<typename OtherDerived>
-void checkTransposeAliasing(const OtherDerived&other) const;
+void checkTransposeAliasing(const OtherDerived &other) const;
 public:
 #endif
 
@@ -320,30 +320,30 @@ template<int Size> typename FixedSegmentReturnType<Size>::Type segment(Index sta
 template<int Size> typename ConstFixedSegmentReturnType<Size>::Type segment(Index start) const;
 
 static const ConstantReturnType
-Constant(Index rows, Index cols, const Scalar&value);
+Constant(Index rows, Index cols, const Scalar &value);
 static const ConstantReturnType
-Constant(Index size, const Scalar&value);
+Constant(Index size, const Scalar &value);
 static const ConstantReturnType
-Constant(const Scalar&value);
+Constant(const Scalar &value);
 
 static const SequentialLinSpacedReturnType
     LinSpaced(Sequential_t, Index size, const Scalar &low, const Scalar &high);
 static const RandomAccessLinSpacedReturnType
-LinSpaced(Index size, const Scalar&low, const Scalar&high);
+LinSpaced(Index size, const Scalar &low, const Scalar &high);
 static const SequentialLinSpacedReturnType
     LinSpaced(Sequential_t, const Scalar &low, const Scalar &high);
 static const RandomAccessLinSpacedReturnType
-LinSpaced(const Scalar&low, const Scalar&high);
+LinSpaced(const Scalar &low, const Scalar &high);
 
 template<typename CustomNullaryOp>
 static const CwiseNullaryOp<CustomNullaryOp, Derived>
-NullaryExpr(Index rows, Index cols, const CustomNullaryOp&func);
+NullaryExpr(Index rows, Index cols, const CustomNullaryOp &func);
 template<typename CustomNullaryOp>
 static const CwiseNullaryOp<CustomNullaryOp, Derived>
-NullaryExpr(Index size, const CustomNullaryOp&func);
+NullaryExpr(Index size, const CustomNullaryOp &func);
 template<typename CustomNullaryOp>
 static const CwiseNullaryOp<CustomNullaryOp, Derived>
-NullaryExpr(const CustomNullaryOp&func);
+NullaryExpr(const CustomNullaryOp &func);
 
 static const ConstantReturnType Zero(Index rows, Index cols);
 static const ConstantReturnType Zero(Index size);
@@ -352,30 +352,30 @@ static const ConstantReturnType Ones(Index rows, Index cols);
 static const ConstantReturnType Ones(Index size);
 static const ConstantReturnType Ones();
 
-void fill(const Scalar&value);
-Derived&setConstant(const Scalar&value);
-Derived&setLinSpaced(Index size, const Scalar&low, const Scalar&high);
-Derived&setLinSpaced(const Scalar&low, const Scalar&high);
+void fill(const Scalar &value);
+Derived&setConstant(const Scalar &value);
+Derived&setLinSpaced(Index size, const Scalar &low, const Scalar &high);
+Derived&setLinSpaced(const Scalar &low, const Scalar &high);
 Derived&setZero();
 Derived&setOnes();
 Derived&setRandom();
 
 template<typename OtherDerived>
-bool isApprox(const DenseBase<OtherDerived>&other,
+bool isApprox(const DenseBase<OtherDerived> &other,
               RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
-bool isMuchSmallerThan(const RealScalar&other,
+bool isMuchSmallerThan(const RealScalar &other,
                        RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 template<typename OtherDerived>
-bool isMuchSmallerThan(const DenseBase<OtherDerived>&other,
+bool isMuchSmallerThan(const DenseBase<OtherDerived> &other,
                        RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 
-bool isApproxToConstant(const Scalar&value, RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
-bool isConstant(const Scalar&value, RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
+bool isApproxToConstant(const Scalar &value, RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
+bool isConstant(const Scalar &value, RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 bool isZero(RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 bool isOnes(RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 
-inline Derived&operator*=(const Scalar&other);
-inline Derived&operator/=(const Scalar&other);
+inline Derived&operator*=(const Scalar &other);
+inline Derived&operator/=(const Scalar &other);
 
 /** \returns the matrix or vector obtained by evaluating this expression.
  *
@@ -394,7 +394,7 @@ EIGEN_STRONG_INLINE const typename internal::eval<Derived>::type eval() const
  *
  */
 template<typename OtherDerived>
-void swap(const DenseBase<OtherDerived>&other,
+void swap(const DenseBase<OtherDerived> &other,
           int = OtherDerived::ThisConstantIsPrivateInPlainObjectBase)
 {
     SwapWrapper<Derived>(derived()).lazyAssign(other.derived());
@@ -404,7 +404,7 @@ void swap(const DenseBase<OtherDerived>&other,
  *
  */
 template<typename OtherDerived>
-void swap(PlainObjectBase<OtherDerived>&other)
+void swap(PlainObjectBase<OtherDerived> &other)
 {
     SwapWrapper<Derived>(derived()).lazyAssign(other.derived());
 }
@@ -436,12 +436,12 @@ typename internal::traits<Derived>::Scalar maxCoeff(IndexType *index) const;
 
 template<typename BinaryOp>
 typename internal::result_of<BinaryOp(typename internal::traits<Derived>::Scalar)>::type
-redux(const BinaryOp&func) const;
+redux(const BinaryOp &func) const;
 
 template<typename Visitor>
-void visit(Visitor&func) const;
+void visit(Visitor &func) const;
 
-inline const WithFormat<Derived> format(const IOFormat&fmt) const;
+inline const WithFormat<Derived> format(const IOFormat &fmt) const;
 
 /** \returns the unique coefficient of a 1x1 expression */
 CoeffReturnType value() const
@@ -473,16 +473,16 @@ static const CwiseNullaryOp<internal::scalar_random_op<Scalar>, Derived> Random(
 
 template<typename ThenDerived, typename ElseDerived>
 const Select<Derived, ThenDerived, ElseDerived>
-select(const DenseBase<ThenDerived>&thenMatrix,
-       const DenseBase<ElseDerived>&elseMatrix) const;
+select(const DenseBase<ThenDerived> &thenMatrix,
+       const DenseBase<ElseDerived> &elseMatrix) const;
 
 template<typename ThenDerived>
 inline const Select<Derived, ThenDerived, typename ThenDerived::ConstantReturnType>
-select(const DenseBase<ThenDerived>&thenMatrix, typename ThenDerived::Scalar elseScalar) const;
+select(const DenseBase<ThenDerived> &thenMatrix, typename ThenDerived::Scalar elseScalar) const;
 
 template<typename ElseDerived>
 inline const Select<Derived, typename ElseDerived::ConstantReturnType, ElseDerived>
-select(typename ElseDerived::Scalar thenScalar, const DenseBase<ElseDerived>&elseMatrix) const;
+select(typename ElseDerived::Scalar thenScalar, const DenseBase<ElseDerived> &elseMatrix) const;
 
 template<int p> RealScalar lpNorm() const;
 

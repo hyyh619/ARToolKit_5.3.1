@@ -42,10 +42,10 @@ namespace vision
 /**
  * Save the feature store to a file.
  */
-bool SaveFeatureStore(const BinaryFeatureStore&store, const std::string&filename);
+bool SaveFeatureStore(const BinaryFeatureStore &store, const std::string &filename);
 
 /**
  * Load the feature store from a file.
  */
-bool LoadFeatureStore(BinaryFeatureStore&store, const std::string&filename);
+bool LoadFeatureStore(BinaryFeatureStore &store, const std::string &filename);
 } // vision

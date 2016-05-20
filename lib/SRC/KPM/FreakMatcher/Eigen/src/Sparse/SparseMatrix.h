@@ -410,7 +410,7 @@ void prune(Scalar reference, RealScalar epsilon = NumTraits<RealScalar>::dummy_p
  * \sa prune(Scalar,RealScalar)
  */
 template<typename KeepFunc>
-void prune(const KeepFunc&keep = KeepFunc())
+void prune(const KeepFunc &keep = KeepFunc())
 {
     Index k = 0;
 
@@ -477,21 +477,21 @@ inline SparseMatrix(Index rows, Index cols)
 
 /** Constructs a sparse matrix from the sparse expression \a other */
 template<typename OtherDerived>
-inline SparseMatrix(const SparseMatrixBase<OtherDerived>&other)
+inline SparseMatrix(const SparseMatrixBase<OtherDerived> &other)
     : m_outerSize(0), m_innerSize(0), m_outerIndex(0)
 {
     *this = other.derived();
 }
 
 /** Copy constructor */
-inline SparseMatrix(const SparseMatrix&other)
+inline SparseMatrix(const SparseMatrix &other)
     : Base(), m_outerSize(0), m_innerSize(0), m_outerIndex(0)
 {
     *this = other.derived();
 }
 
 /** Swap the content of two sparse matrices of same type (optimization) */
-inline void swap(SparseMatrix&other)
+inline void swap(SparseMatrix &other)
 {
     // EIGEN_DBG_SPARSE(std::cout << "SparseMatrix:: swap\n");
     std::swap(m_outerIndex, other.m_outerIndex);
@@ -501,7 +501,7 @@ inline void swap(SparseMatrix&other)
     m_data.swap(other.m_data);
 }
 
-inline SparseMatrix&operator=(const SparseMatrix&other)
+inline SparseMatrix&operator=(const SparseMatrix &other)
 {
 //       std::cout << "SparseMatrix& operator=(const SparseMatrix& other)\n";
     if (other.isRValue())
@@ -520,26 +520,26 @@ inline SparseMatrix&operator=(const SparseMatrix&other)
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename Lhs, typename Rhs>
-inline SparseMatrix&operator=(const SparseSparseProduct<Lhs, Rhs>&product)
+inline SparseMatrix&operator=(const SparseSparseProduct<Lhs, Rhs> &product)
 {
     return Base::operator=(product);
 }
 
 template<typename OtherDerived>
-inline SparseMatrix&operator=(const ReturnByValue<OtherDerived>&other)
+inline SparseMatrix&operator=(const ReturnByValue<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
 
 template<typename OtherDerived>
-inline SparseMatrix&operator=(const EigenBase<OtherDerived>&other)
+inline SparseMatrix&operator=(const EigenBase<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
     #endif
 
 template<typename OtherDerived>
-EIGEN_DONT_INLINE SparseMatrix&operator=(const SparseMatrixBase<OtherDerived>&other)
+EIGEN_DONT_INLINE SparseMatrix&operator=(const SparseMatrixBase<OtherDerived> &other)
 {
     const bool needToTranspose = (Flags & RowMajorBit) != (OtherDerived::Flags & RowMajorBit);
 
@@ -598,7 +598,7 @@ EIGEN_DONT_INLINE SparseMatrix&operator=(const SparseMatrixBase<OtherDerived>&ot
     }
 }
 
-friend std::ostream&operator <<(std::ostream&s, const SparseMatrix&m)
+friend std::ostream&operator <<(std::ostream &s, const SparseMatrix &m)
 {
     EIGEN_DBG_SPARSE(
         s << "Nonzero entries:\n";
@@ -702,7 +702,7 @@ private:
 struct default_prunning_func
 {
     default_prunning_func(Scalar ref, RealScalar eps) : reference(ref), epsilon(eps) {}
-    inline bool operator()(const Index&, const Index&, const Scalar&value) const
+    inline bool operator()(const Index&, const Index&, const Scalar &value) const
     {
         return !internal::isMuchSmallerThan(value, reference, epsilon);
     }
@@ -715,7 +715,7 @@ template<typename Scalar, int _Options, typename _Index>
 class SparseMatrix<Scalar, _Options, _Index>::InnerIterator
 {
 public:
-InnerIterator(const SparseMatrix&mat, Index outer)
+InnerIterator(const SparseMatrix &mat, Index outer)
     : m_values(mat._valuePtr()), m_indices(mat._innerIndexPtr()), m_outer(outer), m_id(mat.m_outerIndex[outer]), m_end(mat.m_outerIndex[outer + 1])
 {}
 

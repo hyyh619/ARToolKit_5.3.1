@@ -469,11 +469,11 @@ void BinomialPyramid8u::init(int width, int height, int num_octaves, bool copy_f
     mCopyFine = copy_fine;
 }
 
-void BinomialPyramid8u::build(const Image&image)
+void BinomialPyramid8u::build(const Image &image)
 {
     ASSERT(image.type() == IMAGE_UINT8, "Only gray scale images are supported");
 
-    Image&octave0 = get(0, 0);
+    Image &octave0 = get(0, 0);
     if (mCopyFine)
     {
         octave0.deepCopy(image);
@@ -490,8 +490,8 @@ void BinomialPyramid8u::build(const Image&image)
 
     for (int i = 1; i < mNumOctaves; i++)
     {
-        Image      &dst = get(i, 0);
-        const Image&src = get(i - 1, 0);
+        Image       &dst = get(i, 0);
+        const Image &src = get(i - 1, 0);
         BinomialDecimate8u(dst.get(),
                            src.get(),
                            mTmp.get(),
@@ -530,11 +530,11 @@ void BoxFilterPyramid8u::init(int width, int height, int num_octaves, bool copy_
     mCopyFine = copy_fine;
 }
 
-void BoxFilterPyramid8u::build(const Image&image)
+void BoxFilterPyramid8u::build(const Image &image)
 {
     ASSERT(image.type() == IMAGE_UINT8, "Only gray scale images are supported");
 
-    Image&octave0 = get(0, 0);
+    Image &octave0 = get(0, 0);
     if (mCopyFine)
     {
         octave0.deepCopy(image);
@@ -551,8 +551,8 @@ void BoxFilterPyramid8u::build(const Image&image)
 
     for (int i = 1; i < mNumOctaves; i++)
     {
-        Image      &dst = get(i, 0);
-        const Image&src = get(i - 1, 0);
+        Image       &dst = get(i, 0);
+        const Image &src = get(i - 1, 0);
         BoxFilterDecimate(dst.get(),
                           src.get(),
                           (int)src.width(),

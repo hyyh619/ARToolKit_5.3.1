@@ -103,7 +103,7 @@ void buildIndex();
 /**
  * Copy a keyframe.
  */
-void copy(const keyframe_t&keyframe)
+void copy(const keyframe_t &keyframe)
 {
     mWidth  = keyframe.mWidth;
     mHeight = keyframe.mHeight;

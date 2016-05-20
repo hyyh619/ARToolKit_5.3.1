@@ -257,9 +257,13 @@ void arLog(const int logLevel, const char *format, ...)
             switch (logLevel)
             {
             case AR_LOG_LEVEL_REL_INFO:         logLevelA = ANDROID_LOG_ERROR; break;
+
             case AR_LOG_LEVEL_ERROR:            logLevelA = ANDROID_LOG_ERROR; break;
+
             case AR_LOG_LEVEL_WARN:             logLevelA = ANDROID_LOG_WARN;  break;
+
             case AR_LOG_LEVEL_INFO:             logLevelA = ANDROID_LOG_INFO;  break;
+
             case AR_LOG_LEVEL_DEBUG:
             default:   logLevelA = ANDROID_LOG_DEBUG; break;
             }

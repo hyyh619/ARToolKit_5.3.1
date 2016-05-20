@@ -71,7 +71,7 @@ virtual int radius() const
     return radius_;
 }
 
-virtual void setFrames(const std::vector<Mat>&val)
+virtual void setFrames(const std::vector<Mat> &val)
 {
     frames_ = &val;
 }
@@ -80,7 +80,7 @@ virtual const std::vector<Mat>&frames() const
     return *frames_;
 }
 
-virtual void setMotions(const std::vector<Mat>&val)
+virtual void setMotions(const std::vector<Mat> &val)
 {
     motions_ = &val;
 }
@@ -89,7 +89,7 @@ virtual const std::vector<Mat>&motions() const
     return *motions_;
 }
 
-virtual void setStabilizedFrames(const std::vector<Mat>&val)
+virtual void setStabilizedFrames(const std::vector<Mat> &val)
 {
     stabilizedFrames_ = &val;
 }
@@ -98,7 +98,7 @@ virtual const std::vector<Mat>&stabilizedFrames() const
     return *stabilizedFrames_;
 }
 
-virtual void setStabilizationMotions(const std::vector<Mat>&val)
+virtual void setStabilizationMotions(const std::vector<Mat> &val)
 {
     stabilizationMotions_ = &val;
 }
@@ -109,7 +109,7 @@ virtual const std::vector<Mat>&stabilizationMotions() const
 
 virtual void update() {}
 
-virtual void inpaint(int idx, Mat&frame, Mat&mask) = 0;
+virtual void inpaint(int idx, Mat &frame, Mat &mask) = 0;
 
 protected:
 int                    radius_;
@@ -138,14 +138,14 @@ bool empty() const
 }
 
 virtual void setRadius(int val);
-virtual void setFrames(const std::vector<Mat>&val);
-virtual void setMotions(const std::vector<Mat>&val);
-virtual void setStabilizedFrames(const std::vector<Mat>&val);
-virtual void setStabilizationMotions(const std::vector<Mat>&val);
+virtual void setFrames(const std::vector<Mat> &val);
+virtual void setMotions(const std::vector<Mat> &val);
+virtual void setStabilizedFrames(const std::vector<Mat> &val);
+virtual void setStabilizationMotions(const std::vector<Mat> &val);
 
 virtual void update();
 
-virtual void inpaint(int idx, Mat&frame, Mat&mask);
+virtual void inpaint(int idx, Mat &frame, Mat &mask);
 
 private:
 std::vector<Ptr<InpainterBase> > inpainters_;
@@ -165,7 +165,7 @@ float stdevThresh() const
     return stdevThresh_;
 }
 
-virtual void inpaint(int idx, Mat&frame, Mat&mask);
+virtual void inpaint(int idx, Mat &frame, Mat &mask);
 
 private:
 float stdevThresh_;
@@ -212,7 +212,7 @@ int borderMode() const
     return borderMode_;
 }
 
-virtual void inpaint(int idx, Mat&frame, Mat&mask);
+virtual void inpaint(int idx, Mat &frame, Mat &mask);
 
 private:
 FastMarchingMethod          fmm_;
@@ -231,7 +231,7 @@ Mat_<uchar> flowMask_;
 class CV_EXPORTS ColorAverageInpainter : public InpainterBase
 {
 public:
-virtual void inpaint(int idx, Mat&frame, Mat&mask);
+virtual void inpaint(int idx, Mat &frame, Mat &mask);
 
 private:
 FastMarchingMethod fmm_;
@@ -243,7 +243,7 @@ public:
 ColorInpainter(int method = INPAINT_TELEA, double _radius = 2.)
     : method_(method), radius_(_radius) {}
 
-virtual void inpaint(int idx, Mat&frame, Mat&mask);
+virtual void inpaint(int idx, Mat &frame, Mat &mask);
 
 private:
 int    method_;
@@ -252,12 +252,12 @@ Mat    invMask_;
 };
 
 CV_EXPORTS void calcFlowMask(
-    const Mat&flowX, const Mat&flowY, const Mat&errors, float maxError,
-    const Mat&mask0, const Mat&mask1, Mat&flowMask);
+    const Mat &flowX, const Mat &flowY, const Mat &errors, float maxError,
+    const Mat &mask0, const Mat &mask1, Mat &flowMask);
 
 CV_EXPORTS void completeFrameAccordingToFlow(
-    const Mat&flowMask, const Mat&flowX, const Mat&flowY, const Mat&frame1, const Mat&mask1,
-    float distThresh, Mat&frame0, Mat&mask0);
+    const Mat &flowMask, const Mat &flowX, const Mat &flowY, const Mat &frame1, const Mat &mask1,
+    float distThresh, Mat &frame0, Mat &mask0);
 }   // namespace videostab
 } // namespace cv
 #endif

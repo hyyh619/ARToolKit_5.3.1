@@ -75,7 +75,7 @@ namespace detail
 /**
  * Converts a C-style function formatted argument list into a C++ STRING.
  */
-inline std::string create_formatted_string(const std::string&fmt, va_list arg_list)
+inline std::string create_formatted_string(const std::string &fmt, va_list arg_list)
 {
     const size_t MAX_BUFFER_SIZE = 2048;
     char         buffer[MAX_BUFFER_SIZE];
@@ -110,7 +110,7 @@ virtual ~BackendSinkFilter();
 /**
  * Write a message to the sink filter.
  */
-virtual void write(const std::string&str);
+virtual void write(const std::string &str);
 };
 
 typedef std::shared_ptr<BackendSinkFilter> BackendSinkFilterPtr;
@@ -123,7 +123,7 @@ class FrontendSinkFilter
 {
 public:
 
-FrontendSinkFilter(BackendSinkFilterPtr&backendFilter);
+FrontendSinkFilter(BackendSinkFilterPtr &backendFilter);
 virtual ~FrontendSinkFilter();
 
 /**
@@ -145,7 +145,7 @@ int priority() const
 /**
  * Write a message to the sink filter.
  */
-virtual void write(LoggerPriorityLevel level, const std::string&str);
+virtual void write(LoggerPriorityLevel level, const std::string &str);
 
 /**
  * Check if the message with LEVEL should be logged.
@@ -183,13 +183,13 @@ static Logger&getInstance()
 /**
  * Write a message to the logger.
  */
-void write(LoggerPriorityLevel level, const std::string&str);
+void write(LoggerPriorityLevel level, const std::string &str);
 void write(LoggerPriorityLevel level, const char *fmt, ...);
 
 /**
  * Add a front-end sink filter.
  */
-void addSinkFilter(FrontendSinkFilterPtr&f);
+void addSinkFilter(FrontendSinkFilterPtr &f);
 
 private:
 

@@ -93,31 +93,31 @@ inline Rotation2D inverse() const
 }
 
 /** Concatenates two rotations */
-inline Rotation2D operator*(const Rotation2D&other) const
+inline Rotation2D operator*(const Rotation2D &other) const
 {
     return m_angle + other.m_angle;
 }
 
 /** Concatenates two rotations */
-inline Rotation2D&operator*=(const Rotation2D&other)
+inline Rotation2D&operator*=(const Rotation2D &other)
 {
     m_angle += other.m_angle; return *this;
 }
 
 /** Applies the rotation to a 2D vector */
-Vector2 operator*(const Vector2&vec) const
+Vector2 operator*(const Vector2 &vec) const
 {
     return toRotationMatrix() * vec;
 }
 
 template<typename Derived>
-Rotation2D&fromRotationMatrix(const MatrixBase<Derived>&m);
+Rotation2D&fromRotationMatrix(const MatrixBase<Derived> &m);
 Matrix2 toRotationMatrix(void) const;
 
 /** \returns the spherical interpolation between \c *this and \a other using
  * parameter \a t. It is in fact equivalent to a linear interpolation.
  */
-inline Rotation2D slerp(Scalar t, const Rotation2D&other) const
+inline Rotation2D slerp(Scalar t, const Rotation2D &other) const
 {
     return m_angle * (1 - t) + other.angle() * t;
 }
@@ -135,7 +135,7 @@ inline typename internal::cast_return_type<Rotation2D, Rotation2D<NewScalarType>
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Rotation2D(const Rotation2D<OtherScalarType>&other)
+inline explicit Rotation2D(const Rotation2D<OtherScalarType> &other)
 {
     m_angle = Scalar(other.angle());
 }
@@ -149,7 +149,7 @@ inline static Rotation2D Identity()
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Rotation2D&other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const Rotation2D &other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return internal::isApprox(m_angle, other.m_angle, prec);
 }
@@ -168,7 +168,7 @@ typedef Rotation2D<double> Rotation2Dd;
  */
 template<typename Scalar>
 template<typename Derived>
-Rotation2D<Scalar>&Rotation2D<Scalar>::fromRotationMatrix(const MatrixBase<Derived>&mat)
+Rotation2D<Scalar>&Rotation2D<Scalar>::fromRotationMatrix(const MatrixBase<Derived> &mat)
 {
     EIGEN_STATIC_ASSERT(Derived::RowsAtCompileTime == 2 && Derived::ColsAtCompileTime == 2, YOU_MADE_A_PROGRAMMING_MISTAKE)
     m_angle = internal::atan2(mat.coeff(1, 0), mat.coeff(0, 0));

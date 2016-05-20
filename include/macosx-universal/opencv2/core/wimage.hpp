@@ -258,7 +258,7 @@ inline const T* operator()(int c, int r) const
 }
 
 // Copy the contents from another image which is just a convenience to cvCopy
-void CopyFrom(const WImage<T>&src)
+void CopyFrom(const WImage<T> &src)
 {
     cvCopy(src.Ipl(), image_);
 }
@@ -312,7 +312,7 @@ explicit WImageC(IplImage *img) : WImage<T>(img)
 WImageViewC<T, C> View(int c, int r, int width, int height);
 
 // Copy the contents from another image which is just a convenience to cvCopy
-void CopyFrom(const WImageC<T, C>&src)
+void CopyFrom(const WImageC<T, C> &src)
 {
     cvCopy(src.Ipl(), WImage<T>::image_);
 }
@@ -374,7 +374,7 @@ void SetIpl(IplImage *img)
 }
 
 // Clone an image which reallocates the image if of a different dimension.
-void CloneFrom(const WImage<T>&src)
+void CloneFrom(const WImage<T> &src)
 {
     Allocate(src.Width(), src.Height(), src.Channels());
     CopyFrom(src);
@@ -440,7 +440,7 @@ void SetIpl(IplImage *img)
 }
 
 // Clone an image which reallocates the image if of a different dimension.
-void CloneFrom(const WImageC<T, C>&src)
+void CloneFrom(const WImageC<T, C> &src)
 {
     Allocate(src.Width(), src.Height());
     CopyFrom(src);
@@ -498,13 +498,13 @@ WImageView(T *data, int width, int height, int channels, int width_step = -1);
 WImageView(IplImage *img) : WImage<T>(img) {}
 
 // Copy constructor
-WImageView(const WImage<T>&img) : WImage<T>(0)
+WImageView(const WImage<T> &img) : WImage<T>(0)
 {
     header_ = *(img.Ipl());
     WImage<T>::SetIpl(&header_);
 }
 
-WImageView&operator=(const WImage<T>&img)
+WImageView&operator=(const WImage<T> &img)
 {
     header_ = *(img.Ipl());
     WImage<T>::SetIpl(&header_);
@@ -543,24 +543,24 @@ WImageViewC(IplImage *img) : WImageC<T, C>(img) {}
 // Copy constructor which does a shallow copy to allow multiple views
 // of same data.  gcc-4.1.1 gets confused if both versions of
 // the constructor and assignment operator are not provided.
-WImageViewC(const WImageC<T, C>&img) : WImageC<T, C>(0)
+WImageViewC(const WImageC<T, C> &img) : WImageC<T, C>(0)
 {
     header_ = *(img.Ipl());
     WImageC<T, C>::SetIpl(&header_);
 }
-WImageViewC(const WImageViewC<T, C>&img) : WImageC<T, C>(0)
+WImageViewC(const WImageViewC<T, C> &img) : WImageC<T, C>(0)
 {
     header_ = *(img.Ipl());
     WImageC<T, C>::SetIpl(&header_);
 }
 
-WImageViewC&operator=(const WImageC<T, C>&img)
+WImageViewC&operator=(const WImageC<T, C> &img)
 {
     header_ = *(img.Ipl());
     WImageC<T, C>::SetIpl(&header_);
     return *this;
 }
-WImageViewC&operator=(const WImageViewC<T, C>&img)
+WImageViewC&operator=(const WImageViewC<T, C> &img)
 {
     header_ = *(img.Ipl());
     WImageC<T, C>::SetIpl(&header_);

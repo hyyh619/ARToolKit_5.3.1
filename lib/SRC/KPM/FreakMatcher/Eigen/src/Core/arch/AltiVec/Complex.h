@@ -39,7 +39,7 @@ static Packet16uc p16uc_PSET_LO      = (Packet16uc) vec_mergeh((Packet4ui) vec_s
 struct Packet2cf
 {
     EIGEN_STRONG_INLINE Packet2cf() {}
-    EIGEN_STRONG_INLINE explicit Packet2cf(const Packet4f&a) : v(a) {}
+    EIGEN_STRONG_INLINE explicit Packet2cf(const Packet4f &a) : v(a) {}
     Packet4f v;
 };
 
@@ -67,7 +67,7 @@ template<> struct packet_traits<std::complex<float> >  : default_packet_traits
 
 template<> struct unpacket_traits<Packet2cf> { typedef std::complex<float> type; enum {size = 2}; };
 
-template<> EIGEN_STRONG_INLINE Packet2cf pset1<Packet2cf>(const std::complex<float>&from)
+template<> EIGEN_STRONG_INLINE Packet2cf pset1<Packet2cf>(const std::complex<float> &from)
 {
     Packet2cf res;
 
@@ -81,24 +81,24 @@ template<> EIGEN_STRONG_INLINE Packet2cf pset1<Packet2cf>(const std::complex<flo
     return res;
 }
 
-template<> EIGEN_STRONG_INLINE Packet2cf padd<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf padd<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     return Packet2cf(vec_add(a.v, b.v));
 }
-template<> EIGEN_STRONG_INLINE Packet2cf psub<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf psub<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     return Packet2cf(vec_sub(a.v, b.v));
 }
-template<> EIGEN_STRONG_INLINE Packet2cf pnegate(const Packet2cf&a)
+template<> EIGEN_STRONG_INLINE Packet2cf pnegate(const Packet2cf &a)
 {
     return Packet2cf(pnegate(a.v));
 }
-template<> EIGEN_STRONG_INLINE Packet2cf pconj(const Packet2cf&a)
+template<> EIGEN_STRONG_INLINE Packet2cf pconj(const Packet2cf &a)
 {
     return Packet2cf((Packet4f)vec_xor((Packet4ui)a.v, p4ui_CONJ_XOR));
 }
 
-template<> EIGEN_STRONG_INLINE Packet2cf pmul<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf pmul<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     Packet4f v1, v2;
 
@@ -117,19 +117,19 @@ template<> EIGEN_STRONG_INLINE Packet2cf pmul<Packet2cf>(const Packet2cf&a, cons
     return Packet2cf(vec_add(v1, v2));
 }
 
-template<> EIGEN_STRONG_INLINE Packet2cf pand<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf pand<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     return Packet2cf(vec_and(a.v, b.v));
 }
-template<> EIGEN_STRONG_INLINE Packet2cf por<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf por<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     return Packet2cf(vec_or(a.v, b.v));
 }
-template<> EIGEN_STRONG_INLINE Packet2cf pxor<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf pxor<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     return Packet2cf(vec_xor(a.v, b.v));
 }
-template<> EIGEN_STRONG_INLINE Packet2cf pandnot<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf pandnot<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     return Packet2cf(vec_and(a.v, vec_nor(b.v, b.v)));
 }
@@ -148,11 +148,11 @@ template<> EIGEN_STRONG_INLINE Packet2cf ploaddup<Packet2cf>(const std::complex<
     return pset1<Packet2cf>(*from);
 }
 
-template<> EIGEN_STRONG_INLINE void pstore<std::complex<float> >(std::complex<float> *to, const Packet2cf&from)
+template<> EIGEN_STRONG_INLINE void pstore<std::complex<float> >(std::complex<float> *to, const Packet2cf &from)
 {
     EIGEN_DEBUG_ALIGNED_STORE pstore((float*)to, from.v);
 }
-template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float> >(std::complex<float> *to, const Packet2cf&from)
+template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float> >(std::complex<float> *to, const Packet2cf &from)
 {
     EIGEN_DEBUG_UNALIGNED_STORE pstoreu((float*)to, from.v);
 }
@@ -162,7 +162,7 @@ template<> EIGEN_STRONG_INLINE void prefetch<std::complex<float> >(const std::co
     vec_dstt((float*)addr, DST_CTRL(2, 2, 32), DST_CHAN);
 }
 
-template<> EIGEN_STRONG_INLINE std::complex<float>  pfirst<Packet2cf>(const Packet2cf&a)
+template<> EIGEN_STRONG_INLINE std::complex<float>  pfirst<Packet2cf>(const Packet2cf &a)
 {
     std::complex<float> EIGEN_ALIGN16 res[2];
 
@@ -171,7 +171,7 @@ template<> EIGEN_STRONG_INLINE std::complex<float>  pfirst<Packet2cf>(const Pack
     return res[0];
 }
 
-template<> EIGEN_STRONG_INLINE Packet2cf preverse(const Packet2cf&a)
+template<> EIGEN_STRONG_INLINE Packet2cf preverse(const Packet2cf &a)
 {
     Packet4f rev_a;
 
@@ -179,7 +179,7 @@ template<> EIGEN_STRONG_INLINE Packet2cf preverse(const Packet2cf&a)
     return Packet2cf(rev_a);
 }
 
-template<> EIGEN_STRONG_INLINE std::complex<float> predux<Packet2cf>(const Packet2cf&a)
+template<> EIGEN_STRONG_INLINE std::complex<float> predux<Packet2cf>(const Packet2cf &a)
 {
     Packet4f b;
 
@@ -200,7 +200,7 @@ template<> EIGEN_STRONG_INLINE Packet2cf preduxp<Packet2cf>(const Packet2cf *vec
     return Packet2cf(b2);
 }
 
-template<> EIGEN_STRONG_INLINE std::complex<float> predux_mul<Packet2cf>(const Packet2cf&a)
+template<> EIGEN_STRONG_INLINE std::complex<float> predux_mul<Packet2cf>(const Packet2cf &a)
 {
     Packet4f  b;
     Packet2cf prod;
@@ -214,7 +214,7 @@ template<> EIGEN_STRONG_INLINE std::complex<float> predux_mul<Packet2cf>(const P
 template<int Offset>
 struct palign_impl<Offset, Packet2cf>
 {
-    EIGEN_STRONG_INLINE static void run(Packet2cf&first, const Packet2cf&second)
+    EIGEN_STRONG_INLINE static void run(Packet2cf &first, const Packet2cf &second)
     {
         if (Offset == 1)
         {
@@ -225,12 +225,12 @@ struct palign_impl<Offset, Packet2cf>
 
 template<> struct conj_helper<Packet2cf, Packet2cf, false, true>
 {
-    EIGEN_STRONG_INLINE Packet2cf pmadd(const Packet2cf&x, const Packet2cf&y, const Packet2cf&c) const
+    EIGEN_STRONG_INLINE Packet2cf pmadd(const Packet2cf &x, const Packet2cf &y, const Packet2cf &c) const
     {
         return padd(pmul(x, y), c);
     }
 
-    EIGEN_STRONG_INLINE Packet2cf pmul(const Packet2cf&a, const Packet2cf&b) const
+    EIGEN_STRONG_INLINE Packet2cf pmul(const Packet2cf &a, const Packet2cf &b) const
     {
         return internal::pmul(a, pconj(b));
     }
@@ -238,12 +238,12 @@ template<> struct conj_helper<Packet2cf, Packet2cf, false, true>
 
 template<> struct conj_helper<Packet2cf, Packet2cf, true, false>
 {
-    EIGEN_STRONG_INLINE Packet2cf pmadd(const Packet2cf&x, const Packet2cf&y, const Packet2cf&c) const
+    EIGEN_STRONG_INLINE Packet2cf pmadd(const Packet2cf &x, const Packet2cf &y, const Packet2cf &c) const
     {
         return padd(pmul(x, y), c);
     }
 
-    EIGEN_STRONG_INLINE Packet2cf pmul(const Packet2cf&a, const Packet2cf&b) const
+    EIGEN_STRONG_INLINE Packet2cf pmul(const Packet2cf &a, const Packet2cf &b) const
     {
         return internal::pmul(pconj(a), b);
     }
@@ -251,18 +251,18 @@ template<> struct conj_helper<Packet2cf, Packet2cf, true, false>
 
 template<> struct conj_helper<Packet2cf, Packet2cf, true, true>
 {
-    EIGEN_STRONG_INLINE Packet2cf pmadd(const Packet2cf&x, const Packet2cf&y, const Packet2cf&c) const
+    EIGEN_STRONG_INLINE Packet2cf pmadd(const Packet2cf &x, const Packet2cf &y, const Packet2cf &c) const
     {
         return padd(pmul(x, y), c);
     }
 
-    EIGEN_STRONG_INLINE Packet2cf pmul(const Packet2cf&a, const Packet2cf&b) const
+    EIGEN_STRONG_INLINE Packet2cf pmul(const Packet2cf &a, const Packet2cf &b) const
     {
         return pconj(internal::pmul(a, b));
     }
 };
 
-template<> EIGEN_STRONG_INLINE Packet2cf pdiv<Packet2cf>(const Packet2cf&a, const Packet2cf&b)
+template<> EIGEN_STRONG_INLINE Packet2cf pdiv<Packet2cf>(const Packet2cf &a, const Packet2cf &b)
 {
     // TODO optimize it for AltiVec
     Packet2cf res = conj_helper<Packet2cf, Packet2cf, false, true>().pmul(a, b);
@@ -271,7 +271,7 @@ template<> EIGEN_STRONG_INLINE Packet2cf pdiv<Packet2cf>(const Packet2cf&a, cons
     return Packet2cf(pdiv(res.v, vec_add(s, vec_perm(s, s, p16uc_COMPLEX_REV))));
 }
 
-template<> EIGEN_STRONG_INLINE Packet2cf pcplxflip<Packet2cf>(const Packet2cf&x)
+template<> EIGEN_STRONG_INLINE Packet2cf pcplxflip<Packet2cf>(const Packet2cf &x)
 {
     return Packet2cf(vec_perm(x.v, x.v, p16uc_COMPLEX_REV));
 }

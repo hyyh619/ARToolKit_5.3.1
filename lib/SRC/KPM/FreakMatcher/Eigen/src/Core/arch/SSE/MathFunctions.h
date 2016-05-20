@@ -33,7 +33,7 @@
 namespace internal
 {
 template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED
-Packet4f plog<Packet4f>(const Packet4f&_x)
+Packet4f plog<Packet4f>(const Packet4f &_x)
 {
     Packet4f x = _x;
 
@@ -114,7 +114,7 @@ Packet4f plog<Packet4f>(const Packet4f&_x)
 }
 
 template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED
-Packet4f pexp<Packet4f>(const Packet4f&_x)
+Packet4f pexp<Packet4f>(const Packet4f &_x)
 {
     Packet4f x = _x;
 
@@ -190,7 +190,7 @@ Packet4f pexp<Packet4f>(const Packet4f&_x)
  */
 
 template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED
-Packet4f psin<Packet4f>(const Packet4f&_x)
+Packet4f psin<Packet4f>(const Packet4f &_x)
 {
     Packet4f x = _x;
 
@@ -292,7 +292,7 @@ Packet4f psin<Packet4f>(const Packet4f&_x)
 
 /* almost the same as psin */
 template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED
-Packet4f pcos<Packet4f>(const Packet4f&_x)
+Packet4f pcos<Packet4f>(const Packet4f &_x)
 {
     Packet4f x = _x;
 
@@ -382,7 +382,7 @@ Packet4f pcos<Packet4f>(const Packet4f&_x)
 // This is based on Quake3's fast inverse square root.
 // For detail see here: http://www.beyond3d.com/content/articles/8/
 template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED
-Packet4f psqrt<Packet4f>(const Packet4f&_x)
+Packet4f psqrt<Packet4f>(const Packet4f &_x)
 {
     Packet4f half = pmul(_x, pset1<Packet4f>(.5f));
 

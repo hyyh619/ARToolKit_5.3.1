@@ -44,7 +44,7 @@ namespace vision
  * Print a matrix to the console.
  */
 template<typename T, typename TCAST>
-inline void PrintMatrix(std::ostream&os, const T *X, size_t width, size_t height, const std::string&str)
+inline void PrintMatrix(std::ostream &os, const T *X, size_t width, size_t height, const std::string &str)
 {
     os << str << " = [" << std::endl;
 
@@ -67,17 +67,17 @@ inline void PrintMatrix(std::ostream&os, const T *X, size_t width, size_t height
     os << "];" << std::endl;
 }
 template<typename T>
-inline void PrintMatrix(std::ostream&os, const T *X, size_t width, size_t height, const std::string&str)
+inline void PrintMatrix(std::ostream &os, const T *X, size_t width, size_t height, const std::string &str)
 {
     PrintMatrix<T, T>(os, X, width, height, str);
 }
 template<typename T, typename TCAST>
-inline void PrintMatrix(const T *X, size_t width, size_t height, const std::string&str)
+inline void PrintMatrix(const T *X, size_t width, size_t height, const std::string &str)
 {
     PrintMatrix(std::cout, X, width, height, str);
 }
 template<typename T>
-inline void PrintMatrix(const T *X, size_t width, size_t height, const std::string&str)
+inline void PrintMatrix(const T *X, size_t width, size_t height, const std::string &str)
 {
     PrintMatrix<T, T>(std::cout, X, width, height, str);
 }

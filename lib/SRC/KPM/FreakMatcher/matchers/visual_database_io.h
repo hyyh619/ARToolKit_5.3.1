@@ -44,8 +44,8 @@ namespace vision
  * Save a feature store to disk. The directory structure is generated
  * if needed.
  */
-bool SaveFeatureStore(const BinaryFeatureStore&store,
-                      const std::string&dir,
-                      const db_id_t&db_id,
+bool SaveFeatureStore(const BinaryFeatureStore &store,
+                      const std::string &dir,
+                      const db_id_t &db_id,
                       frame_id_t image_id);
 } // vision

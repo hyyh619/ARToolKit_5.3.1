@@ -47,7 +47,7 @@ public:
 
 /** Creates a LU object and compute the respective factorization of \a matrix using
  * flags \a flags. */
-SkylineInplaceLU(MatrixType&matrix, int flags = 0)
+SkylineInplaceLU(MatrixType &matrix, int flags = 0)
     : /*m_matrix(matrix.rows(), matrix.cols()),*/ m_flags(flags), m_status(0), m_lu(matrix)
 {
     m_precision = RealScalar(0.1) * Eigen::dummy_precision<RealScalar> ();
@@ -117,7 +117,7 @@ void computeRowMajor();
 // inline const MatrixType& matrixU() const { return m_matrixU; }
 
 template<typename BDerived, typename XDerived>
-bool solve(const MatrixBase<BDerived>&b, MatrixBase<XDerived> *x,
+bool solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> *x,
            const int transposed = 0) const;
 
 /** \returns true if the factorization succeeded */
@@ -152,7 +152,7 @@ void SkylineInplaceLU<MatrixType>::compute()
         const double pivot = m_lu.coeffDiag(row);
 
         // Lower matrix Columns update
-        const Index&col = row;
+        const Index &col = row;
 
         for (typename MatrixType::InnerLowerIterator lIt(m_lu, col); lIt; ++lIt)
         {
@@ -353,7 +353,7 @@ void SkylineInplaceLU<MatrixType>::computeRowMajor()
  */
 template<typename MatrixType>
 template<typename BDerived, typename XDerived>
-bool SkylineInplaceLU<MatrixType>::solve(const MatrixBase<BDerived>&b, MatrixBase<XDerived> *x, const int transposed) const
+bool SkylineInplaceLU<MatrixType>::solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> *x, const int transposed) const
 {
     const size_t rows = m_lu.rows();
     const size_t cols = m_lu.cols();

@@ -129,7 +129,7 @@ struct L2_Simple
     }
 
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         return (a - b) * (a - b);
     }
@@ -200,7 +200,7 @@ struct L2
      *  Squared root is omitted for efficiency.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         return (a - b) * (a - b);
     }
@@ -264,7 +264,7 @@ struct L1
      * Partial distance, used by the kd-tree.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         return abs(a - b);
     }
@@ -333,7 +333,7 @@ struct MinkowskiDistance
      * Partial distance, used by the kd-tree.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         return pow(static_cast<ResultType>(abs(a - b)), order);
     }
@@ -677,7 +677,7 @@ struct HistIntersectionDistance
      * Partial distance, used by the kd-tree.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         return a < b ? a : b;
     }
@@ -730,7 +730,7 @@ struct HellingerDistance
      * Partial distance, used by the kd-tree.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         return sqrt(static_cast<ResultType>(a)) - sqrt(static_cast<ResultType>(b));
     }
@@ -781,7 +781,7 @@ struct ChiSquareDistance
      * Partial distance, used by the kd-tree.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         ResultType result = ResultType();
         ResultType sum, diff;
@@ -843,7 +843,7 @@ struct KL_Divergence
      * Partial distance, used by the kd-tree.
      */
     template<typename U, typename V>
-    inline ResultType accum_dist(const U&a, const V&b, int) const
+    inline ResultType accum_dist(const U &a, const V &b, int) const
     {
         ResultType result = ResultType();
         ResultType ratio  = (ResultType)(a / b);

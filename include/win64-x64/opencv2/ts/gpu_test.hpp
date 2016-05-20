@@ -65,22 +65,22 @@ CV_EXPORTS cv::Mat randomMat(cv::Size size, int type, double minVal = 0.0, doubl
 // GpuMat create
 
 CV_EXPORTS cv::gpu::GpuMat createMat(cv::Size size, int type, bool useRoi = false);
-CV_EXPORTS cv::gpu::GpuMat loadMat(const cv::Mat&m, bool useRoi = false);
+CV_EXPORTS cv::gpu::GpuMat loadMat(const cv::Mat &m, bool useRoi = false);
 
 //////////////////////////////////////////////////////////////////////
 // Image load
 
 // ! read image from testdata folder
-CV_EXPORTS cv::Mat readImage(const std::string&fileName, int flags = cv::IMREAD_COLOR);
+CV_EXPORTS cv::Mat readImage(const std::string &fileName, int flags = cv::IMREAD_COLOR);
 
 // ! read image from testdata folder and convert it to specified type
-CV_EXPORTS cv::Mat readImageType(const std::string&fname, int type);
+CV_EXPORTS cv::Mat readImageType(const std::string &fname, int type);
 
 //////////////////////////////////////////////////////////////////////
 // Gpu devices
 
 // ! return true if device supports specified feature and gpu module was built with support the feature.
-CV_EXPORTS bool supportFeature(const cv::gpu::DeviceInfo&info, cv::gpu::FeatureSet feature);
+CV_EXPORTS bool supportFeature(const cv::gpu::DeviceInfo &info, cv::gpu::FeatureSet feature);
 
 class CV_EXPORTS DeviceManager
 {
@@ -104,7 +104,7 @@ std::vector<cv::gpu::DeviceInfo> devices_;
 //////////////////////////////////////////////////////////////////////
 // Additional assertion
 
-CV_EXPORTS void minMaxLocGold(const cv::Mat&src, double *minVal_, double *maxVal_ = 0, cv::Point *minLoc_ = 0, cv::Point *maxLoc_ = 0, const cv::Mat&mask = cv::Mat());
+CV_EXPORTS void minMaxLocGold(const cv::Mat &src, double *minVal_, double *maxVal_ = 0, cv::Point *minLoc_ = 0, cv::Point *maxLoc_ = 0, const cv::Mat &mask = cv::Mat());
 
 CV_EXPORTS cv::Mat getMat(cv::InputArray arr);
 
@@ -275,7 +275,7 @@ private:
 bool val_;
 };
 
-CV_EXPORTS void PrintTo(const UseRoi&useRoi, std::ostream *os);
+CV_EXPORTS void PrintTo(const UseRoi &useRoi, std::ostream *os);
 
     #define WHOLE_SUBMAT testing::Values(UseRoi(false), UseRoi(true))
 
@@ -295,7 +295,7 @@ private:
 bool val_;
 };
 
-CV_EXPORTS void PrintTo(const Inverse&useRoi, std::ostream *os);
+CV_EXPORTS void PrintTo(const Inverse &useRoi, std::ostream *os);
 
     #define DIRECT_INVERSE testing::Values(Inverse(false), Inverse(true))
 
@@ -334,17 +334,17 @@ CV_FLAGS(WarpFlags, INTER_NEAREST, INTER_LINEAR, INTER_CUBIC, WARP_INVERSE_MAP)
 //////////////////////////////////////////////////////////////////////
 // Features2D
 
-CV_EXPORTS testing::AssertionResult assertKeyPointsEquals(const char *gold_expr, const char *actual_expr, std::vector<cv::KeyPoint>&gold, std::vector<cv::KeyPoint>&actual);
+CV_EXPORTS testing::AssertionResult assertKeyPointsEquals(const char *gold_expr, const char *actual_expr, std::vector<cv::KeyPoint> &gold, std::vector<cv::KeyPoint> &actual);
 
     #define ASSERT_KEYPOINTS_EQ(gold, actual) EXPECT_PRED_FORMAT2(assertKeyPointsEquals, gold, actual)
 
-CV_EXPORTS int getMatchedPointsCount(std::vector<cv::KeyPoint>&gold, std::vector<cv::KeyPoint>&actual);
-CV_EXPORTS int getMatchedPointsCount(const std::vector<cv::KeyPoint>&keypoints1, const std::vector<cv::KeyPoint>&keypoints2, const std::vector<cv::DMatch>&matches);
+CV_EXPORTS int getMatchedPointsCount(std::vector<cv::KeyPoint> &gold, std::vector<cv::KeyPoint> &actual);
+CV_EXPORTS int getMatchedPointsCount(const std::vector<cv::KeyPoint> &keypoints1, const std::vector<cv::KeyPoint> &keypoints2, const std::vector<cv::DMatch> &matches);
 
 //////////////////////////////////////////////////////////////////////
 // Other
 
-CV_EXPORTS void dumpImage(const std::string&fileName, const cv::Mat&image);
+CV_EXPORTS void dumpImage(const std::string &fileName, const cv::Mat &image);
 CV_EXPORTS void showDiff(cv::InputArray gold, cv::InputArray actual, double eps);
 
 CV_EXPORTS void printCudaInfo();
@@ -353,7 +353,7 @@ CV_EXPORTS void printCudaInfo();
 namespace cv
 { namespace gpu
   {
-  CV_EXPORTS void PrintTo(const DeviceInfo&info, std::ostream *os);
+  CV_EXPORTS void PrintTo(const DeviceInfo &info, std::ostream *os);
   }
 }
 #endif // __OPENCV_GPU_TEST_UTILITY_HPP__

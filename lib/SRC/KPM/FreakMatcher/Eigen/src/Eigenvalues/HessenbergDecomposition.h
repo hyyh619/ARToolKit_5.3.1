@@ -128,7 +128,7 @@ HessenbergDecomposition(Index size = Size == Dynamic ? 2 : Size)
  *
  * \sa matrixH() for an example.
  */
-HessenbergDecomposition(const MatrixType&matrix)
+HessenbergDecomposition(const MatrixType &matrix)
     : m_matrix(matrix),
     m_temp(matrix.rows()),
     m_isInitialized(false)
@@ -161,7 +161,7 @@ HessenbergDecomposition(const MatrixType&matrix)
  * Example: \include HessenbergDecomposition_compute.cpp
  * Output: \verbinclude HessenbergDecomposition_compute.out
  */
-HessenbergDecomposition&compute(const MatrixType&matrix)
+HessenbergDecomposition&compute(const MatrixType &matrix)
 {
     m_matrix = matrix;
     if (matrix.rows() < 2)
@@ -282,7 +282,7 @@ private:
 
 typedef Matrix<Scalar, 1, Size, Options | RowMajor, 1, MaxSize> VectorType;
 typedef typename NumTraits<Scalar>::Real RealScalar;
-static void _compute(MatrixType&matA, CoeffVectorType&hCoeffs, VectorType&temp);
+static void _compute(MatrixType &matA, CoeffVectorType &hCoeffs, VectorType &temp);
 
 protected:
 MatrixType      m_matrix;
@@ -304,7 +304,7 @@ bool            m_isInitialized;
  * \sa packedMatrix()
  */
 template<typename MatrixType>
-void HessenbergDecomposition<MatrixType>::_compute(MatrixType&matA, CoeffVectorType&hCoeffs, VectorType&temp)
+void HessenbergDecomposition<MatrixType>::_compute(MatrixType &matA, CoeffVectorType &hCoeffs, VectorType &temp)
 {
     assert(matA.rows() == matA.cols());
     Index n = matA.rows();
@@ -359,7 +359,7 @@ public:
      *
      * \param[in] hess  Hessenberg decomposition
      */
-    HessenbergDecompositionMatrixHReturnType(const HessenbergDecomposition<MatrixType>&hess) : m_hess(hess) { }
+    HessenbergDecompositionMatrixHReturnType(const HessenbergDecomposition<MatrixType> &hess) : m_hess(hess) { }
 
     /** \brief Hessenberg matrix in decomposition.
      *
@@ -367,7 +367,7 @@ public:
      *                     was passed to the constructor
      */
     template<typename ResultType>
-    inline void evalTo(ResultType&result) const
+    inline void evalTo(ResultType &result) const
     {
         result = m_hess.packedMatrix();
         Index n = result.rows();
@@ -385,7 +385,7 @@ public:
     }
 
 protected:
-    const HessenbergDecomposition<MatrixType>&m_hess;
+    const HessenbergDecomposition<MatrixType> &m_hess;
 };
 }
 #endif // EIGEN_HESSENBERGDECOMPOSITION_H

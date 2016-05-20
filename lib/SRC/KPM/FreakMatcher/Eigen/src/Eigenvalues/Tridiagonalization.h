@@ -36,7 +36,7 @@ struct traits<TridiagonalizationMatrixTReturnType<MatrixType> >
 };
 
 template<typename MatrixType, typename CoeffVectorType>
-void tridiagonalization_inplace(MatrixType&matA, CoeffVectorType&hCoeffs);
+void tridiagonalization_inplace(MatrixType &matA, CoeffVectorType &hCoeffs);
 }
 
 /** \eigenvalues_module \ingroup Eigenvalues_Module
@@ -140,7 +140,7 @@ Tridiagonalization(Index size = Size == Dynamic ? 2 : Size)
  * Example: \include Tridiagonalization_Tridiagonalization_MatrixType.cpp
  * Output: \verbinclude Tridiagonalization_Tridiagonalization_MatrixType.out
  */
-Tridiagonalization(const MatrixType&matrix)
+Tridiagonalization(const MatrixType &matrix)
     : m_matrix(matrix),
     m_hCoeffs(matrix.cols() > 1 ? matrix.cols() - 1 : 1),
     m_isInitialized(false)
@@ -167,7 +167,7 @@ Tridiagonalization(const MatrixType&matrix)
  * Example: \include Tridiagonalization_compute.cpp
  * Output: \verbinclude Tridiagonalization_compute.out
  */
-Tridiagonalization&compute(const MatrixType&matrix)
+Tridiagonalization&compute(const MatrixType &matrix)
 {
     m_matrix = matrix;
     m_hCoeffs.resize(matrix.rows() - 1, 1);
@@ -358,7 +358,7 @@ namespace internal
  * \sa Tridiagonalization::packedMatrix()
  */
 template<typename MatrixType, typename CoeffVectorType>
-void tridiagonalization_inplace(MatrixType&matA, CoeffVectorType&hCoeffs)
+void tridiagonalization_inplace(MatrixType &matA, CoeffVectorType &hCoeffs)
 {
     typedef typename MatrixType::Index Index;
     typedef typename MatrixType::Scalar Scalar;
@@ -438,7 +438,7 @@ struct tridiagonalization_inplace_selector;
  * \sa class Tridiagonalization
  */
 template<typename MatrixType, typename DiagonalType, typename SubDiagonalType>
-void tridiagonalization_inplace(MatrixType&mat, DiagonalType&diag, SubDiagonalType&subdiag, bool extractQ)
+void tridiagonalization_inplace(MatrixType &mat, DiagonalType &diag, SubDiagonalType &subdiag, bool extractQ)
 {
     typedef typename MatrixType::Index Index;
     // Index n = mat.rows();
@@ -456,7 +456,7 @@ struct tridiagonalization_inplace_selector
     typedef typename Tridiagonalization<MatrixType>::HouseholderSequenceType HouseholderSequenceType;
     typedef typename MatrixType::Index Index;
     template<typename DiagonalType, typename SubDiagonalType>
-    static void run(MatrixType&mat, DiagonalType&diag, SubDiagonalType&subdiag, bool extractQ)
+    static void run(MatrixType &mat, DiagonalType &diag, SubDiagonalType &subdiag, bool extractQ)
     {
         CoeffVectorType hCoeffs(mat.cols() - 1);
 
@@ -481,7 +481,7 @@ struct tridiagonalization_inplace_selector<MatrixType, 3, false>
     typedef typename MatrixType::RealScalar RealScalar;
 
     template<typename DiagonalType, typename SubDiagonalType>
-    static void run(MatrixType&mat, DiagonalType&diag, SubDiagonalType&subdiag, bool extractQ)
+    static void run(MatrixType &mat, DiagonalType &diag, SubDiagonalType &subdiag, bool extractQ)
     {
         diag[0] = mat(0, 0);
         RealScalar v1norm2 = abs2(mat(2, 0));
@@ -524,7 +524,7 @@ struct tridiagonalization_inplace_selector<MatrixType, 1, IsComplex>
     typedef typename MatrixType::Scalar Scalar;
 
     template<typename DiagonalType, typename SubDiagonalType>
-    static void run(MatrixType&mat, DiagonalType&diag, SubDiagonalType&, bool extractQ)
+    static void run(MatrixType &mat, DiagonalType &diag, SubDiagonalType&, bool extractQ)
     {
         diag(0, 0) = real(mat(0, 0));
         if (extractQ)
@@ -548,10 +548,10 @@ public:
      *
      * \param[in] mat The underlying dense matrix
      */
-    TridiagonalizationMatrixTReturnType(const MatrixType&mat) : m_matrix(mat) { }
+    TridiagonalizationMatrixTReturnType(const MatrixType &mat) : m_matrix(mat) { }
 
     template<typename ResultType>
-    inline void evalTo(ResultType&result) const
+    inline void evalTo(ResultType &result) const
     {
         result.setZero();
         result.template diagonal<1>()  = m_matrix.template diagonal<-1>().conjugate();

@@ -84,15 +84,15 @@ AngleAxis() {}
 /** Constructs and initialize the angle-axis rotation from an \a angle in radian
  * and an \a axis which must be normalized. */
 template<typename Derived>
-inline AngleAxis(Scalar angle, const MatrixBase<Derived>&axis) : m_axis(axis), m_angle(angle) {}
+inline AngleAxis(Scalar angle, const MatrixBase<Derived> &axis) : m_axis(axis), m_angle(angle) {}
 /** Constructs and initialize the angle-axis rotation from a quaternion \a q. */
-inline AngleAxis(const QuaternionType&q)
+inline AngleAxis(const QuaternionType &q)
 {
     *this = q;
 }
 /** Constructs and initialize the angle-axis rotation from a 3x3 rotation matrix. */
 template<typename Derived>
-inline explicit AngleAxis(const MatrixBase<Derived>&m)
+inline explicit AngleAxis(const MatrixBase<Derived> &m)
 {
     *this = m;
 }
@@ -116,37 +116,37 @@ Vector3&axis()
 }
 
 /** Concatenates two rotations */
-inline QuaternionType operator*(const AngleAxis&other) const
+inline QuaternionType operator*(const AngleAxis &other) const
 {
     return QuaternionType(*this) * QuaternionType(other);
 }
 
 /** Concatenates two rotations */
-inline QuaternionType operator*(const QuaternionType&other) const
+inline QuaternionType operator*(const QuaternionType &other) const
 {
     return QuaternionType(*this) * other;
 }
 
 /** Concatenates two rotations */
-friend inline QuaternionType operator*(const QuaternionType&a, const AngleAxis&b)
+friend inline QuaternionType operator*(const QuaternionType &a, const AngleAxis &b)
 {
     return a * QuaternionType(b);
 }
 
 /** Concatenates two rotations */
-inline Matrix3 operator*(const Matrix3&other) const
+inline Matrix3 operator*(const Matrix3 &other) const
 {
     return toRotationMatrix() * other;
 }
 
 /** Concatenates two rotations */
-inline friend Matrix3 operator*(const Matrix3&a, const AngleAxis&b)
+inline friend Matrix3 operator*(const Matrix3 &a, const AngleAxis &b)
 {
     return a * b.toRotationMatrix();
 }
 
 /** Applies rotation to vector */
-inline Vector3 operator*(const Vector3&other) const
+inline Vector3 operator*(const Vector3 &other) const
 {
     return toRotationMatrix() * other;
 }
@@ -157,12 +157,12 @@ AngleAxis inverse() const
     return AngleAxis(-m_angle, m_axis);
 }
 
-AngleAxis&operator=(const QuaternionType&q);
+AngleAxis&operator=(const QuaternionType &q);
 template<typename Derived>
-AngleAxis&operator=(const MatrixBase<Derived>&m);
+AngleAxis&operator=(const MatrixBase<Derived> &m);
 
 template<typename Derived>
-AngleAxis&fromRotationMatrix(const MatrixBase<Derived>&m);
+AngleAxis&fromRotationMatrix(const MatrixBase<Derived> &m);
 Matrix3 toRotationMatrix(void) const;
 
 /** \returns \c *this with scalar type casted to \a NewScalarType
@@ -178,7 +178,7 @@ inline typename internal::cast_return_type<AngleAxis, AngleAxis<NewScalarType> >
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit AngleAxis(const AngleAxis<OtherScalarType>&other)
+inline explicit AngleAxis(const AngleAxis<OtherScalarType> &other)
 {
     m_axis  = other.axis().template cast<Scalar>();
     m_angle = Scalar(other.angle());
@@ -188,7 +188,7 @@ inline explicit AngleAxis(const AngleAxis<OtherScalarType>&other)
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const AngleAxis&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const AngleAxis &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_axis.isApprox(other.m_axis, prec) && ei_isApprox(m_angle, other.m_angle, prec);
 }
@@ -205,7 +205,7 @@ typedef AngleAxis<double> AngleAxisd;
  * The axis is normalized.
  */
 template<typename Scalar>
-AngleAxis<Scalar>&AngleAxis<Scalar>::operator=(const QuaternionType&q)
+AngleAxis<Scalar>&AngleAxis<Scalar>::operator=(const QuaternionType &q)
 {
     Scalar n2 = q.vec().squaredNorm();
 
@@ -227,7 +227,7 @@ AngleAxis<Scalar>&AngleAxis<Scalar>::operator=(const QuaternionType&q)
  */
 template<typename Scalar>
 template<typename Derived>
-AngleAxis<Scalar>&AngleAxis<Scalar>::operator=(const MatrixBase<Derived>&mat)
+AngleAxis<Scalar>&AngleAxis<Scalar>::operator=(const MatrixBase<Derived> &mat)
 {
     // Since a direct conversion would not be really faster,
     // let's use the robust Quaternion implementation:

@@ -196,13 +196,13 @@ namespace cv
 typedef tbb::blocked_range<int> BlockedRange;
 
 template<typename Body> static inline
-void parallel_for(const BlockedRange&range, const Body&body)
+void parallel_for(const BlockedRange &range, const Body &body)
 {
     tbb::parallel_for(range, body);
 }
 
 template<typename Iterator, typename Body> static inline
-void parallel_do(Iterator first, Iterator last, const Body&body)
+void parallel_do(Iterator first, Iterator last, const Body &body)
 {
     tbb::parallel_do(first, last, body);
 }
@@ -210,7 +210,7 @@ void parallel_do(Iterator first, Iterator last, const Body&body)
 typedef tbb::split Split;
 
 template<typename Body> static inline
-void parallel_reduce(const BlockedRange&range, Body&body)
+void parallel_reduce(const BlockedRange &range, Body &body)
 {
     tbb::parallel_reduce(range, body);
 }
@@ -241,7 +241,7 @@ int _begin, _end, _grainsize;
 };
 
 template<typename Body> static inline
-void parallel_for(const BlockedRange&range, const Body&body)
+void parallel_for(const BlockedRange &range, const Body &body)
 {
     body(range);
 }
@@ -249,7 +249,7 @@ typedef std::vector<Rect> ConcurrentRectVector;
 typedef std::vector<double> ConcurrentDoubleVector;
 
 template<typename Iterator, typename Body> static inline
-void parallel_do(Iterator first, Iterator last, const Body&body)
+void parallel_do(Iterator first, Iterator last, const Body &body)
 {
     for (; first != last; ++first)
         body(*first);
@@ -259,7 +259,7 @@ class Split
 {};
 
 template<typename Body> static inline
-void parallel_reduce(const BlockedRange&range, Body&body)
+void parallel_reduce(const BlockedRange &range, Body &body)
 {
     body(range);
 }
@@ -401,9 +401,9 @@ CV_EXPORTS const char* currentParallelFramework();
 #define  CV_POS_INF 0x7f800000
 #define  CV_NEG_INF 0x807fffff       /* CV_TOGGLE_FLT(0xff800000) */
 #define  CV_1F      0x3f800000
-#define  CV_TOGGLE_FLT(x) ((x) ^ ((int)(x) < 0 ? 0x7fffffff : 0))
+#define  CV_TOGGLE_FLT(x) ((x)^ ((int)(x) < 0 ? 0x7fffffff : 0))
 #define  CV_TOGGLE_DBL(x) \
-    ((x) ^ ((int64)(x) < 0 ? CV_BIG_INT(0x7fffffffffffffff) : 0))
+    ((x)^ ((int64)(x) < 0 ? CV_BIG_INT(0x7fffffffffffffff) : 0))
 
 #define  CV_NOP(a)     (a)
 #define  CV_ADD(a, b)  ((a) + (b))
@@ -411,7 +411,7 @@ CV_EXPORTS const char* currentParallelFramework();
 #define  CV_MUL(a, b)  ((a)* (b))
 #define  CV_AND(a, b)  ((a)& (b))
 #define  CV_OR(a, b)   ((a) | (b))
-#define  CV_XOR(a, b)  ((a) ^ (b))
+#define  CV_XOR(a, b)  ((a)^ (b))
 #define  CV_ANDN(a, b) (~(a)& (b))
 #define  CV_ORN(a, b)  (~(a) | (b))
 #define  CV_SQR(a)     ((a)* (a))
@@ -787,7 +787,7 @@ virtual void bindBuffer(unsigned int target, unsigned int buffer) const = 0;
 virtual void* mapBuffer(unsigned int target, unsigned int access) const = 0;
 virtual void unmapBuffer(unsigned int target) const                     = 0;
 
-virtual void generateBitmapFont(const std::string&family, int height, int weight, bool italic, bool underline, int start, int count, int base) const = 0;
+virtual void generateBitmapFont(const std::string &family, int height, int weight, bool italic, bool underline, int start, int count, int base) const = 0;
 
 virtual bool isGlContextInitialized() const = 0;
 };

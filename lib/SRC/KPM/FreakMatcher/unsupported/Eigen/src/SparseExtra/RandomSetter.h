@@ -85,7 +85,7 @@ template<typename Scalar> struct GoogleDenseHashMapTraits
         IsSorted = 0
     };
 
-    static void setInvalidKey(Type&map, const KeyType&k)
+    static void setInvalidKey(Type &map, const KeyType &k)
     {
         map.set_empty_key(k);
     }
@@ -200,7 +200,7 @@ public:
  * a sparse matrix from scratch, then you must set it to zero first using the
  * setZero() function.
  */
-inline RandomSetter(SparseMatrixType&target)
+inline RandomSetter(SparseMatrixType &target)
     : mp_target(&target)
 {
     const Index outerSize = SwapStorage ? target.innerSize() : target.outerSize();

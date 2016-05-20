@@ -37,17 +37,17 @@ namespace internal
 template<typename Scalar> struct scalar_sum_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_sum_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a, const Scalar&b) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a, const Scalar &b) const
     {
         return a + b;
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return internal::padd(a, b);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Scalar predux(const Packet&a) const
+    EIGEN_STRONG_INLINE const Scalar predux(const Packet &a) const
     {
         return internal::predux(a);
     }
@@ -76,17 +76,17 @@ template<typename LhsScalar, typename RhsScalar> struct scalar_product_op
     };
     typedef typename scalar_product_traits<LhsScalar, RhsScalar>::ReturnType result_type;
     EIGEN_EMPTY_STRUCT_CTOR(scalar_product_op)
-    EIGEN_STRONG_INLINE const result_type operator()(const LhsScalar&a, const RhsScalar&b) const
+    EIGEN_STRONG_INLINE const result_type operator()(const LhsScalar &a, const RhsScalar &b) const
     {
         return a * b;
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return internal::pmul(a, b);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const result_type predux(const Packet&a) const
+    EIGEN_STRONG_INLINE const result_type predux(const Packet &a) const
     {
         return internal::predux_mul(a);
     }
@@ -116,13 +116,13 @@ template<typename LhsScalar, typename RhsScalar> struct scalar_conj_product_op
     typedef typename scalar_product_traits<LhsScalar, RhsScalar>::ReturnType result_type;
 
     EIGEN_EMPTY_STRUCT_CTOR(scalar_conj_product_op)
-    EIGEN_STRONG_INLINE const result_type operator()(const LhsScalar&a, const RhsScalar&b) const
+    EIGEN_STRONG_INLINE const result_type operator()(const LhsScalar &a, const RhsScalar &b) const
     {
         return conj_helper<LhsScalar, RhsScalar, Conj, false>().pmul(a, b);
     }
 
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return conj_helper<Packet, Packet, Conj, false>().pmul(a, b);
     }
@@ -145,17 +145,17 @@ struct functor_traits<scalar_conj_product_op<LhsScalar, RhsScalar> >
 template<typename Scalar> struct scalar_min_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_min_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a, const Scalar&b) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a, const Scalar &b) const
     {
         using std::min; return (min)(a, b);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return internal::pmin(a, b);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Scalar predux(const Packet&a) const
+    EIGEN_STRONG_INLINE const Scalar predux(const Packet &a) const
     {
         return internal::predux_min(a);
     }
@@ -178,17 +178,17 @@ struct functor_traits<scalar_min_op<Scalar> >
 template<typename Scalar> struct scalar_max_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_max_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a, const Scalar&b) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a, const Scalar &b) const
     {
         using std::max; return (max)(a, b);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return internal::pmax(a, b);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Scalar predux(const Packet&a) const
+    EIGEN_STRONG_INLINE const Scalar predux(const Packet &a) const
     {
         return internal::predux_max(a);
     }
@@ -212,7 +212,7 @@ template<typename Scalar> struct scalar_hypot_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_hypot_op)
 //   typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&_x, const Scalar&_y) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &_x, const Scalar &_y) const
     {
         using std::max;
         using std::min;
@@ -238,12 +238,12 @@ struct functor_traits<scalar_hypot_op<Scalar> >
 template<typename Scalar> struct scalar_difference_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_difference_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a, const Scalar&b) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a, const Scalar &b) const
     {
         return a - b;
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return internal::psub(a, b);
     }
@@ -266,12 +266,12 @@ struct functor_traits<scalar_difference_op<Scalar> >
 template<typename Scalar> struct scalar_quotient_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_quotient_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a, const Scalar&b) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a, const Scalar &b) const
     {
         return a / b;
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a, const Packet&b) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a, const Packet &b) const
     {
         return internal::pdiv(a, b);
     }
@@ -296,12 +296,12 @@ struct functor_traits<scalar_quotient_op<Scalar> >
 template<typename Scalar> struct scalar_opposite_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_opposite_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a) const
     {
         return -a;
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a) const
     {
         return internal::pnegate(a);
     }
@@ -323,12 +323,12 @@ template<typename Scalar> struct scalar_abs_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_abs_op)
     typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE const result_type operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE const result_type operator()(const Scalar &a) const
     {
         return internal::abs(a);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a) const
     {
         return internal::pabs(a);
     }
@@ -352,12 +352,12 @@ template<typename Scalar> struct scalar_abs2_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_abs2_op)
     typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE const result_type operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE const result_type operator()(const Scalar &a) const
     {
         return internal::abs2(a);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a) const
     {
         return internal::pmul(a, a);
     }
@@ -374,12 +374,12 @@ struct functor_traits<scalar_abs2_op<Scalar> >
 template<typename Scalar> struct scalar_conjugate_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_conjugate_op)
-    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE const Scalar operator()(const Scalar &a) const
     {
         return internal::conj(a);
     }
     template<typename Packet>
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a) const
     {
         return internal::pconj(a);
     }
@@ -404,7 +404,7 @@ struct scalar_cast_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_cast_op)
     typedef NewType result_type;
-    EIGEN_STRONG_INLINE const NewType operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE const NewType operator()(const Scalar &a) const
     {
         return cast<Scalar, NewType>(a);
     }
@@ -423,7 +423,7 @@ struct scalar_real_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_real_op)
     typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE result_type operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE result_type operator()(const Scalar &a) const
     {
         return internal::real(a);
     }
@@ -442,7 +442,7 @@ struct scalar_imag_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_imag_op)
     typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE result_type operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE result_type operator()(const Scalar &a) const
     {
         return internal::imag(a);
     }
@@ -461,7 +461,7 @@ struct scalar_real_ref_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_real_ref_op)
     typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE result_type&operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE result_type&operator()(const Scalar &a) const
     {
         return internal::real_ref(*const_cast<Scalar*>(&a));
     }
@@ -480,7 +480,7 @@ struct scalar_imag_ref_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_imag_ref_op)
     typedef typename NumTraits<Scalar>::Real result_type;
-    EIGEN_STRONG_INLINE result_type&operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE result_type&operator()(const Scalar &a) const
     {
         return internal::imag_ref(*const_cast<Scalar*>(&a));
     }
@@ -498,12 +498,12 @@ struct functor_traits<scalar_imag_ref_op<Scalar> >
 template<typename Scalar> struct scalar_exp_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_exp_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::exp(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::pexp(a);
     }
@@ -521,12 +521,12 @@ struct functor_traits<scalar_exp_op<Scalar> >
 template<typename Scalar> struct scalar_log_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_log_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::log(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::plog(a);
     }
@@ -553,13 +553,13 @@ struct scalar_multiple_op
 {
     typedef typename packet_traits<Scalar>::type Packet;
     // FIXME default copy constructors seems bugged with std::complex<>
-    EIGEN_STRONG_INLINE scalar_multiple_op(const scalar_multiple_op&other) : m_other(other.m_other) { }
-    EIGEN_STRONG_INLINE scalar_multiple_op(const Scalar&other) : m_other(other) { }
-    EIGEN_STRONG_INLINE Scalar operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE scalar_multiple_op(const scalar_multiple_op &other) : m_other(other.m_other) { }
+    EIGEN_STRONG_INLINE scalar_multiple_op(const Scalar &other) : m_other(other) { }
+    EIGEN_STRONG_INLINE Scalar operator()(const Scalar &a) const
     {
         return a * m_other;
     }
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a) const
     {
         return internal::pmul(a, pset1<Packet>(m_other));
     }
@@ -573,9 +573,9 @@ template<typename Scalar1, typename Scalar2>
 struct scalar_multiple2_op
 {
     typedef typename scalar_product_traits<Scalar1, Scalar2>::ReturnType result_type;
-    EIGEN_STRONG_INLINE scalar_multiple2_op(const scalar_multiple2_op&other) : m_other(other.m_other) { }
-    EIGEN_STRONG_INLINE scalar_multiple2_op(const Scalar2&other) : m_other(other) { }
-    EIGEN_STRONG_INLINE result_type operator()(const Scalar1&a) const
+    EIGEN_STRONG_INLINE scalar_multiple2_op(const scalar_multiple2_op &other) : m_other(other.m_other) { }
+    EIGEN_STRONG_INLINE scalar_multiple2_op(const Scalar2 &other) : m_other(other) { }
+    EIGEN_STRONG_INLINE result_type operator()(const Scalar1 &a) const
     {
         return a * m_other;
     }
@@ -590,13 +590,13 @@ struct scalar_quotient1_impl
 {
     typedef typename packet_traits<Scalar>::type Packet;
     // FIXME default copy constructors seems bugged with std::complex<>
-    EIGEN_STRONG_INLINE scalar_quotient1_impl(const scalar_quotient1_impl&other) : m_other(other.m_other) { }
-    EIGEN_STRONG_INLINE scalar_quotient1_impl(const Scalar&other) : m_other(static_cast<Scalar>(1) / other) {}
-    EIGEN_STRONG_INLINE Scalar operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE scalar_quotient1_impl(const scalar_quotient1_impl &other) : m_other(other.m_other) { }
+    EIGEN_STRONG_INLINE scalar_quotient1_impl(const Scalar &other) : m_other(static_cast<Scalar>(1) / other) {}
+    EIGEN_STRONG_INLINE Scalar operator()(const Scalar &a) const
     {
         return a * m_other;
     }
-    EIGEN_STRONG_INLINE const Packet packetOp(const Packet&a) const
+    EIGEN_STRONG_INLINE const Packet packetOp(const Packet &a) const
     {
         return internal::pmul(a, pset1<Packet>(m_other));
     }
@@ -610,9 +610,9 @@ template<typename Scalar>
 struct scalar_quotient1_impl<Scalar, true>
 {
     // FIXME default copy constructors seems bugged with std::complex<>
-    EIGEN_STRONG_INLINE scalar_quotient1_impl(const scalar_quotient1_impl&other) : m_other(other.m_other) { }
-    EIGEN_STRONG_INLINE scalar_quotient1_impl(const Scalar&other) : m_other(other) {}
-    EIGEN_STRONG_INLINE Scalar operator()(const Scalar&a) const
+    EIGEN_STRONG_INLINE scalar_quotient1_impl(const scalar_quotient1_impl &other) : m_other(other.m_other) { }
+    EIGEN_STRONG_INLINE scalar_quotient1_impl(const Scalar &other) : m_other(other) {}
+    EIGEN_STRONG_INLINE Scalar operator()(const Scalar &a) const
     {
         return a / m_other;
     }
@@ -633,7 +633,7 @@ struct functor_traits<scalar_quotient1_impl<Scalar, true> >
 template<typename Scalar>
 struct scalar_quotient1_op : scalar_quotient1_impl<Scalar, NumTraits<Scalar>::IsInteger>
 {
-    EIGEN_STRONG_INLINE scalar_quotient1_op(const Scalar&other)
+    EIGEN_STRONG_INLINE scalar_quotient1_op(const Scalar &other)
         : scalar_quotient1_impl<Scalar, NumTraits<Scalar>::IsInteger>(other) {}
 };
 template<typename Scalar>
@@ -647,8 +647,8 @@ template<typename Scalar>
 struct scalar_constant_op
 {
     typedef typename packet_traits<Scalar>::type Packet;
-    EIGEN_STRONG_INLINE scalar_constant_op(const scalar_constant_op&other) : m_other(other.m_other) { }
-    EIGEN_STRONG_INLINE scalar_constant_op(const Scalar&other) : m_other(other) { }
+    EIGEN_STRONG_INLINE scalar_constant_op(const scalar_constant_op &other) : m_other(other.m_other) { }
+    EIGEN_STRONG_INLINE scalar_constant_op(const Scalar &other) : m_other(other) { }
     template<typename Index>
     EIGEN_STRONG_INLINE const Scalar operator()(Index, Index = 0) const
     {
@@ -818,13 +818,13 @@ struct scalar_add_op
 {
     typedef typename packet_traits<Scalar>::type Packet;
     // FIXME default copy constructors seems bugged with std::complex<>
-    inline scalar_add_op(const scalar_add_op&other) : m_other(other.m_other) { }
-    inline scalar_add_op(const Scalar&other) : m_other(other) { }
-    inline Scalar operator()(const Scalar&a) const
+    inline scalar_add_op(const scalar_add_op &other) : m_other(other.m_other) { }
+    inline scalar_add_op(const Scalar &other) : m_other(other) { }
+    inline Scalar operator()(const Scalar &a) const
     {
         return a + m_other;
     }
-    inline const Packet packetOp(const Packet&a) const
+    inline const Packet packetOp(const Packet &a) const
     {
         return internal::padd(a, pset1<Packet>(m_other));
     }
@@ -841,12 +841,12 @@ struct functor_traits<scalar_add_op<Scalar> >
 template<typename Scalar> struct scalar_sqrt_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_sqrt_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::sqrt(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::psqrt(a);
     }
@@ -866,12 +866,12 @@ struct functor_traits<scalar_sqrt_op<Scalar> >
 template<typename Scalar> struct scalar_cos_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_cos_op)
-    inline Scalar operator()(const Scalar&a) const
+    inline Scalar operator()(const Scalar &a) const
     {
         return internal::cos(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::pcos(a);
     }
@@ -893,12 +893,12 @@ struct functor_traits<scalar_cos_op<Scalar> >
 template<typename Scalar> struct scalar_sin_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_sin_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::sin(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::psin(a);
     }
@@ -921,12 +921,12 @@ struct functor_traits<scalar_sin_op<Scalar> >
 template<typename Scalar> struct scalar_tan_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_tan_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::tan(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::ptan(a);
     }
@@ -948,12 +948,12 @@ struct functor_traits<scalar_tan_op<Scalar> >
 template<typename Scalar> struct scalar_acos_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_acos_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::acos(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::pacos(a);
     }
@@ -975,12 +975,12 @@ struct functor_traits<scalar_acos_op<Scalar> >
 template<typename Scalar> struct scalar_asin_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_asin_op)
-    inline const Scalar operator()(const Scalar&a) const
+    inline const Scalar operator()(const Scalar &a) const
     {
         return internal::asin(a);
     }
     typedef typename packet_traits<Scalar>::type Packet;
-    inline Packet packetOp(const Packet&a) const
+    inline Packet packetOp(const Packet &a) const
     {
         return internal::pasin(a);
     }
@@ -1003,9 +1003,9 @@ template<typename Scalar>
 struct scalar_pow_op
 {
     // FIXME default copy constructors seems bugged with std::complex<>
-    inline scalar_pow_op(const scalar_pow_op&other) : m_exponent(other.m_exponent) { }
-    inline scalar_pow_op(const Scalar&exponent) : m_exponent(exponent) {}
-    inline Scalar operator()(const Scalar&a) const
+    inline scalar_pow_op(const scalar_pow_op &other) : m_exponent(other.m_exponent) { }
+    inline scalar_pow_op(const Scalar &exponent) : m_exponent(exponent) {}
+    inline Scalar operator()(const Scalar &a) const
     {
         return internal::pow(a, m_exponent);
     }
@@ -1023,12 +1023,12 @@ template<typename Scalar>
 struct scalar_inverse_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_inverse_op)
-    inline Scalar operator()(const Scalar&a) const
+    inline Scalar operator()(const Scalar &a) const
     {
         return Scalar(1) / a;
     }
     template<typename Packet>
-    inline const Packet packetOp(const Packet&a) const
+    inline const Packet packetOp(const Packet &a) const
     {
         return internal::pdiv(pset1<Packet>(Scalar(1)), a);
     }
@@ -1045,12 +1045,12 @@ template<typename Scalar>
 struct scalar_square_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_square_op)
-    inline Scalar operator()(const Scalar&a) const
+    inline Scalar operator()(const Scalar &a) const
     {
         return a * a;
     }
     template<typename Packet>
-    inline const Packet packetOp(const Packet&a) const
+    inline const Packet packetOp(const Packet &a) const
     {
         return internal::pmul(a, a);
     }
@@ -1067,12 +1067,12 @@ template<typename Scalar>
 struct scalar_cube_op
 {
     EIGEN_EMPTY_STRUCT_CTOR(scalar_cube_op)
-    inline Scalar operator()(const Scalar&a) const
+    inline Scalar operator()(const Scalar &a) const
     {
         return a * a * a;
     }
     template<typename Packet>
-    inline const Packet packetOp(const Packet&a) const
+    inline const Packet packetOp(const Packet &a) const
     {
         return internal::pmul(a, pmul(a, a));
     }

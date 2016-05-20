@@ -60,7 +60,7 @@ public:                                                                         
     deque(const deque &c) : deque_base(c) {}                                                                                   \
     explicit deque(size_type num, const value_type &val = value_type()) : deque_base(num, val) {}                              \
     deque(iterator start, iterator end) : deque_base(start, end) {}                                                            \
-    deque&operator=(const deque&x) {                                                                                           \
+    deque&operator=(const deque &x) {                                                                                          \
         deque_base::operator=(x);                                                                                              \
         return *this;                                                                                                          \
     }                                                                                                                          \
@@ -86,7 +86,7 @@ public:                                                                         
     deque(const deque &c) : deque_base(c) {}                                                      \
     explicit deque(size_type num, const value_type &val = value_type()) : deque_base(num, val) {} \
     deque(iterator start, iterator end) : deque_base(start, end) {}                               \
-    deque&operator=(const deque&x) {                                                              \
+    deque&operator=(const deque &x) {                                                             \
         deque_base::operator=(x);                                                                 \
         return *this;                                                                             \
     }
@@ -107,33 +107,33 @@ void resize(size_type new_size)
 
 #if defined(_DEQUE_)
 // workaround MSVC std::deque implementation
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (deque_base::size() < new_size)
         deque_base::_Insert_n(deque_base::end(), new_size - deque_base::size(), x);
     else if (new_size < deque_base::size())
         deque_base::erase(deque_base::begin() + new_size, deque_base::end());
 }
-void push_back(const value_type&x)
+void push_back(const value_type &x)
 {
     deque_base::push_back(x);
 }
-void push_front(const value_type&x)
+void push_front(const value_type &x)
 {
     deque_base::push_front(x);
 }
 using deque_base::insert;
-iterator insert(const_iterator position, const value_type&x)
+iterator insert(const_iterator position, const value_type &x)
 {
     return deque_base::insert(position, x);
 }
-void insert(const_iterator position, size_type new_size, const value_type&x)
+void insert(const_iterator position, size_type new_size, const value_type &x)
 {
     deque_base::insert(position, new_size, x);
 }
 #elif defined(_GLIBCXX_DEQUE) && EIGEN_GNUC_AT_LEAST(4, 2)
 // workaround GCC std::deque implementation
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (new_size < deque_base::size())
         deque_base::_M_erase_at_end(this->_M_impl._M_start + new_size);
@@ -143,7 +143,7 @@ void resize(size_type new_size, const value_type&x)
 #else
 // either GCC 4.1 or non-GCC
 // default implementation which should always work.
-void resize(size_type new_size, const value_type&x)
+void resize(size_type new_size, const value_type &x)
 {
     if (new_size < deque_base::size())
         deque_base::erase(deque_base::begin() + new_size, deque_base::end());

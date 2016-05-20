@@ -86,7 +86,7 @@ typedef typename internal::dense_xpr_base<Replicate>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(Replicate)
 
 template<typename OriginalMatrixType>
-inline explicit Replicate(const OriginalMatrixType&matrix)
+inline explicit Replicate(const OriginalMatrixType &matrix)
     : m_matrix(matrix), m_rowFactor(RowFactor), m_colFactor(ColFactor)
 {
     EIGEN_STATIC_ASSERT((internal::is_same<typename internal::remove_const<MatrixType>::type, OriginalMatrixType>::value),
@@ -95,7 +95,7 @@ inline explicit Replicate(const OriginalMatrixType&matrix)
 }
 
 template<typename OriginalMatrixType>
-inline Replicate(const OriginalMatrixType&matrix, int rowFactor, int colFactor)
+inline Replicate(const OriginalMatrixType &matrix, int rowFactor, int colFactor)
     : m_matrix(matrix), m_rowFactor(rowFactor), m_colFactor(colFactor)
 {
     EIGEN_STATIC_ASSERT((internal::is_same<typename internal::remove_const<MatrixType>::type, OriginalMatrixType>::value),

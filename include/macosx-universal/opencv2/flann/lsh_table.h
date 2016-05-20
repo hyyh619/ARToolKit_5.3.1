@@ -96,7 +96,7 @@ struct LshStats
  * @param stats the stats to display
  * @return the streams
  */
-inline std::ostream&operator <<(std::ostream&out, const LshStats&stats)
+inline std::ostream&operator <<(std::ostream &out, const LshStats &stats)
 {
     int w = 20;
 

@@ -50,7 +50,7 @@ namespace cv
 {
 namespace videostab
 {
-CV_EXPORTS float calcBlurriness(const Mat&frame);
+CV_EXPORTS float calcBlurriness(const Mat &frame);
 
 class CV_EXPORTS DeblurerBase
 {
@@ -68,7 +68,7 @@ virtual int radius() const
     return radius_;
 }
 
-virtual void setFrames(const std::vector<Mat>&val)
+virtual void setFrames(const std::vector<Mat> &val)
 {
     frames_ = &val;
 }
@@ -77,7 +77,7 @@ virtual const std::vector<Mat>&frames() const
     return *frames_;
 }
 
-virtual void setMotions(const std::vector<Mat>&val)
+virtual void setMotions(const std::vector<Mat> &val)
 {
     motions_ = &val;
 }
@@ -86,7 +86,7 @@ virtual const std::vector<Mat>&motions() const
     return *motions_;
 }
 
-virtual void setBlurrinessRates(const std::vector<float>&val)
+virtual void setBlurrinessRates(const std::vector<float> &val)
 {
     blurrinessRates_ = &val;
 }
@@ -97,7 +97,7 @@ virtual const std::vector<float>&blurrinessRates() const
 
 virtual void update() {}
 
-virtual void deblur(int idx, Mat&frame) = 0;
+virtual void deblur(int idx, Mat &frame) = 0;
 
 protected:
 int                      radius_;
@@ -126,7 +126,7 @@ float sensitivity() const
     return sensitivity_;
 }
 
-virtual void deblur(int idx, Mat&frame);
+virtual void deblur(int idx, Mat &frame);
 
 private:
 float       sensitivity_;

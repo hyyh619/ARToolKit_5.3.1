@@ -158,7 +158,7 @@ void HoughSimilarityVoting::vote(const float *ins, const float *ref, int size)
     mSubBinLocationIndices.resize(num_features_that_cast_vote);
 }
 
-void HoughSimilarityVoting::getVotes(vote_vector_t&votes, int threshold) const
+void HoughSimilarityVoting::getVotes(vote_vector_t &votes, int threshold) const
 {
     votes.clear();
     votes.reserve(mVotes.size());
@@ -172,7 +172,7 @@ void HoughSimilarityVoting::getVotes(vote_vector_t&votes, int threshold) const
     }
 }
 
-void HoughSimilarityVoting::getMaximumNumberOfVotes(float&maxVotes, int&maxIndex) const
+void HoughSimilarityVoting::getMaximumNumberOfVotes(float &maxVotes, int &maxIndex) const
 {
     maxVotes = 0;
     maxIndex = -1;
@@ -187,7 +187,7 @@ void HoughSimilarityVoting::getMaximumNumberOfVotes(float&maxVotes, int&maxIndex
     }
 }
 
-void HoughSimilarityVoting::getSimilarityFromIndex(float&x, float&y, float&angle, float&scale, int index) const
+void HoughSimilarityVoting::getSimilarityFromIndex(float &x, float &y, float &angle, float &scale, int index) const
 {
     int   binX;
     int   binY;

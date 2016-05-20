@@ -104,10 +104,10 @@ inline void setMinMaxXY(float minX, float maxX, float minY, float maxY)
 /**
  * Get the distance of two bin locations for each parameter.
  */
-inline void getBinDistance(float&distBinX,
-                           float&distBinY,
-                           float&distBinAngle,
-                           float&distBinScale,
+inline void getBinDistance(float &distBinX,
+                           float &distBinY,
+                           float &distBinAngle,
+                           float &distBinScale,
                            float insBinX,
                            float insBinY,
                            float insBinAngle,
@@ -137,7 +137,7 @@ void vote(const float *ins, const float *ref, int size);
 /**
  * Get the bins that have at least THRESHOLD number of votes.
  */
-void getVotes(vote_vector_t&votes, int threshold) const;
+void getVotes(vote_vector_t &votes, int threshold) const;
 
 /**
  * @return Sub-bin locations for each correspondence
@@ -158,12 +158,12 @@ const std::vector<int>&getSubBinLocationIndices() const
 /**
  * Get the bin that has the maximum number of votes
  */
-void getMaximumNumberOfVotes(float&maxVotes, int&maxIndex) const;
+void getMaximumNumberOfVotes(float &maxVotes, int &maxIndex) const;
 
 /**
  * Map the similarity index to a transformation.
  */
-void getSimilarityFromIndex(float&x, float&y, float&angle, float&scale, int index) const;
+void getSimilarityFromIndex(float &x, float &y, float &angle, float &scale, int index) const;
 
 /**
  * Get an index from the discretized bin locations.
@@ -191,7 +191,7 @@ inline int getBinIndex(int binX, int binY, int binAngle, int binScale) const
 /**
  * Get the bins locations from an index.
  */
-inline void getBinsFromIndex(int&binX, int&binY, int&binAngle, int&binScale, int index) const
+inline void getBinsFromIndex(int &binX, int &binY, int &binAngle, int &binScale, int index) const
 {
     binX     = ((index % mB) % mA) % mNumXBins;
     binY     = (((index - binX) % mB) % mA) / mNumXBins;
@@ -213,10 +213,10 @@ inline void getBinsFromIndex(int&binX, int&binY, int&binAngle, int&binScale, int
 /**
  * Get the sub-bin location from the voting parameters.
  */
-inline void mapVoteToBin(float&fBinX,
-                         float&fBinY,
-                         float&fBinAngle,
-                         float&fBinScale,
+inline void mapVoteToBin(float &fBinX,
+                         float &fBinY,
+                         float &fBinAngle,
+                         float &fBinScale,
                          float x,
                          float y,
                          float angle,
@@ -239,10 +239,10 @@ inline void mapVoteToBin(float&fBinX,
  * @param[in] ref_scale
  * @see voteWithCorrespondences for description
  */
-inline void mapCorrespondence(float&x,
-                              float&y,
-                              float&angle,
-                              float&scale,
+inline void mapCorrespondence(float &x,
+                              float &y,
+                              float &angle,
+                              float &scale,
                               float ins_x,
                               float ins_y,
                               float ins_angle,
@@ -317,10 +317,10 @@ inline void voteAtIndex(int index, unsigned int weight)
 void autoAdjustXYNumBins(const float *ins, const float *ref, int size);
 };
 
-inline void HoughSimilarityVoting::getBinDistance(float&distBinX,
-                                                  float&distBinY,
-                                                  float&distBinAngle,
-                                                  float&distBinScale,
+inline void HoughSimilarityVoting::getBinDistance(float &distBinX,
+                                                  float &distBinY,
+                                                  float &distBinAngle,
+                                                  float &distBinScale,
                                                   float insBinX,
                                                   float insBinY,
                                                   float insBinAngle,
@@ -441,10 +441,10 @@ inline bool HoughSimilarityVoting::vote(float x, float y, float angle, float sca
     return true;
 }
 
-inline void HoughSimilarityVoting::mapVoteToBin(float&fBinX,
-                                                float&fBinY,
-                                                float&fBinAngle,
-                                                float&fBinScale,
+inline void HoughSimilarityVoting::mapVoteToBin(float &fBinX,
+                                                float &fBinY,
+                                                float &fBinAngle,
+                                                float &fBinScale,
                                                 float x,
                                                 float y,
                                                 float angle,
@@ -456,10 +456,10 @@ inline void HoughSimilarityVoting::mapVoteToBin(float&fBinX,
     fBinScale = mNumScaleBins * SafeDivision<float>(scale - mMinScale, mMaxScale - mMinScale);
 }
 
-inline void HoughSimilarityVoting::mapCorrespondence(float&x,
-                                                     float&y,
-                                                     float&angle,
-                                                     float&scale,
+inline void HoughSimilarityVoting::mapCorrespondence(float &x,
+                                                     float &y,
+                                                     float &angle,
+                                                     float &scale,
                                                      float ins_x,
                                                      float ins_y,
                                                      float ins_angle,

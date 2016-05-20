@@ -110,7 +110,7 @@ Index cs_tdfs(Index j, Index k, Index *head, const Index *next, Index *post, Ind
  * The input matrix \a C must be a selfadjoint compressed column major SparseMatrix object. Both the upper and lower parts have to be stored, but the diagonal entries are optional.
  * On exit the values of C are destroyed */
 template<typename Scalar, typename Index>
-void minimum_degree_ordering(SparseMatrix<Scalar, ColMajor, Index>&C, PermutationMatrix<Dynamic>&perm)
+void minimum_degree_ordering(SparseMatrix<Scalar, ColMajor, Index> &C, PermutationMatrix<Dynamic> &perm)
 {
     typedef SparseMatrix<Scalar, ColMajor, Index> CCS;
 

@@ -28,13 +28,13 @@ void DrawCube(float fSize, float x, float y, float z);
 // ============================================================================
 // global variables declaration
 // ============================================================================
-extern ARMarkerNFT      *g_pMarkersNFT;
-extern int              g_nMarkersNFTCount;
-extern THREAD_HANDLE_T  *g_threadHandle;
-extern AR2HandleT       *g_ar2Handle;
-extern KpmHandle        *g_kpmHandle;
-extern int              g_surfaceSetCount;
-extern AR2SurfaceSetT   *g_surfaceSet[PAGES_MAX];
+extern ARMarkerNFT     *g_pMarkersNFT;
+extern int             g_nMarkersNFTCount;
+extern THREAD_HANDLE_T *g_threadHandle;
+extern AR2HandleT      *g_ar2Handle;
+extern KpmHandle       *g_kpmHandle;
+extern int             g_surfaceSetCount;
+extern AR2SurfaceSetT  *g_surfaceSet[PAGES_MAX];
 
 #ifdef __cplusplus
 }

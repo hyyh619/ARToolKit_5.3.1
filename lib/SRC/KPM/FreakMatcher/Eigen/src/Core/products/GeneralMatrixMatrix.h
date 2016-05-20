@@ -43,7 +43,7 @@ struct general_matrix_matrix_product<Index, LhsScalar, LhsStorageOrder, Conjugat
         const RhsScalar *rhs, Index rhsStride,
         ResScalar *res, Index resStride,
         ResScalar alpha,
-        level3_blocking<RhsScalar, LhsScalar>&blocking,
+        level3_blocking<RhsScalar, LhsScalar> &blocking,
         GemmParallelInfo<Index> *info = 0)
     {
         // transpose the product such that the result is column major
@@ -69,7 +69,7 @@ struct general_matrix_matrix_product<Index, LhsScalar, LhsStorageOrder, Conjugat
                     const RhsScalar *_rhs, Index rhsStride,
                     ResScalar *res, Index resStride,
                     ResScalar alpha,
-                    level3_blocking<LhsScalar, RhsScalar>&blocking,
+                    level3_blocking<LhsScalar, RhsScalar> &blocking,
                     GemmParallelInfo<Index> *info = 0)
     {
         const_blas_data_mapper<LhsScalar, Index, LhsStorageOrder> lhs(_lhs, lhsStride);
@@ -218,8 +218,8 @@ struct traits<GeneralProduct<Lhs, Rhs, GemmProduct> >
 template<typename Scalar, typename Index, typename Gemm, typename Lhs, typename Rhs, typename Dest, typename BlockingType>
 struct gemm_functor
 {
-    gemm_functor(const Lhs&lhs, const Rhs&rhs, Dest&dest, Scalar actualAlpha,
-                 BlockingType&blocking)
+    gemm_functor(const Lhs &lhs, const Rhs &rhs, Dest &dest, Scalar actualAlpha,
+                 BlockingType &blocking)
         : m_lhs(lhs), m_rhs(rhs), m_dest(dest), m_actualAlpha(actualAlpha), m_blocking(blocking)
     {}
 
@@ -241,11 +241,11 @@ struct gemm_functor
     }
 
 protected:
-    const Lhs   &m_lhs;
-    const Rhs   &m_rhs;
-    Dest        &m_dest;
-    Scalar      m_actualAlpha;
-    BlockingType&m_blocking;
+    const Lhs    &m_lhs;
+    const Rhs    &m_rhs;
+    Dest         &m_dest;
+    Scalar       m_actualAlpha;
+    BlockingType &m_blocking;
 };
 
 template<int StorageOrder, typename LhsScalar, typename RhsScalar, int MaxRows, int MaxCols, int MaxDepth,
@@ -424,13 +424,13 @@ typedef typename  Lhs::Scalar LhsScalar;
 typedef typename  Rhs::Scalar RhsScalar;
 typedef           Scalar ResScalar;
 
-GeneralProduct(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs)
+GeneralProduct(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs)
 {
     typedef internal::scalar_product_op<LhsScalar, RhsScalar> BinOp;
     EIGEN_CHECK_BINARY_COMPATIBILIY(BinOp, LhsScalar, RhsScalar);
 }
 
-template<typename Dest> void scaleAndAddTo(Dest&dst, Scalar alpha) const
+template<typename Dest> void scaleAndAddTo(Dest &dst, Scalar alpha) const
 {
     eigen_assert(dst.rows() == m_lhs.rows() && dst.cols() == m_rhs.cols());
 

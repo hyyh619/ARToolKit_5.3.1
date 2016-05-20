@@ -27,11 +27,11 @@
 #  include <uuids.h> // FORMAT_VideoInfo, FORMAT_VideoInfo2
 #endif
 
-LPCWSTR GetGUIDNameConst(const GUID&guid);
-HRESULT GetGUIDName(const GUID&guid, WCHAR **ppwsz);
+LPCWSTR GetGUIDNameConst(const GUID &guid);
+HRESULT GetGUIDName(const GUID &guid, WCHAR **ppwsz);
 
 HRESULT LogAttributeValueByIndex(IMFAttributes *pAttr, DWORD index);
-HRESULT SpecialCaseAttributeValue(GUID guid, const PROPVARIANT&var);
+HRESULT SpecialCaseAttributeValue(GUID guid, const PROPVARIANT &var);
 
 void DBGMSG(PCWSTR format, ...);
 
@@ -145,7 +145,7 @@ done:
     return hr;
 }
 
-HRESULT GetGUIDName(const GUID&guid, WCHAR **ppwsz)
+HRESULT GetGUIDName(const GUID &guid, WCHAR **ppwsz)
 {
     HRESULT hr     = S_OK;
     WCHAR   *pName = NULL;
@@ -195,7 +195,7 @@ done:
     return hr;
 }
 
-void LogUINT32AsUINT64(const PROPVARIANT&var)
+void LogUINT32AsUINT64(const PROPVARIANT &var)
 {
     UINT32 uHigh = 0, uLow = 0;
 
@@ -203,12 +203,12 @@ void LogUINT32AsUINT64(const PROPVARIANT&var)
     DBGMSG(L"%d x %d", uHigh, uLow);
 }
 
-float OffsetToFloat(const MFOffset&offset)
+float OffsetToFloat(const MFOffset &offset)
 {
     return offset.value + (static_cast<float>(offset.fract) / 65536.0f);
 }
 
-HRESULT LogVideoArea(const PROPVARIANT&var)
+HRESULT LogVideoArea(const PROPVARIANT &var)
 {
     if (var.caub.cElems < sizeof(MFVideoArea))
     {
@@ -223,7 +223,7 @@ HRESULT LogVideoArea(const PROPVARIANT&var)
 }
 
 // Handle certain known special cases.
-HRESULT SpecialCaseAttributeValue(GUID guid, const PROPVARIANT&var)
+HRESULT SpecialCaseAttributeValue(GUID guid, const PROPVARIANT &var)
 {
     if ((guid == MF_MT_FRAME_RATE) || (guid == MF_MT_FRAME_RATE_RANGE_MAX) ||
         (guid == MF_MT_FRAME_RATE_RANGE_MIN) || (guid == MF_MT_FRAME_SIZE) ||
@@ -266,7 +266,7 @@ void DBGMSG(PCWSTR format, ...)
 #define IF_EQUAL_RETURN(param, val) if (val == param) return L#val
 #endif
 
-LPCWSTR GetGUIDNameConst(const GUID&guid)
+LPCWSTR GetGUIDNameConst(const GUID &guid)
 {
     IF_EQUAL_RETURN(guid, MF_MT_MAJOR_TYPE);
     IF_EQUAL_RETURN(guid, MF_MT_MAJOR_TYPE);

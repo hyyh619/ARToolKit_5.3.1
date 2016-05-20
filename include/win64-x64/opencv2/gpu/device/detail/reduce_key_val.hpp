@@ -71,14 +71,14 @@ namespace cv
     struct For
     {
         template<class PointerTuple, class ReferenceTuple>
-        static __device__ void loadToSmem(const PointerTuple&smem, const ReferenceTuple&data, unsigned int tid)
+        static __device__ void loadToSmem(const PointerTuple &smem, const ReferenceTuple &data, unsigned int tid)
         {
             thrust::get<I>(smem)[tid] = thrust::get<I>(data);
 
             For<I + 1, N>::loadToSmem(smem, data, tid);
         }
         template<class PointerTuple, class ReferenceTuple>
-        static __device__ void loadFromSmem(const PointerTuple&smem, const ReferenceTuple&data, unsigned int tid)
+        static __device__ void loadFromSmem(const PointerTuple &smem, const ReferenceTuple &data, unsigned int tid)
         {
             thrust::get<I>(data) = thrust::get<I>(smem)[tid];
 
@@ -86,14 +86,14 @@ namespace cv
         }
 
         template<class ReferenceTuple>
-        static __device__ void copyShfl(const ReferenceTuple&val, unsigned int delta, int width)
+        static __device__ void copyShfl(const ReferenceTuple &val, unsigned int delta, int width)
         {
             thrust::get<I>(val) = shfl_down(thrust::get<I>(val), delta, width);
 
             For<I + 1, N>::copyShfl(val, delta, width);
         }
         template<class PointerTuple, class ReferenceTuple>
-        static __device__ void copy(const PointerTuple&svals, const ReferenceTuple&val, unsigned int tid, unsigned int delta)
+        static __device__ void copy(const PointerTuple &svals, const ReferenceTuple &val, unsigned int tid, unsigned int delta)
         {
             thrust::get<I>(svals)[tid] = thrust::get<I>(val) = thrust::get<I>(svals)[tid + delta];
 
@@ -101,7 +101,7 @@ namespace cv
         }
 
         template<class KeyReferenceTuple, class ValReferenceTuple, class CmpTuple>
-        static __device__ void mergeShfl(const KeyReferenceTuple&key, const ValReferenceTuple&val, const CmpTuple&cmp, unsigned int delta, int width)
+        static __device__ void mergeShfl(const KeyReferenceTuple &key, const ValReferenceTuple &val, const CmpTuple &cmp, unsigned int delta, int width)
         {
             typename GetType<typename thrust::tuple_element<I, KeyReferenceTuple>::type>::type reg = shfl_down(thrust::get<I>(key), delta, width);
 
@@ -114,9 +114,9 @@ namespace cv
             For<I + 1, N>::mergeShfl(key, val, cmp, delta, width);
         }
         template<class KeyPointerTuple, class KeyReferenceTuple, class ValPointerTuple, class ValReferenceTuple, class CmpTuple>
-        static __device__ void merge(const KeyPointerTuple&skeys, const KeyReferenceTuple&key,
-                                     const ValPointerTuple&svals, const ValReferenceTuple&val,
-                                     const CmpTuple&cmp,
+        static __device__ void merge(const KeyPointerTuple &skeys, const KeyReferenceTuple &key,
+                                     const ValPointerTuple &svals, const ValReferenceTuple &val,
+                                     const CmpTuple &cmp,
                                      unsigned int tid, unsigned int delta)
         {
             typename GetType<typename thrust::tuple_element<I, KeyPointerTuple>::type>::type reg = thrust::get<I>(skeys)[tid + delta];
@@ -162,27 +162,27 @@ namespace cv
     // loadToSmem
 
     template<typename T>
-    __device__ __forceinline__ void loadToSmem(volatile T *smem, T&data, unsigned int tid)
+    __device__ __forceinline__ void loadToSmem(volatile T *smem, T &data, unsigned int tid)
     {
         smem[tid] = data;
     }
     template<typename T>
-    __device__ __forceinline__ void loadFromSmem(volatile T *smem, T&data, unsigned int tid)
+    __device__ __forceinline__ void loadFromSmem(volatile T *smem, T &data, unsigned int tid)
     {
         data = smem[tid];
     }
     template<typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9>
-    __device__ __forceinline__ void loadToSmem(const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>&smem,
-                                               const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&data,
+    __device__ __forceinline__ void loadToSmem(const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> &smem,
+                                               const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &data,
                                                unsigned int tid)
     {
         For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::loadToSmem(smem, data, tid);
     }
     template<typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9>
-    __device__ __forceinline__ void loadFromSmem(const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>&smem,
-                                                 const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&data,
+    __device__ __forceinline__ void loadFromSmem(const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> &smem,
+                                                 const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &data,
                                                  unsigned int tid)
     {
         For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::loadFromSmem(smem, data, tid);
@@ -192,17 +192,17 @@ namespace cv
     // copyVals
 
     template<typename V>
-    __device__ __forceinline__ void copyValsShfl(V&val, unsigned int delta, int width)
+    __device__ __forceinline__ void copyValsShfl(V &val, unsigned int delta, int width)
     {
         val = shfl_down(val, delta, width);
     }
     template<typename V>
-    __device__ __forceinline__ void copyVals(volatile V *svals, V&val, unsigned int tid, unsigned int delta)
+    __device__ __forceinline__ void copyVals(volatile V *svals, V &val, unsigned int tid, unsigned int delta)
     {
         svals[tid] = val = svals[tid + delta];
     }
     template<typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9>
-    __device__ __forceinline__ void copyValsShfl(const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&val,
+    __device__ __forceinline__ void copyValsShfl(const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
                                                  unsigned int delta,
                                                  int width)
     {
@@ -210,8 +210,8 @@ namespace cv
     }
     template<typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9>
-    __device__ __forceinline__ void copyVals(const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>&svals,
-                                             const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&val,
+    __device__ __forceinline__ void copyVals(const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> &svals,
+                                             const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
                                              unsigned int tid, unsigned int delta)
     {
         For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::copy(svals, val, tid, delta);
@@ -221,7 +221,7 @@ namespace cv
     // merge
 
     template<typename K, typename V, class Cmp>
-    __device__ __forceinline__ void mergeShfl(K&key, V&val, const Cmp&cmp, unsigned int delta, int width)
+    __device__ __forceinline__ void mergeShfl(K &key, V &val, const Cmp &cmp, unsigned int delta, int width)
     {
         K reg = shfl_down(key, delta, width);
 
@@ -232,7 +232,7 @@ namespace cv
         }
     }
     template<typename K, typename V, class Cmp>
-    __device__ __forceinline__ void merge(volatile K *skeys, K&key, volatile V *svals, V&val, const Cmp&cmp, unsigned int tid, unsigned int delta)
+    __device__ __forceinline__ void merge(volatile K *skeys, K &key, volatile V *svals, V &val, const Cmp &cmp, unsigned int tid, unsigned int delta)
     {
         K reg = skeys[tid + delta];
 
@@ -245,9 +245,9 @@ namespace cv
     template<typename K,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9,
              class Cmp>
-    __device__ __forceinline__ void mergeShfl(K&key,
-                                              const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&val,
-                                              const Cmp&cmp,
+    __device__ __forceinline__ void mergeShfl(K &key,
+                                              const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
+                                              const Cmp &cmp,
                                               unsigned int delta, int width)
     {
         K reg = shfl_down(key, delta, width);
@@ -262,10 +262,10 @@ namespace cv
              typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9,
              class Cmp>
-    __device__ __forceinline__ void merge(volatile K *skeys, K&key,
-                                          const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>&svals,
-                                          const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&val,
-                                          const Cmp&cmp, unsigned int tid, unsigned int delta)
+    __device__ __forceinline__ void merge(volatile K *skeys, K &key,
+                                          const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> &svals,
+                                          const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
+                                          const Cmp &cmp, unsigned int tid, unsigned int delta)
     {
         K reg = skeys[tid + delta];
 
@@ -278,9 +278,9 @@ namespace cv
     template<typename KR0, typename KR1, typename KR2, typename KR3, typename KR4, typename KR5, typename KR6, typename KR7, typename KR8, typename KR9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9,
              class Cmp0, class Cmp1, class Cmp2, class Cmp3, class Cmp4, class Cmp5, class Cmp6, class Cmp7, class Cmp8, class Cmp9>
-    __device__ __forceinline__ void mergeShfl(const thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9>&key,
-                                              const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&val,
-                                              const thrust::tuple<Cmp0, Cmp1, Cmp2, Cmp3, Cmp4, Cmp5, Cmp6, Cmp7, Cmp8, Cmp9>&cmp,
+    __device__ __forceinline__ void mergeShfl(const thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9> &key,
+                                              const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
+                                              const thrust::tuple<Cmp0, Cmp1, Cmp2, Cmp3, Cmp4, Cmp5, Cmp6, Cmp7, Cmp8, Cmp9> &cmp,
                                               unsigned int delta, int width)
     {
         For<0, thrust::tuple_size<thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9> >::value>::mergeShfl(key, val, cmp, delta, width);
@@ -290,11 +290,11 @@ namespace cv
              typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9,
              class Cmp0, class Cmp1, class Cmp2, class Cmp3, class Cmp4, class Cmp5, class Cmp6, class Cmp7, class Cmp8, class Cmp9>
-    __device__ __forceinline__ void merge(const thrust::tuple<KP0, KP1, KP2, KP3, KP4, KP5, KP6, KP7, KP8, KP9>&skeys,
-                                          const thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9>&key,
-                                          const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>&svals,
-                                          const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>&val,
-                                          const thrust::tuple<Cmp0, Cmp1, Cmp2, Cmp3, Cmp4, Cmp5, Cmp6, Cmp7, Cmp8, Cmp9>&cmp,
+    __device__ __forceinline__ void merge(const thrust::tuple<KP0, KP1, KP2, KP3, KP4, KP5, KP6, KP7, KP8, KP9> &skeys,
+                                          const thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9> &key,
+                                          const thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> &svals,
+                                          const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
+                                          const thrust::tuple<Cmp0, Cmp1, Cmp2, Cmp3, Cmp4, Cmp5, Cmp6, Cmp7, Cmp8, Cmp9> &cmp,
                                           unsigned int tid, unsigned int delta)
     {
         For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::merge(skeys, key, svals, val, cmp, tid, delta);

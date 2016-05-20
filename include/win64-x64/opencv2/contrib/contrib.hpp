@@ -81,7 +81,7 @@ CvHistogram *fHistogram;
 Histogram();
 virtual ~Histogram();
 
-void findCurveThresholds(int&x1, int&x2, double percent = 0.05);
+void findCurveThresholds(int &x1, int &x2, double percent = 0.05);
 void mergeWith(Histogram *source, double weight);
 };
 
@@ -215,9 +215,9 @@ void setSize(int _x, int _y, int _width, int _height);
 void initDepthValues(IplImage *maskImage, IplImage *depthMap);
 bool shift();
 void extractInfo(IplImage *maskImage, IplImage *depthMap, bool initDepth);
-void getResizeAttribsEdgeDensityLinear(int&resizeDx, int&resizeDy, int&resizeDw, int&resizeDh);
-void getResizeAttribsInnerDensity(int&resizeDx, int&resizeDy, int&resizeDw, int&resizeDh);
-void getResizeAttribsEdgeDensityFuzzy(int&resizeDx, int&resizeDy, int&resizeDw, int&resizeDh);
+void getResizeAttribsEdgeDensityLinear(int &resizeDx, int &resizeDy, int &resizeDw, int &resizeDh);
+void getResizeAttribsInnerDensity(int &resizeDx, int &resizeDy, int &resizeDw, int &resizeDh);
+void getResizeAttribsEdgeDensityFuzzy(int &resizeDx, int &resizeDy, int &resizeDw, int &resizeDh);
 bool meanShift(IplImage *maskImage, IplImage *depthMap, int maxIteration, bool initDepth);
 };
 
@@ -253,7 +253,7 @@ enum
     MaxSetSizeIteration   = 5
 };
 
-void findOptimumSearchWindow(SearchWindow&searchWindow, IplImage *maskImage, IplImage *depthMap, int maxIteration, int resizeMethod, bool initDepth);
+void findOptimumSearchWindow(SearchWindow &searchWindow, IplImage *maskImage, IplImage *depthMap, int maxIteration, int resizeMethod, bool initDepth);
 
 public:
 CvFuzzyMeanShiftTracker();
@@ -279,12 +279,12 @@ struct Node
 };
 
 Octree();
-Octree(const vector<Point3f>&points, int maxLevels = 10, int minPoints = 20);
+Octree(const vector<Point3f> &points, int maxLevels = 10, int minPoints = 20);
 virtual ~Octree();
 
-virtual void buildTree(const vector<Point3f>&points, int maxLevels = 10, int minPoints = 20);
-virtual void getPointsWithinSphere(const Point3f&center, float radius,
-                                   vector<Point3f>&points) const;
+virtual void buildTree(const vector<Point3f> &points, int maxLevels = 10, int minPoints = 20);
+virtual void getPointsWithinSphere(const Point3f &center, float radius,
+                                   vector<Point3f> &points) const;
 const vector<Node>&getNodes() const
 {
     return nodes;
@@ -304,16 +304,16 @@ public:
 struct EmptyMeshException {};
 
 Mesh3D();
-Mesh3D(const vector<Point3f>&vtx);
+Mesh3D(const vector<Point3f> &vtx);
 ~Mesh3D();
 
 void buildOctree();
 void clearOctree();
 float estimateResolution(float tryRatio = 0.1f);
 void computeNormals(float normalRadius, int minNeighbors = 20);
-void computeNormals(const vector<int>&subset, float normalRadius, int minNeighbors = 20);
+void computeNormals(const vector<int> &subset, float normalRadius, int minNeighbors = 20);
 
-void writeAsVrml(const String&file, const vector<Scalar>&colors = vector<Scalar>()) const;
+void writeAsVrml(const String &file, const vector<Scalar> &colors = vector<Scalar>()) const;
 
 vector<Point3f> vtx;
 vector<Point3f> normals;
@@ -342,15 +342,15 @@ float T_GroupingCorespondances;
 
 /* public interface */
 SpinImageModel();
-explicit SpinImageModel(const Mesh3D&mesh);
+explicit SpinImageModel(const Mesh3D &mesh);
 ~SpinImageModel();
 
 void setLogger(std::ostream *log);
 void selectRandomSubset(float ratio);
-void setSubset(const vector<int>&subset);
+void setSubset(const vector<int> &subset);
 void compute();
 
-void match(const SpinImageModel&scene, vector<vector<Vec2i> >&result);
+void match(const SpinImageModel &scene, vector<vector<Vec2i> > &result);
 
 Mat packRandomScaledSpins(bool separateScale = false, size_t xCount = 10, size_t yCount = 10) const;
 
@@ -381,27 +381,27 @@ Mesh3D&getMesh()
 }
 
 /* static utility functions */
-static bool spinCorrelation(const Mat&spin1, const Mat&spin2, float lambda, float&result);
+static bool spinCorrelation(const Mat &spin1, const Mat &spin2, float lambda, float &result);
 
-static Point2f calcSpinMapCoo(const Point3f&point, const Point3f&vertex, const Point3f&normal);
+static Point2f calcSpinMapCoo(const Point3f &point, const Point3f &vertex, const Point3f &normal);
 
-static float geometricConsistency(const Point3f&pointScene1, const Point3f&normalScene1,
-                                  const Point3f&pointModel1, const Point3f&normalModel1,
-                                  const Point3f&pointScene2, const Point3f&normalScene2,
-                                  const Point3f&pointModel2, const Point3f&normalModel2);
+static float geometricConsistency(const Point3f &pointScene1, const Point3f &normalScene1,
+                                  const Point3f &pointModel1, const Point3f &normalModel1,
+                                  const Point3f &pointScene2, const Point3f &normalScene2,
+                                  const Point3f &pointModel2, const Point3f &normalModel2);
 
-static float groupingCreteria(const Point3f&pointScene1, const Point3f&normalScene1,
-                              const Point3f&pointModel1, const Point3f&normalModel1,
-                              const Point3f&pointScene2, const Point3f&normalScene2,
-                              const Point3f&pointModel2, const Point3f&normalModel2,
+static float groupingCreteria(const Point3f &pointScene1, const Point3f &normalScene1,
+                              const Point3f &pointModel1, const Point3f &normalModel1,
+                              const Point3f &pointScene2, const Point3f &normalScene2,
+                              const Point3f &pointModel2, const Point3f &normalModel2,
                               float gamma);
 protected:
 void defaultParams();
 
-void matchSpinToModel(const Mat&spin, vector<int>&indeces,
-                      vector<float>&corrCoeffs, bool useExtremeOutliers = true) const;
+void matchSpinToModel(const Mat &spin, vector<int> &indeces,
+                      vector<float> &corrCoeffs, bool useExtremeOutliers = true) const;
 
-void repackSpinImages(const vector<uchar>&mask, Mat&spinImages, bool reAlloc = true) const;
+void repackSpinImages(const vector<uchar> &mask, Mat &spinImages, bool reAlloc = true) const;
 
 vector<int>  subset;
 Mesh3D       mesh;
@@ -429,7 +429,7 @@ int64 sumTime;
 int64 startTime;
 };
 
-CV_EXPORTS std::ostream&operator<<(std::ostream&out, const TickMeter&tm);
+CV_EXPORTS std::ostream&operator<<(std::ostream &out, const TickMeter &tm);
 
 class CV_EXPORTS SelfSimDescriptor
 {
@@ -439,17 +439,17 @@ SelfSimDescriptor(int _ssize, int _lsize,
                   int _startDistanceBucket = DEFAULT_START_DISTANCE_BUCKET,
                   int _numberOfDistanceBuckets = DEFAULT_NUM_DISTANCE_BUCKETS,
                   int _nangles = DEFAULT_NUM_ANGLES);
-SelfSimDescriptor(const SelfSimDescriptor&ss);
+SelfSimDescriptor(const SelfSimDescriptor &ss);
 virtual ~SelfSimDescriptor();
-SelfSimDescriptor&operator =(const SelfSimDescriptor&ss);
+SelfSimDescriptor&operator =(const SelfSimDescriptor &ss);
 
 size_t getDescriptorSize() const;
 Size getGridSize(Size imgsize, Size winStride) const;
 
-virtual void compute(const Mat&img, vector<float>&descriptors, Size winStride = Size(),
-                     const vector<Point>&locations = vector<Point>()) const;
-virtual void computeLogPolarMapping(Mat&mappingMask) const;
-virtual void SSD(const Mat&img, Point pt, Mat&ssd) const;
+virtual void compute(const Mat &img, vector<float> &descriptors, Size winStride = Size(),
+                     const vector<Point> &locations = vector<Point>()) const;
+virtual void computeLogPolarMapping(Mat &mappingMask) const;
+virtual void SSD(const Mat &img, Point pt, Mat &ssd) const;
 
 int smallSize;
 int largeSize;
@@ -475,10 +475,10 @@ LevMarqSparse(int npoints,         // number of points
               int nCameraParams,         // number of parameters per one camera
               int nErrParams,         // number of parameters in measurement vector
               // for 1 point at one camera (2 in case of 2D projections)
-              Mat&visibility,          // visibility matrix. rows correspond to points, columns correspond to cameras
+              Mat &visibility,          // visibility matrix. rows correspond to points, columns correspond to cameras
               // 1 - point is visible for the camera, 0 - invisible
-              Mat&P0,          // starting vector of parameters, first cameras then points
-              Mat&X,          // measurements, in order of visibility. non visible cases are skipped
+              Mat &P0,          // starting vector of parameters, first cameras then points
+              Mat &X,          // measurements, in order of visibility. non visible cases are skipped
               TermCriteria criteria,         // termination criteria
 
               // callback for estimation of Jacobian matrices
@@ -517,24 +517,24 @@ virtual void run(int npoints,          // number of points
 virtual void clear();
 
 // useful function to do simple bundle adjustment tasks
-static void bundleAdjust(vector<Point3d>&points,          // positions of points in global coordinate system (input and output)
-                         const vector<vector<Point2d> >&imagePoints,          // projections of 3d points for every camera
-                         const vector<vector<int> >&visibility,          // visibility of 3d points for every camera
-                         vector<Mat>&cameraMatrix,          // intrinsic matrices of all cameras (input and output)
-                         vector<Mat>&R,          // rotation matrices of all cameras (input and output)
-                         vector<Mat>&T,          // translation vector of all cameras (input and output)
-                         vector<Mat>&distCoeffs,          // distortion coefficients of all cameras (input and output)
-                         const TermCriteria&criteria =
+static void bundleAdjust(vector<Point3d> &points,          // positions of points in global coordinate system (input and output)
+                         const vector<vector<Point2d> > &imagePoints,          // projections of 3d points for every camera
+                         const vector<vector<int> > &visibility,          // visibility of 3d points for every camera
+                         vector<Mat> &cameraMatrix,          // intrinsic matrices of all cameras (input and output)
+                         vector<Mat> &R,          // rotation matrices of all cameras (input and output)
+                         vector<Mat> &T,          // translation vector of all cameras (input and output)
+                         vector<Mat> &distCoeffs,          // distortion coefficients of all cameras (input and output)
+                         const TermCriteria &criteria =
                              TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON),
                          BundleAdjustCallback cb = 0, void *user_data = 0);
 
 public:
-virtual void optimize(CvMat&_vis);          // main function that runs minimization
+virtual void optimize(CvMat &_vis);          // main function that runs minimization
 
 // iteratively asks for measurement for visible camera-point pairs
-void ask_for_proj(CvMat&_vis, bool once = false);
+void ask_for_proj(CvMat &_vis, bool once = false);
 // iteratively asks for Jacobians for every camera_point pair
-void ask_for_projac(CvMat&_vis);
+void ask_for_projac(CvMat &_vis);
 
 CvMat          *err; // error X-hX
 double         prevErrNorm, errNorm;
@@ -579,8 +579,8 @@ int num_cam_param;
 int num_point_param;
 
 // target function and jacobian pointers, which needs to be initialized
-void (*fjac)(int i, int j, Mat&point_params, Mat&cam_params, Mat&A, Mat&B, void *data);
-void (*func)(int i, int j, Mat&point_params, Mat&cam_params, Mat&estim, void *data);
+void (*fjac)(int i, int j, Mat &point_params, Mat &cam_params, Mat &A, Mat &B, void *data);
+void (*func)(int i, int j, Mat &point_params, Mat &cam_params, Mat &estim, void *data);
 
 void *data;
 
@@ -588,8 +588,8 @@ BundleAdjustCallback cb;
 void                 *user_data;
 };
 
-CV_EXPORTS_W int chamerMatching(Mat&img, Mat&templ,
-                                CV_OUT vector<vector<Point> >&results, CV_OUT vector<float>&cost,
+CV_EXPORTS_W int chamerMatching(Mat &img, Mat &templ,
+                                CV_OUT vector<vector<Point> > &results, CV_OUT vector<float> &cost,
                                 double templScale = 1, int maxMatches = 20,
                                 double minMatchDistance = 1.0, int padX = 3,
                                 int padY = 3, int scales = 5, double minScale = 0.6, double maxScale = 1.6,
@@ -614,7 +614,7 @@ CV_WRAP StereoVar(int levels, double pyrScale, int nIt, int minDisp, int maxDisp
 virtual ~StereoVar();
 
 // ! the stereo correspondence operator that computes disparity map for the specified rectified stereo pair
-CV_WRAP_AS(compute) virtual void operator()(const Mat&left, const Mat&right, CV_OUT Mat&disp);
+CV_WRAP_AS(compute) virtual void operator()(const Mat &left, const Mat &right, CV_OUT Mat &disp);
 
 CV_PROP_RW int    levels;
 CV_PROP_RW double pyrScale;
@@ -631,19 +631,19 @@ CV_PROP_RW int    flags;
 
 private:
 void autoParams();
-void FMG(Mat&I1, Mat&I2, Mat&I2x, Mat&u, int level);
-void VCycle_MyFAS(Mat&I1_h, Mat&I2_h, Mat&I2x_h, Mat&u_h, int level);
-void VariationalSolver(Mat&I1_h, Mat&I2_h, Mat&I2x_h, Mat&u_h, int level);
+void FMG(Mat &I1, Mat &I2, Mat &I2x, Mat &u, int level);
+void VCycle_MyFAS(Mat &I1_h, Mat &I2_h, Mat &I2x_h, Mat &u_h, int level);
+void VariationalSolver(Mat &I1_h, Mat &I2_h, Mat &I2x_h, Mat &u_h, int level);
 };
 
-CV_EXPORTS void polyfit(const Mat&srcx, const Mat&srcy, Mat&dst, int order);
+CV_EXPORTS void polyfit(const Mat &srcx, const Mat &srcy, Mat &dst, int order);
 
 class CV_EXPORTS Directory
 {
 public:
-static std::vector<std::string> GetListFiles(const std::string&path, const std::string&exten = "*", bool addPath = true);
-static std::vector<std::string> GetListFilesR(const std::string&path, const std::string&exten = "*", bool addPath = true);
-static std::vector<std::string> GetListFolders(const std::string&path, const std::string&exten = "*", bool addPath = true);
+static std::vector<std::string> GetListFiles(const std::string &path, const std::string &exten = "*", bool addPath = true);
+static std::vector<std::string> GetListFilesR(const std::string &path, const std::string &exten = "*", bool addPath = true);
+static std::vector<std::string> GetListFolders(const std::string &path, const std::string &exten = "*", bool addPath = true);
 };
 
 /*
@@ -654,7 +654,7 @@ static std::vector<std::string> GetListFolders(const std::string&path, const std
  *    each other,
  * 4) convert the colors back to RGB
  */
-CV_EXPORTS void generateColors(std::vector<Scalar>&colors, size_t count, size_t factor = 100);
+CV_EXPORTS void generateColors(std::vector<Scalar> &colors, size_t count, size_t factor = 100);
 
 
 /*
@@ -664,12 +664,12 @@ CV_EXPORTS void generateColors(std::vector<Scalar>&colors, size_t count, size_t 
 enum { ROTATION          = 1,
        TRANSLATION       = 2,
        RIGID_BODY_MOTION = 4};
-CV_EXPORTS bool RGBDOdometry(Mat&Rt, const Mat&initRt,
-                             const Mat&image0, const Mat&depth0, const Mat&mask0,
-                             const Mat&image1, const Mat&depth1, const Mat&mask1,
-                             const Mat&cameraMatrix, float minDepth = 0.f, float maxDepth = 4.f, float maxDepthDiff = 0.07f,
-                             const std::vector<int>&iterCounts = std::vector<int>(),
-                             const std::vector<float>&minGradientMagnitudes = std::vector<float>(),
+CV_EXPORTS bool RGBDOdometry(Mat &Rt, const Mat &initRt,
+                             const Mat &image0, const Mat &depth0, const Mat &mask0,
+                             const Mat &image1, const Mat &depth1, const Mat &mask1,
+                             const Mat &cameraMatrix, float minDepth = 0.f, float maxDepth = 4.f, float maxDepthDiff = 0.07f,
+                             const std::vector<int> &iterCounts = std::vector<int>(),
+                             const std::vector<float> &minGradientMagnitudes = std::vector<float>(),
                              int transformType = RIGID_BODY_MOTION);
 
 /**
@@ -689,32 +689,32 @@ LogPolar_Interp() {}
 
 /**
  * Constructor
- *****\param w the width of the input image
- *****\param h the height of the input image
- *****\param center the transformation center: where the output precision is maximal
- *****\param R the number of rings of the cortical image (default value 70 pixel)
- *****\param ro0 the radius of the blind spot (default value 3 pixel)
- *****\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
+ *******\param w the width of the input image
+ *******\param h the height of the input image
+ *******\param center the transformation center: where the output precision is maximal
+ *******\param R the number of rings of the cortical image (default value 70 pixel)
+ *******\param ro0 the radius of the blind spot (default value 3 pixel)
+ *******\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
  *            \a 0 means that the retinal image is computed within the inscribed circle.
- *****\param S the number of sectors of the cortical image (default value 70 pixel).
+ *******\param S the number of sectors of the cortical image (default value 70 pixel).
  *         Its value is usually internally computed to obtain a pixel aspect ratio equals to 1.
- *****\param sp \a 1 (default value) means that the parameter \a S is internally computed.
+ *******\param sp \a 1 (default value) means that the parameter \a S is internally computed.
  *          \a 0 means that the parameter \a S is provided by the user.
  */
 LogPolar_Interp(int w, int h, Point2i center, int R = 70, double ro0 = 3.0,
                 int interp = INTER_LINEAR, int full = 1, int S = 117, int sp = 1);
 /**
  * Transformation from Cartesian image to cortical (log-polar) image.
- *****\param source the Cartesian image
- *****\return the transformed image (cortical image)
+ *******\param source the Cartesian image
+ *******\return the transformed image (cortical image)
  */
-const Mat to_cortical(const Mat&source);
+const Mat to_cortical(const Mat &source);
 /**
  * Transformation from cortical image to retinal (inverse log-polar) image.
- *****\param source the cortical image
- *****\return the transformed image (retinal image)
+ *******\param source the cortical image
+ *******\return the transformed image (retinal image)
  */
-const Mat to_cartesian(const Mat&source);
+const Mat to_cartesian(const Mat &source);
 /**
  * Destructor
  */
@@ -752,32 +752,32 @@ LogPolar_Overlapping() {}
 
 /**
  * Constructor
- *****\param w the width of the input image
- *****\param h the height of the input image
- *****\param center the transformation center: where the output precision is maximal
- *****\param R the number of rings of the cortical image (default value 70 pixel)
- *****\param ro0 the radius of the blind spot (default value 3 pixel)
- *****\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
+ *******\param w the width of the input image
+ *******\param h the height of the input image
+ *******\param center the transformation center: where the output precision is maximal
+ *******\param R the number of rings of the cortical image (default value 70 pixel)
+ *******\param ro0 the radius of the blind spot (default value 3 pixel)
+ *******\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
  *            \a 0 means that the retinal image is computed within the inscribed circle.
- *****\param S the number of sectors of the cortical image (default value 70 pixel).
+ *******\param S the number of sectors of the cortical image (default value 70 pixel).
  *         Its value is usually internally computed to obtain a pixel aspect ratio equals to 1.
- *****\param sp \a 1 (default value) means that the parameter \a S is internally computed.
+ *******\param sp \a 1 (default value) means that the parameter \a S is internally computed.
  *          \a 0 means that the parameter \a S is provided by the user.
  */
 LogPolar_Overlapping(int w, int h, Point2i center, int R = 70,
                      double ro0 = 3.0, int full = 1, int S = 117, int sp = 1);
 /**
  * Transformation from Cartesian image to cortical (log-polar) image.
- *****\param source the Cartesian image
- *****\return the transformed image (cortical image)
+ *******\param source the Cartesian image
+ *******\return the transformed image (cortical image)
  */
-const Mat to_cortical(const Mat&source);
+const Mat to_cortical(const Mat &source);
 /**
  * Transformation from cortical image to retinal (inverse log-polar) image.
- *****\param source the cortical image
- *****\return the transformed image (retinal image)
+ *******\param source the cortical image
+ *******\return the transformed image (retinal image)
  */
-const Mat to_cartesian(const Mat&source);
+const Mat to_cartesian(const Mat &source);
 /**
  * Destructor
  */
@@ -829,32 +829,32 @@ LogPolar_Adjacent() {}
 
 /**
  * Constructor
- *****\param w the width of the input image
- *****\param h the height of the input image
- *****\param center the transformation center: where the output precision is maximal
- *****\param R the number of rings of the cortical image (default value 70 pixel)
- *****\param ro0 the radius of the blind spot (default value 3 pixel)
- *****\param smin the size of the subpixel (default value 0.25 pixel)
- *****\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
+ *******\param w the width of the input image
+ *******\param h the height of the input image
+ *******\param center the transformation center: where the output precision is maximal
+ *******\param R the number of rings of the cortical image (default value 70 pixel)
+ *******\param ro0 the radius of the blind spot (default value 3 pixel)
+ *******\param smin the size of the subpixel (default value 0.25 pixel)
+ *******\param full \a 1 (default value) means that the retinal image (the inverse transform) is computed within the circumscribing circle.
  *            \a 0 means that the retinal image is computed within the inscribed circle.
- *****\param S the number of sectors of the cortical image (default value 70 pixel).
+ *******\param S the number of sectors of the cortical image (default value 70 pixel).
  *         Its value is usually internally computed to obtain a pixel aspect ratio equals to 1.
- *****\param sp \a 1 (default value) means that the parameter \a S is internally computed.
+ *******\param sp \a 1 (default value) means that the parameter \a S is internally computed.
  *          \a 0 means that the parameter \a S is provided by the user.
  */
 LogPolar_Adjacent(int w, int h, Point2i center, int R = 70, double ro0 = 3.0, double smin = 0.25, int full = 1, int S = 117, int sp = 1);
 /**
  * Transformation from Cartesian image to cortical (log-polar) image.
- *****\param source the Cartesian image
- *****\return the transformed image (cortical image)
+ *******\param source the Cartesian image
+ *******\return the transformed image (cortical image)
  */
-const Mat to_cortical(const Mat&source);
+const Mat to_cortical(const Mat &source);
 /**
  * Transformation from cortical image to retinal (inverse log-polar) image.
- *****\param source the cortical image
- *****\return the transformed image (retinal image)
+ *******\param source the cortical image
+ *******\return the transformed image (retinal image)
  */
-const Mat to_cartesian(const Mat&source);
+const Mat to_cartesian(const Mat &source);
 /**
  * Destructor
  */
@@ -878,7 +878,7 @@ vector<vector<pixel> > L;
 vector<double>         A;
 
 void subdivide_recursively(double x, double y, int i, int j, double length, double smin);
-bool get_uv(double x, double y, int&u, int&v);
+bool get_uv(double x, double y, int &u, int &v);
 void create_map(int M, int N, int R, int S, double ro0, double smin);
 };
 
@@ -897,7 +897,7 @@ LDA(int num_components = 0) :
 // Optimization Criterion on given data in src and corresponding labels
 // in labels. If 0 (or less) number of components are given, they are
 // automatically determined for given data in computation.
-LDA(const Mat&src, vector<int> labels,
+LDA(const Mat &src, vector<int> labels,
     int num_components = 0) :
     _num_components(num_components)
 {
@@ -916,16 +916,16 @@ LDA(InputArrayOfArrays src, InputArray labels,
 }
 
 // Serializes this object to a given filename.
-void save(const string&filename) const;
+void save(const string &filename) const;
 
 // Deserializes this object from a given filename.
-void load(const string&filename);
+void load(const string &filename);
 
 // Serializes this object to a given cv::FileStorage.
-void save(FileStorage&fs) const;
+void save(FileStorage &fs) const;
 
 // Deserializes this object from a given cv::FileStorage.
-void load(const FileStorage&node);
+void load(const FileStorage &node);
 
 // Destructor.
 ~LDA() {}
@@ -976,28 +976,28 @@ CV_WRAP void update(InputArrayOfArrays src, InputArray labels);
 virtual int predict(InputArray src) const = 0;
 
 // Predicts the label and confidence for a given sample.
-CV_WRAP virtual void predict(InputArray src, CV_OUT int&label, CV_OUT double&confidence) const = 0;
+CV_WRAP virtual void predict(InputArray src, CV_OUT int &label, CV_OUT double &confidence) const = 0;
 
 // Serializes this object to a given filename.
-CV_WRAP virtual void save(const string&filename) const;
+CV_WRAP virtual void save(const string &filename) const;
 
 // Deserializes this object from a given filename.
-CV_WRAP virtual void load(const string&filename);
+CV_WRAP virtual void load(const string &filename);
 
 // Serializes this object to a given cv::FileStorage.
-virtual void save(FileStorage&fs) const = 0;
+virtual void save(FileStorage &fs) const = 0;
 
 // Deserializes this object from a given cv::FileStorage.
-virtual void load(const FileStorage&fs) = 0;
+virtual void load(const FileStorage &fs) = 0;
 
 // Sets additional information as pairs label - info.
-void setLabelsInfo(const std::map<int, string>&labelsInfo);
+void setLabelsInfo(const std::map<int, string> &labelsInfo);
 
 // Gets string information by label
-string getLabelInfo(const int&label);
+string getLabelInfo(const int &label);
 
 // Gets labels by string
-vector<int> getLabelsByString(const string&str);
+vector<int> getLabelsByString(const string &str);
 };
 
 CV_EXPORTS_W Ptr<FaceRecognizer> createEigenFaceRecognizer(int num_components = 0, double threshold = DBL_MAX);

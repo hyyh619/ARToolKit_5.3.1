@@ -56,7 +56,7 @@ inline Index cols() const
 typedef typename internal::conditional<internal::must_nest_by_value<MatrixType>::ret,
                                        MatrixType, const MatrixType&>::type MatrixTypeNested;
 
-inline SparseTriangularView(const MatrixType&matrix) : m_matrix(matrix) {}
+inline SparseTriangularView(const MatrixType &matrix) : m_matrix(matrix) {}
 
 /** \internal */
 inline const MatrixType&nestedExpression() const
@@ -66,10 +66,10 @@ inline const MatrixType&nestedExpression() const
 
 template<typename OtherDerived>
 typename internal::plain_matrix_type_column_major<OtherDerived>::type
-solve(const MatrixBase<OtherDerived>&other) const;
+solve(const MatrixBase<OtherDerived> &other) const;
 
-template<typename OtherDerived> void solveInPlace(MatrixBase<OtherDerived>&other) const;
-template<typename OtherDerived> void solveInPlace(SparseMatrixBase<OtherDerived>&other) const;
+template<typename OtherDerived> void solveInPlace(MatrixBase<OtherDerived> &other) const;
+template<typename OtherDerived> void solveInPlace(SparseMatrixBase<OtherDerived> &other) const;
 
 protected:
 MatrixTypeNested m_matrix;
@@ -81,7 +81,7 @@ class SparseTriangularView<MatrixType, Mode>::InnerIterator : public MatrixType:
 typedef typename MatrixType::InnerIterator Base;
 public:
 
-EIGEN_STRONG_INLINE InnerIterator(const SparseTriangularView&view, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const SparseTriangularView &view, Index outer)
     : Base(view.nestedExpression(), outer)
 {
     if (SkipFirst)

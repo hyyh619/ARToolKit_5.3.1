@@ -101,7 +101,7 @@ struct redux_novec_unroller
 
     typedef typename Derived::Scalar Scalar;
 
-    EIGEN_STRONG_INLINE static Scalar run(const Derived&mat, const Func&func)
+    EIGEN_STRONG_INLINE static Scalar run(const Derived &mat, const Func &func)
     {
         return func(redux_novec_unroller<Func, Derived, Start, HalfLength>::run(mat, func),
                     redux_novec_unroller<Func, Derived, Start + HalfLength, Length - HalfLength>::run(mat, func));
@@ -119,7 +119,7 @@ struct redux_novec_unroller<Func, Derived, Start, 1>
 
     typedef typename Derived::Scalar Scalar;
 
-    EIGEN_STRONG_INLINE static Scalar run(const Derived&mat, const Func&)
+    EIGEN_STRONG_INLINE static Scalar run(const Derived &mat, const Func&)
     {
         return mat.coeffByOuterInner(outer, inner);
     }
@@ -152,7 +152,7 @@ struct redux_vec_unroller
     typedef typename Derived::Scalar Scalar;
     typedef typename packet_traits<Scalar>::type PacketScalar;
 
-    EIGEN_STRONG_INLINE static PacketScalar run(const Derived&mat, const Func&func)
+    EIGEN_STRONG_INLINE static PacketScalar run(const Derived &mat, const Func &func)
     {
         return func.packetOp(
             redux_vec_unroller<Func, Derived, Start, HalfLength>::run(mat, func),
@@ -174,7 +174,7 @@ struct redux_vec_unroller<Func, Derived, Start, 1>
     typedef typename Derived::Scalar Scalar;
     typedef typename packet_traits<Scalar>::type PacketScalar;
 
-    EIGEN_STRONG_INLINE static PacketScalar run(const Derived&mat, const Func&)
+    EIGEN_STRONG_INLINE static PacketScalar run(const Derived &mat, const Func&)
     {
         return mat.template packetByOuterInner<alignment>(outer, inner);
     }
@@ -195,7 +195,7 @@ struct redux_impl<Func, Derived, DefaultTraversal, NoUnrolling>
 {
     typedef typename Derived::Scalar Scalar;
     typedef typename Derived::Index Index;
-    static EIGEN_STRONG_INLINE Scalar run(const Derived&mat, const Func&func)
+    static EIGEN_STRONG_INLINE Scalar run(const Derived &mat, const Func &func)
     {
         eigen_assert(mat.rows() > 0 && mat.cols() > 0 && "you are using an empty matrix");
         Scalar res;
@@ -224,7 +224,7 @@ struct redux_impl<Func, Derived, LinearVectorizedTraversal, NoUnrolling>
     typedef typename packet_traits<Scalar>::type PacketScalar;
     typedef typename Derived::Index Index;
 
-    static Scalar run(const Derived&mat, const Func&func)
+    static Scalar run(const Derived &mat, const Func &func)
     {
         const Index size = mat.size();
 
@@ -274,7 +274,7 @@ struct redux_impl<Func, Derived, SliceVectorizedTraversal, NoUnrolling>
     typedef typename packet_traits<Scalar>::type PacketScalar;
     typedef typename Derived::Index Index;
 
-    static Scalar run(const Derived&mat, const Func&func)
+    static Scalar run(const Derived &mat, const Func &func)
     {
         eigen_assert(mat.rows() > 0 && mat.cols() > 0 && "you are using an empty matrix");
         const Index innerSize = mat.innerSize();
@@ -320,7 +320,7 @@ struct redux_impl<Func, Derived, LinearVectorizedTraversal, CompleteUnrolling>
         Size           = Derived::SizeAtCompileTime,
         VectorizedSize = (Size / PacketSize) * PacketSize
     };
-    EIGEN_STRONG_INLINE static Scalar run(const Derived&mat, const Func&func)
+    EIGEN_STRONG_INLINE static Scalar run(const Derived &mat, const Func &func)
     {
         eigen_assert(mat.rows() > 0 && mat.cols() > 0 && "you are using an empty matrix");
         Scalar res = func.predux(redux_vec_unroller<Func, Derived, 0, Size / PacketSize>::run(mat, func));
@@ -347,7 +347,7 @@ struct redux_impl<Func, Derived, LinearVectorizedTraversal, CompleteUnrolling>
 template<typename Derived>
 template<typename Func>
 EIGEN_STRONG_INLINE typename internal::result_of<Func(typename internal::traits<Derived>::Scalar)>::type
-DenseBase<Derived>::redux(const Func&func) const
+DenseBase<Derived>::redux(const Func &func) const
 {
     typedef typename internal::remove_all<typename Derived::Nested>::type ThisNested;
     return internal::redux_impl<Func, ThisNested>

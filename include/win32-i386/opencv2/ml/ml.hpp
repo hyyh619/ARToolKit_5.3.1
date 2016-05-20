@@ -203,12 +203,12 @@ virtual bool train(const CvMat *trainData, const CvMat *responses,
 virtual float predict(const CvMat *samples, CV_OUT CvMat *results = 0) const;
 CV_WRAP virtual void clear();
 
-CV_WRAP CvNormalBayesClassifier(const cv::Mat&trainData, const cv::Mat&responses,
-                                const cv::Mat&varIdx = cv::Mat(), const cv::Mat&sampleIdx = cv::Mat());
-CV_WRAP virtual bool train(const cv::Mat&trainData, const cv::Mat&responses,
-                           const cv::Mat&varIdx = cv::Mat(), const cv::Mat&sampleIdx = cv::Mat(),
+CV_WRAP CvNormalBayesClassifier(const cv::Mat &trainData, const cv::Mat &responses,
+                                const cv::Mat &varIdx = cv::Mat(), const cv::Mat &sampleIdx = cv::Mat());
+CV_WRAP virtual bool train(const cv::Mat &trainData, const cv::Mat &responses,
+                           const cv::Mat &varIdx = cv::Mat(), const cv::Mat &sampleIdx = cv::Mat(),
                            bool update = false);
-CV_WRAP virtual float predict(const cv::Mat&samples, CV_OUT cv::Mat *results = 0) const;
+CV_WRAP virtual float predict(const cv::Mat &samples, CV_OUT cv::Mat *results = 0) const;
 
 virtual void write(CvFileStorage *storage, const char *name) const;
 virtual void read(CvFileStorage *storage, CvFileNode *node);
@@ -249,18 +249,18 @@ virtual bool train(const CvMat *trainData, const CvMat *responses,
 virtual float find_nearest(const CvMat *samples, int k, CV_OUT CvMat *results = 0,
                            const float **neighbors = 0, CV_OUT CvMat *neighborResponses = 0, CV_OUT CvMat *dist = 0) const;
 
-CV_WRAP CvKNearest(const cv::Mat&trainData, const cv::Mat&responses,
-                   const cv::Mat&sampleIdx = cv::Mat(), bool isRegression = false, int max_k = 32);
+CV_WRAP CvKNearest(const cv::Mat &trainData, const cv::Mat &responses,
+                   const cv::Mat &sampleIdx = cv::Mat(), bool isRegression = false, int max_k = 32);
 
-CV_WRAP virtual bool train(const cv::Mat&trainData, const cv::Mat&responses,
-                           const cv::Mat&sampleIdx = cv::Mat(), bool isRegression = false,
+CV_WRAP virtual bool train(const cv::Mat &trainData, const cv::Mat &responses,
+                           const cv::Mat &sampleIdx = cv::Mat(), bool isRegression = false,
                            int maxK = 32, bool updateBase = false);
 
-virtual float find_nearest(const cv::Mat&samples, int k, cv::Mat *results = 0,
+virtual float find_nearest(const cv::Mat &samples, int k, cv::Mat *results = 0,
                            const float **neighbors = 0, cv::Mat *neighborResponses = 0,
                            cv::Mat *dist = 0) const;
-CV_WRAP virtual float find_nearest(const cv::Mat&samples, int k, CV_OUT cv::Mat&results,
-                                   CV_OUT cv::Mat&neighborResponses, CV_OUT cv::Mat&dists) const;
+CV_WRAP virtual float find_nearest(const cv::Mat &samples, int k, CV_OUT cv::Mat &results,
+                                   CV_OUT cv::Mat &neighborResponses, CV_OUT cv::Mat &dists) const;
 
 virtual void clear();
 int get_max_k() const;
@@ -360,9 +360,9 @@ struct CvSVMSolutionInfo
 class CV_EXPORTS CvSVMSolver
 {
 public:
-typedef bool (CvSVMSolver::*SelectWorkingSet)(int&i, int&j);
+typedef bool (CvSVMSolver::*SelectWorkingSet)(int &i, int &j);
 typedef float*(CvSVMSolver::*GetRow)(int i, float *row, float *dst, bool existed);
-typedef void (CvSVMSolver::*CalcRho)(double&rho, double&r);
+typedef void (CvSVMSolver::*CalcRho)(double &rho, double &r);
 
 CvSVMSolver();
 
@@ -377,25 +377,25 @@ virtual bool create(int count, int var_count, const float **samples, schar *y,
 virtual ~CvSVMSolver();
 
 virtual void clear();
-virtual bool solve_generic(CvSVMSolutionInfo&si);
+virtual bool solve_generic(CvSVMSolutionInfo &si);
 
 virtual bool solve_c_svc(int count, int var_count, const float **samples, schar *y,
                          double Cp, double Cn, CvMemStorage *storage,
-                         CvSVMKernel *kernel, double *alpha, CvSVMSolutionInfo&si);
+                         CvSVMKernel *kernel, double *alpha, CvSVMSolutionInfo &si);
 virtual bool solve_nu_svc(int count, int var_count, const float **samples, schar *y,
                           CvMemStorage *storage, CvSVMKernel *kernel,
-                          double *alpha, CvSVMSolutionInfo&si);
+                          double *alpha, CvSVMSolutionInfo &si);
 virtual bool solve_one_class(int count, int var_count, const float **samples,
                              CvMemStorage *storage, CvSVMKernel *kernel,
-                             double *alpha, CvSVMSolutionInfo&si);
+                             double *alpha, CvSVMSolutionInfo &si);
 
 virtual bool solve_eps_svr(int count, int var_count, const float **samples, const float *y,
                            CvMemStorage *storage, CvSVMKernel *kernel,
-                           double *alpha, CvSVMSolutionInfo&si);
+                           double *alpha, CvSVMSolutionInfo &si);
 
 virtual bool solve_nu_svr(int count, int var_count, const float **samples, const float *y,
                           CvMemStorage *storage, CvSVMKernel *kernel,
-                          double *alpha, CvSVMSolutionInfo&si);
+                          double *alpha, CvSVMSolutionInfo &si);
 
 virtual float* get_row_base(int i, bool *_existed);
 virtual float* get_row(int i, float *dst);
@@ -430,10 +430,10 @@ SelectWorkingSet select_working_set_func;
 CalcRho          calc_rho_func;
 GetRow           get_row_func;
 
-virtual bool select_working_set(int&i, int&j);
-virtual bool select_working_set_nu_svm(int&i, int&j);
-virtual void calc_rho(double&rho, double&r);
-virtual void calc_rho_nu_svm(double&rho, double&r);
+virtual bool select_working_set(int &i, int &j);
+virtual bool select_working_set_nu_svm(int &i, int &j);
+virtual void calc_rho(double &rho, double &r);
+virtual void calc_rho_nu_svm(double &rho, double &r);
 
 virtual float* get_row_svc(int i, float *row, float *dst, bool existed);
 virtual float* get_row_one_class(int i, float *row, float *dst, bool existed);
@@ -488,16 +488,16 @@ virtual bool train_auto(const CvMat *trainData, const CvMat *responses,
 virtual float predict(const CvMat *sample, bool returnDFVal = false) const;
 virtual float predict(const CvMat *samples, CV_OUT CvMat *results) const;
 
-CV_WRAP CvSVM(const cv::Mat&trainData, const cv::Mat&responses,
-              const cv::Mat&varIdx = cv::Mat(), const cv::Mat&sampleIdx = cv::Mat(),
+CV_WRAP CvSVM(const cv::Mat &trainData, const cv::Mat &responses,
+              const cv::Mat &varIdx = cv::Mat(), const cv::Mat &sampleIdx = cv::Mat(),
               CvSVMParams params = CvSVMParams());
 
-CV_WRAP virtual bool train(const cv::Mat&trainData, const cv::Mat&responses,
-                           const cv::Mat&varIdx = cv::Mat(), const cv::Mat&sampleIdx = cv::Mat(),
+CV_WRAP virtual bool train(const cv::Mat &trainData, const cv::Mat &responses,
+                           const cv::Mat &varIdx = cv::Mat(), const cv::Mat &sampleIdx = cv::Mat(),
                            CvSVMParams params = CvSVMParams());
 
-CV_WRAP virtual bool train_auto(const cv::Mat&trainData, const cv::Mat&responses,
-                                const cv::Mat&varIdx, const cv::Mat&sampleIdx, CvSVMParams params,
+CV_WRAP virtual bool train_auto(const cv::Mat &trainData, const cv::Mat &responses,
+                                const cv::Mat &varIdx, const cv::Mat &sampleIdx, CvSVMParams params,
                                 int k_fold = 10,
                                 CvParamGrid Cgrid = CvSVM::get_default_grid(CvSVM::C),
                                 CvParamGrid gammaGrid = CvSVM::get_default_grid(CvSVM::GAMMA),
@@ -506,7 +506,7 @@ CV_WRAP virtual bool train_auto(const cv::Mat&trainData, const cv::Mat&responses
                                 CvParamGrid coeffGrid = CvSVM::get_default_grid(CvSVM::COEF),
                                 CvParamGrid degreeGrid = CvSVM::get_default_grid(CvSVM::DEGREE),
                                 bool balanced = false);
-CV_WRAP virtual float predict(const cv::Mat&sample, bool returnDFVal = false) const;
+CV_WRAP virtual float predict(const cv::Mat &sample, bool returnDFVal = false) const;
 CV_WRAP_AS(predict_all) void predict(cv::InputArray samples, cv::OutputArray results) const;
 
 CV_WRAP virtual int get_support_vector_count() const;
@@ -528,10 +528,10 @@ CV_WRAP int get_var_count() const
 
 protected:
 
-virtual bool set_params(const CvSVMParams&params);
+virtual bool set_params(const CvSVMParams &params);
 virtual bool train1(int sample_count, int var_count, const float **samples,
                     const void *responses, double Cp, double Cn,
-                    CvMemStorage *_storage, double *alpha, double&rho);
+                    CvMemStorage *_storage, double *alpha, double &rho);
 virtual bool do_train(int svm_type, int sample_count, int var_count, const float **samples,
                       const CvMat *responses, CvMemStorage *_storage, double *alpha);
 virtual void create_kernel();
@@ -580,8 +580,8 @@ enum {DEFAULT_NCLUSTERS = 5, DEFAULT_MAX_ITERS = 100};
 enum {START_E_STEP = 1, START_M_STEP = 2, START_AUTO_STEP = 0};
 
 CV_WRAP EM(int nclusters = EM::DEFAULT_NCLUSTERS, int covMatType = EM::COV_MAT_DIAGONAL,
-           const TermCriteria&termCrit = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS,
-                                                      EM::DEFAULT_MAX_ITERS, FLT_EPSILON));
+           const TermCriteria &termCrit = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS,
+                                                       EM::DEFAULT_MAX_ITERS, FLT_EPSILON));
 
 virtual ~EM();
 CV_WRAP virtual void clear();
@@ -611,11 +611,11 @@ CV_WRAP Vec2d predict(InputArray sample,
 CV_WRAP bool isTrained() const;
 
 AlgorithmInfo* info() const;
-virtual void read(const FileNode&fn);
+virtual void read(const FileNode &fn);
 
 protected:
 
-virtual void setTrainData(int startStep, const Mat&samples,
+virtual void setTrainData(int startStep, const Mat &samples,
                           const Mat *probs0,
                           const Mat *means0,
                           const vector<Mat> *covs0,
@@ -632,7 +632,7 @@ void clusterTrainSamples();
 void decomposeCovs();
 void computeLogWeightDivDet();
 
-Vec2d computeProbabilities(const Mat&sample, Mat *probs) const;
+Vec2d computeProbabilities(const Mat &sample, Mat *probs) const;
 
 // all inner matrices have type CV_64FC1
 CV_PROP_RW int    nclusters;
@@ -757,7 +757,7 @@ struct CV_EXPORTS CvDTreeTrainData
                      const CvMat *responses, const CvMat *varIdx = 0,
                      const CvMat *sampleIdx = 0, const CvMat *varType = 0,
                      const CvMat *missingDataMask = 0,
-                     const CvDTreeParams&params = CvDTreeParams(),
+                     const CvDTreeParams &params = CvDTreeParams(),
                      bool _shared = false, bool _add_labels = false);
     virtual ~CvDTreeTrainData();
 
@@ -765,7 +765,7 @@ struct CV_EXPORTS CvDTreeTrainData
                           const CvMat *responses, const CvMat *varIdx = 0,
                           const CvMat *sampleIdx = 0, const CvMat *varType = 0,
                           const CvMat *missingDataMask = 0,
-                          const CvDTreeParams&params = CvDTreeParams(),
+                          const CvDTreeParams &params = CvDTreeParams(),
                           bool _shared = false, bool _add_labels = false,
                           bool _update_data = false);
     virtual void do_responses_copy();
@@ -799,7 +799,7 @@ struct CV_EXPORTS CvDTreeTrainData
 
     ////////////////////////////////////
 
-    virtual bool set_params(const CvDTreeParams&params);
+    virtual bool set_params(const CvDTreeParams &params);
     virtual CvDTreeNode* new_node(CvDTreeNode *parent, int count,
                                   int storage_idx, int offset);
 
@@ -893,13 +893,13 @@ virtual bool train(CvDTreeTrainData *trainData, const CvMat *subsampleIdx);
 virtual CvDTreeNode* predict(const CvMat *sample, const CvMat *missingDataMask = 0,
                              bool preprocessedInput = false) const;
 
-CV_WRAP virtual bool train(const cv::Mat&trainData, int tflag,
-                           const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                           const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                           const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP virtual bool train(const cv::Mat &trainData, int tflag,
+                           const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                           const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                           const cv::Mat &missingDataMask = cv::Mat(),
                            CvDTreeParams params = CvDTreeParams());
 
-CV_WRAP virtual CvDTreeNode* predict(const cv::Mat&sample, const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP virtual CvDTreeNode* predict(const cv::Mat &sample, const cv::Mat &missingDataMask = cv::Mat(),
                                      bool preprocessedInput = false) const;
 CV_WRAP virtual cv::Mat getVarImportance();
 
@@ -1037,13 +1037,13 @@ virtual bool train(CvMLData *data, CvRTParams params = CvRTParams());
 virtual float predict(const CvMat *sample, const CvMat *missing = 0) const;
 virtual float predict_prob(const CvMat *sample, const CvMat *missing = 0) const;
 
-CV_WRAP virtual bool train(const cv::Mat&trainData, int tflag,
-                           const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                           const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                           const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP virtual bool train(const cv::Mat &trainData, int tflag,
+                           const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                           const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                           const cv::Mat &missingDataMask = cv::Mat(),
                            CvRTParams params = CvRTParams());
-CV_WRAP virtual float predict(const cv::Mat&sample, const cv::Mat&missing = cv::Mat()) const;
-CV_WRAP virtual float predict_prob(const cv::Mat&sample, const cv::Mat&missing = cv::Mat()) const;
+CV_WRAP virtual float predict(const cv::Mat &sample, const cv::Mat &missing = cv::Mat()) const;
+CV_WRAP virtual float predict_prob(const cv::Mat &sample, const cv::Mat &missing = cv::Mat()) const;
 CV_WRAP virtual cv::Mat getVarImportance();
 
 CV_WRAP virtual void clear();
@@ -1092,7 +1092,7 @@ struct CV_EXPORTS CvERTreeTrainData : public CvDTreeTrainData
                           const CvMat *responses, const CvMat *varIdx = 0,
                           const CvMat *sampleIdx = 0, const CvMat *varType = 0,
                           const CvMat *missingDataMask = 0,
-                          const CvDTreeParams&params = CvDTreeParams(),
+                          const CvDTreeParams &params = CvDTreeParams(),
                           bool _shared = false, bool _add_labels = false,
                           bool _update_data = false);
     virtual void get_ord_var_data(CvDTreeNode *n, int vi, float *ord_values_buf, int *missing_buf,
@@ -1131,10 +1131,10 @@ virtual bool train(const CvMat *trainData, int tflag,
                    const CvMat *sampleIdx = 0, const CvMat *varType = 0,
                    const CvMat *missingDataMask = 0,
                    CvRTParams params = CvRTParams());
-CV_WRAP virtual bool train(const cv::Mat&trainData, int tflag,
-                           const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                           const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                           const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP virtual bool train(const cv::Mat &trainData, int tflag,
+                           const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                           const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                           const cv::Mat &missingDataMask = cv::Mat(),
                            CvRTParams params = CvRTParams());
 virtual bool train(CvMLData *data, CvRTParams params = CvRTParams());
 protected:
@@ -1242,21 +1242,21 @@ virtual float predict(const CvMat *sample, const CvMat *missing = 0,
                       CvMat *weak_responses = 0, CvSlice slice = CV_WHOLE_SEQ,
                       bool raw_mode = false, bool return_sum = false) const;
 
-CV_WRAP CvBoost(const cv::Mat&trainData, int tflag,
-                const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP CvBoost(const cv::Mat &trainData, int tflag,
+                const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                const cv::Mat &missingDataMask = cv::Mat(),
                 CvBoostParams params = CvBoostParams());
 
-CV_WRAP virtual bool train(const cv::Mat&trainData, int tflag,
-                           const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                           const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                           const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP virtual bool train(const cv::Mat &trainData, int tflag,
+                           const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                           const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                           const cv::Mat &missingDataMask = cv::Mat(),
                            CvBoostParams params = CvBoostParams(),
                            bool update = false);
 
-CV_WRAP virtual float predict(const cv::Mat&sample, const cv::Mat&missing = cv::Mat(),
-                              const cv::Range&slice = cv::Range::all(), bool rawMode = false,
+CV_WRAP virtual float predict(const cv::Mat &sample, const cv::Mat &missing = cv::Mat(),
+                              const cv::Range &slice = cv::Range::all(), bool rawMode = false,
                               bool returnSum = false) const;
 
 virtual float calc_error(CvMLData *_data, int type, std::vector<float> *resp = 0);        // type in {CV_TRAIN_ERROR, CV_TEST_ERROR}
@@ -1281,7 +1281,7 @@ protected:
 
 void update_weights_impl(CvBoostTree * tree, double initial_weights[2]);
 
-virtual bool set_params(const CvBoostParams&params);
+virtual bool set_params(const CvBoostParams &params);
 virtual void update_weights(CvBoostTree *tree);
 virtual void trim_weights();
 virtual void write_params(CvFileStorage *fs) const;
@@ -1679,21 +1679,21 @@ virtual void read(CvFileStorage *fs, CvFileNode *node);
 
 
 // new-style C++ interface
-CV_WRAP CvGBTrees(const cv::Mat&trainData, int tflag,
-                  const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                  const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                  const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP CvGBTrees(const cv::Mat &trainData, int tflag,
+                  const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                  const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                  const cv::Mat &missingDataMask = cv::Mat(),
                   CvGBTreesParams params = CvGBTreesParams());
 
-CV_WRAP virtual bool train(const cv::Mat&trainData, int tflag,
-                           const cv::Mat&responses, const cv::Mat&varIdx = cv::Mat(),
-                           const cv::Mat&sampleIdx = cv::Mat(), const cv::Mat&varType = cv::Mat(),
-                           const cv::Mat&missingDataMask = cv::Mat(),
+CV_WRAP virtual bool train(const cv::Mat &trainData, int tflag,
+                           const cv::Mat &responses, const cv::Mat &varIdx = cv::Mat(),
+                           const cv::Mat &sampleIdx = cv::Mat(), const cv::Mat &varType = cv::Mat(),
+                           const cv::Mat &missingDataMask = cv::Mat(),
                            CvGBTreesParams params = CvGBTreesParams(),
                            bool update = false);
 
-CV_WRAP virtual float predict(const cv::Mat&sample, const cv::Mat&missing = cv::Mat(),
-                              const cv::Range&slice = cv::Range::all(),
+CV_WRAP virtual float predict(const cv::Mat &sample, const cv::Mat &missing = cv::Mat(),
+                              const cv::Range &slice = cv::Range::all(),
                               int k = -1) const;
 
 protected:
@@ -1785,7 +1785,7 @@ virtual void do_subsample();
    // leaves       - array of pointers to leaves.
    // RESULT
  */
-void leaves_get(CvDTreeNode **leaves, int&count, CvDTreeNode *node);
+void leaves_get(CvDTreeNode **leaves, int &count, CvDTreeNode *node);
 
 
 /*
@@ -1802,7 +1802,7 @@ void leaves_get(CvDTreeNode **leaves, int&count, CvDTreeNode *node);
    // RESULT
    // CvDTreeNode**    - array of pointers to leaves.
  */
-CvDTreeNode** GetLeaves(const CvDTree *dtree, int&len);
+CvDTreeNode** GetLeaves(const CvDTree *dtree, int &len);
 
 
 /*
@@ -1925,20 +1925,20 @@ virtual int train(const CvMat *inputs, const CvMat *outputs,
                   int flags = 0);
 virtual float predict(const CvMat *inputs, CV_OUT CvMat *outputs) const;
 
-CV_WRAP CvANN_MLP(const cv::Mat&layerSizes,
+CV_WRAP CvANN_MLP(const cv::Mat &layerSizes,
                   int activateFunc = CvANN_MLP::SIGMOID_SYM,
                   double fparam1 = 0, double fparam2 = 0);
 
-CV_WRAP virtual void create(const cv::Mat&layerSizes,
+CV_WRAP virtual void create(const cv::Mat &layerSizes,
                             int activateFunc = CvANN_MLP::SIGMOID_SYM,
                             double fparam1 = 0, double fparam2 = 0);
 
-CV_WRAP virtual int train(const cv::Mat&inputs, const cv::Mat&outputs,
-                          const cv::Mat&sampleWeights, const cv::Mat&sampleIdx = cv::Mat(),
+CV_WRAP virtual int train(const cv::Mat &inputs, const cv::Mat &outputs,
+                          const cv::Mat &sampleWeights, const cv::Mat &sampleIdx = cv::Mat(),
                           CvANN_MLP_TrainParams params = CvANN_MLP_TrainParams(),
                           int flags = 0);
 
-CV_WRAP virtual float predict(const cv::Mat&inputs, CV_OUT cv::Mat&outputs) const;
+CV_WRAP virtual float predict(const cv::Mat &inputs, CV_OUT cv::Mat &outputs) const;
 
 CV_WRAP virtual void clear();
 
@@ -2102,7 +2102,7 @@ const std::map<std::string, int>&get_class_labels_map() const;
 protected:
 virtual void clear();
 
-void str_to_flt_elem(const char *token, float&flt_elem, int&type);
+void str_to_flt_elem(const char *token, float &flt_elem, int &type);
 void free_train_test_idx();
 
 char delimiter;

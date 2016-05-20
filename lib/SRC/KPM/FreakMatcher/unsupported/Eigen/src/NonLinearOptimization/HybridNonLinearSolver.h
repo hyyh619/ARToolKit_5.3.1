@@ -60,7 +60,7 @@ class HybridNonLinearSolver
 public:
 typedef DenseIndex Index;
 
-HybridNonLinearSolver(FunctorType&_functor)
+HybridNonLinearSolver(FunctorType &_functor)
     : functor(_functor)
 {
     nfev = njev = iter = 0;  fnorm = 0.; useExternalScaling = false;
@@ -88,22 +88,22 @@ typedef Matrix<Scalar, Dynamic, Dynamic> JacobianType;
 typedef Matrix<Scalar, Dynamic, Dynamic> UpperTriangularType;
 
 HybridNonLinearSolverSpace::Status hybrj1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
     );
 
-HybridNonLinearSolverSpace::Status solveInit(FVectorType&x);
-HybridNonLinearSolverSpace::Status solveOneStep(FVectorType&x);
-HybridNonLinearSolverSpace::Status solve(FVectorType&x);
+HybridNonLinearSolverSpace::Status solveInit(FVectorType &x);
+HybridNonLinearSolverSpace::Status solveOneStep(FVectorType &x);
+HybridNonLinearSolverSpace::Status solve(FVectorType &x);
 
 HybridNonLinearSolverSpace::Status hybrd1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol = internal::sqrt(NumTraits<Scalar>::epsilon())
     );
 
-HybridNonLinearSolverSpace::Status solveNumericalDiffInit(FVectorType&x);
-HybridNonLinearSolverSpace::Status solveNumericalDiffOneStep(FVectorType&x);
-HybridNonLinearSolverSpace::Status solveNumericalDiff(FVectorType&x);
+HybridNonLinearSolverSpace::Status solveNumericalDiffInit(FVectorType &x);
+HybridNonLinearSolverSpace::Status solveNumericalDiffOneStep(FVectorType &x);
+HybridNonLinearSolverSpace::Status solveNumericalDiff(FVectorType &x);
 
 void resetParameters(void)
 {
@@ -142,7 +142,7 @@ HybridNonLinearSolver&operator=(const HybridNonLinearSolver&);
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
 HybridNonLinearSolver<FunctorType, Scalar>::hybrj1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol
     )
 {
@@ -162,7 +162,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::hybrj1(
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType, Scalar>::solveInit(FVectorType&x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveInit(FVectorType &x)
 {
     n = x.size();
 
@@ -208,7 +208,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::solveInit(FVectorType&x)
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType, Scalar>::solveOneStep(FVectorType&x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveOneStep(FVectorType &x)
 {
     assert(x.size() == n); // check the caller is not cheating us
 
@@ -381,7 +381,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::solveOneStep(FVectorType&x)
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType, Scalar>::solve(FVectorType&x)
+HybridNonLinearSolver<FunctorType, Scalar>::solve(FVectorType &x)
 {
     HybridNonLinearSolverSpace::Status status = solveInit(x);
 
@@ -399,7 +399,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::solve(FVectorType&x)
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
 HybridNonLinearSolver<FunctorType, Scalar>::hybrd1(
-    FVectorType&x,
+    FVectorType &x,
     const Scalar tol
     )
 {
@@ -420,7 +420,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::hybrd1(
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffInit(FVectorType&x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffInit(FVectorType &x)
 {
     n = x.size();
 
@@ -472,7 +472,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffInit(FVectorType&x
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffOneStep(FVectorType&x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffOneStep(FVectorType &x)
 {
     assert(x.size() == n); // check the caller is not cheating us
 
@@ -650,7 +650,7 @@ HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffOneStep(FVectorTyp
 
 template<typename FunctorType, typename Scalar>
 HybridNonLinearSolverSpace::Status
-HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiff(FVectorType&x)
+HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiff(FVectorType &x)
 {
     HybridNonLinearSolverSpace::Status status = solveNumericalDiffInit(x);
 

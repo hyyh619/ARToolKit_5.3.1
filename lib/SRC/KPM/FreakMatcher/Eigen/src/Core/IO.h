@@ -33,7 +33,7 @@ enum { StreamPrecision = -1,
 namespace internal
 {
 template<typename Derived>
-std::ostream&print_matrix(std::ostream&s, const Derived&_m, const IOFormat&fmt);
+std::ostream&print_matrix(std::ostream &s, const Derived &_m, const IOFormat &fmt);
 }
 
 /** \class IOFormat
@@ -65,9 +65,9 @@ struct IOFormat
 {
     /** Default contructor, see class IOFormat for the meaning of the parameters */
     IOFormat(int _precision = StreamPrecision, int _flags = 0,
-             const std::string&_coeffSeparator = " ",
-             const std::string&_rowSeparator = "\n", const std::string&_rowPrefix = "", const std::string&_rowSuffix = "",
-             const std::string&_matPrefix = "", const std::string&_matSuffix = "")
+             const std::string &_coeffSeparator = " ",
+             const std::string &_rowSeparator = "\n", const std::string &_rowPrefix = "", const std::string &_rowSuffix = "",
+             const std::string &_matPrefix = "", const std::string &_matSuffix = "")
         : matPrefix(_matPrefix), matSuffix(_matSuffix), rowPrefix(_rowPrefix), rowSuffix(_rowSuffix), rowSeparator(_rowSeparator),
         coeffSeparator(_coeffSeparator), precision(_precision), flags(_flags)
     {
@@ -107,11 +107,11 @@ class WithFormat
 {
 public:
 
-WithFormat(const ExpressionType&matrix, const IOFormat&format)
+WithFormat(const ExpressionType &matrix, const IOFormat &format)
     : m_matrix(matrix), m_format(format)
 {}
 
-friend std::ostream&operator <<(std::ostream&s, const WithFormat&wf)
+friend std::ostream&operator <<(std::ostream &s, const WithFormat &wf)
 {
     return internal::print_matrix(s, wf.m_matrix.eval(), wf.m_format);
 }
@@ -130,7 +130,7 @@ IOFormat m_format;
  */
 template<typename Derived>
 inline const WithFormat<Derived>
-DenseBase<Derived>::format(const IOFormat&fmt) const
+DenseBase<Derived>::format(const IOFormat &fmt) const
 {
     return WithFormat<Derived>(derived(), fmt);
 }
@@ -165,7 +165,7 @@ struct significant_decimals_impl
 /** \internal
  * print the matrix \a _m to the output stream \a s using the output format \a fmt */
 template<typename Derived>
-std::ostream&print_matrix(std::ostream&s, const Derived&_m, const IOFormat&fmt)
+std::ostream&print_matrix(std::ostream &s, const Derived &_m, const IOFormat &fmt)
 {
     if (_m.size() == 0)
     {
@@ -268,8 +268,8 @@ std::ostream&print_matrix(std::ostream&s, const Derived&_m, const IOFormat&fmt)
  */
 template<typename Derived>
 std::ostream&operator <<
-    (std::ostream&s,
-    const DenseBase<Derived>&m)
+    (std::ostream &s,
+    const DenseBase<Derived> &m)
 {
     return internal::print_matrix(s, m.eval(), EIGEN_DEFAULT_IO_FORMAT);
 }

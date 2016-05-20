@@ -60,10 +60,10 @@ typedef FullPivLU<MatrixType> Base;
 LU() : Base() {}
 
 template<typename T>
-explicit LU(const T&t) : Base(t), m_originalMatrix(t) {}
+explicit LU(const T &t) : Base(t), m_originalMatrix(t) {}
 
 template<typename OtherDerived, typename ResultType>
-bool solve(const MatrixBase<OtherDerived>&b, ResultType *result) const
+bool solve(const MatrixBase<OtherDerived> &b, ResultType *result) const
 {
     *result = static_cast<const Base*>(this)->solve(b);
     return true;
@@ -92,7 +92,7 @@ const ImageResultType image() const
     return static_cast<const Base*>(this)->image(m_originalMatrix);
 }
 
-const MatrixType&m_originalMatrix;
+const MatrixType &m_originalMatrix;
 };
 
 #if EIGEN2_SUPPORT_STAGE < STAGE20_RESOLVE_API_CONFLICTS

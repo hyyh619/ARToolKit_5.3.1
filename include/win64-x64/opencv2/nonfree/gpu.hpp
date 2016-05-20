@@ -73,12 +73,12 @@ public:
   int descriptorSize() const;
 
   // ! upload host keypoints to device memory
-  void uploadKeypoints(const std::vector<KeyPoint>&keypoints, GpuMat&keypointsGPU);
+  void uploadKeypoints(const std::vector<KeyPoint> &keypoints, GpuMat &keypointsGPU);
   // ! download keypoints from device to host memory
-  void downloadKeypoints(const GpuMat&keypointsGPU, std::vector<KeyPoint>&keypoints);
+  void downloadKeypoints(const GpuMat &keypointsGPU, std::vector<KeyPoint> &keypoints);
 
   // ! download descriptors from device to host memory
-  void downloadDescriptors(const GpuMat&descriptorsGPU, std::vector<float>&descriptors);
+  void downloadDescriptors(const GpuMat &descriptorsGPU, std::vector<float> &descriptors);
 
   // ! finds the keypoints using fast hessian detector used in SURF
   // ! supports CV_8UC1 images
@@ -90,17 +90,17 @@ public:
   // ! keypoints.ptr<float>(SIZE_ROW)[i] will contain size of i'th feature
   // ! keypoints.ptr<float>(ANGLE_ROW)[i] will contain orientation of i'th feature
   // ! keypoints.ptr<float>(HESSIAN_ROW)[i] will contain response of i'th feature
-  void operator()(const GpuMat&img, const GpuMat&mask, GpuMat&keypoints);
+  void operator()(const GpuMat &img, const GpuMat &mask, GpuMat &keypoints);
   // ! finds the keypoints and computes their descriptors.
   // ! Optionally it can compute descriptors for the user-provided keypoints and recompute keypoints direction
-  void operator()(const GpuMat&img, const GpuMat&mask, GpuMat&keypoints, GpuMat&descriptors,
+  void operator()(const GpuMat &img, const GpuMat &mask, GpuMat &keypoints, GpuMat &descriptors,
                   bool useProvidedKeypoints = false);
 
-  void operator()(const GpuMat&img, const GpuMat&mask, std::vector<KeyPoint>&keypoints);
-  void operator()(const GpuMat&img, const GpuMat&mask, std::vector<KeyPoint>&keypoints, GpuMat&descriptors,
+  void operator()(const GpuMat &img, const GpuMat &mask, std::vector<KeyPoint> &keypoints);
+  void operator()(const GpuMat &img, const GpuMat &mask, std::vector<KeyPoint> &keypoints, GpuMat &descriptors,
                   bool useProvidedKeypoints = false);
 
-  void operator()(const GpuMat&img, const GpuMat&mask, std::vector<KeyPoint>&keypoints, std::vector<float>&descriptors,
+  void operator()(const GpuMat &img, const GpuMat &mask, std::vector<KeyPoint> &keypoints, std::vector<float> &descriptors,
                   bool useProvidedKeypoints = false);
 
   void releaseMemory();

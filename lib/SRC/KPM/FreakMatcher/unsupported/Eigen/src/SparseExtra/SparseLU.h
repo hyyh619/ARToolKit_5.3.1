@@ -67,7 +67,7 @@ SparseLU(int flags = 0)
 
 /** Creates a LU object and compute the respective factorization of \a matrix using
  * flags \a flags. */
-SparseLU(const _MatrixType&matrix, int flags = 0)
+SparseLU(const _MatrixType &matrix, int flags = 0)
     : /*m_matrix(matrix.rows(), matrix.cols()),*/ m_flags(flags), m_status(0)
 {
     m_precision = RealScalar(0.1) * Eigen::NumTraits<RealScalar>::dummy_precision();
@@ -127,7 +127,7 @@ int orderingMethod() const
 }
 
 /** Computes/re-computes the LU factorization */
-void compute(const _MatrixType&matrix);
+void compute(const _MatrixType &matrix);
 
 /** \returns the lower triangular matrix L */
 // inline const _MatrixType& matrixL() const { return m_matrixL; }
@@ -136,7 +136,7 @@ void compute(const _MatrixType&matrix);
 // inline const _MatrixType& matrixU() const { return m_matrixU; }
 
 template<typename BDerived, typename XDerived>
-bool solve(const MatrixBase<BDerived>&b, MatrixBase<XDerived> *x,
+bool solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> *x,
            const int transposed = SvNoTrans) const;
 
 /** \returns true if the factorization succeeded */

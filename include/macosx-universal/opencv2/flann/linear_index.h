@@ -53,7 +53,7 @@ typedef typename Distance::ElementType ElementType;
 typedef typename Distance::ResultType DistanceType;
 
 
-LinearIndex(const Matrix<ElementType>&inputData, const IndexParams&params = LinearIndexParams(),
+LinearIndex(const Matrix<ElementType> &inputData, const IndexParams &params = LinearIndexParams(),
             Distance d = Distance()) :
     dataset_(inputData), index_params_(params), distance_(d)
 {}
@@ -101,7 +101,7 @@ void loadIndex(FILE*)
     index_params_["algorithm"] = getType();
 }
 
-void findNeighbors(ResultSet<DistanceType>&resultSet, const ElementType *vec, const SearchParams& /*searchParams*/)
+void findNeighbors(ResultSet<DistanceType> &resultSet, const ElementType *vec, const SearchParams& /*searchParams*/)
 {
     ElementType *data = dataset_.data;
 

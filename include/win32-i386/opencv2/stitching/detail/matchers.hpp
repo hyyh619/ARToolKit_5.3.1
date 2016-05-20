@@ -70,12 +70,12 @@ class CV_EXPORTS FeaturesFinder
 {
 public:
 virtual ~FeaturesFinder() {}
-void operator ()(const Mat&image, ImageFeatures&features);
-void operator ()(const Mat&image, ImageFeatures&features, const std::vector<cv::Rect>&rois);
+void operator ()(const Mat &image, ImageFeatures &features);
+void operator ()(const Mat &image, ImageFeatures &features, const std::vector<cv::Rect> &rois);
 virtual void collectGarbage() {}
 
 protected:
-virtual void find(const Mat&image, ImageFeatures&features) = 0;
+virtual void find(const Mat &image, ImageFeatures &features) = 0;
 };
 
 
@@ -86,7 +86,7 @@ SurfFeaturesFinder(double hess_thresh = 300., int num_octaves = 3, int num_layer
                    int num_octaves_descr = /*4*/ 3, int num_layers_descr = /*2*/ 4);
 
 private:
-void find(const Mat&image, ImageFeatures&features);
+void find(const Mat &image, ImageFeatures &features);
 
 Ptr<FeatureDetector>     detector_;
 Ptr<DescriptorExtractor> extractor_;
@@ -99,7 +99,7 @@ public:
 OrbFeaturesFinder(Size _grid_size = Size(3, 1), int nfeatures = 1500, float scaleFactor = 1.3f, int nlevels = 5);
 
 private:
-void find(const Mat&image, ImageFeatures&features);
+void find(const Mat &image, ImageFeatures &features);
 
 Ptr<ORB> orb;
 Size     grid_size;
@@ -116,7 +116,7 @@ SurfFeaturesFinderGpu(double hess_thresh = 300., int num_octaves = 3, int num_la
 void collectGarbage();
 
 private:
-void find(const Mat&image, ImageFeatures&features);
+void find(const Mat &image, ImageFeatures &features);
 
 gpu::GpuMat   image_;
 gpu::GpuMat   gray_image_;
@@ -132,8 +132,8 @@ int           num_octaves_descr_, num_layers_descr_;
 struct CV_EXPORTS MatchesInfo
 {
     MatchesInfo();
-    MatchesInfo(const MatchesInfo&other);
-    const MatchesInfo&operator =(const MatchesInfo&other);
+    MatchesInfo(const MatchesInfo &other);
+    const MatchesInfo&operator =(const MatchesInfo &other);
 
     int                 src_img_idx, dst_img_idx; // Images indices (optional)
     std::vector<DMatch> matches;
@@ -149,14 +149,14 @@ class CV_EXPORTS FeaturesMatcher
 public:
 virtual ~FeaturesMatcher() {}
 
-void operator ()(const ImageFeatures&features1, const ImageFeatures&features2,
-                 MatchesInfo&matches_info)
+void operator ()(const ImageFeatures &features1, const ImageFeatures &features2,
+                 MatchesInfo &matches_info)
 {
     match(features1, features2, matches_info);
 }
 
-void operator ()(const std::vector<ImageFeatures>&features, std::vector<MatchesInfo>&pairwise_matches,
-                 const cv::Mat&mask = cv::Mat());
+void operator ()(const std::vector<ImageFeatures> &features, std::vector<MatchesInfo> &pairwise_matches,
+                 const cv::Mat &mask = cv::Mat());
 
 bool isThreadSafe() const
 {
@@ -168,8 +168,8 @@ virtual void collectGarbage() {}
 protected:
 FeaturesMatcher(bool is_thread_safe = false) : is_thread_safe_(is_thread_safe) {}
 
-virtual void match(const ImageFeatures&features1, const ImageFeatures&features2,
-                   MatchesInfo&matches_info) = 0;
+virtual void match(const ImageFeatures &features1, const ImageFeatures &features2,
+                   MatchesInfo &matches_info) = 0;
 
 bool is_thread_safe_;
 };
@@ -184,7 +184,7 @@ BestOf2NearestMatcher(bool try_use_gpu = false, float match_conf = 0.3f, int num
 void collectGarbage();
 
 protected:
-void match(const ImageFeatures&features1, const ImageFeatures&features2, MatchesInfo&matches_info);
+void match(const ImageFeatures &features1, const ImageFeatures &features2, MatchesInfo &matches_info);
 
 int                  num_matches_thresh1_;
 int                  num_matches_thresh2_;

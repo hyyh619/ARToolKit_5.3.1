@@ -50,7 +50,7 @@ namespace cv
   { namespace device
     {
     template<class Func>
-    void printFuncAttrib(Func&func)
+    void printFuncAttrib(Func &func)
     {
         cudaFuncAttributes attrs;
 

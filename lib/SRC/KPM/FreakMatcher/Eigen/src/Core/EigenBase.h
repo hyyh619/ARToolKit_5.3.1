@@ -82,13 +82,13 @@ template<typename Derived> struct EigenBase
     }
 
     /** \internal Don't use it, but do the equivalent: \code dst = *this; \endcode */
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         derived().evalTo(dst);
     }
 
     /** \internal Don't use it, but do the equivalent: \code dst += *this; \endcode */
-    template<typename Dest> inline void addTo(Dest&dst) const
+    template<typename Dest> inline void addTo(Dest &dst) const
     {
         // This is the default implementation,
         // derived class can reimplement it in a more optimized way.
@@ -98,7 +98,7 @@ template<typename Derived> struct EigenBase
     }
 
     /** \internal Don't use it, but do the equivalent: \code dst -= *this; \endcode */
-    template<typename Dest> inline void subTo(Dest&dst) const
+    template<typename Dest> inline void subTo(Dest &dst) const
     {
         // This is the default implementation,
         // derived class can reimplement it in a more optimized way.
@@ -108,7 +108,7 @@ template<typename Derived> struct EigenBase
     }
 
     /** \internal Don't use it, but do the equivalent: \code dst.applyOnTheRight(*this); \endcode */
-    template<typename Dest> inline void applyThisOnTheRight(Dest&dst) const
+    template<typename Dest> inline void applyThisOnTheRight(Dest &dst) const
     {
         // This is the default implementation,
         // derived class can reimplement it in a more optimized way.
@@ -116,7 +116,7 @@ template<typename Derived> struct EigenBase
     }
 
     /** \internal Don't use it, but do the equivalent: \code dst.applyOnTheLeft(*this); \endcode */
-    template<typename Dest> inline void applyThisOnTheLeft(Dest&dst) const
+    template<typename Dest> inline void applyThisOnTheLeft(Dest &dst) const
     {
         // This is the default implementation,
         // derived class can reimplement it in a more optimized way.
@@ -138,7 +138,7 @@ template<typename Derived> struct EigenBase
  */
 template<typename Derived>
 template<typename OtherDerived>
-Derived&DenseBase<Derived>::operator=(const EigenBase<OtherDerived>&other)
+Derived&DenseBase<Derived>::operator=(const EigenBase<OtherDerived> &other)
 {
     other.derived().evalTo(derived());
     return derived();
@@ -146,7 +146,7 @@ Derived&DenseBase<Derived>::operator=(const EigenBase<OtherDerived>&other)
 
 template<typename Derived>
 template<typename OtherDerived>
-Derived&DenseBase<Derived>::operator+=(const EigenBase<OtherDerived>&other)
+Derived&DenseBase<Derived>::operator+=(const EigenBase<OtherDerived> &other)
 {
     other.derived().addTo(derived());
     return derived();
@@ -154,7 +154,7 @@ Derived&DenseBase<Derived>::operator+=(const EigenBase<OtherDerived>&other)
 
 template<typename Derived>
 template<typename OtherDerived>
-Derived&DenseBase<Derived>::operator-=(const EigenBase<OtherDerived>&other)
+Derived&DenseBase<Derived>::operator-=(const EigenBase<OtherDerived> &other)
 {
     other.derived().subTo(derived());
     return derived();
@@ -167,7 +167,7 @@ Derived&DenseBase<Derived>::operator-=(const EigenBase<OtherDerived>&other)
 template<typename Derived>
 template<typename OtherDerived>
 inline Derived&
-MatrixBase<Derived>::operator*=(const EigenBase<OtherDerived>&other)
+MatrixBase<Derived>::operator*=(const EigenBase<OtherDerived> &other)
 {
     other.derived().applyThisOnTheRight(derived());
     return derived();
@@ -176,7 +176,7 @@ MatrixBase<Derived>::operator*=(const EigenBase<OtherDerived>&other)
 /** replaces \c *this by \c *this * \a other. It is equivalent to MatrixBase::operator*=() */
 template<typename Derived>
 template<typename OtherDerived>
-inline void MatrixBase<Derived>::applyOnTheRight(const EigenBase<OtherDerived>&other)
+inline void MatrixBase<Derived>::applyOnTheRight(const EigenBase<OtherDerived> &other)
 {
     other.derived().applyThisOnTheRight(derived());
 }
@@ -184,7 +184,7 @@ inline void MatrixBase<Derived>::applyOnTheRight(const EigenBase<OtherDerived>&o
 /** replaces \c *this by \c *this * \a other. */
 template<typename Derived>
 template<typename OtherDerived>
-inline void MatrixBase<Derived>::applyOnTheLeft(const EigenBase<OtherDerived>&other)
+inline void MatrixBase<Derived>::applyOnTheLeft(const EigenBase<OtherDerived> &other)
 {
     other.derived().applyThisOnTheLeft(derived());
 }

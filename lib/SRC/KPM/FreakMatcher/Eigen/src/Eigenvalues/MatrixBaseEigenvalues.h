@@ -33,7 +33,7 @@ struct eigenvalues_selector
 {
     // this is the implementation for the case IsComplex = true
     static inline typename MatrixBase<Derived>::EigenvaluesReturnType const
-    run(const MatrixBase<Derived>&m)
+    run(const MatrixBase<Derived> &m)
     {
         typedef typename Derived::PlainObject PlainObject;
         PlainObject m_eval(m);
@@ -45,7 +45,7 @@ template<typename Derived>
 struct eigenvalues_selector<Derived, false>
 {
     static inline typename MatrixBase<Derived>::EigenvaluesReturnType const
-    run(const MatrixBase<Derived>&m)
+    run(const MatrixBase<Derived> &m)
     {
         typedef typename Derived::PlainObject PlainObject;
         PlainObject m_eval(m);

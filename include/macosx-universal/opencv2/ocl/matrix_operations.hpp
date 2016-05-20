@@ -64,10 +64,10 @@ class CV_EXPORTS oclMatExpr
 {
 public:
 oclMatExpr() : a(oclMat()), b(oclMat()), op(0) {}
-oclMatExpr(const oclMat&_a, const oclMat&_b, int _op)
+oclMatExpr(const oclMat &_a, const oclMat &_b, int _op)
     : a(_a), b(_b), op(_op) {}
 operator oclMat() const;
-void assign(oclMat&m) const;
+void assign(oclMat &m) const;
 
 protected:
 oclMat a, b;
@@ -91,7 +91,7 @@ inline oclMat::oclMat(Size _size, int _type) : flags(0), rows(0), cols(0), step(
         create(_size.height, _size.width, _type);
 }
 
-inline oclMat::oclMat(int _rows, int _cols, int _type, const Scalar&_s)
+inline oclMat::oclMat(int _rows, int _cols, int _type, const Scalar &_s)
     : flags(0), rows(0), cols(0), step(0), data(0), refcount(0), datastart(0), dataend(0), offset(0), wholerows(0), wholecols(0)
 {
     if (_rows > 0 && _cols > 0)
@@ -101,7 +101,7 @@ inline oclMat::oclMat(int _rows, int _cols, int _type, const Scalar&_s)
     }
 }
 
-inline oclMat::oclMat(Size _size, int _type, const Scalar&_s)
+inline oclMat::oclMat(Size _size, int _type, const Scalar &_s)
     : flags(0), rows(0), cols(0), step(0), data(0), refcount(0), datastart(0), dataend(0), offset(0), wholerows(0), wholecols(0)
 {
     if (_size.height > 0 && _size.width > 0)
@@ -111,7 +111,7 @@ inline oclMat::oclMat(Size _size, int _type, const Scalar&_s)
     }
 }
 
-inline oclMat::oclMat(const oclMat&m)
+inline oclMat::oclMat(const oclMat &m)
     : flags(m.flags), rows(m.rows), cols(m.cols), step(m.step), data(m.data),
     refcount(m.refcount), datastart(m.datastart), dataend(m.dataend), clCxt(m.clCxt), offset(m.offset), wholerows(m.wholerows), wholecols(m.wholecols)
 {
@@ -165,7 +165,7 @@ inline oclMat::oclMat(Size _size, int _type, void *_data, size_t _step)
 }
 
 
-inline oclMat::oclMat(const oclMat&m, const Range&rRange, const Range&cRange)
+inline oclMat::oclMat(const oclMat &m, const Range &rRange, const Range &cRange)
 {
     flags     = m.flags;
     step      = m.step;
@@ -205,7 +205,7 @@ inline oclMat::oclMat(const oclMat&m, const Range&rRange, const Range&cRange)
         rows = cols = 0;
 }
 
-inline oclMat::oclMat(const oclMat&m, const Rect&roi)
+inline oclMat::oclMat(const oclMat &m, const Rect &roi)
     : flags(m.flags), rows(roi.height), cols(roi.width),
     step(m.step), data(m.data), refcount(m.refcount),
     datastart(m.datastart), dataend(m.dataend), clCxt(m.clCxt), offset(m.offset), wholerows(m.wholerows), wholecols(m.wholecols)
@@ -221,7 +221,7 @@ inline oclMat::oclMat(const oclMat&m, const Rect&roi)
         rows = cols = 0;
 }
 
-inline oclMat::oclMat(const Mat&m)
+inline oclMat::oclMat(const Mat &m)
     : flags(0), rows(0), cols(0), step(0), data(0), refcount(0), datastart(0), dataend(0), offset(0), wholerows(0), wholecols(0)
 {
     // clCxt = Context::getContext();
@@ -233,7 +233,7 @@ inline oclMat::~oclMat()
     release();
 }
 
-inline oclMat&oclMat::operator =(const oclMat&m)
+inline oclMat&oclMat::operator =(const oclMat &m)
 {
     if (this != &m)
     {
@@ -258,14 +258,14 @@ inline oclMat&oclMat::operator =(const oclMat&m)
     return *this;
 }
 
-inline oclMat&oclMat::operator =(const Mat&m)
+inline oclMat&oclMat::operator =(const Mat &m)
 {
     // clCxt = Context::getContext();
     upload(m);
     return *this;
 }
 
-inline oclMat&oclMat::operator =(const oclMatExpr&expr)
+inline oclMat&oclMat::operator =(const oclMatExpr &expr)
 {
     expr.assign(*this);
     return *this;
@@ -307,7 +307,7 @@ inline oclMat oclMat::rowRange(int startrow, int endrow) const
 {
     return oclMat(*this, Range(startrow, endrow), Range::all());
 }
-inline oclMat oclMat::rowRange(const Range&r) const
+inline oclMat oclMat::rowRange(const Range &r) const
 {
     return oclMat(*this, r, Range::all());
 }
@@ -315,7 +315,7 @@ inline oclMat oclMat::colRange(int startcol, int endcol) const
 {
     return oclMat(*this, Range::all(), Range(startcol, endcol));
 }
-inline oclMat oclMat::colRange(const Range&r) const
+inline oclMat oclMat::colRange(const Range &r) const
 {
     return oclMat(*this, Range::all(), r);
 }
@@ -332,7 +332,7 @@ inline oclMat oclMat::clone() const
 // CPP void oclMat::copyTo( oclMat& m, const oclMat& mask  ) const;
 // CPP void oclMat::convertTo( oclMat& m, int rtype, double alpha=1, double beta=0 ) const;
 
-inline void oclMat::assignTo(oclMat&m, int mtype) const
+inline void oclMat::assignTo(oclMat &m, int mtype) const
 {
     if (mtype < 0)
         m = *this;
@@ -350,7 +350,7 @@ inline void oclMat::create(Size _size, int _type)
 // CPP void oclMat::create(int _rows, int _cols, int _type);
 // CPP void oclMat::release();
 
-inline void oclMat::swap(oclMat&b)
+inline void oclMat::swap(oclMat &b)
 {
     std::swap(flags, b.flags);
     std::swap(rows, b.rows);
@@ -366,7 +366,7 @@ inline void oclMat::swap(oclMat&b)
     std::swap(wholecols, b.wholecols);
 }
 
-inline void oclMat::locateROI(Size&wholeSize, Point&ofs) const
+inline void oclMat::locateROI(Size &wholeSize, Point &ofs) const
 {
     size_t esz = elemSize();        // , minstep;
 
@@ -414,7 +414,7 @@ inline oclMat oclMat::operator()(Range rRange, Range cRange) const
 {
     return oclMat(*this, rRange, cRange);
 }
-inline oclMat oclMat::operator()(const Rect&roi) const
+inline oclMat oclMat::operator()(const Rect &roi) const
 {
     return oclMat(*this, roi);
 }
@@ -502,12 +502,12 @@ inline oclMat oclMat::t() const
     return tmp;
 }
 
-static inline void swap(oclMat&a, oclMat&b)
+static inline void swap(oclMat &a, oclMat &b)
 {
     a.swap(b);
 }
 
-inline void ensureSizeIsEnough(int rows, int cols, int type, oclMat&m)
+inline void ensureSizeIsEnough(int rows, int cols, int type, oclMat &m)
 {
     if (m.type() == type && m.rows >= rows && m.cols >= cols)
         m = m(Rect(0, 0, cols, rows));
@@ -515,7 +515,7 @@ inline void ensureSizeIsEnough(int rows, int cols, int type, oclMat&m)
         m.create(rows, cols, type);
 }
 
-inline void ensureSizeIsEnough(Size size, int type, oclMat&m)
+inline void ensureSizeIsEnough(Size size, int type, oclMat &m)
 {
     ensureSizeIsEnough(size.height, size.width, type, m);
 }

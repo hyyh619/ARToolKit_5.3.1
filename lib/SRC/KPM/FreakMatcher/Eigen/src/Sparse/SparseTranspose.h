@@ -48,7 +48,7 @@ template<typename MatrixType> class TransposeImpl<MatrixType, Sparse>::InnerIter
 typedef typename _MatrixTypeNested::InnerIterator Base;
 public:
 
-EIGEN_STRONG_INLINE InnerIterator(const TransposeImpl&trans, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const TransposeImpl &trans, Index outer)
     : Base(trans.derived().nestedExpression(), outer)
 {}
 inline Index row() const
@@ -67,7 +67,7 @@ template<typename MatrixType> class TransposeImpl<MatrixType, Sparse>::ReverseIn
 typedef typename _MatrixTypeNested::ReverseInnerIterator Base;
 public:
 
-EIGEN_STRONG_INLINE ReverseInnerIterator(const TransposeImpl&xpr, Index outer)
+EIGEN_STRONG_INLINE ReverseInnerIterator(const TransposeImpl &xpr, Index outer)
     : Base(xpr.derived().nestedExpression(), outer)
 {}
 inline Index row() const

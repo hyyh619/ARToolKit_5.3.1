@@ -240,14 +240,14 @@ inline ScalarWithConstIfNotLvalue&coeffRef(Index index)
 }
 
 template<int StoreMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     internal::pstoret<Scalar, PacketScalar, StoreMode>
         (this->m_data + (col * colStride() + row * rowStride()), x);
 }
 
 template<int StoreMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     EIGEN_STATIC_ASSERT_INDEX_BASED_ACCESS(Derived)
     internal::pstoret<Scalar, PacketScalar, StoreMode>
@@ -258,7 +258,7 @@ explicit inline MapBase(PointerType data) : Base(data) {}
 inline MapBase(PointerType data, Index size) : Base(data, size) {}
 inline MapBase(PointerType data, Index rows, Index cols) : Base(data, rows, cols) {}
 
-Derived&operator=(const MapBase&other)
+Derived&operator=(const MapBase &other)
 {
     Base::Base::operator=(other);
 

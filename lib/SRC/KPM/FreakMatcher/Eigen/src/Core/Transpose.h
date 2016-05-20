@@ -77,7 +77,7 @@ public:
 typedef typename TransposeImpl<MatrixType, typename internal::traits<MatrixType>::StorageKind>::Base Base;
 EIGEN_GENERIC_PUBLIC_INTERFACE(Transpose)
 
-inline Transpose(MatrixType&matrix) : m_matrix(matrix) {}
+inline Transpose(MatrixType &matrix) : m_matrix(matrix) {}
 
 EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Transpose)
 
@@ -191,7 +191,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     derived().nestedExpression().const_cast_derived().template writePacket<LoadMode>(col, row, x);
 }
@@ -203,7 +203,7 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     derived().nestedExpression().const_cast_derived().template writePacket<LoadMode>(index, x);
 }
@@ -286,7 +286,7 @@ struct inplace_transpose_selector;
 
 template<typename MatrixType>
 struct inplace_transpose_selector<MatrixType, true>  // square matrix
-{static void run(MatrixType&m)
+{static void run(MatrixType &m)
  {
      m.template triangularView<StrictlyUpper>().swap(m.transpose());
  }
@@ -294,7 +294,7 @@ struct inplace_transpose_selector<MatrixType, true>  // square matrix
 
 template<typename MatrixType>
 struct inplace_transpose_selector<MatrixType, false>  // non square matrix
-{static void run(MatrixType&m)
+{static void run(MatrixType &m)
  {
      if (m.rows() == m.cols())
          m.template triangularView<StrictlyUpper>().swap(m.transpose());
@@ -367,7 +367,7 @@ struct blas_traits<SelfCwiseBinaryOp<BinOp, NestedXpr, Rhs> >
     : blas_traits<NestedXpr>
 {
     typedef SelfCwiseBinaryOp<BinOp, NestedXpr, Rhs> XprType;
-    static inline const XprType extract(const XprType&x)
+    static inline const XprType extract(const XprType &x)
     {
         return x;
     }
@@ -389,7 +389,7 @@ struct check_transpose_aliasing_compile_time_selector<DestIsTransposed, CwiseBin
 template<typename Scalar, bool DestIsTransposed, typename OtherDerived>
 struct check_transpose_aliasing_run_time_selector
 {
-    static bool run(const Scalar *dest, const OtherDerived&src)
+    static bool run(const Scalar *dest, const OtherDerived &src)
     {
         return (bool(blas_traits<OtherDerived>::IsTransposed) != DestIsTransposed) && (dest != 0 && dest == (Scalar*)extract_data(src));
     }
@@ -398,7 +398,7 @@ struct check_transpose_aliasing_run_time_selector
 template<typename Scalar, bool DestIsTransposed, typename BinOp, typename DerivedA, typename DerivedB>
 struct check_transpose_aliasing_run_time_selector<Scalar, DestIsTransposed, CwiseBinaryOp<BinOp, DerivedA, DerivedB> >
 {
-    static bool run(const Scalar *dest, const CwiseBinaryOp<BinOp, DerivedA, DerivedB>&src)
+    static bool run(const Scalar *dest, const CwiseBinaryOp<BinOp, DerivedA, DerivedB> &src)
     {
         return ((blas_traits<DerivedA>::IsTransposed != DestIsTransposed) && (dest != 0 && dest == (Scalar*)extract_data(src.lhs())))
                || ((blas_traits<DerivedB>::IsTransposed != DestIsTransposed) && (dest != 0 && dest == (Scalar*)extract_data(src.rhs())));
@@ -418,7 +418,7 @@ template<typename Derived, typename OtherDerived,
              >
 struct checkTransposeAliasing_impl
 {
-    static void run(const Derived&dst, const OtherDerived&other)
+    static void run(const Derived &dst, const OtherDerived &other)
     {
         eigen_assert((!check_transpose_aliasing_run_time_selector
                       <typename Derived::Scalar, blas_traits<Derived>::IsTransposed, OtherDerived>
@@ -438,7 +438,7 @@ struct checkTransposeAliasing_impl<Derived, OtherDerived, false>
 
 template<typename Derived>
 template<typename OtherDerived>
-void DenseBase<Derived>::checkTransposeAliasing(const OtherDerived&other) const
+void DenseBase<Derived>::checkTransposeAliasing(const OtherDerived &other) const
 {
     internal::checkTransposeAliasing_impl<Derived, OtherDerived>::run(derived(), other);
 }

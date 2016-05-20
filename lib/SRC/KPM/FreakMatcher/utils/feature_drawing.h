@@ -66,7 +66,7 @@ inline void RotationMatrix2x2(T R[4], T angle)
     R[2] = s;   R[3] = c;
 }
 
-void DrawPolygon(cv::Mat&outImg, const std::vector<cv::Point2f>&points, const cv::Scalar&color)
+void DrawPolygon(cv::Mat &outImg, const std::vector<cv::Point2f> &points, const cv::Scalar &color)
 {
     int                    npts = (int)points.size();
     std::vector<cv::Point> cvpoints(points.size());
@@ -81,9 +81,9 @@ void DrawPolygon(cv::Mat&outImg, const std::vector<cv::Point2f>&points, const cv
     cv::polylines(outImg, &pts, &npts, 1, 1, color);
 }
 
-void RotatePoints(std::vector<cv::Point2f>&xp,
-                  const std::vector<cv::Point2f>&x,
-                  const cv::Point&center,
+void RotatePoints(std::vector<cv::Point2f> &xp,
+                  const std::vector<cv::Point2f> &x,
+                  const cv::Point &center,
                   float angle)
 {
     float R[4];
@@ -107,7 +107,7 @@ void RotatePoints(std::vector<cv::Point2f>&xp,
 
 namespace vision
 {
-void MakeCircleTestImage(Image&im)
+void MakeCircleTestImage(Image &im)
 {
     im.alloc(IMAGE_UINT8, 512, 512, 512, 1);
     cv::Mat cvim = ImageUtils::toOpenCV(im);
@@ -124,7 +124,7 @@ void MakeCircleTestImage(Image&im)
     }
 }
 
-void DrawSquareFeature(cv::Mat&outImg, const FeaturePoint&p, const cv::Scalar&color)
+void DrawSquareFeature(cv::Mat &outImg, const FeaturePoint &p, const cv::Scalar &color)
 {
     float radius = max2<float>(p.scale, 1);
 
@@ -150,7 +150,7 @@ void DrawSquareFeature(cv::Mat&outImg, const FeaturePoint&p, const cv::Scalar&co
     DrawPolygon(outImg, xp, color);
 }
 
-void DrawHomography(cv::Mat&dst, const float H[9], int width, int height, const cv::Scalar&color)
+void DrawHomography(cv::Mat &dst, const float H[9], int width, int height, const cv::Scalar &color)
 {
     float xp[4];
     float yp[4];
@@ -166,12 +166,12 @@ void DrawHomography(cv::Mat&dst, const float H[9], int width, int height, const 
     cv::line(dst, cv::Point(xp[3], yp[3]), cv::Point(xp[0], yp[0]), color, 2);
 }
 
-void DrawMatches(cv::Mat&dst,
-                 const cv::Mat&ref,
-                 const cv::Mat&ins,
-                 const std::vector<FeaturePoint>&refPoints,
-                 const std::vector<FeaturePoint>&insPoints,
-                 const matches_t&matches,
+void DrawMatches(cv::Mat &dst,
+                 const cv::Mat &ref,
+                 const cv::Mat &ins,
+                 const std::vector<FeaturePoint> &refPoints,
+                 const std::vector<FeaturePoint> &insPoints,
+                 const matches_t &matches,
                  const float H[9],
                  int refWidth,
                  int refHeight)
@@ -203,8 +203,8 @@ void DrawMatches(cv::Mat&dst,
 
     for (size_t i = 0; i < matches.size(); i++)
     {
-        const FeaturePoint&refFeature = refPoints[matches[i].ref];
-        const FeaturePoint&insFeature = insPoints[matches[i].ins];
+        const FeaturePoint &refFeature = refPoints[matches[i].ref];
+        const FeaturePoint &insFeature = insPoints[matches[i].ins];
 
         int r = FastRandom(seed) % 256;
         int g = FastRandom(seed) % 256;
@@ -236,7 +236,7 @@ void DrawMatches(cv::Mat&dst,
     }
 }
 
-void DrawFeatures(cv::Mat&im, const std::vector<FeaturePoint>&features)
+void DrawFeatures(cv::Mat &im, const std::vector<FeaturePoint> &features)
 {
     int seed = 1234;
 
@@ -249,9 +249,9 @@ void DrawFeatures(cv::Mat&im, const std::vector<FeaturePoint>&features)
     }
 }
 
-void DrawFreakFeature(cv::Mat&im,
-                      const std::vector<FeaturePoint>&points,
-                      const FREAKExtractor&extractor,
+void DrawFreakFeature(cv::Mat &im,
+                      const std::vector<FeaturePoint> &points,
+                      const FREAKExtractor &extractor,
                       size_t i)
 {
 #ifdef FREAK_DEBUG
@@ -295,7 +295,7 @@ void DrawFreakFeature(cv::Mat&im,
 #endif
 }
 
-void DrawText(cv::Mat&im, const std::string&text, const cv::Point&p)
+void DrawText(cv::Mat &im, const std::string &text, const cv::Point &p)
 {
     using namespace cv;
 

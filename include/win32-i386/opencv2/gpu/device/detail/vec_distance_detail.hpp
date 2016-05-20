@@ -54,7 +54,7 @@ namespace cv
     template<int THREAD_DIM, int N> struct UnrollVecDiffCached
     {
         template<typename Dist, typename T1, typename T2>
-        static __device__ void calcCheck(const T1 *vecCached, const T2 *vecGlob, int len, Dist&dist, int ind)
+        static __device__ void calcCheck(const T1 *vecCached, const T2 *vecGlob, int len, Dist &dist, int ind)
         {
             if (ind < len)
             {
@@ -70,7 +70,7 @@ namespace cv
         }
 
         template<typename Dist, typename T1, typename T2>
-        static __device__ void calcWithoutCheck(const T1 *vecCached, const T2 *vecGlob, Dist&dist)
+        static __device__ void calcWithoutCheck(const T1 *vecCached, const T2 *vecGlob, Dist &dist)
         {
             T1 val1 = *vecCached++;
 
@@ -99,7 +99,7 @@ namespace cv
     template<int THREAD_DIM, int MAX_LEN> struct VecDiffCachedCalculator<THREAD_DIM, MAX_LEN, false>
     {
         template<typename Dist, typename T1, typename T2>
-        static __device__ __forceinline__ void calc(const T1 *vecCached, const T2 *vecGlob, int len, Dist&dist, int tid)
+        static __device__ __forceinline__ void calc(const T1 *vecCached, const T2 *vecGlob, int len, Dist &dist, int tid)
         {
             UnrollVecDiffCached<THREAD_DIM, MAX_LEN / THREAD_DIM>::calcCheck(vecCached, vecGlob, len, dist, tid);
         }
@@ -107,7 +107,7 @@ namespace cv
     template<int THREAD_DIM, int MAX_LEN> struct VecDiffCachedCalculator<THREAD_DIM, MAX_LEN, true>
     {
         template<typename Dist, typename T1, typename T2>
-        static __device__ __forceinline__ void calc(const T1 *vecCached, const T2 *vecGlob, int len, Dist&dist, int tid)
+        static __device__ __forceinline__ void calc(const T1 *vecCached, const T2 *vecGlob, int len, Dist &dist, int tid)
         {
             UnrollVecDiffCached<THREAD_DIM, MAX_LEN / THREAD_DIM>::calcWithoutCheck(vecCached, vecGlob + tid, dist);
         }

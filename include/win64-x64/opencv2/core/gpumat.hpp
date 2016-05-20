@@ -141,7 +141,7 @@ public:
 
   size_t sharedMemPerBlock() const;
 
-  void queryMemory(size_t&totalMemory, size_t&freeMemory) const;
+  void queryMemory(size_t &totalMemory, size_t &freeMemory) const;
   size_t freeMemory() const;
   size_t totalMemory() const;
 
@@ -188,30 +188,30 @@ public:
   GpuMat(Size size, int type, Scalar s);
 
   // ! copy constructor
-  GpuMat(const GpuMat&m);
+  GpuMat(const GpuMat &m);
 
   // ! constructor for GpuMatrix headers pointing to user-allocated data
   GpuMat(int rows, int cols, int type, void *data, size_t step = Mat::AUTO_STEP);
   GpuMat(Size size, int type, void *data, size_t step = Mat::AUTO_STEP);
 
   // ! creates a matrix header for a part of the bigger matrix
-  GpuMat(const GpuMat&m, Range rowRange, Range colRange);
-  GpuMat(const GpuMat&m, Rect roi);
+  GpuMat(const GpuMat &m, Range rowRange, Range colRange);
+  GpuMat(const GpuMat &m, Rect roi);
 
   // ! builds GpuMat from Mat. Perfom blocking upload to device.
-  explicit GpuMat(const Mat&m);
+  explicit GpuMat(const Mat &m);
 
   // ! destructor - calls release()
   ~GpuMat();
 
   // ! assignment operators
-  GpuMat&operator =(const GpuMat&m);
+  GpuMat&operator =(const GpuMat &m);
 
   // ! pefroms blocking upload data to GpuMat.
-  void upload(const Mat&m);
+  void upload(const Mat &m);
 
   // ! downloads data from device to host memory. Blocking calls.
-  void download(Mat&m) const;
+  void download(Mat &m) const;
 
   // ! returns a new GpuMatrix header for the specified row
   GpuMat row(int y) const;
@@ -228,18 +228,18 @@ public:
   GpuMat clone() const;
   // ! copies the GpuMatrix content to "m".
   // It calls m.create(this->size(), this->type()).
-  void copyTo(GpuMat&m) const;
+  void copyTo(GpuMat &m) const;
   // ! copies those GpuMatrix elements to "m" that are marked with non-zero mask elements.
-  void copyTo(GpuMat&m, const GpuMat&mask) const;
+  void copyTo(GpuMat &m, const GpuMat &mask) const;
   // ! converts GpuMatrix to another datatype with optional scalng. See cvConvertScale.
-  void convertTo(GpuMat&m, int rtype, double alpha = 1, double beta = 0) const;
+  void convertTo(GpuMat &m, int rtype, double alpha = 1, double beta = 0) const;
 
-  void assignTo(GpuMat&m, int type = -1) const;
+  void assignTo(GpuMat &m, int type = -1) const;
 
   // ! sets every GpuMatrix element to s
   GpuMat&operator =(Scalar s);
   // ! sets some of the GpuMatrix elements to s, according to the mask
-  GpuMat&setTo(Scalar s, const GpuMat&mask = GpuMat());
+  GpuMat&setTo(Scalar s, const GpuMat &mask = GpuMat());
   // ! creates alternative GpuMatrix header for the same data, with different
   // number of channels and/or different number of rows. see cvReshape.
   GpuMat reshape(int cn, int rows = 0) const;
@@ -253,10 +253,10 @@ public:
   void release();
 
   // ! swaps with other smart pointer
-  void swap(GpuMat&mat);
+  void swap(GpuMat &mat);
 
   // ! locates GpuMatrix header within a parent GpuMatrix. See below
-  void locateROI(Size&wholeSize, Point&ofs) const;
+  void locateROI(Size &wholeSize, Point &ofs) const;
   // ! moves/resizes the current GpuMatrix ROI inside the parent GpuMatrix.
   GpuMat&adjustROI(int dtop, int dbottom, int dleft, int dright);
   // ! extracts a rectangular sub-GpuMatrix
@@ -331,17 +331,17 @@ public:
   };
 
   // ! Creates continuous GPU matrix
-  CV_EXPORTS void createContinuous(int rows, int cols, int type, GpuMat&m);
+  CV_EXPORTS void createContinuous(int rows, int cols, int type, GpuMat &m);
   CV_EXPORTS GpuMat createContinuous(int rows, int cols, int type);
-  CV_EXPORTS void createContinuous(Size size, int type, GpuMat&m);
+  CV_EXPORTS void createContinuous(Size size, int type, GpuMat &m);
   CV_EXPORTS GpuMat createContinuous(Size size, int type);
 
   // ! Ensures that size of the given matrix is not less than (rows, cols) size
   // ! and matrix type is match specified one too
-  CV_EXPORTS void ensureSizeIsEnough(int rows, int cols, int type, GpuMat&m);
-  CV_EXPORTS void ensureSizeIsEnough(Size size, int type, GpuMat&m);
+  CV_EXPORTS void ensureSizeIsEnough(int rows, int cols, int type, GpuMat &m);
+  CV_EXPORTS void ensureSizeIsEnough(Size size, int type, GpuMat &m);
 
-  CV_EXPORTS GpuMat allocMatFromBuf(int rows, int cols, int type, GpuMat&mat);
+  CV_EXPORTS GpuMat allocMatFromBuf(int rows, int cols, int type, GpuMat &mat);
 
   ////////////////////////////////////////////////////////////////////////
   // Error handling
@@ -403,7 +403,7 @@ public:
       return m;
   }
 
-  inline void GpuMat::assignTo(GpuMat&m, int _type) const
+  inline void GpuMat::assignTo(GpuMat &m, int _type) const
   {
       if (_type < 0)
           m = *this;
@@ -431,7 +431,7 @@ public:
       return (const _Tp*)ptr(y);
   }
 
-  inline void swap(GpuMat&a, GpuMat&b)
+  inline void swap(GpuMat &a, GpuMat &b)
   {
       a.swap(b);
   }
@@ -562,7 +562,7 @@ public:
       return m;
   }
 
-  inline void createContinuous(Size size, int type, GpuMat&m)
+  inline void createContinuous(Size size, int type, GpuMat &m)
   {
       createContinuous(size.height, size.width, type, m);
   }
@@ -575,7 +575,7 @@ public:
       return m;
   }
 
-  inline void ensureSizeIsEnough(Size size, int type, GpuMat&m)
+  inline void ensureSizeIsEnough(Size size, int type, GpuMat &m)
   {
       ensureSizeIsEnough(size.height, size.width, type, m);
   }

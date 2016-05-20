@@ -56,7 +56,7 @@ virtual ~WindowsMediaCapture(void);
 // Setup/tear down functions
 bool StartCapture(int width,
                   int height,
-                  Platform::String ^ pixelFormat = Windows::Media::MediaProperties::MediaEncodingSubtypes::Rgb24,                         // Raw formats: Rgb24, Rgb32, Nv12, Argb32, Bgra8, Yv12, Yuy2, Iyuv
+                  Platform::String ^pixelFormat = Windows::Media::MediaProperties::MediaEncodingSubtypes::Rgb24,                          // Raw formats: Rgb24, Rgb32, Nv12, Argb32, Bgra8, Yv12, Yuy2, Iyuv
                   int preferredDeviceIndex = 0,
                   Windows::Devices::Enumeration::Panel preferredLocation = Windows::Devices::Enumeration::Panel::Unknown,
                   void (*errorCallback)(void*) = NULL,
@@ -78,27 +78,27 @@ void WindowsMediaCapture::showSettings(void);
 
 private:
 // Disable Copy ctor and assignment
-WindowsMediaCapture(const WindowsMediaCapture&other)                  = delete; // Copy constructor not implemented.
-auto operator=(const WindowsMediaCapture&other)->WindowsMediaCapture& = delete;            // Copy assignment operator not implemented.
+WindowsMediaCapture(const WindowsMediaCapture &other)                  = delete; // Copy constructor not implemented.
+auto operator=(const WindowsMediaCapture &other)->WindowsMediaCapture& = delete;            // Copy assignment operator not implemented.
 // Disable Move ctor and assignment
 WindowsMediaCapture(WindowsMediaCapture&&)                  = delete;
 auto operator=(WindowsMediaCapture&&)->WindowsMediaCapture& = delete;
 
 bool initDevices();
-void _GrabFrameAsync(Media::CaptureFrameGrabber ^ frameGrabber);
+void _GrabFrameAsync(Media::CaptureFrameGrabber ^frameGrabber);
 
-bool m_started;
-int  m_width;
-int  m_height;
-int  m_Bpp;
-bool m_flipV;
-Platform::String ^ m_pixelFormat;
+bool                                                                        m_started;
+int                                                                         m_width;
+int                                                                         m_height;
+int                                                                         m_Bpp;
+bool                                                                        m_flipV;
+Platform::String                                                            ^m_pixelFormat;
 Platform::Agile<Windows::Devices::Enumeration::DeviceInformationCollection> m_devices;
 Platform::Agile<Windows::Media::Capture::MediaCapture>                      m_mediaCapture;
 int                                                                         m_deviceIndex;
 Windows::Devices::Enumeration::Panel                                        m_deviceLocation;
 std::string                                                                 m_deviceName;
-::Media::CaptureFrameGrabber ^ m_frameGrabber;
+::Media::CaptureFrameGrabber ^m_frameGrabber;
 bool                    m_frameGrabberInited;
 long                    m_frameCountIn;
 long                    m_frameCountOut;

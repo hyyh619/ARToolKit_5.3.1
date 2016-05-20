@@ -225,7 +225,7 @@ _Scalar&AmbiVector<_Scalar, _Index>::coeffRef(_Index i)
         else if (i < llElements[m_llStart].index)
         {
             // this is going to be the new first element of the list
-            ListEl&el = llElements[m_llSize];
+            ListEl &el = llElements[m_llSize];
             el.value  = Scalar(0);
             el.index  = i;
             el.next   = m_llStart;
@@ -260,7 +260,7 @@ _Scalar&AmbiVector<_Scalar, _Index>::coeffRef(_Index i)
 
                 eigen_internal_assert(m_llSize < m_allocatedElements && "internal error: overflow in sparse mode");
                 // let's insert a new coefficient
-                ListEl&el = llElements[m_llSize];
+                ListEl &el = llElements[m_llSize];
                 el.value                     = Scalar(0);
                 el.index                     = i;
                 el.next                      = llElements[m_llCurrent].next;
@@ -314,7 +314,7 @@ typedef typename NumTraits<Scalar>::Real RealScalar;
  * In practice, all coefficients having a magnitude smaller than \a epsilon
  * are skipped.
  */
-Iterator(const AmbiVector&vec, RealScalar epsilon = RealScalar(0.1) * NumTraits<RealScalar>::dummy_precision())
+Iterator(const AmbiVector &vec, RealScalar epsilon = RealScalar(0.1) * NumTraits<RealScalar>::dummy_precision())
     : m_vector(vec)
 {
     m_epsilon = epsilon;
@@ -398,11 +398,11 @@ Iterator&operator++()
 }
 
 protected:
-const AmbiVector&m_vector;      // the target vector
-Index           m_currentEl;      // the current element in sparse/linked-list mode
-RealScalar      m_epsilon;      // epsilon used to prune zero coefficients
-Index           m_cachedIndex;    // current coordinate
-Scalar          m_cachedValue;  // current value
-bool            m_isDense;      // mode of the vector
+const AmbiVector &m_vector;      // the target vector
+Index            m_currentEl;     // the current element in sparse/linked-list mode
+RealScalar       m_epsilon;     // epsilon used to prune zero coefficients
+Index            m_cachedIndex;   // current coordinate
+Scalar           m_cachedValue; // current value
+bool             m_isDense;     // mode of the vector
 };
 #endif // EIGEN_AMBIVECTOR_H

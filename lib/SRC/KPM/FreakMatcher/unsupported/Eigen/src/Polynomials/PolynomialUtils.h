@@ -38,7 +38,7 @@
  */
 template<typename Polynomials, typename T>
 inline
-T poly_eval_horner(const Polynomials&poly, const T&x)
+T poly_eval_horner(const Polynomials &poly, const T &x)
 {
     T val = poly[poly.size() - 1];
 
@@ -60,7 +60,7 @@ T poly_eval_horner(const Polynomials&poly, const T&x)
  */
 template<typename Polynomials, typename T>
 inline
-T poly_eval(const Polynomials&poly, const T&x)
+T poly_eval(const Polynomials &poly, const T &x)
 {
     typedef typename NumTraits<T>::Real Real;
 
@@ -94,7 +94,7 @@ T poly_eval(const Polynomials&poly, const T&x)
  */
 template<typename Polynomial>
 inline
-typename NumTraits<typename Polynomial::Scalar>::Real cauchy_max_bound(const Polynomial&poly)
+typename NumTraits<typename Polynomial::Scalar>::Real cauchy_max_bound(const Polynomial &poly)
 {
     typedef typename Polynomial::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real Real;
@@ -119,7 +119,7 @@ typename NumTraits<typename Polynomial::Scalar>::Real cauchy_max_bound(const Pol
  */
 template<typename Polynomial>
 inline
-typename NumTraits<typename Polynomial::Scalar>::Real cauchy_min_bound(const Polynomial&poly)
+typename NumTraits<typename Polynomial::Scalar>::Real cauchy_min_bound(const Polynomial &poly)
 {
     typedef typename Polynomial::Scalar Scalar;
     typedef typename NumTraits<Scalar>::Real Real;
@@ -158,7 +158,7 @@ typename NumTraits<typename Polynomial::Scalar>::Real cauchy_min_bound(const Pol
  *  e.g. \f$ 3 + x^2 \f$ is stored as a vector \f$ [ 3, 0, 1 ] \f$.
  */
 template<typename RootVector, typename Polynomial>
-void roots_to_monicPolynomial(const RootVector&rv, Polynomial&poly)
+void roots_to_monicPolynomial(const RootVector &rv, Polynomial &poly)
 {
     typedef typename Polynomial::Scalar Scalar;
 

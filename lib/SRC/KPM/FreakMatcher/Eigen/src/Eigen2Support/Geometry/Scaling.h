@@ -66,19 +66,19 @@ public:
 /** Default constructor without initialization. */
 Scaling() {}
 /** Constructs and initialize a uniform scaling transformation */
-explicit inline Scaling(const Scalar&s)
+explicit inline Scaling(const Scalar &s)
 {
     m_coeffs.setConstant(s);
 }
 /** 2D only */
-inline Scaling(const Scalar&sx, const Scalar&sy)
+inline Scaling(const Scalar &sx, const Scalar &sy)
 {
     ei_assert(Dim == 2);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
 }
 /** 3D only */
-inline Scaling(const Scalar&sx, const Scalar&sy, const Scalar&sz)
+inline Scaling(const Scalar &sx, const Scalar &sy, const Scalar &sz)
 {
     ei_assert(Dim == 3);
     m_coeffs.x() = sx;
@@ -86,7 +86,7 @@ inline Scaling(const Scalar&sx, const Scalar&sy, const Scalar&sz)
     m_coeffs.z() = sz;
 }
 /** Constructs and initialize the scaling transformation from a vector of scaling coefficients */
-explicit inline Scaling(const VectorType&coeffs) : m_coeffs(coeffs) {}
+explicit inline Scaling(const VectorType &coeffs) : m_coeffs(coeffs) {}
 
 const VectorType&coeffs() const
 {
@@ -98,39 +98,39 @@ VectorType&coeffs()
 }
 
 /** Concatenates two scaling */
-inline Scaling operator*(const Scaling&other) const
+inline Scaling operator*(const Scaling &other) const
 {
     return Scaling(coeffs().cwise() * other.coeffs());
 }
 
 /** Concatenates a scaling and a translation */
-inline TransformType operator*(const TranslationType&t) const;
+inline TransformType operator*(const TranslationType &t) const;
 
 /** Concatenates a scaling and an affine transformation */
-inline TransformType operator*(const TransformType&t) const;
+inline TransformType operator*(const TransformType &t) const;
 
 /** Concatenates a scaling and a linear transformation matrix */
 // TODO returns an expression
-inline LinearMatrixType operator*(const LinearMatrixType&other) const
+inline LinearMatrixType operator*(const LinearMatrixType &other) const
 {
     return coeffs().asDiagonal() * other;
 }
 
 /** Concatenates a linear transformation matrix and a scaling */
 // TODO returns an expression
-friend inline LinearMatrixType operator*(const LinearMatrixType&other, const Scaling&s)
+friend inline LinearMatrixType operator*(const LinearMatrixType &other, const Scaling &s)
 {
     return other * s.coeffs().asDiagonal();
 }
 
 template<typename Derived>
-inline LinearMatrixType operator*(const RotationBase<Derived, Dim>&r) const
+inline LinearMatrixType operator*(const RotationBase<Derived, Dim> &r) const
 {
     return *this * r.toRotationMatrix();
 }
 
 /** Applies scaling to vector */
-inline VectorType operator*(const VectorType&other) const
+inline VectorType operator*(const VectorType &other) const
 {
     return coeffs().asDiagonal() * other;
 }
@@ -141,7 +141,7 @@ inline Scaling inverse() const
     return Scaling(coeffs().cwise().inverse());
 }
 
-inline Scaling&operator=(const Scaling&other)
+inline Scaling&operator=(const Scaling &other)
 {
     m_coeffs = other.m_coeffs;
     return *this;
@@ -160,7 +160,7 @@ inline typename internal::cast_return_type<Scaling, Scaling<NewScalarType, Dim> 
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Scaling(const Scaling<OtherScalarType, Dim>&other)
+inline explicit Scaling(const Scaling<OtherScalarType, Dim> &other)
 {
     m_coeffs = other.coeffs().template cast<Scalar>();
 }
@@ -169,7 +169,7 @@ inline explicit Scaling(const Scaling<OtherScalarType, Dim>&other)
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Scaling&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const Scaling &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_coeffs.isApprox(other.m_coeffs, prec);
 }
@@ -185,7 +185,7 @@ typedef Scaling<double, 3> Scaling3d;
 
 template<typename Scalar, int Dim>
 inline typename Scaling<Scalar, Dim>::TransformType
-Scaling<Scalar, Dim>::operator*(const TranslationType&t) const
+Scaling<Scalar, Dim>::operator*(const TranslationType &t) const
 {
     TransformType res;
 
@@ -198,7 +198,7 @@ Scaling<Scalar, Dim>::operator*(const TranslationType&t) const
 
 template<typename Scalar, int Dim>
 inline typename Scaling<Scalar, Dim>::TransformType
-Scaling<Scalar, Dim>::operator*(const TransformType&t) const
+Scaling<Scalar, Dim>::operator*(const TransformType &t) const
 {
     TransformType res = t;
 

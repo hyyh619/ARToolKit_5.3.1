@@ -67,7 +67,7 @@ struct selfadjoint_product_selector;
 template<typename MatrixType, typename OtherType, int UpLo>
 struct selfadjoint_product_selector<MatrixType, OtherType, UpLo, true>
 {
-    static void run(MatrixType&mat, const OtherType&other, typename MatrixType::Scalar alpha)
+    static void run(MatrixType &mat, const OtherType &other, typename MatrixType::Scalar alpha)
     {
         typedef typename MatrixType::Scalar Scalar;
         typedef typename MatrixType::Index Index;
@@ -101,7 +101,7 @@ struct selfadjoint_product_selector<MatrixType, OtherType, UpLo, true>
 template<typename MatrixType, typename OtherType, int UpLo>
 struct selfadjoint_product_selector<MatrixType, OtherType, UpLo, false>
 {
-    static void run(MatrixType&mat, const OtherType&other, typename MatrixType::Scalar alpha)
+    static void run(MatrixType &mat, const OtherType &other, typename MatrixType::Scalar alpha)
     {
         typedef typename MatrixType::Scalar Scalar;
         typedef typename MatrixType::Index Index;
@@ -129,7 +129,7 @@ struct selfadjoint_product_selector<MatrixType, OtherType, UpLo, false>
 template<typename MatrixType, unsigned int UpLo>
 template<typename DerivedU>
 SelfAdjointView<MatrixType, UpLo>&SelfAdjointView<MatrixType, UpLo>
-::rankUpdate(const MatrixBase<DerivedU>&u, Scalar alpha)
+::rankUpdate(const MatrixBase<DerivedU> &u, Scalar alpha)
 {
     selfadjoint_product_selector<MatrixType, DerivedU, UpLo>::run(_expression().const_cast_derived(), u.derived(), alpha);
 

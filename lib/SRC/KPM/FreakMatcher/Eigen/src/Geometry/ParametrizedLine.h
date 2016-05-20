@@ -58,7 +58,7 @@ typedef Matrix<Scalar, AmbientDimAtCompileTime, 1, Options> VectorType;
 inline explicit ParametrizedLine() {}
 
 template<int OtherOptions>
-ParametrizedLine(const ParametrizedLine<Scalar, AmbientDimAtCompileTime, OtherOptions>&other)
+ParametrizedLine(const ParametrizedLine<Scalar, AmbientDimAtCompileTime, OtherOptions> &other)
     : m_origin(other.origin()), m_direction(other.direction())
 {}
 
@@ -69,14 +69,14 @@ inline explicit ParametrizedLine(Index _dim) : m_origin(_dim), m_direction(_dim)
 /** Initializes a parametrized line of direction \a direction and origin \a origin.
  * \warning the vector direction is assumed to be normalized.
  */
-ParametrizedLine(const VectorType&origin, const VectorType&direction)
+ParametrizedLine(const VectorType &origin, const VectorType &direction)
     : m_origin(origin), m_direction(direction) {}
 
 template<int OtherOptions>
-explicit ParametrizedLine(const Hyperplane<_Scalar, _AmbientDim, OtherOptions>&hyperplane);
+explicit ParametrizedLine(const Hyperplane<_Scalar, _AmbientDim, OtherOptions> &hyperplane);
 
 /** Constructs a parametrized line going from \a p0 to \a p1. */
-static inline ParametrizedLine Through(const VectorType&p0, const VectorType&p1)
+static inline ParametrizedLine Through(const VectorType &p0, const VectorType &p1)
 {
     return ParametrizedLine(p0, (p1 - p0).normalized());
 }
@@ -110,7 +110,7 @@ VectorType&direction()
 /** \returns the squared distance of a point \a p to its projection onto the line \c *this.
  * \sa distance()
  */
-RealScalar squaredDistance(const VectorType&p) const
+RealScalar squaredDistance(const VectorType &p) const
 {
     VectorType diff = p - origin();
 
@@ -119,19 +119,19 @@ RealScalar squaredDistance(const VectorType&p) const
 /** \returns the distance of a point \a p to its projection onto the line \c *this.
  * \sa squaredDistance()
  */
-RealScalar distance(const VectorType&p) const
+RealScalar distance(const VectorType &p) const
 {
     return internal::sqrt(squaredDistance(p));
 }
 
 /** \returns the projection of a point \a p onto the line \c *this. */
-VectorType projection(const VectorType&p) const
+VectorType projection(const VectorType &p) const
 {
     return origin() + direction().dot(p - origin()) * direction();
 }
 
 template<int OtherOptions>
-Scalar intersection(const Hyperplane<_Scalar, _AmbientDim, OtherOptions>&hyperplane) const;
+Scalar intersection(const Hyperplane<_Scalar, _AmbientDim, OtherOptions> &hyperplane) const;
 
 /** \returns \c *this with scalar type casted to \a NewScalarType
  *
@@ -148,7 +148,7 @@ inline typename internal::cast_return_type<ParametrizedLine,
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType, int OtherOptions>
-inline explicit ParametrizedLine(const ParametrizedLine<OtherScalarType, AmbientDimAtCompileTime, OtherOptions>&other)
+inline explicit ParametrizedLine(const ParametrizedLine<OtherScalarType, AmbientDimAtCompileTime, OtherOptions> &other)
 {
     m_origin    = other.origin().template cast<Scalar>();
     m_direction = other.direction().template cast<Scalar>();
@@ -158,7 +158,7 @@ inline explicit ParametrizedLine(const ParametrizedLine<OtherScalarType, Ambient
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const ParametrizedLine&other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const ParametrizedLine &other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return m_origin.isApprox(other.m_origin, prec) && m_direction.isApprox(other.m_direction, prec);
 }
@@ -174,7 +174,7 @@ VectorType m_origin, m_direction;
  */
 template<typename _Scalar, int _AmbientDim, int _Options>
 template<int OtherOptions>
-inline ParametrizedLine<_Scalar, _AmbientDim, _Options>::ParametrizedLine(const Hyperplane<_Scalar, _AmbientDim, OtherOptions>&hyperplane)
+inline ParametrizedLine<_Scalar, _AmbientDim, _Options>::ParametrizedLine(const Hyperplane<_Scalar, _AmbientDim, OtherOptions> &hyperplane)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(VectorType, 2)
     direction() = hyperplane.normal().unitOrthogonal();
@@ -185,7 +185,7 @@ inline ParametrizedLine<_Scalar, _AmbientDim, _Options>::ParametrizedLine(const 
  */
 template<typename _Scalar, int _AmbientDim, int _Options>
 template<int OtherOptions>
-inline _Scalar ParametrizedLine<_Scalar, _AmbientDim, _Options>::intersection(const Hyperplane<_Scalar, _AmbientDim, OtherOptions>&hyperplane) const
+inline _Scalar ParametrizedLine<_Scalar, _AmbientDim, _Options>::intersection(const Hyperplane<_Scalar, _AmbientDim, OtherOptions> &hyperplane) const
 {
     return -(hyperplane.offset() + hyperplane.normal().dot(origin()))
            / hyperplane.normal().dot(direction());

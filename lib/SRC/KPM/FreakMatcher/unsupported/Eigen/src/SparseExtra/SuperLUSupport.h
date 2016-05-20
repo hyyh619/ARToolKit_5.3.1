@@ -106,14 +106,14 @@ struct SluMatrix : SuperMatrix
         Store = &storage;
     }
 
-    SluMatrix(const SluMatrix&other)
+    SluMatrix(const SluMatrix &other)
         : SuperMatrix(other)
     {
         Store   = &storage;
         storage = other.storage;
     }
 
-    SluMatrix&operator=(const SluMatrix&other)
+    SluMatrix&operator=(const SluMatrix &other)
     {
         SuperMatrix::operator=(static_cast<const SuperMatrix&>(other));
 
@@ -160,7 +160,7 @@ struct SluMatrix : SuperMatrix
     }
 
     template<typename Scalar, int Rows, int Cols, int Options, int MRows, int MCols>
-    static SluMatrix Map(Matrix<Scalar, Rows, Cols, Options, MRows, MCols>&mat)
+    static SluMatrix Map(Matrix<Scalar, Rows, Cols, Options, MRows, MCols> &mat)
     {
         typedef Matrix<Scalar, Rows, Cols, Options, MRows, MCols> MatrixType;
         eigen_assert(((Options & RowMajor) != RowMajor) && "row-major dense matrices is not supported by SuperLU");
@@ -178,7 +178,7 @@ struct SluMatrix : SuperMatrix
     }
 
     template<typename MatrixType>
-    static SluMatrix Map(SparseMatrixBase<MatrixType>&mat)
+    static SluMatrix Map(SparseMatrixBase<MatrixType> &mat)
     {
         SluMatrix res;
 
@@ -222,7 +222,7 @@ template<typename Scalar, int Rows, int Cols, int Options, int MRows, int MCols>
 struct SluMatrixMapHelper<Matrix<Scalar, Rows, Cols, Options, MRows, MCols> >
 {
     typedef Matrix<Scalar, Rows, Cols, Options, MRows, MCols> MatrixType;
-    static void run(MatrixType&mat, SluMatrix&res)
+    static void run(MatrixType &mat, SluMatrix &res)
     {
         eigen_assert(((Options & RowMajor) != RowMajor) && "row-major dense matrices is not supported by SuperLU");
         res.setStorageType(SLU_DN);
@@ -241,7 +241,7 @@ template<typename Derived>
 struct SluMatrixMapHelper<SparseMatrixBase<Derived> >
 {
     typedef Derived MatrixType;
-    static void run(MatrixType&mat, SluMatrix&res)
+    static void run(MatrixType &mat, SluMatrix &res)
     {
         if ((MatrixType::Flags&RowMajorBit) == RowMajorBit)
         {
@@ -280,14 +280,14 @@ struct SluMatrixMapHelper<SparseMatrixBase<Derived> >
 namespace internal
 {
 template<typename MatrixType>
-SluMatrix asSluMatrix(MatrixType&mat)
+SluMatrix asSluMatrix(MatrixType &mat)
 {
     return SluMatrix::Map(mat);
 }
 
 /** View a Super LU matrix as an Eigen expression */
 template<typename Scalar, int Flags, typename Index>
-MappedSparseMatrix<Scalar, Flags, Index> map_superlu(SluMatrix&sluMat)
+MappedSparseMatrix<Scalar, Flags, Index> map_superlu(SluMatrix &sluMat)
 {
     eigen_assert((Flags & RowMajor) == RowMajor && sluMat.Stype == SLU_NR
                  || (Flags & ColMajor) == ColMajor && sluMat.Stype == SLU_NC);
@@ -321,7 +321,7 @@ SparseLU(int flags = NaturalOrdering)
     : Base(flags)
 {}
 
-SparseLU(const MatrixType&matrix, int flags = NaturalOrdering)
+SparseLU(const MatrixType &matrix, int flags = NaturalOrdering)
     : Base(flags)
 {
     compute(matrix);
@@ -368,9 +368,9 @@ inline const IntRowVectorType&permutationQ() const
 Scalar determinant() const;
 
 template<typename BDerived, typename XDerived>
-bool solve(const MatrixBase<BDerived>&b, MatrixBase<XDerived> *x, const int transposed = SvNoTrans) const;
+bool solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> *x, const int transposed = SvNoTrans) const;
 
-void compute(const MatrixType&matrix);
+void compute(const MatrixType &matrix);
 
 protected:
 
@@ -397,7 +397,7 @@ mutable bool                    m_extractedDataAreDirty;
 };
 
 template<typename MatrixType>
-void SparseLU<MatrixType, SuperLU>::compute(const MatrixType&a)
+void SparseLU<MatrixType, SuperLU>::compute(const MatrixType &a)
 {
     const int size = a.rows();
 
@@ -501,7 +501,7 @@ void SparseLU<MatrixType, SuperLU>::compute(const MatrixType&a)
 
 template<typename MatrixType>
 template<typename BDerived, typename XDerived>
-bool SparseLU<MatrixType, SuperLU>::solve(const MatrixBase<BDerived>&b,
+bool SparseLU<MatrixType, SuperLU>::solve(const MatrixBase<BDerived> &b,
                                           MatrixBase<XDerived> *x, const int transposed) const
 {
     const int size    = m_matrix.rows();

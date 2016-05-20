@@ -18,14 +18,14 @@
 // ============================================================================
 
 // Markers.
-ARMarkerNFT     *g_pMarkersNFT      = NULL;
-int             g_nMarkersNFTCount  = 0;
+ARMarkerNFT *g_pMarkersNFT     = NULL;
+int         g_nMarkersNFTCount = 0;
 
 // NFT.
-THREAD_HANDLE_T *g_threadHandle     = NULL;
-AR2HandleT      *g_ar2Handle        = NULL;
-KpmHandle       *g_kpmHandle        = NULL;
-int             g_surfaceSetCount   = 0;
+THREAD_HANDLE_T *g_threadHandle   = NULL;
+AR2HandleT      *g_ar2Handle      = NULL;
+KpmHandle       *g_kpmHandle      = NULL;
+int             g_surfaceSetCount = 0;
 AR2SurfaceSetT  *g_surfaceSet[PAGES_MAX];
 
 // Modifies globals: kpmHandle, ar2Handle.
@@ -196,8 +196,8 @@ void DrawCube(float fSize, float x, float y, float z)
     int           i;
     const GLfloat cube_vertices[8][3] =
     {
-        /* +z */{ 0.5f, 0.5f, 0.5f }, { 0.5f, -0.5f, 0.5f }, { -0.5f, -0.5f, 0.5f }, { -0.5f, 0.5f, 0.5f },
-        /* -z */{ 0.5f, 0.5f, -0.5f }, { 0.5f, -0.5f, -0.5f }, { -0.5f, -0.5f, -0.5f }, { -0.5f, 0.5f, -0.5f }
+        /* +z */ { 0.5f, 0.5f, 0.5f }, { 0.5f, -0.5f, 0.5f }, { -0.5f, -0.5f, 0.5f }, { -0.5f, 0.5f, 0.5f },
+        /* -z */ { 0.5f, 0.5f, -0.5f }, { 0.5f, -0.5f, -0.5f }, { -0.5f, -0.5f, -0.5f }, { -0.5f, 0.5f, -0.5f }
     };
     const GLubyte cube_vertex_colors[8][4] =
     {
@@ -205,8 +205,10 @@ void DrawCube(float fSize, float x, float y, float z)
         { 255, 0, 255, 255 }, { 255, 0, 0, 255 }, { 0, 0, 0, 255 }, { 0, 0, 255, 255 }
     };
     const GLushort cube_faces[6][4] =    /* ccw-winding */
-    { /* +z */{ 3, 2, 1, 0 }, /* -y */{ 2, 3, 7, 6 }, /* +y */{ 0, 1, 5, 4 },
-    /* -x */{ 3, 0, 4, 7 }, /* +x */{ 1, 2, 6, 5 }, /* -z */{ 4, 5, 6, 7 } };
+    {   /* +z */
+        { 3, 2, 1, 0 }, /* -y */ { 2, 3, 7, 6 }, /* +y */ { 0, 1, 5, 4 },
+        /* -x */ { 3, 0, 4, 7 }, /* +x */ { 1, 2, 6, 5 }, /* -z */ { 4, 5, 6, 7 }
+    };
 
     glPushMatrix(); // Save world coordinate system.
     glTranslatef(x, y, z);

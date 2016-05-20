@@ -90,7 +90,7 @@ EIGEN_DENSE_PUBLIC_INTERFACE(PartialReduxExpr)
 typedef typename internal::traits<PartialReduxExpr>::MatrixTypeNested MatrixTypeNested;
 typedef typename internal::traits<PartialReduxExpr>::_MatrixTypeNested _MatrixTypeNested;
 
-PartialReduxExpr(const MatrixType&mat, const MemberOp&func = MemberOp())
+PartialReduxExpr(const MatrixType &mat, const MemberOp &func = MemberOp())
     : m_matrix(mat), m_functor(func) {}
 
 Index rows() const
@@ -123,16 +123,16 @@ const MatrixTypeNested m_matrix;
 const MemberOp         m_functor;
 };
 
-#define EIGEN_MEMBER_FUNCTOR(MEMBER, COST)                                 \
-    template<typename ResultType>                                          \
-    struct member_ ## MEMBER {                                             \
-        EIGEN_EMPTY_STRUCT_CTOR(member_ ## MEMBER)                         \
-        typedef ResultType result_type;                                    \
-        template<typename Scalar, int Size> struct Cost                    \
-        { enum { value = COST }; };                                        \
-        template<typename XprType>                                         \
-        EIGEN_STRONG_INLINE ResultType operator()(const XprType&mat) const \
-        { return mat.MEMBER(); }                                           \
+#define EIGEN_MEMBER_FUNCTOR(MEMBER, COST)                                  \
+    template<typename ResultType>                                           \
+    struct member_ ## MEMBER {                                              \
+        EIGEN_EMPTY_STRUCT_CTOR(member_ ## MEMBER)                          \
+        typedef ResultType result_type;                                     \
+        template<typename Scalar, int Size> struct Cost                     \
+        { enum { value = COST }; };                                         \
+        template<typename XprType>                                          \
+        EIGEN_STRONG_INLINE ResultType operator()(const XprType &mat) const \
+        { return mat.MEMBER(); }                                            \
     }
 
 namespace internal
@@ -162,7 +162,7 @@ struct member_redux
     { enum { value = (Size - 1) * functor_traits<BinaryOp>::Cost }; };
     member_redux(const BinaryOp func) : m_functor(func) {}
     template<typename Derived>
-    inline result_type operator()(const DenseBase<Derived>&mat) const
+    inline result_type operator()(const DenseBase<Derived> &mat) const
     {
         return mat.redux(m_functor);
     }
@@ -251,7 +251,7 @@ template<typename OtherDerived> struct ExtendedType
  * Replicates a vector to match the size of \c *this */
 template<typename OtherDerived>
 typename ExtendedType<OtherDerived>::Type
-extendedTo(const DenseBase<OtherDerived>&other) const
+extendedTo(const DenseBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived);
     return typename ExtendedType<OtherDerived>::Type
@@ -262,7 +262,7 @@ extendedTo(const DenseBase<OtherDerived>&other) const
 
 public:
 
-inline VectorwiseOp(ExpressionType&matrix) : m_matrix(matrix) {}
+inline VectorwiseOp(ExpressionType &matrix) : m_matrix(matrix) {}
 
 /** \internal */
 inline const ExpressionType&_expression() const
@@ -279,7 +279,7 @@ inline const ExpressionType&_expression() const
  */
 template<typename BinaryOp>
 const typename ReduxReturnType<BinaryOp>::Type
-redux(const BinaryOp&func = BinaryOp()) const
+redux(const BinaryOp &func = BinaryOp()) const
 {
     return typename ReduxReturnType<BinaryOp>::Type(_expression(), func);
 }
@@ -464,7 +464,7 @@ replicate(Index factor = Factor) const
 
 /** Copies the vector \a other to each subvector of \c *this */
 template<typename OtherDerived>
-ExpressionType&operator=(const DenseBase<OtherDerived>&other)
+ExpressionType&operator=(const DenseBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
 
@@ -477,7 +477,7 @@ ExpressionType&operator=(const DenseBase<OtherDerived>&other)
 
 /** Adds the vector \a other to each subvector of \c *this */
 template<typename OtherDerived>
-ExpressionType&operator+=(const DenseBase<OtherDerived>&other)
+ExpressionType&operator+=(const DenseBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
 
@@ -489,7 +489,7 @@ ExpressionType&operator+=(const DenseBase<OtherDerived>&other)
 
 /** Substracts the vector \a other to each subvector of \c *this */
 template<typename OtherDerived>
-ExpressionType&operator-=(const DenseBase<OtherDerived>&other)
+ExpressionType&operator-=(const DenseBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
 
@@ -504,7 +504,7 @@ template<typename OtherDerived> EIGEN_STRONG_INLINE
 CwiseBinaryOp<internal::scalar_sum_op<Scalar>,
               const ExpressionTypeNestedCleaned,
               const typename ExtendedType<OtherDerived>::Type>
-operator+(const DenseBase<OtherDerived>&other) const
+operator+(const DenseBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived);
     return m_matrix + extendedTo(other.derived());
@@ -515,7 +515,7 @@ template<typename OtherDerived>
 CwiseBinaryOp<internal::scalar_difference_op<Scalar>,
               const ExpressionTypeNestedCleaned,
               const typename ExtendedType<OtherDerived>::Type>
-operator-(const DenseBase<OtherDerived>&other) const
+operator-(const DenseBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived);
     return m_matrix - extendedTo(other.derived());
@@ -529,7 +529,7 @@ Homogeneous<ExpressionType, Direction> homogeneous() const;
 
 typedef typename ExpressionType::PlainObject CrossReturnType;
 template<typename OtherDerived>
-const CrossReturnType cross(const MatrixBase<OtherDerived>&other) const;
+const CrossReturnType cross(const MatrixBase<OtherDerived> &other) const;
 
 enum
 {

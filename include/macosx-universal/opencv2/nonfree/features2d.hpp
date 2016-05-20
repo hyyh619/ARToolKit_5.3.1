@@ -69,24 +69,24 @@ CV_WRAP int descriptorType() const;
 
 // ! finds the keypoints using SIFT algorithm
 void operator()(InputArray img, InputArray mask,
-                vector<KeyPoint>&keypoints) const;
+                vector<KeyPoint> &keypoints) const;
 // ! finds the keypoints and computes descriptors for them using SIFT algorithm.
 // ! Optionally it can compute descriptors for the user-provided keypoints
 void operator()(InputArray img, InputArray mask,
-                vector<KeyPoint>&keypoints,
+                vector<KeyPoint> &keypoints,
                 OutputArray descriptors,
                 bool useProvidedKeypoints = false) const;
 
 AlgorithmInfo* info() const;
 
-void buildGaussianPyramid(const Mat&base, vector<Mat>&pyr, int nOctaves) const;
-void buildDoGPyramid(const vector<Mat>&pyr, vector<Mat>&dogpyr) const;
-void findScaleSpaceExtrema(const vector<Mat>&gauss_pyr, const vector<Mat>&dog_pyr,
-                           vector<KeyPoint>&keypoints) const;
+void buildGaussianPyramid(const Mat &base, vector<Mat> &pyr, int nOctaves) const;
+void buildDoGPyramid(const vector<Mat> &pyr, vector<Mat> &dogpyr) const;
+void findScaleSpaceExtrema(const vector<Mat> &gauss_pyr, const vector<Mat> &dog_pyr,
+                           vector<KeyPoint> &keypoints) const;
 
 protected:
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
-void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
+void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
 
 CV_PROP_RW int    nfeatures;
 CV_PROP_RW int    nOctaveLayers;
@@ -121,10 +121,10 @@ CV_WRAP int descriptorType() const;
 
 // ! finds the keypoints using fast hessian detector used in SURF
 void operator()(InputArray img, InputArray mask,
-                CV_OUT vector<KeyPoint>&keypoints) const;
+                CV_OUT vector<KeyPoint> &keypoints) const;
 // ! finds the keypoints and computes their descriptors. Optionally it can compute descriptors for the user-provided keypoints
 void operator()(InputArray img, InputArray mask,
-                CV_OUT vector<KeyPoint>&keypoints,
+                CV_OUT vector<KeyPoint> &keypoints,
                 OutputArray descriptors,
                 bool useProvidedKeypoints = false) const;
 
@@ -138,8 +138,8 @@ CV_PROP_RW bool   upright;
 
 protected:
 
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
-void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
+void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
 };
 
 typedef SURF SurfFeatureDetector;

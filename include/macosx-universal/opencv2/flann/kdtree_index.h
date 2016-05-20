@@ -80,7 +80,7 @@ typedef typename Distance::ResultType DistanceType;
  *          inputData = dataset with the input features
  *          params = parameters passed to the kdtree algorithm
  */
-KDTreeIndex(const Matrix<ElementType>&inputData, const IndexParams&params = KDTreeIndexParams(),
+KDTreeIndex(const Matrix<ElementType> &inputData, const IndexParams &params = KDTreeIndexParams(),
             Distance d = Distance()) :
     dataset_(inputData), index_params_(params), distance_(d)
 {
@@ -206,7 +206,7 @@ int usedMemory() const
  *     vec = the vector for which to search the nearest neighbors
  *     maxCheck = the maximum number of restarts (in a best-bin-first manner)
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     int   maxChecks = get_param(searchParams, "checks", 32);
     float epsError  = 1 + get_param(searchParams, "eps", 0.0f);
@@ -266,7 +266,7 @@ void save_tree(FILE *stream, NodePtr tree)
 }
 
 
-void load_tree(FILE *stream, NodePtr&tree)
+void load_tree(FILE *stream, NodePtr &tree)
 {
     tree = pool_.allocate<Node>();
     load_value(stream, *tree);
@@ -323,7 +323,7 @@ NodePtr divideTree(int *ind, int count)
  * Make a random choice among those with the highest variance, and use
  * its variance as the threshold value.
  */
-void meanSplit(int *ind, int count, int&index, int&cutfeat, DistanceType&cutval)
+void meanSplit(int *ind, int count, int &index, int &cutfeat, DistanceType &cutval)
 {
     memset(mean_, 0, veclen_ * sizeof(DistanceType));
     memset(var_, 0, veclen_ * sizeof(DistanceType));
@@ -432,7 +432,7 @@ int selectDivision(DistanceType *v)
  *  dataset[ind[lim1..lim2-1]][cutfeat]==cutval
  *  dataset[ind[lim2..count]][cutfeat]>cutval
  */
-void planeSplit(int *ind, int count, int cutfeat, DistanceType cutval, int&lim1, int&lim2)
+void planeSplit(int *ind, int count, int cutfeat, DistanceType cutval, int &lim1, int &lim2)
 {
     /* Move vector indices for left subtree to front of list. */
     int left  = 0;
@@ -476,7 +476,7 @@ void planeSplit(int *ind, int count, int cutfeat, DistanceType cutval, int&lim1,
  * Performs an exact nearest neighbor search. The exact search performs a full
  * traversal of the tree.
  */
-void getExactNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, float epsError)
+void getExactNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, float epsError)
 {
     //          checkID -= 1;  /* Set a different unique ID for each search. */
 
@@ -498,7 +498,7 @@ void getExactNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, f
  * because the tree traversal is abandoned after a given number of descends in
  * the tree.
  */
-void getNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, int maxCheck, float epsError)
+void getNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, int maxCheck, float epsError)
 {
     int      i;
     BranchSt branch;
@@ -531,8 +531,8 @@ void getNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, int ma
  *  higher levels, all exemplars below this level must have a distance of
  *  at least "mindistsq".
  */
-void searchLevel(ResultSet<DistanceType>&result_set, const ElementType *vec, NodePtr node, DistanceType mindist, int&checkCount, int maxCheck,
-                 float epsError, Heap<BranchSt> *heap, DynamicBitset&checked)
+void searchLevel(ResultSet<DistanceType> &result_set, const ElementType *vec, NodePtr node, DistanceType mindist, int &checkCount, int maxCheck,
+                 float epsError, Heap<BranchSt> *heap, DynamicBitset &checked)
 {
     if (result_set.worstDist() < mindist)
     {
@@ -588,7 +588,7 @@ void searchLevel(ResultSet<DistanceType>&result_set, const ElementType *vec, Nod
 /**
  * Performs an exact search in the tree starting from a node.
  */
-void searchLevelExact(ResultSet<DistanceType>&result_set, const ElementType *vec, const NodePtr node, DistanceType mindist, const float epsError)
+void searchLevelExact(ResultSet<DistanceType> &result_set, const ElementType *vec, const NodePtr node, DistanceType mindist, const float epsError)
 {
     /* If this is a leaf node, then do check and return. */
     if ((node->child1 == NULL) && (node->child2 == NULL))

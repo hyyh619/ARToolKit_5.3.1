@@ -121,7 +121,7 @@ class InnerIterator;
 
 /** Column or Row constructor
  */
-inline Block(XprType&xpr, Index i)
+inline Block(XprType &xpr, Index i)
     : m_xpr(xpr),
     // It is a row if and only if BlockRows==1 and BlockCols==XprType::ColsAtCompileTime,
     // and it is a column if and only if BlockRows==XprType::RowsAtCompileTime and BlockCols==1,
@@ -139,7 +139,7 @@ inline Block(XprType&xpr, Index i)
 
 /** Fixed-size constructor
  */
-inline Block(XprType&xpr, Index startRow, Index startCol)
+inline Block(XprType &xpr, Index startRow, Index startCol)
     : m_xpr(xpr), m_startRow(startRow), m_startCol(startCol),
     m_blockRows(BlockRows), m_blockCols(BlockCols)
 {
@@ -150,7 +150,7 @@ inline Block(XprType&xpr, Index startRow, Index startCol)
 
 /** Dynamic-size constructor
  */
-inline Block(XprType&xpr,
+inline Block(XprType &xpr,
              Index startRow, Index startCol,
              Index blockRows, Index blockCols)
     : m_xpr(xpr), m_startRow(startRow), m_startCol(startCol),
@@ -221,7 +221,7 @@ inline PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_xpr.const_cast_derived().template writePacket<Unaligned>
         (row + m_startRow.value(), col + m_startCol.value(), x);
@@ -236,7 +236,7 @@ inline PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_xpr.const_cast_derived().template writePacket<Unaligned>
         (m_startRow.value() + (RowsAtCompileTime == 1 ? 0 : index),
@@ -273,7 +273,7 @@ EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Block)
 
 /** Column or Row constructor
  */
-inline Block(XprType&xpr, Index i)
+inline Block(XprType &xpr, Index i)
     : Base(internal::const_cast_ptr(&xpr.coeffRef(
                                         (BlockRows == 1) && (BlockCols == XprType::ColsAtCompileTime) ? i : 0,
                                         (BlockRows == XprType::RowsAtCompileTime) && (BlockCols == 1) ? i : 0)),
@@ -289,7 +289,7 @@ inline Block(XprType&xpr, Index i)
 
 /** Fixed-size constructor
  */
-inline Block(XprType&xpr, Index startRow, Index startCol)
+inline Block(XprType &xpr, Index startRow, Index startCol)
     : Base(internal::const_cast_ptr(&xpr.coeffRef(startRow, startCol))), m_xpr(xpr)
 {
     eigen_assert(startRow >= 0 && BlockRows >= 1 && startRow + BlockRows <= xpr.rows()
@@ -299,7 +299,7 @@ inline Block(XprType&xpr, Index startRow, Index startCol)
 
 /** Dynamic-size constructor
  */
-inline Block(XprType&xpr,
+inline Block(XprType &xpr,
              Index startRow, Index startCol,
              Index blockRows, Index blockCols)
     : Base(internal::const_cast_ptr(&xpr.coeffRef(startRow, startCol)), blockRows, blockCols),
@@ -334,7 +334,7 @@ protected:
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 /** \internal used by allowAligned() */
-inline Block(XprType&xpr, const Scalar *data, Index blockRows, Index blockCols)
+inline Block(XprType &xpr, const Scalar *data, Index blockRows, Index blockCols)
     : Base(data, blockRows, blockCols), m_xpr(xpr)
 {
     init();

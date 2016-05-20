@@ -101,9 +101,9 @@ PartialPivLU(Index size);
  * \warning The matrix should have full rank (e.g. if it's square, it should be invertible).
  * If you need to deal with non-full rank, use class FullPivLU instead.
  */
-PartialPivLU(const MatrixType&matrix);
+PartialPivLU(const MatrixType &matrix);
 
-PartialPivLU&compute(const MatrixType&matrix);
+PartialPivLU&compute(const MatrixType &matrix);
 
 /** \returns the LU decomposition matrix: the upper-triangular part is U, the
  * unit-lower-triangular part is L (at least for square matrices; in the non-square
@@ -144,7 +144,7 @@ inline const PermutationType&permutationP() const
  */
 template<typename Rhs>
 inline const internal::solve_retval<PartialPivLU, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "PartialPivLU is not initialized.");
     return internal::solve_retval<PartialPivLU, Rhs>(*this, b.derived());
@@ -217,7 +217,7 @@ PartialPivLU<MatrixType>::PartialPivLU(Index size)
 {}
 
 template<typename MatrixType>
-PartialPivLU<MatrixType>::PartialPivLU(const MatrixType&matrix)
+PartialPivLU<MatrixType>::PartialPivLU(const MatrixType &matrix)
     : m_lu(matrix.rows(), matrix.rows()),
     m_p(matrix.rows()),
     m_rowsTranspositions(matrix.rows()),
@@ -254,7 +254,7 @@ struct partial_lu_impl
      *
      * \returns The index of the first pivot which is exactly zero if any, or a negative number otherwise.
      */
-    static Index unblocked_lu(MatrixType&lu, PivIndex *row_transpositions, PivIndex&nb_transpositions)
+    static Index unblocked_lu(MatrixType &lu, PivIndex *row_transpositions, PivIndex &nb_transpositions)
     {
         const Index rows = lu.rows();
         const Index cols = lu.cols();
@@ -316,7 +316,7 @@ struct partial_lu_impl
      *   1 - reduce the number of instanciations to the strict minimum
      *   2 - avoid infinite recursion of the instanciations with Block<Block<Block<...> > >
      */
-    static Index blocked_lu(Index rows, Index cols, Scalar *lu_data, Index luStride, PivIndex *row_transpositions, PivIndex&nb_transpositions, Index maxBlockSize = 256)
+    static Index blocked_lu(Index rows, Index cols, Scalar *lu_data, Index luStride, PivIndex *row_transpositions, PivIndex &nb_transpositions, Index maxBlockSize = 256)
     {
         MapLU      lu1(lu_data, StorageOrder == RowMajor ? rows : luStride, StorageOrder == RowMajor ? luStride : cols);
         MatrixType lu(lu1, 0, 0, rows, cols);
@@ -395,7 +395,7 @@ struct partial_lu_impl
 /** \internal performs the LU decomposition with partial pivoting in-place.
  */
 template<typename MatrixType, typename TranspositionType>
-void partial_lu_inplace(MatrixType&lu, TranspositionType&row_transpositions, typename TranspositionType::Index&nb_transpositions)
+void partial_lu_inplace(MatrixType &lu, TranspositionType &row_transpositions, typename TranspositionType::Index &nb_transpositions)
 {
     eigen_assert(lu.cols() == row_transpositions.size());
     eigen_assert((&row_transpositions.coeffRef(1) - &row_transpositions.coeffRef(0)) == 1);
@@ -407,7 +407,7 @@ void partial_lu_inplace(MatrixType&lu, TranspositionType&row_transpositions, typ
 } // end namespace internal
 
 template<typename MatrixType>
-PartialPivLU<MatrixType>&PartialPivLU<MatrixType>::compute(const MatrixType&matrix)
+PartialPivLU<MatrixType>&PartialPivLU<MatrixType>::compute(const MatrixType &matrix)
 {
     m_lu = matrix;
 
@@ -460,7 +460,7 @@ struct solve_retval<PartialPivLU<_MatrixType>, Rhs>
 {
     EIGEN_MAKE_SOLVE_HELPERS(PartialPivLU<_MatrixType>, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         /* The decomposition PA = LU can be rewritten as A = P^{-1} L U.
          * So we proceed as follows:

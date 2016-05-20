@@ -55,10 +55,10 @@ struct traits<SparseSelfAdjointView<MatrixType, UpLo> > : traits<MatrixType>
 {};
 
 template<int SrcUpLo, int DstUpLo, typename MatrixType, int DestOrder>
-void permute_symm_to_symm(const MatrixType&mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index>&_dest, const typename MatrixType::Index *perm = 0);
+void permute_symm_to_symm(const MatrixType &mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index> &_dest, const typename MatrixType::Index *perm = 0);
 
 template<int UpLo, typename MatrixType, int DestOrder>
-void permute_symm_to_fullsymm(const MatrixType&mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index>&_dest, const typename MatrixType::Index *perm = 0);
+void permute_symm_to_fullsymm(const MatrixType &mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index> &_dest, const typename MatrixType::Index *perm = 0);
 }
 
 template<typename MatrixType, unsigned int UpLo> class SparseSelfAdjointView
@@ -72,7 +72,7 @@ typedef Matrix<Index, Dynamic, 1> VectorI;
 typedef typename MatrixType::Nested MatrixTypeNested;
 typedef typename internal::remove_all<MatrixTypeNested>::type _MatrixTypeNested;
 
-inline SparseSelfAdjointView(const MatrixType&matrix) : m_matrix(matrix)
+inline SparseSelfAdjointView(const MatrixType &matrix) : m_matrix(matrix)
 {
     eigen_assert(rows() == cols() && "SelfAdjointView is only for squared matrices");
 }
@@ -99,7 +99,7 @@ _MatrixTypeNested&matrix()
 /** Efficient sparse self-adjoint matrix times dense vector/matrix product */
 template<typename OtherDerived>
 SparseSelfAdjointTimeDenseProduct<MatrixType, OtherDerived, UpLo>
-operator*(const MatrixBase<OtherDerived>&rhs) const
+operator*(const MatrixBase<OtherDerived> &rhs) const
 {
     return SparseSelfAdjointTimeDenseProduct<MatrixType, OtherDerived, UpLo>(m_matrix, rhs.derived());
 }
@@ -107,7 +107,7 @@ operator*(const MatrixBase<OtherDerived>&rhs) const
 /** Efficient dense vector/matrix times sparse self-adjoint matrix product */
 template<typename OtherDerived> friend
 DenseTimeSparseSelfAdjointProduct<OtherDerived, MatrixType, UpLo>
-operator*(const MatrixBase<OtherDerived>&lhs, const SparseSelfAdjointView&rhs)
+operator*(const MatrixBase<OtherDerived> &lhs, const SparseSelfAdjointView &rhs)
 {
     return DenseTimeSparseSelfAdjointProduct<OtherDerived, _MatrixTypeNested, UpLo>(lhs.derived(), rhs.m_matrix);
 }
@@ -124,15 +124,15 @@ operator*(const MatrixBase<OtherDerived>&lhs, const SparseSelfAdjointView&rhs)
  * call this function with u.adjoint().
  */
 template<typename DerivedU>
-SparseSelfAdjointView&rankUpdate(const SparseMatrixBase<DerivedU>&u, Scalar alpha = Scalar(1));
+SparseSelfAdjointView&rankUpdate(const SparseMatrixBase<DerivedU> &u, Scalar alpha = Scalar(1));
 
 /** \internal triggered by sparse_matrix = SparseSelfadjointView; */
-template<typename DestScalar> void evalTo(SparseMatrix<DestScalar>&_dest) const
+template<typename DestScalar> void evalTo(SparseMatrix<DestScalar> &_dest) const
 {
     internal::permute_symm_to_fullsymm<UpLo>(m_matrix, _dest);
 }
 
-template<typename DestScalar> void evalTo(DynamicSparseMatrix<DestScalar>&_dest) const
+template<typename DestScalar> void evalTo(DynamicSparseMatrix<DestScalar> &_dest) const
 {
     // TODO directly evaluate into _dest;
     SparseMatrix<DestScalar> tmp(_dest.rows(), _dest.cols());
@@ -141,13 +141,13 @@ template<typename DestScalar> void evalTo(DynamicSparseMatrix<DestScalar>&_dest)
 }
 
 /** \returns an expression of P^-1 H P */
-SparseSymmetricPermutationProduct<_MatrixTypeNested, UpLo> twistedBy(const PermutationMatrix<Dynamic>&perm) const
+SparseSymmetricPermutationProduct<_MatrixTypeNested, UpLo> twistedBy(const PermutationMatrix<Dynamic> &perm) const
 {
     return SparseSymmetricPermutationProduct<_MatrixTypeNested, UpLo>(m_matrix, perm);
 }
 
 template<typename SrcMatrixType, int SrcUpLo>
-SparseSelfAdjointView&operator=(const SparseSymmetricPermutationProduct<SrcMatrixType, SrcUpLo>&permutedMatrix)
+SparseSelfAdjointView&operator=(const SparseSymmetricPermutationProduct<SrcMatrixType, SrcUpLo> &permutedMatrix)
 {
     permutedMatrix.evalTo(*this);
     return *this;
@@ -189,7 +189,7 @@ SparseSelfAdjointView<Derived, UpLo> SparseMatrixBase<Derived>::selfadjointView(
 template<typename MatrixType, unsigned int UpLo>
 template<typename DerivedU>
 SparseSelfAdjointView<MatrixType, UpLo>&
-SparseSelfAdjointView<MatrixType, UpLo>::rankUpdate(const SparseMatrixBase<DerivedU>&u, Scalar alpha)
+SparseSelfAdjointView<MatrixType, UpLo>::rankUpdate(const SparseMatrixBase<DerivedU> &u, Scalar alpha)
 {
     SparseMatrix<Scalar, MatrixType::Flags&RowMajorBit ? RowMajor : ColMajor> tmp = u * u.adjoint();
     if (alpha == Scalar(0))
@@ -221,10 +221,10 @@ class SparseSelfAdjointTimeDenseProduct
 public:
 EIGEN_PRODUCT_PUBLIC_INTERFACE(SparseSelfAdjointTimeDenseProduct)
 
-SparseSelfAdjointTimeDenseProduct(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs)
+SparseSelfAdjointTimeDenseProduct(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs)
 {}
 
-template<typename Dest> void scaleAndAddTo(Dest&dest, Scalar alpha) const
+template<typename Dest> void scaleAndAddTo(Dest &dest, Scalar alpha) const
 {
     // TODO use alpha
     eigen_assert(alpha == Scalar(1) && "alpha != 1 is not implemented yet, sorry");
@@ -285,7 +285,7 @@ class DenseTimeSparseSelfAdjointProduct
 public:
 EIGEN_PRODUCT_PUBLIC_INTERFACE(DenseTimeSparseSelfAdjointProduct)
 
-DenseTimeSparseSelfAdjointProduct(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs)
+DenseTimeSparseSelfAdjointProduct(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs)
 {}
 
 template<typename Dest> void scaleAndAddTo(Dest& /*dest*/, Scalar /*alpha*/) const
@@ -307,7 +307,7 @@ struct traits<SparseSymmetricPermutationProduct<MatrixType, UpLo> > : traits<Mat
 {};
 
 template<int UpLo, typename MatrixType, int DestOrder>
-void permute_symm_to_fullsymm(const MatrixType&mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index>&_dest, const typename MatrixType::Index *perm)
+void permute_symm_to_fullsymm(const MatrixType &mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index> &_dest, const typename MatrixType::Index *perm)
 {
     typedef typename MatrixType::Index Index;
     typedef typename MatrixType::Scalar Scalar;
@@ -385,7 +385,7 @@ void permute_symm_to_fullsymm(const MatrixType&mat, SparseMatrix<typename Matrix
 }
 
 template<int SrcUpLo, int DstUpLo, typename MatrixType, int DestOrder>
-void permute_symm_to_symm(const MatrixType&mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index>&_dest, const typename MatrixType::Index *perm)
+void permute_symm_to_symm(const MatrixType &mat, SparseMatrix<typename MatrixType::Scalar, DestOrder, typename MatrixType::Index> &_dest, const typename MatrixType::Index *perm)
 {
     typedef typename MatrixType::Index Index;
     typedef typename MatrixType::Scalar Scalar;
@@ -459,7 +459,7 @@ typedef Matrix<Index, Dynamic, 1> VectorI;
 typedef typename MatrixType::Nested MatrixTypeNested;
 typedef typename internal::remove_all<MatrixTypeNested>::type _MatrixTypeNested;
 
-SparseSymmetricPermutationProduct(const MatrixType&mat, const Perm&perm)
+SparseSymmetricPermutationProduct(const MatrixType &mat, const Perm &perm)
     : m_matrix(mat), m_perm(perm)
 {}
 
@@ -472,12 +472,12 @@ inline Index cols() const
     return m_matrix.cols();
 }
 
-template<typename DestScalar> void evalTo(SparseMatrix<DestScalar>&_dest) const
+template<typename DestScalar> void evalTo(SparseMatrix<DestScalar> &_dest) const
 {
     internal::permute_symm_to_fullsymm<UpLo>(m_matrix, _dest, m_perm.indices().data());
 }
 
-template<typename DestType, unsigned int DestUpLo> void evalTo(SparseSelfAdjointView<DestType, DestUpLo>&dest) const
+template<typename DestType, unsigned int DestUpLo> void evalTo(SparseSelfAdjointView<DestType, DestUpLo> &dest) const
 {
     internal::permute_symm_to_symm<UpLo, DestUpLo>(m_matrix, dest.matrix(), m_perm.indices().data());
 }

@@ -31,7 +31,7 @@ namespace internal
 template<typename Derived, typename OtherDerived, bool is_integer = NumTraits<typename Derived::Scalar>::IsInteger>
 struct isApprox_selector
 {
-    static bool run(const Derived&x, const OtherDerived&y, typename Derived::RealScalar prec)
+    static bool run(const Derived &x, const OtherDerived &y, typename Derived::RealScalar prec)
     {
         using std::min;
         const typename internal::nested<Derived, 2>::type      nested(x);
@@ -43,7 +43,7 @@ struct isApprox_selector
 template<typename Derived, typename OtherDerived>
 struct isApprox_selector<Derived, OtherDerived, true>
 {
-    static bool run(const Derived&x, const OtherDerived&y, typename Derived::RealScalar)
+    static bool run(const Derived &x, const OtherDerived &y, typename Derived::RealScalar)
     {
         return x.matrix() == y.matrix();
     }
@@ -52,7 +52,7 @@ struct isApprox_selector<Derived, OtherDerived, true>
 template<typename Derived, typename OtherDerived, bool is_integer = NumTraits<typename Derived::Scalar>::IsInteger>
 struct isMuchSmallerThan_object_selector
 {
-    static bool run(const Derived&x, const OtherDerived&y, typename Derived::RealScalar prec)
+    static bool run(const Derived &x, const OtherDerived &y, typename Derived::RealScalar prec)
     {
         return x.cwiseAbs2().sum() <= abs2(prec) * y.cwiseAbs2().sum();
     }
@@ -61,7 +61,7 @@ struct isMuchSmallerThan_object_selector
 template<typename Derived, typename OtherDerived>
 struct isMuchSmallerThan_object_selector<Derived, OtherDerived, true>
 {
-    static bool run(const Derived&x, const OtherDerived&, typename Derived::RealScalar)
+    static bool run(const Derived &x, const OtherDerived&, typename Derived::RealScalar)
     {
         return x.matrix() == Derived::Zero(x.rows(), x.cols()).matrix();
     }
@@ -70,7 +70,7 @@ struct isMuchSmallerThan_object_selector<Derived, OtherDerived, true>
 template<typename Derived, bool is_integer = NumTraits<typename Derived::Scalar>::IsInteger>
 struct isMuchSmallerThan_scalar_selector
 {
-    static bool run(const Derived&x, const typename Derived::RealScalar&y, typename Derived::RealScalar prec)
+    static bool run(const Derived &x, const typename Derived::RealScalar &y, typename Derived::RealScalar prec)
     {
         return x.cwiseAbs2().sum() <= abs2(prec * y);
     }
@@ -79,7 +79,7 @@ struct isMuchSmallerThan_scalar_selector
 template<typename Derived>
 struct isMuchSmallerThan_scalar_selector<Derived, true>
 {
-    static bool run(const Derived&x, const typename Derived::RealScalar&, typename Derived::RealScalar)
+    static bool run(const Derived &x, const typename Derived::RealScalar&, typename Derived::RealScalar)
     {
         return x.matrix() == Derived::Zero(x.rows(), x.cols()).matrix();
     }
@@ -107,7 +107,7 @@ struct isMuchSmallerThan_scalar_selector<Derived, true>
 template<typename Derived>
 template<typename OtherDerived>
 bool DenseBase<Derived>::isApprox(
-    const DenseBase<OtherDerived>&other,
+    const DenseBase<OtherDerived> &other,
     RealScalar prec
     ) const
 {
@@ -129,7 +129,7 @@ bool DenseBase<Derived>::isApprox(
  */
 template<typename Derived>
 bool DenseBase<Derived>::isMuchSmallerThan(
-    const typename NumTraits<Scalar>::Real&other,
+    const typename NumTraits<Scalar>::Real &other,
     RealScalar prec
     ) const
 {
@@ -149,7 +149,7 @@ bool DenseBase<Derived>::isMuchSmallerThan(
 template<typename Derived>
 template<typename OtherDerived>
 bool DenseBase<Derived>::isMuchSmallerThan(
-    const DenseBase<OtherDerived>&other,
+    const DenseBase<OtherDerived> &other,
     RealScalar prec
     ) const
 {

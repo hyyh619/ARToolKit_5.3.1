@@ -107,7 +107,7 @@ typedef typename internal::traits<SparseSparseProduct>::_RhsNested _RhsNested;
 public:
 
 template<typename Lhs, typename Rhs>
-EIGEN_STRONG_INLINE SparseSparseProduct(const Lhs&lhs, const Rhs&rhs)
+EIGEN_STRONG_INLINE SparseSparseProduct(const Lhs &lhs, const Rhs &rhs)
     : m_lhs(lhs), m_rhs(rhs)
 {
     eigen_assert(lhs.cols() == rhs.rows());

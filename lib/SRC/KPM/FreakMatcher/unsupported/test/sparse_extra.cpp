@@ -26,7 +26,7 @@
 #include <Eigen/SparseExtra>
 
 template<typename SetterType, typename DenseType, typename Scalar, int Options>
-bool test_random_setter(SparseMatrix<Scalar, Options>&sm, const DenseType&ref, const std::vector<Vector2i>&nonzeroCoords)
+bool test_random_setter(SparseMatrix<Scalar, Options> &sm, const DenseType &ref, const std::vector<Vector2i> &nonzeroCoords)
 {
     typedef SparseMatrix<Scalar, Options> SparseType;
     {
@@ -46,7 +46,7 @@ bool test_random_setter(SparseMatrix<Scalar, Options>&sm, const DenseType&ref, c
 }
 
 template<typename SetterType, typename DenseType, typename T>
-bool test_random_setter(DynamicSparseMatrix<T>&sm, const DenseType&ref, const std::vector<Vector2i>&nonzeroCoords)
+bool test_random_setter(DynamicSparseMatrix<T> &sm, const DenseType &ref, const std::vector<Vector2i> &nonzeroCoords)
 {
     sm.setZero();
     std::vector<Vector2i> remaining = nonzeroCoords;
@@ -62,7 +62,7 @@ bool test_random_setter(DynamicSparseMatrix<T>&sm, const DenseType&ref, const st
     return sm.isApprox(ref);
 }
 
-template<typename SparseMatrixType> void sparse_extra(const SparseMatrixType&ref)
+template<typename SparseMatrixType> void sparse_extra(const SparseMatrixType &ref)
 {
     typedef typename SparseMatrixType::Index Index;
     const Index rows = ref.rows();

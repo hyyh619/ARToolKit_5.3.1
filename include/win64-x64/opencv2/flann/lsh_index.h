@@ -85,7 +85,7 @@ typedef typename Distance::ResultType DistanceType;
  * @param params parameters passed to the LSH algorithm
  * @param d the distance used
  */
-LshIndex(const Matrix<ElementType>&input_data, const IndexParams&params = LshIndexParams(),
+LshIndex(const Matrix<ElementType> &input_data, const IndexParams &params = LshIndexParams(),
          Distance d = Distance()) :
     dataset_(input_data), index_params_(params), distance_(d)
 {
@@ -125,7 +125,7 @@ void buildIndex()
             std::random_shuffle(indices.begin(), indices.end());
         }
 
-        lsh::LshTable<ElementType>&table = tables_[i];
+        lsh::LshTable<ElementType> &table = tables_[i];
         table = lsh::LshTable<ElementType>(feature_size_, key_size_, indices);
 
         // Add the features to the table
@@ -201,7 +201,7 @@ IndexParams getParameters() const
  * \param[in] knn Number of nearest neighbors to return
  * \param[in] params Search parameters
  */
-virtual void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, Matrix<DistanceType>&dists, int knn, const SearchParams&params)
+virtual void knnSearch(const Matrix<ElementType> &queries, Matrix<int> &indices, Matrix<DistanceType> &dists, int knn, const SearchParams &params)
 {
     assert(queries.cols == veclen());
     assert(indices.rows >= queries.rows);
@@ -235,7 +235,7 @@ virtual void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, M
  *     vec = the vector for which to search the nearest neighbors
  *     maxCheck = the maximum number of restarts (in a best-bin-first manner)
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams& /*searchParams*/)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams& /*searchParams*/)
 {
     getNeighbors(vec, result);
 }
@@ -246,7 +246,7 @@ private:
 typedef std::pair<float, unsigned int> ScoreIndexPair;
 struct SortScoreIndexPairOnSecond
 {
-    bool operator()(const ScoreIndexPair&left, const ScoreIndexPair&right) const
+    bool operator()(const ScoreIndexPair &left, const ScoreIndexPair &right) const
     {
         return left.second < right.second;
     }
@@ -259,7 +259,7 @@ struct SortScoreIndexPairOnSecond
  * @param xor_masks all the xor mask
  */
 void fill_xor_mask(lsh::BucketKey key, int lowest_index, unsigned int level,
-                   std::vector<lsh::BucketKey>&xor_masks)
+                   std::vector<lsh::BucketKey> &xor_masks)
 {
     xor_masks.push_back(key);
     if (level == 0)
@@ -374,7 +374,7 @@ void getNeighbors(const ElementType *vec, bool /*do_radius*/, float radius, bool
  * This is a slower version than the above as it uses the ResultSet
  * @param vec the feature to analyze
  */
-void getNeighbors(const ElementType *vec, ResultSet<DistanceType>&result)
+void getNeighbors(const ElementType *vec, ResultSet<DistanceType> &result)
 {
     typename std::vector<lsh::LshTable<ElementType> >::const_iterator table     = tables_.begin();
     typename std::vector<lsh::LshTable<ElementType> >::const_iterator table_end = tables_.end();

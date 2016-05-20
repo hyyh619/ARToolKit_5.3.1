@@ -269,33 +269,33 @@ inline SparseVector(Index rows, Index cols) : m_size(0)
 }
 
 template<typename OtherDerived>
-inline SparseVector(const MatrixBase<OtherDerived>&other)
+inline SparseVector(const MatrixBase<OtherDerived> &other)
     : m_size(0)
 {
     *this = other.derived();
 }
 
 template<typename OtherDerived>
-inline SparseVector(const SparseMatrixBase<OtherDerived>&other)
+inline SparseVector(const SparseMatrixBase<OtherDerived> &other)
     : m_size(0)
 {
     *this = other.derived();
 }
 
-inline SparseVector(const SparseVector&other)
+inline SparseVector(const SparseVector &other)
     : m_size(0)
 {
     *this = other.derived();
 }
 
-inline void swap(SparseVector&other)
+inline void swap(SparseVector &other)
 {
     std::swap(m_size, other.m_size);
 
     m_data.swap(other.m_data);
 }
 
-inline SparseVector&operator=(const SparseVector&other)
+inline SparseVector&operator=(const SparseVector &other)
 {
     if (other.isRValue())
     {
@@ -311,7 +311,7 @@ inline SparseVector&operator=(const SparseVector&other)
 }
 
 template<typename OtherDerived>
-inline SparseVector&operator=(const SparseMatrixBase<OtherDerived>&other)
+inline SparseVector&operator=(const SparseMatrixBase<OtherDerived> &other)
 {
     if (int(RowsAtCompileTime) != int(OtherDerived::RowsAtCompileTime))
         return Base::operator=(other.transpose());
@@ -321,7 +321,7 @@ inline SparseVector&operator=(const SparseMatrixBase<OtherDerived>&other)
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename Lhs, typename Rhs>
-inline SparseVector&operator=(const SparseSparseProduct<Lhs, Rhs>&product)
+inline SparseVector&operator=(const SparseSparseProduct<Lhs, Rhs> &product)
 {
     return Base::operator=(product);
 }
@@ -377,7 +377,7 @@ inline SparseVector&operator=(const SparseSparseProduct<Lhs, Rhs>&product)
 //       }
 //     }
 
-friend std::ostream&operator <<(std::ostream&s, const SparseVector&m)
+friend std::ostream&operator <<(std::ostream &s, const SparseVector &m)
 {
     for (Index i = 0; i < m.nonZeros(); ++i)
         s << "(" << m.m_data.value(i) << "," << m.m_data.index(i) << ") ";
@@ -462,7 +462,7 @@ template<typename Scalar, int _Options, typename _Index>
 class SparseVector<Scalar, _Options, _Index>::InnerIterator
 {
 public:
-InnerIterator(const SparseVector&vec, Index outer = 0)
+InnerIterator(const SparseVector &vec, Index outer = 0)
     : m_data(vec.m_data), m_id(0), m_end(static_cast<Index>(m_data.size()))
 {
     eigen_assert(outer == 0);
@@ -510,8 +510,8 @@ inline operator bool() const
 }
 
 protected:
-const CompressedStorage<Scalar, Index>&m_data;
-Index                                 m_id;
-const Index                           m_end;
+const CompressedStorage<Scalar, Index> &m_data;
+Index                                  m_id;
+const Index                            m_end;
 };
 #endif // EIGEN_SPARSEVECTOR_H

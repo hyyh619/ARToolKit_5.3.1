@@ -80,7 +80,7 @@ typedef typename Distance::ResultType DistanceType;
  * @param d Distance functor
  * @return
  */
-CompositeIndex(const Matrix<ElementType>&inputData, const IndexParams&params = CompositeIndexParams(),
+CompositeIndex(const Matrix<ElementType> &inputData, const IndexParams &params = CompositeIndexParams(),
                Distance d = Distance()) : index_params_(params)
 {
     kdtree_index_ = new KDTreeIndex<Distance>(inputData, params, d);
@@ -171,7 +171,7 @@ IndexParams getParameters() const
 /**
  * \brief Method that searches for nearest-neighbours
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     kmeans_index_->findNeighbors(result, vec, searchParams);
     kdtree_index_->findNeighbors(result, vec, searchParams);

@@ -77,11 +77,11 @@ explicit SURF_OCL(double _hessianThreshold, int _nOctaves = 4,
 // ! returns the descriptor size in float's (64 or 128)
 int descriptorSize() const;
 // ! upload host keypoints to device memory
-void uploadKeypoints(const vector<cv::KeyPoint>&keypoints, oclMat&keypointsocl);
+void uploadKeypoints(const vector<cv::KeyPoint> &keypoints, oclMat &keypointsocl);
 // ! download keypoints from device to host memory
-void downloadKeypoints(const oclMat&keypointsocl, vector<KeyPoint>&keypoints);
+void downloadKeypoints(const oclMat &keypointsocl, vector<KeyPoint> &keypoints);
 // ! download descriptors from device to host memory
-void downloadDescriptors(const oclMat&descriptorsocl, vector<float>&descriptors);
+void downloadDescriptors(const oclMat &descriptorsocl, vector<float> &descriptors);
 // ! finds the keypoints using fast hessian detector used in SURF
 // ! supports CV_8UC1 images
 // ! keypoints will have nFeature cols and 6 rows
@@ -92,15 +92,15 @@ void downloadDescriptors(const oclMat&descriptorsocl, vector<float>&descriptors)
 // ! keypoints.ptr<float>(SIZE_ROW)[i] will contain size of i'th feature
 // ! keypoints.ptr<float>(ANGLE_ROW)[i] will contain orientation of i'th feature
 // ! keypoints.ptr<float>(HESSIAN_ROW)[i] will contain response of i'th feature
-void operator()(const oclMat&img, const oclMat&mask, oclMat&keypoints);
+void operator()(const oclMat &img, const oclMat &mask, oclMat &keypoints);
 // ! finds the keypoints and computes their descriptors.
 // ! Optionally it can compute descriptors for the user-provided keypoints and recompute keypoints direction
-void operator()(const oclMat&img, const oclMat&mask, oclMat&keypoints, oclMat&descriptors,
+void operator()(const oclMat &img, const oclMat &mask, oclMat &keypoints, oclMat &descriptors,
                 bool useProvidedKeypoints = false);
-void operator()(const oclMat&img, const oclMat&mask, std::vector<KeyPoint>&keypoints);
-void operator()(const oclMat&img, const oclMat&mask, std::vector<KeyPoint>&keypoints, oclMat&descriptors,
+void operator()(const oclMat &img, const oclMat &mask, std::vector<KeyPoint> &keypoints);
+void operator()(const oclMat &img, const oclMat &mask, std::vector<KeyPoint> &keypoints, oclMat &descriptors,
                 bool useProvidedKeypoints = false);
-void operator()(const oclMat&img, const oclMat&mask, std::vector<KeyPoint>&keypoints, std::vector<float>&descriptors,
+void operator()(const oclMat &img, const oclMat &mask, std::vector<KeyPoint> &keypoints, std::vector<float> &descriptors,
                 bool useProvidedKeypoints = false);
 
 void releaseMemory();

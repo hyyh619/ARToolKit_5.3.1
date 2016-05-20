@@ -98,7 +98,7 @@ SimplicialCholesky()
     : m_info(Success), m_isInitialized(false), m_LDLt(true)
 {}
 
-SimplicialCholesky(const MatrixType&matrix)
+SimplicialCholesky(const MatrixType &matrix)
     : m_info(Success), m_isInitialized(false), m_LDLt(true)
 {
     compute(matrix);
@@ -147,7 +147,7 @@ ComputationInfo info() const
 }
 
 /** Computes the sparse Cholesky decomposition of \a matrix */
-SimplicialCholesky&compute(const MatrixType&matrix)
+SimplicialCholesky&compute(const MatrixType &matrix)
 {
     analyzePattern(matrix);
     factorize(matrix);
@@ -160,7 +160,7 @@ SimplicialCholesky&compute(const MatrixType&matrix)
  */
 template<typename Rhs>
 inline const internal::solve_retval<SimplicialCholesky, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "SimplicialCholesky is not initialized.");
     eigen_assert(rows() == b.rows()
@@ -188,7 +188,7 @@ solve(const MatrixBase<Rhs>&b) const
  *
  * \sa factorize()
  */
-void analyzePattern(const MatrixType&a);
+void analyzePattern(const MatrixType &a);
 
 
 /** Performs a numeric decomposition of \a matrix
@@ -197,7 +197,7 @@ void analyzePattern(const MatrixType&a);
  *
  * \sa analyzePattern()
  */
-void factorize(const MatrixType&a);
+void factorize(const MatrixType &a);
 
 /** \returns the permutation P
  * \sa permutationPinv() */
@@ -216,7 +216,7 @@ const PermutationMatrix<Dynamic>&permutationPinv() const
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 /** \internal */
 template<typename Rhs, typename Dest>
-void _solve(const MatrixBase<Rhs>&b, MatrixBase<Dest>&dest) const
+void _solve(const MatrixBase<Rhs> &b, MatrixBase<Dest> &dest) const
 {
     eigen_assert(m_factorizationIsOk && "The decomposition is not in a valid state for solving, you must first call either compute() or symbolic()/numeric()");
     eigen_assert(m_matrix.rows() == b.rows());
@@ -263,7 +263,7 @@ void _solve(const MatrixBase<Rhs>&b, MatrixBase<Dest>&dest) const
     #endif // EIGEN_PARSED_BY_DOXYGEN
 
 template<typename Stream>
-void dumpMemory(Stream&s)
+void dumpMemory(Stream &s)
 {
     int total = 0;
 
@@ -280,7 +280,7 @@ protected:
 /** keeps off-diagonal entries; drops diagonal entries */
 struct keep_diag
 {
-    inline bool operator()(const Index&row, const Index&col, const Scalar&) const
+    inline bool operator()(const Index &row, const Index &col, const Scalar&) const
     {
         return row != col;
     }
@@ -301,7 +301,7 @@ PermutationMatrix<Dynamic> m_Pinv;      // the inverse permutation
 };
 
 template<typename _MatrixType, int _UpLo>
-void SimplicialCholesky<_MatrixType, _UpLo>::analyzePattern(const MatrixType&a)
+void SimplicialCholesky<_MatrixType, _UpLo>::analyzePattern(const MatrixType &a)
 {
     eigen_assert(a.rows() == a.cols());
     const Index size = a.rows();
@@ -371,7 +371,7 @@ void SimplicialCholesky<_MatrixType, _UpLo>::analyzePattern(const MatrixType&a)
 
 
 template<typename _MatrixType, int _UpLo>
-void SimplicialCholesky<_MatrixType, _UpLo>::factorize(const MatrixType&a)
+void SimplicialCholesky<_MatrixType, _UpLo>::factorize(const MatrixType &a)
 {
     eigen_assert(m_analysisIsOk && "You must first call analyzePattern()");
     eigen_assert(a.rows() == a.cols());
@@ -478,7 +478,7 @@ struct solve_retval<SimplicialCholesky<_MatrixType, _UpLo>, Rhs>
     typedef SimplicialCholesky<_MatrixType, _UpLo> Dec;
     EIGEN_MAKE_SOLVE_HELPERS(Dec, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         dec()._solve(rhs(), dst);
     }
@@ -491,7 +491,7 @@ struct sparse_solve_retval<SimplicialCholesky<_MatrixType, _UpLo>, Rhs>
     typedef SimplicialCholesky<_MatrixType, _UpLo> Dec;
     EIGEN_MAKE_SPARSE_SOLVE_HELPERS(Dec, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         dec()._solve(rhs(), dst);
     }

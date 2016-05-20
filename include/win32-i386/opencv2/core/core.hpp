@@ -122,8 +122,8 @@ template<typename _Tp> class MatCommaInitializer_;
 #if !defined(ANDROID) || (defined(_GLIBCXX_USE_WCHAR_T) && _GLIBCXX_USE_WCHAR_T)
 typedef std::basic_string<wchar_t> WString;
 
-CV_EXPORTS string fromUtf16(const WString&str);
-CV_EXPORTS WString toUtf16(const string&str);
+CV_EXPORTS string fromUtf16(const WString &str);
+CV_EXPORTS WString toUtf16(const string &str);
 #endif
 
 CV_EXPORTS string format(const char *fmt, ...);
@@ -153,7 +153,7 @@ Exception();
    Full constructor. Normally the constuctor is not called explicitly.
    Instead, the macros CV_Error(), CV_Error_() and CV_Assert() are used.
  */
-Exception(int _code, const string&_err, const string&_func, const string&_file, int _line);
+Exception(int _code, const string &_err, const string &_func, const string &_file, int _line);
 virtual ~Exception() throw();
 
 /*!
@@ -181,7 +181,7 @@ int    line;  ///< line number in the source file where the error has occured
 
    \param exc the exception raisen.
  */
-CV_EXPORTS void error(const Exception&exc);
+CV_EXPORTS void error(const Exception &exc);
 
 // ! Sets/resets the break-on-error mode.
 
@@ -230,7 +230,7 @@ CV_EXPORTS ErrorCallback redirectError(ErrorCallback errCallback,
 #define CV_DbgAssert(expr)
 #endif
 
-CV_EXPORTS void glob(String pattern, std::vector<String>&result, bool recursive = false);
+CV_EXPORTS void glob(String pattern, std::vector<String> &result, bool recursive = false);
 
 CV_EXPORTS void setNumThreads(int nthreads);
 CV_EXPORTS int getNumThreads();
@@ -416,7 +416,7 @@ size_type max_size() const
     return max(static_cast<_Tp>(-1) / sizeof(_Tp), 1);
 }
 
-void construct(pointer p, const _Tp&v)
+void construct(pointer p, const _Tp &v)
 {
     new(static_cast<void*>(p))_Tp(v);
 }
@@ -544,15 +544,15 @@ static Matx all(_Tp alpha);
 static Matx zeros();
 static Matx ones();
 static Matx eye();
-static Matx diag(const diag_type&d);
+static Matx diag(const diag_type &d);
 static Matx randu(_Tp a, _Tp b);
 static Matx randn(_Tp a, _Tp b);
 
 // ! dot product computed with the default precision
-_Tp dot(const Matx<_Tp, m, n>&v) const;
+_Tp dot(const Matx<_Tp, m, n> &v) const;
 
 // ! dot product computed in double-precision arithmetics
-double ddot(const Matx<_Tp, m, n>&v) const;
+double ddot(const Matx<_Tp, m, n> &v) const;
 
 // ! conversion to another data type
 template<typename T2> operator Matx<T2, m, n>() const;
@@ -579,11 +579,11 @@ Matx<_Tp, n, m> t() const;
 Matx<_Tp, n, m> inv(int method = DECOMP_LU) const;
 
 // ! solve linear system
-template<int l> Matx<_Tp, n, l> solve(const Matx<_Tp, m, l>&rhs, int flags = DECOMP_LU) const;
-Vec<_Tp, n> solve(const Vec<_Tp, m>&rhs, int method) const;
+template<int l> Matx<_Tp, n, l> solve(const Matx<_Tp, m, l> &rhs, int flags = DECOMP_LU) const;
+Vec<_Tp, n> solve(const Vec<_Tp, m> &rhs, int method) const;
 
 // ! multiply two matrices element-wise
-Matx<_Tp, m, n> mul(const Matx<_Tp, m, n>&a) const;
+Matx<_Tp, m, n> mul(const Matx<_Tp, m, n> &a) const;
 
 // ! element access
 const _Tp&operator ()(int i, int j) const;
@@ -593,12 +593,12 @@ _Tp      &operator ()(int i, int j);
 const _Tp&operator ()(int i) const;
 _Tp      &operator ()(int i);
 
-Matx(const Matx<_Tp, m, n>&a, const Matx<_Tp, m, n>&b, Matx_AddOp);
-Matx(const Matx<_Tp, m, n>&a, const Matx<_Tp, m, n>&b, Matx_SubOp);
-template<typename _T2> Matx(const Matx<_Tp, m, n>&a, _T2 alpha, Matx_ScaleOp);
-Matx(const Matx<_Tp, m, n>&a, const Matx<_Tp, m, n>&b, Matx_MulOp);
-template<int l> Matx(const Matx<_Tp, m, l>&a, const Matx<_Tp, l, n>&b, Matx_MatMulOp);
-Matx(const Matx<_Tp, n, m>&a, Matx_TOp);
+Matx(const Matx<_Tp, m, n> &a, const Matx<_Tp, m, n> &b, Matx_AddOp);
+Matx(const Matx<_Tp, m, n> &a, const Matx<_Tp, m, n> &b, Matx_SubOp);
+template<typename _T2> Matx(const Matx<_Tp, m, n> &a, _T2 alpha, Matx_ScaleOp);
+Matx(const Matx<_Tp, m, n> &a, const Matx<_Tp, m, n> &b, Matx_MulOp);
+template<int l> Matx(const Matx<_Tp, m, l> &a, const Matx<_Tp, l, n> &b, Matx_MatMulOp);
+Matx(const Matx<_Tp, n, m> &a, Matx_TOp);
 
 _Tp val[m * n];   // < matrix elements
 };
@@ -679,12 +679,12 @@ Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8);    
 Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8, _Tp v9);     // !< 10-element vector constructor
 explicit Vec(const _Tp *values);
 
-Vec(const Vec<_Tp, cn>&v);
+Vec(const Vec<_Tp, cn> &v);
 
 static Vec all(_Tp alpha);
 
 // ! per-element multiplication
-Vec mul(const Vec<_Tp, cn>&v) const;
+Vec mul(const Vec<_Tp, cn> &v) const;
 
 // ! conjugation (makes sense for complex numbers and quaternions)
 Vec conj() const;
@@ -694,7 +694,7 @@ Vec conj() const;
 
    For other dimensionalities the exception is raised
  */
-Vec cross(const Vec&v) const;
+Vec cross(const Vec &v) const;
 // ! conversion to another data type
 template<typename T2> operator Vec<T2, cn>() const;
 // ! conversion to 4-element CvScalar.
@@ -706,9 +706,9 @@ _Tp      &operator[](int i);
 const _Tp&operator ()(int i) const;
 _Tp      &operator ()(int i);
 
-Vec(const Matx<_Tp, cn, 1>&a, const Matx<_Tp, cn, 1>&b, Matx_AddOp);
-Vec(const Matx<_Tp, cn, 1>&a, const Matx<_Tp, cn, 1>&b, Matx_SubOp);
-template<typename _T2> Vec(const Matx<_Tp, cn, 1>&a, _T2 alpha, Matx_ScaleOp);
+Vec(const Matx<_Tp, cn, 1> &a, const Matx<_Tp, cn, 1> &b, Matx_AddOp);
+Vec(const Matx<_Tp, cn, 1> &a, const Matx<_Tp, cn, 1> &b, Matx_SubOp);
+template<typename _T2> Vec(const Matx<_Tp, cn, 1> &a, _T2 alpha, Matx_ScaleOp);
 };
 
 
@@ -761,7 +761,7 @@ public:
 // ! constructors
 Complex();
 Complex(_Tp _re, _Tp _im = 0);
-Complex(const std::complex<_Tp>&c);
+Complex(const std::complex<_Tp> &c);
 
 // ! conversion to another data type
 template<typename T2> operator Complex<T2>() const;
@@ -798,13 +798,13 @@ typedef _Tp value_type;
 // various constructors
 Point_();
 Point_(_Tp _x, _Tp _y);
-Point_(const Point_&pt);
-Point_(const CvPoint&pt);
-Point_(const CvPoint2D32f&pt);
-Point_(const Size_<_Tp>&sz);
-Point_(const Vec<_Tp, 2>&v);
+Point_(const Point_ &pt);
+Point_(const CvPoint &pt);
+Point_(const CvPoint2D32f &pt);
+Point_(const Size_<_Tp> &sz);
+Point_(const Vec<_Tp, 2> &v);
 
-Point_&operator =(const Point_&pt);
+Point_&operator =(const Point_ &pt);
 // ! conversion to another data type
 template<typename _Tp2> operator Point_<_Tp2>() const;
 
@@ -814,13 +814,13 @@ operator CvPoint2D32f() const;
 operator Vec<_Tp, 2>() const;
 
 // ! dot product
-_Tp dot(const Point_&pt) const;
+_Tp dot(const Point_ &pt) const;
 // ! dot product computed in double-precision arithmetics
-double ddot(const Point_&pt) const;
+double ddot(const Point_ &pt) const;
 // ! cross-product
-double cross(const Point_&pt) const;
+double cross(const Point_ &pt) const;
 // ! checks whether the point is inside the specified rectangle
-bool inside(const Rect_<_Tp>&r) const;
+bool inside(const Rect_<_Tp> &r) const;
 
 _Tp x, y;     // < the point coordinates
 };
@@ -841,12 +841,12 @@ typedef _Tp value_type;
 // various constructors
 Point3_();
 Point3_(_Tp _x, _Tp _y, _Tp _z);
-Point3_(const Point3_&pt);
-explicit Point3_(const Point_<_Tp>&pt);
-Point3_(const CvPoint3D32f&pt);
-Point3_(const Vec<_Tp, 3>&v);
+Point3_(const Point3_ &pt);
+explicit Point3_(const Point_<_Tp> &pt);
+Point3_(const CvPoint3D32f &pt);
+Point3_(const Vec<_Tp, 3> &v);
 
-Point3_&operator =(const Point3_&pt);
+Point3_&operator =(const Point3_ &pt);
 // ! conversion to another data type
 template<typename _Tp2> operator Point3_<_Tp2>() const;
 // ! conversion to the old-style CvPoint...
@@ -855,11 +855,11 @@ operator CvPoint3D32f() const;
 operator Vec<_Tp, 3>() const;
 
 // ! dot product
-_Tp dot(const Point3_&pt) const;
+_Tp dot(const Point3_ &pt) const;
 // ! dot product computed in double-precision arithmetics
-double ddot(const Point3_&pt) const;
+double ddot(const Point3_ &pt) const;
 // ! cross product of the 2 3D points
-Point3_ cross(const Point3_&pt) const;
+Point3_ cross(const Point3_ &pt) const;
 
 _Tp x, y, z;     // < the point coordinates
 };
@@ -880,12 +880,12 @@ typedef _Tp value_type;
 // ! various constructors
 Size_();
 Size_(_Tp _width, _Tp _height);
-Size_(const Size_&sz);
-Size_(const CvSize&sz);
-Size_(const CvSize2D32f&sz);
-Size_(const Point_<_Tp>&pt);
+Size_(const Size_ &sz);
+Size_(const CvSize &sz);
+Size_(const CvSize2D32f &sz);
+Size_(const Point_<_Tp> &pt);
 
-Size_&operator =(const Size_&sz);
+Size_&operator =(const Size_ &sz);
 // ! the area (width*height)
 _Tp area() const;
 
@@ -915,12 +915,12 @@ typedef _Tp value_type;
 // ! various constructors
 Rect_();
 Rect_(_Tp _x, _Tp _y, _Tp _width, _Tp _height);
-Rect_(const Rect_&r);
-Rect_(const CvRect&r);
-Rect_(const Point_<_Tp>&org, const Size_<_Tp>&sz);
-Rect_(const Point_<_Tp>&pt1, const Point_<_Tp>&pt2);
+Rect_(const Rect_ &r);
+Rect_(const CvRect &r);
+Rect_(const Point_<_Tp> &org, const Size_<_Tp> &sz);
+Rect_(const Point_<_Tp> &pt1, const Point_<_Tp> &pt2);
 
-Rect_&operator =(const Rect_&r);
+Rect_&operator =(const Rect_ &r);
 // ! the top-left corner
 Point_<_Tp> tl() const;
 // ! the bottom-right corner
@@ -937,7 +937,7 @@ template<typename _Tp2> operator Rect_<_Tp2>() const;
 operator CvRect() const;
 
 // ! checks whether the rectangle contains the point
-bool contains(const Point_<_Tp>&pt) const;
+bool contains(const Point_<_Tp> &pt) const;
 
 _Tp x, y, width, height;     // < the top-left corner, as well as width and height of the rectangle
 };
@@ -974,8 +974,8 @@ class CV_EXPORTS RotatedRect
 public:
 // ! various constructors
 RotatedRect();
-RotatedRect(const Point2f&center, const Size2f&size, float angle);
-RotatedRect(const CvBox2D&box);
+RotatedRect(const Point2f &center, const Size2f &size, float angle);
+RotatedRect(const CvBox2D &box);
 
 // ! returns 4 vertices of the rectangle
 void points(Point2f pts[]) const;
@@ -1003,7 +1003,7 @@ public:
 // ! various constructors
 Scalar_();
 Scalar_(_Tp v0, _Tp v1, _Tp v2 = 0, _Tp v3 = 0);
-Scalar_(const CvScalar&s);
+Scalar_(const CvScalar &s);
 Scalar_(_Tp v0);
 
 // ! returns a scalar with all elements set to v0
@@ -1015,7 +1015,7 @@ operator CvScalar() const;
 template<typename T2> operator Scalar_<T2>() const;
 
 // ! per-element product
-Scalar_<_Tp> mul(const Scalar_<_Tp>&t, double scale = 1) const;
+Scalar_<_Tp> mul(const Scalar_<_Tp> &t, double scale = 1) const;
 
 // returns (v0, -v1, -v2, -v3)
 Scalar_<_Tp> conj() const;
@@ -1026,7 +1026,7 @@ bool isReal() const;
 
 typedef Scalar_<double> Scalar;
 
-CV_EXPORTS void scalarToRawData(const Scalar&s, void *buf, int type, int unroll_to = 0);
+CV_EXPORTS void scalarToRawData(const Scalar &s, void *buf, int type, int unroll_to = 0);
 
 //////////////////////////////// Range /////////////////////////////////
 
@@ -1040,7 +1040,7 @@ class CV_EXPORTS Range
 public:
 Range();
 Range(int _start, int _end);
-Range(const CvSlice&slice);
+Range(const CvSlice &slice);
 int size() const;
 bool empty() const;
 static Range all();
@@ -1334,10 +1334,10 @@ Ptr(_Tp *_obj);
 // ! calls release()
 ~Ptr();
 // ! copy constructor. Copies the members and calls addref()
-Ptr(const Ptr&ptr);
-template<typename _Tp2> Ptr(const Ptr<_Tp2>&ptr);
+Ptr(const Ptr &ptr);
+template<typename _Tp2> Ptr(const Ptr<_Tp2> &ptr);
 // ! copy operator. Calls ptr.addref() and release() before copying the members
-Ptr&operator =(const Ptr&ptr);
+Ptr&operator =(const Ptr &ptr);
 // ! increments the reference counter
 void addref();
 // ! decrements the reference counter. If it reaches 0, delete_obj() is called
@@ -1392,27 +1392,27 @@ enum
 };
 _InputArray();
 
-_InputArray(const Mat&m);
-_InputArray(const MatExpr&expr);
+_InputArray(const Mat &m);
+_InputArray(const MatExpr &expr);
 template<typename _Tp> _InputArray(const _Tp *vec, int n);
-template<typename _Tp> _InputArray(const vector<_Tp>&vec);
-template<typename _Tp> _InputArray(const vector<vector<_Tp> >&vec);
-_InputArray(const vector<Mat>&vec);
-template<typename _Tp> _InputArray(const vector<Mat_<_Tp> >&vec);
-template<typename _Tp> _InputArray(const Mat_<_Tp>&m);
-template<typename _Tp, int m, int n> _InputArray(const Matx<_Tp, m, n>&matx);
-_InputArray(const Scalar&s);
-_InputArray(const double&val);
+template<typename _Tp> _InputArray(const vector<_Tp> &vec);
+template<typename _Tp> _InputArray(const vector<vector<_Tp> > &vec);
+_InputArray(const vector<Mat> &vec);
+template<typename _Tp> _InputArray(const vector<Mat_<_Tp> > &vec);
+template<typename _Tp> _InputArray(const Mat_<_Tp> &m);
+template<typename _Tp, int m, int n> _InputArray(const Matx<_Tp, m, n> &matx);
+_InputArray(const Scalar &s);
+_InputArray(const double &val);
 // < Deprecated
-_InputArray(const GlBuffer&buf);
-_InputArray(const GlTexture&tex);
+_InputArray(const GlBuffer &buf);
+_InputArray(const GlTexture &tex);
 // >
-_InputArray(const gpu::GpuMat&d_mat);
-_InputArray(const ogl::Buffer&buf);
-_InputArray(const ogl::Texture2D&tex);
+_InputArray(const gpu::GpuMat &d_mat);
+_InputArray(const ogl::Buffer &buf);
+_InputArray(const ogl::Texture2D &tex);
 
 virtual Mat getMat(int i = -1) const;
-virtual void getMatVector(vector<Mat>&mv) const;
+virtual void getMatVector(vector<Mat> &mv) const;
 // < Deprecated
 virtual GlBuffer getGlBuffer() const;
 virtual GlTexture getGlTexture() const;
@@ -1462,29 +1462,29 @@ class CV_EXPORTS _OutputArray : public _InputArray
 public:
 _OutputArray();
 
-_OutputArray(Mat&m);
-template<typename _Tp> _OutputArray(vector<_Tp>&vec);
-template<typename _Tp> _OutputArray(vector<vector<_Tp> >&vec);
-_OutputArray(vector<Mat>&vec);
-template<typename _Tp> _OutputArray(vector<Mat_<_Tp> >&vec);
-template<typename _Tp> _OutputArray(Mat_<_Tp>&m);
-template<typename _Tp, int m, int n> _OutputArray(Matx<_Tp, m, n>&matx);
+_OutputArray(Mat &m);
+template<typename _Tp> _OutputArray(vector<_Tp> &vec);
+template<typename _Tp> _OutputArray(vector<vector<_Tp> > &vec);
+_OutputArray(vector<Mat> &vec);
+template<typename _Tp> _OutputArray(vector<Mat_<_Tp> > &vec);
+template<typename _Tp> _OutputArray(Mat_<_Tp> &m);
+template<typename _Tp, int m, int n> _OutputArray(Matx<_Tp, m, n> &matx);
 template<typename _Tp> _OutputArray(_Tp *vec, int n);
-_OutputArray(gpu::GpuMat&d_mat);
-_OutputArray(ogl::Buffer&buf);
-_OutputArray(ogl::Texture2D&tex);
+_OutputArray(gpu::GpuMat &d_mat);
+_OutputArray(ogl::Buffer &buf);
+_OutputArray(ogl::Texture2D &tex);
 
-_OutputArray(const Mat&m);
-template<typename _Tp> _OutputArray(const vector<_Tp>&vec);
-template<typename _Tp> _OutputArray(const vector<vector<_Tp> >&vec);
-_OutputArray(const vector<Mat>&vec);
-template<typename _Tp> _OutputArray(const vector<Mat_<_Tp> >&vec);
-template<typename _Tp> _OutputArray(const Mat_<_Tp>&m);
-template<typename _Tp, int m, int n> _OutputArray(const Matx<_Tp, m, n>&matx);
+_OutputArray(const Mat &m);
+template<typename _Tp> _OutputArray(const vector<_Tp> &vec);
+template<typename _Tp> _OutputArray(const vector<vector<_Tp> > &vec);
+_OutputArray(const vector<Mat> &vec);
+template<typename _Tp> _OutputArray(const vector<Mat_<_Tp> > &vec);
+template<typename _Tp> _OutputArray(const Mat_<_Tp> &m);
+template<typename _Tp, int m, int n> _OutputArray(const Matx<_Tp, m, n> &matx);
 template<typename _Tp> _OutputArray(const _Tp *vec, int n);
-_OutputArray(const gpu::GpuMat&d_mat);
-_OutputArray(const ogl::Buffer&buf);
-_OutputArray(const ogl::Texture2D&tex);
+_OutputArray(const gpu::GpuMat &d_mat);
+_OutputArray(const ogl::Buffer &buf);
+_OutputArray(const ogl::Texture2D &tex);
 
 virtual bool fixedSize() const;
 virtual bool fixedType() const;
@@ -1531,8 +1531,8 @@ class CV_EXPORTS MatAllocator
 public:
 MatAllocator() {}
 virtual ~MatAllocator() {}
-virtual void allocate(int dims, const int *sizes, int type, int*&refcount,
-                      uchar*&datastart, uchar*&data, size_t *step)    = 0;
+virtual void allocate(int dims, const int *sizes, int type, int* &refcount,
+                      uchar* &datastart, uchar* &data, size_t *step)  = 0;
 virtual void deallocate(int *refcount, uchar *datastart, uchar *data) = 0;
 };
 
@@ -1758,24 +1758,24 @@ Mat();
 Mat(int rows, int cols, int type);
 Mat(Size size, int type);
 // ! constucts 2D matrix and fills it with the specified value _s.
-Mat(int rows, int cols, int type, const Scalar&s);
-Mat(Size size, int type, const Scalar&s);
+Mat(int rows, int cols, int type, const Scalar &s);
+Mat(Size size, int type, const Scalar &s);
 
 // ! constructs n-dimensional matrix
 Mat(int ndims, const int *sizes, int type);
-Mat(int ndims, const int *sizes, int type, const Scalar&s);
+Mat(int ndims, const int *sizes, int type, const Scalar &s);
 
 // ! copy constructor
-Mat(const Mat&m);
+Mat(const Mat &m);
 // ! constructor for matrix headers pointing to user-allocated data
 Mat(int rows, int cols, int type, void *data, size_t step = AUTO_STEP);
 Mat(Size size, int type, void *data, size_t step = AUTO_STEP);
 Mat(int ndims, const int *sizes, int type, void *data, const size_t *steps = 0);
 
 // ! creates a matrix header for a part of the bigger matrix
-Mat(const Mat&m, const Range&rowRange, const Range&colRange = Range::all());
-Mat(const Mat&m, const Rect&roi);
-Mat(const Mat&m, const Range *ranges);
+Mat(const Mat &m, const Range &rowRange, const Range &colRange = Range::all());
+Mat(const Mat &m, const Rect &roi);
+Mat(const Mat &m, const Range *ranges);
 // ! converts old-style CvMat to the new matrix; the data is not copied by default
 Mat(const CvMat *m, bool copyData = false);
 // ! converts old-style CvMatND to the new matrix; the data is not copied by default
@@ -1783,26 +1783,26 @@ Mat(const CvMatND *m, bool copyData = false);
 // ! converts old-style IplImage to the new matrix; the data is not copied by default
 Mat(const IplImage *img, bool copyData = false);
 // ! builds matrix from std::vector with or without copying the data
-template<typename _Tp> explicit Mat(const vector<_Tp>&vec, bool copyData = false);
+template<typename _Tp> explicit Mat(const vector<_Tp> &vec, bool copyData = false);
 // ! builds matrix from cv::Vec; the data is copied by default
-template<typename _Tp, int n> explicit Mat(const Vec<_Tp, n>&vec, bool copyData = true);
+template<typename _Tp, int n> explicit Mat(const Vec<_Tp, n> &vec, bool copyData = true);
 // ! builds matrix from cv::Matx; the data is copied by default
-template<typename _Tp, int m, int n> explicit Mat(const Matx<_Tp, m, n>&mtx, bool copyData = true);
+template<typename _Tp, int m, int n> explicit Mat(const Matx<_Tp, m, n> &mtx, bool copyData = true);
 // ! builds matrix from a 2D point
-template<typename _Tp> explicit Mat(const Point_<_Tp>&pt, bool copyData = true);
+template<typename _Tp> explicit Mat(const Point_<_Tp> &pt, bool copyData = true);
 // ! builds matrix from a 3D point
-template<typename _Tp> explicit Mat(const Point3_<_Tp>&pt, bool copyData = true);
+template<typename _Tp> explicit Mat(const Point3_<_Tp> &pt, bool copyData = true);
 // ! builds matrix from comma initializer
-template<typename _Tp> explicit Mat(const MatCommaInitializer_<_Tp>&commaInitializer);
+template<typename _Tp> explicit Mat(const MatCommaInitializer_<_Tp> &commaInitializer);
 
 // ! download data from GpuMat
-explicit Mat(const gpu::GpuMat&m);
+explicit Mat(const gpu::GpuMat &m);
 
 // ! destructor - calls release()
 ~Mat();
 // ! assignment operators
-Mat&operator =(const Mat&m);
-Mat&operator =(const MatExpr&expr);
+Mat&operator =(const Mat &m);
+Mat&operator =(const MatExpr &expr);
 
 // ! returns a new matrix header for the specified row
 Mat row(int y) const;
@@ -1810,17 +1810,17 @@ Mat row(int y) const;
 Mat col(int x) const;
 // ! ... for the specified row span
 Mat rowRange(int startrow, int endrow) const;
-Mat rowRange(const Range&r) const;
+Mat rowRange(const Range &r) const;
 // ! ... for the specified column span
 Mat colRange(int startcol, int endcol) const;
-Mat colRange(const Range&r) const;
+Mat colRange(const Range &r) const;
 // ! ... for the specified diagonal
 // (d=0 - the main diagonal,
 //  >0 - a diagonal from the lower half,
 //  <0 - a diagonal from the upper half)
 Mat diag(int d = 0) const;
 // ! constructs a square diagonal matrix which main diagonal is vector "d"
-static Mat diag(const Mat&d);
+static Mat diag(const Mat &d);
 
 // ! returns deep copy of the matrix, i.e. the data is copied
 Mat clone() const;
@@ -1832,10 +1832,10 @@ void copyTo(OutputArray m, InputArray mask) const;
 // ! converts matrix to another datatype with optional scalng. See cvConvertScale.
 void convertTo(OutputArray m, int rtype, double alpha = 1, double beta = 0) const;
 
-void assignTo(Mat&m, int type = -1) const;
+void assignTo(Mat &m, int type = -1) const;
 
 // ! sets every matrix element to s
-Mat&operator =(const Scalar&s);
+Mat&operator =(const Scalar &s);
 // ! sets some of the matrix elements to s, according to the mask
 Mat&setTo(InputArray value, InputArray mask = noArray());
 // ! creates alternative matrix header for the same data, with different
@@ -1880,31 +1880,31 @@ void release();
 // ! deallocates the matrix data
 void deallocate();
 // ! internal use function; properly re-allocates _size, _step arrays
-void copySize(const Mat&m);
+void copySize(const Mat &m);
 
 // ! reserves enough space to fit sz hyper-planes
 void reserve(size_t sz);
 // ! resizes matrix to the specified number of hyper-planes
 void resize(size_t sz);
 // ! resizes matrix to the specified number of hyper-planes; initializes the newly added elements
-void resize(size_t sz, const Scalar&s);
+void resize(size_t sz, const Scalar &s);
 // ! internal function
 void push_back_(const void *elem);
 // ! adds element to the end of 1d matrix (or possibly multiple elements when _Tp=Mat)
-template<typename _Tp> void push_back(const _Tp&elem);
-template<typename _Tp> void push_back(const Mat_<_Tp>&elem);
-void push_back(const Mat&m);
+template<typename _Tp> void push_back(const _Tp &elem);
+template<typename _Tp> void push_back(const Mat_<_Tp> &elem);
+void push_back(const Mat &m);
 // ! removes several hyper-planes from bottom of the matrix
 void pop_back(size_t nelems = 1);
 
 // ! locates matrix header within a parent matrix. See below
-void locateROI(Size&wholeSize, Point&ofs) const;
+void locateROI(Size &wholeSize, Point &ofs) const;
 // ! moves/resizes the current matrix ROI inside the parent matrix.
 Mat&adjustROI(int dtop, int dbottom, int dleft, int dright);
 // ! extracts a rectangular sub-matrix
 // (this is a generalized form of row, rowRange etc.)
 Mat operator()(Range rowRange, Range colRange) const;
-Mat operator()(const Rect&roi) const;
+Mat operator()(const Rect &roi) const;
 Mat operator()(const Range *ranges) const;
 
 // ! converts header to CvMat; no data is copied
@@ -1964,8 +1964,8 @@ uchar* ptr(const int *idx);
 // ! returns read-only pointer to the matrix element
 const uchar* ptr(const int *idx) const;
 
-template<int n> uchar* ptr(const Vec<int, n>&idx);
-template<int n> const uchar* ptr(const Vec<int, n>&idx) const;
+template<int n> uchar* ptr(const Vec<int, n> &idx);
+template<int n> const uchar* ptr(const Vec<int, n> &idx) const;
 
 // ! template version of the above method
 template<typename _Tp> _Tp* ptr(int i0 = 0);
@@ -1980,8 +1980,8 @@ template<typename _Tp> const _Tp* ptr(int i0, int i1, int i2) const;
 template<typename _Tp> _Tp* ptr(const int *idx);
 template<typename _Tp> const _Tp* ptr(const int *idx) const;
 
-template<typename _Tp, int n> _Tp* ptr(const Vec<int, n>&idx);
-template<typename _Tp, int n> const _Tp* ptr(const Vec<int, n>&idx) const;
+template<typename _Tp, int n> _Tp* ptr(const Vec<int, n> &idx);
+template<typename _Tp, int n> const _Tp* ptr(const Vec<int, n> &idx) const;
 
 // ! the same as above, with the pointer dereferencing
 template<typename _Tp> _Tp&at(int i0 = 0);
@@ -1996,8 +1996,8 @@ template<typename _Tp> const _Tp&at(int i0, int i1, int i2) const;
 template<typename _Tp> _Tp&at(const int *idx);
 template<typename _Tp> const _Tp&at(const int *idx) const;
 
-template<typename _Tp, int n> _Tp&at(const Vec<int, n>&idx);
-template<typename _Tp, int n> const _Tp&at(const Vec<int, n>&idx) const;
+template<typename _Tp, int n> _Tp&at(const Vec<int, n> &idx);
+template<typename _Tp, int n> const _Tp&at(const Vec<int, n> &idx) const;
 
 // ! special versions for 2D arrays (especially convenient for referencing image pixels)
 template<typename _Tp> _Tp&at(Point pt);
@@ -2045,8 +2045,8 @@ struct CV_EXPORTS MSize
     const int&operator[](int i) const;
     int&operator[](int i);
     operator const int*() const;
-    bool operator ==(const MSize&sz) const;
-    bool operator !=(const MSize&sz) const;
+    bool operator ==(const MSize &sz) const;
+    bool operator !=(const MSize &sz) const;
 
     int *p;
 };
@@ -2166,7 +2166,7 @@ TermCriteria();
 // ! full constructor
 TermCriteria(int type, int maxCount, double epsilon);
 // ! conversion from CvTermCriteria
-TermCriteria(const CvTermCriteria&criteria);
+TermCriteria(const CvTermCriteria &criteria);
 // ! conversion to CvTermCriteria
 operator CvTermCriteria() const;
 
@@ -2186,7 +2186,7 @@ CV_EXPORTS BinaryFunc getConvertScaleFunc(int sdepth, int ddepth);
 CV_EXPORTS BinaryFunc getCopyMaskFunc(size_t esz);
 
 // ! swaps two matrices
-CV_EXPORTS void swap(Mat&a, Mat&b);
+CV_EXPORTS void swap(Mat &a, Mat &b);
 
 // ! converts array (CvMat or IplImage) to cv::Mat
 CV_EXPORTS Mat cvarrToMat(const CvArr *arr, bool copyData = false,
@@ -2270,14 +2270,14 @@ CV_EXPORTS_W void reduce(InputArray src, OutputArray dst, int dim, int rtype, in
 
 // ! makes multi-channel array out of several single-channel arrays
 CV_EXPORTS void merge(const Mat *mv, size_t count, OutputArray dst);
-CV_EXPORTS void merge(const vector<Mat>&mv, OutputArray dst);
+CV_EXPORTS void merge(const vector<Mat> &mv, OutputArray dst);
 
 // ! makes multi-channel array out of several single-channel arrays
 CV_EXPORTS_W void merge(InputArrayOfArrays mv, OutputArray dst);
 
 // ! copies each plane of a multi-channel array to a dedicated array
-CV_EXPORTS void split(const Mat&src, Mat *mvbegin);
-CV_EXPORTS void split(const Mat&m, vector<Mat>&mv);
+CV_EXPORTS void split(const Mat &src, Mat *mvbegin);
+CV_EXPORTS void split(const Mat &m, vector<Mat> &mv);
 
 // ! copies each plane of a multi-channel array to a dedicated array
 CV_EXPORTS_W void split(InputArray m, OutputArrayOfArrays mv);
@@ -2285,10 +2285,10 @@ CV_EXPORTS_W void split(InputArray m, OutputArrayOfArrays mv);
 // ! copies selected channels from the input arrays to the selected channels of the output arrays
 CV_EXPORTS void mixChannels(const Mat *src, size_t nsrcs, Mat *dst, size_t ndsts,
                             const int *fromTo, size_t npairs);
-CV_EXPORTS void mixChannels(const vector<Mat>&src, vector<Mat>&dst,
+CV_EXPORTS void mixChannels(const vector<Mat> &src, vector<Mat> &dst,
                             const int *fromTo, size_t npairs);
 CV_EXPORTS_W void mixChannels(InputArrayOfArrays src, InputArrayOfArrays dst,
-                              const vector<int>&fromTo);
+                              const vector<int> &fromTo);
 
 // ! extracts a single channel from src (coi is 0-based index)
 CV_EXPORTS_W void extractChannel(InputArray src, OutputArray dst, int coi);
@@ -2301,7 +2301,7 @@ CV_EXPORTS_W void flip(InputArray src, OutputArray dst, int flipCode);
 
 // ! replicates the input matrix the specified number of times in the horizontal and/or vertical direction
 CV_EXPORTS_W void repeat(InputArray src, int ny, int nx, OutputArray dst);
-CV_EXPORTS Mat repeat(const Mat&src, int ny, int nx);
+CV_EXPORTS Mat repeat(const Mat &src, int ny, int nx);
 
 CV_EXPORTS void hconcat(const Mat *src, size_t nsrc, OutputArray dst);
 CV_EXPORTS void hconcat(InputArray src1, InputArray src2, OutputArray dst);
@@ -2336,13 +2336,13 @@ CV_EXPORTS_W void min(InputArray src1, InputArray src2, OutputArray dst);
 CV_EXPORTS_W void max(InputArray src1, InputArray src2, OutputArray dst);
 
 // ! computes per-element minimum of two arrays (dst = min(src1, src2))
-CV_EXPORTS void min(const Mat&src1, const Mat&src2, Mat&dst);
+CV_EXPORTS void min(const Mat &src1, const Mat &src2, Mat &dst);
 // ! computes per-element minimum of array and scalar (dst = min(src1, src2))
-CV_EXPORTS void min(const Mat&src1, double src2, Mat&dst);
+CV_EXPORTS void min(const Mat &src1, double src2, Mat &dst);
 // ! computes per-element maximum of two arrays (dst = max(src1, src2))
-CV_EXPORTS void max(const Mat&src1, const Mat&src2, Mat&dst);
+CV_EXPORTS void max(const Mat &src1, const Mat &src2, Mat &dst);
 // ! computes per-element maximum of array and scalar (dst = max(src1, src2))
-CV_EXPORTS void max(const Mat&src1, double src2, Mat&dst);
+CV_EXPORTS void max(const Mat &src1, double src2, Mat &dst);
 
 // ! computes square root of each matrix element (dst = src**0.5)
 CV_EXPORTS_W void sqrt(InputArray src, OutputArray dst);
@@ -2397,7 +2397,7 @@ CV_EXPORTS_W void perspectiveTransform(InputArray src, OutputArray dst, InputArr
 // ! extends the symmetrical matrix from the lower half or from the upper half
 CV_EXPORTS_W void completeSymm(InputOutputArray mtx, bool lowerToUpper = false);
 // ! initializes scaled identity matrix
-CV_EXPORTS_W void setIdentity(InputOutputArray mtx, const Scalar&s = Scalar(1));
+CV_EXPORTS_W void setIdentity(InputOutputArray mtx, const Scalar &s = Scalar(1));
 // ! computes determinant of a square matrix
 CV_EXPORTS_W double determinant(InputArray mtx);
 // ! computes trace of a matrix
@@ -2445,7 +2445,7 @@ enum
 };
 
 // ! computes covariation matrix of a set of samples
-CV_EXPORTS void calcCovarMatrix(const Mat *samples, int nsamples, Mat&covar, Mat&mean,
+CV_EXPORTS void calcCovarMatrix(const Mat *samples, int nsamples, Mat &covar, Mat &mean,
                                 int flags, int ctype = CV_64F);
 // ! computes covariation matrix of a set of samples
 CV_EXPORTS_W void calcCovarMatrix(InputArray samples, OutputArray covar,
@@ -2577,12 +2577,12 @@ static void backSubst(InputArray w, InputArray u,
                       InputArray vt, InputArray rhs,
                       OutputArray dst);
 
-template<typename _Tp, int m, int n, int nm> static void compute(const Matx<_Tp, m, n>&a,
-                                                                 Matx<_Tp, nm, 1>&w, Matx<_Tp, m, nm>&u, Matx<_Tp, n, nm>&vt);
-template<typename _Tp, int m, int n, int nm> static void compute(const Matx<_Tp, m, n>&a,
-                                                                 Matx<_Tp, nm, 1>&w);
-template<typename _Tp, int m, int n, int nm, int nb> static void backSubst(const Matx<_Tp, nm, 1>&w,
-                                                                           const Matx<_Tp, m, nm>&u, const Matx<_Tp, n, nm>&vt, const Matx<_Tp, m, nb>&rhs, Matx<_Tp, n, nb>&dst);
+template<typename _Tp, int m, int n, int nm> static void compute(const Matx<_Tp, m, n> &a,
+                                                                 Matx<_Tp, nm, 1> &w, Matx<_Tp, m, nm> &u, Matx<_Tp, n, nm> &vt);
+template<typename _Tp, int m, int n, int nm> static void compute(const Matx<_Tp, m, n> &a,
+                                                                 Matx<_Tp, nm, 1> &w);
+template<typename _Tp, int m, int n, int nm, int nb> static void backSubst(const Matx<_Tp, nm, 1> &w,
+                                                                           const Matx<_Tp, m, nm> &u, const Matx<_Tp, n, nm> &vt, const Matx<_Tp, m, nb> &rhs, Matx<_Tp, n, nb> &dst);
 
 // ! finds dst = arg min_{|dst|=1} |m*dst|
 static void solveZ(InputArray src, OutputArray dst);
@@ -2653,70 +2653,70 @@ CV_EXPORTS void randShuffle(InputOutputArray dst, double iterFactor = 1., RNG *r
 CV_EXPORTS_AS(randShuffle) void randShuffle_(InputOutputArray dst, double iterFactor = 1.);
 
 // ! draws the line segment (pt1, pt2) in the image
-CV_EXPORTS_W void line(CV_IN_OUT Mat&img, Point pt1, Point pt2, const Scalar&color,
+CV_EXPORTS_W void line(CV_IN_OUT Mat &img, Point pt1, Point pt2, const Scalar &color,
                        int thickness = 1, int lineType = 8, int shift = 0);
 
 // ! draws an arrow from pt1 to pt2 in the image
-CV_EXPORTS_W void arrowedLine(CV_IN_OUT Mat&img, Point pt1, Point pt2, const Scalar&color,
+CV_EXPORTS_W void arrowedLine(CV_IN_OUT Mat &img, Point pt1, Point pt2, const Scalar &color,
                               int thickness = 1, int line_type = 8, int shift = 0, double tipLength = 0.1);
 
 // ! draws the rectangle outline or a solid rectangle with the opposite corners pt1 and pt2 in the image
-CV_EXPORTS_W void rectangle(CV_IN_OUT Mat&img, Point pt1, Point pt2,
-                            const Scalar&color, int thickness = 1,
+CV_EXPORTS_W void rectangle(CV_IN_OUT Mat &img, Point pt1, Point pt2,
+                            const Scalar &color, int thickness = 1,
                             int lineType = 8, int shift = 0);
 
 // ! draws the rectangle outline or a solid rectangle covering rec in the image
-CV_EXPORTS void rectangle(CV_IN_OUT Mat&img, Rect rec,
-                          const Scalar&color, int thickness = 1,
+CV_EXPORTS void rectangle(CV_IN_OUT Mat &img, Rect rec,
+                          const Scalar &color, int thickness = 1,
                           int lineType = 8, int shift = 0);
 
 // ! draws the circle outline or a solid circle in the image
-CV_EXPORTS_W void circle(CV_IN_OUT Mat&img, Point center, int radius,
-                         const Scalar&color, int thickness = 1,
+CV_EXPORTS_W void circle(CV_IN_OUT Mat &img, Point center, int radius,
+                         const Scalar &color, int thickness = 1,
                          int lineType = 8, int shift = 0);
 
 // ! draws an elliptic arc, ellipse sector or a rotated ellipse in the image
-CV_EXPORTS_W void ellipse(CV_IN_OUT Mat&img, Point center, Size axes,
+CV_EXPORTS_W void ellipse(CV_IN_OUT Mat &img, Point center, Size axes,
                           double angle, double startAngle, double endAngle,
-                          const Scalar&color, int thickness = 1,
+                          const Scalar &color, int thickness = 1,
                           int lineType = 8, int shift = 0);
 
 // ! draws a rotated ellipse in the image
-CV_EXPORTS_W void ellipse(CV_IN_OUT Mat&img, const RotatedRect&box, const Scalar&color,
+CV_EXPORTS_W void ellipse(CV_IN_OUT Mat &img, const RotatedRect &box, const Scalar &color,
                           int thickness = 1, int lineType = 8);
 
 // ! draws a filled convex polygon in the image
-CV_EXPORTS void fillConvexPoly(Mat&img, const Point *pts, int npts,
-                               const Scalar&color, int lineType = 8,
+CV_EXPORTS void fillConvexPoly(Mat &img, const Point *pts, int npts,
+                               const Scalar &color, int lineType = 8,
                                int shift = 0);
 CV_EXPORTS_W void fillConvexPoly(InputOutputArray img, InputArray points,
-                                 const Scalar&color, int lineType = 8,
+                                 const Scalar &color, int lineType = 8,
                                  int shift = 0);
 
 // ! fills an area bounded by one or more polygons
-CV_EXPORTS void fillPoly(Mat&img, const Point **pts,
+CV_EXPORTS void fillPoly(Mat &img, const Point **pts,
                          const int *npts, int ncontours,
-                         const Scalar&color, int lineType = 8, int shift = 0,
+                         const Scalar &color, int lineType = 8, int shift = 0,
                          Point offset = Point());
 
 CV_EXPORTS_W void fillPoly(InputOutputArray img, InputArrayOfArrays pts,
-                           const Scalar&color, int lineType = 8, int shift = 0,
+                           const Scalar &color, int lineType = 8, int shift = 0,
                            Point offset = Point());
 
 // ! draws one or more polygonal curves
-CV_EXPORTS void polylines(Mat&img, const Point **pts, const int *npts,
-                          int ncontours, bool isClosed, const Scalar&color,
+CV_EXPORTS void polylines(Mat &img, const Point **pts, const int *npts,
+                          int ncontours, bool isClosed, const Scalar &color,
                           int thickness = 1, int lineType = 8, int shift = 0);
 
 CV_EXPORTS_W void polylines(InputOutputArray img, InputArrayOfArrays pts,
-                            bool isClosed, const Scalar&color,
+                            bool isClosed, const Scalar &color,
                             int thickness = 1, int lineType = 8, int shift = 0);
 
 // ! clips the line segment by the rectangle Rect(0, 0, imgSize.width, imgSize.height)
-CV_EXPORTS bool clipLine(Size imgSize, CV_IN_OUT Point&pt1, CV_IN_OUT Point&pt2);
+CV_EXPORTS bool clipLine(Size imgSize, CV_IN_OUT Point &pt1, CV_IN_OUT Point &pt2);
 
 // ! clips the line segment by the rectangle imgRect
-CV_EXPORTS_W bool clipLine(Rect imgRect, CV_OUT CV_IN_OUT Point&pt1, CV_OUT CV_IN_OUT Point&pt2);
+CV_EXPORTS_W bool clipLine(Rect imgRect, CV_OUT CV_IN_OUT Point &pt1, CV_OUT CV_IN_OUT Point &pt2);
 
 /*!
    Line iterator class
@@ -2728,7 +2728,7 @@ class CV_EXPORTS LineIterator
 {
 public:
 // ! intializes the iterator
-LineIterator(const Mat&img, Point pt1, Point pt2,
+LineIterator(const Mat &img, Point pt1, Point pt2,
              int connectivity = 8, bool leftToRight = false);
 // ! returns pointer to the current pixel
 uchar* operator *();
@@ -2750,7 +2750,7 @@ int         minusStep, plusStep;
 // ! converts elliptic arc to a polygonal curve
 CV_EXPORTS_W void ellipse2Poly(Point center, Size axes, int angle,
                                int arcStart, int arcEnd, int delta,
-                               CV_OUT vector<Point>&pts);
+                               CV_OUT vector<Point> &pts);
 
 enum
 {
@@ -2766,13 +2766,13 @@ enum
 };
 
 // ! renders text string in the image
-CV_EXPORTS_W void putText(Mat&img, const string&text, Point org,
+CV_EXPORTS_W void putText(Mat &img, const string &text, Point org,
                           int fontFace, double fontScale, Scalar color,
                           int thickness = 1, int lineType = 8,
                           bool bottomLeftOrigin = false);
 
 // ! returns bounding box of the text string
-CV_EXPORTS_W Size getTextSize(const string&text, int fontFace,
+CV_EXPORTS_W Size getTextSize(const string &text, int fontFace,
                               double fontScale, int thickness,
                               CV_OUT int *baseLine);
 
@@ -2836,45 +2836,45 @@ Mat_();
 // ! equivalent to Mat(_rows, _cols, DataType<_Tp>::type)
 Mat_(int _rows, int _cols);
 // ! constructor that sets each matrix element to specified value
-Mat_(int _rows, int _cols, const _Tp&value);
+Mat_(int _rows, int _cols, const _Tp &value);
 // ! equivalent to Mat(_size, DataType<_Tp>::type)
 explicit Mat_(Size _size);
 // ! constructor that sets each matrix element to specified value
-Mat_(Size _size, const _Tp&value);
+Mat_(Size _size, const _Tp &value);
 // ! n-dim array constructor
 Mat_(int _ndims, const int *_sizes);
 // ! n-dim array constructor that sets each matrix element to specified value
-Mat_(int _ndims, const int *_sizes, const _Tp&value);
+Mat_(int _ndims, const int *_sizes, const _Tp &value);
 // ! copy/conversion contructor. If m is of different type, it's converted
-Mat_(const Mat&m);
+Mat_(const Mat &m);
 // ! copy constructor
-Mat_(const Mat_&m);
+Mat_(const Mat_ &m);
 // ! constructs a matrix on top of user-allocated data. step is in bytes(!!!), regardless of the type
 Mat_(int _rows, int _cols, _Tp *_data, size_t _step = AUTO_STEP);
 // ! constructs n-dim matrix on top of user-allocated data. steps are in bytes(!!!), regardless of the type
 Mat_(int _ndims, const int *_sizes, _Tp *_data, const size_t *_steps = 0);
 // ! selects a submatrix
-Mat_(const Mat_&m, const Range&rowRange, const Range&colRange = Range::all());
+Mat_(const Mat_ &m, const Range &rowRange, const Range &colRange = Range::all());
 // ! selects a submatrix
-Mat_(const Mat_&m, const Rect&roi);
+Mat_(const Mat_ &m, const Rect &roi);
 // ! selects a submatrix, n-dim version
-Mat_(const Mat_&m, const Range *ranges);
+Mat_(const Mat_ &m, const Range *ranges);
 // ! from a matrix expression
-explicit Mat_(const MatExpr&e);
+explicit Mat_(const MatExpr &e);
 // ! makes a matrix out of Vec, std::vector, Point_ or Point3_. The matrix will have a single column
-explicit Mat_(const vector<_Tp>&vec, bool copyData = false);
-template<int n> explicit Mat_(const Vec<typename DataType<_Tp>::channel_type, n>&vec, bool copyData = true);
-template<int m, int n> explicit Mat_(const Matx<typename DataType<_Tp>::channel_type, m, n>&mtx, bool copyData = true);
-explicit Mat_(const Point_<typename DataType<_Tp>::channel_type>&pt, bool copyData = true);
-explicit Mat_(const Point3_<typename DataType<_Tp>::channel_type>&pt, bool copyData = true);
-explicit Mat_(const MatCommaInitializer_<_Tp>&commaInitializer);
+explicit Mat_(const vector<_Tp> &vec, bool copyData = false);
+template<int n> explicit Mat_(const Vec<typename DataType<_Tp>::channel_type, n> &vec, bool copyData = true);
+template<int m, int n> explicit Mat_(const Matx<typename DataType<_Tp>::channel_type, m, n> &mtx, bool copyData = true);
+explicit Mat_(const Point_<typename DataType<_Tp>::channel_type> &pt, bool copyData = true);
+explicit Mat_(const Point3_<typename DataType<_Tp>::channel_type> &pt, bool copyData = true);
+explicit Mat_(const MatCommaInitializer_<_Tp> &commaInitializer);
 
-Mat_&operator =(const Mat&m);
-Mat_&operator =(const Mat_&m);
+Mat_&operator =(const Mat &m);
+Mat_&operator =(const Mat_ &m);
 // ! set all the elements to s.
-Mat_&operator =(const _Tp&s);
+Mat_&operator =(const _Tp &s);
 // ! assign a matrix expression
-Mat_&operator =(const MatExpr&e);
+Mat_&operator =(const MatExpr &e);
 
 // ! iterators; they are smart enough to skip gaps in the end of rows
 iterator begin();
@@ -2889,7 +2889,7 @@ void create(Size _size);
 // ! equivalent to Mat::create(_ndims, _sizes, DatType<_Tp>::type)
 void create(int _ndims, const int *_sizes);
 // ! cross-product
-Mat_ cross(const Mat_&m) const;
+Mat_ cross(const Mat_ &m) const;
 // ! data type conversion
 template<typename T2> operator Mat_<T2>() const;
 // ! overridden forms of Mat::row() etc.
@@ -2920,8 +2920,8 @@ static MatExpr eye(Size size);
 
 // ! some more overriden methods
 Mat_&adjustROI(int dtop, int dbottom, int dleft, int dright);
-Mat_ operator()(const Range&rowRange, const Range&colRange) const;
-Mat_ operator()(const Rect&roi) const;
+Mat_ operator()(const Range &rowRange, const Range &colRange) const;
+Mat_ operator()(const Rect &roi) const;
 Mat_ operator()(const Range *ranges) const;
 
 // ! more convenient forms of row and element access operators
@@ -2934,9 +2934,9 @@ _Tp&operator ()(const int *idx);
 const _Tp&operator ()(const int *idx) const;
 
 // ! returns reference to the specified element
-template<int n> _Tp&operator ()(const Vec<int, n>&idx);
+template<int n> _Tp&operator ()(const Vec<int, n> &idx);
 // ! returns read-only reference to the specified element
-template<int n> const _Tp&operator ()(const Vec<int, n>&idx) const;
+template<int n> const _Tp&operator ()(const Vec<int, n> &idx) const;
 
 // ! returns reference to the specified element (1D case)
 _Tp&operator ()(int idx0);
@@ -3014,10 +3014,10 @@ MatConstIterator(const Mat *_m, Point _pt);
 // ! constructor that sets the iterator to the specified element of the matrix
 MatConstIterator(const Mat *_m, const int *_idx);
 // ! copy constructor
-MatConstIterator(const MatConstIterator&it);
+MatConstIterator(const MatConstIterator &it);
 
 // ! copy operator
-MatConstIterator&operator =(const MatConstIterator&it);
+MatConstIterator&operator =(const MatConstIterator &it);
 // ! returns the current matrix element
 uchar* operator *() const;
 // ! returns the i-th matrix element, relative to the current
@@ -3075,10 +3075,10 @@ MatConstIterator_(const Mat_<_Tp> *_m, Point _pt);
 // ! constructor that sets the iterator to the specified element of the matrix
 MatConstIterator_(const Mat_<_Tp> *_m, const int *_idx);
 // ! copy constructor
-MatConstIterator_(const MatConstIterator_&it);
+MatConstIterator_(const MatConstIterator_ &it);
 
 // ! copy operator
-MatConstIterator_&operator =(const MatConstIterator_&it);
+MatConstIterator_&operator =(const MatConstIterator_ &it);
 // ! returns the current matrix element
 _Tp operator *() const;
 // ! returns the i-th matrix element, relative to the current
@@ -3124,9 +3124,9 @@ MatIterator_(const Mat_<_Tp> *_m, Point _pt);
 // ! constructor that sets the iterator to the specified element of the matrix
 MatIterator_(const Mat_<_Tp> *_m, const int *_idx);
 // ! copy constructor
-MatIterator_(const MatIterator_&it);
+MatIterator_(const MatIterator_ &it);
 // ! copy operator
-MatIterator_&operator =(const MatIterator_<_Tp>&it);
+MatIterator_&operator =(const MatIterator_<_Tp> &it);
 
 // ! returns the current matrix element
 _Tp&operator *() const;
@@ -3481,41 +3481,41 @@ SparseMat();
 // ! creates matrix of the specified size and type
 SparseMat(int dims, const int *_sizes, int _type);
 // ! copy constructor
-SparseMat(const SparseMat&m);
+SparseMat(const SparseMat &m);
 // ! converts dense 2d matrix to the sparse form
 /*!
    \param m the input matrix
  */
-explicit SparseMat(const Mat&m);
+explicit SparseMat(const Mat &m);
 // ! converts old-style sparse matrix to the new-style. All the data is copied
 SparseMat(const CvSparseMat *m);
 // ! the destructor
 ~SparseMat();
 
 // ! assignment operator. This is O(1) operation, i.e. no data is copied
-SparseMat&operator =(const SparseMat&m);
+SparseMat&operator =(const SparseMat &m);
 // ! equivalent to the corresponding constructor
-SparseMat&operator =(const Mat&m);
+SparseMat&operator =(const Mat &m);
 
 // ! creates full copy of the matrix
 SparseMat clone() const;
 
 // ! copies all the data to the destination matrix. All the previous content of m is erased
-void copyTo(SparseMat&m) const;
+void copyTo(SparseMat &m) const;
 // ! converts sparse matrix to dense matrix.
-void copyTo(Mat&m) const;
+void copyTo(Mat &m) const;
 // ! multiplies all the matrix elements by the specified scale factor alpha and converts the results to the specified data type
-void convertTo(SparseMat&m, int rtype, double alpha = 1) const;
+void convertTo(SparseMat &m, int rtype, double alpha = 1) const;
 // ! converts sparse matrix to dense n-dim matrix with optional type conversion and scaling.
 /*!
    \param rtype The output matrix data type. When it is =-1, the output array will have the same data type as (*this)
    \param alpha The scale factor
    \param beta The optional delta added to the scaled values before the conversion
  */
-void convertTo(Mat&m, int rtype, double alpha = 1, double beta = 0) const;
+void convertTo(Mat &m, int rtype, double alpha = 1, double beta = 0) const;
 
 // not used now
-void assignTo(SparseMat&m, int type = -1) const;
+void assignTo(SparseMat &m, int type = -1) const;
 
 // ! reallocates sparse matrix.
 /*!
@@ -3696,12 +3696,12 @@ Hdr *hdr;
 };
 
 // ! finds global minimum and maximum sparse array elements and returns their values and their locations
-CV_EXPORTS void minMaxLoc(const SparseMat&a, double *minVal,
+CV_EXPORTS void minMaxLoc(const SparseMat &a, double *minVal,
                           double *maxVal, int *minIdx = 0, int *maxIdx = 0);
 // ! computes norm of a sparse matrix
-CV_EXPORTS double norm(const SparseMat&src, int normType);
+CV_EXPORTS double norm(const SparseMat &src, int normType);
 // ! scales and shifts array elements so that either the specified norm (alpha) or the minimum (alpha) and maximum (beta) array values get the specified values
-CV_EXPORTS void normalize(const SparseMat&src, SparseMat&dst, double alpha, int normType);
+CV_EXPORTS void normalize(const SparseMat &src, SparseMat &dst, double alpha, int normType);
 
 /*!
    Read-Only Sparse Matrix Iterator.
@@ -3723,10 +3723,10 @@ SparseMatConstIterator();
 // ! the full constructor setting the iterator to the first sparse matrix element
 SparseMatConstIterator(const SparseMat *_m);
 // ! the copy constructor
-SparseMatConstIterator(const SparseMatConstIterator&it);
+SparseMatConstIterator(const SparseMatConstIterator &it);
 
 // ! the assignment operator
-SparseMatConstIterator&operator =(const SparseMatConstIterator&it);
+SparseMatConstIterator&operator =(const SparseMatConstIterator &it);
 
 // ! template method returning the current matrix element
 template<typename _Tp> const _Tp&value() const;
@@ -3766,10 +3766,10 @@ SparseMatIterator(SparseMat *_m);
 // ! the full constructor setting the iterator to the specified sparse matrix element
 SparseMatIterator(SparseMat *_m, const int *idx);
 // ! the copy constructor
-SparseMatIterator(const SparseMatIterator&it);
+SparseMatIterator(const SparseMatIterator &it);
 
 // ! the assignment operator
-SparseMatIterator&operator =(const SparseMatIterator&it);
+SparseMatIterator&operator =(const SparseMatIterator &it);
 // ! returns read-write reference to the current sparse matrix element
 template<typename _Tp> _Tp&value() const;
 // ! returns pointer to the current sparse matrix node. it.node->idx is the index of the current element (do not modify it!)
@@ -3805,19 +3805,19 @@ SparseMat_();
 // ! the full constructor equivelent to SparseMat(dims, _sizes, DataType<_Tp>::type)
 SparseMat_(int dims, const int *_sizes);
 // ! the copy constructor. If DataType<_Tp>.type != m.type(), the m elements are converted
-SparseMat_(const SparseMat&m);
+SparseMat_(const SparseMat &m);
 // ! the copy constructor. This is O(1) operation - no data is copied
-SparseMat_(const SparseMat_&m);
+SparseMat_(const SparseMat_ &m);
 // ! converts dense matrix to the sparse form
-SparseMat_(const Mat&m);
+SparseMat_(const Mat &m);
 // ! converts the old-style sparse matrix to the C++ class. All the elements are copied
 SparseMat_(const CvSparseMat *m);
 // ! the assignment operator. If DataType<_Tp>.type != m.type(), the m elements are converted
-SparseMat_&operator =(const SparseMat&m);
+SparseMat_&operator =(const SparseMat &m);
 // ! the assignment operator. This is O(1) operation - no data is copied
-SparseMat_&operator =(const SparseMat_&m);
+SparseMat_&operator =(const SparseMat_ &m);
 // ! converts dense matrix to the sparse form
-SparseMat_&operator =(const Mat&m);
+SparseMat_&operator =(const Mat &m);
 
 // ! makes full copy of the matrix. All the elements are duplicated
 SparseMat_ clone() const;
@@ -3879,10 +3879,10 @@ SparseMatConstIterator_();
 SparseMatConstIterator_(const SparseMat_<_Tp> *_m);
 SparseMatConstIterator_(const SparseMat *_m);
 // ! the copy constructor
-SparseMatConstIterator_(const SparseMatConstIterator_&it);
+SparseMatConstIterator_(const SparseMatConstIterator_ &it);
 
 // ! the assignment operator
-SparseMatConstIterator_&operator =(const SparseMatConstIterator_&it);
+SparseMatConstIterator_&operator =(const SparseMatConstIterator_ &it);
 // ! the element access operator
 const _Tp&operator *() const;
 
@@ -3909,10 +3909,10 @@ SparseMatIterator_();
 SparseMatIterator_(SparseMat_<_Tp> *_m);
 SparseMatIterator_(SparseMat *_m);
 // ! the copy constructor
-SparseMatIterator_(const SparseMatIterator_&it);
+SparseMatIterator_(const SparseMatIterator_ &it);
 
 // ! the assignment operator
-SparseMatIterator_&operator =(const SparseMatIterator_&it);
+SparseMatIterator_&operator =(const SparseMatIterator_ &it);
 // ! returns the reference to the current element
 _Tp&operator *() const;
 
@@ -4132,14 +4132,14 @@ enum
 // ! the default constructor
 CV_WRAP FileStorage();
 // ! the full constructor that opens file storage for reading or writing
-CV_WRAP FileStorage(const string&source, int flags, const string&encoding = string());
+CV_WRAP FileStorage(const string &source, int flags, const string &encoding = string());
 // ! the constructor that takes pointer to the C FileStorage structure
 FileStorage(CvFileStorage *fs);
 // ! the destructor. calls release()
 virtual ~FileStorage();
 
 // ! opens file storage for reading or writing. The previous storage is closed with release()
-CV_WRAP virtual bool open(const string&filename, int flags, const string&encoding = string());
+CV_WRAP virtual bool open(const string &filename, int flags, const string &encoding = string());
 // ! returns true if the object is associated with currently opened file.
 CV_WRAP virtual bool isOpened() const;
 // ! closes the file and releases all the memory buffers
@@ -4152,7 +4152,7 @@ CV_WRAP FileNode getFirstTopLevelNode() const;
 // ! returns the top-level mapping. YAML supports multiple streams
 CV_WRAP FileNode root(int streamidx = 0) const;
 // ! returns the specified element of the top-level mapping
-FileNode operator[](const string&nodename) const;
+FileNode operator[](const string &nodename) const;
 // ! returns the specified element of the top-level mapping
 CV_WRAP FileNode operator[](const char *nodename) const;
 
@@ -4167,12 +4167,12 @@ const CvFileStorage* operator *() const
     return fs;
 }
 // ! writes one or more numbers of the specified format to the currently written structure
-void writeRaw(const string&fmt, const uchar *vec, size_t len);
+void writeRaw(const string &fmt, const uchar *vec, size_t len);
 // ! writes the registered C structure (CvMat, CvMatND, CvSeq). See cvWrite()
-void writeObj(const string&name, const void *obj);
+void writeObj(const string &name, const void *obj);
 
 // ! returns the normalized object name for the specified file name
-static string getDefaultObjectName(const string&filename);
+static string getDefaultObjectName(const string &filename);
 
 Ptr<CvFileStorage> fs;     // !< the underlying C FileStorage structure
 string             elname; // !< the currently written element
@@ -4218,9 +4218,9 @@ CV_WRAP FileNode();
 // ! the full constructor wrapping CvFileNode structure.
 FileNode(const CvFileStorage *fs, const CvFileNode *node);
 // ! the copy constructor
-FileNode(const FileNode&node);
+FileNode(const FileNode &node);
 // ! returns element of a mapping node
-FileNode operator[](const string&nodename) const;
+FileNode operator[](const string &nodename) const;
 // ! returns element of a mapping node
 CV_WRAP FileNode operator[](const char *nodename) const;
 // ! returns element of a sequence node
@@ -4268,7 +4268,7 @@ FileNodeIterator begin() const;
 FileNodeIterator end() const;
 
 // ! reads node elements to the buffer with the specified format
-void readRaw(const string&fmt, uchar *vec, size_t len) const;
+void readRaw(const string &fmt, uchar *vec, size_t len) const;
 // ! reads the registered object and returns pointer to it
 void* readObj() const;
 
@@ -4291,7 +4291,7 @@ FileNodeIterator();
 // ! the full constructor set to the ofs-th element of the node
 FileNodeIterator(const CvFileStorage *fs, const CvFileNode *node, size_t ofs = 0);
 // ! the copy constructor
-FileNodeIterator(const FileNodeIterator&it);
+FileNodeIterator(const FileNodeIterator &it);
 // ! returns the currently observed element
 FileNode operator *() const;
 // ! accesses the currently observed element methods
@@ -4311,7 +4311,7 @@ FileNodeIterator&operator +=(int ofs);
 FileNodeIterator&operator -=(int ofs);
 
 // ! reads the next maxCount elements (or less, if the sequence/mapping last element occurs earlier) to the buffer with the specified format
-FileNodeIterator&readRaw(const string&fmt, uchar *vec,
+FileNodeIterator&readRaw(const string &fmt, uchar *vec,
                          size_t maxCount = (size_t)INT_MAX);
 
 const CvFileStorage *fs;
@@ -4347,7 +4347,7 @@ Seq();
 // ! the constructor for wrapping CvSeq structure. The real element type in CvSeq should match _Tp.
 Seq(const CvSeq *seq);
 // ! creates the empty sequence that resides in the specified storage
-Seq(MemStorage&storage, int headerSize = sizeof(CvSeq));
+Seq(MemStorage &storage, int headerSize = sizeof(CvSeq));
 // ! returns read-write reference to the specified element
 _Tp&operator [](int idx);
 // ! returns read-only reference to the specified element
@@ -4367,23 +4367,23 @@ int channels() const;
 // ! returns the size of each sequence element
 size_t elemSize() const;
 // ! returns index of the specified sequence element
-size_t index(const _Tp&elem) const;
+size_t index(const _Tp &elem) const;
 // ! appends the specified element to the end of the sequence
-void push_back(const _Tp&elem);
+void push_back(const _Tp &elem);
 // ! appends the specified element to the front of the sequence
-void push_front(const _Tp&elem);
+void push_front(const _Tp &elem);
 // ! appends zero or more elements to the end of the sequence
 void push_back(const _Tp *elems, size_t count);
 // ! appends zero or more elements to the front of the sequence
 void push_front(const _Tp *elems, size_t count);
 // ! inserts the specified element to the specified position
-void insert(int idx, const _Tp&elem);
+void insert(int idx, const _Tp &elem);
 // ! inserts zero or more elements to the specified position
 void insert(int idx, const _Tp *elems, size_t count);
 // ! removes element at the specified position
 void remove(int idx);
 // ! removes the specified subsequence
-void remove(const Range&r);
+void remove(const Range &r);
 
 // ! returns reference to the first sequence element
 _Tp&front();
@@ -4408,7 +4408,7 @@ void pop_front(_Tp *elems, size_t count);
 void pop_back(_Tp *elems, size_t count);
 
 // ! copies the whole sequence or the sequence slice to the specified vector
-void copyTo(vector<_Tp>&vec, const Range&range = Range::all()) const;
+void copyTo(vector<_Tp> &vec, const Range &range = Range::all()) const;
 // ! returns the vector containing all the sequence elements
 operator vector<_Tp>() const;
 
@@ -4425,7 +4425,7 @@ public:
 // ! the default constructor
 SeqIterator();
 // ! the constructor setting the iterator to the beginning or to the end of the sequence
-SeqIterator(const Seq<_Tp>&seq, bool seekEnd = false);
+SeqIterator(const Seq<_Tp> &seq, bool seekEnd = false);
 // ! positions the iterator within the sequence
 void seek(size_t pos);
 // ! reports the current iterator position
@@ -4470,69 +4470,69 @@ Algorithm();
 virtual ~Algorithm();
 string name() const;
 
-template<typename _Tp> typename ParamType<_Tp>::member_type get(const string&name) const;
+template<typename _Tp> typename ParamType<_Tp>::member_type get(const string &name) const;
 template<typename _Tp> typename ParamType<_Tp>::member_type get(const char *name) const;
 
-CV_WRAP int getInt(const string&name) const;
-CV_WRAP double getDouble(const string&name) const;
-CV_WRAP bool getBool(const string&name) const;
-CV_WRAP string getString(const string&name) const;
-CV_WRAP Mat getMat(const string&name) const;
-CV_WRAP vector<Mat> getMatVector(const string&name) const;
-CV_WRAP Ptr<Algorithm> getAlgorithm(const string&name) const;
+CV_WRAP int getInt(const string &name) const;
+CV_WRAP double getDouble(const string &name) const;
+CV_WRAP bool getBool(const string &name) const;
+CV_WRAP string getString(const string &name) const;
+CV_WRAP Mat getMat(const string &name) const;
+CV_WRAP vector<Mat> getMatVector(const string &name) const;
+CV_WRAP Ptr<Algorithm> getAlgorithm(const string &name) const;
 
-void set(const string&name, int value);
-void set(const string&name, double value);
-void set(const string&name, bool value);
-void set(const string&name, const string&value);
-void set(const string&name, const Mat&value);
-void set(const string&name, const vector<Mat>&value);
-void set(const string&name, const Ptr<Algorithm>&value);
-template<typename _Tp> void set(const string&name, const Ptr<_Tp>&value);
+void set(const string &name, int value);
+void set(const string &name, double value);
+void set(const string &name, bool value);
+void set(const string &name, const string &value);
+void set(const string &name, const Mat &value);
+void set(const string &name, const vector<Mat> &value);
+void set(const string &name, const Ptr<Algorithm> &value);
+template<typename _Tp> void set(const string &name, const Ptr<_Tp> &value);
 
-CV_WRAP void setInt(const string&name, int value);
-CV_WRAP void setDouble(const string&name, double value);
-CV_WRAP void setBool(const string&name, bool value);
-CV_WRAP void setString(const string&name, const string&value);
-CV_WRAP void setMat(const string&name, const Mat&value);
-CV_WRAP void setMatVector(const string&name, const vector<Mat>&value);
-CV_WRAP void setAlgorithm(const string&name, const Ptr<Algorithm>&value);
-template<typename _Tp> void setAlgorithm(const string&name, const Ptr<_Tp>&value);
+CV_WRAP void setInt(const string &name, int value);
+CV_WRAP void setDouble(const string &name, double value);
+CV_WRAP void setBool(const string &name, bool value);
+CV_WRAP void setString(const string &name, const string &value);
+CV_WRAP void setMat(const string &name, const Mat &value);
+CV_WRAP void setMatVector(const string &name, const vector<Mat> &value);
+CV_WRAP void setAlgorithm(const string &name, const Ptr<Algorithm> &value);
+template<typename _Tp> void setAlgorithm(const string &name, const Ptr<_Tp> &value);
 
 void set(const char *name, int value);
 void set(const char *name, double value);
 void set(const char *name, bool value);
-void set(const char *name, const string&value);
-void set(const char *name, const Mat&value);
-void set(const char *name, const vector<Mat>&value);
-void set(const char *name, const Ptr<Algorithm>&value);
-template<typename _Tp> void set(const char *name, const Ptr<_Tp>&value);
+void set(const char *name, const string &value);
+void set(const char *name, const Mat &value);
+void set(const char *name, const vector<Mat> &value);
+void set(const char *name, const Ptr<Algorithm> &value);
+template<typename _Tp> void set(const char *name, const Ptr<_Tp> &value);
 
 void setInt(const char *name, int value);
 void setDouble(const char *name, double value);
 void setBool(const char *name, bool value);
-void setString(const char *name, const string&value);
-void setMat(const char *name, const Mat&value);
-void setMatVector(const char *name, const vector<Mat>&value);
-void setAlgorithm(const char *name, const Ptr<Algorithm>&value);
-template<typename _Tp> void setAlgorithm(const char *name, const Ptr<_Tp>&value);
+void setString(const char *name, const string &value);
+void setMat(const char *name, const Mat &value);
+void setMatVector(const char *name, const vector<Mat> &value);
+void setAlgorithm(const char *name, const Ptr<Algorithm> &value);
+template<typename _Tp> void setAlgorithm(const char *name, const Ptr<_Tp> &value);
 
-CV_WRAP string paramHelp(const string&name) const;
+CV_WRAP string paramHelp(const string &name) const;
 int paramType(const char *name) const;
-CV_WRAP int paramType(const string&name) const;
-CV_WRAP void getParams(CV_OUT vector<string>&names) const;
+CV_WRAP int paramType(const string &name) const;
+CV_WRAP void getParams(CV_OUT vector<string> &names) const;
 
 
-virtual void write(FileStorage&fs) const;
-virtual void read(const FileNode&fn);
+virtual void write(FileStorage &fs) const;
+virtual void read(const FileNode &fn);
 
 typedef Algorithm*(*Constructor)(void);
 typedef int (Algorithm::*Getter)() const;
 typedef void (Algorithm::*Setter)(int);
 
-CV_WRAP static void getList(CV_OUT vector<string>&algorithms);
-CV_WRAP static Ptr<Algorithm> _create(const string&name);
-template<typename _Tp> static Ptr<_Tp> create(const string&name);
+CV_WRAP static void getList(CV_OUT vector<string> &algorithms);
+CV_WRAP static Ptr<Algorithm> _create(const string &name);
+template<typename _Tp> static Ptr<_Tp> create(const string &name);
 
 virtual AlgorithmInfo* info() const     /* TODO: make it = 0;*/
 {
@@ -4545,91 +4545,91 @@ class CV_EXPORTS AlgorithmInfo
 {
 public:
 friend class Algorithm;
-AlgorithmInfo(const string&name, Algorithm::Constructor create);
+AlgorithmInfo(const string &name, Algorithm::Constructor create);
 ~AlgorithmInfo();
 void get(const Algorithm *algo, const char *name, int argType, void *value) const;
-void addParam_(Algorithm&algo, const char *name, int argType,
+void addParam_(Algorithm &algo, const char *name, int argType,
                void *value, bool readOnly,
                Algorithm::Getter getter, Algorithm::Setter setter,
-               const string&help = string());
+               const string &help = string());
 string paramHelp(const char *name) const;
 int paramType(const char *name) const;
-void getParams(vector<string>&names) const;
+void getParams(vector<string> &names) const;
 
-void write(const Algorithm *algo, FileStorage&fs) const;
-void read(Algorithm *algo, const FileNode&fn) const;
+void write(const Algorithm *algo, FileStorage &fs) const;
+void read(Algorithm *algo, const FileNode &fn) const;
 string name() const;
 
 void addParam(Algorithm & algo, const char *name,
-              int&value, bool readOnly = false,
+              int &value, bool readOnly = false,
               int (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(int) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
-              short&value, bool readOnly = false,
+              short &value, bool readOnly = false,
               int (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(int) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
-              bool&value, bool readOnly = false,
+              bool &value, bool readOnly = false,
               int (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(int) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
-              double&value, bool readOnly = false,
+              double &value, bool readOnly = false,
               double (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(double) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
               string & value, bool readOnly = false,
               string (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(const string&) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
               Mat & value, bool readOnly = false,
               Mat (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(const Mat&) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
               vector<Mat>&value, bool readOnly = false,
               vector<Mat> (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(const vector<Mat>&) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
               Ptr<Algorithm>&value, bool readOnly = false,
               Ptr<Algorithm> (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(const Ptr<Algorithm>&) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
-              float&value, bool readOnly = false,
+              float &value, bool readOnly = false,
               float (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(float) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
-              unsigned int&value, bool readOnly = false,
+              unsigned int &value, bool readOnly = false,
               unsigned int (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(unsigned int) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
               uint64 & value, bool readOnly = false,
               uint64 (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(uint64) = 0,
-              const string&help = string());
+              const string &help = string());
 void addParam(Algorithm & algo, const char *name,
               uchar & value, bool readOnly = false,
               uchar (Algorithm::*getter)() = 0,
               void (Algorithm::*setter)(uchar) = 0,
-              const string&help = string());
+              const string &help = string());
 template<typename _Tp, typename _Base> void addParam(Algorithm & algo, const char *name,
                                                      Ptr<_Tp>&value, bool readOnly = false,
                                                      Ptr<_Tp> (Algorithm::*getter)() = 0,
                                                      void (Algorithm::*setter)(const Ptr<_Tp>&) = 0,
-                                                     const string&help = string());
+                                                     const string &help = string());
 template<typename _Tp> void addParam(Algorithm & algo, const char *name,
                                      Ptr<_Tp>&value, bool readOnly = false,
                                      Ptr<_Tp> (Algorithm::*getter)() = 0,
                                      void (Algorithm::*setter)(const Ptr<_Tp>&) = 0,
-                                     const string&help = string());
+                                     const string &help = string());
 protected:
 AlgorithmInfoData *data;
 void set(Algorithm *algo, const char *name, int argType,
@@ -4645,7 +4645,7 @@ struct CV_EXPORTS Param
     Param(int _type, bool _readonly, int _offset,
           Algorithm::Getter _getter = 0,
           Algorithm::Setter _setter = 0,
-          const string&_help = string());
+          const string &_help = string());
     int               type;
     int               offset;
     bool              readonly;
@@ -4800,7 +4800,7 @@ CommandLineParser(int argc, const char* const argv[], const char *key_map);
 
 // ! get parameter, you can choose: delete spaces in end and begin or not
 template<typename _Tp>
-_Tp get(const std::string&name, bool space_delete = true)
+_Tp get(const std::string &name, bool space_delete = true)
 {
     if (!has(name))
     {
@@ -4816,15 +4816,15 @@ void printParams();
 
 protected:
 std::map<std::string, std::vector<std::string> > data;
-std::string getString(const std::string&name);
+std::string getString(const std::string &name);
 
-bool has(const std::string&keys);
-
-template<typename _Tp>
-_Tp analyzeValue(const std::string&str, bool space_delete = false);
+bool has(const std::string &keys);
 
 template<typename _Tp>
-static _Tp getData(const std::string&str)
+_Tp analyzeValue(const std::string &str, bool space_delete = false);
+
+template<typename _Tp>
+static _Tp getData(const std::string &str)
 {
     _Tp               res = _Tp();
     std::stringstream s1(str);
@@ -4834,29 +4834,29 @@ static _Tp getData(const std::string&str)
 }
 
 template<typename _Tp>
-_Tp fromStringNumber(const std::string&str);      // the default conversion function for numbers
+_Tp fromStringNumber(const std::string &str);      // the default conversion function for numbers
 };
 
 template<> CV_EXPORTS
-bool CommandLineParser::get<bool>(const std::string&name, bool space_delete);
+bool CommandLineParser::get<bool>(const std::string &name, bool space_delete);
 
 template<> CV_EXPORTS
-std::string CommandLineParser::analyzeValue<std::string>(const std::string&str, bool space_delete);
+std::string CommandLineParser::analyzeValue<std::string>(const std::string &str, bool space_delete);
 
 template<> CV_EXPORTS
-int CommandLineParser::analyzeValue<int>(const std::string&str, bool space_delete);
+int CommandLineParser::analyzeValue<int>(const std::string &str, bool space_delete);
 
 template<> CV_EXPORTS
-unsigned int CommandLineParser::analyzeValue<unsigned int>(const std::string&str, bool space_delete);
+unsigned int CommandLineParser::analyzeValue<unsigned int>(const std::string &str, bool space_delete);
 
 template<> CV_EXPORTS
-uint64 CommandLineParser::analyzeValue<uint64>(const std::string&str, bool space_delete);
+uint64 CommandLineParser::analyzeValue<uint64>(const std::string &str, bool space_delete);
 
 template<> CV_EXPORTS
-float CommandLineParser::analyzeValue<float>(const std::string&str, bool space_delete);
+float CommandLineParser::analyzeValue<float>(const std::string &str, bool space_delete);
 
 template<> CV_EXPORTS
-double CommandLineParser::analyzeValue<double>(const std::string&str, bool space_delete);
+double CommandLineParser::analyzeValue<double>(const std::string &str, bool space_delete);
 
 
 /////////////////////////////// Parallel Primitives //////////////////////////////////
@@ -4866,10 +4866,10 @@ class CV_EXPORTS ParallelLoopBody
 {
 public:
 virtual ~ParallelLoopBody();
-virtual void operator()(const Range&range) const = 0;
+virtual void operator()(const Range &range) const = 0;
 };
 
-CV_EXPORTS void parallel_for_(const Range&range, const ParallelLoopBody&body, double nstripes = -1.);
+CV_EXPORTS void parallel_for_(const Range &range, const ParallelLoopBody &body, double nstripes = -1.);
 
 /////////////////////////// Synchronization Primitives ///////////////////////////////
 
@@ -4878,8 +4878,8 @@ class CV_EXPORTS Mutex
 public:
 Mutex();
 ~Mutex();
-Mutex(const Mutex&m);
-Mutex&operator =(const Mutex&m);
+Mutex(const Mutex &m);
+Mutex&operator =(const Mutex &m);
 
 void lock();
 bool trylock();
@@ -4893,7 +4893,7 @@ Impl *impl;
 class CV_EXPORTS AutoLock
 {
 public:
-AutoLock(Mutex&m) : mutex(&m)
+AutoLock(Mutex &m) : mutex(&m)
 {
     mutex->lock();
 }

@@ -81,7 +81,7 @@ enum { Direction = _Direction };
 typedef MatrixBase<Homogeneous> Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(Homogeneous)
 
-inline Homogeneous(const MatrixType&matrix)
+inline Homogeneous(const MatrixType &matrix)
     : m_matrix(matrix)
 {}
 
@@ -105,7 +105,7 @@ inline Scalar coeff(Index row, Index col) const
 
 template<typename Rhs>
 inline const internal::homogeneous_right_product_impl<Homogeneous, Rhs>
-operator*(const MatrixBase<Rhs>&rhs) const
+operator*(const MatrixBase<Rhs> &rhs) const
 {
     eigen_assert(int(Direction) == Horizontal);
     return internal::homogeneous_right_product_impl<Homogeneous, Rhs>(m_matrix, rhs.derived());
@@ -113,7 +113,7 @@ operator*(const MatrixBase<Rhs>&rhs) const
 
 template<typename Lhs> friend
 inline const internal::homogeneous_left_product_impl<Homogeneous, Lhs>
-operator*(const MatrixBase<Lhs>&lhs, const Homogeneous&rhs)
+operator*(const MatrixBase<Lhs> &lhs, const Homogeneous &rhs)
 {
     eigen_assert(int(Direction) == Vertical);
     return internal::homogeneous_left_product_impl<Homogeneous, Lhs>(lhs.derived(), rhs.m_matrix);
@@ -121,7 +121,7 @@ operator*(const MatrixBase<Lhs>&lhs, const Homogeneous&rhs)
 
 template<typename Scalar, int Dim, int Mode, int Options> friend
 inline const internal::homogeneous_left_product_impl<Homogeneous, Transform<Scalar, Dim, Mode, Options> >
-operator*(const Transform<Scalar, Dim, Mode, Options>&lhs, const Homogeneous&rhs)
+operator*(const Transform<Scalar, Dim, Mode, Options> &lhs, const Homogeneous &rhs)
 {
     eigen_assert(int(Direction) == Vertical);
     return internal::homogeneous_left_product_impl<Homogeneous, Transform<Scalar, Dim, Mode, Options> >(lhs, rhs.m_matrix);
@@ -216,7 +216,7 @@ template<typename MatrixOrTransformType>
 struct take_matrix_for_product
 {
     typedef MatrixOrTransformType type;
-    static const type&run(const type&x)
+    static const type&run(const type &x)
     {
         return x;
     }
@@ -227,7 +227,7 @@ struct take_matrix_for_product<Transform<Scalar, Dim, Mode, Options> >
 {
     typedef Transform<Scalar, Dim, Mode, Options> TransformType;
     typedef typename TransformType::ConstAffinePart type;
-    static const type run(const TransformType&x)
+    static const type run(const TransformType &x)
     {
         return x.affine();
     }
@@ -238,7 +238,7 @@ struct take_matrix_for_product<Transform<Scalar, Dim, Projective, Options> >
 {
     typedef Transform<Scalar, Dim, Projective, Options> TransformType;
     typedef typename TransformType::MatrixType type;
-    static const type&run(const TransformType&x)
+    static const type&run(const TransformType &x)
     {
         return x.matrix();
     }
@@ -267,7 +267,7 @@ struct homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs>
     typedef typename remove_all<LhsMatrixType>::type LhsMatrixTypeCleaned;
     typedef typename remove_all<typename LhsMatrixTypeCleaned::Nested>::type LhsMatrixTypeNested;
     typedef typename MatrixType::Index Index;
-    homogeneous_left_product_impl(const Lhs&lhs, const MatrixType&rhs)
+    homogeneous_left_product_impl(const Lhs &lhs, const MatrixType &rhs)
         : m_lhs(take_matrix_for_product<Lhs>::run(lhs)),
         m_rhs(rhs)
     {}
@@ -281,7 +281,7 @@ struct homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs>
         return m_rhs.cols();
     }
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         // FIXME investigate how to allow lazy evaluation of this product when possible
         dst = Block<const LhsMatrixTypeNested,
@@ -313,7 +313,7 @@ struct homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs>
 {
     typedef typename remove_all<typename Rhs::Nested>::type RhsNested;
     typedef typename MatrixType::Index Index;
-    homogeneous_right_product_impl(const MatrixType&lhs, const Rhs&rhs)
+    homogeneous_right_product_impl(const MatrixType &lhs, const Rhs &rhs)
         : m_lhs(lhs), m_rhs(rhs)
     {}
 
@@ -326,7 +326,7 @@ struct homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs>
         return m_rhs.cols();
     }
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         // FIXME investigate how to allow lazy evaluation of this product when possible
         dst = m_lhs * Block<const RhsNested,

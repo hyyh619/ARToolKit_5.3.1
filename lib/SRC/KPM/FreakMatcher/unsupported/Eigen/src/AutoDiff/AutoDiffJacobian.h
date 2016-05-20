@@ -31,15 +31,15 @@ template<typename Functor> class AutoDiffJacobian : public Functor
 {
 public:
 AutoDiffJacobian() : Functor() {}
-AutoDiffJacobian(const Functor&f) : Functor(f) {}
+AutoDiffJacobian(const Functor &f) : Functor(f) {}
 
 // forward constructors
 template<typename T0>
-AutoDiffJacobian(const T0&a0) : Functor(a0) {}
+AutoDiffJacobian(const T0 &a0) : Functor(a0) {}
 template<typename T0, typename T1>
-AutoDiffJacobian(const T0&a0, const T1&a1) : Functor(a0, a1) {}
+AutoDiffJacobian(const T0 &a0, const T1 &a1) : Functor(a0, a1) {}
 template<typename T0, typename T1, typename T2>
-AutoDiffJacobian(const T0&a0, const T1&a1, const T1&a2) : Functor(a0, a1, a2) {}
+AutoDiffJacobian(const T0 &a0, const T1 &a1, const T1 &a2) : Functor(a0, a1, a2) {}
 
 enum
 {
@@ -60,7 +60,7 @@ typedef AutoDiffScalar<DerivativeType> ActiveScalar;
 typedef Matrix<ActiveScalar, InputsAtCompileTime, 1> ActiveInput;
 typedef Matrix<ActiveScalar, ValuesAtCompileTime, 1> ActiveValue;
 
-void operator()(const InputType&x, ValueType *v, JacobianType *_jac = 0) const
+void operator()(const InputType &x, ValueType *v, JacobianType *_jac = 0) const
 {
     eigen_assert(v != 0);
     if (!_jac)
@@ -69,7 +69,7 @@ void operator()(const InputType&x, ValueType *v, JacobianType *_jac = 0) const
         return;
     }
 
-    JacobianType&jac = *_jac;
+    JacobianType &jac = *_jac;
 
     ActiveInput ax = x.template cast<ActiveScalar>();
     ActiveValue av(jac.rows());

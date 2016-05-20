@@ -107,9 +107,9 @@ float              stdev_;
 std::vector<float> weight_;
 };
 
-CV_EXPORTS Mat ensureInclusionConstraint(const Mat&M, Size size, float trimRatio);
+CV_EXPORTS Mat ensureInclusionConstraint(const Mat &M, Size size, float trimRatio);
 
-CV_EXPORTS float estimateOptimalTrimRatio(const Mat&M, Size size);
+CV_EXPORTS float estimateOptimalTrimRatio(const Mat &M, Size size);
 }   // namespace videostab
 } // namespace
 #endif

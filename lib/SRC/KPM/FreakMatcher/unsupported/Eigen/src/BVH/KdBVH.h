@@ -34,7 +34,7 @@ struct vector_int_pair
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW_IF_VECTORIZABLE_FIXED_SIZE(Scalar, Dim)
     typedef Matrix<Scalar, Dim, 1> VectorType;
 
-    vector_int_pair(const VectorType&v, int i) : first(v), second(i) {}
+    vector_int_pair(const VectorType &v, int i) : first(v), second(i) {}
 
     VectorType first;
     int        second;
@@ -45,7 +45,7 @@ struct vector_int_pair
 template<typename ObjectList, typename VolumeList, typename BoxIter>
 struct get_boxes_helper
 {
-    void operator()(const ObjectList&objects, BoxIter boxBegin, BoxIter boxEnd, VolumeList&outBoxes)
+    void operator()(const ObjectList &objects, BoxIter boxBegin, BoxIter boxEnd, VolumeList &outBoxes)
     {
         outBoxes.insert(outBoxes.end(), boxBegin, boxEnd);
         eigen_assert(outBoxes.size() == objects.size());
@@ -55,7 +55,7 @@ struct get_boxes_helper
 template<typename ObjectList, typename VolumeList>
 struct get_boxes_helper<ObjectList, VolumeList, int>
 {
-    void operator()(const ObjectList&objects, int, int, VolumeList&outBoxes)
+    void operator()(const ObjectList &objects, int, int, VolumeList &outBoxes)
     {
         outBoxes.reserve(objects.size());
 
@@ -157,8 +157,8 @@ inline Index getRootIndex() const
 
 /** Given an \a index of a node, on exit, \a outVBegin and \a outVEnd range over the indices of the volume children of the node
  * and \a outOBegin and \a outOEnd range over the object children of the node */
-EIGEN_STRONG_INLINE void getChildren(Index index, VolumeIterator&outVBegin, VolumeIterator&outVEnd,
-                                     ObjectIterator&outOBegin, ObjectIterator&outOEnd) const
+EIGEN_STRONG_INLINE void getChildren(Index index, VolumeIterator &outVBegin, VolumeIterator &outVEnd,
+                                     ObjectIterator &outOBegin, ObjectIterator &outOEnd) const
 {       // inlining this function should open lots of optimization opportunities to the compiler
     if (index < 0)
     {
@@ -207,7 +207,7 @@ typedef Matrix<Scalar, Dim, 1> VectorType;
 struct VectorComparator   // compares vectors, or, more specificall, VIPairs along a particular dimension
 {
     VectorComparator(int inDim) : dim(inDim) {}
-    inline bool operator()(const VIPair&v1, const VIPair&v2) const
+    inline bool operator()(const VIPair &v1, const VIPair &v2) const
     {
         return v1.first[dim] < v2.first[dim];
     }
@@ -217,7 +217,7 @@ struct VectorComparator   // compares vectors, or, more specificall, VIPairs alo
 // Build the part of the tree between objects[from] and objects[to] (not including objects[to]).
 // This routine partitions the objCenters in [from, to) along the dimension dim, recursively constructs
 // the two halves, and adds their parent node.  TODO: a cache-friendlier layout
-void build(VIPairList&objCenters, int from, int to, const VolumeList&objBoxes, int dim)
+void build(VIPairList &objCenters, int from, int to, const VolumeList &objBoxes, int dim)
 {
     eigen_assert(to - from > 1);
     if (to - from == 2)

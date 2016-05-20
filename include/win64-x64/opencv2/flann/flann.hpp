@@ -126,18 +126,18 @@ public:
 typedef typename Distance::ElementType ElementType;
 typedef typename Distance::ResultType DistanceType;
 
-GenericIndex(const Mat&features, const ::cvflann::IndexParams&params, Distance distance = Distance());
+GenericIndex(const Mat &features, const ::cvflann::IndexParams &params, Distance distance = Distance());
 
 ~GenericIndex();
 
-void knnSearch(const vector<ElementType>&query, vector<int>&indices,
-               vector<DistanceType>&dists, int knn, const ::cvflann::SearchParams&params);
-void knnSearch(const Mat&queries, Mat&indices, Mat&dists, int knn, const ::cvflann::SearchParams&params);
+void knnSearch(const vector<ElementType> &query, vector<int> &indices,
+               vector<DistanceType> &dists, int knn, const ::cvflann::SearchParams &params);
+void knnSearch(const Mat &queries, Mat &indices, Mat &dists, int knn, const ::cvflann::SearchParams &params);
 
-int radiusSearch(const vector<ElementType>&query, vector<int>&indices,
-                 vector<DistanceType>&dists, DistanceType radius, const ::cvflann::SearchParams&params);
-int radiusSearch(const Mat&query, Mat&indices, Mat&dists,
-                 DistanceType radius, const ::cvflann::SearchParams&params);
+int radiusSearch(const vector<ElementType> &query, vector<int> &indices,
+                 vector<DistanceType> &dists, DistanceType radius, const ::cvflann::SearchParams &params);
+int radiusSearch(const Mat &query, Mat &indices, Mat &dists,
+                 DistanceType radius, const ::cvflann::SearchParams &params);
 
 void save(std::string filename)
 {
@@ -179,7 +179,7 @@ private:
 
 
 template<typename Distance>
-GenericIndex<Distance>::GenericIndex(const Mat&dataset, const ::cvflann::IndexParams&params, Distance distance)
+GenericIndex<Distance>::GenericIndex(const Mat &dataset, const ::cvflann::IndexParams &params, Distance distance)
 {
     CV_Assert(dataset.type() == CvType<ElementType>::type());
     CV_Assert(dataset.isContinuous());
@@ -199,7 +199,7 @@ GenericIndex<Distance>::~GenericIndex()
 }
 
 template<typename Distance>
-void GenericIndex<Distance>::knnSearch(const vector<ElementType>&query, vector<int>&indices, vector<DistanceType>&dists, int knn, const ::cvflann::SearchParams&searchParams)
+void GenericIndex<Distance>::knnSearch(const vector<ElementType> &query, vector<int> &indices, vector<DistanceType> &dists, int knn, const ::cvflann::SearchParams &searchParams)
 {
     ::cvflann::Matrix<ElementType>  m_query((ElementType*)&query[0], 1, query.size());
     ::cvflann::Matrix<int>          m_indices(&indices[0], 1, indices.size());
@@ -212,7 +212,7 @@ void GenericIndex<Distance>::knnSearch(const vector<ElementType>&query, vector<i
 
 
 template<typename Distance>
-void GenericIndex<Distance>::knnSearch(const Mat&queries, Mat&indices, Mat&dists, int knn, const ::cvflann::SearchParams&searchParams)
+void GenericIndex<Distance>::knnSearch(const Mat &queries, Mat &indices, Mat &dists, int knn, const ::cvflann::SearchParams &searchParams)
 {
     CV_Assert(queries.type() == CvType<ElementType>::type());
     CV_Assert(queries.isContinuous());
@@ -232,7 +232,7 @@ void GenericIndex<Distance>::knnSearch(const Mat&queries, Mat&indices, Mat&dists
 }
 
 template<typename Distance>
-int GenericIndex<Distance>::radiusSearch(const vector<ElementType>&query, vector<int>&indices, vector<DistanceType>&dists, DistanceType radius, const ::cvflann::SearchParams&searchParams)
+int GenericIndex<Distance>::radiusSearch(const vector<ElementType> &query, vector<int> &indices, vector<DistanceType> &dists, DistanceType radius, const ::cvflann::SearchParams &searchParams)
 {
     ::cvflann::Matrix<ElementType>  m_query((ElementType*)&query[0], 1, query.size());
     ::cvflann::Matrix<int>          m_indices(&indices[0], 1, indices.size());
@@ -244,7 +244,7 @@ int GenericIndex<Distance>::radiusSearch(const vector<ElementType>&query, vector
 }
 
 template<typename Distance>
-int GenericIndex<Distance>::radiusSearch(const Mat&query, Mat&indices, Mat&dists, DistanceType radius, const ::cvflann::SearchParams&searchParams)
+int GenericIndex<Distance>::radiusSearch(const Mat &query, Mat &indices, Mat &dists, DistanceType radius, const ::cvflann::SearchParams &searchParams)
 {
     CV_Assert(query.type() == CvType<ElementType>::type());
     CV_Assert(query.isContinuous());
@@ -343,7 +343,7 @@ class FLANN_DEPRECATED Index_;
 #endif
 
 template<typename T>
-Index_<T>::Index_(const Mat&dataset, const ::cvflann::IndexParams&params)
+Index_<T>::Index_(const Mat &dataset, const ::cvflann::IndexParams &params)
 {
     printf("[WARNING] The cv::flann::Index_<T> class is deperecated, use cv::flann::GenericIndex<Distance> instead\n");
 
@@ -386,7 +386,7 @@ Index_<T>::~Index_()
 }
 
 template<typename T>
-void Index_<T>::knnSearch(const vector<ElementType>&query, vector<int>&indices, vector<DistanceType>&dists, int knn, const ::cvflann::SearchParams&searchParams)
+void Index_<T>::knnSearch(const vector<ElementType> &query, vector<int> &indices, vector<DistanceType> &dists, int knn, const ::cvflann::SearchParams &searchParams)
 {
     ::cvflann::Matrix<ElementType>  m_query((ElementType*)&query[0], 1, query.size());
     ::cvflann::Matrix<int>          m_indices(&indices[0], 1, indices.size());
@@ -401,7 +401,7 @@ void Index_<T>::knnSearch(const vector<ElementType>&query, vector<int>&indices, 
 
 
 template<typename T>
-void Index_<T>::knnSearch(const Mat&queries, Mat&indices, Mat&dists, int knn, const ::cvflann::SearchParams&searchParams)
+void Index_<T>::knnSearch(const Mat &queries, Mat &indices, Mat &dists, int knn, const ::cvflann::SearchParams &searchParams)
 {
     CV_Assert(queries.type() == CvType<ElementType>::type());
     CV_Assert(queries.isContinuous());
@@ -423,7 +423,7 @@ void Index_<T>::knnSearch(const Mat&queries, Mat&indices, Mat&dists, int knn, co
 }
 
 template<typename T>
-int Index_<T>::radiusSearch(const vector<ElementType>&query, vector<int>&indices, vector<DistanceType>&dists, DistanceType radius, const ::cvflann::SearchParams&searchParams)
+int Index_<T>::radiusSearch(const vector<ElementType> &query, vector<int> &indices, vector<DistanceType> &dists, DistanceType radius, const ::cvflann::SearchParams &searchParams)
 {
     ::cvflann::Matrix<ElementType>  m_query((ElementType*)&query[0], 1, query.size());
     ::cvflann::Matrix<int>          m_indices(&indices[0], 1, indices.size());
@@ -437,7 +437,7 @@ int Index_<T>::radiusSearch(const vector<ElementType>&query, vector<int>&indices
 }
 
 template<typename T>
-int Index_<T>::radiusSearch(const Mat&query, Mat&indices, Mat&dists, DistanceType radius, const ::cvflann::SearchParams&searchParams)
+int Index_<T>::radiusSearch(const Mat &query, Mat &indices, Mat &dists, DistanceType radius, const ::cvflann::SearchParams &searchParams)
 {
     CV_Assert(query.type() == CvType<ElementType>::type());
     CV_Assert(query.isContinuous());
@@ -460,7 +460,7 @@ int Index_<T>::radiusSearch(const Mat&query, Mat&indices, Mat&dists, DistanceTyp
 
 
 template<typename Distance>
-int hierarchicalClustering(const Mat&features, Mat&centers, const ::cvflann::KMeansIndexParams&params,
+int hierarchicalClustering(const Mat &features, Mat &centers, const ::cvflann::KMeansIndexParams &params,
                            Distance d = Distance())
 {
     typedef typename Distance::ElementType ElementType;
@@ -479,7 +479,7 @@ int hierarchicalClustering(const Mat&features, Mat&centers, const ::cvflann::KMe
 
 
 template<typename ELEM_TYPE, typename DIST_TYPE>
-FLANN_DEPRECATED int hierarchicalClustering(const Mat&features, Mat&centers, const ::cvflann::KMeansIndexParams&params)
+FLANN_DEPRECATED int hierarchicalClustering(const Mat &features, Mat &centers, const ::cvflann::KMeansIndexParams &params)
 {
     printf("[WARNING] cv::flann::hierarchicalClustering<ELEM_TYPE,DIST_TYPE> is deprecated, use "
            "cv::flann::hierarchicalClustering<Distance> instead\n");

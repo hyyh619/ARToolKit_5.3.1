@@ -554,7 +554,7 @@ int kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImage)
 #endif
 
 #if BINARY_FEATURE
-        const std::vector<vision::FeaturePoint>&points = kpmHandle->freakMatcher->getQueryFeaturePoints();
+        const std::vector<vision::FeaturePoint> &points = kpmHandle->freakMatcher->getQueryFeaturePoints();
         // const std::vector<unsigned char>& descriptors = kpmHandle->freakMatcher->getQueryDescriptors();
 #endif
         if (procMode == KpmProcFullSize)
@@ -793,8 +793,8 @@ int kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImage)
                 continue;
 
 
-            const vision::matches_t&matches         = kpmHandle->freakMatcher->inliers();
-            int                    matched_image_id = kpmHandle->freakMatcher->matchedId();
+            const vision::matches_t &matches         = kpmHandle->freakMatcher->inliers();
+            int                     matched_image_id = kpmHandle->freakMatcher->matchedId();
             if (matched_image_id < 0)
                 continue;
 
@@ -843,7 +843,7 @@ int kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImage)
 }
 
 
-int kpmUtilGetPose_binary(ARParamLT *cparamLT, const vision::matches_t&matchData, const std::vector<vision::Point3d<float> >&refDataSet, const std::vector<vision::FeaturePoint>&inputDataSet, float camPose[3][4], float *error)
+int kpmUtilGetPose_binary(ARParamLT *cparamLT, const vision::matches_t &matchData, const std::vector<vision::Point3d<float> > &refDataSet, const std::vector<vision::FeaturePoint> &inputDataSet, float camPose[3][4], float *error)
 {
     ICPHandleT  *icpHandle;
     ICPDataT    icpData;

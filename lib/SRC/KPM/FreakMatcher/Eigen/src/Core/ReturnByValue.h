@@ -70,7 +70,7 @@ typedef typename internal::dense_xpr_base<ReturnByValue>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(ReturnByValue)
 
 template<typename Dest>
-inline void evalTo(Dest&dst) const
+inline void evalTo(Dest &dst) const
 {
     static_cast<const Derived*>(this)->evalTo(dst);
 }
@@ -114,7 +114,7 @@ Unusable&coeffRef(Index, Index)
 
 template<typename Derived>
 template<typename OtherDerived>
-Derived&DenseBase<Derived>::operator=(const ReturnByValue<OtherDerived>&other)
+Derived&DenseBase<Derived>::operator=(const ReturnByValue<OtherDerived> &other)
 {
     other.evalTo(derived());
     return derived();

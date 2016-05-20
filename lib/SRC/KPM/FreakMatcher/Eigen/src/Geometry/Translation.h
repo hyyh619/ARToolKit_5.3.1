@@ -64,14 +64,14 @@ public:
 /** Default constructor without initialization. */
 Translation() {}
 /**  */
-inline Translation(const Scalar&sx, const Scalar&sy)
+inline Translation(const Scalar &sx, const Scalar &sy)
 {
     eigen_assert(Dim == 2);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
 }
 /**  */
-inline Translation(const Scalar&sx, const Scalar&sy, const Scalar&sz)
+inline Translation(const Scalar &sx, const Scalar &sy, const Scalar &sz)
 {
     eigen_assert(Dim == 3);
     m_coeffs.x() = sx;
@@ -79,7 +79,7 @@ inline Translation(const Scalar&sx, const Scalar&sy, const Scalar&sz)
     m_coeffs.z() = sz;
 }
 /** Constructs and initialize the translation transformation from a vector of translation coefficients */
-explicit inline Translation(const VectorType&vector) : m_coeffs(vector) {}
+explicit inline Translation(const VectorType &vector) : m_coeffs(vector) {}
 
 /** \brief Retruns the x-translation by value. **/
 inline Scalar x() const
@@ -132,21 +132,21 @@ VectorType&translation()
 }
 
 /** Concatenates two translation */
-inline Translation operator*(const Translation&other) const
+inline Translation operator*(const Translation &other) const
 {
     return Translation(m_coeffs + other.m_coeffs);
 }
 
 /** Concatenates a translation and a uniform scaling */
-inline AffineTransformType operator*(const UniformScaling<Scalar>&other) const;
+inline AffineTransformType operator*(const UniformScaling<Scalar> &other) const;
 
 /** Concatenates a translation and a linear transformation */
 template<typename OtherDerived>
-inline AffineTransformType operator*(const EigenBase<OtherDerived>&linear) const;
+inline AffineTransformType operator*(const EigenBase<OtherDerived> &linear) const;
 
 /** Concatenates a translation and a rotation */
 template<typename Derived>
-inline AffineTransformType operator*(const RotationBase<Derived, Dim>&r) const
+inline AffineTransformType operator*(const RotationBase<Derived, Dim> &r) const
 {
     return *this * r.toRotationMatrix();
 }
@@ -154,7 +154,7 @@ inline AffineTransformType operator*(const RotationBase<Derived, Dim>&r) const
 /** \returns the concatenation of a linear transformation \a l with the translation \a t */
 // its a nightmare to define a templated friend function outside its declaration
 template<typename OtherDerived> friend
-inline AffineTransformType operator*(const EigenBase<OtherDerived>&linear, const Translation&t)
+inline AffineTransformType operator*(const EigenBase<OtherDerived> &linear, const Translation &t)
 {
     AffineTransformType res;
 
@@ -168,7 +168,7 @@ inline AffineTransformType operator*(const EigenBase<OtherDerived>&linear, const
 
 /** Concatenates a translation and a transformation */
 template<int Mode, int Options>
-inline Transform<Scalar, Dim, Mode> operator*(const Transform<Scalar, Dim, Mode, Options>&t) const
+inline Transform<Scalar, Dim, Mode> operator*(const Transform<Scalar, Dim, Mode, Options> &t) const
 {
     Transform<Scalar, Dim, Mode> res = t;
     res.pretranslate(m_coeffs);
@@ -176,7 +176,7 @@ inline Transform<Scalar, Dim, Mode> operator*(const Transform<Scalar, Dim, Mode,
 }
 
 /** Applies translation to vector */
-inline VectorType operator*(const VectorType&other) const
+inline VectorType operator*(const VectorType &other) const
 {
     return m_coeffs + other;
 }
@@ -187,7 +187,7 @@ Translation inverse() const
     return Translation(-m_coeffs);
 }
 
-Translation&operator=(const Translation&other)
+Translation&operator=(const Translation &other)
 {
     m_coeffs = other.m_coeffs;
     return *this;
@@ -211,7 +211,7 @@ inline typename internal::cast_return_type<Translation, Translation<NewScalarTyp
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Translation(const Translation<OtherScalarType, Dim>&other)
+inline explicit Translation(const Translation<OtherScalarType, Dim> &other)
 {
     m_coeffs = other.vector().template cast<Scalar>();
 }
@@ -220,7 +220,7 @@ inline explicit Translation(const Translation<OtherScalarType, Dim>&other)
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Translation&other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const Translation &other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return m_coeffs.isApprox(other.m_coeffs, prec);
 }
@@ -236,7 +236,7 @@ typedef Translation<double, 3> Translation3d;
 
 template<typename Scalar, int Dim>
 inline typename Translation<Scalar, Dim>::AffineTransformType
-Translation<Scalar, Dim>::operator*(const UniformScaling<Scalar>&other) const
+Translation<Scalar, Dim>::operator*(const UniformScaling<Scalar> &other) const
 {
     AffineTransformType res;
 
@@ -250,7 +250,7 @@ Translation<Scalar, Dim>::operator*(const UniformScaling<Scalar>&other) const
 template<typename Scalar, int Dim>
 template<typename OtherDerived>
 inline typename Translation<Scalar, Dim>::AffineTransformType
-Translation<Scalar, Dim>::operator*(const EigenBase<OtherDerived>&linear) const
+Translation<Scalar, Dim>::operator*(const EigenBase<OtherDerived> &linear) const
 {
     AffineTransformType res;
 

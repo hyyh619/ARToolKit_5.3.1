@@ -77,7 +77,7 @@ namespace internal
 template<typename T> struct workaround_msvc_stl_support : public T
 {
     inline workaround_msvc_stl_support() : T() {}
-    inline workaround_msvc_stl_support(const T&other) : T(other) {}
+    inline workaround_msvc_stl_support(const T &other) : T(other) {}
     inline operator T&()
     {
         return *static_cast<T*>(this);
@@ -87,11 +87,11 @@ template<typename T> struct workaround_msvc_stl_support : public T
         return *static_cast<const T*>(this);
     }
     template<typename OtherT>
-    inline T&operator=(const OtherT&other)
+    inline T&operator=(const OtherT &other)
     {
         T::operator=(other); return *this;
     }
-    inline workaround_msvc_stl_support&operator=(const workaround_msvc_stl_support&other)
+    inline workaround_msvc_stl_support&operator=(const workaround_msvc_stl_support &other)
     {
         T::operator=(other); return *this;
     }

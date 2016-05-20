@@ -100,7 +100,7 @@ LDLT(Index size)
     m_isInitialized(false)
 {}
 
-LDLT(const MatrixType&matrix)
+LDLT(const MatrixType &matrix)
     : m_matrix(matrix.rows(), matrix.cols()),
     m_transpositions(matrix.rows()),
     m_temporary(matrix.rows()),
@@ -176,7 +176,7 @@ inline bool isNegative(void) const
  */
 template<typename Rhs>
 inline const internal::solve_retval<LDLT, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "LDLT is not initialized.");
     eigen_assert(m_matrix.rows() == b.rows()
@@ -186,7 +186,7 @@ solve(const MatrixBase<Rhs>&b) const
 
     #ifdef EIGEN2_SUPPORT
 template<typename OtherDerived, typename ResultType>
-bool solve(const MatrixBase<OtherDerived>&b, ResultType *result) const
+bool solve(const MatrixBase<OtherDerived> &b, ResultType *result) const
 {
     *result = this->solve(b);
     return true;
@@ -194,9 +194,9 @@ bool solve(const MatrixBase<OtherDerived>&b, ResultType *result) const
     #endif
 
 template<typename Derived>
-bool solveInPlace(MatrixBase<Derived>&bAndX) const;
+bool solveInPlace(MatrixBase<Derived> &bAndX) const;
 
-LDLT&compute(const MatrixType&matrix);
+LDLT&compute(const MatrixType &matrix);
 
 /** \returns the internal LDLT decomposition matrix
  *
@@ -241,7 +241,7 @@ template<int UpLo> struct ldlt_inplace;
 template<> struct ldlt_inplace<Lower>
 {
     template<typename MatrixType, typename TranspositionType, typename Workspace>
-    static bool unblocked(MatrixType&mat, TranspositionType&transpositions, Workspace&temp, int *sign = 0)
+    static bool unblocked(MatrixType &mat, TranspositionType &transpositions, Workspace &temp, int *sign = 0)
     {
         typedef typename MatrixType::Scalar Scalar;
         typedef typename MatrixType::RealScalar RealScalar;
@@ -336,7 +336,7 @@ template<> struct ldlt_inplace<Lower>
 template<> struct ldlt_inplace<Upper>
 {
     template<typename MatrixType, typename TranspositionType, typename Workspace>
-    static EIGEN_STRONG_INLINE bool unblocked(MatrixType&mat, TranspositionType&transpositions, Workspace&temp, int *sign = 0)
+    static EIGEN_STRONG_INLINE bool unblocked(MatrixType &mat, TranspositionType &transpositions, Workspace &temp, int *sign = 0)
     {
         Transpose<MatrixType> matt(mat);
         return ldlt_inplace<Lower>::unblocked(matt, transpositions, temp, sign);
@@ -347,11 +347,11 @@ template<typename MatrixType> struct LDLT_Traits<MatrixType, Lower>
 {
     typedef const TriangularView<const MatrixType, UnitLower> MatrixL;
     typedef const TriangularView<const typename MatrixType::AdjointReturnType, UnitUpper> MatrixU;
-    inline static MatrixL getL(const MatrixType&m)
+    inline static MatrixL getL(const MatrixType &m)
     {
         return m;
     }
-    inline static MatrixU getU(const MatrixType&m)
+    inline static MatrixU getU(const MatrixType &m)
     {
         return m.adjoint();
     }
@@ -361,11 +361,11 @@ template<typename MatrixType> struct LDLT_Traits<MatrixType, Upper>
 {
     typedef const TriangularView<const typename MatrixType::AdjointReturnType, UnitLower> MatrixL;
     typedef const TriangularView<const MatrixType, UnitUpper> MatrixU;
-    inline static MatrixL getL(const MatrixType&m)
+    inline static MatrixL getL(const MatrixType &m)
     {
         return m.adjoint();
     }
-    inline static MatrixU getU(const MatrixType&m)
+    inline static MatrixU getU(const MatrixType &m)
     {
         return m;
     }
@@ -375,7 +375,7 @@ template<typename MatrixType> struct LDLT_Traits<MatrixType, Upper>
 /** Compute / recompute the LDLT decomposition A = L D L^* = U^* D U of \a matrix
  */
 template<typename MatrixType, int _UpLo>
-LDLT<MatrixType, _UpLo>&LDLT<MatrixType, _UpLo>::compute(const MatrixType&a)
+LDLT<MatrixType, _UpLo>&LDLT<MatrixType, _UpLo>::compute(const MatrixType &a)
 {
     eigen_assert(a.rows() == a.cols());
     const Index size = a.rows();
@@ -401,7 +401,7 @@ struct solve_retval<LDLT<_MatrixType, _UpLo>, Rhs>
     typedef LDLT<_MatrixType, _UpLo> LDLTType;
     EIGEN_MAKE_SOLVE_HELPERS(LDLTType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         eigen_assert(rhs().rows() == dec().matrixLDLT().rows());
         // dst = P b
@@ -453,7 +453,7 @@ struct solve_retval<LDLT<_MatrixType, _UpLo>, Rhs>
  */
 template<typename MatrixType, int _UpLo>
 template<typename Derived>
-bool LDLT<MatrixType, _UpLo>::solveInPlace(MatrixBase<Derived>&bAndX) const
+bool LDLT<MatrixType, _UpLo>::solveInPlace(MatrixBase<Derived> &bAndX) const
 {
     eigen_assert(m_isInitialized && "LDLT is not initialized.");
     const Index size = m_matrix.rows();

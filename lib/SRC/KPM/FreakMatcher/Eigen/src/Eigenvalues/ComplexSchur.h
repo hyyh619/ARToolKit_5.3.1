@@ -124,7 +124,7 @@ ComplexSchur(Index size = RowsAtCompileTime == Dynamic ? 1 : RowsAtCompileTime)
  *
  * \sa matrixT() and matrixU() for examples.
  */
-ComplexSchur(const MatrixType&matrix, bool computeU = true)
+ComplexSchur(const MatrixType &matrix, bool computeU = true)
     : m_matT(matrix.rows(), matrix.cols()),
     m_matU(matrix.rows(), matrix.cols()),
     m_hess(matrix.rows()),
@@ -197,7 +197,7 @@ const ComplexMatrixType&matrixT() const
  * Example: \include ComplexSchur_compute.cpp
  * Output: \verbinclude ComplexSchur_compute.out
  */
-ComplexSchur&compute(const MatrixType&matrix, bool computeU = true);
+ComplexSchur&compute(const MatrixType &matrix, bool computeU = true);
 
 /** \brief Reports whether previous computation was successful.
  *
@@ -233,7 +233,7 @@ namespace internal
 {
 /** Computes the principal value of the square root of the complex \a z. */
 template<typename RealScalar>
-std::complex<RealScalar> sqrt(const std::complex<RealScalar>&z)
+std::complex<RealScalar> sqrt(const std::complex<RealScalar> &z)
 {
     RealScalar t, tre, tim;
 
@@ -327,7 +327,7 @@ typename ComplexSchur<MatrixType>::ComplexScalar ComplexSchur<MatrixType>::compu
 
 
 template<typename MatrixType>
-ComplexSchur<MatrixType>&ComplexSchur<MatrixType>::compute(const MatrixType&matrix, bool computeU)
+ComplexSchur<MatrixType>&ComplexSchur<MatrixType>::compute(const MatrixType &matrix, bool computeU)
 {
     m_matUisUptodate = false;
     eigen_assert(matrix.cols() == matrix.rows());
@@ -356,7 +356,7 @@ template<typename MatrixType, bool IsComplex>
 struct complex_schur_reduce_to_hessenberg
 {
     // this is the implementation for the case IsComplex = true
-    static void run(ComplexSchur<MatrixType>&_this, const MatrixType&matrix, bool computeU)
+    static void run(ComplexSchur<MatrixType> &_this, const MatrixType &matrix, bool computeU)
     {
         _this.m_hess.compute(matrix);
         _this.m_matT = _this.m_hess.matrixH();
@@ -368,7 +368,7 @@ struct complex_schur_reduce_to_hessenberg
 template<typename MatrixType>
 struct complex_schur_reduce_to_hessenberg<MatrixType, false>
 {
-    static void run(ComplexSchur<MatrixType>&_this, const MatrixType&matrix, bool computeU)
+    static void run(ComplexSchur<MatrixType> &_this, const MatrixType &matrix, bool computeU)
     {
         typedef typename ComplexSchur<MatrixType>::ComplexScalar ComplexScalar;
         typedef typename ComplexSchur<MatrixType>::ComplexMatrixType ComplexMatrixType;

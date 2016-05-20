@@ -43,21 +43,21 @@ struct CommaInitializer
     typedef typename XprType::Scalar Scalar;
     typedef typename XprType::Index Index;
 
-    inline CommaInitializer(XprType&xpr, const Scalar&s)
+    inline CommaInitializer(XprType &xpr, const Scalar &s)
         : m_xpr(xpr), m_row(0), m_col(1), m_currentBlockRows(1)
     {
         m_xpr.coeffRef(0, 0) = s;
     }
 
     template<typename OtherDerived>
-    inline CommaInitializer(XprType&xpr, const DenseBase<OtherDerived>&other)
+    inline CommaInitializer(XprType &xpr, const DenseBase<OtherDerived> &other)
         : m_xpr(xpr), m_row(0), m_col(other.cols()), m_currentBlockRows(other.rows())
     {
         m_xpr.block(0, 0, other.rows(), other.cols()) = other;
     }
 
     /* inserts a scalar value in the target matrix */
-    CommaInitializer&operator,(const Scalar&s)
+    CommaInitializer&operator,(const Scalar &s)
     {
         if (m_col == m_xpr.cols())
         {
@@ -77,7 +77,7 @@ struct CommaInitializer
 
     /* inserts a matrix expression in the target matrix */
     template<typename OtherDerived>
-    CommaInitializer&operator,(const DenseBase<OtherDerived>&other)
+    CommaInitializer&operator,(const DenseBase<OtherDerived> &other)
     {
         if (m_col == m_xpr.cols())
         {
@@ -121,10 +121,10 @@ struct CommaInitializer
         return m_xpr;
     }
 
-    XprType&m_xpr;  // target expression
-    Index  m_row;           // current row id
-    Index  m_col;           // current col id
-    Index  m_currentBlockRows; // current block height
+    XprType &m_xpr;  // target expression
+    Index   m_row;          // current row id
+    Index   m_col;          // current col id
+    Index   m_currentBlockRows; // current block height
 };
 
 /** \anchor MatrixBaseCommaInitRef
@@ -139,7 +139,7 @@ struct CommaInitializer
  * \sa CommaInitializer::finished(), class CommaInitializer
  */
 template<typename Derived>
-inline CommaInitializer<Derived> DenseBase<Derived>::operator<<(const Scalar&s)
+inline CommaInitializer<Derived> DenseBase<Derived>::operator<<(const Scalar &s)
 {
     return CommaInitializer<Derived>(*static_cast<Derived*>(this), s);
 }
@@ -148,7 +148,7 @@ inline CommaInitializer<Derived> DenseBase<Derived>::operator<<(const Scalar&s)
 template<typename Derived>
 template<typename OtherDerived>
 inline CommaInitializer<Derived>
-DenseBase<Derived>::operator<<(const DenseBase<OtherDerived>&other)
+DenseBase<Derived>::operator<<(const DenseBase<OtherDerived> &other)
 {
     return CommaInitializer<Derived>(*static_cast<Derived*>(this), other);
 }

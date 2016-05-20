@@ -108,7 +108,7 @@ static int       double_bits;
 public:
 // Constructors && type conversion
 mpreal();
-mpreal(const mpreal&u);
+mpreal(const mpreal &u);
 
 mpreal(const mpfr_t u);
 mpreal(const mpf_t u);
@@ -122,7 +122,7 @@ mpreal(const unsigned int u, mp_prec_t prec = default_prec, mp_rnd_t mode = defa
 mpreal(const long int u, mp_prec_t prec = default_prec, mp_rnd_t mode = default_rnd);
 mpreal(const int u, mp_prec_t prec = default_prec, mp_rnd_t mode = default_rnd);
 mpreal(const char *s, mp_prec_t prec = default_prec, int base = default_base, mp_rnd_t mode = default_rnd);
-mpreal(const std::string&s, mp_prec_t prec = default_prec, int base = default_base, mp_rnd_t mode = default_rnd);
+mpreal(const std::string &s, mp_prec_t prec = default_prec, int base = default_base, mp_rnd_t mode = default_rnd);
 
 ~mpreal();
 
@@ -133,7 +133,7 @@ mpreal(const std::string&s, mp_prec_t prec = default_prec, int base = default_ba
 // <, >, ==, <=, >=
 
 // =
-mpreal&operator=(const mpreal&v);
+mpreal&operator=(const mpreal &v);
 mpreal&operator=(const mpf_t v);
 mpreal&operator=(const mpz_t v);
 mpreal&operator=(const mpq_t v);
@@ -146,7 +146,7 @@ mpreal&operator=(const int v);
 mpreal&operator=(const char *s);
 
 // +
-mpreal&operator+=(const mpreal&v);
+mpreal&operator+=(const mpreal &v);
 mpreal&operator+=(const mpf_t v);
 mpreal&operator+=(const mpz_t v);
 mpreal&operator+=(const mpq_t v);
@@ -161,7 +161,7 @@ mpreal&operator++();
 const mpreal operator++(int);
 
 // -
-mpreal&operator-=(const mpreal&v);
+mpreal&operator-=(const mpreal &v);
 mpreal&operator-=(const mpz_t v);
 mpreal&operator-=(const mpq_t v);
 mpreal&operator-=(const long double u);
@@ -171,16 +171,16 @@ mpreal&operator-=(const unsigned int u);
 mpreal&operator-=(const long int u);
 mpreal&operator-=(const int u);
 const mpreal operator-() const;
-friend const mpreal operator-(const unsigned long int b, const mpreal&a);
-friend const mpreal operator-(const unsigned int b, const mpreal&a);
-friend const mpreal operator-(const long int b, const mpreal&a);
-friend const mpreal operator-(const int b, const mpreal&a);
-friend const mpreal operator-(const double b, const mpreal&a);
+friend const mpreal operator-(const unsigned long int b, const mpreal &a);
+friend const mpreal operator-(const unsigned int b, const mpreal &a);
+friend const mpreal operator-(const long int b, const mpreal &a);
+friend const mpreal operator-(const int b, const mpreal &a);
+friend const mpreal operator-(const double b, const mpreal &a);
 mpreal&operator--();
 const mpreal operator--(int);
 
 // *
-mpreal&operator*=(const mpreal&v);
+mpreal&operator*=(const mpreal &v);
 mpreal&operator*=(const mpz_t v);
 mpreal&operator*=(const mpq_t v);
 mpreal&operator*=(const long double v);
@@ -191,7 +191,7 @@ mpreal&operator*=(const long int v);
 mpreal&operator*=(const int v);
 
 // /
-mpreal&operator/=(const mpreal&v);
+mpreal&operator/=(const mpreal &v);
 mpreal&operator/=(const mpz_t v);
 mpreal&operator/=(const mpq_t v);
 mpreal&operator/=(const long double v);
@@ -200,11 +200,11 @@ mpreal&operator/=(const unsigned long int v);
 mpreal&operator/=(const unsigned int v);
 mpreal&operator/=(const long int v);
 mpreal&operator/=(const int v);
-friend const mpreal operator/(const unsigned long int b, const mpreal&a);
-friend const mpreal operator/(const unsigned int b, const mpreal&a);
-friend const mpreal operator/(const long int b, const mpreal&a);
-friend const mpreal operator/(const int b, const mpreal&a);
-friend const mpreal operator/(const double b, const mpreal&a);
+friend const mpreal operator/(const unsigned long int b, const mpreal &a);
+friend const mpreal operator/(const unsigned int b, const mpreal &a);
+friend const mpreal operator/(const long int b, const mpreal &a);
+friend const mpreal operator/(const int b, const mpreal &a);
+friend const mpreal operator/(const double b, const mpreal &a);
 
 // <<= Fast Multiplication by 2^u
 mpreal&operator<<=(const unsigned long int u);
@@ -219,12 +219,12 @@ mpreal&operator>>=(const long int u);
 mpreal&operator>>=(const int u);
 
 // Boolean Operators
-friend bool operator >(const mpreal&a, const mpreal&b);
-friend bool operator >=(const mpreal&a, const mpreal&b);
-friend bool operator <(const mpreal&a, const mpreal&b);
-friend bool operator <=(const mpreal&a, const mpreal&b);
-friend bool operator ==(const mpreal&a, const mpreal&b);
-friend bool operator !=(const mpreal&a, const mpreal&b);
+friend bool operator >(const mpreal &a, const mpreal &b);
+friend bool operator >=(const mpreal &a, const mpreal &b);
+friend bool operator <(const mpreal &a, const mpreal &b);
+friend bool operator <=(const mpreal &a, const mpreal &b);
+friend bool operator ==(const mpreal &a, const mpreal &b);
+friend bool operator !=(const mpreal &a, const mpreal &b);
 
 // Type Conversion operators
 inline operator long double() const;
@@ -238,103 +238,103 @@ operator std::string() const;
 inline operator mpfr_ptr();
 
 // Math Functions
-friend const mpreal sqr(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal sqrt(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal sqr(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal sqrt(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 friend const mpreal sqrt(const unsigned long int v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal cbrt(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal root(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal pow(const mpreal&a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal pow(const mpreal&a, const mpz_t b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal pow(const mpreal&a, const unsigned long int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal pow(const mpreal&a, const long int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal pow(const unsigned long int a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal cbrt(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal root(const mpreal &v, unsigned long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal pow(const mpreal &a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal pow(const mpreal &a, const mpz_t b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal pow(const mpreal &a, const unsigned long int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal pow(const mpreal &a, const long int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal pow(const unsigned long int a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
 friend const mpreal pow(const unsigned long int a, const unsigned long int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal fabs(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal fabs(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
-friend const mpreal abs(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal dim(const mpreal&a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend inline const mpreal mul_2ui(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend inline const mpreal mul_2si(const mpreal&v, long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend inline const mpreal div_2ui(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend inline const mpreal div_2si(const mpreal&v, long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend int cmpabs(const mpreal&a, const mpreal&b);
+friend const mpreal abs(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal dim(const mpreal &a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend inline const mpreal mul_2ui(const mpreal &v, unsigned long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend inline const mpreal mul_2si(const mpreal &v, long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend inline const mpreal div_2ui(const mpreal &v, unsigned long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend inline const mpreal div_2si(const mpreal &v, long int k, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend int cmpabs(const mpreal &a, const mpreal &b);
 
-friend const mpreal log(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal log2(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal log10(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal exp(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal exp2(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal exp10(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal log1p(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal expm1(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal log(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal log2(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal log10(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal exp(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal exp2(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal exp10(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal log1p(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal expm1(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
-friend const mpreal cos(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal sin(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal tan(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal sec(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal csc(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal cot(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend int sin_cos(mpreal&s, mpreal&c, const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal cos(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal sin(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal tan(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal sec(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal csc(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal cot(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend int sin_cos(mpreal &s, mpreal &c, const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
-friend const mpreal acos(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal asin(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal atan(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal atan2(const mpreal&y, const mpreal&x, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal cosh(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal sinh(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal tanh(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal sech(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal csch(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal coth(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal acosh(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal asinh(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal atanh(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal hypot(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal acos(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal asin(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal atan(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal atan2(const mpreal &y, const mpreal &x, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal cosh(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal sinh(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal tanh(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal sech(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal csch(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal coth(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal acosh(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal asinh(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal atanh(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal hypot(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
 friend const mpreal fac_ui(unsigned long int v,  mp_prec_t prec = mpreal::default_prec, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal eint(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal eint(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
-friend const mpreal gamma(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal lngamma(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal lgamma(const mpreal&v, int *signp = 0, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal zeta(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal erf(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal erfc(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal _j0(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal _j1(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal _jn(long n, const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal _y0(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal _y1(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal _yn(long n, const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal fma(const mpreal&v1, const mpreal&v2, const mpreal&v3, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal fms(const mpreal&v1, const mpreal&v2, const mpreal&v3, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal agm(const mpreal&v1, const mpreal&v2, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal gamma(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal lngamma(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal lgamma(const mpreal &v, int *signp = 0, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal zeta(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal erf(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal erfc(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal _j0(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal _j1(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal _jn(long n, const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal _y0(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal _y1(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal _yn(long n, const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal fma(const mpreal &v1, const mpreal &v2, const mpreal &v3, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal fms(const mpreal &v1, const mpreal &v2, const mpreal &v3, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal agm(const mpreal &v1, const mpreal &v2, mp_rnd_t rnd_mode = mpreal::default_rnd);
 friend const mpreal sum(const mpreal tab[], unsigned long int n, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend int sgn(const mpreal&v);          // -1 or +1
+friend int sgn(const mpreal &v);          // -1 or +1
 
 // MPFR 2.4.0 Specifics
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(2, 4, 0))
-friend int sinh_cosh(mpreal&s, mpreal&c, const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal li2(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal fmod(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal rec_sqrt(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend int sinh_cosh(mpreal &s, mpreal &c, const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal li2(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal fmod(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal rec_sqrt(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 #endif
 
 // MPFR 3.0.0 Specifics
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(3, 0, 0))
-friend const mpreal digamma(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal ai(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal urandom(gmp_randstate_t&state, mp_rnd_t rnd_mode = mpreal::default_rnd);            // use gmp_randinit_default() to init state, gmp_randclear() to clear
-friend bool _isregular(const mpreal&v);
+friend const mpreal digamma(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal ai(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal urandom(gmp_randstate_t &state, mp_rnd_t rnd_mode = mpreal::default_rnd);            // use gmp_randinit_default() to init state, gmp_randclear() to clear
+friend bool _isregular(const mpreal &v);
 #endif
 
 // Exponent and mantissa manipulation
-friend const mpreal frexp(const mpreal&v, mp_exp_t *exp);
-friend const mpreal ldexp(const mpreal&v, mp_exp_t exp);
+friend const mpreal frexp(const mpreal &v, mp_exp_t *exp);
+friend const mpreal ldexp(const mpreal &v, mp_exp_t exp);
 
 // Splits mpreal value into fractional and integer parts.
 // Returns fractional part and stores integer part in n.
-friend const mpreal modf(const mpreal&v, mpreal&n);
+friend const mpreal modf(const mpreal &v, mpreal &n);
 
 // Constants
 // don't forget to call mpfr_free_cache() for every thread where you are using const-functions
@@ -346,30 +346,30 @@ friend const mpreal const_catalan(mp_prec_t prec = mpreal::default_prec, mp_rnd_
 friend const mpreal const_infinity(int sign = 1, mp_prec_t prec = mpreal::default_prec, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
 // Output/ Input
-friend std::ostream&operator<<(std::ostream&os, const mpreal&v);
-friend std::istream&operator>>(std::istream&is, mpreal&v);
+friend std::ostream&operator<<(std::ostream &os, const mpreal &v);
+friend std::istream&operator>>(std::istream &is, mpreal &v);
 
 // Integer Related Functions
-friend const mpreal rint(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal ceil(const mpreal&v);
-friend const mpreal floor(const mpreal&v);
-friend const mpreal round(const mpreal&v);
-friend const mpreal trunc(const mpreal&v);
-friend const mpreal rint_ceil(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal rint_floor(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal rint_round(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal rint_trunc(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal frac(const mpreal&v, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal remainder(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode = mpreal::default_rnd);
-friend const mpreal remquo(long *q, const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal rint(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal ceil(const mpreal &v);
+friend const mpreal floor(const mpreal &v);
+friend const mpreal round(const mpreal &v);
+friend const mpreal trunc(const mpreal &v);
+friend const mpreal rint_ceil(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal rint_floor(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal rint_round(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal rint_trunc(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal frac(const mpreal &v, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal remainder(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode = mpreal::default_rnd);
+friend const mpreal remquo(long *q, const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
 // Miscellaneous Functions
-friend const mpreal nexttoward(const mpreal&x, const mpreal&y);
-friend const mpreal nextabove(const mpreal&x);
-friend const mpreal nextbelow(const mpreal&x);
+friend const mpreal nexttoward(const mpreal &x, const mpreal &y);
+friend const mpreal nextabove(const mpreal &x);
+friend const mpreal nextbelow(const mpreal &x);
 
 // use gmp_randinit_default() to init state, gmp_randclear() to clear
-friend const mpreal urandomb(gmp_randstate_t&state);
+friend const mpreal urandomb(gmp_randstate_t &state);
 
 // MPFR < 2.4.2 Specifics
 #if (MPFR_VERSION <= MPFR_VERSION_NUM(2, 4, 2))
@@ -377,11 +377,11 @@ friend const mpreal random2(mp_size_t size, mp_exp_t exp);
 #endif
 
 // Instance Checkers
-friend bool _isnan(const mpreal&v);
-friend bool _isinf(const mpreal&v);
-friend bool _isnum(const mpreal&v);
-friend bool _iszero(const mpreal&v);
-friend bool _isint(const mpreal&v);
+friend bool _isnan(const mpreal &v);
+friend bool _isinf(const mpreal &v);
+friend bool _isnum(const mpreal &v);
+friend bool _iszero(const mpreal &v);
+friend bool _isint(const mpreal &v);
 
 // Set/Get instance properties
 inline mp_prec_t        get_prec() const;
@@ -427,20 +427,20 @@ static int set_emax(mp_exp_t exp);
 std::string to_string(size_t n = 0, int b = default_base, mp_rnd_t mode = default_rnd) const;
 
 // Efficient swapping of two mpreal values
-friend void swap(mpreal&x, mpreal&y);
+friend void swap(mpreal &x, mpreal &y);
 
 // Min Max - macros is evil. Needed for systems which defines max and min globally as macros (e.g. Windows)
 // Hope that globally defined macros use > < operations only
         #ifndef max
-friend const mpreal max(const mpreal&x, const mpreal&y);
+friend const mpreal max(const mpreal &x, const mpreal &y);
         #endif
 
         #ifndef min
-friend const mpreal min(const mpreal&x, const mpreal&y);
+friend const mpreal min(const mpreal &x, const mpreal &y);
         #endif
 
-friend const mpreal fmax(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode = default_rnd);
-friend const mpreal fmin(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode = default_rnd);
+friend const mpreal fmax(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode = default_rnd);
+friend const mpreal fmin(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode = default_rnd);
 
 private:
 // Optimized dynamic memory allocation/(re-)deallocation.
@@ -464,188 +464,188 @@ std::string why()
 
 //////////////////////////////////////////////////////////////////////////
 // + Addition
-const mpreal operator+(const mpreal&a, const mpreal&b);
+const mpreal operator+(const mpreal &a, const mpreal &b);
 
 // + Fast specialized addition - implemented through fast += operations
-const mpreal operator+(const mpreal&a, const mpz_t b);
-const mpreal operator+(const mpreal&a, const mpq_t b);
-const mpreal operator+(const mpreal&a, const long double b);
-const mpreal operator+(const mpreal&a, const double b);
-const mpreal operator+(const mpreal&a, const unsigned long int b);
-const mpreal operator+(const mpreal&a, const unsigned int b);
-const mpreal operator+(const mpreal&a, const long int b);
-const mpreal operator+(const mpreal&a, const int b);
-const mpreal operator+(const mpreal&a, const char *b);
-const mpreal operator+(const char *a, const mpreal&b);
-const std::string operator+(const mpreal&a, const std::string b);
-const std::string operator+(const std::string a, const mpreal&b);
+const mpreal operator+(const mpreal &a, const mpz_t b);
+const mpreal operator+(const mpreal &a, const mpq_t b);
+const mpreal operator+(const mpreal &a, const long double b);
+const mpreal operator+(const mpreal &a, const double b);
+const mpreal operator+(const mpreal &a, const unsigned long int b);
+const mpreal operator+(const mpreal &a, const unsigned int b);
+const mpreal operator+(const mpreal &a, const long int b);
+const mpreal operator+(const mpreal &a, const int b);
+const mpreal operator+(const mpreal &a, const char *b);
+const mpreal operator+(const char *a, const mpreal &b);
+const std::string operator+(const mpreal &a, const std::string b);
+const std::string operator+(const std::string a, const mpreal &b);
 
-const mpreal operator+(const mpz_t b, const mpreal&a);
-const mpreal operator+(const mpq_t b, const mpreal&a);
-const mpreal operator+(const long double b, const mpreal&a);
-const mpreal operator+(const double b, const mpreal&a);
-const mpreal operator+(const unsigned long int b, const mpreal&a);
-const mpreal operator+(const unsigned int b, const mpreal&a);
-const mpreal operator+(const long int b, const mpreal&a);
-const mpreal operator+(const int b, const mpreal&a);
+const mpreal operator+(const mpz_t b, const mpreal &a);
+const mpreal operator+(const mpq_t b, const mpreal &a);
+const mpreal operator+(const long double b, const mpreal &a);
+const mpreal operator+(const double b, const mpreal &a);
+const mpreal operator+(const unsigned long int b, const mpreal &a);
+const mpreal operator+(const unsigned int b, const mpreal &a);
+const mpreal operator+(const long int b, const mpreal &a);
+const mpreal operator+(const int b, const mpreal &a);
 
 //////////////////////////////////////////////////////////////////////////
 // - Subtraction
-const mpreal operator-(const mpreal&a, const mpreal&b);
+const mpreal operator-(const mpreal &a, const mpreal &b);
 
 // - Fast specialized subtraction - implemented through fast -= operations
-const mpreal operator-(const mpreal&a, const mpz_t b);
-const mpreal operator-(const mpreal&a, const mpq_t b);
-const mpreal operator-(const mpreal&a, const long double b);
-const mpreal operator-(const mpreal&a, const double b);
-const mpreal operator-(const mpreal&a, const unsigned long int b);
-const mpreal operator-(const mpreal&a, const unsigned int b);
-const mpreal operator-(const mpreal&a, const long int b);
-const mpreal operator-(const mpreal&a, const int b);
-const mpreal operator-(const mpreal&a, const char *b);
-const mpreal operator-(const char *a, const mpreal&b);
+const mpreal operator-(const mpreal &a, const mpz_t b);
+const mpreal operator-(const mpreal &a, const mpq_t b);
+const mpreal operator-(const mpreal &a, const long double b);
+const mpreal operator-(const mpreal &a, const double b);
+const mpreal operator-(const mpreal &a, const unsigned long int b);
+const mpreal operator-(const mpreal &a, const unsigned int b);
+const mpreal operator-(const mpreal &a, const long int b);
+const mpreal operator-(const mpreal &a, const int b);
+const mpreal operator-(const mpreal &a, const char *b);
+const mpreal operator-(const char *a, const mpreal &b);
 
-const mpreal operator-(const mpz_t b, const mpreal&a);
-const mpreal operator-(const mpq_t b, const mpreal&a);
-const mpreal operator-(const long double b, const mpreal&a);
+const mpreal operator-(const mpz_t b, const mpreal &a);
+const mpreal operator-(const mpq_t b, const mpreal &a);
+const mpreal operator-(const long double b, const mpreal &a);
 // const mpreal operator-(const double  b, const mpreal& a);
 
 //////////////////////////////////////////////////////////////////////////
 // * Multiplication
-const mpreal operator*(const mpreal&a, const mpreal&b);
+const mpreal operator*(const mpreal &a, const mpreal &b);
 
 // * Fast specialized multiplication - implemented through fast *= operations
-const mpreal operator*(const mpreal&a, const mpz_t b);
-const mpreal operator*(const mpreal&a, const mpq_t b);
-const mpreal operator*(const mpreal&a, const long double b);
-const mpreal operator*(const mpreal&a, const double b);
-const mpreal operator*(const mpreal&a, const unsigned long int b);
-const mpreal operator*(const mpreal&a, const unsigned int b);
-const mpreal operator*(const mpreal&a, const long int b);
-const mpreal operator*(const mpreal&a, const int b);
+const mpreal operator*(const mpreal &a, const mpz_t b);
+const mpreal operator*(const mpreal &a, const mpq_t b);
+const mpreal operator*(const mpreal &a, const long double b);
+const mpreal operator*(const mpreal &a, const double b);
+const mpreal operator*(const mpreal &a, const unsigned long int b);
+const mpreal operator*(const mpreal &a, const unsigned int b);
+const mpreal operator*(const mpreal &a, const long int b);
+const mpreal operator*(const mpreal &a, const int b);
 
-const mpreal operator*(const mpz_t b, const mpreal&a);
-const mpreal operator*(const mpq_t b, const mpreal&a);
-const mpreal operator*(const long double b, const mpreal&a);
-const mpreal operator*(const double b, const mpreal&a);
-const mpreal operator*(const unsigned long int b, const mpreal&a);
-const mpreal operator*(const unsigned int b, const mpreal&a);
-const mpreal operator*(const long int b, const mpreal&a);
-const mpreal operator*(const int b, const mpreal&a);
+const mpreal operator*(const mpz_t b, const mpreal &a);
+const mpreal operator*(const mpq_t b, const mpreal &a);
+const mpreal operator*(const long double b, const mpreal &a);
+const mpreal operator*(const double b, const mpreal &a);
+const mpreal operator*(const unsigned long int b, const mpreal &a);
+const mpreal operator*(const unsigned int b, const mpreal &a);
+const mpreal operator*(const long int b, const mpreal &a);
+const mpreal operator*(const int b, const mpreal &a);
 
 //////////////////////////////////////////////////////////////////////////
 // / Division
-const mpreal operator/(const mpreal&a, const mpreal&b);
+const mpreal operator/(const mpreal &a, const mpreal &b);
 
 // / Fast specialized division - implemented through fast /= operations
-const mpreal operator/(const mpreal&a, const mpz_t b);
-const mpreal operator/(const mpreal&a, const mpq_t b);
-const mpreal operator/(const mpreal&a, const long double b);
-const mpreal operator/(const mpreal&a, const double b);
-const mpreal operator/(const mpreal&a, const unsigned long int b);
-const mpreal operator/(const mpreal&a, const unsigned int b);
-const mpreal operator/(const mpreal&a, const long int b);
-const mpreal operator/(const mpreal&a, const int b);
+const mpreal operator/(const mpreal &a, const mpz_t b);
+const mpreal operator/(const mpreal &a, const mpq_t b);
+const mpreal operator/(const mpreal &a, const long double b);
+const mpreal operator/(const mpreal &a, const double b);
+const mpreal operator/(const mpreal &a, const unsigned long int b);
+const mpreal operator/(const mpreal &a, const unsigned int b);
+const mpreal operator/(const mpreal &a, const long int b);
+const mpreal operator/(const mpreal &a, const int b);
 
-const mpreal operator/(const long double b, const mpreal&a);
+const mpreal operator/(const long double b, const mpreal &a);
 
 //////////////////////////////////////////////////////////////////////////
 // Shifts operators - Multiplication/Division by a power of 2
-const mpreal operator<<(const mpreal&v, const unsigned long int k);
-const mpreal operator<<(const mpreal&v, const unsigned int k);
-const mpreal operator<<(const mpreal&v, const long int k);
-const mpreal operator<<(const mpreal&v, const int k);
+const mpreal operator<<(const mpreal &v, const unsigned long int k);
+const mpreal operator<<(const mpreal &v, const unsigned int k);
+const mpreal operator<<(const mpreal &v, const long int k);
+const mpreal operator<<(const mpreal &v, const int k);
 
-const mpreal operator>>(const mpreal&v, const unsigned long int k);
-const mpreal operator>>(const mpreal&v, const unsigned int k);
-const mpreal operator>>(const mpreal&v, const long int k);
-const mpreal operator>>(const mpreal&v, const int k);
+const mpreal operator>>(const mpreal &v, const unsigned long int k);
+const mpreal operator>>(const mpreal &v, const unsigned int k);
+const mpreal operator>>(const mpreal &v, const long int k);
+const mpreal operator>>(const mpreal &v, const int k);
 
 //////////////////////////////////////////////////////////////////////////
 // Boolean operators
-bool operator <(const mpreal&a, const unsigned long int b);
-bool operator <(const mpreal&a, const unsigned int b);
-bool operator <(const mpreal&a, const long int b);
-bool operator <(const mpreal&a, const int b);
-bool operator <(const mpreal&a, const long double b);
-bool operator <(const mpreal&a, const double b);
+bool operator <(const mpreal &a, const unsigned long int b);
+bool operator <(const mpreal &a, const unsigned int b);
+bool operator <(const mpreal &a, const long int b);
+bool operator <(const mpreal &a, const int b);
+bool operator <(const mpreal &a, const long double b);
+bool operator <(const mpreal &a, const double b);
 
-bool operator <(const unsigned long int a, const mpreal&b);
-bool operator <(const unsigned int a,         const mpreal&b);
-bool operator <(const long int a,                     const mpreal&b);
-bool operator <(const int a,                          const mpreal&b);
-bool operator <(const long double a,          const mpreal&b);
-bool operator <(const double a,                       const mpreal&b);
+bool operator <(const unsigned long int a, const mpreal &b);
+bool operator <(const unsigned int a,         const mpreal &b);
+bool operator <(const long int a,                     const mpreal &b);
+bool operator <(const int a,                          const mpreal &b);
+bool operator <(const long double a,          const mpreal &b);
+bool operator <(const double a,                       const mpreal &b);
 
-bool operator >(const mpreal&a, const unsigned long int b);
-bool operator >(const mpreal&a, const unsigned int b);
-bool operator >(const mpreal&a, const long int b);
-bool operator >(const mpreal&a, const int b);
-bool operator >(const mpreal&a, const long double b);
-bool operator >(const mpreal&a, const double b);
+bool operator >(const mpreal &a, const unsigned long int b);
+bool operator >(const mpreal &a, const unsigned int b);
+bool operator >(const mpreal &a, const long int b);
+bool operator >(const mpreal &a, const int b);
+bool operator >(const mpreal &a, const long double b);
+bool operator >(const mpreal &a, const double b);
 
-bool operator >(const unsigned long int a, const mpreal&b);
-bool operator >(const unsigned int a,         const mpreal&b);
-bool operator >(const long int a,                     const mpreal&b);
-bool operator >(const int a,                          const mpreal&b);
-bool operator >(const long double a,          const mpreal&b);
-bool operator >(const double a,                       const mpreal&b);
+bool operator >(const unsigned long int a, const mpreal &b);
+bool operator >(const unsigned int a,         const mpreal &b);
+bool operator >(const long int a,                     const mpreal &b);
+bool operator >(const int a,                          const mpreal &b);
+bool operator >(const long double a,          const mpreal &b);
+bool operator >(const double a,                       const mpreal &b);
 
-bool operator >=(const mpreal&a, const unsigned long int b);
-bool operator >=(const mpreal&a, const unsigned int b);
-bool operator >=(const mpreal&a, const long int b);
-bool operator >=(const mpreal&a, const int b);
-bool operator >=(const mpreal&a, const long double b);
-bool operator >=(const mpreal&a, const double b);
+bool operator >=(const mpreal &a, const unsigned long int b);
+bool operator >=(const mpreal &a, const unsigned int b);
+bool operator >=(const mpreal &a, const long int b);
+bool operator >=(const mpreal &a, const int b);
+bool operator >=(const mpreal &a, const long double b);
+bool operator >=(const mpreal &a, const double b);
 
-bool operator >=(const unsigned long int a, const mpreal&b);
-bool operator >=(const unsigned int a,                const mpreal&b);
-bool operator >=(const long int a,                    const mpreal&b);
-bool operator >=(const int a,                         const mpreal&b);
-bool operator >=(const long double a,         const mpreal&b);
-bool operator >=(const double a,                      const mpreal&b);
+bool operator >=(const unsigned long int a, const mpreal &b);
+bool operator >=(const unsigned int a,                const mpreal &b);
+bool operator >=(const long int a,                    const mpreal &b);
+bool operator >=(const int a,                         const mpreal &b);
+bool operator >=(const long double a,         const mpreal &b);
+bool operator >=(const double a,                      const mpreal &b);
 
-bool operator <=(const mpreal&a, const unsigned long int b);
-bool operator <=(const mpreal&a, const unsigned int b);
-bool operator <=(const mpreal&a, const long int b);
-bool operator <=(const mpreal&a, const int b);
-bool operator <=(const mpreal&a, const long double b);
-bool operator <=(const mpreal&a, const double b);
+bool operator <=(const mpreal &a, const unsigned long int b);
+bool operator <=(const mpreal &a, const unsigned int b);
+bool operator <=(const mpreal &a, const long int b);
+bool operator <=(const mpreal &a, const int b);
+bool operator <=(const mpreal &a, const long double b);
+bool operator <=(const mpreal &a, const double b);
 
-bool operator <=(const unsigned long int a, const mpreal&b);
-bool operator <=(const unsigned int a,                const mpreal&b);
-bool operator <=(const long int a,                    const mpreal&b);
-bool operator <=(const int a,                         const mpreal&b);
-bool operator <=(const long double a,         const mpreal&b);
-bool operator <=(const double a,                      const mpreal&b);
+bool operator <=(const unsigned long int a, const mpreal &b);
+bool operator <=(const unsigned int a,                const mpreal &b);
+bool operator <=(const long int a,                    const mpreal &b);
+bool operator <=(const int a,                         const mpreal &b);
+bool operator <=(const long double a,         const mpreal &b);
+bool operator <=(const double a,                      const mpreal &b);
 
-bool operator ==(const mpreal&a, const unsigned long int b);
-bool operator ==(const mpreal&a, const unsigned int b);
-bool operator ==(const mpreal&a, const long int b);
-bool operator ==(const mpreal&a, const int b);
-bool operator ==(const mpreal&a, const long double b);
-bool operator ==(const mpreal&a, const double b);
+bool operator ==(const mpreal &a, const unsigned long int b);
+bool operator ==(const mpreal &a, const unsigned int b);
+bool operator ==(const mpreal &a, const long int b);
+bool operator ==(const mpreal &a, const int b);
+bool operator ==(const mpreal &a, const long double b);
+bool operator ==(const mpreal &a, const double b);
 
-bool operator ==(const unsigned long int a, const mpreal&b);
-bool operator ==(const unsigned int a,                const mpreal&b);
-bool operator ==(const long int a,                    const mpreal&b);
-bool operator ==(const int a,                         const mpreal&b);
-bool operator ==(const long double a,         const mpreal&b);
-bool operator ==(const double a,                      const mpreal&b);
+bool operator ==(const unsigned long int a, const mpreal &b);
+bool operator ==(const unsigned int a,                const mpreal &b);
+bool operator ==(const long int a,                    const mpreal &b);
+bool operator ==(const int a,                         const mpreal &b);
+bool operator ==(const long double a,         const mpreal &b);
+bool operator ==(const double a,                      const mpreal &b);
 
-bool operator !=(const mpreal&a, const unsigned long int b);
-bool operator !=(const mpreal&a, const unsigned int b);
-bool operator !=(const mpreal&a, const long int b);
-bool operator !=(const mpreal&a, const int b);
-bool operator !=(const mpreal&a, const long double b);
-bool operator !=(const mpreal&a, const double b);
+bool operator !=(const mpreal &a, const unsigned long int b);
+bool operator !=(const mpreal &a, const unsigned int b);
+bool operator !=(const mpreal &a, const long int b);
+bool operator !=(const mpreal &a, const int b);
+bool operator !=(const mpreal &a, const long double b);
+bool operator !=(const mpreal &a, const double b);
 
-bool operator !=(const unsigned long int a, const mpreal&b);
-bool operator !=(const unsigned int a,                const mpreal&b);
-bool operator !=(const long int a,                    const mpreal&b);
-bool operator !=(const int a,                         const mpreal&b);
-bool operator !=(const long double a,         const mpreal&b);
-bool operator !=(const double a,                      const mpreal&b);
+bool operator !=(const unsigned long int a, const mpreal &b);
+bool operator !=(const unsigned int a,                const mpreal &b);
+bool operator !=(const long int a,                    const mpreal &b);
+bool operator !=(const int a,                         const mpreal &b);
+bool operator !=(const long double a,         const mpreal &b);
+bool operator !=(const double a,                      const mpreal &b);
 
 //////////////////////////////////////////////////////////////////////////
 // sqrt
@@ -657,16 +657,16 @@ const mpreal sqrt(const double v, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
 //////////////////////////////////////////////////////////////////////////
 // pow
-const mpreal pow(const mpreal&a, const unsigned int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const mpreal&a, const int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const mpreal&a, const long double b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const mpreal&a, const double b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const mpreal &a, const unsigned int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const mpreal &a, const int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const mpreal &a, const long double b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const mpreal &a, const double b, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
-const mpreal pow(const unsigned int a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const long int a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const int a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const long double a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
-const mpreal pow(const double a, const mpreal&b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const unsigned int a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const long int a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const int a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const long double a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
+const mpreal pow(const double a, const mpreal &b, mp_rnd_t rnd_mode = mpreal::default_rnd);
 
 const mpreal pow(const unsigned long int a, const unsigned int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
 const mpreal pow(const unsigned long int a, const long int b, mp_rnd_t rnd_mode = mpreal::default_rnd);
@@ -719,7 +719,7 @@ inline const mpreal mpreal_max(mp_prec_t prec = mpreal::default_prec);
 
 //////////////////////////////////////////////////////////////////////////
 // Operators - Assignment
-inline mpreal&mpreal::operator=(const mpreal&v)
+inline mpreal&mpreal::operator=(const mpreal &v)
 {
     if (this != &v)
     {
@@ -792,7 +792,7 @@ inline mpreal&mpreal::operator=(const int v)
 
 //////////////////////////////////////////////////////////////////////////
 // + Addition
-inline mpreal&mpreal::operator+=(const mpreal&v)
+inline mpreal&mpreal::operator+=(const mpreal &v)
 {
     mpfr_add(mp, mp, v.mp, default_rnd);
     return *this;
@@ -860,7 +860,7 @@ inline const mpreal mpreal::operator+() const
     return mpreal(*this);
 }
 
-inline const mpreal operator+(const mpreal&a, const mpreal&b)
+inline const mpreal operator+(const mpreal &a, const mpreal &b)
 {
     // prec(a+b) = max(prec(a),prec(b))
     if (a.get_prec() > b.get_prec())
@@ -869,102 +869,102 @@ inline const mpreal operator+(const mpreal&a, const mpreal&b)
         return mpreal(b) += a;
 }
 
-inline const std::string operator+(const mpreal&a, const std::string b)
+inline const std::string operator+(const mpreal &a, const std::string b)
 {
     return (std::string)a + b;
 }
 
-inline const std::string operator+(const std::string a, const mpreal&b)
+inline const std::string operator+(const std::string a, const mpreal &b)
 {
     return a + (std::string)b;
 }
 
-inline const mpreal operator+(const mpreal&a, const mpz_t b)
+inline const mpreal operator+(const mpreal &a, const mpz_t b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const char *b)
+inline const mpreal operator+(const mpreal &a, const char *b)
 {
     return a + mpreal(b);
 }
 
-inline const mpreal operator+(const char *a, const mpreal&b)
+inline const mpreal operator+(const char *a, const mpreal &b)
 {
     return mpreal(a) + b;
 }
 
-inline const mpreal operator+(const mpreal&a, const mpq_t b)
+inline const mpreal operator+(const mpreal &a, const mpq_t b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const long double b)
+inline const mpreal operator+(const mpreal &a, const long double b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const double b)
+inline const mpreal operator+(const mpreal &a, const double b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const unsigned long int b)
+inline const mpreal operator+(const mpreal &a, const unsigned long int b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const unsigned int b)
+inline const mpreal operator+(const mpreal &a, const unsigned int b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const long int b)
+inline const mpreal operator+(const mpreal &a, const long int b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpreal&a, const int b)
+inline const mpreal operator+(const mpreal &a, const int b)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpz_t b, const mpreal&a)
+inline const mpreal operator+(const mpz_t b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const mpq_t b, const mpreal&a)
+inline const mpreal operator+(const mpq_t b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const long double b, const mpreal&a)
+inline const mpreal operator+(const long double b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const double b, const mpreal&a)
+inline const mpreal operator+(const double b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const unsigned long int b, const mpreal&a)
+inline const mpreal operator+(const unsigned long int b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const unsigned int b, const mpreal&a)
+inline const mpreal operator+(const unsigned int b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const long int b, const mpreal&a)
+inline const mpreal operator+(const long int b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
 
-inline const mpreal operator+(const int b, const mpreal&a)
+inline const mpreal operator+(const int b, const mpreal &a)
 {
     return mpreal(a) += b;
 }
@@ -999,7 +999,7 @@ inline const mpreal mpreal::operator--(int)
 
 //////////////////////////////////////////////////////////////////////////
 // - Subtraction
-inline mpreal&mpreal::operator-=(const mpreal&v)
+inline mpreal&mpreal::operator-=(const mpreal &v)
 {
     mpfr_sub(mp, mp, v.mp, default_rnd);
     return *this;
@@ -1064,7 +1064,7 @@ inline const mpreal mpreal::operator-() const
     return u;
 }
 
-inline const mpreal operator-(const mpreal&a, const mpreal&b)
+inline const mpreal operator-(const mpreal &a, const mpreal &b)
 {
     // prec(a-b) = max(prec(a),prec(b))
     if (a.get_prec() > b.get_prec())
@@ -1073,62 +1073,62 @@ inline const mpreal operator-(const mpreal&a, const mpreal&b)
         return -(mpreal(b) -= a);
 }
 
-inline const mpreal operator-(const mpreal&a, const mpz_t b)
+inline const mpreal operator-(const mpreal &a, const mpz_t b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const mpq_t b)
+inline const mpreal operator-(const mpreal &a, const mpq_t b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const long double b)
+inline const mpreal operator-(const mpreal &a, const long double b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const double b)
+inline const mpreal operator-(const mpreal &a, const double b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const unsigned long int b)
+inline const mpreal operator-(const mpreal &a, const unsigned long int b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const unsigned int b)
+inline const mpreal operator-(const mpreal &a, const unsigned int b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const long int b)
+inline const mpreal operator-(const mpreal &a, const long int b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpreal&a, const int b)
+inline const mpreal operator-(const mpreal &a, const int b)
 {
     return mpreal(a) -= b;
 }
 
-inline const mpreal operator-(const mpz_t b, const mpreal&a)
+inline const mpreal operator-(const mpz_t b, const mpreal &a)
 {
     return -(mpreal(a) -= b);
 }
 
-inline const mpreal operator-(const mpq_t b, const mpreal&a)
+inline const mpreal operator-(const mpq_t b, const mpreal &a)
 {
     return -(mpreal(a) -= b);
 }
 
-inline const mpreal operator-(const long double b, const mpreal&a)
+inline const mpreal operator-(const long double b, const mpreal &a)
 {
     return -(mpreal(a) -= b);
 }
 
-inline const mpreal operator-(const double b, const mpreal&a)
+inline const mpreal operator-(const double b, const mpreal &a)
 {
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(2, 4, 0))
     mpreal x(a);
@@ -1139,7 +1139,7 @@ inline const mpreal operator-(const double b, const mpreal&a)
 #endif
 }
 
-inline const mpreal operator-(const unsigned long int b, const mpreal&a)
+inline const mpreal operator-(const unsigned long int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1147,7 +1147,7 @@ inline const mpreal operator-(const unsigned long int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator-(const unsigned int b, const mpreal&a)
+inline const mpreal operator-(const unsigned int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1155,7 +1155,7 @@ inline const mpreal operator-(const unsigned int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator-(const long int b, const mpreal&a)
+inline const mpreal operator-(const long int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1163,7 +1163,7 @@ inline const mpreal operator-(const long int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator-(const int b, const mpreal&a)
+inline const mpreal operator-(const int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1171,19 +1171,19 @@ inline const mpreal operator-(const int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator-(const mpreal&a, const char *b)
+inline const mpreal operator-(const mpreal &a, const char *b)
 {
     return a - mpreal(b);
 }
 
-inline const mpreal operator-(const char *a, const mpreal&b)
+inline const mpreal operator-(const char *a, const mpreal &b)
 {
     return mpreal(a) - b;
 }
 
 //////////////////////////////////////////////////////////////////////////
 // * Multiplication
-inline mpreal&mpreal::operator*=(const mpreal&v)
+inline mpreal&mpreal::operator*=(const mpreal &v)
 {
     mpfr_mul(mp, mp, v.mp, default_rnd);
     return *this;
@@ -1240,7 +1240,7 @@ inline mpreal&mpreal::operator*=(const int v)
     return *this;
 }
 
-inline const mpreal operator*(const mpreal&a, const mpreal&b)
+inline const mpreal operator*(const mpreal &a, const mpreal &b)
 {
     // prec(a*b) = max(prec(a),prec(b))
     if (a.get_prec() > b.get_prec())
@@ -1249,89 +1249,89 @@ inline const mpreal operator*(const mpreal&a, const mpreal&b)
         return mpreal(b) *= a;
 }
 
-inline const mpreal operator*(const mpreal&a, const mpz_t b)
+inline const mpreal operator*(const mpreal &a, const mpz_t b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const mpq_t b)
+inline const mpreal operator*(const mpreal &a, const mpq_t b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const long double b)
+inline const mpreal operator*(const mpreal &a, const long double b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const double b)
+inline const mpreal operator*(const mpreal &a, const double b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const unsigned long int b)
+inline const mpreal operator*(const mpreal &a, const unsigned long int b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const unsigned int b)
+inline const mpreal operator*(const mpreal &a, const unsigned int b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const long int b)
+inline const mpreal operator*(const mpreal &a, const long int b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpreal&a, const int b)
+inline const mpreal operator*(const mpreal &a, const int b)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpz_t b, const mpreal&a)
+inline const mpreal operator*(const mpz_t b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const mpq_t b, const mpreal&a)
+inline const mpreal operator*(const mpq_t b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const long double b, const mpreal&a)
+inline const mpreal operator*(const long double b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const double b, const mpreal&a)
+inline const mpreal operator*(const double b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const unsigned long int b, const mpreal&a)
+inline const mpreal operator*(const unsigned long int b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const unsigned int b, const mpreal&a)
+inline const mpreal operator*(const unsigned int b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const long int b, const mpreal&a)
+inline const mpreal operator*(const long int b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
-inline const mpreal operator*(const int b, const mpreal&a)
+inline const mpreal operator*(const int b, const mpreal &a)
 {
     return mpreal(a) *= b;
 }
 
 //////////////////////////////////////////////////////////////////////////
 // / Division
-inline mpreal&mpreal::operator/=(const mpreal&v)
+inline mpreal&mpreal::operator/=(const mpreal &v)
 {
     mpfr_div(mp, mp, v.mp, default_rnd);
     return *this;
@@ -1388,7 +1388,7 @@ inline mpreal&mpreal::operator/=(const int v)
     return *this;
 }
 
-inline const mpreal operator/(const mpreal&a, const mpreal&b)
+inline const mpreal operator/(const mpreal &a, const mpreal &b)
 {
     mpreal    x(a);
     mp_prec_t pb;
@@ -1403,47 +1403,47 @@ inline const mpreal operator/(const mpreal&a, const mpreal&b)
     return x /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const mpz_t b)
+inline const mpreal operator/(const mpreal &a, const mpz_t b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const mpq_t b)
+inline const mpreal operator/(const mpreal &a, const mpq_t b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const long double b)
+inline const mpreal operator/(const mpreal &a, const long double b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const double b)
+inline const mpreal operator/(const mpreal &a, const double b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const unsigned long int b)
+inline const mpreal operator/(const mpreal &a, const unsigned long int b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const unsigned int b)
+inline const mpreal operator/(const mpreal &a, const unsigned int b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const long int b)
+inline const mpreal operator/(const mpreal &a, const long int b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const mpreal&a, const int b)
+inline const mpreal operator/(const mpreal &a, const int b)
 {
     return mpreal(a) /= b;
 }
 
-inline const mpreal operator/(const unsigned long int b, const mpreal&a)
+inline const mpreal operator/(const unsigned long int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1451,7 +1451,7 @@ inline const mpreal operator/(const unsigned long int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator/(const unsigned int b, const mpreal&a)
+inline const mpreal operator/(const unsigned int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1459,7 +1459,7 @@ inline const mpreal operator/(const unsigned int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator/(const long int b, const mpreal&a)
+inline const mpreal operator/(const long int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1467,7 +1467,7 @@ inline const mpreal operator/(const long int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator/(const int b, const mpreal&a)
+inline const mpreal operator/(const int b, const mpreal &a)
 {
     mpreal x(a);
 
@@ -1475,14 +1475,14 @@ inline const mpreal operator/(const int b, const mpreal&a)
     return x;
 }
 
-inline const mpreal operator/(const long double b, const mpreal&a)
+inline const mpreal operator/(const long double b, const mpreal &a)
 {
     mpreal x(b);
 
     return x / a;
 }
 
-inline const mpreal operator/(const double b, const mpreal&a)
+inline const mpreal operator/(const double b, const mpreal &a)
 {
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(2, 4, 0))
     mpreal x(a);
@@ -1544,48 +1544,48 @@ inline mpreal&mpreal::operator>>=(const int u)
     return *this;
 }
 
-inline const mpreal operator<<(const mpreal&v, const unsigned long int k)
+inline const mpreal operator<<(const mpreal &v, const unsigned long int k)
 {
     return mul_2ui(v, k);
 }
 
-inline const mpreal operator<<(const mpreal&v, const unsigned int k)
+inline const mpreal operator<<(const mpreal &v, const unsigned int k)
 {
     return mul_2ui(v, static_cast<unsigned long int>(k));
 }
 
-inline const mpreal operator<<(const mpreal&v, const long int k)
+inline const mpreal operator<<(const mpreal &v, const long int k)
 {
     return mul_2si(v, k);
 }
 
-inline const mpreal operator<<(const mpreal&v, const int k)
+inline const mpreal operator<<(const mpreal &v, const int k)
 {
     return mul_2si(v, static_cast<long int>(k));
 }
 
-inline const mpreal operator>>(const mpreal&v, const unsigned long int k)
+inline const mpreal operator>>(const mpreal &v, const unsigned long int k)
 {
     return div_2ui(v, k);
 }
 
-inline const mpreal operator>>(const mpreal&v, const long int k)
+inline const mpreal operator>>(const mpreal &v, const long int k)
 {
     return div_2si(v, k);
 }
 
-inline const mpreal operator>>(const mpreal&v, const unsigned int k)
+inline const mpreal operator>>(const mpreal &v, const unsigned int k)
 {
     return div_2ui(v, static_cast<unsigned long int>(k));
 }
 
-inline const mpreal operator>>(const mpreal&v, const int k)
+inline const mpreal operator>>(const mpreal &v, const int k)
 {
     return div_2si(v, static_cast<long int>(k));
 }
 
 // mul_2ui
-inline const mpreal mul_2ui(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode)
+inline const mpreal mul_2ui(const mpreal &v, unsigned long int k, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -1594,7 +1594,7 @@ inline const mpreal mul_2ui(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mo
 }
 
 // mul_2si
-inline const mpreal mul_2si(const mpreal&v, long int k, mp_rnd_t rnd_mode)
+inline const mpreal mul_2si(const mpreal &v, long int k, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -1602,7 +1602,7 @@ inline const mpreal mul_2si(const mpreal&v, long int k, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal div_2ui(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode)
+inline const mpreal div_2ui(const mpreal &v, unsigned long int k, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -1610,7 +1610,7 @@ inline const mpreal div_2ui(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mo
     return x;
 }
 
-inline const mpreal div_2si(const mpreal&v, long int k, mp_rnd_t rnd_mode)
+inline const mpreal div_2si(const mpreal &v, long int k, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -1620,423 +1620,423 @@ inline const mpreal div_2si(const mpreal&v, long int k, mp_rnd_t rnd_mode)
 
 //////////////////////////////////////////////////////////////////////////
 // Boolean operators
-inline bool operator >(const mpreal&a, const mpreal&b)
+inline bool operator >(const mpreal &a, const mpreal &b)
 {
     return (mpfr_greater_p(a.mp, b.mp) != 0);
 }
 
-inline bool operator >(const mpreal&a, const unsigned long int b)
+inline bool operator >(const mpreal &a, const unsigned long int b)
 {
     return a > mpreal(b);
 }
 
-inline bool operator >(const mpreal&a, const unsigned int b)
+inline bool operator >(const mpreal &a, const unsigned int b)
 {
     return a > mpreal(b);
 }
 
-inline bool operator >(const mpreal&a, const long int b)
+inline bool operator >(const mpreal &a, const long int b)
 {
     return a > mpreal(b);
 }
 
-inline bool operator >(const mpreal&a, const int b)
+inline bool operator >(const mpreal &a, const int b)
 {
     return a > mpreal(b);
 }
 
-inline bool operator >(const mpreal&a, const long double b)
+inline bool operator >(const mpreal &a, const long double b)
 {
     return a > mpreal(b);
 }
 
-inline bool operator >(const mpreal&a, const double b)
+inline bool operator >(const mpreal &a, const double b)
 {
     return a > mpreal(b);
 }
 
-inline bool operator >(const unsigned long int a,     const mpreal&b)
+inline bool operator >(const unsigned long int a,     const mpreal &b)
 {
     return mpreal(a) > b;
 }
 
-inline bool operator >(const unsigned int a,          const mpreal&b)
+inline bool operator >(const unsigned int a,          const mpreal &b)
 {
     return mpreal(a) > b;
 }
 
-inline bool operator >(const long int a,                      const mpreal&b)
+inline bool operator >(const long int a,                      const mpreal &b)
 {
     return mpreal(a) > b;
 }
 
-inline bool operator >(const int a,                           const mpreal&b)
+inline bool operator >(const int a,                           const mpreal &b)
 {
     return mpreal(a) > b;
 }
 
-inline bool operator >(const long double a,           const mpreal&b)
+inline bool operator >(const long double a,           const mpreal &b)
 {
     return mpreal(a) > b;
 }
 
-inline bool operator >(const double a,                        const mpreal&b)
+inline bool operator >(const double a,                        const mpreal &b)
 {
     return mpreal(a) > b;
 }
 
-inline bool operator >=(const mpreal&a, const mpreal&b)
+inline bool operator >=(const mpreal &a, const mpreal &b)
 {
     return (mpfr_greaterequal_p(a.mp, b.mp) != 0);
 }
 
-inline bool operator >=(const mpreal&a, const unsigned long int b)
+inline bool operator >=(const mpreal &a, const unsigned long int b)
 {
     return a >= mpreal(b);
 }
 
-inline bool operator >=(const mpreal&a, const unsigned int b)
+inline bool operator >=(const mpreal &a, const unsigned int b)
 {
     return a >= mpreal(b);
 }
 
-inline bool operator >=(const mpreal&a, const long int b)
+inline bool operator >=(const mpreal &a, const long int b)
 {
     return a >= mpreal(b);
 }
 
-inline bool operator >=(const mpreal&a, const int b)
+inline bool operator >=(const mpreal &a, const int b)
 {
     return a >= mpreal(b);
 }
 
-inline bool operator >=(const mpreal&a, const long double b)
+inline bool operator >=(const mpreal &a, const long double b)
 {
     return a >= mpreal(b);
 }
 
-inline bool operator >=(const mpreal&a, const double b)
+inline bool operator >=(const mpreal &a, const double b)
 {
     return a >= mpreal(b);
 }
 
-inline bool operator >=(const unsigned long int a, const mpreal&b)
+inline bool operator >=(const unsigned long int a, const mpreal &b)
 {
     return mpreal(a) >= b;
 }
 
-inline bool operator >=(const unsigned int a,         const mpreal&b)
+inline bool operator >=(const unsigned int a,         const mpreal &b)
 {
     return mpreal(a) >= b;
 }
 
-inline bool operator >=(const long int a,                     const mpreal&b)
+inline bool operator >=(const long int a,                     const mpreal &b)
 {
     return mpreal(a) >= b;
 }
 
-inline bool operator >=(const int a,                          const mpreal&b)
+inline bool operator >=(const int a,                          const mpreal &b)
 {
     return mpreal(a) >= b;
 }
 
-inline bool operator >=(const long double a,          const mpreal&b)
+inline bool operator >=(const long double a,          const mpreal &b)
 {
     return mpreal(a) >= b;
 }
 
-inline bool operator >=(const double a,                       const mpreal&b)
+inline bool operator >=(const double a,                       const mpreal &b)
 {
     return mpreal(a) >= b;
 }
 
-inline bool operator <(const mpreal&a, const mpreal&b)
+inline bool operator <(const mpreal &a, const mpreal &b)
 {
     return (mpfr_less_p(a.mp, b.mp) != 0);
 }
 
-inline bool operator <(const mpreal&a, const unsigned long int b)
+inline bool operator <(const mpreal &a, const unsigned long int b)
 {
     return a < mpreal(b);
 }
 
-inline bool operator <(const mpreal&a, const unsigned int b)
+inline bool operator <(const mpreal &a, const unsigned int b)
 {
     return a < mpreal(b);
 }
 
-inline bool operator <(const mpreal&a, const long int b)
+inline bool operator <(const mpreal &a, const long int b)
 {
     return a < mpreal(b);
 }
 
-inline bool operator <(const mpreal&a, const int b)
+inline bool operator <(const mpreal &a, const int b)
 {
     return a < mpreal(b);
 }
 
-inline bool operator <(const mpreal&a, const long double b)
+inline bool operator <(const mpreal &a, const long double b)
 {
     return a < mpreal(b);
 }
 
-inline bool operator <(const mpreal&a, const double b)
+inline bool operator <(const mpreal &a, const double b)
 {
     return a < mpreal(b);
 }
 
-inline bool operator <(const unsigned long int a,     const mpreal&b)
+inline bool operator <(const unsigned long int a,     const mpreal &b)
 {
     return mpreal(a) < b;
 }
 
-inline bool operator <(const unsigned int a, const mpreal&b)
+inline bool operator <(const unsigned int a, const mpreal &b)
 {
     return mpreal(a) < b;
 }
 
-inline bool operator <(const long int a, const mpreal&b)
+inline bool operator <(const long int a, const mpreal &b)
 {
     return mpreal(a) < b;
 }
 
-inline bool operator <(const int a, const mpreal&b)
+inline bool operator <(const int a, const mpreal &b)
 {
     return mpreal(a) < b;
 }
 
-inline bool operator <(const long double a, const mpreal&b)
+inline bool operator <(const long double a, const mpreal &b)
 {
     return mpreal(a) < b;
 }
 
-inline bool operator <(const double a, const mpreal&b)
+inline bool operator <(const double a, const mpreal &b)
 {
     return mpreal(a) < b;
 }
 
-inline bool operator <=(const mpreal&a, const mpreal&b)
+inline bool operator <=(const mpreal &a, const mpreal &b)
 {
     return (mpfr_lessequal_p(a.mp, b.mp) != 0);
 }
 
-inline bool operator <=(const mpreal&a, const unsigned long int b)
+inline bool operator <=(const mpreal &a, const unsigned long int b)
 {
     return a <= mpreal(b);
 }
 
-inline bool operator <=(const mpreal&a, const unsigned int b)
+inline bool operator <=(const mpreal &a, const unsigned int b)
 {
     return a <= mpreal(b);
 }
 
-inline bool operator <=(const mpreal&a, const long int b)
+inline bool operator <=(const mpreal &a, const long int b)
 {
     return a <= mpreal(b);
 }
 
-inline bool operator <=(const mpreal&a, const int b)
+inline bool operator <=(const mpreal &a, const int b)
 {
     return a <= mpreal(b);
 }
 
-inline bool operator <=(const mpreal&a, const long double b)
+inline bool operator <=(const mpreal &a, const long double b)
 {
     return a <= mpreal(b);
 }
 
-inline bool operator <=(const mpreal&a, const double b)
+inline bool operator <=(const mpreal &a, const double b)
 {
     return a <= mpreal(b);
 }
 
-inline bool operator <=(const unsigned long int a, const mpreal&b)
+inline bool operator <=(const unsigned long int a, const mpreal &b)
 {
     return mpreal(a) <= b;
 }
 
-inline bool operator <=(const unsigned int a,         const mpreal&b)
+inline bool operator <=(const unsigned int a,         const mpreal &b)
 {
     return mpreal(a) <= b;
 }
 
-inline bool operator <=(const long int a,                     const mpreal&b)
+inline bool operator <=(const long int a,                     const mpreal &b)
 {
     return mpreal(a) <= b;
 }
 
-inline bool operator <=(const int a,                          const mpreal&b)
+inline bool operator <=(const int a,                          const mpreal &b)
 {
     return mpreal(a) <= b;
 }
 
-inline bool operator <=(const long double a,          const mpreal&b)
+inline bool operator <=(const long double a,          const mpreal &b)
 {
     return mpreal(a) <= b;
 }
 
-inline bool operator <=(const double a,                       const mpreal&b)
+inline bool operator <=(const double a,                       const mpreal &b)
 {
     return mpreal(a) <= b;
 }
 
-inline bool operator ==(const mpreal&a, const mpreal&b)
+inline bool operator ==(const mpreal &a, const mpreal &b)
 {
     return (mpfr_equal_p(a.mp, b.mp) != 0);
 }
 
-inline bool operator ==(const mpreal&a, const unsigned long int b)
+inline bool operator ==(const mpreal &a, const unsigned long int b)
 {
     return a == mpreal(b);
 }
 
-inline bool operator ==(const mpreal&a, const unsigned int b)
+inline bool operator ==(const mpreal &a, const unsigned int b)
 {
     return a == mpreal(b);
 }
 
-inline bool operator ==(const mpreal&a, const long int b)
+inline bool operator ==(const mpreal &a, const long int b)
 {
     return a == mpreal(b);
 }
 
-inline bool operator ==(const mpreal&a, const int b)
+inline bool operator ==(const mpreal &a, const int b)
 {
     return a == mpreal(b);
 }
 
-inline bool operator ==(const mpreal&a, const long double b)
+inline bool operator ==(const mpreal &a, const long double b)
 {
     return a == mpreal(b);
 }
 
-inline bool operator ==(const mpreal&a, const double b)
+inline bool operator ==(const mpreal &a, const double b)
 {
     return a == mpreal(b);
 }
 
-inline bool operator ==(const unsigned long int a, const mpreal&b)
+inline bool operator ==(const unsigned long int a, const mpreal &b)
 {
     return mpreal(a) == b;
 }
 
-inline bool operator ==(const unsigned int a,         const mpreal&b)
+inline bool operator ==(const unsigned int a,         const mpreal &b)
 {
     return mpreal(a) == b;
 }
 
-inline bool operator ==(const long int a,                     const mpreal&b)
+inline bool operator ==(const long int a,                     const mpreal &b)
 {
     return mpreal(a) == b;
 }
 
-inline bool operator ==(const int a,                          const mpreal&b)
+inline bool operator ==(const int a,                          const mpreal &b)
 {
     return mpreal(a) == b;
 }
 
-inline bool operator ==(const long double a,          const mpreal&b)
+inline bool operator ==(const long double a,          const mpreal &b)
 {
     return mpreal(a) == b;
 }
 
-inline bool operator ==(const double a,                       const mpreal&b)
+inline bool operator ==(const double a,                       const mpreal &b)
 {
     return mpreal(a) == b;
 }
 
-inline bool operator !=(const mpreal&a, const mpreal&b)
+inline bool operator !=(const mpreal &a, const mpreal &b)
 {
     return (mpfr_lessgreater_p(a.mp, b.mp) != 0);
 }
 
-inline bool operator !=(const mpreal&a, const unsigned long int b)
+inline bool operator !=(const mpreal &a, const unsigned long int b)
 {
     return a != mpreal(b);
 }
 
-inline bool operator !=(const mpreal&a, const unsigned int b)
+inline bool operator !=(const mpreal &a, const unsigned int b)
 {
     return a != mpreal(b);
 }
 
-inline bool operator !=(const mpreal&a, const long int b)
+inline bool operator !=(const mpreal &a, const long int b)
 {
     return a != mpreal(b);
 }
 
-inline bool operator !=(const mpreal&a, const int b)
+inline bool operator !=(const mpreal &a, const int b)
 {
     return a != mpreal(b);
 }
 
-inline bool operator !=(const mpreal&a, const long double b)
+inline bool operator !=(const mpreal &a, const long double b)
 {
     return a != mpreal(b);
 }
 
-inline bool operator !=(const mpreal&a, const double b)
+inline bool operator !=(const mpreal &a, const double b)
 {
     return a != mpreal(b);
 }
 
-inline bool operator !=(const unsigned long int a, const mpreal&b)
+inline bool operator !=(const unsigned long int a, const mpreal &b)
 {
     return mpreal(a) != b;
 }
 
-inline bool operator !=(const unsigned int a,         const mpreal&b)
+inline bool operator !=(const unsigned int a,         const mpreal &b)
 {
     return mpreal(a) != b;
 }
 
-inline bool operator !=(const long int a,                     const mpreal&b)
+inline bool operator !=(const long int a,                     const mpreal &b)
 {
     return mpreal(a) != b;
 }
 
-inline bool operator !=(const int a,                          const mpreal&b)
+inline bool operator !=(const int a,                          const mpreal &b)
 {
     return mpreal(a) != b;
 }
 
-inline bool operator !=(const long double a,          const mpreal&b)
+inline bool operator !=(const long double a,          const mpreal &b)
 {
     return mpreal(a) != b;
 }
 
-inline bool operator !=(const double a,                       const mpreal&b)
+inline bool operator !=(const double a,                       const mpreal &b)
 {
     return mpreal(a) != b;
 }
 
-inline bool _isnan(const mpreal&v)
+inline bool _isnan(const mpreal &v)
 {
     return (mpfr_nan_p(v.mp) != 0);
 }
 
-inline bool _isinf(const mpreal&v)
+inline bool _isinf(const mpreal &v)
 {
     return (mpfr_inf_p(v.mp) != 0);
 }
 
-inline bool _isnum(const mpreal&v)
+inline bool _isnum(const mpreal &v)
 {
     return (mpfr_number_p(v.mp) != 0);
 }
 
-inline bool _iszero(const mpreal&v)
+inline bool _iszero(const mpreal &v)
 {
     return (mpfr_zero_p(v.mp) != 0);
 }
 
-inline bool _isint(const mpreal&v)
+inline bool _isint(const mpreal &v)
 {
     return (mpfr_integer_p(v.mp) != 0);
 }
 
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(3, 0, 0))
-inline bool _isregular(const mpreal&v)
+inline bool _isregular(const mpreal &v)
 {
     return (mpfr_regular_p(v.mp));
 }
@@ -2086,7 +2086,7 @@ inline mpreal::operator mpfr_ptr()
 
 //////////////////////////////////////////////////////////////////////////
 // Set/Get number properties
-inline int sgn(const mpreal&v)
+inline int sgn(const mpreal &v)
 {
     int r = mpfr_signbit(v.mp);
 
@@ -2128,7 +2128,7 @@ inline int mpreal::set_exp(mp_exp_t e)
     return mpfr_set_exp(mp, e);
 }
 
-inline const mpreal frexp(const mpreal&v, mp_exp_t *exp)
+inline const mpreal frexp(const mpreal &v, mp_exp_t *exp)
 {
     mpreal x(v);
 
@@ -2137,7 +2137,7 @@ inline const mpreal frexp(const mpreal&v, mp_exp_t *exp)
     return x;
 }
 
-inline const mpreal ldexp(const mpreal&v, mp_exp_t exp)
+inline const mpreal ldexp(const mpreal &v, mp_exp_t exp)
 {
     mpreal x(v);
 
@@ -2175,7 +2175,7 @@ inline const mpreal mpreal_max(mp_prec_t prec)
     return x <<= mpreal::get_emax() - 1;
 }
 
-inline const mpreal modf(const mpreal&v, mpreal&n)
+inline const mpreal modf(const mpreal &v, mpreal &n)
 {
     mpreal frac(v);
 
@@ -2238,7 +2238,7 @@ inline mp_exp_t mpreal::get_emax_max(void)
 //////////////////////////////////////////////////////////////////////////
 // Mathematical Functions
 //////////////////////////////////////////////////////////////////////////
-inline const mpreal sqr(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal sqr(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2246,7 +2246,7 @@ inline const mpreal sqr(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal sqrt(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal sqrt(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2293,7 +2293,7 @@ inline const mpreal sqrt(const double v, mp_rnd_t rnd_mode)
     return sqrt(mpreal(v), rnd_mode);
 }
 
-inline const mpreal cbrt(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal cbrt(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2301,7 +2301,7 @@ inline const mpreal cbrt(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal root(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode)
+inline const mpreal root(const mpreal &v, unsigned long int k, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2309,7 +2309,7 @@ inline const mpreal root(const mpreal&v, unsigned long int k, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal fabs(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal fabs(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2317,7 +2317,7 @@ inline const mpreal fabs(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal abs(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal abs(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2325,7 +2325,7 @@ inline const mpreal abs(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal dim(const mpreal&a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal dim(const mpreal &a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     mpreal x(a);
 
@@ -2333,12 +2333,12 @@ inline const mpreal dim(const mpreal&a, const mpreal&b, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline int cmpabs(const mpreal&a, const mpreal&b)
+inline int cmpabs(const mpreal &a, const mpreal &b)
 {
     return mpfr_cmpabs(a.mp, b.mp);
 }
 
-inline const mpreal log(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal log(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2346,7 +2346,7 @@ inline const mpreal log(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal log2(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal log2(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2354,7 +2354,7 @@ inline const mpreal log2(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal log10(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal log10(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2362,7 +2362,7 @@ inline const mpreal log10(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal exp(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal exp(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2370,7 +2370,7 @@ inline const mpreal exp(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal exp2(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal exp2(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2378,7 +2378,7 @@ inline const mpreal exp2(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal exp10(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal exp10(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2386,7 +2386,7 @@ inline const mpreal exp10(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal cos(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal cos(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2394,7 +2394,7 @@ inline const mpreal cos(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal sin(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal sin(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2402,7 +2402,7 @@ inline const mpreal sin(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal tan(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal tan(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2410,7 +2410,7 @@ inline const mpreal tan(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal sec(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal sec(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2418,7 +2418,7 @@ inline const mpreal sec(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal csc(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal csc(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2426,7 +2426,7 @@ inline const mpreal csc(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal cot(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal cot(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2434,12 +2434,12 @@ inline const mpreal cot(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline int sin_cos(mpreal&s, mpreal&c, const mpreal&v, mp_rnd_t rnd_mode)
+inline int sin_cos(mpreal &s, mpreal &c, const mpreal &v, mp_rnd_t rnd_mode)
 {
     return mpfr_sin_cos(s.mp, c.mp, v.mp, rnd_mode);
 }
 
-inline const mpreal acos(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal acos(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2447,7 +2447,7 @@ inline const mpreal acos(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal asin(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal asin(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2455,7 +2455,7 @@ inline const mpreal asin(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal atan(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal atan(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2463,7 +2463,7 @@ inline const mpreal atan(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal atan2(const mpreal&y, const mpreal&x, mp_rnd_t rnd_mode)
+inline const mpreal atan2(const mpreal &y, const mpreal &x, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t yp, xp;
@@ -2478,7 +2478,7 @@ inline const mpreal atan2(const mpreal&y, const mpreal&x, mp_rnd_t rnd_mode)
     return a;
 }
 
-inline const mpreal cosh(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal cosh(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2486,7 +2486,7 @@ inline const mpreal cosh(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal sinh(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal sinh(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2494,7 +2494,7 @@ inline const mpreal sinh(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal tanh(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal tanh(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2502,7 +2502,7 @@ inline const mpreal tanh(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal sech(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal sech(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2510,7 +2510,7 @@ inline const mpreal sech(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal csch(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal csch(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2518,7 +2518,7 @@ inline const mpreal csch(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal coth(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal coth(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2526,7 +2526,7 @@ inline const mpreal coth(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal acosh(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal acosh(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2534,7 +2534,7 @@ inline const mpreal acosh(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal asinh(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal asinh(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2542,7 +2542,7 @@ inline const mpreal asinh(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal atanh(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal atanh(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2558,7 +2558,7 @@ inline const mpreal fac_ui(unsigned long int v, mp_prec_t prec, mp_rnd_t rnd_mod
     return x;
 }
 
-inline const mpreal log1p(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal log1p(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2566,7 +2566,7 @@ inline const mpreal log1p(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal expm1(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal expm1(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2574,7 +2574,7 @@ inline const mpreal expm1(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal eint(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal eint(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2582,7 +2582,7 @@ inline const mpreal eint(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal gamma(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal gamma(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2590,7 +2590,7 @@ inline const mpreal gamma(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal lngamma(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal lngamma(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2598,7 +2598,7 @@ inline const mpreal lngamma(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal lgamma(const mpreal&v, int *signp, mp_rnd_t rnd_mode)
+inline const mpreal lgamma(const mpreal &v, int *signp, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
     int    tsignp;
@@ -2611,7 +2611,7 @@ inline const mpreal lgamma(const mpreal&v, int *signp, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal zeta(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal zeta(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2619,7 +2619,7 @@ inline const mpreal zeta(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal erf(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal erf(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2627,7 +2627,7 @@ inline const mpreal erf(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal erfc(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal erfc(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2635,7 +2635,7 @@ inline const mpreal erfc(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal _j0(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal _j0(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2643,7 +2643,7 @@ inline const mpreal _j0(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal _j1(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal _j1(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2651,7 +2651,7 @@ inline const mpreal _j1(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal _jn(long n, const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal _jn(long n, const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2659,7 +2659,7 @@ inline const mpreal _jn(long n, const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal _y0(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal _y0(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2667,7 +2667,7 @@ inline const mpreal _y0(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal _y1(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal _y1(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2675,7 +2675,7 @@ inline const mpreal _y1(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal _yn(long n, const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal _yn(long n, const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2686,12 +2686,12 @@ inline const mpreal _yn(long n, const mpreal&v, mp_rnd_t rnd_mode)
 //////////////////////////////////////////////////////////////////////////
 // MPFR 2.4.0 Specifics
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(2, 4, 0))
-inline int sinh_cosh(mpreal&s, mpreal&c, const mpreal&v, mp_rnd_t rnd_mode)
+inline int sinh_cosh(mpreal &s, mpreal &c, const mpreal &v, mp_rnd_t rnd_mode)
 {
     return mpfr_sinh_cosh(s.mp, c.mp, v.mp, rnd_mode);
 }
 
-inline const mpreal li2(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal li2(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2699,7 +2699,7 @@ inline const mpreal li2(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal fmod(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
+inline const mpreal fmod(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode)
 {
     mpreal    a;
     mp_prec_t yp, xp;
@@ -2714,7 +2714,7 @@ inline const mpreal fmod(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
     return a;
 }
 
-inline const mpreal rec_sqrt(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal rec_sqrt(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2726,7 +2726,7 @@ inline const mpreal rec_sqrt(const mpreal&v, mp_rnd_t rnd_mode)
 //////////////////////////////////////////////////////////////////////////
 // MPFR 3.0.0 Specifics
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(3, 0, 0))
-inline const mpreal digamma(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal digamma(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2734,7 +2734,7 @@ inline const mpreal digamma(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal ai(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal ai(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2792,7 +2792,7 @@ inline const mpreal const_infinity(int sign, mp_prec_t prec, mp_rnd_t rnd_mode)
 
 //////////////////////////////////////////////////////////////////////////
 // Integer Related Functions
-inline const mpreal rint(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal rint(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2800,7 +2800,7 @@ inline const mpreal rint(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal ceil(const mpreal&v)
+inline const mpreal ceil(const mpreal &v)
 {
     mpreal x(v);
 
@@ -2808,7 +2808,7 @@ inline const mpreal ceil(const mpreal&v)
     return x;
 }
 
-inline const mpreal floor(const mpreal&v)
+inline const mpreal floor(const mpreal &v)
 {
     mpreal x(v);
 
@@ -2816,7 +2816,7 @@ inline const mpreal floor(const mpreal&v)
     return x;
 }
 
-inline const mpreal round(const mpreal&v)
+inline const mpreal round(const mpreal &v)
 {
     mpreal x(v);
 
@@ -2824,7 +2824,7 @@ inline const mpreal round(const mpreal&v)
     return x;
 }
 
-inline const mpreal trunc(const mpreal&v)
+inline const mpreal trunc(const mpreal &v)
 {
     mpreal x(v);
 
@@ -2832,7 +2832,7 @@ inline const mpreal trunc(const mpreal&v)
     return x;
 }
 
-inline const mpreal rint_ceil(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal rint_ceil(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2840,7 +2840,7 @@ inline const mpreal rint_ceil(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal rint_floor(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal rint_floor(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2848,7 +2848,7 @@ inline const mpreal rint_floor(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal rint_round(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal rint_round(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2856,7 +2856,7 @@ inline const mpreal rint_round(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal rint_trunc(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal rint_trunc(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2864,7 +2864,7 @@ inline const mpreal rint_trunc(const mpreal&v, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal frac(const mpreal&v, mp_rnd_t rnd_mode)
+inline const mpreal frac(const mpreal &v, mp_rnd_t rnd_mode)
 {
     mpreal x(v);
 
@@ -2874,7 +2874,7 @@ inline const mpreal frac(const mpreal&v, mp_rnd_t rnd_mode)
 
 //////////////////////////////////////////////////////////////////////////
 // Miscellaneous Functions
-inline void swap(mpreal&a, mpreal&b)
+inline void swap(mpreal &a, mpreal &b)
 {
     mpfr_swap(a.mp, b.mp);
 }
@@ -2890,7 +2890,7 @@ inline const mpreal (min)(const mpreal &x, const mpreal &y)
     return (x < y ? x : y);
 }
 
-inline const mpreal fmax(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
+inline const mpreal fmax(const mpreal &x, const mpreal &y, mp_rnd_t rnd_mode)
 {
     mpreal a;
 
@@ -2898,7 +2898,7 @@ inline const mpreal fmax(const mpreal&x, const mpreal&y, mp_rnd_t rnd_mode)
     return a;
 }
 
-inline const mpreal fmin(const mpreal&x, const mpreal&y,  mp_rnd_t rnd_mode)
+inline const mpreal fmin(const mpreal &x, const mpreal &y,  mp_rnd_t rnd_mode)
 {
     mpreal a;
 
@@ -2906,7 +2906,7 @@ inline const mpreal fmin(const mpreal&x, const mpreal&y,  mp_rnd_t rnd_mode)
     return a;
 }
 
-inline const mpreal nexttoward(const mpreal&x, const mpreal&y)
+inline const mpreal nexttoward(const mpreal &x, const mpreal &y)
 {
     mpreal a(x);
 
@@ -2914,7 +2914,7 @@ inline const mpreal nexttoward(const mpreal&x, const mpreal&y)
     return a;
 }
 
-inline const mpreal nextabove(const mpreal&x)
+inline const mpreal nextabove(const mpreal &x)
 {
     mpreal a(x);
 
@@ -2922,7 +2922,7 @@ inline const mpreal nextabove(const mpreal&x)
     return a;
 }
 
-inline const mpreal nextbelow(const mpreal&x)
+inline const mpreal nextbelow(const mpreal &x)
 {
     mpreal a(x);
 
@@ -2930,7 +2930,7 @@ inline const mpreal nextbelow(const mpreal&x)
     return a;
 }
 
-inline const mpreal urandomb(gmp_randstate_t&state)
+inline const mpreal urandomb(gmp_randstate_t &state)
 {
     mpreal x;
 
@@ -2940,7 +2940,7 @@ inline const mpreal urandomb(gmp_randstate_t&state)
 
 #if (MPFR_VERSION >= MPFR_VERSION_NUM(3, 0, 0))
 // use gmp_randinit_default() to init state, gmp_randclear() to clear
-inline const mpreal urandom(gmp_randstate_t&state, mp_rnd_t rnd_mode)
+inline const mpreal urandom(gmp_randstate_t &state, mp_rnd_t rnd_mode)
 {
     mpreal x;
 
@@ -3011,7 +3011,7 @@ inline bool mpreal::fits_in_bits(double x, int n)
     return IsInf(x) || (std::modf (std::ldexp (std::frexp (x, &i), n), &t) == 0.0);
 }
 
-inline const mpreal pow(const mpreal&a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     mpreal x(a);
 
@@ -3019,7 +3019,7 @@ inline const mpreal pow(const mpreal&a, const mpreal&b, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal pow(const mpreal&a, const mpz_t b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const mpz_t b, mp_rnd_t rnd_mode)
 {
     mpreal x(a);
 
@@ -3027,7 +3027,7 @@ inline const mpreal pow(const mpreal&a, const mpz_t b, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal pow(const mpreal&a, const unsigned long int b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const unsigned long int b, mp_rnd_t rnd_mode)
 {
     mpreal x(a);
 
@@ -3035,12 +3035,12 @@ inline const mpreal pow(const mpreal&a, const unsigned long int b, mp_rnd_t rnd_
     return x;
 }
 
-inline const mpreal pow(const mpreal&a, const unsigned int b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const unsigned int b, mp_rnd_t rnd_mode)
 {
     return pow(a, static_cast<unsigned long int>(b), rnd_mode);
 }
 
-inline const mpreal pow(const mpreal&a, const long int b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const long int b, mp_rnd_t rnd_mode)
 {
     mpreal x(a);
 
@@ -3048,22 +3048,22 @@ inline const mpreal pow(const mpreal&a, const long int b, mp_rnd_t rnd_mode)
     return x;
 }
 
-inline const mpreal pow(const mpreal&a, const int b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const int b, mp_rnd_t rnd_mode)
 {
     return pow(a, static_cast<long int>(b), rnd_mode);
 }
 
-inline const mpreal pow(const mpreal&a, const long double b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const long double b, mp_rnd_t rnd_mode)
 {
     return pow(a, mpreal(b), rnd_mode);
 }
 
-inline const mpreal pow(const mpreal&a, const double b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const mpreal &a, const double b, mp_rnd_t rnd_mode)
 {
     return pow(a, mpreal(b), rnd_mode);
 }
 
-inline const mpreal pow(const unsigned long int a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const unsigned long int a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     mpreal x(a);
 
@@ -3071,12 +3071,12 @@ inline const mpreal pow(const unsigned long int a, const mpreal&b, mp_rnd_t rnd_
     return x;
 }
 
-inline const mpreal pow(const unsigned int a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const unsigned int a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     return pow(static_cast<unsigned long int>(a), b, rnd_mode);
 }
 
-inline const mpreal pow(const long int a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const long int a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     if (a >= 0)
         return pow(static_cast<unsigned long int>(a), b, rnd_mode);
@@ -3084,7 +3084,7 @@ inline const mpreal pow(const long int a, const mpreal&b, mp_rnd_t rnd_mode)
         return pow(mpreal(a), b, rnd_mode);
 }
 
-inline const mpreal pow(const int a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const int a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     if (a >= 0)
         return pow(static_cast<unsigned long int>(a), b, rnd_mode);
@@ -3092,12 +3092,12 @@ inline const mpreal pow(const int a, const mpreal&b, mp_rnd_t rnd_mode)
         return pow(mpreal(a), b, rnd_mode);
 }
 
-inline const mpreal pow(const long double a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const long double a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     return pow(mpreal(a), b, rnd_mode);
 }
 
-inline const mpreal pow(const double a, const mpreal&b, mp_rnd_t rnd_mode)
+inline const mpreal pow(const double a, const mpreal &b, mp_rnd_t rnd_mode)
 {
     return pow(mpreal(a), b, rnd_mode);
 }
@@ -3363,7 +3363,7 @@ inline const mpreal pow(const double a, const int b, mp_rnd_t rnd_mode)
 namespace std
 {
 template<>
-inline void swap(mpfr::mpreal&x, mpfr::mpreal&y)
+inline void swap(mpfr::mpreal &x, mpfr::mpreal &y)
 {
     return mpfr::swap(x, y);
 }

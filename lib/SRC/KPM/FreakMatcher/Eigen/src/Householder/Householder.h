@@ -38,7 +38,7 @@ template<int n> struct decrement_size
 }
 
 template<typename Derived>
-void MatrixBase<Derived>::makeHouseholderInPlace(Scalar&tau, RealScalar&beta)
+void MatrixBase<Derived>::makeHouseholderInPlace(Scalar &tau, RealScalar &beta)
 {
     VectorBlock<Derived, internal::decrement_size<Base::SizeAtCompileTime>::ret> essentialPart(derived(), 1, size() - 1);
     makeHouseholder(essentialPart, tau, beta);
@@ -62,9 +62,9 @@ void MatrixBase<Derived>::makeHouseholderInPlace(Scalar&tau, RealScalar&beta)
 template<typename Derived>
 template<typename EssentialPart>
 void MatrixBase<Derived>::makeHouseholder(
-    EssentialPart&essential,
-    Scalar&tau,
-    RealScalar&beta) const
+    EssentialPart &essential,
+    Scalar &tau,
+    RealScalar &beta) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(EssentialPart)
     VectorBlock<const Derived, EssentialPart::SizeAtCompileTime> tail(derived(), 1, size() - 1);
@@ -92,8 +92,8 @@ void MatrixBase<Derived>::makeHouseholder(
 template<typename Derived>
 template<typename EssentialPart>
 void MatrixBase<Derived>::applyHouseholderOnTheLeft(
-    const EssentialPart&essential,
-    const Scalar&tau,
+    const EssentialPart &essential,
+    const Scalar &tau,
     Scalar *workspace)
 {
     if (rows() == 1)
@@ -114,8 +114,8 @@ void MatrixBase<Derived>::applyHouseholderOnTheLeft(
 template<typename Derived>
 template<typename EssentialPart>
 void MatrixBase<Derived>::applyHouseholderOnTheRight(
-    const EssentialPart&essential,
-    const Scalar&tau,
+    const EssentialPart &essential,
+    const Scalar &tau,
     Scalar *workspace)
 {
     if (cols() == 1)

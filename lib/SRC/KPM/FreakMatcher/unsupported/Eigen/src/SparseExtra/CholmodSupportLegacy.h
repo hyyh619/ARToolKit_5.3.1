@@ -28,7 +28,7 @@
 namespace internal
 {
 template<typename Scalar, typename CholmodType>
-void cholmod_configure_matrix_legacy(CholmodType&mat)
+void cholmod_configure_matrix_legacy(CholmodType &mat)
 {
     if (internal::is_same<Scalar, float>::value)
     {
@@ -57,7 +57,7 @@ void cholmod_configure_matrix_legacy(CholmodType&mat)
 }
 
 template<typename _MatrixType>
-cholmod_sparse cholmod_map_eigen_to_sparse(_MatrixType&mat)
+cholmod_sparse cholmod_map_eigen_to_sparse(_MatrixType &mat)
 {
     typedef typename _MatrixType::Scalar Scalar;
     cholmod_sparse res;
@@ -93,7 +93,7 @@ cholmod_sparse cholmod_map_eigen_to_sparse(_MatrixType&mat)
 }
 
 template<typename Derived>
-cholmod_dense cholmod_map_eigen_to_dense(MatrixBase<Derived>&mat)
+cholmod_dense cholmod_map_eigen_to_dense(MatrixBase<Derived> &mat)
 {
     EIGEN_STATIC_ASSERT((internal::traits<Derived>::Flags & RowMajorBit) == 0, THIS_METHOD_IS_ONLY_FOR_COLUMN_MAJOR_MATRICES);
     typedef typename Derived::Scalar Scalar;
@@ -112,7 +112,7 @@ cholmod_dense cholmod_map_eigen_to_dense(MatrixBase<Derived>&mat)
 }
 
 template<typename Scalar, int Flags, typename Index>
-MappedSparseMatrix<Scalar, Flags, Index> map_cholmod_sparse_to_eigen(cholmod_sparse&cm)
+MappedSparseMatrix<Scalar, Flags, Index> map_cholmod_sparse_to_eigen(cholmod_sparse &cm)
 {
     return MappedSparseMatrix<Scalar, Flags, Index>
                (cm.nrow, cm.ncol, reinterpret_cast<Index*>(cm.p)[cm.ncol],
@@ -144,7 +144,7 @@ SparseLLT(int flags = 0)
     cholmod_start(&m_cholmod);
 }
 
-SparseLLT(const MatrixType&matrix, int flags = 0)
+SparseLLT(const MatrixType &matrix, int flags = 0)
     : Base(flags), m_cholmodFactor(0)
 {
     cholmod_start(&m_cholmod);
@@ -162,17 +162,17 @@ SparseLLT(const MatrixType&matrix, int flags = 0)
 inline const CholMatrixType&matrixL() const;
 
 template<typename Derived>
-bool solveInPlace(MatrixBase<Derived>&b) const;
+bool solveInPlace(MatrixBase<Derived> &b) const;
 
 template<typename Rhs>
 inline const internal::solve_retval<SparseLLT<MatrixType, Cholmod>, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(true && "SparseLLT is not initialized.");
     return internal::solve_retval<SparseLLT<MatrixType, Cholmod>, Rhs>(*this, b.derived());
 }
 
-void compute(const MatrixType&matrix);
+void compute(const MatrixType &matrix);
 
 inline Index cols() const
 {
@@ -210,7 +210,7 @@ struct solve_retval<SparseLLT<_MatrixType, Cholmod>, Rhs>
     typedef SparseLLT<_MatrixType, Cholmod> SpLLTDecType;
     EIGEN_MAKE_SOLVE_HELPERS(SpLLTDecType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         // Index size = dec().cholmodFactor()->n;
         eigen_assert((Index)dec().cholmodFactor()->n == rhs().rows());
@@ -236,7 +236,7 @@ struct solve_retval<SparseLLT<_MatrixType, Cholmod>, Rhs>
 
 
 template<typename _MatrixType>
-void SparseLLT<_MatrixType, Cholmod>::compute(const _MatrixType&a)
+void SparseLLT<_MatrixType, Cholmod>::compute(const _MatrixType &a)
 {
     if (m_cholmodFactor)
     {
@@ -300,7 +300,7 @@ SparseLLT<_MatrixType, Cholmod>::matrixL() const
 
 template<typename _MatrixType>
 template<typename Derived>
-bool SparseLLT<_MatrixType, Cholmod>::solveInPlace(MatrixBase<Derived>&b) const
+bool SparseLLT<_MatrixType, Cholmod>::solveInPlace(MatrixBase<Derived> &b) const
 {
     // Index size = m_cholmodFactor->n;
     eigen_assert((Index)m_cholmodFactor->n == b.rows());
@@ -354,7 +354,7 @@ SparseLDLT(int flags = 0)
     cholmod_start(&m_cholmod);
 }
 
-SparseLDLT(const _MatrixType&matrix, int flags = 0)
+SparseLDLT(const _MatrixType &matrix, int flags = 0)
     : Base(flags), m_cholmodFactor(0)
 {
     cholmod_start(&m_cholmod);
@@ -372,17 +372,17 @@ SparseLDLT(const _MatrixType&matrix, int flags = 0)
 inline const typename Base::CholMatrixType&matrixL(void) const;
 
 template<typename Derived>
-void solveInPlace(MatrixBase<Derived>&b) const;
+void solveInPlace(MatrixBase<Derived> &b) const;
 
 template<typename Rhs>
 inline const internal::solve_retval<SparseLDLT<MatrixType, Cholmod>, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(true && "SparseLDLT is not initialized.");
     return internal::solve_retval<SparseLDLT<MatrixType, Cholmod>, Rhs>(*this, b.derived());
 }
 
-void compute(const _MatrixType&matrix);
+void compute(const _MatrixType &matrix);
 
 inline Index cols() const
 {
@@ -421,7 +421,7 @@ struct solve_retval<SparseLDLT<_MatrixType, Cholmod>, Rhs>
     typedef SparseLDLT<_MatrixType, Cholmod> SpLDLTDecType;
     EIGEN_MAKE_SOLVE_HELPERS(SpLDLTDecType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         // Index size = dec().cholmodFactor()->n;
         eigen_assert((Index)dec().cholmodFactor()->n == rhs().rows());
@@ -444,7 +444,7 @@ struct solve_retval<SparseLDLT<_MatrixType, Cholmod>, Rhs>
 } // namespace internal
 
 template<typename _MatrixType>
-void SparseLDLT<_MatrixType, Cholmod>::compute(const _MatrixType&a)
+void SparseLDLT<_MatrixType, Cholmod>::compute(const _MatrixType &a)
 {
     if (m_cholmodFactor)
     {
@@ -513,7 +513,7 @@ SparseLDLT<_MatrixType, Cholmod>::matrixL() const
 
 template<typename _MatrixType>
 template<typename Derived>
-void SparseLDLT<_MatrixType, Cholmod>::solveInPlace(MatrixBase<Derived>&b) const
+void SparseLDLT<_MatrixType, Cholmod>::solveInPlace(MatrixBase<Derived> &b) const
 {
     // Index size = m_cholmodFactor->n;
     eigen_assert((Index)m_cholmodFactor->n == b.rows());

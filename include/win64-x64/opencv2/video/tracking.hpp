@@ -243,15 +243,15 @@ CV_EXPORTS_W double calcGlobalOrientation(InputArray orientation, InputArray mas
                                           double duration);
 
 CV_EXPORTS_W void segmentMotion(InputArray mhi, OutputArray segmask,
-                                CV_OUT vector<Rect>&boundingRects,
+                                CV_OUT vector<Rect> &boundingRects,
                                 double timestamp, double segThresh);
 
 // ! updates the object tracking window using CAMSHIFT algorithm
-CV_EXPORTS_W RotatedRect CamShift(InputArray probImage, CV_OUT CV_IN_OUT Rect&window,
+CV_EXPORTS_W RotatedRect CamShift(InputArray probImage, CV_OUT CV_IN_OUT Rect &window,
                                   TermCriteria criteria);
 
 // ! updates the object tracking window using meanshift algorithm
-CV_EXPORTS_W int meanShift(InputArray probImage, CV_OUT CV_IN_OUT Rect&window,
+CV_EXPORTS_W int meanShift(InputArray probImage, CV_OUT CV_IN_OUT Rect &window,
                            TermCriteria criteria);
 
 /*!
@@ -272,9 +272,9 @@ CV_WRAP KalmanFilter(int dynamParams, int measureParams, int controlParams = 0, 
 void init(int dynamParams, int measureParams, int controlParams = 0, int type = CV_32F);
 
 // ! computes predicted state
-CV_WRAP const Mat&predict(const Mat&control = Mat());
+CV_WRAP const Mat&predict(const Mat &control = Mat());
 // ! updates the predicted state from the measurement
-CV_WRAP const Mat&correct(const Mat&measurement);
+CV_WRAP const Mat&correct(const Mat &measurement);
 
 Mat statePre;               // !< predicted state (x'(k)): x(k)=A*x(k-1)+B*u(k)
 Mat statePost;              // !< corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))
@@ -327,16 +327,16 @@ CV_EXPORTS_W Mat estimateRigidTransform(InputArray src, InputArray dst,
                                         bool fullAffine);
 
 // ! computes dense optical flow using Simple Flow algorithm
-CV_EXPORTS_W void calcOpticalFlowSF(Mat&from,
-                                    Mat&to,
-                                    Mat&flow,
+CV_EXPORTS_W void calcOpticalFlowSF(Mat &from,
+                                    Mat &to,
+                                    Mat &flow,
                                     int layers,
                                     int averaging_block_size,
                                     int max_flow);
 
-CV_EXPORTS_W void calcOpticalFlowSF(Mat&from,
-                                    Mat&to,
-                                    Mat&flow,
+CV_EXPORTS_W void calcOpticalFlowSF(Mat &from,
+                                    Mat &to,
+                                    Mat &flow,
                                     int layers,
                                     int averaging_block_size,
                                     int max_flow,

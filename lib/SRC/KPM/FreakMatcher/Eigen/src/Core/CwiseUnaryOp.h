@@ -79,7 +79,7 @@ public:
 typedef typename CwiseUnaryOpImpl<UnaryOp, XprType, typename internal::traits<XprType>::StorageKind>::Base Base;
 EIGEN_GENERIC_PUBLIC_INTERFACE(CwiseUnaryOp)
 
-inline CwiseUnaryOp(const XprType&xpr, const UnaryOp&func = UnaryOp())
+inline CwiseUnaryOp(const XprType &xpr, const UnaryOp &func = UnaryOp())
     : m_xpr(xpr), m_functor(func) {}
 
 EIGEN_STRONG_INLINE Index rows() const

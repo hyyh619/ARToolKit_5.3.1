@@ -279,19 +279,19 @@ inline DynamicSparseMatrix(Index rows, Index cols)
 }
 
 template<typename OtherDerived>
-explicit inline DynamicSparseMatrix(const SparseMatrixBase<OtherDerived>&other)
+explicit inline DynamicSparseMatrix(const SparseMatrixBase<OtherDerived> &other)
     : m_innerSize(0)
 {
     Base::operator=(other.derived());
 }
 
-inline DynamicSparseMatrix(const DynamicSparseMatrix&other)
+inline DynamicSparseMatrix(const DynamicSparseMatrix &other)
     : Base(), m_innerSize(0)
 {
     *this = other.derived();
 }
 
-inline void swap(DynamicSparseMatrix&other)
+inline void swap(DynamicSparseMatrix &other)
 {
     // EIGEN_DBG_SPARSE(std::cout << "SparseMatrix:: swap\n");
     std::swap(m_innerSize, other.m_innerSize);
@@ -300,7 +300,7 @@ inline void swap(DynamicSparseMatrix&other)
     m_data.swap(other.m_data);
 }
 
-inline DynamicSparseMatrix&operator=(const DynamicSparseMatrix&other)
+inline DynamicSparseMatrix&operator=(const DynamicSparseMatrix &other)
 {
     if (other.isRValue())
     {
@@ -369,7 +369,7 @@ class DynamicSparseMatrix<Scalar, _Options, _Index>::InnerIterator : public Spar
 {
 typedef typename SparseVector<Scalar, _Options>::InnerIterator Base;
 public:
-InnerIterator(const DynamicSparseMatrix&mat, Index outer)
+InnerIterator(const DynamicSparseMatrix &mat, Index outer)
     : Base(mat.m_data[outer]), m_outer(outer)
 {}
 

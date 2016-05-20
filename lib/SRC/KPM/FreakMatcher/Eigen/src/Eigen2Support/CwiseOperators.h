@@ -83,7 +83,7 @@ Cwise<ExpressionType>::operator/(const MatrixBase<OtherDerived> &other) const
 /** \deprecated ArrayBase::operator*=() */
 template<typename ExpressionType>
 template<typename OtherDerived>
-inline ExpressionType&Cwise<ExpressionType>::operator*=(const MatrixBase<OtherDerived>&other)
+inline ExpressionType&Cwise<ExpressionType>::operator*=(const MatrixBase<OtherDerived> &other)
 {
     return m_matrix.const_cast_derived() = *this * other;
 }
@@ -91,7 +91,7 @@ inline ExpressionType&Cwise<ExpressionType>::operator*=(const MatrixBase<OtherDe
 /** \deprecated ArrayBase::operator/=() */
 template<typename ExpressionType>
 template<typename OtherDerived>
-inline ExpressionType&Cwise<ExpressionType>::operator/=(const MatrixBase<OtherDerived>&other)
+inline ExpressionType&Cwise<ExpressionType>::operator/=(const MatrixBase<OtherDerived> &other)
 {
     return m_matrix.const_cast_derived() = *this / other;
 }
@@ -279,14 +279,14 @@ Cwise<ExpressionType>::operator!=(Scalar s) const
 /** \deprecated ArrayBase::operator+(Scalar) */
 template<typename ExpressionType>
 inline const typename Cwise<ExpressionType>::ScalarAddReturnType
-Cwise<ExpressionType>::operator+(const Scalar&scalar) const
+Cwise<ExpressionType>::operator+(const Scalar &scalar) const
 {
     return typename Cwise<ExpressionType>::ScalarAddReturnType(m_matrix, internal::scalar_add_op<Scalar>(scalar));
 }
 
 /** \deprecated ArrayBase::operator+=(Scalar) */
 template<typename ExpressionType>
-inline ExpressionType&Cwise<ExpressionType>::operator+=(const Scalar&scalar)
+inline ExpressionType&Cwise<ExpressionType>::operator+=(const Scalar &scalar)
 {
     return m_matrix.const_cast_derived() = *this + scalar;
 }
@@ -294,14 +294,14 @@ inline ExpressionType&Cwise<ExpressionType>::operator+=(const Scalar&scalar)
 /** \deprecated ArrayBase::operator-(Scalar) */
 template<typename ExpressionType>
 inline const typename Cwise<ExpressionType>::ScalarAddReturnType
-Cwise<ExpressionType>::operator-(const Scalar&scalar) const
+Cwise<ExpressionType>::operator-(const Scalar &scalar) const
 {
     return *this + (-scalar);
 }
 
 /** \deprecated ArrayBase::operator-=(Scalar) */
 template<typename ExpressionType>
-inline ExpressionType&Cwise<ExpressionType>::operator-=(const Scalar&scalar)
+inline ExpressionType&Cwise<ExpressionType>::operator-=(const Scalar &scalar)
 {
     return m_matrix.const_cast_derived() = *this - scalar;
 }

@@ -64,7 +64,7 @@ MatrixBase<Derived>::lazy() const
 template<typename Derived>
 template<typename ProductDerived, typename Lhs, typename Rhs>
 Derived&MatrixBase<Derived>::operator+=(const Flagged<ProductBase<ProductDerived, Lhs, Rhs>, 0,
-                                                      EvalBeforeAssigningBit>&other)
+                                                      EvalBeforeAssigningBit> &other)
 {
     other._expression().derived().addTo(derived()); return derived();
 }
@@ -74,7 +74,7 @@ Derived&MatrixBase<Derived>::operator+=(const Flagged<ProductBase<ProductDerived
 template<typename Derived>
 template<typename ProductDerived, typename Lhs, typename Rhs>
 Derived&MatrixBase<Derived>::operator-=(const Flagged<ProductBase<ProductDerived, Lhs, Rhs>, 0,
-                                                      EvalBeforeAssigningBit>&other)
+                                                      EvalBeforeAssigningBit> &other)
 {
     other._expression().derived().subTo(derived()); return derived();
 }

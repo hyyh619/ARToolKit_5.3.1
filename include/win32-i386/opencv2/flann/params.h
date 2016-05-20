@@ -55,7 +55,7 @@ struct SearchParams : public IndexParams
 
 
 template<typename T>
-T get_param(const IndexParams&params, std::string name, const T&default_value)
+T get_param(const IndexParams &params, std::string name, const T &default_value)
 {
     IndexParams::const_iterator it = params.find(name);
 
@@ -70,7 +70,7 @@ T get_param(const IndexParams&params, std::string name, const T&default_value)
 }
 
 template<typename T>
-T get_param(const IndexParams&params, std::string name)
+T get_param(const IndexParams &params, std::string name)
 {
     IndexParams::const_iterator it = params.find(name);
 
@@ -84,7 +84,7 @@ T get_param(const IndexParams&params, std::string name)
     }
 }
 
-inline void print_params(const IndexParams&params, std::ostream&stream)
+inline void print_params(const IndexParams &params, std::ostream &stream)
 {
     IndexParams::const_iterator it;
 
@@ -94,7 +94,7 @@ inline void print_params(const IndexParams&params, std::ostream&stream)
     }
 }
 
-inline void print_params(const IndexParams&params)
+inline void print_params(const IndexParams &params)
 {
     print_params(params, std::cout);
 }

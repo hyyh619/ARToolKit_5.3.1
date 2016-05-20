@@ -181,7 +181,7 @@ public:
 
     /** \internal */
     template<int StoreMode>
-    EIGEN_STRONG_INLINE void writePacket(Index row, Index col, const PacketScalar&x)
+    EIGEN_STRONG_INLINE void writePacket(Index row, Index col, const PacketScalar &x)
     {
         internal::pstoret<Scalar, PacketScalar, StoreMode>
             (m_storage.data() + (Flags & RowMajorBit
@@ -191,7 +191,7 @@ public:
 
     /** \internal */
     template<int StoreMode>
-    EIGEN_STRONG_INLINE void writePacket(Index index, const PacketScalar&x)
+    EIGEN_STRONG_INLINE void writePacket(Index index, const PacketScalar &x)
     {
         internal::pstoret<Scalar, PacketScalar, StoreMode>(m_storage.data() + index, x);
     }
@@ -302,9 +302,9 @@ public:
              * remain row-vectors and vectors remain vectors.
              */
             template<typename OtherDerived>
-            EIGEN_STRONG_INLINE void resizeLike(const EigenBase<OtherDerived>&_other)
+            EIGEN_STRONG_INLINE void resizeLike(const EigenBase<OtherDerived> &_other)
             {
-                const OtherDerived&other = _other.derived();
+                const OtherDerived &other = _other.derived();
                 internal::check_rows_cols_for_overflow(other.rows(), other.cols());
                 const Index othersize = other.rows() * other.cols();
 
@@ -385,7 +385,7 @@ public:
              * appended to the matrix they will copied from \c other.
              */
             template<typename OtherDerived>
-            EIGEN_STRONG_INLINE void conservativeResizeLike(const DenseBase<OtherDerived>&other)
+            EIGEN_STRONG_INLINE void conservativeResizeLike(const DenseBase<OtherDerived> &other)
             {
                 internal::conservative_resize_like_impl<Derived, OtherDerived>::run(*this, other);
             }
@@ -393,21 +393,21 @@ public:
             /** This is a special case of the templated operator=. Its purpose is to
              * prevent a default operator= from hiding the templated operator=.
              */
-            EIGEN_STRONG_INLINE Derived&operator=(const PlainObjectBase&other)
+            EIGEN_STRONG_INLINE Derived&operator=(const PlainObjectBase &other)
             {
                 return _set(other);
             }
 
             /** \sa MatrixBase::lazyAssign() */
             template<typename OtherDerived>
-            EIGEN_STRONG_INLINE Derived&lazyAssign(const DenseBase<OtherDerived>&other)
+            EIGEN_STRONG_INLINE Derived&lazyAssign(const DenseBase<OtherDerived> &other)
             {
                 _resize_to_match(other);
                 return Base::lazyAssign(other.derived());
             }
 
             template<typename OtherDerived>
-            EIGEN_STRONG_INLINE Derived&operator=(const ReturnByValue<OtherDerived>&func)
+            EIGEN_STRONG_INLINE Derived&operator=(const ReturnByValue<OtherDerived> &func)
             {
                 resize(func.rows(), func.cols());
                 return Base::operator=(func);
@@ -439,7 +439,7 @@ public:
             /** \copydoc MatrixBase::operator=(const EigenBase<OtherDerived>&)
              */
             template<typename OtherDerived>
-            EIGEN_STRONG_INLINE Derived&operator=(const EigenBase<OtherDerived>&other)
+            EIGEN_STRONG_INLINE Derived&operator=(const EigenBase<OtherDerived> &other)
             {
                 _resize_to_match(other);
                 Base::operator=(other.derived());
@@ -448,7 +448,7 @@ public:
 
             /** \sa MatrixBase::operator=(const EigenBase<OtherDerived>&) */
             template<typename OtherDerived>
-            EIGEN_STRONG_INLINE PlainObjectBase(const EigenBase<OtherDerived>&other)
+            EIGEN_STRONG_INLINE PlainObjectBase(const EigenBase<OtherDerived> &other)
                 : m_storage(other.derived().rows() * other.derived().cols(), other.derived().rows(), other.derived().cols())
             {
                 _check_template_params();
@@ -515,63 +515,63 @@ public:
             }
 
             template<int Outer, int Inner>
-            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, const Stride<Outer, Inner>&stride)
+            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedConstMapType<Stride<Outer, Inner> >::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, const Stride<Outer, Inner>&stride)
+            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedMapType<Stride<Outer, Inner> >::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, Index size, const Stride<Outer, Inner>&stride)
+            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedConstMapType<Stride<Outer, Inner> >::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, Index size, const Stride<Outer, Inner>&stride)
+            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedMapType<Stride<Outer, Inner> >::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner>&stride)
+            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedConstMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner>&stride)
+            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
             }
 
             template<int Outer, int Inner>
-            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, const Stride<Outer, Inner>&stride)
+            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, const Stride<Outer, Inner>&stride)
+            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedAlignedMapType<Stride<Outer, Inner> >::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, Index size, const Stride<Outer, Inner>&stride)
+            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, Index size, const Stride<Outer, Inner>&stride)
+            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedAlignedMapType<Stride<Outer, Inner> >::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner>&stride)
+            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner>&stride)
+            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
                 return typename StridedAlignedMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
             }
@@ -579,8 +579,8 @@ public:
 
             using Base::setConstant;
 
-        Derived&setConstant(Index size, const Scalar&value);
-        Derived&setConstant(Index rows, Index cols, const Scalar&value);
+        Derived&setConstant(Index size, const Scalar &value);
+        Derived&setConstant(Index rows, Index cols, const Scalar &value);
 
         using Base::setZero;
         Derived&setZero(Index size);
@@ -607,7 +607,7 @@ protected:
          * remain row-vectors and vectors remain vectors.
          */
         template<typename OtherDerived>
-        EIGEN_STRONG_INLINE void _resize_to_match(const EigenBase<OtherDerived>&other)
+        EIGEN_STRONG_INLINE void _resize_to_match(const EigenBase<OtherDerived> &other)
         {
       #ifdef EIGEN_NO_AUTOMATIC_RESIZING
             eigen_assert((this->size() == 0 || (IsVectorAtCompileTime ? (this->size() == other.size())
@@ -634,20 +634,20 @@ protected:
          * \internal
          */
         template<typename OtherDerived>
-        EIGEN_STRONG_INLINE Derived&_set(const DenseBase<OtherDerived>&other)
+        EIGEN_STRONG_INLINE Derived&_set(const DenseBase<OtherDerived> &other)
         {
             _set_selector(other.derived(), typename internal::conditional<static_cast<bool>(int(OtherDerived::Flags)&EvalBeforeAssigningBit), internal::true_type, internal::false_type>::type());
             return this->derived();
         }
 
         template<typename OtherDerived>
-        EIGEN_STRONG_INLINE void _set_selector(const OtherDerived&other, const internal::true_type&)
+        EIGEN_STRONG_INLINE void _set_selector(const OtherDerived &other, const internal::true_type&)
         {
             _set_noalias(other.eval());
         }
 
         template<typename OtherDerived>
-        EIGEN_STRONG_INLINE void _set_selector(const OtherDerived&other, const internal::false_type&)
+        EIGEN_STRONG_INLINE void _set_selector(const OtherDerived &other, const internal::false_type&)
         {
             _set_noalias(other);
         }
@@ -658,7 +658,7 @@ protected:
          * \sa operator=(const MatrixBase<OtherDerived>&), _set()
          */
         template<typename OtherDerived>
-        EIGEN_STRONG_INLINE Derived&_set_noalias(const DenseBase<OtherDerived>&other)
+        EIGEN_STRONG_INLINE Derived&_set_noalias(const DenseBase<OtherDerived> &other)
         {
             // I don't think we need this resize call since the lazyAssign will anyways resize
             // and lazyAssign will be called by the assign selector.
@@ -678,7 +678,7 @@ protected:
             EIGEN_INITIALIZE_BY_ZERO_IF_THAT_OPTION_IS_ENABLED
         }
         template<typename T0, typename T1>
-        EIGEN_STRONG_INLINE void _init2(const Scalar&x, const Scalar&y, typename internal::enable_if<Base::SizeAtCompileTime == 2, T0>::type* = 0)
+        EIGEN_STRONG_INLINE void _init2(const Scalar &x, const Scalar &y, typename internal::enable_if<Base::SizeAtCompileTime == 2, T0>::type* = 0)
         {
             EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(PlainObjectBase, 2)
             m_storage.data()[0] = x;
@@ -692,7 +692,7 @@ protected:
          * data pointers.
          */
         template<typename OtherDerived>
-        void _swap(DenseBase<OtherDerived> const&other)
+        void _swap(DenseBase<OtherDerived> const &other)
         {
             enum { SwapPointers = internal::is_same<Derived, OtherDerived>::value && Base::SizeAtCompileTime == Dynamic };
             internal::matrix_swap_impl<Derived, OtherDerived, bool(SwapPointers)>::run(this->derived(), other.const_cast_derived());
@@ -723,7 +723,7 @@ private:
     struct internal::conservative_resize_like_impl
     {
         typedef typename Derived::Index Index;
-        static void run(DenseBase<Derived>&_this, Index rows, Index cols)
+        static void run(DenseBase<Derived> &_this, Index rows, Index cols)
         {
             if (_this.rows() == rows && _this.cols() == cols)
                 return;
@@ -747,7 +747,7 @@ private:
             }
         }
 
-        static void run(DenseBase<Derived>&_this, const DenseBase<OtherDerived>&other)
+        static void run(DenseBase<Derived> &_this, const DenseBase<OtherDerived> &other)
         {
             if (_this.rows() == other.rows() && _this.cols() == other.cols())
                 return;
@@ -789,7 +789,7 @@ private:
     struct conservative_resize_like_impl<Derived, OtherDerived, true>
     {
         typedef typename Derived::Index Index;
-        static void run(DenseBase<Derived>&_this, Index size)
+        static void run(DenseBase<Derived> &_this, Index size)
         {
             const Index new_rows = Derived::RowsAtCompileTime == 1 ? 1 : size;
             const Index new_cols = Derived::RowsAtCompileTime == 1 ? size : 1;
@@ -797,7 +797,7 @@ private:
             _this.derived().m_storage.conservativeResize(size, new_rows, new_cols);
         }
 
-        static void run(DenseBase<Derived>&_this, const DenseBase<OtherDerived>&other)
+        static void run(DenseBase<Derived> &_this, const DenseBase<OtherDerived> &other)
         {
             if (_this.rows() == other.rows() && _this.cols() == other.cols())
                 return;
@@ -816,7 +816,7 @@ private:
     template<typename MatrixTypeA, typename MatrixTypeB, bool SwapPointers>
     struct matrix_swap_impl
     {
-        static inline void run(MatrixTypeA&a, MatrixTypeB&b)
+        static inline void run(MatrixTypeA &a, MatrixTypeB &b)
         {
             a.base().swap(b);
         }
@@ -825,7 +825,7 @@ private:
     template<typename MatrixTypeA, typename MatrixTypeB>
     struct matrix_swap_impl<MatrixTypeA, MatrixTypeB, true>
     {
-        static inline void run(MatrixTypeA&a, MatrixTypeB&b)
+        static inline void run(MatrixTypeA &a, MatrixTypeB &b)
         {
             static_cast<typename MatrixTypeA::Base&>(a).m_storage.swap(static_cast<typename MatrixTypeB::Base&>(b).m_storage);
         }

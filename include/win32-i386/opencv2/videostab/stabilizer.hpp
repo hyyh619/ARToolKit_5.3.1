@@ -146,14 +146,14 @@ Ptr<InpainterBase> inpainter() const
 protected:
 StabilizerBase();
 
-void setUp(int cacheSize, const Mat&frame);
+void setUp(int cacheSize, const Mat &frame);
 Mat nextStabilizedFrame();
 bool doOneIteration();
-void stabilizeFrame(const Mat&stabilizationMotion);
+void stabilizeFrame(const Mat &stabilizationMotion);
 
-virtual void setUp(Mat&firstFrame) = 0;
-virtual void stabilizeFrame()      = 0;
-virtual void estimateMotion()      = 0;
+virtual void setUp(Mat &firstFrame) = 0;
+virtual void stabilizeFrame()       = 0;
+virtual void estimateMotion()       = 0;
 
 Ptr<ILog>                   log_;
 Ptr<IFrameSource>           frameSource_;
@@ -207,7 +207,7 @@ virtual Mat nextFrame()
 private:
 void resetImpl();
 
-virtual void setUp(Mat&firstFrame);
+virtual void setUp(Mat &firstFrame);
 virtual void estimateMotion();
 virtual void stabilizeFrame();
 
@@ -250,7 +250,7 @@ private:
 void resetImpl();
 void runPrePassIfNecessary();
 
-virtual void setUp(Mat&firstFrame);
+virtual void setUp(Mat &firstFrame);
 virtual void estimateMotion()       /* do nothing as motion was estimation in pre-pass */
 {                                                                                          }
 virtual void stabilizeFrame();

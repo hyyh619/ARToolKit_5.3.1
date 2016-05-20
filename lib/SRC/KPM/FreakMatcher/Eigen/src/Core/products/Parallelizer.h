@@ -85,7 +85,7 @@ template<typename Index> struct GemmParallelInfo
 };
 
 template<bool Condition, typename Functor, typename Index>
-void parallelize_gemm(const Functor&func, Index rows, Index cols, bool transpose)
+void parallelize_gemm(const Functor &func, Index rows, Index cols, bool transpose)
 {
 #ifndef EIGEN_HAS_OPENMP
     // FIXME the transpose variable is only needed to properly split

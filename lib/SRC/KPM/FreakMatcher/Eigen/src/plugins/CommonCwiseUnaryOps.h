@@ -63,19 +63,19 @@ operator-() const
 
 /** \returns an expression of \c *this scaled by the scalar factor \a scalar */
 inline const ScalarMultipleReturnType
-operator*(const Scalar&scalar) const
+operator*(const Scalar &scalar) const
 {
     return CwiseUnaryOp<internal::scalar_multiple_op<Scalar>, const Derived>
                (derived(), internal::scalar_multiple_op<Scalar>(scalar));
 }
 
 #ifdef EIGEN_PARSED_BY_DOXYGEN
-const ScalarMultipleReturnType operator*(const RealScalar&scalar) const;
+const ScalarMultipleReturnType operator*(const RealScalar &scalar) const;
 #endif
 
 /** \returns an expression of \c *this divided by the scalar value \a scalar */
 inline const CwiseUnaryOp<internal::scalar_quotient1_op<typename internal::traits<Derived>::Scalar>, const Derived>
-operator/(const Scalar&scalar) const
+operator/(const Scalar &scalar) const
 {
     return CwiseUnaryOp<internal::scalar_quotient1_op<Scalar>, const Derived>
                (derived(), internal::scalar_quotient1_op<Scalar>(scalar));
@@ -83,20 +83,20 @@ operator/(const Scalar&scalar) const
 
 /** Overloaded for efficient real matrix times complex scalar value */
 inline const CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >, const Derived>
-operator*(const std::complex<Scalar>&scalar) const
+operator*(const std::complex<Scalar> &scalar) const
 {
     return CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >, const Derived>
                (*static_cast<const Derived*>(this), internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >(scalar));
 }
 
 inline friend const ScalarMultipleReturnType
-operator*(const Scalar&scalar, const StorageBaseType&matrix)
+operator*(const Scalar &scalar, const StorageBaseType &matrix)
 {
     return matrix * scalar;
 }
 
 inline friend const CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >, const Derived>
-operator*(const std::complex<Scalar>&scalar, const StorageBaseType&matrix)
+operator*(const std::complex<Scalar> &scalar, const StorageBaseType &matrix)
 {
     return matrix * scalar;
 }
@@ -163,7 +163,7 @@ imag() const
  */
 template<typename CustomUnaryOp>
 inline const CwiseUnaryOp<CustomUnaryOp, const Derived>
-unaryExpr(const CustomUnaryOp&func = CustomUnaryOp()) const
+unaryExpr(const CustomUnaryOp &func = CustomUnaryOp()) const
 {
     return CwiseUnaryOp<CustomUnaryOp, const Derived>(derived(), func);
 }
@@ -181,7 +181,7 @@ unaryExpr(const CustomUnaryOp&func = CustomUnaryOp()) const
  */
 template<typename CustomViewOp>
 inline const CwiseUnaryView<CustomViewOp, const Derived>
-unaryViewExpr(const CustomViewOp&func = CustomViewOp()) const
+unaryViewExpr(const CustomViewOp &func = CustomViewOp()) const
 {
     return CwiseUnaryView<CustomViewOp, const Derived>(derived(), func);
 }

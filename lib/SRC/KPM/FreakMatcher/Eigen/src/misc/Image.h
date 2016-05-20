@@ -53,7 +53,7 @@ template<typename _DecompositionType> struct image_retval_base
     typedef ReturnByValue<image_retval_base> Base;
     typedef typename Base::Index Index;
 
-    image_retval_base(const DecompositionType&dec, const MatrixType&originalMatrix)
+    image_retval_base(const DecompositionType &dec, const MatrixType &originalMatrix)
         : m_dec(dec), m_rank(dec.rank()),
         m_cols(m_rank == 0 ? 1 : m_rank),
         m_originalMatrix(originalMatrix)
@@ -80,15 +80,15 @@ template<typename _DecompositionType> struct image_retval_base
         return m_originalMatrix;
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         static_cast<const image_retval<DecompositionType>*>(this)->evalTo(dst);
     }
 
 protected:
-    const DecompositionType&m_dec;
-    Index                  m_rank, m_cols;
-    const MatrixType       &m_originalMatrix;
+    const DecompositionType &m_dec;
+    Index                   m_rank, m_cols;
+    const MatrixType        &m_originalMatrix;
 };
 } // end namespace internal
 

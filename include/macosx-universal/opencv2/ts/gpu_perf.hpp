@@ -89,7 +89,7 @@ DEF_PARAM_TEST(Sz_Depth_Cn, cv::Size, perf::MatDepth, MatCn);
         SANITY_CHECK(cpu_ ## mat, ## __VA_ARGS__); \
     } while (0)
 
-CV_EXPORTS cv::Mat readImage(const std::string&fileName, int flags = cv::IMREAD_COLOR);
+CV_EXPORTS cv::Mat readImage(const std::string &fileName, int flags = cv::IMREAD_COLOR);
 
 struct CvtColorInfo
 {
@@ -100,10 +100,10 @@ struct CvtColorInfo
     CvtColorInfo() {}
     explicit CvtColorInfo(int scn_, int dcn_, int code_) : scn(scn_), dcn(dcn_), code(code_) {}
 };
-CV_EXPORTS void PrintTo(const CvtColorInfo&info, std::ostream *os);
+CV_EXPORTS void PrintTo(const CvtColorInfo &info, std::ostream *os);
 
 CV_EXPORTS void printCudaInfo();
 
-CV_EXPORTS void sortKeyPoints(std::vector<cv::KeyPoint>&keypoints, cv::InputOutputArray _descriptors = cv::noArray());
+CV_EXPORTS void sortKeyPoints(std::vector<cv::KeyPoint> &keypoints, cv::InputOutputArray _descriptors = cv::noArray());
 }
 #endif // __OPENCV_GPU_PERF_UTILITY_HPP__

@@ -81,7 +81,7 @@ VisualDatabase();
 /**
  * Add an image to the database with a specific ID.
  */
-void addImage(const Image&image, id_t id) throw(Exception);
+void addImage(const Image &image, id_t id) throw(Exception);
 
 /**
  * Add an image to the database with a specific ID.
@@ -96,7 +96,7 @@ void addKeyframe(keyframe_ptr_t keyframe, id_t id) throw(Exception);
 /**
  * Query the visual database.
  */
-bool query(const Image&image) throw(Exception);
+bool query(const Image &image) throw(Exception);
 
 /**
  * Query the visual database.
@@ -267,7 +267,7 @@ void FindFeatures(Keyframe<NUM_BYTES_PER_FEATURE> *keyframe,
 
     for (size_t i = 0; i < detector->features().size(); i++)
     {
-        const DoGScaleInvariantDetector::FeaturePoint&p = detector->features()[i];
+        const DoGScaleInvariantDetector::FeaturePoint &p = detector->features()[i];
         points[i] = FeaturePoint(p.x, p.y, p.angle, p.sigma, p.score > 0);
     }
 
@@ -322,10 +322,10 @@ inline bool CheckHomographyHeuristics(float H[9], int refWidth, int refHeight)
 /**
  * Vote for a similarity transformation.
  */
-inline int FindHoughSimilarity(HoughSimilarityVoting&hough,
-                               const std::vector<FeaturePoint>&p1,
-                               const std::vector<FeaturePoint>&p2,
-                               const matches_t&matches,
+inline int FindHoughSimilarity(HoughSimilarityVoting &hough,
+                               const std::vector<FeaturePoint> &p1,
+                               const std::vector<FeaturePoint> &p2,
+                               const matches_t &matches,
                                int insWidth,
                                int insHeigth,
                                int refWidth,
@@ -337,8 +337,8 @@ inline int FindHoughSimilarity(HoughSimilarityVoting&hough,
     // Extract the data from the features
     for (size_t i = 0; i < matches.size(); i++)
     {
-        const FeaturePoint&query_point = p1[matches[i].ins];
-        const FeaturePoint&ref_point   = p2[matches[i].ref];
+        const FeaturePoint &query_point = p1[matches[i].ins];
+        const FeaturePoint &ref_point   = p2[matches[i].ref];
 
         float *q = &query[i * 4];
         q[0] = query_point.x;
@@ -371,9 +371,9 @@ inline int FindHoughSimilarity(HoughSimilarityVoting&hough,
 /**
  * Get only the matches that are consistent based on the hough votes.
  */
-inline void FindHoughMatches(matches_t&out_matches,
-                             const HoughSimilarityVoting&hough,
-                             const matches_t&in_matches,
+inline void FindHoughMatches(matches_t &out_matches,
+                             const HoughSimilarityVoting &hough,
+                             const matches_t &in_matches,
                              int binIndex,
                              float binDelta)
 {
@@ -407,10 +407,10 @@ inline void FindHoughMatches(matches_t&out_matches,
  * Estimate the homography between a set of correspondences.
  */
 inline bool EstimateHomography(float H[9],
-                               const std::vector<FeaturePoint>&p1,
-                               const std::vector<FeaturePoint>&p2,
-                               const matches_t&matches,
-                               RobustHomography<float>&estimator,
+                               const std::vector<FeaturePoint> &p1,
+                               const std::vector<FeaturePoint> &p2,
+                               const matches_t &matches,
+                               RobustHomography<float> &estimator,
                                int refWidth,
                                int refHeight)
 {
@@ -467,11 +467,11 @@ inline bool EstimateHomography(float H[9],
 /**
  * Find the inliers given a homography and a set of correspondences.
  */
-inline void FindInliers(matches_t&inliers,
+inline void FindInliers(matches_t &inliers,
                         const float H[9],
-                        const std::vector<FeaturePoint>&p1,
-                        const std::vector<FeaturePoint>&p2,
-                        const matches_t&matches,
+                        const std::vector<FeaturePoint> &p1,
+                        const std::vector<FeaturePoint> &p2,
+                        const matches_t &matches,
                         float threshold)
 {
     float threshold2 = sqr(threshold);

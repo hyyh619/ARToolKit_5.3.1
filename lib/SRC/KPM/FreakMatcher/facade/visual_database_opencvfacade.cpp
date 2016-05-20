@@ -53,7 +53,7 @@ typedef std::unordered_map<int, cv::Mat> image_map_t;
 static std::vector<cv::KeyPoint> NullKeyPoints;
 static cv::Mat                   NullDescriptors;
 
-static inline float distance_squared(const cv::Point2f&a, const cv::Point2f&b)
+static inline float distance_squared(const cv::Point2f &a, const cv::Point2f &b)
 {
     auto dx = a.x - b.x;
     auto dy = a.y - b.y;
@@ -198,8 +198,8 @@ bool VisualDatabaseOpencvFacade::query(unsigned char *grayImage, size_t width, s
 
         for (size_t i = 0; i < good_matches.size(); i++)
         {
-            const cv::Point2f&expected = sourcePointsInFrame[i];
-            const cv::Point2f&actual   = queryPts[i];
+            const cv::Point2f &expected = sourcePointsInFrame[i];
+            const cv::Point2f &actual   = queryPts[i];
 
             // Maximum difference is 3 pixels
             if (distance_squared(expected, actual) < 9.0)

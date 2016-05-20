@@ -46,7 +46,7 @@ namespace vision
  *
  * http://software.intel.com/en-us/articles/fast-random-number-generator-on-the-intel-pentiumr-4-processor/
  */
-inline int FastRandom(int&seed)
+inline int FastRandom(int &seed)
 {
     seed = (214013 * seed + 2531011);
     return (seed >> 16) & 0x7FFF;
@@ -56,7 +56,7 @@ inline int FastRandom(int&seed)
  * Get a float between [0,1].
  */
 template<typename T>
-inline T FastRandomFloat(int&seed)
+inline T FastRandomFloat(int &seed)
 {
     return FastRandom(seed) / (T)FAST_RAND_MAX;
 }
@@ -70,7 +70,7 @@ inline T FastRandomFloat(int&seed)
  * @param[in] seed Seed for random number generator
  */
 template<typename T>
-inline void ArrayShuffle(T *v, int pop_size, int sample_size, int&seed)
+inline void ArrayShuffle(T *v, int pop_size, int sample_size, int &seed)
 {
     for (int i = 0; i < sample_size; i++)
     {

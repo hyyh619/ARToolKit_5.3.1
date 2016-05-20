@@ -159,7 +159,7 @@ struct assign_DefaultTraversal_CompleteUnrolling
         inner = Index % Derived1::InnerSizeAtCompileTime
     };
 
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         dst.copyCoeffByOuterInner(outer, inner, src);
         assign_DefaultTraversal_CompleteUnrolling<Derived1, Derived2, Index + 1, Stop>::run(dst, src);
@@ -175,7 +175,7 @@ struct assign_DefaultTraversal_CompleteUnrolling<Derived1, Derived2, Stop, Stop>
 template<typename Derived1, typename Derived2, int Index, int Stop>
 struct assign_DefaultTraversal_InnerUnrolling
 {
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src, int outer)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src, int outer)
     {
         dst.copyCoeffByOuterInner(outer, Index, src);
         assign_DefaultTraversal_InnerUnrolling<Derived1, Derived2, Index + 1, Stop>::run(dst, src, outer);
@@ -195,7 +195,7 @@ struct assign_DefaultTraversal_InnerUnrolling<Derived1, Derived2, Stop, Stop>
 template<typename Derived1, typename Derived2, int Index, int Stop>
 struct assign_LinearTraversal_CompleteUnrolling
 {
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         dst.copyCoeff(Index, src);
         assign_LinearTraversal_CompleteUnrolling<Derived1, Derived2, Index + 1, Stop>::run(dst, src);
@@ -222,7 +222,7 @@ struct assign_innervec_CompleteUnrolling
         JointAlignment = assign_traits<Derived1, Derived2>::JointAlignment
     };
 
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         dst.template copyPacketByOuterInner<Derived2, Aligned, JointAlignment>(outer, inner, src);
         assign_innervec_CompleteUnrolling<Derived1, Derived2,
@@ -239,7 +239,7 @@ struct assign_innervec_CompleteUnrolling<Derived1, Derived2, Stop, Stop>
 template<typename Derived1, typename Derived2, int Index, int Stop>
 struct assign_innervec_InnerUnrolling
 {
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src, int outer)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src, int outer)
     {
         dst.template copyPacketByOuterInner<Derived2, Aligned, Aligned>(outer, Index, src);
         assign_innervec_InnerUnrolling<Derived1, Derived2,
@@ -276,7 +276,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, DefaultTraversal, NoUnrolling>
 {
     typedef typename Derived1::Index Index;
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         const Index innerSize = dst.innerSize();
         const Index outerSize = dst.outerSize();
@@ -290,7 +290,7 @@ struct assign_impl<Derived1, Derived2, DefaultTraversal, NoUnrolling>
 template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, DefaultTraversal, CompleteUnrolling>
 {
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         assign_DefaultTraversal_CompleteUnrolling<Derived1, Derived2, 0, Derived1::SizeAtCompileTime>
         ::run(dst, src);
@@ -301,7 +301,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, DefaultTraversal, InnerUnrolling>
 {
     typedef typename Derived1::Index Index;
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         const Index outerSize = dst.outerSize();
 
@@ -319,7 +319,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, LinearTraversal, NoUnrolling>
 {
     typedef typename Derived1::Index Index;
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         const Index size = dst.size();
 
@@ -331,7 +331,7 @@ struct assign_impl<Derived1, Derived2, LinearTraversal, NoUnrolling>
 template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, LinearTraversal, CompleteUnrolling>
 {
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         assign_LinearTraversal_CompleteUnrolling<Derived1, Derived2, 0, Derived1::SizeAtCompileTime>
         ::run(dst, src);
@@ -346,7 +346,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, InnerVectorizedTraversal, NoUnrolling>
 {
     typedef typename Derived1::Index Index;
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         const Index innerSize  = dst.innerSize();
         const Index outerSize  = dst.outerSize();
@@ -361,7 +361,7 @@ struct assign_impl<Derived1, Derived2, InnerVectorizedTraversal, NoUnrolling>
 template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, InnerVectorizedTraversal, CompleteUnrolling>
 {
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         assign_innervec_CompleteUnrolling<Derived1, Derived2, 0, Derived1::SizeAtCompileTime>
         ::run(dst, src);
@@ -372,7 +372,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, InnerVectorizedTraversal, InnerUnrolling>
 {
     typedef typename Derived1::Index Index;
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         const Index outerSize = dst.outerSize();
 
@@ -400,10 +400,10 @@ struct unaligned_assign_impl<false>
     // packet access path.
 #ifdef _MSC_VER
     template<typename Derived, typename OtherDerived>
-    static EIGEN_DONT_INLINE void run(const Derived&src, OtherDerived&dst, typename Derived::Index start, typename Derived::Index end)
+    static EIGEN_DONT_INLINE void run(const Derived &src, OtherDerived &dst, typename Derived::Index start, typename Derived::Index end)
 #else
     template<typename Derived, typename OtherDerived>
-    static EIGEN_STRONG_INLINE void run(const Derived&src, OtherDerived&dst, typename Derived::Index start, typename Derived::Index end)
+    static EIGEN_STRONG_INLINE void run(const Derived &src, OtherDerived &dst, typename Derived::Index start, typename Derived::Index end)
 #endif
     {
         for (typename Derived::Index index = start; index < end; ++index)
@@ -415,7 +415,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, LinearVectorizedTraversal, NoUnrolling>
 {
     typedef typename Derived1::Index Index;
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         const Index size = dst.size();
 
@@ -445,7 +445,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, LinearVectorizedTraversal, CompleteUnrolling>
 {
     typedef typename Derived1::Index Index;
-    EIGEN_STRONG_INLINE static void run(Derived1&dst, const Derived2&src)
+    EIGEN_STRONG_INLINE static void run(Derived1 &dst, const Derived2 &src)
     {
         enum { size        = Derived1::SizeAtCompileTime,
                packetSize  = packet_traits<typename Derived1::Scalar>::size,
@@ -464,7 +464,7 @@ template<typename Derived1, typename Derived2>
 struct assign_impl<Derived1, Derived2, SliceVectorizedTraversal, NoUnrolling>
 {
     typedef typename Derived1::Index Index;
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         typedef packet_traits<typename Derived1::Scalar> PacketTraits;
         enum
@@ -510,7 +510,7 @@ struct assign_impl<Derived1, Derived2, SliceVectorizedTraversal, NoUnrolling>
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&DenseBase<Derived>
-::lazyAssign(const DenseBase<OtherDerived>&other)
+::lazyAssign(const DenseBase<OtherDerived> &other)
 {
     enum
     {
@@ -549,7 +549,7 @@ struct assign_selector;
 template<typename Derived, typename OtherDerived>
 struct assign_selector<Derived, OtherDerived, false, false>
 {
-    EIGEN_STRONG_INLINE static Derived&run(Derived&dst, const OtherDerived&other)
+    EIGEN_STRONG_INLINE static Derived&run(Derived &dst, const OtherDerived &other)
     {
         return dst.lazyAssign(other.derived());
     }
@@ -557,7 +557,7 @@ struct assign_selector<Derived, OtherDerived, false, false>
 template<typename Derived, typename OtherDerived>
 struct assign_selector<Derived, OtherDerived, true, false>
 {
-    EIGEN_STRONG_INLINE static Derived&run(Derived&dst, const OtherDerived&other)
+    EIGEN_STRONG_INLINE static Derived&run(Derived &dst, const OtherDerived &other)
     {
         return dst.lazyAssign(other.eval());
     }
@@ -565,7 +565,7 @@ struct assign_selector<Derived, OtherDerived, true, false>
 template<typename Derived, typename OtherDerived>
 struct assign_selector<Derived, OtherDerived, false, true>
 {
-    EIGEN_STRONG_INLINE static Derived&run(Derived&dst, const OtherDerived&other)
+    EIGEN_STRONG_INLINE static Derived&run(Derived &dst, const OtherDerived &other)
     {
         return dst.lazyAssign(other.transpose());
     }
@@ -573,7 +573,7 @@ struct assign_selector<Derived, OtherDerived, false, true>
 template<typename Derived, typename OtherDerived>
 struct assign_selector<Derived, OtherDerived, true, true>
 {
-    EIGEN_STRONG_INLINE static Derived&run(Derived&dst, const OtherDerived&other)
+    EIGEN_STRONG_INLINE static Derived&run(Derived &dst, const OtherDerived &other)
     {
         return dst.lazyAssign(other.transpose().eval());
     }
@@ -582,33 +582,33 @@ struct assign_selector<Derived, OtherDerived, true, true>
 
 template<typename Derived>
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::operator=(const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::operator=(const DenseBase<OtherDerived> &other)
 {
     return internal::assign_selector<Derived, OtherDerived>::run(derived(), other.derived());
 }
 
 template<typename Derived>
-EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::operator=(const DenseBase&other)
+EIGEN_STRONG_INLINE Derived&DenseBase<Derived>::operator=(const DenseBase &other)
 {
     return internal::assign_selector<Derived, Derived>::run(derived(), other.derived());
 }
 
 template<typename Derived>
-EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const MatrixBase&other)
+EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const MatrixBase &other)
 {
     return internal::assign_selector<Derived, Derived>::run(derived(), other.derived());
 }
 
 template<typename Derived>
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const DenseBase<OtherDerived> &other)
 {
     return internal::assign_selector<Derived, OtherDerived>::run(derived(), other.derived());
 }
 
 template<typename Derived>
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const EigenBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const EigenBase<OtherDerived> &other)
 {
     other.derived().evalTo(derived());
     return derived();
@@ -616,7 +616,7 @@ EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const EigenBase<Other
 
 template<typename Derived>
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const ReturnByValue<OtherDerived>&other)
+EIGEN_STRONG_INLINE Derived&MatrixBase<Derived>::operator=(const ReturnByValue<OtherDerived> &other)
 {
     other.evalTo(derived());
     return derived();

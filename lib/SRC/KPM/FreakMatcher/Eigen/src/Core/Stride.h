@@ -79,7 +79,7 @@ Stride(Index outerStride, Index innerStride)
 }
 
 /** Copy constructor */
-Stride(const Stride&other)
+Stride(const Stride &other)
     : m_outer(other.outer()), m_inner(other.inner())
 {}
 

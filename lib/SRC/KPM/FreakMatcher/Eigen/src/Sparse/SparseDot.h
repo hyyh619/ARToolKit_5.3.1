@@ -28,7 +28,7 @@
 template<typename Derived>
 template<typename OtherDerived>
 typename internal::traits<Derived>::Scalar
-SparseMatrixBase<Derived>::dot(const MatrixBase<OtherDerived>&other) const
+SparseMatrixBase<Derived>::dot(const MatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
@@ -54,7 +54,7 @@ SparseMatrixBase<Derived>::dot(const MatrixBase<OtherDerived>&other) const
 template<typename Derived>
 template<typename OtherDerived>
 typename internal::traits<Derived>::Scalar
-SparseMatrixBase<Derived>::dot(const SparseMatrixBase<OtherDerived>&other) const
+SparseMatrixBase<Derived>::dot(const SparseMatrixBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
     EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)

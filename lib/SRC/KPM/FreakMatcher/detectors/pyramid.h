@@ -92,7 +92,7 @@ void init(int width, int height, int num_octaves, bool copy_fine);
 /**
  * Build the pyramid.
  */
-void build(const Image&image);
+void build(const Image &image);
 
 private:
 
@@ -125,7 +125,7 @@ void init(int width, int height, int num_octaves, bool copy_fine);
 /**
  * Build the pyramid.
  */
-void build(const Image&image);
+void build(const Image &image);
 
 private:
 

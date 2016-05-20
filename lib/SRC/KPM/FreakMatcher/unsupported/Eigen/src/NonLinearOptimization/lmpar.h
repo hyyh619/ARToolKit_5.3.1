@@ -2,13 +2,13 @@ namespace internal
 {
 template<typename Scalar>
 void lmpar(
-    Matrix<Scalar, Dynamic, Dynamic>&r,
-    const VectorXi&ipvt,
-    const Matrix<Scalar, Dynamic, 1>&diag,
-    const Matrix<Scalar, Dynamic, 1>&qtb,
+    Matrix<Scalar, Dynamic, Dynamic> &r,
+    const VectorXi &ipvt,
+    const Matrix<Scalar, Dynamic, 1> &diag,
+    const Matrix<Scalar, Dynamic, 1> &qtb,
     Scalar delta,
-    Scalar&par,
-    Matrix<Scalar, Dynamic, 1>&x)
+    Scalar &par,
+    Matrix<Scalar, Dynamic, 1> &x)
 {
     typedef DenseIndex Index;
 
@@ -181,12 +181,12 @@ void lmpar(
 
 template<typename Scalar>
 void lmpar2(
-    const ColPivHouseholderQR<Matrix<Scalar, Dynamic, Dynamic> >&qr,
-    const Matrix<Scalar, Dynamic, 1>&diag,
-    const Matrix<Scalar, Dynamic, 1>&qtb,
+    const ColPivHouseholderQR<Matrix<Scalar, Dynamic, Dynamic> > &qr,
+    const Matrix<Scalar, Dynamic, 1> &diag,
+    const Matrix<Scalar, Dynamic, 1> &qtb,
     Scalar delta,
-    Scalar&par,
-    Matrix<Scalar, Dynamic, 1>&x)
+    Scalar &par,
+    Matrix<Scalar, Dynamic, 1> &x)
 
 {
     typedef DenseIndex Index;

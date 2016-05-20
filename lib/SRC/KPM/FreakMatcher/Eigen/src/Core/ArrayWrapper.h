@@ -62,7 +62,7 @@ typedef typename internal::conditional<
 
 typedef typename internal::nested<ExpressionType>::type NestedExpressionType;
 
-inline ArrayWrapper(const ExpressionType&matrix) : m_expression(matrix) {}
+inline ArrayWrapper(const ExpressionType &matrix) : m_expression(matrix) {}
 
 inline Index rows() const
 {
@@ -127,7 +127,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<LoadMode>(row, col, x);
 }
@@ -139,13 +139,13 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<LoadMode>(index, x);
 }
 
 template<typename Dest>
-inline void evalTo(Dest&dst) const
+inline void evalTo(Dest &dst) const
 {
     dst = m_expression;
 }
@@ -191,7 +191,7 @@ typedef typename internal::conditional<
 
 typedef typename internal::nested<ExpressionType>::type NestedExpressionType;
 
-inline MatrixWrapper(const ExpressionType&matrix) : m_expression(matrix) {}
+inline MatrixWrapper(const ExpressionType &matrix) : m_expression(matrix) {}
 
 inline Index rows() const
 {
@@ -256,7 +256,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<LoadMode>(row, col, x);
 }
@@ -268,7 +268,7 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<LoadMode>(index, x);
 }

@@ -56,7 +56,7 @@ Image::Image()
     , mChannels(0)
     , mSize(0) {}
 
-Image::Image(Image&image)
+Image::Image(Image &image)
     : mType(IMAGE_UNKNOWN)
     , mWidth(0)
     , mHeight(0)
@@ -67,7 +67,7 @@ Image::Image(Image&image)
     shallowCopy(image);
 }
 
-Image::Image(const Image&image)
+Image::Image(const Image &image)
     : mType(IMAGE_UNKNOWN)
     , mWidth(0)
     , mHeight(0)
@@ -194,7 +194,7 @@ void Image::release()
     mData.reset();
 }
 
-void Image::deepCopy(const Image&image)
+void Image::deepCopy(const Image &image)
 {
     // Allocate memory.
     // The ALLOC function will allocate memory if the
@@ -209,7 +209,7 @@ void Image::deepCopy(const Image&image)
     memcpy(mData.get(), image.mData.get(), image.size());
 }
 
-void Image::shallowCopy(const Image&image)
+void Image::shallowCopy(const Image &image)
 {
     // Set variables
     mType     = image.mType;
@@ -223,13 +223,13 @@ void Image::shallowCopy(const Image&image)
     mData = image.mData;
 }
 
-Image&Image::operator=(Image&image)
+Image&Image::operator=(Image &image)
 {
     shallowCopy(image);
     return *this;
 }
 
-Image&Image::operator=(const Image&image)
+Image&Image::operator=(const Image &image)
 {
     shallowCopy(image);
     return *this;

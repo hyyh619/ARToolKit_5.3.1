@@ -130,30 +130,30 @@ typedef CwiseNullaryOp<internal::scalar_constant_op<Scalar>, Derived> ConstantRe
 /** Special case of the template operator=, in order to prevent the compiler
  * from generating a default operator= (issue hit with g++ 4.1)
  */
-Derived&operator=(const ArrayBase&other)
+Derived&operator=(const ArrayBase &other)
 {
     return internal::assign_selector<Derived, Derived>::run(derived(), other.derived());
 }
 
-Derived&operator+=(const Scalar&scalar)
+Derived&operator+=(const Scalar &scalar)
 {
     return *this = derived() + scalar;
 }
-Derived&operator-=(const Scalar&scalar)
+Derived&operator-=(const Scalar &scalar)
 {
     return *this = derived() - scalar;
 }
 
 template<typename OtherDerived>
-Derived&operator+=(const ArrayBase<OtherDerived>&other);
+Derived&operator+=(const ArrayBase<OtherDerived> &other);
 template<typename OtherDerived>
-Derived&operator-=(const ArrayBase<OtherDerived>&other);
+Derived&operator-=(const ArrayBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator*=(const ArrayBase<OtherDerived>&other);
+Derived&operator*=(const ArrayBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator/=(const ArrayBase<OtherDerived>&other);
+Derived&operator/=(const ArrayBase<OtherDerived> &other);
 
 public:
 ArrayBase<Derived>&array()
@@ -206,7 +206,7 @@ template<typename OtherDerived> Derived&operator-=(const MatrixBase<OtherDerived
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-ArrayBase<Derived>::operator-=(const ArrayBase<OtherDerived>&other)
+ArrayBase<Derived>::operator-=(const ArrayBase<OtherDerived> &other)
 {
     SelfCwiseBinaryOp<internal::scalar_difference_op<Scalar>, Derived, OtherDerived> tmp(derived());
     tmp = other.derived();
@@ -220,7 +220,7 @@ ArrayBase<Derived>::operator-=(const ArrayBase<OtherDerived>&other)
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-ArrayBase<Derived>::operator+=(const ArrayBase<OtherDerived>&other)
+ArrayBase<Derived>::operator+=(const ArrayBase<OtherDerived> &other)
 {
     SelfCwiseBinaryOp<internal::scalar_sum_op<Scalar>, Derived, OtherDerived> tmp(derived());
     tmp = other.derived();
@@ -234,7 +234,7 @@ ArrayBase<Derived>::operator+=(const ArrayBase<OtherDerived>&other)
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-ArrayBase<Derived>::operator*=(const ArrayBase<OtherDerived>&other)
+ArrayBase<Derived>::operator*=(const ArrayBase<OtherDerived> &other)
 {
     SelfCwiseBinaryOp<internal::scalar_product_op<Scalar>, Derived, OtherDerived> tmp(derived());
     tmp = other.derived();
@@ -248,7 +248,7 @@ ArrayBase<Derived>::operator*=(const ArrayBase<OtherDerived>&other)
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-ArrayBase<Derived>::operator/=(const ArrayBase<OtherDerived>&other)
+ArrayBase<Derived>::operator/=(const ArrayBase<OtherDerived> &other)
 {
     SelfCwiseBinaryOp<internal::scalar_quotient_op<Scalar>, Derived, OtherDerived> tmp(derived());
     tmp = other.derived();

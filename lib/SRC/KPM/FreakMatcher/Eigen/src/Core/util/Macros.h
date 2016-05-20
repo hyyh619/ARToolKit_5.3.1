@@ -326,12 +326,12 @@ inline void assert_fail(const char *condition, const char *function, const char 
 #define EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived) \
     using Base::operator =;
 #else
-#define EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)       \
-    using Base::operator =;                                    \
-    EIGEN_STRONG_INLINE Derived&operator=(const Derived&other) \
-    {                                                          \
-        Base::operator=(other);                                \
-        return *this;                                          \
+#define EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)        \
+    using Base::operator =;                                     \
+    EIGEN_STRONG_INLINE Derived&operator=(const Derived &other) \
+    {                                                           \
+        Base::operator=(other);                                 \
+        return *this;                                           \
     }
 #endif
 

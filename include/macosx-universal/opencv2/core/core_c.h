@@ -1865,7 +1865,7 @@ CVAPI(int) cvGuiBoxReport(int status, const char *func_name, const char *err_msg
     }
 
 #define __CV_BEGIN__ {
-#define __CV_END__   goto exit; exit :; }
+#define __CV_END__   goto exit; exit:; }
 #define __CV_EXIT__  goto exit
 
 #ifdef __cplusplus

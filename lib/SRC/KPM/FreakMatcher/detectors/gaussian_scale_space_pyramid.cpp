@@ -351,7 +351,7 @@ void BinomialPyramid32f::release()
     mPyramid.clear();
 }
 
-void BinomialPyramid32f::build(const Image&image)
+void BinomialPyramid32f::build(const Image &image)
 {
     ASSERT(image.type() == IMAGE_UINT8, "Image must be grayscale");
     ASSERT(image.channels() == 1, "Image must have 1 channel");
@@ -380,7 +380,7 @@ void BinomialPyramid32f::build(const Image&image)
     }
 }
 
-void BinomialPyramid32f::apply_filter(Image&dst, const Image&src)
+void BinomialPyramid32f::apply_filter(Image &dst, const Image &src)
 {
     ASSERT(dst.type() == IMAGE_F32, "Destination image should be a float");
 
@@ -410,7 +410,7 @@ void BinomialPyramid32f::apply_filter(Image&dst, const Image&src)
     }
 }
 
-void BinomialPyramid32f::apply_filter_twice(Image&dst, const Image&src)
+void BinomialPyramid32f::apply_filter_twice(Image &dst, const Image &src)
 {
     Image tmp((unsigned char*)&mTemp_f32_2[0], src.type(), src.width(), src.height(), (int)src.step(), 1);
 

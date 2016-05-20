@@ -128,8 +128,8 @@ inline typename internal::traits<Derived>::Coefficients & coeffs()
     return derived().coeffs();
 }
 
-EIGEN_STRONG_INLINE QuaternionBase<Derived>&operator=(const QuaternionBase<Derived>&other);
-template<class OtherDerived> EIGEN_STRONG_INLINE Derived&operator=(const QuaternionBase<OtherDerived>&other);
+EIGEN_STRONG_INLINE QuaternionBase<Derived>&operator=(const QuaternionBase<Derived> &other);
+template<class OtherDerived> EIGEN_STRONG_INLINE Derived&operator=(const QuaternionBase<OtherDerived> &other);
 
 // disabled this copy operator as it is giving very strange compilation errors when compiling
 // test_stdvector with GCC 4.4.2. This looks like a GCC bug though, so feel free to re-enable it if it's
@@ -138,8 +138,8 @@ template<class OtherDerived> EIGEN_STRONG_INLINE Derived&operator=(const Quatern
 //  Derived& operator=(const QuaternionBase& other)
 //  { return operator=<Derived>(other); }
 
-Derived&operator=(const AngleAxisType&aa);
-template<class OtherDerived> Derived&operator=(const MatrixBase<OtherDerived>&m);
+Derived&operator=(const AngleAxisType &aa);
+template<class OtherDerived> Derived&operator=(const MatrixBase<OtherDerived> &m);
 
 /** \returns a quaternion representing an identity rotation
  * \sa MatrixBase::Identity()
@@ -190,22 +190,22 @@ inline Quaternion<Scalar> normalized() const
  * corresponds to the cosine of half the angle between the two rotations.
  * \sa angularDistance()
  */
-template<class OtherDerived> inline Scalar dot(const QuaternionBase<OtherDerived>&other) const
+template<class OtherDerived> inline Scalar dot(const QuaternionBase<OtherDerived> &other) const
 {
     return coeffs().dot(other.coeffs());
 }
 
-template<class OtherDerived> Scalar angularDistance(const QuaternionBase<OtherDerived>&other) const;
+template<class OtherDerived> Scalar angularDistance(const QuaternionBase<OtherDerived> &other) const;
 
 /** \returns an equivalent 3x3 rotation matrix */
 Matrix3 toRotationMatrix() const;
 
 /** \returns the quaternion which transform \a a into \a b through a rotation */
 template<typename Derived1, typename Derived2>
-Derived&setFromTwoVectors(const MatrixBase<Derived1>&a, const MatrixBase<Derived2>&b);
+Derived&setFromTwoVectors(const MatrixBase<Derived1> &a, const MatrixBase<Derived2> &b);
 
-template<class OtherDerived> EIGEN_STRONG_INLINE Quaternion<Scalar> operator*(const QuaternionBase<OtherDerived>&q) const;
-template<class OtherDerived> EIGEN_STRONG_INLINE Derived&operator*=(const QuaternionBase<OtherDerived>&q);
+template<class OtherDerived> EIGEN_STRONG_INLINE Quaternion<Scalar> operator*(const QuaternionBase<OtherDerived> &q) const;
+template<class OtherDerived> EIGEN_STRONG_INLINE Derived&operator*=(const QuaternionBase<OtherDerived> &q);
 
 /** \returns the quaternion describing the inverse rotation */
 Quaternion<Scalar> inverse() const;
@@ -217,14 +217,14 @@ Quaternion<Scalar> conjugate() const;
  * \a t in [0;1]
  * see http://en.wikipedia.org/wiki/Slerp
  */
-template<class OtherDerived> Quaternion<Scalar> slerp(Scalar t, const QuaternionBase<OtherDerived>&other) const;
+template<class OtherDerived> Quaternion<Scalar> slerp(Scalar t, const QuaternionBase<OtherDerived> &other) const;
 
 /** \returns \c true if \c *this is approximately equal to \a other, within the precision
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
 template<class OtherDerived>
-bool isApprox(const QuaternionBase<OtherDerived>&other, RealScalar prec = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const QuaternionBase<OtherDerived> &other, RealScalar prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return coeffs().isApprox(other.coeffs(), prec);
 }
@@ -322,13 +322,13 @@ inline Quaternion(Scalar w, Scalar x, Scalar y, Scalar z) : m_coeffs(x, y, z, w)
 inline Quaternion(const Scalar *data) : m_coeffs(data) {}
 
 /** Copy constructor */
-template<class Derived> EIGEN_STRONG_INLINE Quaternion(const QuaternionBase<Derived>&other)
+template<class Derived> EIGEN_STRONG_INLINE Quaternion(const QuaternionBase<Derived> &other)
 {
     this->Base::operator=(other);
 }
 
 /** Constructs and initializes a quaternion from the angle-axis \a aa */
-explicit inline Quaternion(const AngleAxisType&aa)
+explicit inline Quaternion(const AngleAxisType &aa)
 {
     *this = aa;
 }
@@ -338,14 +338,14 @@ explicit inline Quaternion(const AngleAxisType&aa)
  *  - a 4D vector expression representing quaternion coefficients.
  */
 template<typename Derived>
-explicit inline Quaternion(const MatrixBase<Derived>&other)
+explicit inline Quaternion(const MatrixBase<Derived> &other)
 {
     *this = other;
 }
 
 /** Explicit copy constructor with scalar conversion */
 template<typename OtherScalar, int OtherOptions>
-explicit inline Quaternion(const Quaternion<OtherScalar, OtherOptions>&other)
+explicit inline Quaternion(const Quaternion<OtherScalar, OtherOptions> &other)
 {
     m_coeffs = other.coeffs().template cast<Scalar>();
 }
@@ -514,7 +514,7 @@ namespace internal
 {
 template<int Arch, class Derived1, class Derived2, typename Scalar, int _Options> struct quat_product
 {
-    EIGEN_STRONG_INLINE static Quaternion<Scalar> run(const QuaternionBase<Derived1>&a, const QuaternionBase<Derived2>&b)
+    EIGEN_STRONG_INLINE static Quaternion<Scalar> run(const QuaternionBase<Derived1> &a, const QuaternionBase<Derived2> &b)
     {
         return Quaternion<Scalar>
                (
@@ -531,7 +531,7 @@ template<int Arch, class Derived1, class Derived2, typename Scalar, int _Options
 template<class Derived>
 template<class OtherDerived>
 EIGEN_STRONG_INLINE Quaternion<typename internal::traits<Derived>::Scalar>
-QuaternionBase<Derived>::operator*(const QuaternionBase<OtherDerived>&other) const
+QuaternionBase<Derived>::operator*(const QuaternionBase<OtherDerived> &other) const
 {
     EIGEN_STATIC_ASSERT((internal::is_same<typename Derived::Scalar, typename OtherDerived::Scalar>::value),
                         YOU_MIXED_DIFFERENT_NUMERIC_TYPES__YOU_NEED_TO_USE_THE_CAST_METHOD_OF_MATRIXBASE_TO_CAST_NUMERIC_TYPES_EXPLICITLY)
@@ -543,7 +543,7 @@ QuaternionBase<Derived>::operator*(const QuaternionBase<OtherDerived>&other) con
 /** \sa operator*(Quaternion) */
 template<class Derived>
 template<class OtherDerived>
-EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator*=(const QuaternionBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator*=(const QuaternionBase<OtherDerived> &other)
 {
     derived() = derived() * other.derived();
     return derived();
@@ -572,7 +572,7 @@ QuaternionBase<Derived>::_transformVector(Vector3 v) const
 }
 
 template<class Derived>
-EIGEN_STRONG_INLINE QuaternionBase<Derived>&QuaternionBase<Derived>::operator=(const QuaternionBase<Derived>&other)
+EIGEN_STRONG_INLINE QuaternionBase<Derived>&QuaternionBase<Derived>::operator=(const QuaternionBase<Derived> &other)
 {
     coeffs() = other.coeffs();
     return derived();
@@ -580,7 +580,7 @@ EIGEN_STRONG_INLINE QuaternionBase<Derived>&QuaternionBase<Derived>::operator=(c
 
 template<class Derived>
 template<class OtherDerived>
-EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator=(const QuaternionBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator=(const QuaternionBase<OtherDerived> &other)
 {
     coeffs() = other.coeffs();
     return derived();
@@ -589,7 +589,7 @@ EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator=(const QuaternionB
 /** Set \c *this from an angle-axis \a aa and returns a reference to \c *this
  */
 template<class Derived>
-EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator=(const AngleAxisType&aa)
+EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator=(const AngleAxisType &aa)
 {
     Scalar ha = Scalar(0.5) * aa.angle(); // Scalar(0.5) to suppress precision loss warnings
 
@@ -606,7 +606,7 @@ EIGEN_STRONG_INLINE Derived&QuaternionBase<Derived>::operator=(const AngleAxisTy
 
 template<class Derived>
 template<class MatrixDerived>
-inline Derived&QuaternionBase<Derived>::operator=(const MatrixBase<MatrixDerived>&xpr)
+inline Derived&QuaternionBase<Derived>::operator=(const MatrixBase<MatrixDerived> &xpr)
 {
     EIGEN_STATIC_ASSERT((internal::is_same<typename Derived::Scalar, typename MatrixDerived::Scalar>::value),
                         YOU_MIXED_DIFFERENT_NUMERIC_TYPES__YOU_NEED_TO_USE_THE_CAST_METHOD_OF_MATRIXBASE_TO_CAST_NUMERIC_TYPES_EXPLICITLY)
@@ -665,7 +665,7 @@ QuaternionBase<Derived>::toRotationMatrix(void) const
  */
 template<class Derived>
 template<typename Derived1, typename Derived2>
-inline Derived&QuaternionBase<Derived>::setFromTwoVectors(const MatrixBase<Derived1>&a, const MatrixBase<Derived2>&b)
+inline Derived&QuaternionBase<Derived>::setFromTwoVectors(const MatrixBase<Derived1> &a, const MatrixBase<Derived2> &b)
 {
     using std::max;
     Vector3 v0 = a.normalized();
@@ -742,7 +742,7 @@ QuaternionBase<Derived>::conjugate() const
 template<class Derived>
 template<class OtherDerived>
 inline typename internal::traits<Derived>::Scalar
-QuaternionBase<Derived>::angularDistance(const QuaternionBase<OtherDerived>&other) const
+QuaternionBase<Derived>::angularDistance(const QuaternionBase<OtherDerived> &other) const
 {
     using std::acos;
     double d = internal::abs(this->dot(other));
@@ -758,7 +758,7 @@ QuaternionBase<Derived>::angularDistance(const QuaternionBase<OtherDerived>&othe
 template<class Derived>
 template<class OtherDerived>
 Quaternion<typename internal::traits<Derived>::Scalar>
-QuaternionBase<Derived>::slerp(Scalar t, const QuaternionBase<OtherDerived>&other) const
+QuaternionBase<Derived>::slerp(Scalar t, const QuaternionBase<OtherDerived> &other) const
 {
     using std::acos;
     static const Scalar one  = Scalar(1) - NumTraits<Scalar>::epsilon();
@@ -797,7 +797,7 @@ struct quaternionbase_assign_impl<Other, 3, 3>
 {
     typedef typename Other::Scalar Scalar;
     typedef DenseIndex Index;
-    template<class Derived> inline static void run(QuaternionBase<Derived>&q, const Other&mat)
+    template<class Derived> inline static void run(QuaternionBase<Derived> &q, const Other &mat)
     {
         // This algorithm comes from  "Quaternion Calculus and Fast Animation",
         // Ken Shoemake, 1987 SIGGRAPH course notes
@@ -839,7 +839,7 @@ template<typename Other>
 struct quaternionbase_assign_impl<Other, 4, 1>
 {
     typedef typename Other::Scalar Scalar;
-    template<class Derived> inline static void run(QuaternionBase<Derived>&q, const Other&vec)
+    template<class Derived> inline static void run(QuaternionBase<Derived> &q, const Other &vec)
     {
         q.coeffs() = vec;
     }

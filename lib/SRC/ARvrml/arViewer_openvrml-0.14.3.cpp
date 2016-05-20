@@ -46,7 +46,7 @@
 
 using namespace openvrml;
 
-arVrmlViewer::arVrmlViewer(openvrml::browser&browser) : gl::viewer(browser)
+arVrmlViewer::arVrmlViewer(openvrml::browser &browser) : gl::viewer(browser)
 {
     internal_light = true;
 
@@ -158,17 +158,17 @@ void arVrmlViewer::set_timer(double t)
 {}
 
 
-void arVrmlViewer::set_viewpoint(const openvrml::vec3f&position,
-                                 const openvrml::rotation&orientation,
+void arVrmlViewer::set_viewpoint(const openvrml::vec3f &position,
+                                 const openvrml::rotation &orientation,
                                  float fieldOfView,
                                  float avatarSize,
                                  float visibilityLimit)
 {}
 
-viewer::object_t arVrmlViewer::insert_background(const std::vector<float>&groundAngle,
-                                                 const std::vector<openvrml::color>&groundColor,
-                                                 const std::vector<float>&skyAngle,
-                                                 const std::vector<openvrml::color>&skyColor,
+viewer::object_t arVrmlViewer::insert_background(const std::vector<float> &groundAngle,
+                                                 const std::vector<openvrml::color> &groundColor,
+                                                 const std::vector<float> &skyAngle,
+                                                 const std::vector<openvrml::color> &skyColor,
                                                  size_t *whc,
                                                  unsigned char **pixels)
 {
@@ -177,8 +177,8 @@ viewer::object_t arVrmlViewer::insert_background(const std::vector<float>&ground
 
 viewer::object_t arVrmlViewer::insert_dir_light(float ambientIntensity,
                                                 float intensity,
-                                                const openvrml::color&color,
-                                                const openvrml::vec3f&direction)
+                                                const openvrml::color &color,
+                                                const openvrml::vec3f &direction)
 {
     if (internal_light)
         return gl::viewer::insert_dir_light(ambientIntensity, intensity, color, direction);
@@ -187,10 +187,10 @@ viewer::object_t arVrmlViewer::insert_dir_light(float ambientIntensity,
 }
 
 viewer::object_t arVrmlViewer::insert_point_light(float ambientIntensity,
-                                                  const openvrml::vec3f&attenuation,
-                                                  const openvrml::color&color,
+                                                  const openvrml::vec3f &attenuation,
+                                                  const openvrml::color &color,
                                                   float intensity,
-                                                  const openvrml::vec3f&location,
+                                                  const openvrml::vec3f &location,
                                                   float radius)
 {
     if (internal_light)
@@ -201,13 +201,13 @@ viewer::object_t arVrmlViewer::insert_point_light(float ambientIntensity,
 
 
 viewer::object_t arVrmlViewer::insert_spot_light(float ambientIntensity,
-                                                 const openvrml::vec3f&attenuation,
+                                                 const openvrml::vec3f &attenuation,
                                                  float beamWidth,
-                                                 const openvrml::color&color,
+                                                 const openvrml::color &color,
                                                  float cutOffAngle,
-                                                 const openvrml::vec3f&direction,
+                                                 const openvrml::vec3f &direction,
                                                  float intensity,
-                                                 const openvrml::vec3f&location,
+                                                 const openvrml::vec3f &location,
                                                  float radius)
 {
     if (internal_light)
@@ -217,7 +217,7 @@ viewer::object_t arVrmlViewer::insert_spot_light(float ambientIntensity,
 }
 
 bounding_volume::intersection
-arVrmlViewer::intersect_view_volume(const bounding_volume&bvolume) const
+arVrmlViewer::intersect_view_volume(const bounding_volume &bvolume) const
 {
     // if( d_cull ) {
     // return  openvrml::viewer::intersect_view_volume(bvolume);

@@ -137,7 +137,7 @@ ComplexEigenSolver(Index size)
  *
  * This constructor calls compute() to compute the eigendecomposition.
  */
-ComplexEigenSolver(const MatrixType&matrix, bool computeEigenvectors = true)
+ComplexEigenSolver(const MatrixType &matrix, bool computeEigenvectors = true)
     : m_eivec(matrix.rows(), matrix.cols()),
     m_eivalues(matrix.cols()),
     m_schur(matrix.rows()),
@@ -223,7 +223,7 @@ const EigenvalueType&eigenvalues() const
  * Example: \include ComplexEigenSolver_compute.cpp
  * Output: \verbinclude ComplexEigenSolver_compute.out
  */
-ComplexEigenSolver&compute(const MatrixType&matrix, bool computeEigenvectors = true);
+ComplexEigenSolver&compute(const MatrixType &matrix, bool computeEigenvectors = true);
 
 /** \brief Reports whether previous computation was successful.
  *
@@ -250,7 +250,7 @@ void sortEigenvalues(bool computeEigenvectors);
 
 
 template<typename MatrixType>
-ComplexEigenSolver<MatrixType>&ComplexEigenSolver<MatrixType>::compute(const MatrixType&matrix, bool computeEigenvectors)
+ComplexEigenSolver<MatrixType>&ComplexEigenSolver<MatrixType>::compute(const MatrixType &matrix, bool computeEigenvectors)
 {
     // this code is inspired from Jampack
     assert(matrix.cols() == matrix.rows());

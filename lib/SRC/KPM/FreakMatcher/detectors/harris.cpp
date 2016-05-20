@@ -393,10 +393,10 @@ void ComputeHarrisStrengthImageNeon(float *S,
 }
 #endif
 
-void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > >&buckets,
-                        std::vector<Point2d<int> >&outPoints,
-                        const std::vector<Point2d<int> >&inPoints,
-                        const std::vector<float>&scores,
+void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
+                        std::vector<Point2d<int> > &outPoints,
+                        const std::vector<Point2d<int> > &inPoints,
+                        const std::vector<float> &scores,
                         int num_buckets_X,
                         int num_buckets_Y,
                         int width,
@@ -427,9 +427,9 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
     //
     for (size_t i = 0; i < inPoints.size(); i++)
     {
-        const Point2d<int>&p   = inPoints[i];
-        int               binX = p.x / dx;
-        int               binY = p.y / dy;
+        const Point2d<int> &p   = inPoints[i];
+        int                binX = p.x / dx;
+        int                binY = p.y / dy;
         buckets[binX][binY].push_back(std::make_pair(scores[i], i));
     }
 
@@ -440,8 +440,8 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
     {
         for (size_t j = 0; j < buckets[i].size(); j++)
         {
-            std::vector<std::pair<float, size_t> >&bucket = buckets[i][j];
-            size_t                                n       = std::min<size_t>(bucket.size(), num_points_per_bucket);
+            std::vector<std::pair<float, size_t> > &bucket = buckets[i][j];
+            size_t                                 n       = std::min<size_t>(bucket.size(), num_points_per_bucket);
             if (n == 0)
             {
                 continue;
@@ -467,8 +467,8 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
     }
 }
 
-void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> >&points,
-                                std::vector<float>&scores,
+void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> > &points,
+                                std::vector<float> &scores,
                                 const float *S,
                                 int width,
                                 int height,
@@ -494,7 +494,7 @@ void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> >&points,
     {
         for (int j = 0; j < width_minus_8; j++)
         {
-            const float&value = p[j];
+            const float &value = p[j];
             if (value < tr)
             {
                 continue;
@@ -529,8 +529,8 @@ void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> >&points,
     }
 }
 
-void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >&points,
-                                std::vector<float>&scores,
+void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> > &points,
+                                std::vector<float> &scores,
                                 const float *S,
                                 int width,
                                 int height,
@@ -558,7 +558,7 @@ void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >&points,
     {
         for (int j = 0; j < width_minus_10; j++)
         {
-            const float&value = p[j];
+            const float &value = p[j];
             if (value < tr)
             {
                 continue;
@@ -607,8 +607,8 @@ void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> >&points,
     }
 }
 
-void RefineHarrisCorners(std::vector<Point2d<float> >&outPoints,
-                         const std::vector<Point2d<int> >&inPoints,
+void RefineHarrisCorners(std::vector<Point2d<float> > &outPoints,
+                         const std::vector<Point2d<int> > &inPoints,
                          const float *S,
                          int width,
                          int height,
@@ -619,7 +619,7 @@ void RefineHarrisCorners(std::vector<Point2d<float> >&outPoints,
 
     for (size_t i = 0; i < inPoints.size(); i++)
     {
-        const Point2d<int>&point = inPoints[i];
+        const Point2d<int> &point = inPoints[i];
 
         // Each pixel must have 1 pixel on each side
         if (point.x < 1 ||

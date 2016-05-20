@@ -247,30 +247,30 @@ inline Transform()
         makeAffine();
 }
 
-inline Transform(const Transform&other)
+inline Transform(const Transform &other)
 {
     check_template_params();
     m_matrix = other.m_matrix;
 }
 
-inline explicit Transform(const TranslationType&t)
+inline explicit Transform(const TranslationType &t)
 {
     check_template_params();
     *this = t;
 }
-inline explicit Transform(const UniformScaling<Scalar>&s)
+inline explicit Transform(const UniformScaling<Scalar> &s)
 {
     check_template_params();
     *this = s;
 }
 template<typename Derived>
-inline explicit Transform(const RotationBase<Derived, Dim>&r)
+inline explicit Transform(const RotationBase<Derived, Dim> &r)
 {
     check_template_params();
     *this = r;
 }
 
-inline Transform&operator=(const Transform&other)
+inline Transform&operator=(const Transform &other)
 {
     m_matrix = other.m_matrix; return *this;
 }
@@ -279,7 +279,7 @@ typedef internal::transform_take_affine_part<Transform> take_affine_part;
 
 /** Constructs and initializes a transformation from a Dim^2 or a (Dim+1)^2 matrix. */
 template<typename OtherDerived>
-inline explicit Transform(const EigenBase<OtherDerived>&other)
+inline explicit Transform(const EigenBase<OtherDerived> &other)
 {
     check_template_params();
     internal::transform_construct_from_matrix<OtherDerived, Mode, Options, Dim, HDim>::run(this, other.derived());
@@ -287,7 +287,7 @@ inline explicit Transform(const EigenBase<OtherDerived>&other)
 
 /** Set \c *this from a Dim^2 or (Dim+1)^2 matrix. */
 template<typename OtherDerived>
-inline Transform&operator=(const EigenBase<OtherDerived>&other)
+inline Transform&operator=(const EigenBase<OtherDerived> &other)
 {
     internal::transform_construct_from_matrix<OtherDerived, Mode, Options, Dim, HDim>::run(this, other.derived());
 
@@ -295,7 +295,7 @@ inline Transform&operator=(const EigenBase<OtherDerived>&other)
 }
 
 template<int OtherOptions>
-inline Transform(const Transform<Scalar, Dim, Mode, OtherOptions>&other)
+inline Transform(const Transform<Scalar, Dim, Mode, OtherOptions> &other)
 {
     check_template_params();
     // only the options change, we can directly copy the matrices
@@ -303,7 +303,7 @@ inline Transform(const Transform<Scalar, Dim, Mode, OtherOptions>&other)
 }
 
 template<int OtherMode, int OtherOptions>
-inline Transform(const Transform<Scalar, Dim, OtherMode, OtherOptions>&other)
+inline Transform(const Transform<Scalar, Dim, OtherMode, OtherOptions> &other)
 {
     check_template_params();
     // prevent conversions as:
@@ -343,25 +343,25 @@ inline Transform(const Transform<Scalar, Dim, OtherMode, OtherOptions>&other)
 }
 
 template<typename OtherDerived>
-Transform(const ReturnByValue<OtherDerived>&other)
+Transform(const ReturnByValue<OtherDerived> &other)
 {
     check_template_params();
     other.evalTo(*this);
 }
 
 template<typename OtherDerived>
-Transform&operator=(const ReturnByValue<OtherDerived>&other)
+Transform&operator=(const ReturnByValue<OtherDerived> &other)
 {
     other.evalTo(*this);
     return *this;
 }
 
   #ifdef EIGEN_QT_SUPPORT
-inline Transform(const QMatrix&other);
-inline Transform&operator=(const QMatrix&other);
+inline Transform(const QMatrix &other);
+inline Transform&operator=(const QMatrix &other);
 inline QMatrix toQMatrix(void) const;
-inline Transform(const QTransform&other);
-inline Transform&operator=(const QTransform&other);
+inline Transform(const QTransform &other);
+inline Transform&operator=(const QTransform &other);
 inline QTransform toQTransform(void) const;
   #endif
 
@@ -436,7 +436,7 @@ inline TranslationPart translation()
 // note: this function is defined here because some compilers cannot find the respective declaration
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const typename internal::transform_right_product_impl<Transform, OtherDerived>::ResultType
-operator *(const EigenBase<OtherDerived>&other) const
+operator *(const EigenBase<OtherDerived> &other) const
 {
     return internal::transform_right_product_impl<Transform, OtherDerived>::run(*this, other.derived());
 }
@@ -450,7 +450,7 @@ operator *(const EigenBase<OtherDerived>&other) const
  */
 template<typename OtherDerived> friend
 inline const typename internal::transform_left_product_impl<OtherDerived, Mode, Options, _Dim, _Dim + 1>::ResultType
-operator *(const EigenBase<OtherDerived>&a, const Transform&b)
+operator *(const EigenBase<OtherDerived> &a, const Transform &b)
 {
     return internal::transform_left_product_impl<OtherDerived, Mode, Options, Dim, HDim>::run(a.derived(), b);
 }
@@ -463,7 +463,7 @@ operator *(const EigenBase<OtherDerived>&a, const Transform&b)
  */
 template<typename DiagonalDerived>
 inline const TransformTimeDiagonalReturnType
-operator *(const DiagonalBase<DiagonalDerived>&b) const
+operator *(const DiagonalBase<DiagonalDerived> &b) const
 {
     TransformTimeDiagonalReturnType res(*this);
 
@@ -479,7 +479,7 @@ operator *(const DiagonalBase<DiagonalDerived>&b) const
  */
 template<typename DiagonalDerived>
 friend inline TransformTimeDiagonalReturnType
-operator *(const DiagonalBase<DiagonalDerived>&a, const Transform&b)
+operator *(const DiagonalBase<DiagonalDerived> &a, const Transform &b)
 {
     TransformTimeDiagonalReturnType res;
 
@@ -492,13 +492,13 @@ operator *(const DiagonalBase<DiagonalDerived>&a, const Transform&b)
 }
 
 template<typename OtherDerived>
-inline Transform&operator*=(const EigenBase<OtherDerived>&other)
+inline Transform&operator*=(const EigenBase<OtherDerived> &other)
 {
     return *this = *this * other;
 }
 
 /** Concatenates two transformations */
-inline const Transform operator *(const Transform&other) const
+inline const Transform operator *(const Transform &other) const
 {
     return internal::transform_transform_product_impl<Transform, Transform>::run(*this, other);
 }
@@ -507,7 +507,7 @@ inline const Transform operator *(const Transform&other) const
 template<int OtherMode, int OtherOptions>
 inline const typename internal::transform_transform_product_impl<
     Transform, Transform<Scalar, Dim, OtherMode, OtherOptions> >::ResultType
-operator *(const Transform<Scalar, Dim, OtherMode, OtherOptions>&other) const
+operator *(const Transform<Scalar, Dim, OtherMode, OtherOptions> &other) const
 {
     return internal::transform_transform_product_impl<Transform, Transform<Scalar, Dim, OtherMode, OtherOptions> >::run(*this, other);
 }
@@ -528,57 +528,57 @@ static const Transform Identity()
 }
 
 template<typename OtherDerived>
-inline Transform&scale(const MatrixBase<OtherDerived>&other);
+inline Transform&scale(const MatrixBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-inline Transform&prescale(const MatrixBase<OtherDerived>&other);
+inline Transform&prescale(const MatrixBase<OtherDerived> &other);
 
 inline Transform&scale(Scalar s);
 inline Transform&prescale(Scalar s);
 
 template<typename OtherDerived>
-inline Transform&translate(const MatrixBase<OtherDerived>&other);
+inline Transform&translate(const MatrixBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-inline Transform&pretranslate(const MatrixBase<OtherDerived>&other);
+inline Transform&pretranslate(const MatrixBase<OtherDerived> &other);
 
 template<typename RotationType>
-inline Transform&rotate(const RotationType&rotation);
+inline Transform&rotate(const RotationType &rotation);
 
 template<typename RotationType>
-inline Transform&prerotate(const RotationType&rotation);
+inline Transform&prerotate(const RotationType &rotation);
 
 Transform&shear(Scalar sx, Scalar sy);
 Transform&preshear(Scalar sx, Scalar sy);
 
-inline Transform&operator=(const TranslationType&t);
-inline Transform&operator*=(const TranslationType&t)
+inline Transform&operator=(const TranslationType &t);
+inline Transform&operator*=(const TranslationType &t)
 {
     return translate(t.vector());
 }
-inline Transform operator*(const TranslationType&t) const;
+inline Transform operator*(const TranslationType &t) const;
 
-inline Transform&operator=(const UniformScaling<Scalar>&t);
-inline Transform&operator*=(const UniformScaling<Scalar>&s)
+inline Transform&operator=(const UniformScaling<Scalar> &t);
+inline Transform&operator*=(const UniformScaling<Scalar> &s)
 {
     return scale(s.factor());
 }
-inline Transform operator*(const UniformScaling<Scalar>&s) const;
+inline Transform operator*(const UniformScaling<Scalar> &s) const;
 
-inline Transform&operator*=(const DiagonalMatrix<Scalar, Dim>&s)
+inline Transform&operator*=(const DiagonalMatrix<Scalar, Dim> &s)
 {
     linear() *= s; return *this;
 }
 
 template<typename Derived>
-inline Transform&operator=(const RotationBase<Derived, Dim>&r);
+inline Transform&operator=(const RotationBase<Derived, Dim> &r);
 template<typename Derived>
-inline Transform&operator*=(const RotationBase<Derived, Dim>&r)
+inline Transform&operator*=(const RotationBase<Derived, Dim> &r)
 {
     return rotate(r.toRotationMatrix());
 }
 template<typename Derived>
-inline Transform operator*(const RotationBase<Derived, Dim>&r) const;
+inline Transform operator*(const RotationBase<Derived, Dim> &r) const;
 
 const LinearMatrixType rotation() const;
 template<typename RotationMatrixType, typename ScalingMatrixType>
@@ -587,8 +587,8 @@ template<typename ScalingMatrixType, typename RotationMatrixType>
 void computeScalingRotation(ScalingMatrixType *scaling, RotationMatrixType *rotation) const;
 
 template<typename PositionDerived, typename OrientationType, typename ScaleDerived>
-Transform&fromPositionOrientationScale(const MatrixBase<PositionDerived>&position,
-                                       const OrientationType&orientation, const MatrixBase<ScaleDerived>&scale);
+Transform&fromPositionOrientationScale(const MatrixBase<PositionDerived> &position,
+                                       const OrientationType &orientation, const MatrixBase<ScaleDerived> &scale);
 
 inline Transform inverse(TransformTraits traits = (TransformTraits)Mode) const;
 
@@ -616,7 +616,7 @@ inline typename internal::cast_return_type<Transform, Transform<NewScalarType, D
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Transform(const Transform<OtherScalarType, Dim, Mode, Options>&other)
+inline explicit Transform(const Transform<OtherScalarType, Dim, Mode, Options> &other)
 {
     check_template_params();
     m_matrix = other.matrix().template cast<Scalar>();
@@ -626,7 +626,7 @@ inline explicit Transform(const Transform<OtherScalarType, Dim, Mode, Options>&o
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Transform&other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const Transform &other, typename NumTraits<Scalar>::Real prec = NumTraits<Scalar>::dummy_precision()) const
 {
     return m_matrix.isApprox(other.m_matrix, prec);
 }
@@ -736,7 +736,7 @@ typedef Transform<double, 3, Projective> Projective3d;
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim, int Mode, int Options>
-Transform<Scalar, Dim, Mode, Options>::Transform(const QMatrix&other)
+Transform<Scalar, Dim, Mode, Options>::Transform(const QMatrix &other)
 {
     check_template_params();
     *this = other;
@@ -747,7 +747,7 @@ Transform<Scalar, Dim, Mode, Options>::Transform(const QMatrix&other)
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim, int Mode, int Options>
-Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const QMatrix&other)
+Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const QMatrix &other)
 {
     EIGEN_STATIC_ASSERT(Dim == 2, YOU_MADE_A_PROGRAMMING_MISTAKE)
     m_matrix << other.m11(), other.m21(), other.dx(),
@@ -777,7 +777,7 @@ QMatrix Transform<Scalar, Dim, Mode, Options>::toQMatrix(void) const
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim, int Mode, int Options>
-Transform<Scalar, Dim, Mode, Options>::Transform(const QTransform&other)
+Transform<Scalar, Dim, Mode, Options>::Transform(const QTransform &other)
 {
     check_template_params();
     *this = other;
@@ -788,7 +788,7 @@ Transform<Scalar, Dim, Mode, Options>::Transform(const QTransform&other)
  * This function is available only if the token EIGEN_QT_SUPPORT is defined.
  */
 template<typename Scalar, int Dim, int Mode, int Options>
-Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const QTransform&other)
+Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const QTransform &other)
 {
     check_template_params();
     EIGEN_STATIC_ASSERT(Dim == 2, YOU_MADE_A_PROGRAMMING_MISTAKE)
@@ -833,7 +833,7 @@ QTransform Transform<Scalar, Dim, Mode, Options>::toQTransform(void) const
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename OtherDerived>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::scale(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim, Mode, Options>::scale(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     EIGEN_STATIC_ASSERT(Mode != int(Isometry), THIS_METHOD_IS_ONLY_FOR_SPECIFIC_TRANSFORMATIONS)
@@ -860,7 +860,7 @@ inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Option
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename OtherDerived>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::prescale(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim, Mode, Options>::prescale(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     EIGEN_STATIC_ASSERT(Mode != int(Isometry), THIS_METHOD_IS_ONLY_FOR_SPECIFIC_TRANSFORMATIONS)
@@ -887,7 +887,7 @@ inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Option
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename OtherDerived>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::translate(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim, Mode, Options>::translate(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     translationExt() += linearExt() * other;
@@ -901,7 +901,7 @@ Transform<Scalar, Dim, Mode, Options>::translate(const MatrixBase<OtherDerived>&
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename OtherDerived>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::pretranslate(const MatrixBase<OtherDerived>&other)
+Transform<Scalar, Dim, Mode, Options>::pretranslate(const MatrixBase<OtherDerived> &other)
 {
     EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(OtherDerived, int(Dim))
     if (int(Mode) == int(Projective))
@@ -932,7 +932,7 @@ Transform<Scalar, Dim, Mode, Options>::pretranslate(const MatrixBase<OtherDerive
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename RotationType>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::rotate(const RotationType&rotation)
+Transform<Scalar, Dim, Mode, Options>::rotate(const RotationType &rotation)
 {
     linearExt() *= internal::toRotationMatrix<Scalar, Dim>(rotation);
     return *this;
@@ -948,7 +948,7 @@ Transform<Scalar, Dim, Mode, Options>::rotate(const RotationType&rotation)
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename RotationType>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::prerotate(const RotationType&rotation)
+Transform<Scalar, Dim, Mode, Options>::prerotate(const RotationType &rotation)
 {
     m_matrix.template block<Dim, HDim>(0, 0) = internal::toRotationMatrix<Scalar, Dim>(rotation)
                                                * m_matrix.template block<Dim, HDim>(0, 0);
@@ -991,7 +991,7 @@ Transform<Scalar, Dim, Mode, Options>::preshear(Scalar sx, Scalar sy)
 ******************************************************/
 
 template<typename Scalar, int Dim, int Mode, int Options>
-inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const TranslationType&t)
+inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const TranslationType &t)
 {
     linear().setIdentity();
     translation() = t.vector();
@@ -1000,7 +1000,7 @@ inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Option
 }
 
 template<typename Scalar, int Dim, int Mode, int Options>
-inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Options>::operator*(const TranslationType&t) const
+inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Options>::operator*(const TranslationType &t) const
 {
     Transform res = *this;
 
@@ -1009,7 +1009,7 @@ inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Option
 }
 
 template<typename Scalar, int Dim, int Mode, int Options>
-inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const UniformScaling<Scalar>&s)
+inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const UniformScaling<Scalar> &s)
 {
     m_matrix.setZero();
     linear().diagonal().fill(s.factor());
@@ -1018,7 +1018,7 @@ inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Option
 }
 
 template<typename Scalar, int Dim, int Mode, int Options>
-inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Options>::operator*(const UniformScaling<Scalar>&s) const
+inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Options>::operator*(const UniformScaling<Scalar> &s) const
 {
     Transform res = *this;
 
@@ -1028,7 +1028,7 @@ inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Option
 
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename Derived>
-inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const RotationBase<Derived, Dim>&r)
+inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Options>::operator=(const RotationBase<Derived, Dim> &r)
 {
     linear() = internal::toRotationMatrix<Scalar, Dim>(r);
     translation().setZero();
@@ -1038,7 +1038,7 @@ inline Transform<Scalar, Dim, Mode, Options>&Transform<Scalar, Dim, Mode, Option
 
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename Derived>
-inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Options>::operator*(const RotationBase<Derived, Dim>&r) const
+inline Transform<Scalar, Dim, Mode, Options> Transform<Scalar, Dim, Mode, Options>::operator*(const RotationBase<Derived, Dim> &r) const
 {
     Transform res = *this;
 
@@ -1136,8 +1136,8 @@ void Transform<Scalar, Dim, Mode, Options>::computeScalingRotation(ScalingMatrix
 template<typename Scalar, int Dim, int Mode, int Options>
 template<typename PositionDerived, typename OrientationType, typename ScaleDerived>
 Transform<Scalar, Dim, Mode, Options>&
-Transform<Scalar, Dim, Mode, Options>::fromPositionOrientationScale(const MatrixBase<PositionDerived>&position,
-                                                                    const OrientationType&orientation, const MatrixBase<ScaleDerived>&scale)
+Transform<Scalar, Dim, Mode, Options>::fromPositionOrientationScale(const MatrixBase<PositionDerived> &position,
+                                                                    const OrientationType &orientation, const MatrixBase<ScaleDerived> &scale)
 {
     linear()      = internal::toRotationMatrix<Scalar, Dim>(orientation);
     linear()     *= scale.asDiagonal();
@@ -1159,7 +1159,7 @@ struct projective_transform_inverse
 template<typename TransformType>
 struct projective_transform_inverse<TransformType, Projective>
 {
-    static inline void run(const TransformType&m, TransformType&res)
+    static inline void run(const TransformType &m, TransformType &res)
     {
         res.matrix() = m.matrix().inverse();
     }
@@ -1232,11 +1232,11 @@ template<typename TransformType> struct transform_take_affine_part
     typedef typename TransformType::MatrixType MatrixType;
     typedef typename TransformType::AffinePart AffinePart;
     typedef typename TransformType::ConstAffinePart ConstAffinePart;
-    static inline AffinePart run(MatrixType&m)
+    static inline AffinePart run(MatrixType &m)
     {
         return m.template block<TransformType::Dim, TransformType::HDim>(0, 0);
     }
-    static inline ConstAffinePart run(const MatrixType&m)
+    static inline ConstAffinePart run(const MatrixType &m)
     {
         return m.template block<TransformType::Dim, TransformType::HDim>(0, 0);
     }
@@ -1246,11 +1246,11 @@ template<typename Scalar, int Dim, int Options>
 struct transform_take_affine_part<Transform<Scalar, Dim, AffineCompact, Options> >
 {
     typedef typename Transform<Scalar, Dim, AffineCompact, Options>::MatrixType MatrixType;
-    static inline MatrixType&run(MatrixType&m)
+    static inline MatrixType&run(MatrixType &m)
     {
         return m;
     }
-    static inline const MatrixType&run(const MatrixType&m)
+    static inline const MatrixType&run(const MatrixType &m)
     {
         return m;
     }
@@ -1263,7 +1263,7 @@ struct transform_take_affine_part<Transform<Scalar, Dim, AffineCompact, Options>
 template<typename Other, int Mode, int Options, int Dim, int HDim>
 struct transform_construct_from_matrix<Other, Mode, Options, Dim, HDim, Dim, Dim>
 {
-    static inline void run(Transform<typename Other::Scalar, Dim, Mode, Options> *transform, const Other&other)
+    static inline void run(Transform<typename Other::Scalar, Dim, Mode, Options> *transform, const Other &other)
     {
         transform->linear() = other;
         transform->translation().setZero();
@@ -1274,7 +1274,7 @@ struct transform_construct_from_matrix<Other, Mode, Options, Dim, HDim, Dim, Dim
 template<typename Other, int Mode, int Options, int Dim, int HDim>
 struct transform_construct_from_matrix<Other, Mode, Options, Dim, HDim, Dim, HDim>
 {
-    static inline void run(Transform<typename Other::Scalar, Dim, Mode, Options> *transform, const Other&other)
+    static inline void run(Transform<typename Other::Scalar, Dim, Mode, Options> *transform, const Other &other)
     {
         transform->affine() = other;
         transform->makeAffine();
@@ -1284,7 +1284,7 @@ struct transform_construct_from_matrix<Other, Mode, Options, Dim, HDim, Dim, HDi
 template<typename Other, int Mode, int Options, int Dim, int HDim>
 struct transform_construct_from_matrix<Other, Mode, Options, Dim, HDim, HDim, HDim>
 {
-    static inline void run(Transform<typename Other::Scalar, Dim, Mode, Options> *transform, const Other&other)
+    static inline void run(Transform<typename Other::Scalar, Dim, Mode, Options> *transform, const Other &other)
     {
         transform->matrix() = other;
     }
@@ -1293,7 +1293,7 @@ struct transform_construct_from_matrix<Other, Mode, Options, Dim, HDim, HDim, HD
 template<typename Other, int Options, int Dim, int HDim>
 struct transform_construct_from_matrix<Other, AffineCompact, Options, Dim, HDim, HDim, HDim>
 {
-    static inline void run(Transform<typename Other::Scalar, Dim, AffineCompact, Options> *transform, const Other&other)
+    static inline void run(Transform<typename Other::Scalar, Dim, AffineCompact, Options> *transform, const Other &other)
     {
         transform->matrix() = other.template block<Dim, HDim>(0, 0);
     }
@@ -1321,7 +1321,7 @@ struct transform_right_product_impl<TransformType, MatrixType, 0>
 {
     typedef typename MatrixType::PlainObject ResultType;
 
-    EIGEN_STRONG_INLINE static ResultType run(const TransformType&T, const MatrixType&other)
+    EIGEN_STRONG_INLINE static ResultType run(const TransformType &T, const MatrixType &other)
     {
         return T.matrix() * other;
     }
@@ -1340,7 +1340,7 @@ struct transform_right_product_impl<TransformType, MatrixType, 1>
 
     typedef typename MatrixType::PlainObject ResultType;
 
-    EIGEN_STRONG_INLINE static ResultType run(const TransformType&T, const MatrixType&other)
+    EIGEN_STRONG_INLINE static ResultType run(const TransformType &T, const MatrixType &other)
     {
         EIGEN_STATIC_ASSERT(OtherRows == HDim, YOU_MIXED_MATRICES_OF_DIFFERENT_SIZES);
 
@@ -1367,7 +1367,7 @@ struct transform_right_product_impl<TransformType, MatrixType, 2>
 
     typedef typename MatrixType::PlainObject ResultType;
 
-    EIGEN_STRONG_INLINE static ResultType run(const TransformType&T, const MatrixType&other)
+    EIGEN_STRONG_INLINE static ResultType run(const TransformType &T, const MatrixType &other)
     {
         EIGEN_STATIC_ASSERT(OtherRows == Dim, YOU_MIXED_MATRICES_OF_DIFFERENT_SIZES);
 
@@ -1392,7 +1392,7 @@ struct transform_left_product_impl<Other, Mode, Options, Dim, HDim, HDim, HDim>
     typedef Transform<typename Other::Scalar, Dim, Mode, Options> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef Transform<typename Other::Scalar, Dim, Projective, Options> ResultType;
-    static ResultType run(const Other&other, const TransformType&tr)
+    static ResultType run(const Other &other, const TransformType &tr)
     {
         return ResultType(other * tr.matrix());
     }
@@ -1405,7 +1405,7 @@ struct transform_left_product_impl<Other, AffineCompact, Options, Dim, HDim, HDi
     typedef Transform<typename Other::Scalar, Dim, AffineCompact, Options> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef Transform<typename Other::Scalar, Dim, Projective, Options> ResultType;
-    static ResultType run(const Other&other, const TransformType&tr)
+    static ResultType run(const Other &other, const TransformType &tr)
     {
         ResultType res;
 
@@ -1422,7 +1422,7 @@ struct transform_left_product_impl<Other, Mode, Options, Dim, HDim, Dim, HDim>
     typedef Transform<typename Other::Scalar, Dim, Mode, Options> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef TransformType ResultType;
-    static ResultType run(const Other&other, const TransformType&tr)
+    static ResultType run(const Other &other, const TransformType &tr)
     {
         ResultType res;
 
@@ -1439,7 +1439,7 @@ struct transform_left_product_impl<Other, AffineCompact, Options, Dim, HDim, Dim
     typedef Transform<typename Other::Scalar, Dim, AffineCompact, Options> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef TransformType ResultType;
-    static ResultType run(const Other&other, const TransformType&tr)
+    static ResultType run(const Other &other, const TransformType &tr)
     {
         ResultType res;
 
@@ -1456,7 +1456,7 @@ struct transform_left_product_impl<Other, Mode, Options, Dim, HDim, Dim, Dim>
     typedef Transform<typename Other::Scalar, Dim, Mode, Options> TransformType;
     typedef typename TransformType::MatrixType MatrixType;
     typedef TransformType ResultType;
-    static ResultType run(const Other&other, const TransformType&tr)
+    static ResultType run(const Other &other, const TransformType &tr)
     {
         TransformType res;
 
@@ -1480,7 +1480,7 @@ struct transform_transform_product_impl<Transform<Scalar, Dim, LhsMode, LhsOptio
     typedef Transform<Scalar, Dim, LhsMode, LhsOptions> Lhs;
     typedef Transform<Scalar, Dim, RhsMode, RhsOptions> Rhs;
     typedef Transform<Scalar, Dim, ResultMode, LhsOptions> ResultType;
-    static ResultType run(const Lhs&lhs, const Rhs&rhs)
+    static ResultType run(const Lhs &lhs, const Rhs &rhs)
     {
         ResultType res;
 
@@ -1497,7 +1497,7 @@ struct transform_transform_product_impl<Transform<Scalar, Dim, LhsMode, LhsOptio
     typedef Transform<Scalar, Dim, LhsMode, LhsOptions> Lhs;
     typedef Transform<Scalar, Dim, RhsMode, RhsOptions> Rhs;
     typedef Transform<Scalar, Dim, Projective> ResultType;
-    static ResultType run(const Lhs&lhs, const Rhs&rhs)
+    static ResultType run(const Lhs &lhs, const Rhs &rhs)
     {
         return ResultType(lhs.matrix() * rhs.matrix());
     }
@@ -1509,7 +1509,7 @@ struct transform_transform_product_impl<Transform<Scalar, Dim, AffineCompact, Lh
     typedef Transform<Scalar, Dim, AffineCompact, LhsOptions> Lhs;
     typedef Transform<Scalar, Dim, Projective, RhsOptions> Rhs;
     typedef Transform<Scalar, Dim, Projective> ResultType;
-    static ResultType run(const Lhs&lhs, const Rhs&rhs)
+    static ResultType run(const Lhs &lhs, const Rhs &rhs)
     {
         ResultType res;
 
@@ -1525,7 +1525,7 @@ struct transform_transform_product_impl<Transform<Scalar, Dim, Projective, LhsOp
     typedef Transform<Scalar, Dim, Projective, LhsOptions> Lhs;
     typedef Transform<Scalar, Dim, AffineCompact, RhsOptions> Rhs;
     typedef Transform<Scalar, Dim, Projective> ResultType;
-    static ResultType run(const Lhs&lhs, const Rhs&rhs)
+    static ResultType run(const Lhs &lhs, const Rhs &rhs)
     {
         ResultType res(lhs.matrix().template leftCols<Dim>() * rhs.matrix());
 

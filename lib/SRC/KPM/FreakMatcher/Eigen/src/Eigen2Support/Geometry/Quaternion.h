@@ -160,13 +160,13 @@ inline Quaternion(Scalar w, Scalar x, Scalar y, Scalar z)
 }
 
 /** Copy constructor */
-inline Quaternion(const Quaternion&other)
+inline Quaternion(const Quaternion &other)
 {
     m_coeffs = other.m_coeffs;
 }
 
 /** Constructs and initializes a quaternion from the angle-axis \a aa */
-explicit inline Quaternion(const AngleAxisType&aa)
+explicit inline Quaternion(const AngleAxisType &aa)
 {
     *this = aa;
 }
@@ -177,15 +177,15 @@ explicit inline Quaternion(const AngleAxisType&aa)
  * \sa operator=(MatrixBase<Derived>)
  */
 template<typename Derived>
-explicit inline Quaternion(const MatrixBase<Derived>&other)
+explicit inline Quaternion(const MatrixBase<Derived> &other)
 {
     *this = other;
 }
 
-Quaternion&operator=(const Quaternion&other);
-Quaternion&operator=(const AngleAxisType&aa);
+Quaternion&operator=(const Quaternion &other);
+Quaternion&operator=(const AngleAxisType &aa);
 template<typename Derived>
-Quaternion&operator=(const MatrixBase<Derived>&m);
+Quaternion&operator=(const MatrixBase<Derived> &m);
 
 /** \returns a quaternion representing an identity rotation
  * \sa MatrixBase::Identity()
@@ -236,28 +236,28 @@ inline Quaternion normalized() const
  * corresponds to the cosine of half the angle between the two rotations.
  * \sa angularDistance()
  */
-inline Scalar eigen2_dot(const Quaternion&other) const
+inline Scalar eigen2_dot(const Quaternion &other) const
 {
     return m_coeffs.eigen2_dot(other.m_coeffs);
 }
 
-inline Scalar angularDistance(const Quaternion&other) const;
+inline Scalar angularDistance(const Quaternion &other) const;
 
 Matrix3 toRotationMatrix(void) const;
 
 template<typename Derived1, typename Derived2>
-Quaternion&setFromTwoVectors(const MatrixBase<Derived1>&a, const MatrixBase<Derived2>&b);
+Quaternion&setFromTwoVectors(const MatrixBase<Derived1> &a, const MatrixBase<Derived2> &b);
 
-inline Quaternion operator*(const Quaternion&q) const;
-inline Quaternion&operator*=(const Quaternion&q);
+inline Quaternion operator*(const Quaternion &q) const;
+inline Quaternion&operator*=(const Quaternion &q);
 
 Quaternion inverse(void) const;
 Quaternion conjugate(void) const;
 
-Quaternion slerp(Scalar t, const Quaternion&other) const;
+Quaternion slerp(Scalar t, const Quaternion &other) const;
 
 template<typename Derived>
-Vector3 operator*(const MatrixBase<Derived>&vec) const;
+Vector3 operator*(const MatrixBase<Derived> &vec) const;
 
 /** \returns \c *this with scalar type casted to \a NewScalarType
  *
@@ -272,7 +272,7 @@ inline typename internal::cast_return_type<Quaternion, Quaternion<NewScalarType>
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Quaternion(const Quaternion<OtherScalarType>&other)
+inline explicit Quaternion(const Quaternion<OtherScalarType> &other)
 {
     m_coeffs = other.coeffs().template cast<Scalar>();
 }
@@ -281,7 +281,7 @@ inline explicit Quaternion(const Quaternion<OtherScalarType>&other)
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Quaternion&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const Quaternion &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_coeffs.isApprox(other.m_coeffs, prec);
 }
@@ -299,7 +299,7 @@ typedef Quaternion<double> Quaterniond;
 
 // Generic Quaternion * Quaternion product
 template<typename Scalar> inline Quaternion<Scalar>
-ei_quaternion_product(const Quaternion<Scalar>&a, const Quaternion<Scalar>&b)
+ei_quaternion_product(const Quaternion<Scalar> &a, const Quaternion<Scalar> &b)
 {
     return Quaternion<Scalar>
            (
@@ -312,14 +312,14 @@ ei_quaternion_product(const Quaternion<Scalar>&a, const Quaternion<Scalar>&b)
 
 /** \returns the concatenation of two rotations as a quaternion-quaternion product */
 template<typename Scalar>
-inline Quaternion<Scalar> Quaternion<Scalar>::operator*(const Quaternion&other) const
+inline Quaternion<Scalar> Quaternion<Scalar>::operator*(const Quaternion &other) const
 {
     return ei_quaternion_product(*this, other);
 }
 
 /** \sa operator*(Quaternion) */
 template<typename Scalar>
-inline Quaternion<Scalar>&Quaternion<Scalar>::operator*=(const Quaternion&other)
+inline Quaternion<Scalar>&Quaternion<Scalar>::operator*=(const Quaternion &other)
 {
     return (*this = *this * other);
 }
@@ -334,7 +334,7 @@ inline Quaternion<Scalar>&Quaternion<Scalar>::operator*=(const Quaternion&other)
 template<typename Scalar>
 template<typename Derived>
 inline typename Quaternion<Scalar>::Vector3
-Quaternion<Scalar>::operator*(const MatrixBase<Derived>&v) const
+Quaternion<Scalar>::operator*(const MatrixBase<Derived> &v) const
 {
     // Note that this algorithm comes from the optimization by hand
     // of the conversion to a Matrix followed by a Matrix/Vector product.
@@ -348,7 +348,7 @@ Quaternion<Scalar>::operator*(const MatrixBase<Derived>&v) const
 }
 
 template<typename Scalar>
-inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const Quaternion&other)
+inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const Quaternion &other)
 {
     m_coeffs = other.m_coeffs;
     return *this;
@@ -357,7 +357,7 @@ inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const Quaternion&other)
 /** Set \c *this from an angle-axis \a aa and returns a reference to \c *this
  */
 template<typename Scalar>
-inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const AngleAxisType&aa)
+inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const AngleAxisType &aa)
 {
     Scalar ha = Scalar(0.5) * aa.angle(); // Scalar(0.5) to suppress precision loss warnings
 
@@ -373,7 +373,7 @@ inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const AngleAxisType&aa)
  */
 template<typename Scalar>
 template<typename Derived>
-inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const MatrixBase<Derived>&xpr)
+inline Quaternion<Scalar>&Quaternion<Scalar>::operator=(const MatrixBase<Derived> &xpr)
 {
     ei_quaternion_assign_impl<Derived>::run(*this, xpr.derived());
     return *this;
@@ -424,7 +424,7 @@ Quaternion<Scalar>::toRotationMatrix(void) const
  */
 template<typename Scalar>
 template<typename Derived1, typename Derived2>
-inline Quaternion<Scalar>&Quaternion<Scalar>::setFromTwoVectors(const MatrixBase<Derived1>&a, const MatrixBase<Derived2>&b)
+inline Quaternion<Scalar>&Quaternion<Scalar>::setFromTwoVectors(const MatrixBase<Derived1> &a, const MatrixBase<Derived2> &b)
 {
     Vector3 v0 = a.normalized();
     Vector3 v1 = b.normalized();
@@ -492,7 +492,7 @@ inline Quaternion<Scalar> Quaternion<Scalar>::conjugate() const
  * \sa eigen2_dot()
  */
 template<typename Scalar>
-inline Scalar Quaternion<Scalar>::angularDistance(const Quaternion&other) const
+inline Scalar Quaternion<Scalar>::angularDistance(const Quaternion &other) const
 {
     double d = ei_abs(this->eigen2_dot(other));
 
@@ -506,7 +506,7 @@ inline Scalar Quaternion<Scalar>::angularDistance(const Quaternion&other) const
  * \c *this and \a other at the parameter \a t
  */
 template<typename Scalar>
-Quaternion<Scalar> Quaternion<Scalar>::slerp(Scalar t, const Quaternion&other) const
+Quaternion<Scalar> Quaternion<Scalar>::slerp(Scalar t, const Quaternion &other) const
 {
     static const Scalar one  = Scalar(1) - machine_epsilon<Scalar>();
     Scalar              d    = this->eigen2_dot(other);
@@ -540,7 +540,7 @@ template<typename Other>
 struct ei_quaternion_assign_impl<Other, 3, 3>
 {
     typedef typename Other::Scalar Scalar;
-    inline static void run(Quaternion<Scalar>&q, const Other&mat)
+    inline static void run(Quaternion<Scalar> &q, const Other &mat)
     {
         // This algorithm comes from  "Quaternion Calculus and Fast Animation",
         // Ken Shoemake, 1987 SIGGRAPH course notes
@@ -582,7 +582,7 @@ template<typename Other>
 struct ei_quaternion_assign_impl<Other, 4, 1>
 {
     typedef typename Other::Scalar Scalar;
-    inline static void run(Quaternion<Scalar>&q, const Other&vec)
+    inline static void run(Quaternion<Scalar> &q, const Other &vec)
     {
         q.coeffs() = vec;
     }

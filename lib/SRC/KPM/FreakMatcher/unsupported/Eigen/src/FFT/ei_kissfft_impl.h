@@ -461,7 +461,7 @@ protected:
     PlanData&get_plan(int nfft, bool inverse)
     {
         // TODO look for PlanKey(nfft, ! inverse) and conjugate the twiddles
-        PlanData&pd = m_plans[PlanKey(nfft, inverse)];
+        PlanData &pd = m_plans[PlanKey(nfft, inverse)];
 
         if (pd.m_twiddles.size() == 0)
         {
@@ -475,7 +475,7 @@ protected:
     inline
     Complex* real_twiddles(int ncfft2)
     {
-        std::vector<Complex>&twidref = m_realTwiddles[ncfft2];// creates new if not there
+        std::vector<Complex> &twidref = m_realTwiddles[ncfft2];// creates new if not there
 
         if ((int)twidref.size() != ncfft2)
         {

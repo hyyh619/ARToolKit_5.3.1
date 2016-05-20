@@ -2,12 +2,12 @@ namespace internal
 {
 template<typename Scalar>
 void r1updt(
-    Matrix<Scalar, Dynamic, Dynamic>&s,
-    const Matrix<Scalar, Dynamic, 1>&u,
-    std::vector<JacobiRotation<Scalar> >&v_givens,
-    std::vector<JacobiRotation<Scalar> >&w_givens,
-    Matrix<Scalar, Dynamic, 1>&v,
-    Matrix<Scalar, Dynamic, 1>&w,
+    Matrix<Scalar, Dynamic, Dynamic> &s,
+    const Matrix<Scalar, Dynamic, 1> &u,
+    std::vector<JacobiRotation<Scalar> > &v_givens,
+    std::vector<JacobiRotation<Scalar> > &w_givens,
+    Matrix<Scalar, Dynamic, 1> &v,
+    Matrix<Scalar, Dynamic, 1> &w,
     bool *sing)
 {
     typedef DenseIndex Index;

@@ -53,7 +53,7 @@ namespace cv
     // for Fermi memory space is detected automatically
     template<typename T> struct ForceGlob
     {
-        __device__ __forceinline__ static void Load(const T *ptr, int offset, T&val)
+        __device__ __forceinline__ static void Load(const T *ptr, int offset, T &val)
         {
             val = ptr[offset];
         }

@@ -75,7 +75,7 @@ typedef typename Lhs::Index Index;
 typedef internal::sparse_cwise_binary_op_inner_iterator_selector<
         BinaryOp, Lhs, Rhs, InnerIterator> Base;
 
-EIGEN_STRONG_INLINE InnerIterator(const CwiseBinaryOpImpl&binOp, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const CwiseBinaryOpImpl &binOp, Index outer)
     : Base(binOp.derived(), outer)
 {}
 };
@@ -105,7 +105,7 @@ typedef typename Lhs::Index Index;
 
 public:
 
-EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr&xpr, Index outer)
+EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr &xpr, Index outer)
     : m_lhsIter(xpr.lhs(), outer), m_rhsIter(xpr.rhs(), outer), m_functor(xpr.functor())
 {
     this->operator++();
@@ -165,11 +165,11 @@ EIGEN_STRONG_INLINE operator bool() const
 }
 
 protected:
-LhsIterator   m_lhsIter;
-RhsIterator   m_rhsIter;
-const BinaryOp&m_functor;
-Scalar        m_value;
-Index         m_id;
+LhsIterator    m_lhsIter;
+RhsIterator    m_rhsIter;
+const BinaryOp &m_functor;
+Scalar         m_value;
+Index          m_id;
 };
 
 // sparse - sparse  (product)
@@ -186,7 +186,7 @@ typedef typename _RhsNested::InnerIterator RhsIterator;
 typedef typename Lhs::Index Index;
 public:
 
-EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr&xpr, Index outer)
+EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr &xpr, Index outer)
     : m_lhsIter(xpr.lhs(), outer), m_rhsIter(xpr.rhs(), outer), m_functor(xpr.functor())
 {
     while (m_lhsIter && m_rhsIter && (m_lhsIter.index() != m_rhsIter.index()))
@@ -238,9 +238,9 @@ EIGEN_STRONG_INLINE operator bool() const
 }
 
 protected:
-LhsIterator     m_lhsIter;
-RhsIterator     m_rhsIter;
-const BinaryFunc&m_functor;
+LhsIterator      m_lhsIter;
+RhsIterator      m_rhsIter;
+const BinaryFunc &m_functor;
 };
 
 // sparse - dense  (product)
@@ -257,7 +257,7 @@ typedef typename Lhs::Index Index;
 enum { IsRowMajor = (int(Lhs::Flags) & RowMajorBit) == RowMajorBit };
 public:
 
-EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr&xpr, Index outer)
+EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr &xpr, Index outer)
     : m_rhs(xpr.rhs()), m_lhsIter(xpr.lhs(), outer), m_functor(xpr.functor()), m_outer(outer)
 {}
 
@@ -312,7 +312,7 @@ typedef typename Lhs::Index Index;
 enum { IsRowMajor = (int(Rhs::Flags) & RowMajorBit) == RowMajorBit };
 public:
 
-EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr&xpr, Index outer)
+EIGEN_STRONG_INLINE sparse_cwise_binary_op_inner_iterator_selector(const CwiseBinaryXpr &xpr, Index outer)
     : m_xpr(xpr), m_rhsIter(xpr.rhs(), outer), m_functor(xpr.functor()), m_outer(outer)
 {}
 
@@ -346,10 +346,10 @@ EIGEN_STRONG_INLINE operator bool() const
 }
 
 protected:
-const CwiseBinaryXpr&m_xpr;
-RhsIterator         m_rhsIter;
-const BinaryFunc    &m_functor;
-const Index         m_outer;
+const CwiseBinaryXpr &m_xpr;
+RhsIterator          m_rhsIter;
+const BinaryFunc     &m_functor;
+const Index          m_outer;
 };
 } // end namespace internal
 
@@ -370,7 +370,7 @@ const Index         m_outer;
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-SparseMatrixBase<Derived>::operator-=(const SparseMatrixBase<OtherDerived>&other)
+SparseMatrixBase<Derived>::operator-=(const SparseMatrixBase<OtherDerived> &other)
 {
     return *this = derived() - other.derived();
 }
@@ -386,7 +386,7 @@ SparseMatrixBase<Derived>::operator-=(const SparseMatrixBase<OtherDerived>&other
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE Derived&
-SparseMatrixBase<Derived>::operator+=(const SparseMatrixBase<OtherDerived>&other)
+SparseMatrixBase<Derived>::operator+=(const SparseMatrixBase<OtherDerived> &other)
 {
     return *this = derived() + other.derived();
 }
@@ -402,7 +402,7 @@ SparseMatrixBase<Derived>::operator+=(const SparseMatrixBase<OtherDerived>&other
 template<typename Derived>
 template<typename OtherDerived>
 EIGEN_STRONG_INLINE const EIGEN_SPARSE_CWISE_PRODUCT_RETURN_TYPE
-SparseMatrixBase<Derived>::cwiseProduct(const MatrixBase<OtherDerived>&other) const
+SparseMatrixBase<Derived>::cwiseProduct(const MatrixBase<OtherDerived> &other) const
 {
     return EIGEN_SPARSE_CWISE_PRODUCT_RETURN_TYPE(derived(), other.derived());
 }

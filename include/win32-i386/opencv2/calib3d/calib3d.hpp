@@ -382,8 +382,8 @@ CvLevMarq(int nparams, int nerrs, CvTermCriteria criteria =
 void init(int nparams, int nerrs, CvTermCriteria criteria =
               cvTermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, DBL_EPSILON),
           bool completeSymmFlag = false);
-bool update(const CvMat*&param, CvMat*&J, CvMat*&err);
-bool updateAlt(const CvMat*&param, CvMat*&JtJ, CvMat*&JtErr, double*&errNorm);
+bool update(const CvMat* &param, CvMat* &J, CvMat* &err);
+bool updateAlt(const CvMat* &param, CvMat* &JtJ, CvMat* &JtErr, double* &errNorm);
 
 void clear();
 void step();
@@ -516,7 +516,7 @@ enum { CALIB_CB_SYMMETRIC_GRID = 1, CALIB_CB_ASYMMETRIC_GRID = 2,
 // ! finds circles' grid pattern of the specified size in the image
 CV_EXPORTS_W bool findCirclesGrid(InputArray image, Size patternSize,
                                   OutputArray centers, int flags = CALIB_CB_SYMMETRIC_GRID,
-                                  const Ptr<FeatureDetector>&blobDetector = new SimpleBlobDetector());
+                                  const Ptr<FeatureDetector> &blobDetector = new SimpleBlobDetector());
 
 // ! the deprecated function. Use findCirclesGrid() instead of it.
 CV_EXPORTS_W bool findCirclesGridDefault(InputArray image, Size patternSize,
@@ -557,11 +557,11 @@ CV_EXPORTS_W void calibrationMatrixValues(InputArray cameraMatrix,
                                           Size imageSize,
                                           double apertureWidth,
                                           double apertureHeight,
-                                          CV_OUT double&fovx,
-                                          CV_OUT double&fovy,
-                                          CV_OUT double&focalLength,
-                                          CV_OUT Point2d&principalPoint,
-                                          CV_OUT double&aspectRatio);
+                                          CV_OUT double &fovx,
+                                          CV_OUT double &fovy,
+                                          CV_OUT double &focalLength,
+                                          CV_OUT Point2d &principalPoint,
+                                          CV_OUT double &aspectRatio);
 
 // ! finds intrinsic and extrinsic parameters of a stereo camera
 CV_EXPORTS_W double stereoCalibrate(InputArrayOfArrays objectPoints,
@@ -761,7 +761,7 @@ enum
 };
 
 // ! projects 3D points using fisheye model
-CV_EXPORTS void projectPoints(InputArray objectPoints, OutputArray imagePoints, const Affine3d&affine,
+CV_EXPORTS void projectPoints(InputArray objectPoints, OutputArray imagePoints, const Affine3d &affine,
                               InputArray K, InputArray D, double alpha = 0, OutputArray jacobian = noArray());
 
 // ! projects points using fisheye model
@@ -778,24 +778,24 @@ CV_EXPORTS void undistortPoints(InputArray distorted, OutputArray undistorted,
 // ! computing undistortion and rectification maps for image transform by cv::remap()
 // ! If D is empty zero distortion is used, if R or P is empty identity matrixes are used
 CV_EXPORTS void initUndistortRectifyMap(InputArray K, InputArray D, InputArray R, InputArray P,
-                                        const cv::Size&size, int m1type, OutputArray map1, OutputArray map2);
+                                        const cv::Size &size, int m1type, OutputArray map1, OutputArray map2);
 
 // ! undistorts image, optionally changes resolution and camera matrix. If Knew zero identity matrix is used
 CV_EXPORTS void undistortImage(InputArray distorted, OutputArray undistorted,
-                               InputArray K, InputArray D, InputArray Knew = cv::noArray(), const Size&new_size = Size());
+                               InputArray K, InputArray D, InputArray Knew = cv::noArray(), const Size &new_size = Size());
 
 // ! estimates new camera matrix for undistortion or rectification
-CV_EXPORTS void estimateNewCameraMatrixForUndistortRectify(InputArray K, InputArray D, const Size&image_size, InputArray R,
-                                                           OutputArray P, double balance = 0.0, const Size&new_size = Size(), double fov_scale = 1.0);
+CV_EXPORTS void estimateNewCameraMatrixForUndistortRectify(InputArray K, InputArray D, const Size &image_size, InputArray R,
+                                                           OutputArray P, double balance = 0.0, const Size &new_size = Size(), double fov_scale = 1.0);
 
 // ! performs camera calibaration
-CV_EXPORTS double calibrate(InputArrayOfArrays objectPoints, InputArrayOfArrays imagePoints, const Size&image_size,
+CV_EXPORTS double calibrate(InputArrayOfArrays objectPoints, InputArrayOfArrays imagePoints, const Size &image_size,
                             InputOutputArray K, InputOutputArray D, OutputArrayOfArrays rvecs, OutputArrayOfArrays tvecs, int flags = 0,
                             TermCriteria criteria = TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON));
 
 // ! stereo rectification estimation
-CV_EXPORTS void stereoRectify(InputArray K1, InputArray D1, InputArray K2, InputArray D2, const Size&imageSize, InputArray R, InputArray tvec,
-                              OutputArray R1, OutputArray R2, OutputArray P1, OutputArray P2, OutputArray Q, int flags, const Size&newImageSize = Size(),
+CV_EXPORTS void stereoRectify(InputArray K1, InputArray D1, InputArray K2, InputArray D2, const Size &imageSize, InputArray R, InputArray tvec,
+                              OutputArray R1, OutputArray R2, OutputArray P1, OutputArray P2, OutputArray Q, int flags, const Size &newImageSize = Size(),
                               double balance = 0.0, double fov_scale = 1.0);
 
 // ! performs stereo calibaration

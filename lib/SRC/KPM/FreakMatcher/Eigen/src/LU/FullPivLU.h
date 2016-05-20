@@ -97,7 +97,7 @@ FullPivLU(Index rows, Index cols);
  * \param matrix the matrix of which to compute the LU decomposition.
  *               It is required to be nonzero.
  */
-FullPivLU(const MatrixType&matrix);
+FullPivLU(const MatrixType &matrix);
 
 /** Computes the LU decomposition of the given matrix.
  *
@@ -106,7 +106,7 @@ FullPivLU(const MatrixType&matrix);
  *
  * \returns a reference to *this
  */
-FullPivLU&compute(const MatrixType&matrix);
+FullPivLU&compute(const MatrixType &matrix);
 
 /** \returns the LU decomposition matrix: the upper-triangular part is U, the
  * unit-lower-triangular part is L (at least for square matrices; in the non-square
@@ -201,7 +201,7 @@ inline const internal::kernel_retval<FullPivLU> kernel() const
  * \sa kernel()
  */
 inline const internal::image_retval<FullPivLU>
-image(const MatrixType&originalMatrix) const
+image(const MatrixType &originalMatrix) const
 {
     eigen_assert(m_isInitialized && "LU is not initialized.");
     return internal::image_retval<FullPivLU>(*this, originalMatrix);
@@ -228,7 +228,7 @@ image(const MatrixType&originalMatrix) const
  */
 template<typename Rhs>
 inline const internal::solve_retval<FullPivLU, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "LU is not initialized.");
     return internal::solve_retval<FullPivLU, Rhs>(*this, b.derived());
@@ -268,7 +268,7 @@ typename internal::traits<MatrixType>::Scalar determinant() const;
  *
  * If you want to come back to the default behavior, call setThreshold(Default_t)
  */
-FullPivLU&setThreshold(const RealScalar&threshold)
+FullPivLU&setThreshold(const RealScalar &threshold)
 {
     m_usePrescribedThreshold = true;
     m_prescribedThreshold    = threshold;
@@ -423,7 +423,7 @@ FullPivLU<MatrixType>::FullPivLU(Index rows, Index cols)
 {}
 
 template<typename MatrixType>
-FullPivLU<MatrixType>::FullPivLU(const MatrixType&matrix)
+FullPivLU<MatrixType>::FullPivLU(const MatrixType &matrix)
     : m_lu(matrix.rows(), matrix.cols()),
     m_p(matrix.rows()),
     m_q(matrix.cols()),
@@ -436,7 +436,7 @@ FullPivLU<MatrixType>::FullPivLU(const MatrixType&matrix)
 }
 
 template<typename MatrixType>
-FullPivLU<MatrixType>&FullPivLU<MatrixType>::compute(const MatrixType&matrix)
+FullPivLU<MatrixType>&FullPivLU<MatrixType>::compute(const MatrixType &matrix)
 {
     m_isInitialized = true;
     m_lu            = matrix;
@@ -576,7 +576,7 @@ struct kernel_retval<FullPivLU<_MatrixType> >
                MatrixType::MaxColsAtCompileTime,
                MatrixType::MaxRowsAtCompileTime)};
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         const Index cols = dec().matrixLU().cols(), dimker = cols - rank();
 
@@ -673,7 +673,7 @@ struct image_retval<FullPivLU<_MatrixType> >
                MatrixType::MaxColsAtCompileTime,
                MatrixType::MaxRowsAtCompileTime)};
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         if (rank() == 0)
         {
@@ -707,7 +707,7 @@ struct solve_retval<FullPivLU<_MatrixType>, Rhs>
 {
     EIGEN_MAKE_SOLVE_HELPERS(FullPivLU<_MatrixType>, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         /* The decomposition PAQ = LU can be rewritten as A = P^{-1} L U Q^{-1}.
          * So we proceed as follows:

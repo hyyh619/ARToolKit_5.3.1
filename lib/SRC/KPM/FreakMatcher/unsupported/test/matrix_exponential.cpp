@@ -36,7 +36,7 @@ double binom(int n, int k)
 }
 
 template<typename Derived, typename OtherDerived>
-double relerr(const MatrixBase<Derived>&A, const MatrixBase<OtherDerived>&B)
+double relerr(const MatrixBase<Derived> &A, const MatrixBase<OtherDerived> &B)
 {
     return std::sqrt((A - B).cwiseAbs2().sum() / (std::min)(A.cwiseAbs2().sum(), B.cwiseAbs2().sum()));
 }
@@ -123,7 +123,7 @@ void testPascal(double tol)
 }
 
 template<typename MatrixType>
-void randomTest(const MatrixType&m, double tol)
+void randomTest(const MatrixType &m, double tol)
 {
     /* this test covers the following files:
        Inverse.h

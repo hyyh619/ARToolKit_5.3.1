@@ -61,7 +61,7 @@ enum MotionModel
 };
 
 CV_EXPORTS Mat estimateGlobalMotionLeastSquares(
-    const std::vector<Point2f>&points0, const std::vector<Point2f>&points1,
+    const std::vector<Point2f> &points0, const std::vector<Point2f> &points1,
     int model = AFFINE, float *rmse = 0);
 
 struct CV_EXPORTS RansacParams
@@ -93,15 +93,15 @@ struct CV_EXPORTS RansacParams
 };
 
 CV_EXPORTS Mat estimateGlobalMotionRobust(
-    const std::vector<Point2f>&points0, const std::vector<Point2f>&points1,
-    int model = AFFINE, const RansacParams&params = RansacParams::affine2dMotionStd(),
+    const std::vector<Point2f> &points0, const std::vector<Point2f> &points1,
+    int model = AFFINE, const RansacParams &params = RansacParams::affine2dMotionStd(),
     float *rmse = 0, int *ninliers = 0);
 
 class CV_EXPORTS IGlobalMotionEstimator
 {
 public:
 virtual ~IGlobalMotionEstimator() {}
-virtual Mat estimate(const Mat&frame0, const Mat&frame1) = 0;
+virtual Mat estimate(const Mat &frame0, const Mat &frame1) = 0;
 };
 
 class CV_EXPORTS PyrLkRobustMotionEstimator : public IGlobalMotionEstimator
@@ -136,7 +136,7 @@ MotionModel motionModel() const
     return motionModel_;
 }
 
-void setRansacParams(const RansacParams&val)
+void setRansacParams(const RansacParams &val)
 {
     ransacParams_ = val;
 }
@@ -163,7 +163,7 @@ float minInlierRatio() const
     return minInlierRatio_;
 }
 
-virtual Mat estimate(const Mat&frame0, const Mat&frame1);
+virtual Mat estimate(const Mat &frame0, const Mat &frame1);
 
 private:
 Ptr<FeatureDetector>         detector_;
@@ -180,7 +180,7 @@ float                        minInlierRatio_;
 
 CV_EXPORTS Mat getMotion(int from, int to, const Mat *motions, int size);
 
-CV_EXPORTS Mat getMotion(int from, int to, const std::vector<Mat>&motions);
+CV_EXPORTS Mat getMotion(int from, int to, const std::vector<Mat> &motions);
 }   // namespace videostab
 } // namespace cv
 #endif

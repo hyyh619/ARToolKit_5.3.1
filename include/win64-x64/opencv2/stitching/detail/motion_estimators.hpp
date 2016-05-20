@@ -57,15 +57,15 @@ class CV_EXPORTS Estimator
 public:
 virtual ~Estimator() {}
 
-void operator ()(const std::vector<ImageFeatures>&features, const std::vector<MatchesInfo>&pairwise_matches,
-                 std::vector<CameraParams>&cameras)
+void operator ()(const std::vector<ImageFeatures> &features, const std::vector<MatchesInfo> &pairwise_matches,
+                 std::vector<CameraParams> &cameras)
 {
     estimate(features, pairwise_matches, cameras);
 }
 
 protected:
-virtual void estimate(const std::vector<ImageFeatures>&features, const std::vector<MatchesInfo>&pairwise_matches,
-                      std::vector<CameraParams>&cameras) = 0;
+virtual void estimate(const std::vector<ImageFeatures> &features, const std::vector<MatchesInfo> &pairwise_matches,
+                      std::vector<CameraParams> &cameras) = 0;
 };
 
 
@@ -76,8 +76,8 @@ HomographyBasedEstimator(bool is_focals_estimated = false)
     : is_focals_estimated_(is_focals_estimated) {}
 
 private:
-void estimate(const std::vector<ImageFeatures>&features, const std::vector<MatchesInfo>&pairwise_matches,
-              std::vector<CameraParams>&cameras);
+void estimate(const std::vector<ImageFeatures> &features, const std::vector<MatchesInfo> &pairwise_matches,
+              std::vector<CameraParams> &cameras);
 
 bool is_focals_estimated_;
 };
@@ -90,7 +90,7 @@ const Mat refinementMask() const
 {
     return refinement_mask_.clone();
 }
-void setRefinementMask(const Mat&mask)
+void setRefinementMask(const Mat &mask)
 {
     CV_Assert(mask.type() == CV_8U && mask.size() == Size(3, 3));
     refinement_mask_ = mask.clone();
@@ -109,7 +109,7 @@ CvTermCriteria termCriteria()
 {
     return term_criteria_;
 }
-void setTermCriteria(const CvTermCriteria&term_criteria)
+void setTermCriteria(const CvTermCriteria &term_criteria)
 {
     term_criteria_ = term_criteria;
 }
@@ -125,14 +125,14 @@ BundleAdjusterBase(int num_params_per_cam, int num_errs_per_measurement)
 }
 
 // Runs bundle adjustment
-virtual void estimate(const std::vector<ImageFeatures>&features,
-                      const std::vector<MatchesInfo>&pairwise_matches,
-                      std::vector<CameraParams>&cameras);
+virtual void estimate(const std::vector<ImageFeatures> &features,
+                      const std::vector<MatchesInfo> &pairwise_matches,
+                      std::vector<CameraParams> &cameras);
 
-virtual void setUpInitialCameraParams(const std::vector<CameraParams>&cameras)  = 0;
-virtual void obtainRefinedCameraParams(std::vector<CameraParams>&cameras) const = 0;
-virtual void calcError(Mat&err)                                                 = 0;
-virtual void calcJacobian(Mat&jac)                                              = 0;
+virtual void setUpInitialCameraParams(const std::vector<CameraParams> &cameras)  = 0;
+virtual void obtainRefinedCameraParams(std::vector<CameraParams> &cameras) const = 0;
+virtual void calcError(Mat &err)                                                 = 0;
+virtual void calcJacobian(Mat &jac)                                              = 0;
 
 // 3x3 8U mask, where 0 means don't refine respective parameter, != 0 means refine
 Mat refinement_mask_;
@@ -169,10 +169,10 @@ public:
 BundleAdjusterReproj() : BundleAdjusterBase(7, 2) {}
 
 private:
-void setUpInitialCameraParams(const std::vector<CameraParams>&cameras);
-void obtainRefinedCameraParams(std::vector<CameraParams>&cameras) const;
-void calcError(Mat&err);
-void calcJacobian(Mat&jac);
+void setUpInitialCameraParams(const std::vector<CameraParams> &cameras);
+void obtainRefinedCameraParams(std::vector<CameraParams> &cameras) const;
+void calcError(Mat &err);
+void calcJacobian(Mat &jac);
 
 Mat err1_, err2_;
 };
@@ -186,10 +186,10 @@ public:
 BundleAdjusterRay() : BundleAdjusterBase(4, 3) {}
 
 private:
-void setUpInitialCameraParams(const std::vector<CameraParams>&cameras);
-void obtainRefinedCameraParams(std::vector<CameraParams>&cameras) const;
-void calcError(Mat&err);
-void calcJacobian(Mat&jac);
+void setUpInitialCameraParams(const std::vector<CameraParams> &cameras);
+void obtainRefinedCameraParams(std::vector<CameraParams> &cameras) const;
+void calcError(Mat &err);
+void calcJacobian(Mat &jac);
 
 Mat err1_, err2_;
 };
@@ -201,21 +201,21 @@ enum WaveCorrectKind
     WAVE_CORRECT_VERT
 };
 
-void CV_EXPORTS waveCorrect(std::vector<Mat>&rmats, WaveCorrectKind kind);
+void CV_EXPORTS waveCorrect(std::vector<Mat> &rmats, WaveCorrectKind kind);
 
 
 //////////////////////////////////////////////////////////////////////////////
 // Auxiliary functions
 
 // Returns matches graph representation in DOT language
-std::string CV_EXPORTS matchesGraphAsString(std::vector<std::string>&pathes, std::vector<MatchesInfo>&pairwise_matches,
+std::string CV_EXPORTS matchesGraphAsString(std::vector<std::string> &pathes, std::vector<MatchesInfo> &pairwise_matches,
                                             float conf_threshold);
 
-std::vector<int> CV_EXPORTS leaveBiggestComponent(std::vector<ImageFeatures>&features, std::vector<MatchesInfo>&pairwise_matches,
+std::vector<int> CV_EXPORTS leaveBiggestComponent(std::vector<ImageFeatures> &features, std::vector<MatchesInfo> &pairwise_matches,
                                                   float conf_threshold);
 
-void CV_EXPORTS findMaxSpanningTree(int num_images, const std::vector<MatchesInfo>&pairwise_matches,
-                                    Graph&span_tree, std::vector<int>&centers);
+void CV_EXPORTS findMaxSpanningTree(int num_images, const std::vector<MatchesInfo> &pairwise_matches,
+                                    Graph &span_tree, std::vector<int> &centers);
 }   // namespace detail
 } // namespace cv
 #endif // __OPENCV_STITCHING_MOTION_ESTIMATORS_HPP__

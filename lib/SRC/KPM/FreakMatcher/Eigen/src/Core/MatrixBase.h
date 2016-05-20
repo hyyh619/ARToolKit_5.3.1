@@ -161,58 +161,58 @@ typedef Block<const CwiseNullaryOp<internal::scalar_identity_op<Scalar>, SquareM
 /** Special case of the template operator=, in order to prevent the compiler
  * from generating a default operator= (issue hit with g++ 4.1)
  */
-Derived&operator=(const MatrixBase&other);
+Derived&operator=(const MatrixBase &other);
 
 // We cannot inherit here via Base::operator= since it is causing
 // trouble with MSVC.
 
 template<typename OtherDerived>
-Derived&operator=(const DenseBase<OtherDerived>&other);
+Derived&operator=(const DenseBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator=(const EigenBase<OtherDerived>&other);
+Derived&operator=(const EigenBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-Derived&operator=(const ReturnByValue<OtherDerived>&other);
+Derived&operator=(const ReturnByValue<OtherDerived> &other);
 
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename ProductDerived, typename Lhs, typename Rhs>
-Derived&lazyAssign(const ProductBase<ProductDerived, Lhs, Rhs>&other);
+Derived&lazyAssign(const ProductBase<ProductDerived, Lhs, Rhs> &other);
 #endif // not EIGEN_PARSED_BY_DOXYGEN
 
 template<typename OtherDerived>
-Derived&operator+=(const MatrixBase<OtherDerived>&other);
+Derived&operator+=(const MatrixBase<OtherDerived> &other);
 template<typename OtherDerived>
-Derived&operator-=(const MatrixBase<OtherDerived>&other);
+Derived&operator-=(const MatrixBase<OtherDerived> &other);
 
 template<typename OtherDerived>
 const typename ProductReturnType<Derived, OtherDerived>::Type
-operator*(const MatrixBase<OtherDerived>&other) const;
+operator*(const MatrixBase<OtherDerived> &other) const;
 
 template<typename OtherDerived>
 const typename LazyProductReturnType<Derived, OtherDerived>::Type
-lazyProduct(const MatrixBase<OtherDerived>&other) const;
+lazyProduct(const MatrixBase<OtherDerived> &other) const;
 
 template<typename OtherDerived>
-Derived&operator*=(const EigenBase<OtherDerived>&other);
+Derived&operator*=(const EigenBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-void applyOnTheLeft(const EigenBase<OtherDerived>&other);
+void applyOnTheLeft(const EigenBase<OtherDerived> &other);
 
 template<typename OtherDerived>
-void applyOnTheRight(const EigenBase<OtherDerived>&other);
+void applyOnTheRight(const EigenBase<OtherDerived> &other);
 
 template<typename DiagonalDerived>
 const DiagonalProduct<Derived, DiagonalDerived, OnTheRight>
-operator*(const DiagonalBase<DiagonalDerived>&diagonal) const;
+operator*(const DiagonalBase<DiagonalDerived> &diagonal) const;
 
 template<typename OtherDerived>
 typename internal::scalar_product_traits<typename internal::traits<Derived>::Scalar, typename internal::traits<OtherDerived>::Scalar>::ReturnType
-dot(const MatrixBase<OtherDerived>&other) const;
+dot(const MatrixBase<OtherDerived> &other) const;
 
     #ifdef EIGEN2_SUPPORT
 template<typename OtherDerived>
-Scalar eigen2_dot(const MatrixBase<OtherDerived>&other) const;
+Scalar eigen2_dot(const MatrixBase<OtherDerived> &other) const;
     #endif
 
 RealScalar squaredNorm() const;
@@ -273,7 +273,7 @@ template<unsigned int UpLo> struct ConstSelfAdjointViewReturnType { typedef cons
 template<unsigned int UpLo> typename SelfAdjointViewReturnType<UpLo>::Type selfadjointView();
 template<unsigned int UpLo> typename ConstSelfAdjointViewReturnType<UpLo>::Type selfadjointView() const;
 
-const SparseView<Derived> sparseView(const Scalar&m_reference = Scalar(0),
+const SparseView<Derived> sparseView(const Scalar &m_reference = Scalar(0),
                                      typename NumTraits<Scalar>::Real m_epsilon = NumTraits<Scalar>::dummy_precision()) const;
 static const IdentityReturnType Identity();
 static const IdentityReturnType Identity(Index rows, Index cols);
@@ -297,7 +297,7 @@ bool isUpperTriangular(RealScalar prec = NumTraits<Scalar>::dummy_precision()) c
 bool isLowerTriangular(RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 
 template<typename OtherDerived>
-bool isOrthogonal(const MatrixBase<OtherDerived>&other,
+bool isOrthogonal(const MatrixBase<OtherDerived> &other,
                   RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 bool isUnitary(RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
 
@@ -306,7 +306,7 @@ bool isUnitary(RealScalar prec = NumTraits<Scalar>::dummy_precision()) const;
  *          fuzzy comparison such as isApprox()
  * \sa isApprox(), operator!= */
 template<typename OtherDerived>
-inline bool operator==(const MatrixBase<OtherDerived>&other) const
+inline bool operator==(const MatrixBase<OtherDerived> &other) const
 {
     return cwiseEqual(other).all();
 }
@@ -316,7 +316,7 @@ inline bool operator==(const MatrixBase<OtherDerived>&other) const
  *          fuzzy comparison such as isApprox()
  * \sa isApprox(), operator== */
 template<typename OtherDerived>
-inline bool operator!=(const MatrixBase<OtherDerived>&other) const
+inline bool operator!=(const MatrixBase<OtherDerived> &other) const
 {
     return cwiseNotEqual(other).any();
 }
@@ -382,16 +382,16 @@ void computeInverse(MatrixBase<ResultType> *result) const
 const internal::inverse_impl<Derived> inverse() const;
 template<typename ResultType>
 void computeInverseAndDetWithCheck(
-    ResultType&inverse,
-    typename ResultType::Scalar&determinant,
-    bool&invertible,
-    const RealScalar&absDeterminantThreshold = NumTraits<Scalar>::dummy_precision()
+    ResultType &inverse,
+    typename ResultType::Scalar &determinant,
+    bool &invertible,
+    const RealScalar &absDeterminantThreshold = NumTraits<Scalar>::dummy_precision()
     ) const;
 template<typename ResultType>
 void computeInverseWithCheck(
-    ResultType&inverse,
-    bool&invertible,
-    const RealScalar&absDeterminantThreshold = NumTraits<Scalar>::dummy_precision()
+    ResultType &inverse,
+    bool &invertible,
+    const RealScalar &absDeterminantThreshold = NumTraits<Scalar>::dummy_precision()
     ) const;
 Scalar determinant() const;
 
@@ -433,14 +433,14 @@ template<typename OtherDerived> struct cross_product_return_type
     #endif // EIGEN_PARSED_BY_DOXYGEN
 template<typename OtherDerived>
 typename cross_product_return_type<OtherDerived>::type
-cross(const MatrixBase<OtherDerived>&other) const;
+cross(const MatrixBase<OtherDerived> &other) const;
 template<typename OtherDerived>
-PlainObject cross3(const MatrixBase<OtherDerived>&other) const;
+PlainObject cross3(const MatrixBase<OtherDerived> &other) const;
 PlainObject unitOrthogonal(void) const;
 Matrix<Scalar, 3, 1> eulerAngles(Index a0, Index a1, Index a2) const;
 
     #if EIGEN2_SUPPORT_STAGE > STAGE20_RESOLVE_API_CONFLICTS
-ScalarMultipleReturnType operator*(const UniformScaling<Scalar>&s) const;
+ScalarMultipleReturnType operator*(const UniformScaling<Scalar> &s) const;
 // put this as separate enum value to work around possible GCC 4.3 bug (?)
 enum { HomogeneousReturnTypeDirection = ColsAtCompileTime == 1 ? Vertical : Horizontal };
 typedef Homogeneous<Derived, HomogeneousReturnTypeDirection> HomogeneousReturnType;
@@ -461,25 +461,25 @@ const HNormalizedReturnType hnormalized() const;
 
 ////////// Householder module ///////////
 
-void makeHouseholderInPlace(Scalar&tau, RealScalar&beta);
+void makeHouseholderInPlace(Scalar &tau, RealScalar &beta);
 template<typename EssentialPart>
-void makeHouseholder(EssentialPart&essential,
-                     Scalar&tau, RealScalar&beta) const;
+void makeHouseholder(EssentialPart &essential,
+                     Scalar &tau, RealScalar &beta) const;
 template<typename EssentialPart>
-void applyHouseholderOnTheLeft(const EssentialPart&essential,
-                               const Scalar&tau,
+void applyHouseholderOnTheLeft(const EssentialPart &essential,
+                               const Scalar &tau,
                                Scalar *workspace);
 template<typename EssentialPart>
-void applyHouseholderOnTheRight(const EssentialPart&essential,
-                                const Scalar&tau,
+void applyHouseholderOnTheRight(const EssentialPart &essential,
+                                const Scalar &tau,
                                 Scalar *workspace);
 
 ///////// Jacobi module /////////
 
 template<typename OtherScalar>
-void applyOnTheLeft(Index p, Index q, const JacobiRotation<OtherScalar>&j);
+void applyOnTheLeft(Index p, Index q, const JacobiRotation<OtherScalar> &j);
 template<typename OtherScalar>
-void applyOnTheRight(Index p, Index q, const JacobiRotation<OtherScalar>&j);
+void applyOnTheRight(Index p, Index q, const JacobiRotation<OtherScalar> &j);
 
 ///////// MatrixFunctions module /////////
 
@@ -494,16 +494,16 @@ const MatrixFunctionReturnValue<Derived> sin() const;
 #ifdef EIGEN2_SUPPORT
 template<typename ProductDerived, typename Lhs, typename Rhs>
 Derived&operator+=(const Flagged<ProductBase<ProductDerived, Lhs, Rhs>, 0,
-                                 EvalBeforeAssigningBit>&other);
+                                 EvalBeforeAssigningBit> &other);
 
 template<typename ProductDerived, typename Lhs, typename Rhs>
 Derived&operator-=(const Flagged<ProductBase<ProductDerived, Lhs, Rhs>, 0,
-                                 EvalBeforeAssigningBit>&other);
+                                 EvalBeforeAssigningBit> &other);
 
 /** \deprecated because .lazy() is deprecated
  * Overloaded for cache friendly product evaluation */
 template<typename OtherDerived>
-Derived&lazyAssign(const Flagged<OtherDerived, 0, EvalBeforeAssigningBit>&other)
+Derived&lazyAssign(const Flagged<OtherDerived, 0, EvalBeforeAssigningBit> &other)
 {
     return lazyAssign(other._expression());
 }

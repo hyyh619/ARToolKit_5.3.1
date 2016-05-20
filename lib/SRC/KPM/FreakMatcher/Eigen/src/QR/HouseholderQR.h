@@ -93,7 +93,7 @@ HouseholderQR(Index rows, Index cols)
     m_temp(cols),
     m_isInitialized(false) {}
 
-HouseholderQR(const MatrixType&matrix)
+HouseholderQR(const MatrixType &matrix)
     : m_qr(matrix.rows(), matrix.cols()),
     m_hCoeffs((std::min)(matrix.rows(), matrix.cols())),
     m_temp(matrix.cols()),
@@ -121,7 +121,7 @@ HouseholderQR(const MatrixType&matrix)
  */
 template<typename Rhs>
 inline const internal::solve_retval<HouseholderQR, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "HouseholderQR is not initialized.");
     return internal::solve_retval<HouseholderQR, Rhs>(*this, b.derived());
@@ -142,7 +142,7 @@ const MatrixType&matrixQR() const
     return m_qr;
 }
 
-HouseholderQR&compute(const MatrixType&matrix);
+HouseholderQR&compute(const MatrixType &matrix);
 
 /** \returns the absolute value of the determinant of the matrix of which
  * *this is the QR decomposition. It has only linear complexity
@@ -213,7 +213,7 @@ namespace internal
 {
 /** \internal */
 template<typename MatrixQR, typename HCoeffs>
-void householder_qr_inplace_unblocked(MatrixQR&mat, HCoeffs&hCoeffs, typename MatrixQR::Scalar *tempData = 0)
+void householder_qr_inplace_unblocked(MatrixQR &mat, HCoeffs &hCoeffs, typename MatrixQR::Scalar *tempData = 0)
 {
     typedef typename MatrixQR::Index Index;
     typedef typename MatrixQR::Scalar Scalar;
@@ -249,7 +249,7 @@ void householder_qr_inplace_unblocked(MatrixQR&mat, HCoeffs&hCoeffs, typename Ma
 
 /** \internal */
 template<typename MatrixQR, typename HCoeffs>
-void householder_qr_inplace_blocked(MatrixQR&mat, HCoeffs&hCoeffs,
+void householder_qr_inplace_blocked(MatrixQR &mat, HCoeffs &hCoeffs,
                                     typename MatrixQR::Index maxBlockSize = 32,
                                     typename MatrixQR::Scalar *tempData = 0)
 {
@@ -307,7 +307,7 @@ struct solve_retval<HouseholderQR<_MatrixType>, Rhs>
 {
     EIGEN_MAKE_SOLVE_HELPERS(HouseholderQR<_MatrixType>, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         const Index rows = dec().rows(), cols = dec().cols();
         const Index rank = (std::min)(rows, cols);
@@ -334,7 +334,7 @@ struct solve_retval<HouseholderQR<_MatrixType>, Rhs>
 } // end namespace internal
 
 template<typename MatrixType>
-HouseholderQR<MatrixType>&HouseholderQR<MatrixType>::compute(const MatrixType&matrix)
+HouseholderQR<MatrixType>&HouseholderQR<MatrixType>::compute(const MatrixType &matrix)
 {
     Index rows = matrix.rows();
     Index cols = matrix.cols();

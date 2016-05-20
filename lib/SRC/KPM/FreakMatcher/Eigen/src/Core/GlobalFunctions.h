@@ -66,7 +66,7 @@ EIGEN_ARRAY_DECLARE_GLOBAL_STD_UNARY(sqrt, scalar_sqrt_op)
 
 template<typename Derived>
 inline const Eigen::CwiseUnaryOp<Eigen::internal::scalar_pow_op<typename Derived::Scalar>, const Derived>
-pow(const Eigen::ArrayBase<Derived>&x, const typename Derived::Scalar&exponent)
+pow(const Eigen::ArrayBase<Derived> &x, const typename Derived::Scalar &exponent)
 {                                     \
     return x.derived().pow(exponent); \
 }

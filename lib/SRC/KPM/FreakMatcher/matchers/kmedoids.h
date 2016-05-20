@@ -51,8 +51,8 @@ class BinarykMedoids
 {
 public:
 
-BinarykMedoids(int&rand_seed);
-BinarykMedoids(int&rand_seed, int k, int num_hypotheses);
+BinarykMedoids(int &rand_seed);
+BinarykMedoids(int &rand_seed, int k, int num_hypotheses);
 ~BinarykMedoids() {}
 
 /**
@@ -109,7 +109,7 @@ inline const std::vector<int>&centers() const
 private:
 
 // Seed for random numbers
-int&mRandSeed;
+int &mRandSeed;
 
 // Number of cluster centers
 int mK;
@@ -130,7 +130,7 @@ std::vector<int> mRandIndices;
 /**
  * Assign features to the centers.
  */
-unsigned int assign(std::vector<int>&assignment,
+unsigned int assign(std::vector<int> &assignment,
                     const unsigned char *features,
                     int num_features,
                     const int *indices,
@@ -140,13 +140,13 @@ unsigned int assign(std::vector<int>&assignment,
 };     // BinarykMedoids
 
 template<int NUM_BYTES_PER_FEATURE>
-BinarykMedoids<NUM_BYTES_PER_FEATURE>::BinarykMedoids(int&rand_seed)
+BinarykMedoids<NUM_BYTES_PER_FEATURE>::BinarykMedoids(int &rand_seed)
     : mRandSeed(rand_seed)
     , mK(0)
     , mNumHypotheses(0) { }
 
 template<int NUM_BYTES_PER_FEATURE>
-BinarykMedoids<NUM_BYTES_PER_FEATURE>::BinarykMedoids(int&rand_seed, int k, int num_hypotheses)
+BinarykMedoids<NUM_BYTES_PER_FEATURE>::BinarykMedoids(int &rand_seed, int k, int num_hypotheses)
     : mRandSeed(rand_seed)
     , mNumHypotheses(num_hypotheses)
 {
@@ -213,7 +213,7 @@ void BinarykMedoids<NUM_BYTES_PER_FEATURE>::assign(const unsigned char *features
 }
 
 template<int NUM_BYTES_PER_FEATURE>
-unsigned int BinarykMedoids<NUM_BYTES_PER_FEATURE>::assign(std::vector<int>&assignment,
+unsigned int BinarykMedoids<NUM_BYTES_PER_FEATURE>::assign(std::vector<int> &assignment,
                                                            const unsigned char *features,
                                                            int num_features,
                                                            const int *indices,

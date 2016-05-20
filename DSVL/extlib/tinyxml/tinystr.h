@@ -60,7 +60,7 @@ TiXmlString ()
 }
 
 // TiXmlString copy constructor
-explicit TiXmlString (const TiXmlString&copy);
+explicit TiXmlString (const TiXmlString &copy);
 
 // TiXmlString destructor
 ~TiXmlString ()
@@ -87,7 +87,7 @@ size_t length() const
 void operator =(const char *content);
 
 // = operator
-void operator =(const TiXmlString&copy);
+void operator =(const TiXmlString &copy);
 
 // += operator. Maps to append
 TiXmlString&operator +=(const char *suffix)
@@ -104,15 +104,15 @@ TiXmlString&operator +=(char single)
 }
 
 // += operator. Maps to append
-TiXmlString&operator +=(TiXmlString&suffix)
+TiXmlString&operator +=(TiXmlString &suffix)
 {
     append (suffix);
     return *this;
 }
-bool operator ==(const TiXmlString&compare) const;
+bool operator ==(const TiXmlString &compare) const;
 bool operator ==(const char *compare) const;
-bool operator <(const TiXmlString&compare) const;
-bool operator >(const TiXmlString&compare) const;
+bool operator <(const TiXmlString &compare) const;
+bool operator >(const TiXmlString &compare) const;
 
 // Checks if a TiXmlString is empty
 bool empty() const
@@ -194,7 +194,7 @@ void empty_it()
 void append(const char *suffix);
 
 // append function for another TiXmlString
-void append(const TiXmlString&suffix)
+void append(const TiXmlString &suffix)
 {
     append (suffix.c_str ());
 }
@@ -235,7 +235,7 @@ TiXmlOutStream&operator <<(const char *in)
 }
 
 // TiXmlOutStream << operator. Maps to TiXmlString::append
-TiXmlOutStream&operator <<(const TiXmlString&in)
+TiXmlOutStream&operator <<(const TiXmlString &in)
 {
     append (in.c_str ());
     return (*this);

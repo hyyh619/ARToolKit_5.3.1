@@ -62,15 +62,15 @@ virtual void reset()                      = 0;
 
 CV_EXPORTS Ptr<FrameSource> createFrameSource_Empty();
 
-CV_EXPORTS Ptr<FrameSource> createFrameSource_Video(const std::string&fileName);
-CV_EXPORTS Ptr<FrameSource> createFrameSource_Video_GPU(const std::string&fileName);
+CV_EXPORTS Ptr<FrameSource> createFrameSource_Video(const std::string &fileName);
+CV_EXPORTS Ptr<FrameSource> createFrameSource_Video_GPU(const std::string &fileName);
 
 CV_EXPORTS Ptr<FrameSource> createFrameSource_Camera(int deviceId = 0);
 
 class CV_EXPORTS SuperResolution : public cv::Algorithm, public FrameSource
 {
 public:
-void setInput(const Ptr<FrameSource>&frameSource);
+void setInput(const Ptr<FrameSource> &frameSource);
 
 void nextFrame(OutputArray frame);
 void reset();
@@ -80,8 +80,8 @@ virtual void collectGarbage();
 protected:
 SuperResolution();
 
-virtual void initImpl(Ptr<FrameSource>&frameSource)                        = 0;
-virtual void processImpl(Ptr<FrameSource>&frameSource, OutputArray output) = 0;
+virtual void initImpl(Ptr<FrameSource> &frameSource)                        = 0;
+virtual void processImpl(Ptr<FrameSource> &frameSource, OutputArray output) = 0;
 
 private:
 Ptr<FrameSource> frameSource_;

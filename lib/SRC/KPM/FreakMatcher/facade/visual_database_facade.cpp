@@ -76,9 +76,9 @@ void VisualDatabaseFacade::addImage(unsigned char *grayImage,
     mVisualDbImpl->mVdb->addImage(img, image_id);
 }
 
-void VisualDatabaseFacade::addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint>&featurePoints,
-                                                          const std::vector<unsigned char>&descriptors,
-                                                          const std::vector<vision::Point3d<float> >&points3D,
+void VisualDatabaseFacade::addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint> &featurePoints,
+                                                          const std::vector<unsigned char> &descriptors,
+                                                          const std::vector<vision::Point3d<float> > &points3D,
                                                           size_t width,
                                                           size_t height,
                                                           int image_id)
@@ -100,8 +100,8 @@ void VisualDatabaseFacade::addFreakFeaturesAndDescriptors(const std::vector<Feat
 void VisualDatabaseFacade::computeFreakFeaturesAndDescriptors(unsigned char *grayImage,
                                                               size_t width,
                                                               size_t height,
-                                                              std::vector<FeaturePoint>&featurePoints,
-                                                              std::vector<unsigned char>&descriptors)
+                                                              std::vector<FeaturePoint> &featurePoints,
+                                                              std::vector<unsigned char> &descriptors)
 {
     Image                  img = Image(grayImage, IMAGE_UINT8, width, height, (int)width, 1);
     std::unique_ptr<vdb_t> tmpDb(new vdb_t());

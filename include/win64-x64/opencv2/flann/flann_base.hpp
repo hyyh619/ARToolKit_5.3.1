@@ -71,7 +71,7 @@ struct SavedIndexParams : public IndexParams
 
 
 template<typename Distance>
-NNIndex<Distance>* load_saved_index(const Matrix<typename Distance::ElementType>&dataset, const std::string&filename, Distance distance)
+NNIndex<Distance>* load_saved_index(const Matrix<typename Distance::ElementType> &dataset, const std::string &filename, Distance distance)
 {
     typedef typename Distance::ElementType ElementType;
 
@@ -109,7 +109,7 @@ public:
 typedef typename Distance::ElementType ElementType;
 typedef typename Distance::ResultType DistanceType;
 
-Index(const Matrix<ElementType>&features, const IndexParams&params, Distance distance = Distance())
+Index(const Matrix<ElementType> &features, const IndexParams &params, Distance distance = Distance())
     : index_params_(params)
 {
     flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
@@ -224,7 +224,7 @@ IndexParams getParameters() const
  * \param[in] knn Number of nearest neighbors to return
  * \param[in] params Search parameters
  */
-void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, Matrix<DistanceType>&dists, int knn, const SearchParams&params)
+void knnSearch(const Matrix<ElementType> &queries, Matrix<int> &indices, Matrix<DistanceType> &dists, int knn, const SearchParams &params)
 {
     nnIndex_->knnSearch(queries, indices, dists, knn, params);
 }
@@ -238,7 +238,7 @@ void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, Matrix<Di
  * \param[in] params Search parameters
  * \returns Number of neighbors found
  */
-int radiusSearch(const Matrix<ElementType>&query, Matrix<int>&indices, Matrix<DistanceType>&dists, float radius, const SearchParams&params)
+int radiusSearch(const Matrix<ElementType> &query, Matrix<int> &indices, Matrix<DistanceType> &dists, float radius, const SearchParams &params)
 {
     return nnIndex_->radiusSearch(query, indices, dists, radius, params);
 }
@@ -246,7 +246,7 @@ int radiusSearch(const Matrix<ElementType>&query, Matrix<int>&indices, Matrix<Di
 /**
  * \brief Method that searches for nearest-neighbours
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     nnIndex_->findNeighbors(result, vec, searchParams);
 }
@@ -289,8 +289,8 @@ IndexParams index_params_;
  * of the form (branching-1)*K+1 smaller than clusters.rows).
  */
 template<typename Distance>
-int hierarchicalClustering(const Matrix<typename Distance::ElementType>&points, Matrix<typename Distance::ResultType>&centers,
-                           const KMeansIndexParams&params, Distance d = Distance())
+int hierarchicalClustering(const Matrix<typename Distance::ElementType> &points, Matrix<typename Distance::ResultType> &centers,
+                           const KMeansIndexParams &params, Distance d = Distance())
 {
     KMeansIndex<Distance> kmeans(points, params, d);
     kmeans.buildIndex();

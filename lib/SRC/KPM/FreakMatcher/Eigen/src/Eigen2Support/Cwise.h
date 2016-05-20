@@ -69,7 +69,7 @@ typedef typename internal::conditional<internal::must_nest_by_value<ExpressionTy
                                        ExpressionType, const ExpressionType&>::type ExpressionTypeNested;
 typedef CwiseUnaryOp<internal::scalar_add_op<Scalar>, ExpressionType> ScalarAddReturnType;
 
-inline Cwise(const ExpressionType&matrix) : m_matrix(matrix) {}
+inline Cwise(const ExpressionType &matrix) : m_matrix(matrix) {}
 
 /** \internal */
 inline const ExpressionType&_expression() const
@@ -110,27 +110,27 @@ const EIGEN_CWISE_UNOP_RETURN_TYPE(internal::scalar_sin_op)      sin() const;
 const EIGEN_CWISE_UNOP_RETURN_TYPE(internal::scalar_pow_op)      pow(const Scalar &exponent) const;
 
 const ScalarAddReturnType
-operator+(const Scalar&scalar) const;
+operator+(const Scalar &scalar) const;
 
 /** \relates Cwise */
 friend const ScalarAddReturnType
-operator+(const Scalar&scalar, const Cwise&mat)
+operator+(const Scalar &scalar, const Cwise &mat)
 {
     return mat + scalar;
 }
 
-ExpressionType&operator+=(const Scalar&scalar);
+ExpressionType&operator+=(const Scalar &scalar);
 
 const ScalarAddReturnType
-operator-(const Scalar&scalar) const;
+operator-(const Scalar &scalar) const;
 
-ExpressionType&operator-=(const Scalar&scalar);
-
-template<typename OtherDerived>
-inline ExpressionType&operator*=(const MatrixBase<OtherDerived>&other);
+ExpressionType&operator-=(const Scalar &scalar);
 
 template<typename OtherDerived>
-inline ExpressionType&operator/=(const MatrixBase<OtherDerived>&other);
+inline ExpressionType&operator*=(const MatrixBase<OtherDerived> &other);
+
+template<typename OtherDerived>
+inline ExpressionType&operator/=(const MatrixBase<OtherDerived> &other);
 
 template<typename OtherDerived> const EIGEN_CWISE_BINOP_RETURN_TYPE(std::less)
 operator<(const MatrixBase<OtherDerived>&other) const;

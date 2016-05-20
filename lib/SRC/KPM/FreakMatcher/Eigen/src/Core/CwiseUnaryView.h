@@ -78,7 +78,7 @@ public:
 typedef typename CwiseUnaryViewImpl<ViewOp, MatrixType, typename internal::traits<MatrixType>::StorageKind>::Base Base;
 EIGEN_GENERIC_PUBLIC_INTERFACE(CwiseUnaryView)
 
-inline CwiseUnaryView(const MatrixType&mat, const ViewOp&func = ViewOp())
+inline CwiseUnaryView(const MatrixType &mat, const ViewOp &func = ViewOp())
     : m_matrix(mat), m_functor(func) {}
 
 EIGEN_INHERIT_ASSIGNMENT_OPERATORS(CwiseUnaryView)

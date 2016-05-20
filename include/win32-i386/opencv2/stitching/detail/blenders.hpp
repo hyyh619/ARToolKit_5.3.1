@@ -58,10 +58,10 @@ virtual ~Blender() {}
 enum { NO, FEATHER, MULTI_BAND };
 static Ptr<Blender> createDefault(int type, bool try_gpu = false);
 
-void prepare(const std::vector<Point>&corners, const std::vector<Size>&sizes);
+void prepare(const std::vector<Point> &corners, const std::vector<Size> &sizes);
 virtual void prepare(Rect dst_roi);
-virtual void feed(const Mat&img, const Mat&mask, Point tl);
-virtual void blend(Mat&dst, Mat&dst_mask);
+virtual void feed(const Mat &img, const Mat &mask, Point tl);
+virtual void blend(Mat &dst, Mat &dst_mask);
 
 protected:
 Mat  dst_, dst_mask_;
@@ -84,13 +84,13 @@ void setSharpness(float val)
 }
 
 void prepare(Rect dst_roi);
-void feed(const Mat&img, const Mat&mask, Point tl);
-void blend(Mat&dst, Mat&dst_mask);
+void feed(const Mat &img, const Mat &mask, Point tl);
+void blend(Mat &dst, Mat &dst_mask);
 
 // Creates weight maps for fixed set of source images by their masks and top-left corners.
 // Final image can be obtained by simple weighting of the source images.
-Rect createWeightMaps(const std::vector<Mat>&masks, const std::vector<Point>&corners,
-                      std::vector<Mat>&weight_maps);
+Rect createWeightMaps(const std::vector<Mat> &masks, const std::vector<Point> &corners,
+                      std::vector<Mat> &weight_maps);
 
 private:
 float sharpness_;
@@ -119,8 +119,8 @@ void setNumBands(int val)
 }
 
 void prepare(Rect dst_roi);
-void feed(const Mat&img, const Mat&mask, Point tl);
-void blend(Mat&dst, Mat&dst_mask);
+void feed(const Mat &img, const Mat &mask, Point tl);
+void blend(Mat &dst, Mat &dst_mask);
 
 private:
 int              actual_num_bands_, num_bands_;
@@ -135,16 +135,16 @@ int              weight_type_; // CV_32F or CV_16S
 //////////////////////////////////////////////////////////////////////////////
 // Auxiliary functions
 
-void CV_EXPORTS normalizeUsingWeightMap(const Mat&weight, Mat&src);
+void CV_EXPORTS normalizeUsingWeightMap(const Mat &weight, Mat &src);
 
-void CV_EXPORTS createWeightMap(const Mat&mask, float sharpness, Mat&weight);
+void CV_EXPORTS createWeightMap(const Mat &mask, float sharpness, Mat &weight);
 
-void CV_EXPORTS createLaplacePyr(const Mat&img, int num_levels, std::vector<Mat>&pyr);
-void CV_EXPORTS createLaplacePyrGpu(const Mat&img, int num_levels, std::vector<Mat>&pyr);
+void CV_EXPORTS createLaplacePyr(const Mat &img, int num_levels, std::vector<Mat> &pyr);
+void CV_EXPORTS createLaplacePyrGpu(const Mat &img, int num_levels, std::vector<Mat> &pyr);
 
 // Restores source image
-void CV_EXPORTS restoreImageFromLaplacePyr(std::vector<Mat>&pyr);
-void CV_EXPORTS restoreImageFromLaplacePyrGpu(std::vector<Mat>&pyr);
+void CV_EXPORTS restoreImageFromLaplacePyr(std::vector<Mat> &pyr);
+void CV_EXPORTS restoreImageFromLaplacePyrGpu(std::vector<Mat> &pyr);
 }   // namespace detail
 } // namespace cv
 #endif // __OPENCV_STITCHING_BLENDERS_HPP__

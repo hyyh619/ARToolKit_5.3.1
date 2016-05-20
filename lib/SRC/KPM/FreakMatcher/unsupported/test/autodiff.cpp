@@ -26,7 +26,7 @@
 #include <unsupported/Eigen/AutoDiff>
 
 template<typename Scalar>
-EIGEN_DONT_INLINE Scalar foo(const Scalar&x, const Scalar&y)
+EIGEN_DONT_INLINE Scalar foo(const Scalar &x, const Scalar &y)
 {
 //   return x+std::sin(y);
     EIGEN_ASM_COMMENT("mybegin");
@@ -63,9 +63,9 @@ struct TestFunc1
     }
 
     template<typename T>
-    void operator()(const Matrix<T, InputsAtCompileTime, 1>&x, Matrix<T, ValuesAtCompileTime, 1> *_v) const
+    void operator()(const Matrix<T, InputsAtCompileTime, 1> &x, Matrix<T, ValuesAtCompileTime, 1> *_v) const
     {
-        Matrix<T, ValuesAtCompileTime, 1>&v = *_v;
+        Matrix<T, ValuesAtCompileTime, 1> &v = *_v;
 
         v[0] = 2 * x[0] * x[0] + x[0] * x[1];
         v[1] = 3 * x[1] * x[0] + 0.5 * x[1] * x[1];
@@ -84,13 +84,13 @@ struct TestFunc1
             v[2] *= x[2];
     }
 
-    void operator()(const InputType&x, ValueType *v, JacobianType *_j) const
+    void operator()(const InputType &x, ValueType *v, JacobianType *_j) const
     {
         (*this)(x, v);
 
         if (_j)
         {
-            JacobianType&j = *_j;
+            JacobianType &j = *_j;
 
             j(0, 0) = 4 * x[0] + x[1];
             j(1, 0) = 3 * x[1];
@@ -122,7 +122,7 @@ struct TestFunc1
     }
 };
 
-template<typename Func> void forward_jacobian(const Func&f)
+template<typename Func> void forward_jacobian(const Func &f)
 {
     typename Func::InputType x = Func::InputType::Random(f.inputs());
     typename Func::ValueType    y(f.values()), yref(f.values());

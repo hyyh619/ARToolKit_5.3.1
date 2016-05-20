@@ -158,7 +158,7 @@ EigenSolver(Index size)
  *
  * \sa compute()
  */
-EigenSolver(const MatrixType&matrix, bool computeEigenvectors = true)
+EigenSolver(const MatrixType &matrix, bool computeEigenvectors = true)
     : m_eivec(matrix.rows(), matrix.cols()),
     m_eivalues(matrix.cols()),
     m_isInitialized(false),
@@ -288,7 +288,7 @@ const EigenvalueType&eigenvalues() const
  * Example: \include EigenSolver_compute.cpp
  * Output: \verbinclude EigenSolver_compute.out
  */
-EigenSolver&compute(const MatrixType&matrix, bool computeEigenvectors = true);
+EigenSolver&compute(const MatrixType &matrix, bool computeEigenvectors = true);
 
 ComputationInfo info() const
 {
@@ -368,7 +368,7 @@ typename EigenSolver<MatrixType>::EigenvectorsType EigenSolver<MatrixType>::eige
 }
 
 template<typename MatrixType>
-EigenSolver<MatrixType>&EigenSolver<MatrixType>::compute(const MatrixType&matrix, bool computeEigenvectors)
+EigenSolver<MatrixType>&EigenSolver<MatrixType>::compute(const MatrixType &matrix, bool computeEigenvectors)
 {
     assert(matrix.cols() == matrix.rows());
 

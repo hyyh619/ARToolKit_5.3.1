@@ -296,7 +296,7 @@ private:
 /////////////////// Render Functions ///////////////////
 
 // ! render texture rectangle in window
-  CV_EXPORTS void render(const Texture2D&tex,
+  CV_EXPORTS void render(const Texture2D &tex,
                          Rect_<double> wndRect = Rect_<double>(0.0, 0.0, 1.0, 1.0),
                          Rect_<double> texRect = Rect_<double>(0.0, 0.0, 1.0, 1.0));
 
@@ -316,8 +316,8 @@ private:
   };
 
 // ! render OpenGL arrays
-  CV_EXPORTS void render(const Arrays&arr, int mode = POINTS, Scalar color = Scalar::all(255));
-  CV_EXPORTS void render(const Arrays&arr, InputArray indices, int mode = POINTS, Scalar color = Scalar::all(255));
+  CV_EXPORTS void render(const Arrays &arr, int mode = POINTS, Scalar color = Scalar::all(255));
+  CV_EXPORTS void render(const Arrays &arr, InputArray indices, int mode = POINTS, Scalar color = Scalar::all(255));
   }
 }    // namespace cv::gl
 

@@ -102,7 +102,7 @@ public:
 
 typedef typename Base::PlainObject PlainObject;
 
-ProductBase(const Lhs&lhs, const Rhs&rhs)
+ProductBase(const Lhs &lhs, const Rhs &rhs)
     : m_lhs(lhs), m_rhs(rhs)
 {
     eigen_assert(lhs.cols() == rhs.rows()
@@ -120,25 +120,25 @@ inline Index cols() const
 }
 
 template<typename Dest>
-inline void evalTo(Dest&dst) const
+inline void evalTo(Dest &dst) const
 {
     dst.setZero(); scaleAndAddTo(dst, Scalar(1));
 }
 
 template<typename Dest>
-inline void addTo(Dest&dst) const
+inline void addTo(Dest &dst) const
 {
     scaleAndAddTo(dst, 1);
 }
 
 template<typename Dest>
-inline void subTo(Dest&dst) const
+inline void subTo(Dest &dst) const
 {
     scaleAndAddTo(dst, -1);
 }
 
 template<typename Dest>
-inline void scaleAndAddTo(Dest&dst, Scalar alpha) const
+inline void scaleAndAddTo(Dest &dst, Scalar alpha) const
 {
     derived().scaleAndAddTo(dst, alpha);
 }
@@ -241,7 +241,7 @@ class ScaledProduct;
 // Also note that here we accept any compatible scalar types
 template<typename Derived, typename Lhs, typename Rhs>
 const ScaledProduct<Derived>
-operator*(const ProductBase<Derived, Lhs, Rhs>&prod, typename Derived::Scalar x)
+operator*(const ProductBase<Derived, Lhs, Rhs> &prod, typename Derived::Scalar x)
 {
     return ScaledProduct<Derived>(prod.derived(), x);
 }
@@ -249,7 +249,7 @@ operator*(const ProductBase<Derived, Lhs, Rhs>&prod, typename Derived::Scalar x)
 template<typename Derived, typename Lhs, typename Rhs>
 typename internal::enable_if<!internal::is_same<typename Derived::Scalar, typename Derived::RealScalar>::value,
                              const ScaledProduct<Derived> >::type
-operator*(const ProductBase<Derived, Lhs, Rhs>&prod, typename Derived::RealScalar x)
+operator*(const ProductBase<Derived, Lhs, Rhs> &prod, typename Derived::RealScalar x)
 {
     return ScaledProduct<Derived>(prod.derived(), x);
 }
@@ -257,7 +257,7 @@ operator*(const ProductBase<Derived, Lhs, Rhs>&prod, typename Derived::RealScala
 
 template<typename Derived, typename Lhs, typename Rhs>
 const ScaledProduct<Derived>
-operator*(typename Derived::Scalar x, const ProductBase<Derived, Lhs, Rhs>&prod)
+operator*(typename Derived::Scalar x, const ProductBase<Derived, Lhs, Rhs> &prod)
 {
     return ScaledProduct<Derived>(prod.derived(), x);
 }
@@ -265,7 +265,7 @@ operator*(typename Derived::Scalar x, const ProductBase<Derived, Lhs, Rhs>&prod)
 template<typename Derived, typename Lhs, typename Rhs>
 typename internal::enable_if<!internal::is_same<typename Derived::Scalar, typename Derived::RealScalar>::value,
                              const ScaledProduct<Derived> >::type
-operator*(typename Derived::RealScalar x, const ProductBase<Derived, Lhs, Rhs>&prod)
+operator*(typename Derived::RealScalar x, const ProductBase<Derived, Lhs, Rhs> &prod)
 {
     return ScaledProduct<Derived>(prod.derived(), x);
 }
@@ -296,29 +296,29 @@ typedef typename Base::Scalar Scalar;
 typedef typename Base::PlainObject PlainObject;
 //     EIGEN_PRODUCT_PUBLIC_INTERFACE(ScaledProduct)
 
-ScaledProduct(const NestedProduct&prod, Scalar x)
+ScaledProduct(const NestedProduct &prod, Scalar x)
     : Base(prod.lhs(), prod.rhs()), m_prod(prod), m_alpha(x) {}
 
 template<typename Dest>
-inline void evalTo(Dest&dst) const
+inline void evalTo(Dest &dst) const
 {
     dst.setZero(); scaleAndAddTo(dst, Scalar(1));
 }
 
 template<typename Dest>
-inline void addTo(Dest&dst) const
+inline void addTo(Dest &dst) const
 {
     scaleAndAddTo(dst, Scalar(1));
 }
 
 template<typename Dest>
-inline void subTo(Dest&dst) const
+inline void subTo(Dest &dst) const
 {
     scaleAndAddTo(dst, Scalar(-1));
 }
 
 template<typename Dest>
-inline void scaleAndAddTo(Dest&dst, Scalar alpha) const
+inline void scaleAndAddTo(Dest &dst, Scalar alpha) const
 {
     m_prod.derived().scaleAndAddTo(dst, alpha * m_alpha);
 }
@@ -329,15 +329,15 @@ const Scalar&alpha() const
 }
 
 protected:
-const NestedProduct&m_prod;
-Scalar             m_alpha;
+const NestedProduct &m_prod;
+Scalar              m_alpha;
 };
 
 /** \internal
  * Overloaded to perform an efficient C = (A*B).lazy() */
 template<typename Derived>
 template<typename ProductDerived, typename Lhs, typename Rhs>
-Derived&MatrixBase<Derived>::lazyAssign(const ProductBase<ProductDerived, Lhs, Rhs>&other)
+Derived&MatrixBase<Derived>::lazyAssign(const ProductBase<ProductDerived, Lhs, Rhs> &other)
 {
     other.derived().evalTo(derived());
     return derived();

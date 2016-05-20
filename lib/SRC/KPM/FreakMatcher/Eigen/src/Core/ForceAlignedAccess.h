@@ -53,7 +53,7 @@ public:
 typedef typename internal::dense_xpr_base<ForceAlignedAccess>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(ForceAlignedAccess)
 
-inline ForceAlignedAccess(const ExpressionType&matrix) : m_expression(matrix) {}
+inline ForceAlignedAccess(const ExpressionType &matrix) : m_expression(matrix) {}
 
 inline Index rows() const
 {
@@ -99,7 +99,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<Aligned>(row, col, x);
 }
@@ -111,7 +111,7 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<Aligned>(index, x);
 }
@@ -119,7 +119,7 @@ inline void writePacket(Index index, const PacketScalar&x)
 operator const ExpressionType&() const { return m_expression; }
 
 protected:
-const ExpressionType&m_expression;
+const ExpressionType &m_expression;
 
 private:
 ForceAlignedAccess&operator=(const ForceAlignedAccess&);

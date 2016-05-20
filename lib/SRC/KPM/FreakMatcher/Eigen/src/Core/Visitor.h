@@ -36,7 +36,7 @@ struct visitor_impl
         row = (UnrollCount - 1) % Derived::RowsAtCompileTime
     };
 
-    inline static void run(const Derived&mat, Visitor&visitor)
+    inline static void run(const Derived &mat, Visitor &visitor)
     {
         visitor_impl<Visitor, Derived, UnrollCount - 1>::run(mat, visitor);
         visitor(mat.coeff(row, col), row, col);
@@ -46,7 +46,7 @@ struct visitor_impl
 template<typename Visitor, typename Derived>
 struct visitor_impl<Visitor, Derived, 1>
 {
-    inline static void run(const Derived&mat, Visitor&visitor)
+    inline static void run(const Derived &mat, Visitor &visitor)
     {
         return visitor.init(mat.coeff(0, 0), 0, 0);
     }
@@ -56,7 +56,7 @@ template<typename Visitor, typename Derived>
 struct visitor_impl<Visitor, Derived, Dynamic>
 {
     typedef typename Derived::Index Index;
-    inline static void run(const Derived&mat, Visitor&visitor)
+    inline static void run(const Derived &mat, Visitor &visitor)
     {
         visitor.init(mat.coeff(0, 0), 0, 0);
 
@@ -89,7 +89,7 @@ struct visitor_impl<Visitor, Derived, Dynamic>
  */
 template<typename Derived>
 template<typename Visitor>
-void DenseBase<Derived>::visit(Visitor&visitor) const
+void DenseBase<Derived>::visit(Visitor &visitor) const
 {
     enum { unroll = SizeAtCompileTime != Dynamic
                     && CoeffReadCost != Dynamic
@@ -113,7 +113,7 @@ struct coeff_visitor
     typedef typename Derived::Scalar Scalar;
     Index       row, col;
     Scalar      res;
-    inline void init(const Scalar&value, Index i, Index j)
+    inline void init(const Scalar &value, Index i, Index j)
     {
         res = value;
         row = i;
@@ -131,7 +131,7 @@ struct min_coeff_visitor : coeff_visitor<Derived>
 {
     typedef typename Derived::Index Index;
     typedef typename Derived::Scalar Scalar;
-    void operator()(const Scalar&value, Index i, Index j)
+    void operator()(const Scalar &value, Index i, Index j)
     {
         if (value < this->res)
         {
@@ -161,7 +161,7 @@ struct max_coeff_visitor : coeff_visitor<Derived>
 {
     typedef typename Derived::Index Index;
     typedef typename Derived::Scalar Scalar;
-    void operator()(const Scalar&value, Index i, Index j)
+    void operator()(const Scalar &value, Index i, Index j)
     {
         if (value > this->res)
         {

@@ -465,7 +465,7 @@ w()
 
 template<int StoreMode>
 EIGEN_STRONG_INLINE void writePacket
-    (Index row, Index col, const typename internal::packet_traits<Scalar>::type&x)
+    (Index row, Index col, const typename internal::packet_traits<Scalar>::type &x)
 {
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
@@ -476,7 +476,7 @@ EIGEN_STRONG_INLINE void writePacket
 /** \internal */
 template<int StoreMode>
 EIGEN_STRONG_INLINE void writePacketByOuterInner
-    (Index outer, Index inner, const typename internal::packet_traits<Scalar>::type&x)
+    (Index outer, Index inner, const typename internal::packet_traits<Scalar>::type &x)
 {
     writePacket<StoreMode>(rowIndexByOuterInner(outer, inner),
                            colIndexByOuterInner(outer, inner),
@@ -494,7 +494,7 @@ EIGEN_STRONG_INLINE void writePacketByOuterInner
  */
 template<int StoreMode>
 EIGEN_STRONG_INLINE void writePacket
-    (Index index, const typename internal::packet_traits<Scalar>::type&x)
+    (Index index, const typename internal::packet_traits<Scalar>::type &x)
 {
     eigen_internal_assert(index >= 0 && index < size());
     derived().template writePacket<StoreMode>(index, x);
@@ -510,7 +510,7 @@ EIGEN_STRONG_INLINE void writePacket
  */
 
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE void copyCoeff(Index row, Index col, const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE void copyCoeff(Index row, Index col, const DenseBase<OtherDerived> &other)
 {
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
@@ -526,7 +526,7 @@ EIGEN_STRONG_INLINE void copyCoeff(Index row, Index col, const DenseBase<OtherDe
  */
 
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE void copyCoeff(Index index, const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE void copyCoeff(Index index, const DenseBase<OtherDerived> &other)
 {
     eigen_internal_assert(index >= 0 && index < size());
     derived().coeffRef(index) = other.derived().coeff(index);
@@ -534,7 +534,7 @@ EIGEN_STRONG_INLINE void copyCoeff(Index index, const DenseBase<OtherDerived>&ot
 
 
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE void copyCoeffByOuterInner(Index outer, Index inner, const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE void copyCoeffByOuterInner(Index outer, Index inner, const DenseBase<OtherDerived> &other)
 {
     const Index row = rowIndexByOuterInner(outer, inner);
     const Index col = colIndexByOuterInner(outer, inner);
@@ -552,7 +552,7 @@ EIGEN_STRONG_INLINE void copyCoeffByOuterInner(Index outer, Index inner, const D
  */
 
 template<typename OtherDerived, int StoreMode, int LoadMode>
-EIGEN_STRONG_INLINE void copyPacket(Index row, Index col, const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE void copyPacket(Index row, Index col, const DenseBase<OtherDerived> &other)
 {
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
@@ -569,7 +569,7 @@ EIGEN_STRONG_INLINE void copyPacket(Index row, Index col, const DenseBase<OtherD
  */
 
 template<typename OtherDerived, int StoreMode, int LoadMode>
-EIGEN_STRONG_INLINE void copyPacket(Index index, const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE void copyPacket(Index index, const DenseBase<OtherDerived> &other)
 {
     eigen_internal_assert(index >= 0 && index < size());
     derived().template writePacket<StoreMode>(index,
@@ -578,7 +578,7 @@ EIGEN_STRONG_INLINE void copyPacket(Index index, const DenseBase<OtherDerived>&o
 
 /** \internal */
 template<typename OtherDerived, int StoreMode, int LoadMode>
-EIGEN_STRONG_INLINE void copyPacketByOuterInner(Index outer, Index inner, const DenseBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE void copyPacketByOuterInner(Index outer, Index inner, const DenseBase<OtherDerived> &other)
 {
     const Index row = rowIndexByOuterInner(outer, inner);
     const Index col = colIndexByOuterInner(outer, inner);
@@ -744,7 +744,7 @@ struct first_aligned_impl
 template<typename Derived>
 struct first_aligned_impl<Derived, false>
 {
-    inline static typename Derived::Index run(const Derived&m)
+    inline static typename Derived::Index run(const Derived &m)
     {
         return first_aligned(&m.const_cast_derived().coeffRef(0, 0), m.size());
     }
@@ -756,7 +756,7 @@ struct first_aligned_impl<Derived, false>
  * documentation.
  */
 template<typename Derived>
-inline static typename Derived::Index first_aligned(const Derived&m)
+inline static typename Derived::Index first_aligned(const Derived &m)
 {
     return first_aligned_impl
            < Derived, (Derived::Flags&AlignedBit) || !(Derived::Flags&DirectAccessBit) >

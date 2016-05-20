@@ -50,7 +50,7 @@ template<typename _DecompositionType, typename Rhs> struct solve_retval_base
     typedef ReturnByValue<solve_retval_base> Base;
     typedef typename Base::Index Index;
 
-    solve_retval_base(const DecompositionType&dec, const Rhs&rhs)
+    solve_retval_base(const DecompositionType &dec, const Rhs &rhs)
         : m_dec(dec), m_rhs(rhs)
     {}
 
@@ -71,13 +71,13 @@ template<typename _DecompositionType, typename Rhs> struct solve_retval_base
         return m_rhs;
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         static_cast<const solve_retval<DecompositionType, Rhs>*>(this)->evalTo(dst);
     }
 
 protected:
-    const DecompositionType&m_dec;
+    const DecompositionType &m_dec;
     const typename Rhs::Nested m_rhs;
 };
 } // end namespace internal

@@ -50,7 +50,7 @@ struct increment_if_fixed_size
 
 
 template<int Deg, typename POLYNOMIAL, typename SOLVER>
-bool aux_evalSolver(const POLYNOMIAL&pols, SOLVER&psolve)
+bool aux_evalSolver(const POLYNOMIAL &pols, SOLVER &psolve)
 {
     typedef typename POLYNOMIAL::Index Index;
     typedef typename POLYNOMIAL::Scalar Scalar;
@@ -138,7 +138,7 @@ bool aux_evalSolver(const POLYNOMIAL&pols, SOLVER&psolve)
 
 
 template<int Deg, typename POLYNOMIAL>
-void evalSolver(const POLYNOMIAL&pols)
+void evalSolver(const POLYNOMIAL &pols)
 {
     typedef typename POLYNOMIAL::Scalar Scalar;
 
@@ -152,7 +152,7 @@ void evalSolver(const POLYNOMIAL&pols)
 
 
 template<int Deg, typename POLYNOMIAL, typename ROOTS, typename REAL_ROOTS>
-void evalSolverSugarFunction(const POLYNOMIAL&pols, const ROOTS&roots, const REAL_ROOTS&real_roots)
+void evalSolverSugarFunction(const POLYNOMIAL &pols, const ROOTS &roots, const REAL_ROOTS &real_roots)
 {
     typedef typename POLYNOMIAL::Scalar Scalar;
 

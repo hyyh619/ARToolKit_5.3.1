@@ -50,14 +50,14 @@ public:
  *
  * \param[in] M  matrix whose exponential is to be computed.
  */
-MatrixExponential(const MatrixType&M);
+MatrixExponential(const MatrixType &M);
 
 /** \brief Computes the matrix exponential.
  *
  * \param[out] result  the matrix exponential of \p M in the constructor.
  */
 template<typename ResultType>
-void compute(ResultType&result);
+void compute(ResultType &result);
 
 private:
 
@@ -72,7 +72,7 @@ MatrixExponential&operator=(const MatrixExponential&);
  *
  *  \param[in] A   Argument of matrix exponential
  */
-void pade3(const MatrixType&A);
+void pade3(const MatrixType &A);
 
 /** \brief Compute the (5,5)-Pad&eacute; approximant to the exponential.
  *
@@ -81,7 +81,7 @@ void pade3(const MatrixType&A);
  *
  *  \param[in] A   Argument of matrix exponential
  */
-void pade5(const MatrixType&A);
+void pade5(const MatrixType &A);
 
 /** \brief Compute the (7,7)-Pad&eacute; approximant to the exponential.
  *
@@ -90,7 +90,7 @@ void pade5(const MatrixType&A);
  *
  *  \param[in] A   Argument of matrix exponential
  */
-void pade7(const MatrixType&A);
+void pade7(const MatrixType &A);
 
 /** \brief Compute the (9,9)-Pad&eacute; approximant to the exponential.
  *
@@ -99,7 +99,7 @@ void pade7(const MatrixType&A);
  *
  *  \param[in] A   Argument of matrix exponential
  */
-void pade9(const MatrixType&A);
+void pade9(const MatrixType &A);
 
 /** \brief Compute the (13,13)-Pad&eacute; approximant to the exponential.
  *
@@ -108,7 +108,7 @@ void pade9(const MatrixType&A);
  *
  *  \param[in] A   Argument of matrix exponential
  */
-void pade13(const MatrixType&A);
+void pade13(const MatrixType &A);
 
 /** \brief Compute Pad&eacute; approximant to the exponential.
  *
@@ -160,7 +160,7 @@ float m_l1norm;
 };
 
 template<typename MatrixType>
-MatrixExponential<MatrixType>::MatrixExponential(const MatrixType&M) :
+MatrixExponential<MatrixType>::MatrixExponential(const MatrixType &M) :
     m_M(M),
     m_U(M.rows(), M.cols()),
     m_V(M.rows(), M.cols()),
@@ -175,7 +175,7 @@ MatrixExponential<MatrixType>::MatrixExponential(const MatrixType&M) :
 
 template<typename MatrixType>
 template<typename ResultType>
-void MatrixExponential<MatrixType>::compute(ResultType&result)
+void MatrixExponential<MatrixType>::compute(ResultType &result)
 {
     computeUV(RealScalar());
     m_tmp1 = m_U + m_V; // numerator of Pade approximant
@@ -187,7 +187,7 @@ void MatrixExponential<MatrixType>::compute(ResultType&result)
 }
 
 template<typename MatrixType>
-EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade3(const MatrixType&A)
+EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade3(const MatrixType &A)
 {
     const Scalar b[] = {120., 60., 12., 1.};
 
@@ -198,7 +198,7 @@ EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade3(const MatrixType&A
 }
 
 template<typename MatrixType>
-EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade5(const MatrixType&A)
+EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade5(const MatrixType &A)
 {
     const Scalar b[] = {30240., 15120., 3360., 420., 30., 1.};
     MatrixType   A2  = A * A;
@@ -210,7 +210,7 @@ EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade5(const MatrixType&A
 }
 
 template<typename MatrixType>
-EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade7(const MatrixType&A)
+EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade7(const MatrixType &A)
 {
     const Scalar b[] = {17297280., 8648640., 1995840., 277200., 25200., 1512., 56., 1.};
     MatrixType   A2  = A * A;
@@ -223,7 +223,7 @@ EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade7(const MatrixType&A
 }
 
 template<typename MatrixType>
-EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade9(const MatrixType&A)
+EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade9(const MatrixType &A)
 {
     const Scalar b[] = {17643225600., 8821612800., 2075673600., 302702400., 30270240.,
                         2162160., 110880., 3960., 90., 1.};
@@ -238,7 +238,7 @@ EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade9(const MatrixType&A
 }
 
 template<typename MatrixType>
-EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade13(const MatrixType&A)
+EIGEN_STRONG_INLINE void MatrixExponential<MatrixType>::pade13(const MatrixType &A)
 {
     const Scalar b[] = {64764752532480000., 32382376266240000., 7771770303897600.,
                         1187353796428800., 129060195264000., 10559470521600., 670442572800.,
@@ -332,7 +332,7 @@ public:
      * \param[in] src %Matrix (expression) forming the argument of the
      * matrix exponential.
      */
-    MatrixExponentialReturnValue(const Derived&src) : m_src(src) { }
+    MatrixExponentialReturnValue(const Derived &src) : m_src(src) { }
 
     /** \brief Compute the matrix exponential.
      *
@@ -340,7 +340,7 @@ public:
      * constructor.
      */
     template<typename ResultType>
-    inline void evalTo(ResultType&result) const
+    inline void evalTo(ResultType &result) const
     {
         const typename Derived::PlainObject srcEvaluated = m_src.eval();
         MatrixExponential<typename Derived::PlainObject> me(srcEvaluated);
@@ -357,7 +357,7 @@ public:
     }
 
 protected:
-    const Derived&m_src;
+    const Derived &m_src;
 private:
     MatrixExponentialReturnValue&operator=(const MatrixExponentialReturnValue&);
 };

@@ -60,10 +60,10 @@ inline explicit AlignedBox(int _dim) : m_min(_dim), m_max(_dim)
 }
 
 /** Constructs a box with extremities \a _min and \a _max. */
-inline AlignedBox(const VectorType&_min, const VectorType&_max) : m_min(_min), m_max(_max) {}
+inline AlignedBox(const VectorType &_min, const VectorType &_max) : m_min(_min), m_max(_max) {}
 
 /** Constructs a box containing a single point \a p. */
-inline explicit AlignedBox(const VectorType&p) : m_min(p), m_max(p) {}
+inline explicit AlignedBox(const VectorType &p) : m_min(p), m_max(p) {}
 
 ~AlignedBox() {}
 
@@ -96,37 +96,37 @@ inline const VectorType& (max)() const { return m_max; }
 inline VectorType& (max)() { return m_max; }
 
 /** \returns true if the point \a p is inside the box \c *this. */
-inline bool contains(const VectorType&p) const
+inline bool contains(const VectorType &p) const
 {
     return (m_min.cwise() <= p).all() && (p.cwise() <= m_max).all();
 }
 
 /** \returns true if the box \a b is entirely inside the box \c *this. */
-inline bool contains(const AlignedBox&b) const
+inline bool contains(const AlignedBox &b) const
 {
     return (m_min.cwise() <= (b.min)()).all() && ((b.max)().cwise() <= m_max).all();
 }
 
 /** Extends \c *this such that it contains the point \a p and returns a reference to \c *this. */
-inline AlignedBox&extend(const VectorType&p)
+inline AlignedBox&extend(const VectorType &p)
 {
     m_min = (m_min.cwise().min)(p); m_max = (m_max.cwise().max)(p); return *this;
 }
 
 /** Extends \c *this such that it contains the box \a b and returns a reference to \c *this. */
-inline AlignedBox&extend(const AlignedBox&b)
+inline AlignedBox&extend(const AlignedBox &b)
 {
     m_min = (m_min.cwise().min)(b.m_min); m_max = (m_max.cwise().max)(b.m_max); return *this;
 }
 
 /** Clamps \c *this by the box \a b and returns a reference to \c *this. */
-inline AlignedBox&clamp(const AlignedBox&b)
+inline AlignedBox&clamp(const AlignedBox &b)
 {
     m_min = (m_min.cwise().max)(b.m_min); m_max = (m_max.cwise().min)(b.m_max); return *this;
 }
 
 /** Translate \c *this by the vector \a t and returns a reference to \c *this. */
-inline AlignedBox&translate(const VectorType&t)
+inline AlignedBox&translate(const VectorType &t)
 {
     m_min += t; m_max += t; return *this;
 }
@@ -135,13 +135,13 @@ inline AlignedBox&translate(const VectorType&t)
  * and zero if \a p is inside the box.
  * \sa exteriorDistance()
  */
-inline Scalar squaredExteriorDistance(const VectorType&p) const;
+inline Scalar squaredExteriorDistance(const VectorType &p) const;
 
 /** \returns the distance between the point \a p and the box \c *this,
  * and zero if \a p is inside the box.
  * \sa squaredExteriorDistance()
  */
-inline Scalar exteriorDistance(const VectorType&p) const
+inline Scalar exteriorDistance(const VectorType &p) const
 {
     return ei_sqrt(squaredExteriorDistance(p));
 }
@@ -161,7 +161,7 @@ inline typename internal::cast_return_type<AlignedBox,
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit AlignedBox(const AlignedBox<OtherScalarType, AmbientDimAtCompileTime>&other)
+inline explicit AlignedBox(const AlignedBox<OtherScalarType, AmbientDimAtCompileTime> &other)
 {
     m_min = (other.min)().template cast<Scalar>();
     m_max = (other.max)().template cast<Scalar>();
@@ -171,7 +171,7 @@ inline explicit AlignedBox(const AlignedBox<OtherScalarType, AmbientDimAtCompile
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const AlignedBox&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const AlignedBox &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_min.isApprox(other.m_min, prec) && m_max.isApprox(other.m_max, prec);
 }
@@ -182,7 +182,7 @@ VectorType m_min, m_max;
 };
 
 template<typename Scalar, int AmbiantDim>
-inline Scalar AlignedBox<Scalar, AmbiantDim>::squaredExteriorDistance(const VectorType&p) const
+inline Scalar AlignedBox<Scalar, AmbiantDim>::squaredExteriorDistance(const VectorType &p) const
 {
     Scalar dist2 = 0.;
     Scalar aux;

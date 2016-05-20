@@ -102,7 +102,7 @@ ColPivHouseholderQR(Index rows, Index cols)
     m_isInitialized(false),
     m_usePrescribedThreshold(false) {}
 
-ColPivHouseholderQR(const MatrixType&matrix)
+ColPivHouseholderQR(const MatrixType &matrix)
     : m_qr(matrix.rows(), matrix.cols()),
     m_hCoeffs((std::min)(matrix.rows(), matrix.cols())),
     m_colsPermutation(matrix.cols()),
@@ -134,7 +134,7 @@ ColPivHouseholderQR(const MatrixType&matrix)
  */
 template<typename Rhs>
 inline const internal::solve_retval<ColPivHouseholderQR, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
     return internal::solve_retval<ColPivHouseholderQR, Rhs>(*this, b.derived());
@@ -150,7 +150,7 @@ const MatrixType&matrixQR() const
     return m_qr;
 }
 
-ColPivHouseholderQR&compute(const MatrixType&matrix);
+ColPivHouseholderQR&compute(const MatrixType &matrix);
 
 const PermutationType&colsPermutation() const
 {
@@ -299,7 +299,7 @@ const HCoeffsType&hCoeffs() const
  *
  * If you want to come back to the default behavior, call setThreshold(Default_t)
  */
-ColPivHouseholderQR&setThreshold(const RealScalar&threshold)
+ColPivHouseholderQR&setThreshold(const RealScalar &threshold)
 {
     m_usePrescribedThreshold = true;
     m_prescribedThreshold    = threshold;
@@ -384,7 +384,7 @@ typename MatrixType::RealScalar ColPivHouseholderQR<MatrixType>::logAbsDetermina
 }
 
 template<typename MatrixType>
-ColPivHouseholderQR<MatrixType>&ColPivHouseholderQR<MatrixType>::compute(const MatrixType&matrix)
+ColPivHouseholderQR<MatrixType>&ColPivHouseholderQR<MatrixType>::compute(const MatrixType &matrix)
 {
     Index rows = matrix.rows();
     Index cols = matrix.cols();
@@ -486,7 +486,7 @@ struct solve_retval<ColPivHouseholderQR<_MatrixType>, Rhs>
 {
     EIGEN_MAKE_SOLVE_HELPERS(ColPivHouseholderQR<_MatrixType>, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         eigen_assert(rhs().rows() == dec().rows());
 

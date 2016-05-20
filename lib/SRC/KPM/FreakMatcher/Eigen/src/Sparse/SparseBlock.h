@@ -59,7 +59,7 @@ EIGEN_SPARSE_PUBLIC_INTERFACE(SparseInnerVectorSet)
 class InnerIterator : public MatrixType::InnerIterator
 {
 public:
-inline InnerIterator(const SparseInnerVectorSet&xpr, Index outer)
+inline InnerIterator(const SparseInnerVectorSet &xpr, Index outer)
     : MatrixType::InnerIterator(xpr.m_matrix, xpr.m_outerStart + outer), m_outer(outer)
 {}
 inline Index row() const
@@ -74,13 +74,13 @@ protected:
 Index m_outer;
 };
 
-inline SparseInnerVectorSet(const MatrixType&matrix, Index outerStart, Index outerSize)
+inline SparseInnerVectorSet(const MatrixType &matrix, Index outerStart, Index outerSize)
     : m_matrix(matrix), m_outerStart(outerStart), m_outerSize(outerSize)
 {
     eigen_assert((outerStart >= 0) && ((outerStart + outerSize) <= matrix.outerSize()));
 }
 
-inline SparseInnerVectorSet(const MatrixType&matrix, Index outer)
+inline SparseInnerVectorSet(const MatrixType &matrix, Index outer)
     : m_matrix(matrix), m_outerStart(outer), m_outerSize(Size)
 {
     eigen_assert(Size != Dynamic);
@@ -132,7 +132,7 @@ EIGEN_SPARSE_PUBLIC_INTERFACE(SparseInnerVectorSet)
 class InnerIterator : public MatrixType::InnerIterator
 {
 public:
-inline InnerIterator(const SparseInnerVectorSet&xpr, Index outer)
+inline InnerIterator(const SparseInnerVectorSet &xpr, Index outer)
     : MatrixType::InnerIterator(xpr.m_matrix, xpr.m_outerStart + outer), m_outer(outer)
 {}
 inline Index row() const
@@ -147,13 +147,13 @@ protected:
 Index m_outer;
 };
 
-inline SparseInnerVectorSet(const MatrixType&matrix, Index outerStart, Index outerSize)
+inline SparseInnerVectorSet(const MatrixType &matrix, Index outerStart, Index outerSize)
     : m_matrix(matrix), m_outerStart(outerStart), m_outerSize(outerSize)
 {
     eigen_assert((outerStart >= 0) && ((outerStart + outerSize) <= matrix.outerSize()));
 }
 
-inline SparseInnerVectorSet(const MatrixType&matrix, Index outer)
+inline SparseInnerVectorSet(const MatrixType &matrix, Index outer)
     : m_matrix(matrix), m_outerStart(outer), m_outerSize(Size)
 {
     eigen_assert(Size != Dynamic);
@@ -161,7 +161,7 @@ inline SparseInnerVectorSet(const MatrixType&matrix, Index outer)
 }
 
 template<typename OtherDerived>
-inline SparseInnerVectorSet&operator=(const SparseMatrixBase<OtherDerived>&other)
+inline SparseInnerVectorSet&operator=(const SparseMatrixBase<OtherDerived> &other)
 {
     if (IsRowMajor != ((OtherDerived::Flags&RowMajorBit) == RowMajorBit))
     {
@@ -182,7 +182,7 @@ inline SparseInnerVectorSet&operator=(const SparseMatrixBase<OtherDerived>&other
     return *this;
 }
 
-inline SparseInnerVectorSet&operator=(const SparseInnerVectorSet&other)
+inline SparseInnerVectorSet&operator=(const SparseInnerVectorSet &other)
 {
     return operator=<SparseInnerVectorSet>(other);
 }
@@ -244,7 +244,7 @@ EIGEN_SPARSE_PUBLIC_INTERFACE(SparseInnerVectorSet)
 class InnerIterator : public MatrixType::InnerIterator
 {
 public:
-inline InnerIterator(const SparseInnerVectorSet&xpr, Index outer)
+inline InnerIterator(const SparseInnerVectorSet &xpr, Index outer)
     : MatrixType::InnerIterator(xpr.m_matrix, xpr.m_outerStart + outer), m_outer(outer)
 {}
 inline Index row() const
@@ -259,13 +259,13 @@ protected:
 Index m_outer;
 };
 
-inline SparseInnerVectorSet(const MatrixType&matrix, Index outerStart, Index outerSize)
+inline SparseInnerVectorSet(const MatrixType &matrix, Index outerStart, Index outerSize)
     : m_matrix(matrix), m_outerStart(outerStart), m_outerSize(outerSize)
 {
     eigen_assert((outerStart >= 0) && ((outerStart + outerSize) <= matrix.outerSize()));
 }
 
-inline SparseInnerVectorSet(const MatrixType&matrix, Index outer)
+inline SparseInnerVectorSet(const MatrixType &matrix, Index outer)
     : m_matrix(matrix), m_outerStart(outer), m_outerSize(Size)
 {
     eigen_assert(Size == 1);
@@ -273,10 +273,10 @@ inline SparseInnerVectorSet(const MatrixType&matrix, Index outer)
 }
 
 template<typename OtherDerived>
-inline SparseInnerVectorSet&operator=(const SparseMatrixBase<OtherDerived>&other)
+inline SparseInnerVectorSet&operator=(const SparseMatrixBase<OtherDerived> &other)
 {
     typedef typename internal::remove_all<typename MatrixType::Nested>::type _NestedMatrixType;
-    _NestedMatrixType&matrix = const_cast<_NestedMatrixType&>(m_matrix);;
+    _NestedMatrixType &matrix = const_cast<_NestedMatrixType&>(m_matrix);;
     // This assignement is slow if this vector set not empty
     // and/or it is not at the end of the nonzeros of the underlying matrix.
 
@@ -349,7 +349,7 @@ inline SparseInnerVectorSet&operator=(const SparseMatrixBase<OtherDerived>&other
     return *this;
 }
 
-inline SparseInnerVectorSet&operator=(const SparseInnerVectorSet&other)
+inline SparseInnerVectorSet&operator=(const SparseInnerVectorSet &other)
 {
     return operator=<SparseInnerVectorSet>(other);
 }

@@ -80,7 +80,7 @@ typedef typename Distance::ResultType DistanceType;
  *          inputData = dataset with the input features
  *          params = parameters passed to the kdtree algorithm
  */
-KDTreeSingleIndex(const Matrix<ElementType>&inputData, const IndexParams&params = KDTreeSingleIndexParams(),
+KDTreeSingleIndex(const Matrix<ElementType> &inputData, const IndexParams &params = KDTreeSingleIndexParams(),
                   Distance d = Distance()) :
     dataset_(inputData), index_params_(params), distance_(d)
 {
@@ -223,7 +223,7 @@ int usedMemory() const
  * \param[in] knn Number of nearest neighbors to return
  * \param[in] params Search parameters
  */
-void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, Matrix<DistanceType>&dists, int knn, const SearchParams&params)
+void knnSearch(const Matrix<ElementType> &queries, Matrix<int> &indices, Matrix<DistanceType> &dists, int knn, const SearchParams &params)
 {
     assert(queries.cols == veclen());
     assert(indices.rows >= queries.rows);
@@ -254,7 +254,7 @@ IndexParams getParameters() const
  *     vec = the vector for which to search the nearest neighbors
  *     maxCheck = the maximum number of restarts (in a best-bin-first manner)
  */
-void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     float epsError = 1 + get_param(searchParams, "eps", 0.0f);
 
@@ -318,7 +318,7 @@ void save_tree(FILE *stream, NodePtr tree)
 }
 
 
-void load_tree(FILE *stream, NodePtr&tree)
+void load_tree(FILE *stream, NodePtr &tree)
 {
     tree = pool_.allocate<Node>();
     load_value(stream, *tree);
@@ -334,7 +334,7 @@ void load_tree(FILE *stream, NodePtr&tree)
 }
 
 
-void computeBoundingBox(BoundingBox&bbox)
+void computeBoundingBox(BoundingBox &bbox)
 {
     bbox.resize(dim_);
 
@@ -367,7 +367,7 @@ void computeBoundingBox(BoundingBox&bbox)
  *                  first = index of the first vector
  *                  last = index of the last vector
  */
-NodePtr divideTree(int left, int right, BoundingBox&bbox)
+NodePtr divideTree(int left, int right, BoundingBox &bbox)
 {
     NodePtr node = pool_.allocate<Node>();     // allocate memory
 
@@ -427,7 +427,7 @@ NodePtr divideTree(int left, int right, BoundingBox&bbox)
     return node;
 }
 
-void computeMinMax(int *ind, int count, int dim, ElementType&min_elem, ElementType&max_elem)
+void computeMinMax(int *ind, int count, int dim, ElementType &min_elem, ElementType &max_elem)
 {
     min_elem = dataset_[ind[0]][dim];
     max_elem = dataset_[ind[0]][dim];
@@ -443,7 +443,7 @@ void computeMinMax(int *ind, int count, int dim, ElementType&min_elem, ElementTy
     }
 }
 
-void middleSplit(int *ind, int count, int&index, int&cutfeat, DistanceType&cutval, const BoundingBox&bbox)
+void middleSplit(int *ind, int count, int &index, int &cutfeat, DistanceType &cutval, const BoundingBox &bbox)
 {
     // find the largest span from the approximate bounding box
     ElementType max_span = bbox[0].high - bbox[0].low;
@@ -502,7 +502,7 @@ void middleSplit(int *ind, int count, int&index, int&cutfeat, DistanceType&cutva
 }
 
 
-void middleSplit_(int *ind, int count, int&index, int&cutfeat, DistanceType&cutval, const BoundingBox&bbox)
+void middleSplit_(int *ind, int count, int &index, int &cutfeat, DistanceType &cutval, const BoundingBox &bbox)
 {
     const float  EPS      = 0.00001f;
     DistanceType max_span = bbox[0].high - bbox[0].low;
@@ -568,7 +568,7 @@ void middleSplit_(int *ind, int count, int&index, int&cutfeat, DistanceType&cutv
  *  dataset[ind[lim1..lim2-1]][cutfeat]==cutval
  *  dataset[ind[lim2..count]][cutfeat]>cutval
  */
-void planeSplit(int *ind, int count, int cutfeat, DistanceType cutval, int&lim1, int&lim2)
+void planeSplit(int *ind, int count, int cutfeat, DistanceType cutval, int &lim1, int &lim2)
 {
     /* Move vector indices for left subtree to front of list. */
     int left  = 0;
@@ -611,7 +611,7 @@ void planeSplit(int *ind, int count, int cutfeat, DistanceType cutval, int&lim1,
     lim2 = left;
 }
 
-DistanceType computeInitialDistances(const ElementType *vec, std::vector<DistanceType>&dists)
+DistanceType computeInitialDistances(const ElementType *vec, std::vector<DistanceType> &dists)
 {
     DistanceType distsq = 0.0;
 
@@ -636,8 +636,8 @@ DistanceType computeInitialDistances(const ElementType *vec, std::vector<Distanc
 /**
  * Performs an exact search in the tree starting from a node.
  */
-void searchLevel(ResultSet<DistanceType>&result_set, const ElementType *vec, const NodePtr node, DistanceType mindistsq,
-                 std::vector<DistanceType>&dists, const float epsError)
+void searchLevel(ResultSet<DistanceType> &result_set, const ElementType *vec, const NodePtr node, DistanceType mindistsq,
+                 std::vector<DistanceType> &dists, const float epsError)
 {
     /* If this is a leaf node, then do check and return. */
     if ((node->child1 == NULL) && (node->child2 == NULL))

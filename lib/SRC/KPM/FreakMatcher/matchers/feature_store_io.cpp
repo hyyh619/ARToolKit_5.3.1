@@ -45,7 +45,7 @@ using namespace vision;
 
 namespace vision
 {
-bool SaveFeatureStore(const BinaryFeatureStore&store, const std::string&filename)
+bool SaveFeatureStore(const BinaryFeatureStore &store, const std::string &filename)
 {
     /*std::ofstream ofs(filename.c_str());
        if(ofs.is_open() == false) {
@@ -56,7 +56,7 @@ bool SaveFeatureStore(const BinaryFeatureStore&store, const std::string&filename
     return true;
 }
 
-bool LoadFeatureStore(BinaryFeatureStore&store, const std::string&filename)
+bool LoadFeatureStore(BinaryFeatureStore &store, const std::string &filename)
 {
     /*std::ifstream ifs(filename.c_str());
        if(ifs.is_open() == false) {

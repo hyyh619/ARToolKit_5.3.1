@@ -85,7 +85,7 @@ size_t match(const BinaryFeatureStore *features1,
  */
 size_t match(const BinaryFeatureStore *features1,
              const BinaryFeatureStore *features2,
-             const index_t&index2);
+             const index_t &index2);
 
 /**
  * Match two feature stores given a homography from the features in store 1 to

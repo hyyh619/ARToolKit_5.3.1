@@ -224,33 +224,33 @@ public:
 // ! the default constructor
 FilterEngine();
 // ! the full constructor. Either _filter2D or both _rowFilter and _columnFilter must be non-empty.
-FilterEngine(const Ptr<BaseFilter>&_filter2D,
-             const Ptr<BaseRowFilter>&_rowFilter,
-             const Ptr<BaseColumnFilter>&_columnFilter,
+FilterEngine(const Ptr<BaseFilter> &_filter2D,
+             const Ptr<BaseRowFilter> &_rowFilter,
+             const Ptr<BaseColumnFilter> &_columnFilter,
              int srcType, int dstType, int bufType,
              int _rowBorderType = BORDER_REPLICATE,
              int _columnBorderType = -1,
-             const Scalar&_borderValue = Scalar());
+             const Scalar &_borderValue = Scalar());
 // ! the destructor
 virtual ~FilterEngine();
 // ! reinitializes the engine. The previously assigned filters are released.
-void init(const Ptr<BaseFilter>&_filter2D,
-          const Ptr<BaseRowFilter>&_rowFilter,
-          const Ptr<BaseColumnFilter>&_columnFilter,
+void init(const Ptr<BaseFilter> &_filter2D,
+          const Ptr<BaseRowFilter> &_rowFilter,
+          const Ptr<BaseColumnFilter> &_columnFilter,
           int srcType, int dstType, int bufType,
           int _rowBorderType = BORDER_REPLICATE, int _columnBorderType = -1,
-          const Scalar&_borderValue = Scalar());
+          const Scalar &_borderValue = Scalar());
 // ! starts filtering of the specified ROI of an image of size wholeSize.
 virtual int start(Size wholeSize, Rect roi, int maxBufRows = -1);
 // ! starts filtering of the specified ROI of the specified image.
-virtual int start(const Mat&src, const Rect&srcRoi = Rect(0, 0, -1, -1),
+virtual int start(const Mat &src, const Rect &srcRoi = Rect(0, 0, -1, -1),
                   bool isolated = false, int maxBufRows = -1);
 // ! processes the next srcCount rows of the image.
 virtual int proceed(const uchar *src, int srcStep, int srcCount,
                     uchar *dst, int dstStep);
 // ! applies filter to the specified ROI of the image. if srcRoi=(0,0,-1,-1), the whole image is filtered.
-virtual void apply(const Mat&src, Mat&dst,
-                   const Rect&srcRoi = Rect(0, 0, -1, -1),
+virtual void apply(const Mat &src, Mat &dst,
+                   const Rect &srcRoi = Rect(0, 0, -1, -1),
                    Point dstOfs = Point(0, 0),
                    bool isolated = false);
 // ! returns true if the filter is separable
@@ -314,13 +314,13 @@ CV_EXPORTS Ptr<FilterEngine> createSeparableLinearFilter(int srcType, int dstTyp
                                                          Point anchor = Point(-1, -1), double delta = 0,
                                                          int rowBorderType = BORDER_DEFAULT,
                                                          int columnBorderType = -1,
-                                                         const Scalar&borderValue = Scalar());
+                                                         const Scalar &borderValue = Scalar());
 
 // ! returns the non-separable linear filter engine
 CV_EXPORTS Ptr<FilterEngine> createLinearFilter(int srcType, int dstType,
                                                 InputArray kernel, Point _anchor = Point(-1, -1),
                                                 double delta = 0, int rowBorderType = BORDER_DEFAULT,
-                                                int columnBorderType = -1, const Scalar&borderValue = Scalar());
+                                                int columnBorderType = -1, const Scalar &borderValue = Scalar());
 
 // ! returns the Gaussian kernel with the specified parameters
 CV_EXPORTS_W Mat getGaussianKernel(int ksize, double sigma, int ktype = CV_64F);
@@ -378,7 +378,7 @@ static inline Scalar morphologyDefaultBorderValue()
 CV_EXPORTS Ptr<FilterEngine> createMorphologyFilter(int op, int type, InputArray kernel,
                                                     Point anchor = Point(-1, -1), int rowBorderType = BORDER_CONSTANT,
                                                     int columnBorderType = -1,
-                                                    const Scalar&borderValue = morphologyDefaultBorderValue());
+                                                    const Scalar &borderValue = morphologyDefaultBorderValue());
 
 // ! shape of the structuring element
 enum { MORPH_RECT = 0, MORPH_CROSS = 1, MORPH_ELLIPSE = 2 };
@@ -390,7 +390,7 @@ template<> CV_EXPORTS void Ptr<IplConvKernel>::delete_obj();
 // ! copies 2D array to a larger destination array with extrapolation of the outer part of src using the specified border mode
 CV_EXPORTS_W void copyMakeBorder(InputArray src, OutputArray dst,
                                  int top, int bottom, int left, int right,
-                                 int borderType, const Scalar&value = Scalar());
+                                 int borderType, const Scalar &value = Scalar());
 
 // ! smooths the image using median filter.
 CV_EXPORTS_W void medianBlur(InputArray src, OutputArray dst, int ksize);
@@ -526,9 +526,9 @@ void detect(InputArray edges, InputArray dx, InputArray dy, OutputArray position
 void release();
 
 protected:
-virtual void setTemplateImpl(const Mat&edges, const Mat&dx, const Mat&dy, Point templCenter)                   = 0;
-virtual void detectImpl(const Mat&edges, const Mat&dx, const Mat&dy, OutputArray positions, OutputArray votes) = 0;
-virtual void releaseImpl()                                                                                     = 0;
+virtual void setTemplateImpl(const Mat &edges, const Mat &dx, const Mat &dy, Point templCenter)                   = 0;
+virtual void detectImpl(const Mat &edges, const Mat &dx, const Mat &dy, OutputArray positions, OutputArray votes) = 0;
+virtual void releaseImpl()                                                                                        = 0;
 
 private:
 Mat edges_, dx_, dy_;
@@ -538,20 +538,20 @@ Mat edges_, dx_, dy_;
 CV_EXPORTS_W void erode(InputArray src, OutputArray dst, InputArray kernel,
                         Point anchor = Point(-1, -1), int iterations = 1,
                         int borderType = BORDER_CONSTANT,
-                        const Scalar&borderValue = morphologyDefaultBorderValue());
+                        const Scalar &borderValue = morphologyDefaultBorderValue());
 
 // ! dilates the image (applies the local maximum operator)
 CV_EXPORTS_W void dilate(InputArray src, OutputArray dst, InputArray kernel,
                          Point anchor = Point(-1, -1), int iterations = 1,
                          int borderType = BORDER_CONSTANT,
-                         const Scalar&borderValue = morphologyDefaultBorderValue());
+                         const Scalar &borderValue = morphologyDefaultBorderValue());
 
 // ! applies an advanced morphological operation to the image
 CV_EXPORTS_W void morphologyEx(InputArray src, OutputArray dst,
                                int op, InputArray kernel,
                                Point anchor = Point(-1, -1), int iterations = 1,
                                int borderType = BORDER_CONSTANT,
-                               const Scalar&borderValue = morphologyDefaultBorderValue());
+                               const Scalar &borderValue = morphologyDefaultBorderValue());
 
 // ! interpolation algorithm
 enum
@@ -575,14 +575,14 @@ CV_EXPORTS_W void warpAffine(InputArray src, OutputArray dst,
                              InputArray M, Size dsize,
                              int flags = INTER_LINEAR,
                              int borderMode = BORDER_CONSTANT,
-                             const Scalar&borderValue = Scalar());
+                             const Scalar &borderValue = Scalar());
 
 // ! warps the image using perspective transformation
 CV_EXPORTS_W void warpPerspective(InputArray src, OutputArray dst,
                                   InputArray M, Size dsize,
                                   int flags = INTER_LINEAR,
                                   int borderMode = BORDER_CONSTANT,
-                                  const Scalar&borderValue = Scalar());
+                                  const Scalar &borderValue = Scalar());
 
 enum
 {
@@ -595,7 +595,7 @@ enum
 CV_EXPORTS_W void remap(InputArray src, OutputArray dst,
                         InputArray map1, InputArray map2,
                         int interpolation, int borderMode = BORDER_CONSTANT,
-                        const Scalar&borderValue = Scalar());
+                        const Scalar &borderValue = Scalar());
 
 // ! converts maps for remap from floating-point to fixed-point format or backwards
 CV_EXPORTS_W void convertMaps(InputArray map1, InputArray map2,
@@ -671,10 +671,10 @@ CV_EXPORTS_W void adaptiveThreshold(InputArray src, OutputArray dst,
 
 // ! smooths and downsamples the image
 CV_EXPORTS_W void pyrDown(InputArray src, OutputArray dst,
-                          const Size&dstsize = Size(), int borderType = BORDER_DEFAULT);
+                          const Size &dstsize = Size(), int borderType = BORDER_DEFAULT);
 // ! upsamples and smoothes the image
 CV_EXPORTS_W void pyrUp(InputArray src, OutputArray dst,
-                        const Size&dstsize = Size(), int borderType = BORDER_DEFAULT);
+                        const Size &dstsize = Size(), int borderType = BORDER_DEFAULT);
 
 // ! builds the gaussian pyramid using pyrDown() as a basic operation
 CV_EXPORTS void buildPyramid(InputArray src, OutputArrayOfArrays dst,
@@ -723,15 +723,15 @@ CV_EXPORTS void calcHist(const Mat *images, int nimages,
 // ! computes the joint sparse histogram for a set of images.
 CV_EXPORTS void calcHist(const Mat *images, int nimages,
                          const int *channels, InputArray mask,
-                         SparseMat&hist, int dims,
+                         SparseMat &hist, int dims,
                          const int *histSize, const float **ranges,
                          bool uniform = true, bool accumulate = false);
 
 CV_EXPORTS_W void calcHist(InputArrayOfArrays images,
-                           const vector<int>&channels,
+                           const vector<int> &channels,
                            InputArray mask, OutputArray hist,
-                           const vector<int>&histSize,
-                           const vector<float>&ranges,
+                           const vector<int> &histSize,
+                           const vector<float> &ranges,
                            bool accumulate = false);
 
 // ! computes back projection for the set of images
@@ -742,13 +742,13 @@ CV_EXPORTS void calcBackProject(const Mat *images, int nimages,
 
 // ! computes back projection for the set of images
 CV_EXPORTS void calcBackProject(const Mat *images, int nimages,
-                                const int *channels, const SparseMat&hist,
+                                const int *channels, const SparseMat &hist,
                                 OutputArray backProject, const float **ranges,
                                 double scale = 1, bool uniform = true);
 
-CV_EXPORTS_W void calcBackProject(InputArrayOfArrays images, const vector<int>&channels,
+CV_EXPORTS_W void calcBackProject(InputArrayOfArrays images, const vector<int> &channels,
                                   InputArray hist, OutputArray dst,
-                                  const vector<float>&ranges,
+                                  const vector<float> &ranges,
                                   double scale);
 
 /*CV_EXPORTS void calcBackProjectPatch( const Mat* images, int nimages, const int* channels,
@@ -763,7 +763,7 @@ CV_EXPORTS_W void calcBackProject(InputArrayOfArrays images, const vector<int>&c
 CV_EXPORTS_W double compareHist(InputArray H1, InputArray H2, int method);
 
 // ! compares two histograms stored in sparse arrays
-CV_EXPORTS double compareHist(const SparseMat&H1, const SparseMat&H2, int method);
+CV_EXPORTS double compareHist(const SparseMat &H1, const SparseMat &H2, int method);
 
 // ! normalizes the grayscale image brightness and contrast by normalizing its histogram
 CV_EXPORTS_W void equalizeHist(InputArray src, OutputArray dst);
@@ -1105,7 +1105,7 @@ Moments();
 Moments(double m00, double m10, double m01, double m20, double m11,
         double m02, double m30, double m21, double m12, double m03);
 // ! the conversion from CvMoments
-Moments(const CvMoments&moments);
+Moments(const CvMoments &moments);
 // ! the conversion to CvMoments
 operator CvMoments() const;
 
@@ -1122,7 +1122,7 @@ CV_EXPORTS_W Moments moments(InputArray array, bool binaryImage = false);
 
 // ! computes 7 Hu invariants from the moments
 CV_EXPORTS void HuMoments(const Moments &moments, double hu[7]);
-CV_EXPORTS_W void HuMoments(const Moments&m, CV_OUT OutputArray hu);
+CV_EXPORTS_W void HuMoments(const Moments &m, CV_OUT OutputArray hu);
 
 // ! type of the template matching operation
 enum { TM_SQDIFF = 0, TM_SQDIFF_NORMED = 1, TM_CCORR = 2, TM_CCORR_NORMED = 3, TM_CCOEFF = 4, TM_CCOEFF_NORMED = 5 };
@@ -1161,7 +1161,7 @@ CV_EXPORTS void findContours(InputOutputArray image, OutputArrayOfArrays contour
 
 // ! draws contours in the image
 CV_EXPORTS_W void drawContours(InputOutputArray image, InputArrayOfArrays contours,
-                               int contourIdx, const Scalar&color,
+                               int contourIdx, const Scalar &color,
                                int thickness = 1, int lineType = 8,
                                InputArray hierarchy = noArray(),
                                int maxLevel = INT_MAX, Point offset = Point());
@@ -1181,7 +1181,7 @@ CV_EXPORTS_W double contourArea(InputArray contour, bool oriented = false);
 CV_EXPORTS_W RotatedRect minAreaRect(InputArray points);
 // ! computes the minimal enclosing circle for a set of points
 CV_EXPORTS_W void minEnclosingCircle(InputArray points,
-                                     CV_OUT Point2f&center, CV_OUT float&radius);
+                                     CV_OUT Point2f &center, CV_OUT float &radius);
 // ! matches two contours using one of the available algorithms
 CV_EXPORTS_W double matchShapes(InputArray contour1, InputArray contour2,
                                 int method, double parameter);
@@ -1237,14 +1237,14 @@ CV_WRAP Subdiv2D(Rect rect);
 CV_WRAP void initDelaunay(Rect rect);
 
 CV_WRAP int insert(Point2f pt);
-CV_WRAP void insert(const vector<Point2f>&ptvec);
-CV_WRAP int locate(Point2f pt, CV_OUT int&edge, CV_OUT int&vertex);
+CV_WRAP void insert(const vector<Point2f> &ptvec);
+CV_WRAP int locate(Point2f pt, CV_OUT int &edge, CV_OUT int &vertex);
 
 CV_WRAP int findNearest(Point2f pt, CV_OUT Point2f *nearestPt = 0);
-CV_WRAP void getEdgeList(CV_OUT vector<Vec4f>&edgeList) const;
-CV_WRAP void getTriangleList(CV_OUT vector<Vec6f>&triangleList) const;
-CV_WRAP void getVoronoiFacetList(const vector<int>&idx, CV_OUT vector<vector<Point2f> >&facetList,
-                                 CV_OUT vector<Point2f>&facetCenters);
+CV_WRAP void getEdgeList(CV_OUT vector<Vec4f> &edgeList) const;
+CV_WRAP void getTriangleList(CV_OUT vector<Vec6f> &triangleList) const;
+CV_WRAP void getVoronoiFacetList(const vector<int> &idx, CV_OUT vector<vector<Point2f> > &facetList,
+                                 CV_OUT vector<Point2f> &facetCenters);
 
 CV_WRAP Point2f getVertex(int vertex, CV_OUT int *firstEdge = 0) const;
 

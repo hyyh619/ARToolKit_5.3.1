@@ -31,7 +31,7 @@ T mag2(std::complex<T> a)
 }
 
 template<typename T>
-T mag2(const std::vector<T>&vec)
+T mag2(const std::vector<T> &vec)
 {
     T out = 0;
 
@@ -42,7 +42,7 @@ T mag2(const std::vector<T>&vec)
 }
 
 template<typename T>
-T mag2(const std::vector<std::complex<T> >&vec)
+T mag2(const std::vector<std::complex<T> > &vec)
 {
     T out = 0;
 
@@ -53,7 +53,7 @@ T mag2(const std::vector<std::complex<T> >&vec)
 }
 
 template<typename T>
-vector<T> operator-(const vector<T>&a, const vector<T>&b)
+vector<T> operator-(const vector<T> &a, const vector<T> &b)
 {
     vector<T> c(a);
 
@@ -64,14 +64,14 @@ vector<T> operator-(const vector<T>&a, const vector<T>&b)
 }
 
 template<typename T>
-void RandomFill(std::vector<T>&vec)
+void RandomFill(std::vector<T> &vec)
 {
     for (size_t k = 0; k < vec.size(); ++k)
         vec[k] = T(rand()) / T(RAND_MAX) - .5;
 }
 
 template<typename T>
-void RandomFill(std::vector<std::complex<T> >&vec)
+void RandomFill(std::vector<std::complex<T> > &vec)
 {
     for (size_t k = 0; k < vec.size(); ++k)
         vec[k] = std::complex<T> (T(rand()) / T(RAND_MAX) - .5, T(rand()) / T(RAND_MAX) - .5);

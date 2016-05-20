@@ -159,7 +159,7 @@ int main(int argc, char **argv)
     int        i;
     int        gotTwoPartOption;
     const char markerConfigDataFilename[] = "Data/markers.dat";
-    //const char objectDataFilename[]       = "Data/objects.dat";
+    // const char objectDataFilename[]       = "Data/objects.dat";
 
     const char objectDataFilename[] = "Data/cow.dat";
 
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
     while (i < argc)
     {
         gotTwoPartOption = FALSE;
-        
+
         // Look for two-part options first.
         if ((i + 1) < argc)
         {

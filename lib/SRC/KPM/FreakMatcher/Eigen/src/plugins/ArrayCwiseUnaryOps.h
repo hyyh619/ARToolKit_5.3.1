@@ -140,7 +140,7 @@ tan() const
  * \sa exp(), log()
  */
 inline const CwiseUnaryOp<internal::scalar_pow_op<Scalar>, const Derived>
-pow(const Scalar&exponent) const
+pow(const Scalar &exponent) const
 {
     return CwiseUnaryOp<internal::scalar_pow_op<Scalar>, const Derived>
                (derived(), internal::scalar_pow_op<Scalar>(exponent));

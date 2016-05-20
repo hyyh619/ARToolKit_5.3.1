@@ -54,7 +54,7 @@ public:
 typedef typename internal::dense_xpr_base<NestByValue>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(NestByValue)
 
-inline NestByValue(const ExpressionType&matrix) : m_expression(matrix) {}
+inline NestByValue(const ExpressionType &matrix) : m_expression(matrix) {}
 
 inline Index rows() const
 {
@@ -100,7 +100,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<LoadMode>(row, col, x);
 }
@@ -112,7 +112,7 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_expression.const_cast_derived().template writePacket<LoadMode>(index, x);
 }

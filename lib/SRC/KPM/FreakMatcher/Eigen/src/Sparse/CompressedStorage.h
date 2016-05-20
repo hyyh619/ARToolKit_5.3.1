@@ -52,13 +52,13 @@ CompressedStorage(size_t size)
     resize(size);
 }
 
-CompressedStorage(const CompressedStorage&other)
+CompressedStorage(const CompressedStorage &other)
     : m_values(0), m_indices(0), m_size(0), m_allocatedSize(0)
 {
     *this = other;
 }
 
-CompressedStorage&operator=(const CompressedStorage&other)
+CompressedStorage&operator=(const CompressedStorage &other)
 {
     resize(other.size());
     memcpy(m_values, other.m_values, m_size * sizeof(Scalar));
@@ -66,7 +66,7 @@ CompressedStorage&operator=(const CompressedStorage&other)
     return *this;
 }
 
-void swap(CompressedStorage&other)
+void swap(CompressedStorage &other)
 {
     std::swap(m_values, other.m_values);
     std::swap(m_indices, other.m_indices);
@@ -102,7 +102,7 @@ void resize(size_t size, float reserveSizeFactor = 0)
     m_size = size;
 }
 
-void append(const Scalar&v, Index i)
+void append(const Scalar &v, Index i)
 {
     Index id = static_cast<Index>(m_size);
 

@@ -88,7 +88,7 @@ using Base::derived;
 
 /** Copies the other permutation into *this */
 template<typename OtherDerived>
-Derived&operator=(const PermutationBase<OtherDerived>&other)
+Derived&operator=(const PermutationBase<OtherDerived> &other)
 {
     indices() = other.indices();
     return derived();
@@ -96,7 +96,7 @@ Derived&operator=(const PermutationBase<OtherDerived>&other)
 
 /** Assignment from the Transpositions \a tr */
 template<typename OtherDerived>
-Derived&operator=(const TranspositionsBase<OtherDerived>&tr)
+Derived&operator=(const TranspositionsBase<OtherDerived> &tr)
 {
     setIdentity(tr.size());
 
@@ -110,7 +110,7 @@ Derived&operator=(const TranspositionsBase<OtherDerived>&tr)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-Derived&operator=(const PermutationBase&other)
+Derived&operator=(const PermutationBase &other)
 {
     indices() = other.indices();
     return derived();
@@ -137,7 +137,7 @@ inline Index size() const
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename DenseDerived>
-void evalTo(MatrixBase<DenseDerived>&other) const
+void evalTo(MatrixBase<DenseDerived> &other) const
 {
     other.setZero();
 
@@ -250,13 +250,13 @@ inline Transpose<PermutationBase> transpose() const
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 protected:
 template<typename OtherDerived>
-void assignTranspose(const PermutationBase<OtherDerived>&other)
+void assignTranspose(const PermutationBase<OtherDerived> &other)
 {
     for (int i = 0; i < rows(); ++i)
         indices().coeffRef(other.indices().coeff(i)) = i;
 }
 template<typename Lhs, typename Rhs>
-void assignProduct(const Lhs&lhs, const Rhs&rhs)
+void assignProduct(const Lhs &lhs, const Rhs &rhs)
 {
     eigen_assert(lhs.cols() == rhs.rows());
 
@@ -272,7 +272,7 @@ public:
  * \note \note_try_to_help_rvo
  */
 template<typename Other>
-inline PlainPermutationType operator*(const PermutationBase<Other>&other) const
+inline PlainPermutationType operator*(const PermutationBase<Other> &other) const
 {
     return PlainPermutationType(internal::PermPermProduct, derived(), other.derived());
 }
@@ -282,7 +282,7 @@ inline PlainPermutationType operator*(const PermutationBase<Other>&other) const
  * \note \note_try_to_help_rvo
  */
 template<typename Other>
-inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> >&other) const
+inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> > &other) const
 {
     return PlainPermutationType(internal::PermPermProduct, *this, other.eval());
 }
@@ -292,7 +292,7 @@ inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> >&o
  * \note \note_try_to_help_rvo
  */
 template<typename Other> friend
-inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> >&other, const PermutationBase&perm)
+inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> > &other, const PermutationBase &perm)
 {
     return PlainPermutationType(internal::PermPermProduct, other.eval(), perm);
 }
@@ -346,13 +346,13 @@ inline PermutationMatrix(int size) : m_indices(size)
 
 /** Copy constructor. */
 template<typename OtherDerived>
-inline PermutationMatrix(const PermutationBase<OtherDerived>&other)
+inline PermutationMatrix(const PermutationBase<OtherDerived> &other)
     : m_indices(other.indices()) {}
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 /** Standard copy constructor. Defined only to prevent a default copy constructor
  * from hiding the other templated constructor */
-inline PermutationMatrix(const PermutationMatrix&other) : m_indices(other.indices()) {}
+inline PermutationMatrix(const PermutationMatrix &other) : m_indices(other.indices()) {}
     #endif
 
 /** Generic constructor from expression of the indices. The indices
@@ -363,12 +363,12 @@ inline PermutationMatrix(const PermutationMatrix&other) : m_indices(other.indice
  * array's size.
  */
 template<typename Other>
-explicit inline PermutationMatrix(const MatrixBase<Other>&indices) : m_indices(indices)
+explicit inline PermutationMatrix(const MatrixBase<Other> &indices) : m_indices(indices)
 {}
 
 /** Convert the Transpositions \a tr to a permutation matrix */
 template<typename Other>
-explicit PermutationMatrix(const TranspositionsBase<Other>&tr)
+explicit PermutationMatrix(const TranspositionsBase<Other> &tr)
     : m_indices(tr.size())
 {
     *this = tr;
@@ -376,7 +376,7 @@ explicit PermutationMatrix(const TranspositionsBase<Other>&tr)
 
 /** Copies the other permutation into *this */
 template<typename Other>
-PermutationMatrix&operator=(const PermutationBase<Other>&other)
+PermutationMatrix&operator=(const PermutationBase<Other> &other)
 {
     m_indices = other.indices();
     return *this;
@@ -384,7 +384,7 @@ PermutationMatrix&operator=(const PermutationBase<Other>&other)
 
 /** Assignment from the Transpositions \a tr */
 template<typename Other>
-PermutationMatrix&operator=(const TranspositionsBase<Other>&tr)
+PermutationMatrix&operator=(const TranspositionsBase<Other> &tr)
 {
     return Base::operator=(tr.derived());
 }
@@ -393,7 +393,7 @@ PermutationMatrix&operator=(const TranspositionsBase<Other>&tr)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-PermutationMatrix&operator=(const PermutationMatrix&other)
+PermutationMatrix&operator=(const PermutationMatrix &other)
 {
     m_indices = other.m_indices;
     return *this;
@@ -416,14 +416,14 @@ IndicesType&indices()
 
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename Other>
-PermutationMatrix(const Transpose<PermutationBase<Other> >&other)
+PermutationMatrix(const Transpose<PermutationBase<Other> > &other)
     : m_indices(other.nestedPermutation().size())
 {
     for (int i = 0; i < m_indices.size(); ++i)
         m_indices.coeffRef(other.nestedPermutation().indices().coeff(i)) = i;
 }
 template<typename Lhs, typename Rhs>
-PermutationMatrix(internal::PermPermProduct_t, const Lhs&lhs, const Rhs&rhs)
+PermutationMatrix(internal::PermPermProduct_t, const Lhs &lhs, const Rhs &rhs)
     : m_indices(lhs.indices().size())
 {
     Base::assignProduct(lhs, rhs);
@@ -470,14 +470,14 @@ inline Map(const Index *indices, Index size)
 
 /** Copies the other permutation into *this */
 template<typename Other>
-Map&operator=(const PermutationBase<Other>&other)
+Map&operator=(const PermutationBase<Other> &other)
 {
     return Base::operator=(other.derived());
 }
 
 /** Assignment from the Transpositions \a tr */
 template<typename Other>
-Map&operator=(const TranspositionsBase<Other>&tr)
+Map&operator=(const TranspositionsBase<Other> &tr)
 {
     return Base::operator=(tr.derived());
 }
@@ -486,7 +486,7 @@ Map&operator=(const TranspositionsBase<Other>&tr)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-Map&operator=(const Map&other)
+Map&operator=(const Map &other)
 {
     m_indices = other.m_indices;
     return *this;
@@ -556,7 +556,7 @@ public:
 typedef typename Traits::IndicesType IndicesType;
     #endif
 
-inline PermutationWrapper(const IndicesType&indices)
+inline PermutationWrapper(const IndicesType &indices)
     : m_indices(indices)
 {}
 
@@ -573,8 +573,8 @@ const typename IndicesType::Nested m_indices;
  */
 template<typename Derived, typename PermutationDerived>
 inline const internal::permut_matrix_product_retval<PermutationDerived, Derived, OnTheRight>
-operator*(const MatrixBase<Derived>&matrix,
-          const PermutationBase<PermutationDerived>&permutation)
+operator*(const MatrixBase<Derived> &matrix,
+          const PermutationBase<PermutationDerived> &permutation)
 {
     return internal::permut_matrix_product_retval
            <PermutationDerived, Derived, OnTheRight>
@@ -586,8 +586,8 @@ operator*(const MatrixBase<Derived>&matrix,
 template<typename Derived, typename PermutationDerived>
 inline const internal::permut_matrix_product_retval
 <PermutationDerived, Derived, OnTheLeft>
-operator*(const PermutationBase<PermutationDerived>&permutation,
-          const MatrixBase<Derived>&matrix)
+operator*(const PermutationBase<PermutationDerived> &permutation,
+          const MatrixBase<Derived> &matrix)
 {
     return internal::permut_matrix_product_retval
            <PermutationDerived, Derived, OnTheLeft>
@@ -608,7 +608,7 @@ struct permut_matrix_product_retval
 {
     typedef typename remove_all<typename MatrixType::Nested>::type MatrixTypeNestedCleaned;
 
-    permut_matrix_product_retval(const PermutationType&perm, const MatrixType&matrix)
+    permut_matrix_product_retval(const PermutationType &perm, const MatrixType &matrix)
         : m_permutation(perm), m_matrix(matrix)
     {}
 
@@ -621,7 +621,7 @@ struct permut_matrix_product_retval
         return m_matrix.cols();
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         const int n = Side == OnTheLeft ? rows() : cols();
 
@@ -673,7 +673,7 @@ struct permut_matrix_product_retval
     }
 
 protected:
-    const PermutationType&m_permutation;
+    const PermutationType &m_permutation;
     const typename MatrixType::Nested m_matrix;
 };
 
@@ -709,7 +709,7 @@ enum
 typedef typename Traits::Scalar Scalar;
     #endif
 
-Transpose(const PermutationType&p) : m_permutation(p) {}
+Transpose(const PermutationType &p) : m_permutation(p) {}
 
 inline int rows() const
 {
@@ -722,7 +722,7 @@ inline int cols() const
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename DenseDerived>
-void evalTo(MatrixBase<DenseDerived>&other) const
+void evalTo(MatrixBase<DenseDerived> &other) const
 {
     other.setZero();
 
@@ -746,7 +746,7 @@ DenseMatrixType toDenseMatrix() const
  */
 template<typename OtherDerived> friend
 inline const internal::permut_matrix_product_retval<PermutationType, OtherDerived, OnTheRight, true>
-operator*(const MatrixBase<OtherDerived>&matrix, const Transpose&trPerm)
+operator*(const MatrixBase<OtherDerived> &matrix, const Transpose &trPerm)
 {
     return internal::permut_matrix_product_retval<PermutationType, OtherDerived, OnTheRight, true>(trPerm.m_permutation, matrix.derived());
 }
@@ -755,7 +755,7 @@ operator*(const MatrixBase<OtherDerived>&matrix, const Transpose&trPerm)
  */
 template<typename OtherDerived>
 inline const internal::permut_matrix_product_retval<PermutationType, OtherDerived, OnTheLeft, true>
-operator*(const MatrixBase<OtherDerived>&matrix) const
+operator*(const MatrixBase<OtherDerived> &matrix) const
 {
     return internal::permut_matrix_product_retval<PermutationType, OtherDerived, OnTheLeft, true>(m_permutation, matrix.derived());
 }
@@ -766,7 +766,7 @@ const PermutationType&nestedPermutation() const
 }
 
 protected:
-const PermutationType&m_permutation;
+const PermutationType &m_permutation;
 };
 
 template<typename Derived>

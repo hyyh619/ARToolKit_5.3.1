@@ -911,13 +911,13 @@ public:
     template<GTEST_1_TYPENAMES_(U)>
     tuple(const GTEST_1_TUPLE_(U) & t) : f0_(t.f0_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_1_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_1_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_1_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -925,7 +925,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_1_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_1_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_1_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         return *this;
@@ -951,18 +951,18 @@ public:
     template<typename U0, typename U1>
     tuple(const ::std::pair<U0, U1>&p) : f0_(p.first), f1_(p.second) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_2_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_2_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_2_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
     template<typename U0, typename U1>
-    tuple&operator=(const ::std::pair<U0, U1>&p)
+    tuple&operator=(const ::std::pair<U0, U1> &p)
     {
         f0_ = p.first;
         f1_ = p.second;
@@ -972,7 +972,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_2_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_2_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_2_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -998,13 +998,13 @@ public:
     template<GTEST_3_TYPENAMES_(U)>
     tuple(const GTEST_3_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_3_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_3_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_3_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1012,7 +1012,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_3_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_3_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_3_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1042,13 +1042,13 @@ public:
     tuple(const GTEST_4_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
         f3_(t.f3_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_4_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_4_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_4_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1056,7 +1056,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_4_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_4_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_4_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1089,13 +1089,13 @@ public:
     tuple(const GTEST_5_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
         f3_(t.f3_), f4_(t.f4_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_5_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_5_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_5_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1103,7 +1103,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_5_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_5_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_5_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1139,13 +1139,13 @@ public:
     tuple(const GTEST_6_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
         f3_(t.f3_), f4_(t.f4_), f5_(t.f5_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_6_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_6_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_6_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1153,7 +1153,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_6_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_6_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_6_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1191,13 +1191,13 @@ public:
     tuple(const GTEST_7_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
         f3_(t.f3_), f4_(t.f4_), f5_(t.f5_), f6_(t.f6_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_7_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_7_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_7_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1205,7 +1205,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_7_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_7_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_7_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1246,13 +1246,13 @@ public:
     tuple(const GTEST_8_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
         f3_(t.f3_), f4_(t.f4_), f5_(t.f5_), f6_(t.f6_), f7_(t.f7_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_8_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_8_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_8_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1260,7 +1260,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_8_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_8_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_8_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1303,13 +1303,13 @@ public:
     tuple(const GTEST_9_TUPLE_(U) & t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
         f3_(t.f3_), f4_(t.f4_), f5_(t.f5_), f6_(t.f6_), f7_(t.f7_), f8_(t.f8_) {}
 
-    tuple&operator=(const tuple&t)
+    tuple&operator=(const tuple &t)
     {
         return CopyFrom(t);
     }
 
     template<GTEST_9_TYPENAMES_(U)>
-    tuple&operator=(const GTEST_9_TUPLE_(U)&t)
+    tuple&operator=(const GTEST_9_TUPLE_(U) &t)
     {
         return CopyFrom(t);
     }
@@ -1317,7 +1317,7 @@ public:
     GTEST_DECLARE_TUPLE_AS_FRIEND_
 
     template<GTEST_9_TYPENAMES_(U)>
-    tuple&CopyFrom(const GTEST_9_TUPLE_(U)&t)
+    tuple&CopyFrom(const GTEST_9_TUPLE_(U) &t)
     {
         f0_ = t.f0_;
         f1_ = t.f1_;
@@ -1357,21 +1357,21 @@ explicit tuple(GTEST_BY_REF_(T0)f0, GTEST_BY_REF_(T1)f1,
                GTEST_BY_REF_(T8)f8, GTEST_BY_REF_(T9)f9) : f0_(f0), f1_(f1), f2_(f2),
     f3_(f3), f4_(f4), f5_(f5), f6_(f6), f7_(f7), f8_(f8), f9_(f9) {}
 
-tuple(const tuple&t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_), f3_(t.f3_),
+tuple(const tuple &t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_), f3_(t.f3_),
     f4_(t.f4_), f5_(t.f5_), f6_(t.f6_), f7_(t.f7_), f8_(t.f8_), f9_(t.f9_) {}
 
 template<GTEST_10_TYPENAMES_(U)>
-tuple(const GTEST_10_TUPLE_(U)&t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
+tuple(const GTEST_10_TUPLE_(U) &t) : f0_(t.f0_), f1_(t.f1_), f2_(t.f2_),
     f3_(t.f3_), f4_(t.f4_), f5_(t.f5_), f6_(t.f6_), f7_(t.f7_), f8_(t.f8_),
     f9_(t.f9_) {}
 
-tuple&operator=(const tuple&t)
+tuple&operator=(const tuple &t)
 {
     return CopyFrom(t);
 }
 
 template<GTEST_10_TYPENAMES_(U)>
-tuple&operator=(const GTEST_10_TUPLE_(U)&t)
+tuple&operator=(const GTEST_10_TUPLE_(U) &t)
 {
     return CopyFrom(t);
 }
@@ -1379,7 +1379,7 @@ tuple&operator=(const GTEST_10_TUPLE_(U)&t)
 GTEST_DECLARE_TUPLE_AS_FRIEND_
 
 template<GTEST_10_TYPENAMES_(U)>
-tuple&CopyFrom(const GTEST_10_TUPLE_(U)&t)
+tuple&CopyFrom(const GTEST_10_TUPLE_(U) &t)
 {
     f0_ = t.f0_;
     f1_ = t.f1_;
@@ -1801,7 +1801,7 @@ template<int k>
 struct SameSizeTuplePrefixComparator<k, k>
 {
     template<class Tuple1, class Tuple2>
-    static bool Eq(const Tuple1&t1, const Tuple2&t2)
+    static bool Eq(const Tuple1 &t1, const Tuple2 &t2)
     {
         return SameSizeTuplePrefixComparator<k - 1, k - 1>::Eq(t1, t2) &&
                ::std::tr1::get<k - 1>(t1) == ::std::tr1::get<k - 1>(t2);
@@ -1810,8 +1810,8 @@ struct SameSizeTuplePrefixComparator<k, k>
 }       // namespace gtest_internal
 
 template<GTEST_10_TYPENAMES_(T), GTEST_10_TYPENAMES_(U)>
-inline bool operator==(const GTEST_10_TUPLE_(T)&t,
-                       const GTEST_10_TUPLE_(U)&u)
+inline bool operator==(const GTEST_10_TUPLE_(T) &t,
+                       const GTEST_10_TUPLE_(U) &u)
 {
     return gtest_internal::SameSizeTuplePrefixComparator<
         tuple_size<GTEST_10_TUPLE_(T)>::value,
@@ -1819,8 +1819,8 @@ inline bool operator==(const GTEST_10_TUPLE_(T)&t,
 }
 
 template<GTEST_10_TYPENAMES_(T), GTEST_10_TYPENAMES_(U)>
-inline bool operator!=(const GTEST_10_TUPLE_(T)&t,
-                       const GTEST_10_TUPLE_(U)&u)
+inline bool operator!=(const GTEST_10_TUPLE_(T) &t,
+                       const GTEST_10_TUPLE_(U) &u)
 {
     return !(t == u);
 }
@@ -2265,19 +2265,19 @@ class GTEST_API_ RE
 public:
 // A copy constructor is required by the Standard to initialize object
 // references from r-values.
-RE(const RE&other)
+RE(const RE &other)
 {
     Init(other.pattern());
 }
 
 // Constructs an RE from a string.
-RE(const ::std::string&regex)
+RE(const ::std::string &regex)
 {
     Init(regex.c_str());
 }                                                          // NOLINT
 
 #if GTEST_HAS_GLOBAL_STRING
-RE(const ::string&regex)
+RE(const ::string &regex)
 {
     Init(regex.c_str());
 }                                                     // NOLINT
@@ -2302,28 +2302,28 @@ const char* pattern() const
 //
 // TODO(wan@google.com): make FullMatch() and PartialMatch() work
 // when str contains NUL characters.
-static bool FullMatch(const ::std::string&str, const RE&re)
+static bool FullMatch(const ::std::string &str, const RE &re)
 {
     return FullMatch(str.c_str(), re);
 }
-static bool PartialMatch(const ::std::string&str, const RE&re)
+static bool PartialMatch(const ::std::string &str, const RE &re)
 {
     return PartialMatch(str.c_str(), re);
 }
 
 #if GTEST_HAS_GLOBAL_STRING
-static bool FullMatch(const ::string&str, const RE&re)
+static bool FullMatch(const ::string &str, const RE &re)
 {
     return FullMatch(str.c_str(), re);
 }
-static bool PartialMatch(const ::string&str, const RE&re)
+static bool PartialMatch(const ::string &str, const RE &re)
 {
     return PartialMatch(str.c_str(), re);
 }
 #endif      // GTEST_HAS_GLOBAL_STRING
 
-static bool FullMatch(const char *str, const RE&re);
-static bool PartialMatch(const char *str, const RE&re);
+static bool FullMatch(const char *str, const RE &re);
+static bool PartialMatch(const char *str, const RE &re);
 
 private:
 void Init(const char *regex);
@@ -2872,7 +2872,7 @@ class ThreadLocal
 public:
 ThreadLocal() : key_(CreateKey()),
     default_() {}
-explicit ThreadLocal(const T&value) : key_(CreateKey()),
+explicit ThreadLocal(const T &value) : key_(CreateKey()),
     default_(value) {}
 
 ~ThreadLocal()
@@ -2897,7 +2897,7 @@ const T&get() const
 {
     return *pointer();
 }
-void set(const T&value)
+void set(const T &value)
 {
     *pointer() = value;
 }
@@ -2907,7 +2907,7 @@ private:
 class ValueHolder : public ThreadLocalValueHolderBase
 {
 public:
-explicit ValueHolder(const T&value) : value_(value) {}
+explicit ValueHolder(const T &value) : value_(value) {}
 
 T* pointer()
 {
@@ -2988,7 +2988,7 @@ class ThreadLocal
 {
 public:
 ThreadLocal() : value_() {}
-explicit ThreadLocal(const T&value) : value_(value) {}
+explicit ThreadLocal(const T &value) : value_(value) {}
 T* pointer()
 {
     return &value_;
@@ -3001,7 +3001,7 @@ const T&get() const
 {
     return value_;
 }
-void set(const T&value)
+void set(const T &value)
 {
     value_ = value;
 }
@@ -3205,7 +3205,7 @@ inline int RmDir(const char *dir)
 {
     return _rmdir(dir);
 }
-inline bool IsDir(const StatStruct&st)
+inline bool IsDir(const StatStruct &st)
 {
     return (_S_IFDIR & st.st_mode) != 0;
 }
@@ -3238,7 +3238,7 @@ inline int RmDir(const char *dir)
 {
     return rmdir(dir);
 }
-inline bool IsDir(const StatStruct&st)
+inline bool IsDir(const StatStruct &st)
 {
     return S_ISDIR(st.st_mode);
 }
@@ -3577,7 +3577,7 @@ public:
 Message();
 
 // Copy constructor.
-Message(const Message&msg) : ss_(new ::std::stringstream)       // NOLINT
+Message(const Message &msg) : ss_(new ::std::stringstream)       // NOLINT
 {
     *ss_ << msg.GetString();
 }
@@ -3591,7 +3591,7 @@ explicit Message(const char *str) : ss_(new ::std::stringstream)
 #if GTEST_OS_SYMBIAN
 // Streams a value (either a pointer or not) to this object.
 template<typename T>
-inline Message&operator <<(const T&value)
+inline Message&operator <<(const T &value)
 {
     StreamHelper(typename internal::is_pointer<T>::type(), value);
     return *this;
@@ -3599,7 +3599,7 @@ inline Message&operator <<(const T&value)
 #else
 // Streams a non-pointer value to this object.
 template<typename T>
-inline Message&operator <<(const T&val)
+inline Message&operator <<(const T &val)
 {
     // Some libraries overload << for STL containers.  These
     // overloads are defined in the global namespace instead of ::std.
@@ -3634,7 +3634,7 @@ inline Message&operator <<(const T&val)
 // ensure consistent result across compilers, we always treat NULL
 // as "(null)".
 template<typename T>
-inline Message&operator <<(T* const&pointer)        // NOLINT
+inline Message&operator <<(T* const &pointer)        // NOLINT
 {
     if (pointer == NULL)
     {
@@ -3675,13 +3675,13 @@ Message&operator <<(wchar_t *wide_c_str);
 #if GTEST_HAS_STD_WSTRING
 // Converts the given wide string to a narrow string using the UTF-8
 // encoding, and streams the result to this Message object.
-Message&operator <<(const ::std::wstring&wstr);
+Message&operator <<(const ::std::wstring &wstr);
 #endif  // GTEST_HAS_STD_WSTRING
 
 #if GTEST_HAS_GLOBAL_WSTRING
 // Converts the given wide string to a narrow string using the UTF-8
 // encoding, and streams the result to this Message object.
-Message&operator <<(const ::wstring&wstr);
+Message&operator <<(const ::wstring &wstr);
 #endif  // GTEST_HAS_GLOBAL_WSTRING
 
 // Gets the text streamed to this object so far as an std::string.
@@ -3711,7 +3711,7 @@ inline void StreamHelper(internal::true_type /*is_pointer*/, T *pointer)
 }
 template<typename T>
 inline void StreamHelper(internal::false_type /*is_pointer*/,
-                         const T&value)
+                         const T &value)
 {
     // See the comments in Message& operator <<(const T&) above for why
     // we need this using statement.
@@ -3729,7 +3729,7 @@ void operator=(const Message&);
 };
 
 // Streams a Message to an ostream.
-inline std::ostream&operator <<(std::ostream&os, const Message&sb)
+inline std::ostream&operator <<(std::ostream &os, const Message &sb)
 {
     return os << sb.GetString();
 }
@@ -3741,7 +3741,7 @@ namespace internal
 // ::std::string, ::wstring, or ::std::wstring object, each NUL
 // character in it is replaced with "\\0".
 template<typename T>
-std::string StreamableToString(const T&streamable)
+std::string StreamableToString(const T &streamable)
 {
     return (Message() << streamable).GetString();
 }
@@ -3893,7 +3893,7 @@ static bool CaseInsensitiveWideCStringEquals(const wchar_t *lhs,
 // Returns true iff the given string ends with the given suffix, ignoring
 // case. Any string is considered to end with an empty suffix.
 static bool EndsWithCaseInsensitive(
-    const std::string&str, const std::string&suffix);
+    const std::string &str, const std::string &suffix);
 
 // Formats an int value as "%02d".
 static std::string FormatIntWidth2(int value);    // "%02d" for width == 2
@@ -3976,20 +3976,20 @@ class GTEST_API_ FilePath
 {
 public:
 FilePath() : pathname_("") { }
-FilePath(const FilePath&rhs) : pathname_(rhs.pathname_) { }
+FilePath(const FilePath &rhs) : pathname_(rhs.pathname_) { }
 
-explicit FilePath(const std::string&pathname) : pathname_(pathname)
+explicit FilePath(const std::string &pathname) : pathname_(pathname)
 {
     Normalize();
 }
 
-FilePath&operator=(const FilePath&rhs)
+FilePath&operator=(const FilePath &rhs)
 {
     Set(rhs);
     return *this;
 }
 
-void Set(const FilePath&rhs)
+void Set(const FilePath &rhs)
 {
     pathname_ = rhs.pathname_;
 }
@@ -4010,16 +4010,16 @@ static FilePath GetCurrentDir();
 // extension = "xml", returns "dir/test.xml". If number is greater
 // than zero (e.g., 12), returns "dir/test_12.xml".
 // On Windows platform, uses \ as the separator rather than /.
-static FilePath MakeFileName(const FilePath&directory,
-                             const FilePath&base_name,
+static FilePath MakeFileName(const FilePath &directory,
+                             const FilePath &base_name,
                              int number,
                              const char *extension);
 
 // Given directory = "dir", relative_path = "test.xml",
 // returns "dir/test.xml".
 // On Windows, uses \ as the separator rather than /.
-static FilePath ConcatPaths(const FilePath&directory,
-                            const FilePath&relative_path);
+static FilePath ConcatPaths(const FilePath &directory,
+                            const FilePath &relative_path);
 
 // Returns a pathname for a file that does not currently exist. The pathname
 // will be directory/base_name.extension or
@@ -4029,8 +4029,8 @@ static FilePath ConcatPaths(const FilePath&directory,
 // Examples: 'dir/foo_test.xml' or 'dir/foo_test_1.xml'.
 // There could be a race condition if two or more processes are calling this
 // function at the same time -- they could both pick the same filename.
-static FilePath GenerateUniqueFileName(const FilePath&directory,
-                                       const FilePath&base_name,
+static FilePath GenerateUniqueFileName(const FilePath &directory,
+                                       const FilePath &base_name,
                                        const char *extension);
 
 // Returns true iff the path is "".
@@ -7689,7 +7689,7 @@ class TestPartResult;                  // Result of a test part.
 class UnitTest;                        // A collection of test cases.
 
 template<typename T>
-::std::string PrintToString(const T&value);
+::std::string PrintToString(const T &value);
 
 namespace internal
 {
@@ -7736,7 +7736,7 @@ char (&IsNullLiteralHelper(...))[2];  // NOLINT
 
 // Appends the user-supplied message to the Google-Test-generated message.
 GTEST_API_ std::string AppendUserMessage(
-    const std::string&gtest_msg, const Message&user_msg);
+    const std::string &gtest_msg, const Message &user_msg);
 
 #if GTEST_HAS_EXCEPTIONS
 // This exception is thrown by (and only by) a failed Google Test
@@ -7754,7 +7754,7 @@ GTEST_API_ std::string AppendUserMessage(
 class GTEST_API_ GoogleTestFailureException : public ::std::runtime_error
 {
 public:
-explicit GoogleTestFailureException(const TestPartResult&failure);
+explicit GoogleTestFailureException(const TestPartResult &failure);
 };
 
 #ifdef _MSC_VER
@@ -7768,7 +7768,7 @@ class GTEST_API_ ScopedTrace
 public:
 // The c'tor pushes the given source file location and message onto
 // a trace stack maintained by Google Test.
-ScopedTrace(const char *file, int line, const Message&message);
+ScopedTrace(const char *file, int line, const Message &message);
 
 // The d'tor pops the info pushed by the c'tor.
 //
@@ -7799,13 +7799,13 @@ GTEST_DISALLOW_COPY_AND_ASSIGN_(ScopedTrace);
 // be inserted into the message.
 GTEST_API_ AssertionResult EqFailure(const char *expected_expression,
                                      const char *actual_expression,
-                                     const std::string&expected_value,
-                                     const std::string&actual_value,
+                                     const std::string &expected_value,
+                                     const std::string &actual_value,
                                      bool ignoring_case);
 
 // Constructs a failure message for Boolean assertions such as EXPECT_TRUE.
 GTEST_API_ std::string GetBoolAssertionFailureMessage(
-    const AssertionResult&assertion_result,
+    const AssertionResult &assertion_result,
     const char *expression_text,
     const char *actual_predicate_value,
     const char *expected_predicate_value);
@@ -7889,7 +7889,7 @@ static const size_t kMaxUlps = 4;
 // around may change its bits, although the new value is guaranteed
 // to be also a NAN.  Therefore, don't expect this constructor to
 // preserve the bits in x when x is a NAN.
-explicit FloatingPoint(const RawType&x)
+explicit FloatingPoint(const RawType &x)
 {
     u_.value_ = x;
 }
@@ -7956,7 +7956,7 @@ bool is_nan() const
 //   - returns false if either number is (or both are) NAN.
 //   - treats really large numbers as almost equal to infinity.
 //   - thinks +0.0 and -0.0 are 0 DLP's apart.
-bool AlmostEquals(const FloatingPoint&rhs) const
+bool AlmostEquals(const FloatingPoint &rhs) const
 {
     // The IEEE standard says that any comparison operation involving
     // a NAN must return false.
@@ -7990,7 +7990,7 @@ union FloatingPointUnion
 //
 // Read http://en.wikipedia.org/wiki/Signed_number_representations
 // for more details on signed number representations.
-static Bits SignAndMagnitudeToBiased(const Bits&sam)
+static Bits SignAndMagnitudeToBiased(const Bits &sam)
 {
     if (kSignBitMask & sam)
     {
@@ -8006,8 +8006,8 @@ static Bits SignAndMagnitudeToBiased(const Bits&sam)
 
 // Given two numbers in the sign-and-magnitude representation,
 // returns the distance between them as an unsigned number.
-static Bits DistanceBetweenSignAndMagnitudeNumbers(const Bits&sam1,
-                                                   const Bits&sam2)
+static Bits DistanceBetweenSignAndMagnitudeNumbers(const Bits &sam1,
+                                                   const Bits &sam2)
 {
     const Bits biased1 = SignAndMagnitudeToBiased(sam1);
     const Bits biased2 = SignAndMagnitudeToBiased(sam2);
@@ -8570,7 +8570,7 @@ bool ArrayEq(const T *lhs, size_t size, const U *rhs);
 
 // This generic version is used when k is 0.
 template<typename T, typename U>
-inline bool ArrayEq(const T&lhs, const U&rhs)
+inline bool ArrayEq(const T &lhs, const U &rhs)
 {
     return lhs == rhs;
 }
@@ -8600,7 +8600,7 @@ bool ArrayEq(const T *lhs, size_t size, const U *rhs)
 // Finds the first element in the iterator range [begin, end) that
 // equals elem.  Element may be a native array type itself.
 template<typename Iter, typename Element>
-Iter ArrayAwareFind(Iter begin, Iter end, const Element&elem)
+Iter ArrayAwareFind(Iter begin, Iter end, const Element &elem)
 {
     for (Iter it = begin; it != end; ++it)
     {
@@ -8620,7 +8620,7 @@ void CopyArray(const T *from, size_t size, U *to);
 
 // This generic version is used when k is 0.
 template<typename T, typename U>
-inline void CopyArray(const T&from, U *to)
+inline void CopyArray(const T &from, U *to)
 {
     *to = from;
 }
@@ -8677,7 +8677,7 @@ NativeArray(const Element *array, size_t count, RelationToSource relation)
 }
 
 // Copy constructor.
-NativeArray(const NativeArray&rhs)
+NativeArray(const NativeArray &rhs)
 {
     Init(rhs.array_, rhs.size_, rhs.relation_to_source_);
 }
@@ -8705,7 +8705,7 @@ const_iterator end() const
 {
     return array_ + size_;
 }
-bool operator==(const NativeArray&rhs) const
+bool operator==(const NativeArray &rhs) const
 {
     return size() == rhs.size() &&
            ArrayEq(begin(), size(), rhs.begin());
@@ -9048,7 +9048,7 @@ virtual void Abort(AbortReason reason) = 0;
 // the last death test.
 static const char* LastMessage();
 
-static void set_last_death_test_message(const std::string&message);
+static void set_last_death_test_message(const std::string &message);
 
 private:
 // A string containing a description of the outcome of the last death test.
@@ -9084,7 +9084,7 @@ GTEST_API_ bool ExitedUnsuccessfully(int exit_status);
 #  define GTEST_EXECUTE_DEATH_TEST_STATEMENT_(statement, death_test)             \
     try {                                                                        \
         GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement);               \
-    } catch (const ::std::exception&gtest_exception) {                           \
+    } catch (const ::std::exception &gtest_exception) {                          \
         fprintf(                                                                 \
             stderr,                                                              \
             "\n%s: Caught std::exception-derived exception escaping the "        \
@@ -9107,7 +9107,7 @@ GTEST_API_ bool ExitedUnsuccessfully(int exit_status);
 # define GTEST_DEATH_TEST_(statement, predicate, regex, fail)                         \
     GTEST_AMBIGUOUS_ELSE_BLOCKER_                                                     \
     if (::testing::internal::AlwaysTrue()) {                                          \
-        const ::testing::internal::RE&gtest_regex = (regex);                          \
+        const ::testing::internal::RE &gtest_regex = (regex);                         \
         ::testing::internal::DeathTest *gtest_dt;                                     \
         if (!::testing::internal::DeathTest::Create(#statement, &gtest_regex,         \
                                                     __FILE__, __LINE__, &gtest_dt)) { \
@@ -9156,7 +9156,7 @@ GTEST_API_ bool ExitedUnsuccessfully(int exit_status);
 class InternalRunDeathTestFlag
 {
 public:
-InternalRunDeathTestFlag(const std::string&a_file,
+InternalRunDeathTestFlag(const std::string &a_file,
                          int a_line,
                          int an_index,
                          int a_write_fd)
@@ -9402,7 +9402,7 @@ explicit ExitedWithCode(int exit_code);
 bool operator()(int exit_status) const;
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ExitedWithCode&other);
+void operator=(const ExitedWithCode &other);
 
 const int exit_code_;
 };
@@ -9899,25 +9899,25 @@ explicit linked_ptr(T *ptr = NULL)
 }
 
 // Copy an existing linked_ptr<>, adding ourselves to the list of references.
-template<typename U> linked_ptr(linked_ptr<U> const&ptr)
+template<typename U> linked_ptr(linked_ptr<U> const &ptr)
 {
     copy(&ptr);
 }
-linked_ptr(linked_ptr const&ptr)       // NOLINT
+linked_ptr(linked_ptr const &ptr)       // NOLINT
 {
     assert(&ptr != this);
     copy(&ptr);
 }
 
 // Assignment releases the old value and acquires the new.
-template<typename U> linked_ptr&operator=(linked_ptr<U> const&ptr)
+template<typename U> linked_ptr&operator=(linked_ptr<U> const &ptr)
 {
     depart();
     copy(&ptr);
     return *this;
 }
 
-linked_ptr&operator=(linked_ptr const&ptr)
+linked_ptr&operator=(linked_ptr const &ptr)
 {
     if (&ptr != this)
     {
@@ -9956,12 +9956,12 @@ bool operator!=(T *p) const
     return value_ != p;
 }
 template<typename U>
-bool operator==(linked_ptr<U> const&ptr) const
+bool operator==(linked_ptr<U> const &ptr) const
 {
     return value_ == ptr.get();
 }
 template<typename U>
-bool operator!=(linked_ptr<U> const&ptr) const
+bool operator!=(linked_ptr<U> const &ptr) const
 {
     return value_ != ptr.get();
 }
@@ -9996,13 +9996,13 @@ template<typename U> void copy(linked_ptr<U> const *ptr)
 };
 
 template<typename T> inline
-bool operator==(T *ptr, const linked_ptr<T>&x)
+bool operator==(T *ptr, const linked_ptr<T> &x)
 {
     return ptr == x.get();
 }
 
 template<typename T> inline
-bool operator!=(T *ptr, const linked_ptr<T>&x)
+bool operator!=(T *ptr, const linked_ptr<T> &x)
 {
     return ptr != x.get();
 }
@@ -10152,7 +10152,7 @@ class TypeWithoutFormatter
 {
 public:
 // This default version is called when kTypeKind is kOtherType.
-static void PrintValue(const T&value, ::std::ostream *os)
+static void PrintValue(const T &value, ::std::ostream *os)
 {
     PrintBytesInObjectTo(reinterpret_cast<const unsigned char*>(&value),
                          sizeof(value), os);
@@ -10168,7 +10168,7 @@ template<typename T>
 class TypeWithoutFormatter<T, kProtobuf>
 {
 public:
-static void PrintValue(const T&value, ::std::ostream *os)
+static void PrintValue(const T &value, ::std::ostream *os)
 {
     const ::testing::internal::string short_str  = value.ShortDebugString();
     const ::testing::internal::string pretty_str =
@@ -10190,7 +10190,7 @@ public:
 // case printing it as an integer is the desired behavior.  In case
 // T is not an enum, printing it as an integer is the best we can do
 // given that it has no user-defined printer.
-static void PrintValue(const T&value, ::std::ostream *os)
+static void PrintValue(const T &value, ::std::ostream *os)
 {
     const internal::BiggestInt kBigInt = value;
 
@@ -10224,7 +10224,7 @@ static void PrintValue(const T&value, ::std::ostream *os)
 // specific.
 template<typename Char, typename CharTraits, typename T>
 ::std::basic_ostream<Char, CharTraits>&operator<<(
-    ::std::basic_ostream<Char, CharTraits>&os, const T&x)
+    ::std::basic_ostream<Char, CharTraits> &os, const T &x)
 {
     TypeWithoutFormatter<T,
                          (internal::IsAProtocolMessage<T>::value ? kProtobuf :
@@ -10242,7 +10242,7 @@ namespace testing_internal
 // Used to print a value that is not an STL-style container when the
 // user doesn't define PrintTo() for it.
 template<typename T>
-void DefaultPrintNonContainerTo(const T&value, ::std::ostream *os)
+void DefaultPrintNonContainerTo(const T &value, ::std::ostream *os)
 {
     // With the following statement, during unqualified name lookup,
     // testing::internal2::operator<< appears as if it was declared in
@@ -10289,14 +10289,14 @@ template<typename T>
 class UniversalPrinter;
 
 template<typename T>
-void UniversalPrint(const T&value, ::std::ostream *os);
+void UniversalPrint(const T &value, ::std::ostream *os);
 
 // Used to print an STL-style container when the user doesn't define
 // a PrintTo() for it.
 template<typename C>
 void DefaultPrintTo(IsContainer /* dummy */,
                     false_type /* is not a pointer */,
-                    const C&container, ::std::ostream *os)
+                    const C &container, ::std::ostream *os)
 {
     const size_t kMaxCount = 32; // The maximum number of elements to print.
 
@@ -10378,7 +10378,7 @@ void DefaultPrintTo(IsNotContainer /* dummy */,
 template<typename T>
 void DefaultPrintTo(IsNotContainer /* dummy */,
                     false_type /* is not a pointer */,
-                    const T&value, ::std::ostream *os)
+                    const T &value, ::std::ostream *os)
 {
     ::testing_internal::DefaultPrintNonContainerTo(value, os);
 }
@@ -10395,7 +10395,7 @@ void DefaultPrintTo(IsNotContainer /* dummy */,
 // or there is already a << operator but it doesn't do what the user
 // wants).
 template<typename T>
-void PrintTo(const T&value, ::std::ostream *os)
+void PrintTo(const T &value, ::std::ostream *os)
 {
     // DefaultPrintTo() is overloaded.  The type of its first two
     // arguments determine which version will be picked.  If T is an
@@ -10511,31 +10511,31 @@ void PrintRawArrayTo(const T a[], size_t count, ::std::ostream *os)
 
 // Overloads for ::string and ::std::string.
 #if GTEST_HAS_GLOBAL_STRING
-GTEST_API_ void PrintStringTo(const ::string&s, ::std::ostream *os);
-inline void PrintTo(const ::string&s, ::std::ostream *os)
+GTEST_API_ void PrintStringTo(const ::string &s, ::std::ostream *os);
+inline void PrintTo(const ::string &s, ::std::ostream *os)
 {
     PrintStringTo(s, os);
 }
 #endif  // GTEST_HAS_GLOBAL_STRING
 
-GTEST_API_ void PrintStringTo(const ::std::string&s, ::std::ostream *os);
-inline void PrintTo(const ::std::string&s, ::std::ostream *os)
+GTEST_API_ void PrintStringTo(const ::std::string &s, ::std::ostream *os);
+inline void PrintTo(const ::std::string &s, ::std::ostream *os)
 {
     PrintStringTo(s, os);
 }
 
 // Overloads for ::wstring and ::std::wstring.
 #if GTEST_HAS_GLOBAL_WSTRING
-GTEST_API_ void PrintWideStringTo(const ::wstring&s, ::std::ostream *os);
-inline void PrintTo(const ::wstring&s, ::std::ostream *os)
+GTEST_API_ void PrintWideStringTo(const ::wstring &s, ::std::ostream *os);
+inline void PrintTo(const ::wstring &s, ::std::ostream *os)
 {
     PrintWideStringTo(s, os);
 }
 #endif  // GTEST_HAS_GLOBAL_WSTRING
 
 #if GTEST_HAS_STD_WSTRING
-GTEST_API_ void PrintWideStringTo(const ::std::wstring&s, ::std::ostream *os);
-inline void PrintTo(const ::std::wstring&s, ::std::ostream *os)
+GTEST_API_ void PrintWideStringTo(const ::std::wstring &s, ::std::ostream *os);
+inline void PrintTo(const ::std::wstring &s, ::std::ostream *os)
 {
     PrintWideStringTo(s, os);
 }
@@ -10548,44 +10548,44 @@ inline void PrintTo(const ::std::wstring&s, ::std::ostream *os)
 // Helper function for printing a tuple.  T must be instantiated with
 // a tuple type.
 template<typename T>
-void PrintTupleTo(const T&t, ::std::ostream *os);
+void PrintTupleTo(const T &t, ::std::ostream *os);
 
 // Overloaded PrintTo() for tuples of various arities.  We support
 // tuples of up-to 10 fields.  The following implementation works
 // regardless of whether tr1::tuple is implemented using the
 // non-standard variadic template feature or not.
 
-inline void PrintTo(const ::std::tr1::tuple<>&t, ::std::ostream *os)
+inline void PrintTo(const ::std::tr1::tuple<> &t, ::std::ostream *os)
 {
     PrintTupleTo(t, os);
 }
 
 template<typename T1>
-void PrintTo(const ::std::tr1::tuple<T1>&t, ::std::ostream *os)
+void PrintTo(const ::std::tr1::tuple<T1> &t, ::std::ostream *os)
 {
     PrintTupleTo(t, os);
 }
 
 template<typename T1, typename T2>
-void PrintTo(const ::std::tr1::tuple<T1, T2>&t, ::std::ostream *os)
+void PrintTo(const ::std::tr1::tuple<T1, T2> &t, ::std::ostream *os)
 {
     PrintTupleTo(t, os);
 }
 
 template<typename T1, typename T2, typename T3>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3>&t, ::std::ostream *os)
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3> &t, ::std::ostream *os)
 {
     PrintTupleTo(t, os);
 }
 
 template<typename T1, typename T2, typename T3, typename T4>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4>&t, ::std::ostream *os)
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4> &t, ::std::ostream *os)
 {
     PrintTupleTo(t, os);
 }
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5>&t,
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5> &t,
              ::std::ostream *os)
 {
     PrintTupleTo(t, os);
@@ -10593,7 +10593,7 @@ void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5>&t,
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6>&t,
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6> &t,
              ::std::ostream *os)
 {
     PrintTupleTo(t, os);
@@ -10601,7 +10601,7 @@ void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6>&t,
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7>&t,
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7> &t,
              ::std::ostream *os)
 {
     PrintTupleTo(t, os);
@@ -10609,7 +10609,7 @@ void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7>&t,
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8>&t,
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8> &t,
              ::std::ostream *os)
 {
     PrintTupleTo(t, os);
@@ -10617,7 +10617,7 @@ void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8>&t,
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8, typename T9>
-void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9>&t,
+void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> &t,
              ::std::ostream *os)
 {
     PrintTupleTo(t, os);
@@ -10626,7 +10626,7 @@ void PrintTo(const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9>&t,
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8, typename T9, typename T10>
 void PrintTo(
-    const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>&t,
+    const ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> &t,
     ::std::ostream *os)
 {
     PrintTupleTo(t, os);
@@ -10635,7 +10635,7 @@ void PrintTo(
 
 // Overload for std::pair.
 template<typename T1, typename T2>
-void PrintTo(const ::std::pair<T1, T2>&value, ::std::ostream *os)
+void PrintTo(const ::std::pair<T1, T2> &value, ::std::ostream *os)
 {
     *os << '(';
     // We cannot use UniversalPrint(value.first, os) here, as T1 may be
@@ -10662,7 +10662,7 @@ public:
 // Note: we deliberately don't call this PrintTo(), as that name
 // conflicts with ::testing::internal::PrintTo in the body of the
 // function.
-static void Print(const T&value, ::std::ostream *os)
+static void Print(const T &value, ::std::ostream *os)
 {
     // By default, ::testing::internal::PrintTo() is used for printing
     // the value.
@@ -10745,7 +10745,7 @@ public:
 # pragma warning(disable:4180)  // Temporarily disables warning 4180.
 #endif      // _MSC_VER
 
-static void Print(const T&value, ::std::ostream *os)
+static void Print(const T &value, ::std::ostream *os)
 {
     // Prints the address of the value.  We use reinterpret_cast here
     // as static_cast doesn't compile when T is a function type.
@@ -10768,7 +10768,7 @@ template<typename T>
 class UniversalTersePrinter
 {
 public:
-static void Print(const T&value, ::std::ostream *os)
+static void Print(const T &value, ::std::ostream *os)
 {
     UniversalPrint(value, os);
 }
@@ -10777,7 +10777,7 @@ template<typename T>
 class UniversalTersePrinter<T&>
 {
 public:
-static void Print(const T&value, ::std::ostream *os)
+static void Print(const T &value, ::std::ostream *os)
 {
     UniversalPrint(value, os);
 }
@@ -10847,7 +10847,7 @@ static void Print(wchar_t *str, ::std::ostream *os)
 };
 
 template<typename T>
-void UniversalTersePrint(const T&value, ::std::ostream *os)
+void UniversalTersePrint(const T &value, ::std::ostream *os)
 {
     UniversalTersePrinter<T>::Print(value, os);
 }
@@ -10857,7 +10857,7 @@ void UniversalTersePrint(const T&value, ::std::ostream *os)
 // (const) char pointer, this prints both the pointer and the
 // NUL-terminated string.
 template<typename T>
-void UniversalPrint(const T&value, ::std::ostream *os)
+void UniversalPrint(const T &value, ::std::ostream *os)
 {
     // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
     // UniversalPrinter with T directly.
@@ -10881,7 +10881,7 @@ struct TuplePrefixPrinter
 {
     // Prints the first N fields of a tuple.
     template<typename Tuple>
-    static void PrintPrefixTo(const Tuple&t, ::std::ostream *os)
+    static void PrintPrefixTo(const Tuple &t, ::std::ostream *os)
     {
         TuplePrefixPrinter<N - 1>::PrintPrefixTo(t, os);
         *os << ", ";
@@ -10892,7 +10892,7 @@ struct TuplePrefixPrinter
     // Tersely prints the first N fields of a tuple to a string vector,
     // one element for each field.
     template<typename Tuple>
-    static void TersePrintPrefixToStrings(const Tuple&t, Strings *strings)
+    static void TersePrintPrefixToStrings(const Tuple &t, Strings *strings)
     {
         TuplePrefixPrinter<N - 1>::TersePrintPrefixToStrings(t, strings);
         ::std::stringstream ss;
@@ -10920,14 +10920,14 @@ template<>
 struct TuplePrefixPrinter<1>
 {
     template<typename Tuple>
-    static void PrintPrefixTo(const Tuple&t, ::std::ostream *os)
+    static void PrintPrefixTo(const Tuple &t, ::std::ostream *os)
     {
         UniversalPrinter<typename ::std::tr1::tuple_element<0, Tuple>::type>::
         Print(::std::tr1::get<0>(t), os);
     }
 
     template<typename Tuple>
-    static void TersePrintPrefixToStrings(const Tuple&t, Strings *strings)
+    static void TersePrintPrefixToStrings(const Tuple &t, Strings *strings)
     {
         ::std::stringstream ss;
 
@@ -10939,7 +10939,7 @@ struct TuplePrefixPrinter<1>
 // Helper function for printing a tuple.  T must be instantiated with
 // a tuple type.
 template<typename T>
-void PrintTupleTo(const T&t, ::std::ostream *os)
+void PrintTupleTo(const T &t, ::std::ostream *os)
 {
     *os << "(";
     TuplePrefixPrinter<::std::tr1::tuple_size<T>::value>::
@@ -10951,7 +10951,7 @@ void PrintTupleTo(const T&t, ::std::ostream *os)
 // element for each field.  See the comment before
 // UniversalTersePrint() for how we define "tersely".
 template<typename Tuple>
-Strings UniversalTersePrintTupleFieldsToStrings(const Tuple&value)
+Strings UniversalTersePrintTupleFieldsToStrings(const Tuple &value)
 {
     Strings result;
 
@@ -10963,7 +10963,7 @@ Strings UniversalTersePrintTupleFieldsToStrings(const Tuple&value)
 }   // namespace internal
 
 template<typename T>
-::std::string PrintToString(const T&value)
+::std::string PrintToString(const T &value)
 {
     ::std::stringstream ss;
     internal::UniversalTersePrinter<T>::Print(value, &ss);
@@ -11018,7 +11018,7 @@ virtual const T* Current() const = 0;
 // Determines whether the given iterator and other point to the same
 // element in the sequence generated by the generator.
 // Used for implementing ParamGenerator<T>::operator==().
-virtual bool Equals(const ParamIteratorInterface&other) const = 0;
+virtual bool Equals(const ParamIteratorInterface &other) const = 0;
 };
 
 // Class iterating over elements provided by an implementation of
@@ -11033,8 +11033,8 @@ typedef const T&reference;
 typedef ptrdiff_t difference_type;
 
 // ParamIterator assumes ownership of the impl_ pointer.
-ParamIterator(const ParamIterator&other) : impl_(other.impl_->Clone()) {}
-ParamIterator&operator=(const ParamIterator&other)
+ParamIterator(const ParamIterator &other) : impl_(other.impl_->Clone()) {}
+ParamIterator&operator=(const ParamIterator &other)
 {
     if (this != &other)
         impl_.reset(other.impl_->Clone());
@@ -11063,11 +11063,11 @@ ParamIterator operator++(int /*unused*/)
     impl_->Advance();
     return ParamIterator(clone);
 }
-bool operator==(const ParamIterator&other) const
+bool operator==(const ParamIterator &other) const
 {
     return impl_.get() == other.impl_.get() || impl_->Equals(*other.impl_);
 }
-bool operator!=(const ParamIterator&other) const
+bool operator!=(const ParamIterator &other) const
 {
     return !(*this == other);
 }
@@ -11105,9 +11105,9 @@ public:
 typedef ParamIterator<T> iterator;
 
 explicit ParamGenerator(ParamGeneratorInterface<T> *impl) : impl_(impl) {}
-ParamGenerator(const ParamGenerator&other) : impl_(other.impl_) {}
+ParamGenerator(const ParamGenerator &other) : impl_(other.impl_) {}
 
-ParamGenerator&operator=(const ParamGenerator&other)
+ParamGenerator&operator=(const ParamGenerator &other)
 {
     impl_ = other.impl_;
     return *this;
@@ -11174,7 +11174,7 @@ virtual const T* Current() const
 {
     return &value_;
 }
-virtual bool Equals(const ParamIteratorInterface<T>&other) const
+virtual bool Equals(const ParamIteratorInterface<T> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -11187,13 +11187,13 @@ virtual bool Equals(const ParamIteratorInterface<T>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : ParamIteratorInterface<T>(),
     base_(other.base_), value_(other.value_), index_(other.index_),
     step_(other.step_) {}
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<T>* const base_;
 T value_;
@@ -11201,9 +11201,9 @@ int index_;
 const IncrementT step_;
 };          // class RangeGenerator::Iterator
 
-static int CalculateEndIndex(const T&begin,
-                             const T&end,
-                             const IncrementT&step)
+static int CalculateEndIndex(const T &begin,
+                             const T &end,
+                             const IncrementT &step)
 {
     int end_index = 0;
 
@@ -11214,7 +11214,7 @@ static int CalculateEndIndex(const T&begin,
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const RangeGenerator&other);
+void operator=(const RangeGenerator &other);
 
 const T begin_;
 const T end_;
@@ -11285,7 +11285,7 @@ virtual const T* Current() const
 
     return value_.get();
 }
-virtual bool Equals(const ParamIteratorInterface<T>&other) const
+virtual bool Equals(const ParamIteratorInterface<T> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -11297,7 +11297,7 @@ virtual bool Equals(const ParamIteratorInterface<T>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
 // The explicit constructor call suppresses a false warning
 // emitted by gcc when supplied with the -Wextra option.
     : ParamIteratorInterface<T>(),
@@ -11315,7 +11315,7 @@ mutable scoped_ptr<const T> value_;
 };          // class ValuesInIteratorRangeGenerator::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const ValuesInIteratorRangeGenerator&other);
+void operator=(const ValuesInIteratorRangeGenerator &other);
 
 const ContainerType container_;
 };      // class ValuesInIteratorRangeGenerator
@@ -11462,7 +11462,7 @@ void AddTestPattern(const char *test_case_name,
 }
 // INSTANTIATE_TEST_CASE_P macro uses AddGenerator() to record information
 // about a generator.
-int AddTestCaseInstantiation(const string&instantiation_name,
+int AddTestCaseInstantiation(const string &instantiation_name,
                              GeneratorCreationFunc *func,
                              const char* /* file */,
                              int /* line */)
@@ -11486,7 +11486,7 @@ virtual void RegisterTests()
                  instantiations_.begin(); gen_it != instantiations_.end();
              ++gen_it)
         {
-            const string&instantiation_name = gen_it->first;
+            const string &instantiation_name = gen_it->first;
             ParamGenerator<ParamType> generator((*gen_it->second)());
 
             string test_case_name;
@@ -11697,7 +11697,7 @@ internal::ParamGenerator<T> ValuesIn(const T (&array)[N]);
 
 template<class Container>
 internal::ParamGenerator<typename Container::value_type> ValuesIn(
-    const Container&container);
+    const Container &container);
 
 namespace internal
 {
@@ -11713,7 +11713,7 @@ operator ParamGenerator<T>() const { return ValuesIn(&v1_, &v1_ + 1); }
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray1&other);
+void operator=(const ValueArray1 &other);
 
 const T1 v1_;
 };
@@ -11732,7 +11732,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray2&other);
+void operator=(const ValueArray2 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11753,7 +11753,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray3&other);
+void operator=(const ValueArray3 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11776,7 +11776,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray4&other);
+void operator=(const ValueArray4 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11800,7 +11800,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray5&other);
+void operator=(const ValueArray5 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11827,7 +11827,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray6&other);
+void operator=(const ValueArray6 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11855,7 +11855,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray7&other);
+void operator=(const ValueArray7 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11885,7 +11885,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray8&other);
+void operator=(const ValueArray8 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11917,7 +11917,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray9&other);
+void operator=(const ValueArray9 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11950,7 +11950,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray10&other);
+void operator=(const ValueArray10 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -11985,7 +11985,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray11&other);
+void operator=(const ValueArray11 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12022,7 +12022,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray12&other);
+void operator=(const ValueArray12 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12061,7 +12061,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray13&other);
+void operator=(const ValueArray13 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12101,7 +12101,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray14&other);
+void operator=(const ValueArray14 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12143,7 +12143,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray15&other);
+void operator=(const ValueArray15 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12188,7 +12188,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray16&other);
+void operator=(const ValueArray16 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12234,7 +12234,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray17&other);
+void operator=(const ValueArray17 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12282,7 +12282,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray18&other);
+void operator=(const ValueArray18 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12331,7 +12331,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray19&other);
+void operator=(const ValueArray19 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12382,7 +12382,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray20&other);
+void operator=(const ValueArray20 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12436,7 +12436,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray21&other);
+void operator=(const ValueArray21 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12491,7 +12491,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray22&other);
+void operator=(const ValueArray22 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12548,7 +12548,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray23&other);
+void operator=(const ValueArray23 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12607,7 +12607,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray24&other);
+void operator=(const ValueArray24 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12667,7 +12667,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray25&other);
+void operator=(const ValueArray25 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12729,7 +12729,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray26&other);
+void operator=(const ValueArray26 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12794,7 +12794,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray27&other);
+void operator=(const ValueArray27 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12860,7 +12860,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray28&other);
+void operator=(const ValueArray28 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12927,7 +12927,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray29&other);
+void operator=(const ValueArray29 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -12997,7 +12997,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray30&other);
+void operator=(const ValueArray30 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13069,7 +13069,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray31&other);
+void operator=(const ValueArray31 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13142,7 +13142,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray32&other);
+void operator=(const ValueArray32 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13218,7 +13218,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray33&other);
+void operator=(const ValueArray33 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13295,7 +13295,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray34&other);
+void operator=(const ValueArray34 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13373,7 +13373,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray35&other);
+void operator=(const ValueArray35 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13454,7 +13454,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray36&other);
+void operator=(const ValueArray36 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13537,7 +13537,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray37&other);
+void operator=(const ValueArray37 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13621,7 +13621,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray38&other);
+void operator=(const ValueArray38 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13707,7 +13707,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray39&other);
+void operator=(const ValueArray39 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13795,7 +13795,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray40&other);
+void operator=(const ValueArray40 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13885,7 +13885,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray41&other);
+void operator=(const ValueArray41 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -13977,7 +13977,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray42&other);
+void operator=(const ValueArray42 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14070,7 +14070,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray43&other);
+void operator=(const ValueArray43 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14165,7 +14165,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray44&other);
+void operator=(const ValueArray44 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14262,7 +14262,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray45&other);
+void operator=(const ValueArray45 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14361,7 +14361,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray46&other);
+void operator=(const ValueArray46 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14462,7 +14462,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray47&other);
+void operator=(const ValueArray47 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14565,7 +14565,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray48&other);
+void operator=(const ValueArray48 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14669,7 +14669,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray49&other);
+void operator=(const ValueArray49 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14774,7 +14774,7 @@ operator ParamGenerator<T>() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const ValueArray50&other);
+void operator=(const ValueArray50 &other);
 
 const T1 v1_;
 const T2 v2_;
@@ -14841,8 +14841,8 @@ class CartesianProductGenerator2
 public:
 typedef ::std::tr1::tuple<T1, T2> ParamType;
 
-CartesianProductGenerator2(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2)
+CartesianProductGenerator2(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2)
     : g1_(g1), g2_(g2) {}
 virtual ~CartesianProductGenerator2() {}
 
@@ -14860,10 +14860,10 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2)
@@ -14898,7 +14898,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -14917,7 +14917,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -14944,7 +14944,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -14959,7 +14959,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator2::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator2&other);
+void operator=(const CartesianProductGenerator2 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -14973,8 +14973,8 @@ class CartesianProductGenerator3
 public:
 typedef ::std::tr1::tuple<T1, T2, T3> ParamType;
 
-CartesianProductGenerator3(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3)
+CartesianProductGenerator3(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3)
     : g1_(g1), g2_(g2), g3_(g3) {}
 virtual ~CartesianProductGenerator3() {}
 
@@ -14993,12 +14993,12 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -15040,7 +15040,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -15060,7 +15060,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -15091,7 +15091,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -15109,7 +15109,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator3::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator3&other);
+void operator=(const CartesianProductGenerator3 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -15124,9 +15124,9 @@ class CartesianProductGenerator4
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4> ParamType;
 
-CartesianProductGenerator4(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                           const ParamGenerator<T4>&g4)
+CartesianProductGenerator4(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                           const ParamGenerator<T4> &g4)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4) {}
 virtual ~CartesianProductGenerator4() {}
 
@@ -15146,14 +15146,14 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -15202,7 +15202,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -15223,7 +15223,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -15259,7 +15259,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -15280,7 +15280,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator4::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator4&other);
+void operator=(const CartesianProductGenerator4 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -15296,9 +15296,9 @@ class CartesianProductGenerator5
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5> ParamType;
 
-CartesianProductGenerator5(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                           const ParamGenerator<T4>&g4, const ParamGenerator<T5>&g5)
+CartesianProductGenerator5(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                           const ParamGenerator<T4> &g4, const ParamGenerator<T5> &g5)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5) {}
 virtual ~CartesianProductGenerator5() {}
 
@@ -15318,16 +15318,16 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4,
-         const ParamGenerator<T5>&g5,
-         const typename ParamGenerator<T5>::iterator&current5)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4,
+         const ParamGenerator<T5> &g5,
+         const typename ParamGenerator<T5>::iterator &current5)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -15383,7 +15383,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -15405,7 +15405,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -15445,7 +15445,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -15469,7 +15469,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator5::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator5&other);
+void operator=(const CartesianProductGenerator5 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -15488,10 +15488,10 @@ class CartesianProductGenerator6
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6> ParamType;
 
-CartesianProductGenerator6(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                           const ParamGenerator<T4>&g4, const ParamGenerator<T5>&g5,
-                           const ParamGenerator<T6>&g6)
+CartesianProductGenerator6(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                           const ParamGenerator<T4> &g4, const ParamGenerator<T5> &g5,
+                           const ParamGenerator<T6> &g6)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6) {}
 virtual ~CartesianProductGenerator6() {}
 
@@ -15511,18 +15511,18 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4,
-         const ParamGenerator<T5>&g5,
-         const typename ParamGenerator<T5>::iterator&current5,
-         const ParamGenerator<T6>&g6,
-         const typename ParamGenerator<T6>::iterator&current6)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4,
+         const ParamGenerator<T5> &g5,
+         const typename ParamGenerator<T5>::iterator &current5,
+         const ParamGenerator<T6> &g6,
+         const typename ParamGenerator<T6>::iterator &current6)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -15585,7 +15585,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -15608,7 +15608,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -15652,7 +15652,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -15679,7 +15679,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator6::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator6&other);
+void operator=(const CartesianProductGenerator6 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -15699,10 +15699,10 @@ class CartesianProductGenerator7
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7> ParamType;
 
-CartesianProductGenerator7(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                           const ParamGenerator<T4>&g4, const ParamGenerator<T5>&g5,
-                           const ParamGenerator<T6>&g6, const ParamGenerator<T7>&g7)
+CartesianProductGenerator7(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                           const ParamGenerator<T4> &g4, const ParamGenerator<T5> &g5,
+                           const ParamGenerator<T6> &g6, const ParamGenerator<T7> &g7)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7) {}
 virtual ~CartesianProductGenerator7() {}
 
@@ -15723,20 +15723,20 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4,
-         const ParamGenerator<T5>&g5,
-         const typename ParamGenerator<T5>::iterator&current5,
-         const ParamGenerator<T6>&g6,
-         const typename ParamGenerator<T6>::iterator&current6,
-         const ParamGenerator<T7>&g7,
-         const typename ParamGenerator<T7>::iterator&current7)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4,
+         const ParamGenerator<T5> &g5,
+         const typename ParamGenerator<T5>::iterator &current5,
+         const ParamGenerator<T6> &g6,
+         const typename ParamGenerator<T6>::iterator &current6,
+         const ParamGenerator<T7> &g7,
+         const typename ParamGenerator<T7>::iterator &current7)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -15806,7 +15806,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -15830,7 +15830,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -15878,7 +15878,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -15908,7 +15908,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator7::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator7&other);
+void operator=(const CartesianProductGenerator7 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -15929,11 +15929,11 @@ class CartesianProductGenerator8
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8> ParamType;
 
-CartesianProductGenerator8(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                           const ParamGenerator<T4>&g4, const ParamGenerator<T5>&g5,
-                           const ParamGenerator<T6>&g6, const ParamGenerator<T7>&g7,
-                           const ParamGenerator<T8>&g8)
+CartesianProductGenerator8(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                           const ParamGenerator<T4> &g4, const ParamGenerator<T5> &g5,
+                           const ParamGenerator<T6> &g6, const ParamGenerator<T7> &g7,
+                           const ParamGenerator<T8> &g8)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7),
     g8_(g8) {}
 virtual ~CartesianProductGenerator8() {}
@@ -15956,22 +15956,22 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4,
-         const ParamGenerator<T5>&g5,
-         const typename ParamGenerator<T5>::iterator&current5,
-         const ParamGenerator<T6>&g6,
-         const typename ParamGenerator<T6>::iterator&current6,
-         const ParamGenerator<T7>&g7,
-         const typename ParamGenerator<T7>::iterator&current7,
-         const ParamGenerator<T8>&g8,
-         const typename ParamGenerator<T8>::iterator&current8)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4,
+         const ParamGenerator<T5> &g5,
+         const typename ParamGenerator<T5>::iterator &current5,
+         const ParamGenerator<T6> &g6,
+         const typename ParamGenerator<T6>::iterator &current6,
+         const ParamGenerator<T7> &g7,
+         const typename ParamGenerator<T7>::iterator &current7,
+         const ParamGenerator<T8> &g8,
+         const typename ParamGenerator<T8>::iterator &current8)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -16048,7 +16048,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -16073,7 +16073,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -16125,7 +16125,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -16158,7 +16158,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator8::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator8&other);
+void operator=(const CartesianProductGenerator8 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -16180,11 +16180,11 @@ class CartesianProductGenerator9
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> ParamType;
 
-CartesianProductGenerator9(const ParamGenerator<T1>&g1,
-                           const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                           const ParamGenerator<T4>&g4, const ParamGenerator<T5>&g5,
-                           const ParamGenerator<T6>&g6, const ParamGenerator<T7>&g7,
-                           const ParamGenerator<T8>&g8, const ParamGenerator<T9>&g9)
+CartesianProductGenerator9(const ParamGenerator<T1> &g1,
+                           const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                           const ParamGenerator<T4> &g4, const ParamGenerator<T5> &g5,
+                           const ParamGenerator<T6> &g6, const ParamGenerator<T7> &g7,
+                           const ParamGenerator<T8> &g8, const ParamGenerator<T9> &g9)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7), g8_(g8),
     g9_(g9) {}
 virtual ~CartesianProductGenerator9() {}
@@ -16207,24 +16207,24 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4,
-         const ParamGenerator<T5>&g5,
-         const typename ParamGenerator<T5>::iterator&current5,
-         const ParamGenerator<T6>&g6,
-         const typename ParamGenerator<T6>::iterator&current6,
-         const ParamGenerator<T7>&g7,
-         const typename ParamGenerator<T7>::iterator&current7,
-         const ParamGenerator<T8>&g8,
-         const typename ParamGenerator<T8>::iterator&current8,
-         const ParamGenerator<T9>&g9,
-         const typename ParamGenerator<T9>::iterator&current9)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4,
+         const ParamGenerator<T5> &g5,
+         const typename ParamGenerator<T5>::iterator &current5,
+         const ParamGenerator<T6> &g6,
+         const typename ParamGenerator<T6>::iterator &current6,
+         const ParamGenerator<T7> &g7,
+         const typename ParamGenerator<T7>::iterator &current7,
+         const ParamGenerator<T8> &g8,
+         const typename ParamGenerator<T8>::iterator &current8,
+         const ParamGenerator<T9> &g9,
+         const typename ParamGenerator<T9>::iterator &current9)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -16308,7 +16308,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -16334,7 +16334,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -16391,7 +16391,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -16427,7 +16427,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator9::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator9&other);
+void operator=(const CartesianProductGenerator9 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -16450,12 +16450,12 @@ class CartesianProductGenerator10
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> ParamType;
 
-CartesianProductGenerator10(const ParamGenerator<T1>&g1,
-                            const ParamGenerator<T2>&g2, const ParamGenerator<T3>&g3,
-                            const ParamGenerator<T4>&g4, const ParamGenerator<T5>&g5,
-                            const ParamGenerator<T6>&g6, const ParamGenerator<T7>&g7,
-                            const ParamGenerator<T8>&g8, const ParamGenerator<T9>&g9,
-                            const ParamGenerator<T10>&g10)
+CartesianProductGenerator10(const ParamGenerator<T1> &g1,
+                            const ParamGenerator<T2> &g2, const ParamGenerator<T3> &g3,
+                            const ParamGenerator<T4> &g4, const ParamGenerator<T5> &g5,
+                            const ParamGenerator<T6> &g6, const ParamGenerator<T7> &g7,
+                            const ParamGenerator<T8> &g8, const ParamGenerator<T9> &g9,
+                            const ParamGenerator<T10> &g10)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7), g8_(g8),
     g9_(g9), g10_(g10) {}
 virtual ~CartesianProductGenerator10() {}
@@ -16478,26 +16478,26 @@ class Iterator : public ParamIteratorInterface<ParamType>
 {
 public:
 Iterator(const ParamGeneratorInterface<ParamType> *base,
-         const ParamGenerator<T1>&g1,
-         const typename ParamGenerator<T1>::iterator&current1,
-         const ParamGenerator<T2>&g2,
-         const typename ParamGenerator<T2>::iterator&current2,
-         const ParamGenerator<T3>&g3,
-         const typename ParamGenerator<T3>::iterator&current3,
-         const ParamGenerator<T4>&g4,
-         const typename ParamGenerator<T4>::iterator&current4,
-         const ParamGenerator<T5>&g5,
-         const typename ParamGenerator<T5>::iterator&current5,
-         const ParamGenerator<T6>&g6,
-         const typename ParamGenerator<T6>::iterator&current6,
-         const ParamGenerator<T7>&g7,
-         const typename ParamGenerator<T7>::iterator&current7,
-         const ParamGenerator<T8>&g8,
-         const typename ParamGenerator<T8>::iterator&current8,
-         const ParamGenerator<T9>&g9,
-         const typename ParamGenerator<T9>::iterator&current9,
-         const ParamGenerator<T10>&g10,
-         const typename ParamGenerator<T10>::iterator&current10)
+         const ParamGenerator<T1> &g1,
+         const typename ParamGenerator<T1>::iterator &current1,
+         const ParamGenerator<T2> &g2,
+         const typename ParamGenerator<T2>::iterator &current2,
+         const ParamGenerator<T3> &g3,
+         const typename ParamGenerator<T3>::iterator &current3,
+         const ParamGenerator<T4> &g4,
+         const typename ParamGenerator<T4>::iterator &current4,
+         const ParamGenerator<T5> &g5,
+         const typename ParamGenerator<T5>::iterator &current5,
+         const ParamGenerator<T6> &g6,
+         const typename ParamGenerator<T6>::iterator &current6,
+         const ParamGenerator<T7> &g7,
+         const typename ParamGenerator<T7>::iterator &current7,
+         const ParamGenerator<T8> &g8,
+         const typename ParamGenerator<T8>::iterator &current8,
+         const ParamGenerator<T9> &g9,
+         const typename ParamGenerator<T9>::iterator &current9,
+         const ParamGenerator<T10> &g10,
+         const typename ParamGenerator<T10>::iterator &current10)
     : base_(base),
     begin1_(g1.begin()), end1_(g1.end()), current1_(current1),
     begin2_(g2.begin()), end2_(g2.end()), current2_(current2),
@@ -16588,7 +16588,7 @@ virtual const ParamType* Current() const
 {
     return &current_value_;
 }
-virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
+virtual bool Equals(const ParamIteratorInterface<ParamType> &other) const
 {
     // Having the same base generator guarantees that the other
     // iterator is of the same type and we can downcast.
@@ -16615,7 +16615,7 @@ virtual bool Equals(const ParamIteratorInterface<ParamType>&other) const
 }
 
 private:
-Iterator(const Iterator&other)
+Iterator(const Iterator &other)
     : base_(other.base_),
     begin1_(other.begin1_),
     end1_(other.end1_),
@@ -16676,7 +16676,7 @@ bool AtEnd() const
 }
 
 // No implementation - assignment is unsupported.
-void operator=(const Iterator&other);
+void operator=(const Iterator &other);
 
 const ParamGeneratorInterface<ParamType>* const base_;
 // begin[i]_ and end[i]_ define the i-th range that Iterator traverses.
@@ -16715,7 +16715,7 @@ ParamType current_value_;
 };          // class CartesianProductGenerator10::Iterator
 
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductGenerator10&other);
+void operator=(const CartesianProductGenerator10 &other);
 
 const ParamGenerator<T1> g1_;
 const ParamGenerator<T2> g2_;
@@ -16740,7 +16740,7 @@ template<class Generator1, class Generator2>
 class CartesianProductHolder2
 {
 public:
-CartesianProductHolder2(const Generator1&g1, const Generator2&g2)
+CartesianProductHolder2(const Generator1 &g1, const Generator2 &g2)
     : g1_(g1), g2_(g2) {}
 template<typename T1, typename T2>
 operator ParamGenerator<::std::tr1::tuple<T1, T2> >() const {
@@ -16752,7 +16752,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2> >() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder2&other);
+void operator=(const CartesianProductHolder2 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16762,8 +16762,8 @@ template<class Generator1, class Generator2, class Generator3>
 class CartesianProductHolder3
 {
 public:
-CartesianProductHolder3(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3)
+CartesianProductHolder3(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3)
     : g1_(g1), g2_(g2), g3_(g3) {}
 template<typename T1, typename T2, typename T3>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3> >() const {
@@ -16776,7 +16776,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3> >() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder3&other);
+void operator=(const CartesianProductHolder3 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16788,8 +16788,8 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder4
 {
 public:
-CartesianProductHolder4(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3, const Generator4&g4)
+CartesianProductHolder4(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3, const Generator4 &g4)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4) {}
 template<typename T1, typename T2, typename T3, typename T4>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4> >() const {
@@ -16803,7 +16803,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4> >() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder4&other);
+void operator=(const CartesianProductHolder4 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16816,8 +16816,8 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder5
 {
 public:
-CartesianProductHolder5(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3, const Generator4&g4, const Generator5&g5)
+CartesianProductHolder5(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3, const Generator4 &g4, const Generator5 &g5)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5> >() const {
@@ -16832,7 +16832,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5> >() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder5&other);
+void operator=(const CartesianProductHolder5 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16846,9 +16846,9 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder6
 {
 public:
-CartesianProductHolder6(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3, const Generator4&g4, const Generator5&g5,
-                        const Generator6&g6)
+CartesianProductHolder6(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3, const Generator4 &g4, const Generator5 &g5,
+                        const Generator6 &g6)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6>
@@ -16865,7 +16865,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6> >() const {
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder6&other);
+void operator=(const CartesianProductHolder6 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16880,9 +16880,9 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder7
 {
 public:
-CartesianProductHolder7(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3, const Generator4&g4, const Generator5&g5,
-                        const Generator6&g6, const Generator7&g7)
+CartesianProductHolder7(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3, const Generator4 &g4, const Generator5 &g5,
+                        const Generator6 &g6, const Generator7 &g7)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7>
@@ -16901,7 +16901,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6,
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder7&other);
+void operator=(const CartesianProductHolder7 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16918,9 +16918,9 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder8
 {
 public:
-CartesianProductHolder8(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3, const Generator4&g4, const Generator5&g5,
-                        const Generator6&g6, const Generator7&g7, const Generator8&g8)
+CartesianProductHolder8(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3, const Generator4 &g4, const Generator5 &g5,
+                        const Generator6 &g6, const Generator7 &g7, const Generator8 &g8)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7),
     g8_(g8) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
@@ -16941,7 +16941,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7,
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder8&other);
+void operator=(const CartesianProductHolder8 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -16959,10 +16959,10 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder9
 {
 public:
-CartesianProductHolder9(const Generator1&g1, const Generator2&g2,
-                        const Generator3&g3, const Generator4&g4, const Generator5&g5,
-                        const Generator6&g6, const Generator7&g7, const Generator8&g8,
-                        const Generator9&g9)
+CartesianProductHolder9(const Generator1 &g1, const Generator2 &g2,
+                        const Generator3 &g3, const Generator4 &g4, const Generator5 &g5,
+                        const Generator6 &g6, const Generator7 &g7, const Generator8 &g8,
+                        const Generator9 &g9)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7), g8_(g8),
     g9_(g9) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
@@ -16985,7 +16985,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8,
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder9&other);
+void operator=(const CartesianProductHolder9 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -17004,10 +17004,10 @@ template<class Generator1, class Generator2, class Generator3,
 class CartesianProductHolder10
 {
 public:
-CartesianProductHolder10(const Generator1&g1, const Generator2&g2,
-                         const Generator3&g3, const Generator4&g4, const Generator5&g5,
-                         const Generator6&g6, const Generator7&g7, const Generator8&g8,
-                         const Generator9&g9, const Generator10&g10)
+CartesianProductHolder10(const Generator1 &g1, const Generator2 &g2,
+                         const Generator3 &g3, const Generator4 &g4, const Generator5 &g5,
+                         const Generator6 &g6, const Generator7 &g7, const Generator8 &g8,
+                         const Generator9 &g9, const Generator10 &g10)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6), g7_(g7), g8_(g8),
     g9_(g9), g10_(g10) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
@@ -17032,7 +17032,7 @@ operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8,
 
 private:
 // No implementation - assignment is unsupported.
-void operator=(const CartesianProductHolder10&other);
+void operator=(const CartesianProductHolder10 &other);
 
 const Generator1 g1_;
 const Generator2 g2_;
@@ -17184,7 +17184,7 @@ internal::ParamGenerator<T> ValuesIn(const T (&array)[N])
 
 template<class Container>
 internal::ParamGenerator<typename Container::value_type> ValuesIn(
-    const Container&container)
+    const Container &container)
 {
     return ValuesIn(container.begin(), container.end());
 }
@@ -18187,7 +18187,7 @@ inline internal::ParamGenerator<bool> Bool()
 //
 template<typename Generator1, typename Generator2>
 internal::CartesianProductHolder2<Generator1, Generator2> Combine(
-    const Generator1&g1, const Generator2&g2)
+    const Generator1 &g1, const Generator2 &g2)
 {
     return internal::CartesianProductHolder2<Generator1, Generator2>(
         g1, g2);
@@ -18195,7 +18195,7 @@ internal::CartesianProductHolder2<Generator1, Generator2> Combine(
 
 template<typename Generator1, typename Generator2, typename Generator3>
 internal::CartesianProductHolder3<Generator1, Generator2, Generator3> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3)
 {
     return internal::CartesianProductHolder3<Generator1, Generator2, Generator3>(
         g1, g2, g3);
@@ -18205,8 +18205,8 @@ template<typename Generator1, typename Generator2, typename Generator3,
          typename Generator4>
 internal::CartesianProductHolder4<Generator1, Generator2, Generator3,
                                   Generator4> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4)
 {
     return internal::CartesianProductHolder4<Generator1, Generator2, Generator3,
                                              Generator4>(
@@ -18217,8 +18217,8 @@ template<typename Generator1, typename Generator2, typename Generator3,
          typename Generator4, typename Generator5>
 internal::CartesianProductHolder5<Generator1, Generator2, Generator3,
                                   Generator4, Generator5> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4, const Generator5&g5)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4, const Generator5 &g5)
 {
     return internal::CartesianProductHolder5<Generator1, Generator2, Generator3,
                                              Generator4, Generator5>(
@@ -18229,8 +18229,8 @@ template<typename Generator1, typename Generator2, typename Generator3,
          typename Generator4, typename Generator5, typename Generator6>
 internal::CartesianProductHolder6<Generator1, Generator2, Generator3,
                                   Generator4, Generator5, Generator6> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4, const Generator5&g5, const Generator6&g6)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4, const Generator5 &g5, const Generator6 &g6)
 {
     return internal::CartesianProductHolder6<Generator1, Generator2, Generator3,
                                              Generator4, Generator5, Generator6>(
@@ -18242,9 +18242,9 @@ template<typename Generator1, typename Generator2, typename Generator3,
          typename Generator7>
 internal::CartesianProductHolder7<Generator1, Generator2, Generator3,
                                   Generator4, Generator5, Generator6, Generator7> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4, const Generator5&g5, const Generator6&g6,
-    const Generator7&g7)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4, const Generator5 &g5, const Generator6 &g6,
+    const Generator7 &g7)
 {
     return internal::CartesianProductHolder7<Generator1, Generator2, Generator3,
                                              Generator4, Generator5, Generator6, Generator7>(
@@ -18256,9 +18256,9 @@ template<typename Generator1, typename Generator2, typename Generator3,
          typename Generator7, typename Generator8>
 internal::CartesianProductHolder8<Generator1, Generator2, Generator3,
                                   Generator4, Generator5, Generator6, Generator7, Generator8> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4, const Generator5&g5, const Generator6&g6,
-    const Generator7&g7, const Generator8&g8)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4, const Generator5 &g5, const Generator6 &g6,
+    const Generator7 &g7, const Generator8 &g8)
 {
     return internal::CartesianProductHolder8<Generator1, Generator2, Generator3,
                                              Generator4, Generator5, Generator6, Generator7, Generator8>(
@@ -18271,9 +18271,9 @@ template<typename Generator1, typename Generator2, typename Generator3,
 internal::CartesianProductHolder9<Generator1, Generator2, Generator3,
                                   Generator4, Generator5, Generator6, Generator7, Generator8,
                                   Generator9> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4, const Generator5&g5, const Generator6&g6,
-    const Generator7&g7, const Generator8&g8, const Generator9&g9)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4, const Generator5 &g5, const Generator6 &g6,
+    const Generator7 &g7, const Generator8 &g8, const Generator9 &g9)
 {
     return internal::CartesianProductHolder9<Generator1, Generator2, Generator3,
                                              Generator4, Generator5, Generator6, Generator7, Generator8, Generator9>(
@@ -18287,10 +18287,10 @@ template<typename Generator1, typename Generator2, typename Generator3,
 internal::CartesianProductHolder10<Generator1, Generator2, Generator3,
                                    Generator4, Generator5, Generator6, Generator7, Generator8, Generator9,
                                    Generator10> Combine(
-    const Generator1&g1, const Generator2&g2, const Generator3&g3,
-    const Generator4&g4, const Generator5&g5, const Generator6&g6,
-    const Generator7&g7, const Generator8&g8, const Generator9&g9,
-    const Generator10&g10)
+    const Generator1 &g1, const Generator2 &g2, const Generator3 &g3,
+    const Generator4 &g4, const Generator5 &g5, const Generator6 &g6,
+    const Generator7 &g7, const Generator8 &g8, const Generator9 &g9,
+    const Generator10 &g10)
 {
     return internal::CartesianProductHolder10<Generator1, Generator2, Generator3,
                                               Generator4, Generator5, Generator6, Generator7, Generator8, Generator9,
@@ -18540,7 +18540,7 @@ std::string message_;    // The test failure message.
 };
 
 // Prints a TestPartResult object.
-std::ostream&operator<<(std::ostream&os, const TestPartResult&result);
+std::ostream&operator<<(std::ostream &os, const TestPartResult &result);
 
 // An array of TestPartResult objects.
 //
@@ -18552,7 +18552,7 @@ public:
 TestPartResultArray() {}
 
 // Appends the given TestPartResult to the array.
-void Append(const TestPartResult&result);
+void Append(const TestPartResult &result);
 
 // Returns the TestPartResult at the given index (0-based).
 const TestPartResult&GetTestPartResult(int index) const;
@@ -18572,7 +18572,7 @@ class GTEST_API_ TestPartResultReporterInterface
 public:
 virtual ~TestPartResultReporterInterface() {}
 
-virtual void ReportTestPartResult(const TestPartResult&result) = 0;
+virtual void ReportTestPartResult(const TestPartResult &result) = 0;
 };
 
 namespace internal
@@ -18589,7 +18589,7 @@ class GTEST_API_ HasNewFatalFailureHelper
 public:
 HasNewFatalFailureHelper();
 virtual ~HasNewFatalFailureHelper();
-virtual void ReportTestPartResult(const TestPartResult&result);
+virtual void ReportTestPartResult(const TestPartResult &result);
 bool has_new_fatal_failure() const
 {
     return has_new_fatal_failure_;
@@ -18967,7 +18967,7 @@ class UnitTestRecordPropertyTestHelper;
 class WindowsDeathTest;
 class UnitTestImpl* GetUnitTestImpl();
 void ReportFailureInUnknownLocation(TestPartResult::Type result_type,
-                                    const std::string&message);
+                                    const std::string &message);
 }   // namespace internal
 
 // The friend relationship of some of these classes is cyclic.
@@ -19062,7 +19062,7 @@ class GTEST_API_ AssertionResult
 public:
 // Copy constructor.
 // Used in EXPECT_TRUE/FALSE(assertion_result).
-AssertionResult(const AssertionResult&other);
+AssertionResult(const AssertionResult &other);
 // Used in the EXPECT_TRUE/FALSE(bool_expression).
 explicit AssertionResult(bool success) : success_(success) {}
 
@@ -19088,7 +19088,7 @@ const char* failure_message() const
 }
 
 // Streams a custom failure message into this object.
-template<typename T> AssertionResult&operator<<(const T&value)
+template<typename T> AssertionResult&operator<<(const T &value)
 {
     AppendMessage(Message() << value);
     return *this;
@@ -19105,7 +19105,7 @@ AssertionResult&operator<<(
 
 private:
 // Appends the contents of message to message_.
-void AppendMessage(const Message&a_message)
+void AppendMessage(const Message &a_message)
 {
     if (message_.get() == NULL)
         message_.reset(new ::std::string);
@@ -19132,7 +19132,7 @@ GTEST_API_ AssertionResult AssertionFailure();
 
 // Makes a failed assertion result with the given failure message.
 // Deprecated; use AssertionFailure() << msg.
-GTEST_API_ AssertionResult AssertionFailure(const Message&msg);
+GTEST_API_ AssertionResult AssertionFailure(const Message &msg);
 
 // The abstract class that all tests inherit from.
 //
@@ -19212,8 +19212,8 @@ static bool HasFailure()
 // global context (before or after invocation of RUN_ALL_TESTS and from
 // SetUp/TearDown method of Environment objects registered with Google
 // Test) will be output as attributes of the <testsuites> element.
-static void RecordProperty(const std::string&key, const std::string&value);
-static void RecordProperty(const std::string&key, int value);
+static void RecordProperty(const std::string &key, const std::string &value);
+static void RecordProperty(const std::string &key, int value);
 
 protected:
 // Creates a Test object.
@@ -19289,7 +19289,7 @@ public:
 // C'tor.  TestProperty does NOT have a default constructor.
 // Always use this constructor (with parameters) to create a
 // TestProperty object.
-TestProperty(const std::string&a_key, const std::string&a_value) :
+TestProperty(const std::string &a_key, const std::string &a_value) :
     key_(a_key), value_(a_value) {}
 
 // Gets the user supplied key.
@@ -19305,7 +19305,7 @@ const char* value() const
 }
 
 // Sets a new value, overriding the one supplied in the constructor.
-void SetValue(const std::string&new_value)
+void SetValue(const std::string &new_value)
 {
     value_ = new_value;
 }
@@ -19404,17 +19404,17 @@ void set_elapsed_time(TimeInMillis elapsed)
 // value will be updated, rather than storing multiple values for the same
 // key.  xml_element specifies the element for which the property is being
 // recorded and is used for validation.
-void RecordProperty(const std::string&xml_element,
-                    const TestProperty&test_property);
+void RecordProperty(const std::string &xml_element,
+                    const TestProperty &test_property);
 
 // Adds a failure if the key is a reserved attribute of Google Test
 // testcase tags.  Returns true if the property is valid.
 // TODO(russr): Validate attribute names are legal and human readable.
-static bool ValidateTestProperty(const std::string&xml_element,
-                                 const TestProperty&test_property);
+static bool ValidateTestProperty(const std::string &xml_element,
+                                 const TestProperty &test_property);
 
 // Adds a test part result to the list.
-void AddTestPartResult(const TestPartResult&test_part_result);
+void AddTestPartResult(const TestPartResult &test_part_result);
 
 // Returns the death test count.
 int death_test_count() const
@@ -19557,8 +19557,8 @@ friend TestInfo* internal::MakeAndRegisterTestInfo(
 
 // Constructs a TestInfo object. The newly constructed instance assumes
 // ownership of the factory object.
-TestInfo(const std::string&test_case_name,
-         const std::string&name,
+TestInfo(const std::string &test_case_name,
+         const std::string &name,
          const char *a_type_param,     // NULL if not a type-parameterized test
          const char *a_value_param,    // NULL if not a value-parameterized test
          internal::TypeId fixture_class_id,
@@ -19871,47 +19871,47 @@ public:
 virtual ~TestEventListener() {}
 
 // Fired before any test activity starts.
-virtual void OnTestProgramStart(const UnitTest&unit_test) = 0;
+virtual void OnTestProgramStart(const UnitTest &unit_test) = 0;
 
 // Fired before each iteration of tests starts.  There may be more than
 // one iteration if GTEST_FLAG(repeat) is set. iteration is the iteration
 // index, starting from 0.
-virtual void OnTestIterationStart(const UnitTest&unit_test,
+virtual void OnTestIterationStart(const UnitTest &unit_test,
                                   int iteration) = 0;
 
 // Fired before environment set-up for each iteration of tests starts.
-virtual void OnEnvironmentsSetUpStart(const UnitTest&unit_test) = 0;
+virtual void OnEnvironmentsSetUpStart(const UnitTest &unit_test) = 0;
 
 // Fired after environment set-up for each iteration of tests ends.
-virtual void OnEnvironmentsSetUpEnd(const UnitTest&unit_test) = 0;
+virtual void OnEnvironmentsSetUpEnd(const UnitTest &unit_test) = 0;
 
 // Fired before the test case starts.
-virtual void OnTestCaseStart(const TestCase&test_case) = 0;
+virtual void OnTestCaseStart(const TestCase &test_case) = 0;
 
 // Fired before the test starts.
-virtual void OnTestStart(const TestInfo&test_info) = 0;
+virtual void OnTestStart(const TestInfo &test_info) = 0;
 
 // Fired after a failed assertion or a SUCCEED() invocation.
-virtual void OnTestPartResult(const TestPartResult&test_part_result) = 0;
+virtual void OnTestPartResult(const TestPartResult &test_part_result) = 0;
 
 // Fired after the test ends.
-virtual void OnTestEnd(const TestInfo&test_info) = 0;
+virtual void OnTestEnd(const TestInfo &test_info) = 0;
 
 // Fired after the test case ends.
-virtual void OnTestCaseEnd(const TestCase&test_case) = 0;
+virtual void OnTestCaseEnd(const TestCase &test_case) = 0;
 
 // Fired before environment tear-down for each iteration of tests starts.
-virtual void OnEnvironmentsTearDownStart(const UnitTest&unit_test) = 0;
+virtual void OnEnvironmentsTearDownStart(const UnitTest &unit_test) = 0;
 
 // Fired after environment tear-down for each iteration of tests ends.
-virtual void OnEnvironmentsTearDownEnd(const UnitTest&unit_test) = 0;
+virtual void OnEnvironmentsTearDownEnd(const UnitTest &unit_test) = 0;
 
 // Fired after each iteration of tests finishes.
-virtual void OnTestIterationEnd(const UnitTest&unit_test,
+virtual void OnTestIterationEnd(const UnitTest &unit_test,
                                 int iteration) = 0;
 
 // Fired after all test activities have ended.
-virtual void OnTestProgramEnd(const UnitTest&unit_test) = 0;
+virtual void OnTestProgramEnd(const UnitTest &unit_test) = 0;
 };
 
 // The convenience class for users who need to override just one or two
@@ -20151,8 +20151,8 @@ Environment* AddEnvironment(Environment *env);
 void AddTestPartResult(TestPartResult::Type result_type,
                        const char *file_name,
                        int line_number,
-                       const std::string&message,
-                       const std::string&os_stack_trace)
+                       const std::string &message,
+                       const std::string &os_stack_trace)
 GTEST_LOCK_EXCLUDED_(mutex_);
 
 // Adds a TestProperty to the current TestResult object when invoked from
@@ -20160,7 +20160,7 @@ GTEST_LOCK_EXCLUDED_(mutex_);
 // from SetUpTestCase or TearDownTestCase, or to the global property set
 // when invoked elsewhere.  If the result already contains a property with
 // the same key, the value will be updated.
-void RecordProperty(const std::string&key, const std::string&value);
+void RecordProperty(const std::string &key, const std::string &value);
 
 // Gets the i-th test case among all the test cases. i can range from 0 to
 // total_test_case_count() - 1. If i is not in that range, returns NULL.
@@ -20187,7 +20187,7 @@ friend Environment* AddGlobalTestEnvironment(Environment *env);
 friend internal::UnitTestImpl* internal::GetUnitTestImpl();
 friend void internal::ReportFailureInUnknownLocation(
     TestPartResult::Type result_type,
-    const std::string&message);
+    const std::string &message);
 
 // Creates an empty UnitTest.
 UnitTest();
@@ -20197,7 +20197,7 @@ virtual ~UnitTest();
 
 // Pushes a trace defined by SCOPED_TRACE() on to the per-thread
 // Google Test trace stack.
-void PushGTestTrace(const internal::TraceInfo&trace)
+void PushGTestTrace(const internal::TraceInfo &trace)
 GTEST_LOCK_EXCLUDED_(mutex_);
 
 // Pops a trace from the per-thread Google Test trace stack.
@@ -20277,7 +20277,7 @@ template<typename ToPrint, typename OtherOperand>
 class FormatForComparison
 {
 public:
-static ::std::string Format(const ToPrint&value)
+static ::std::string Format(const ToPrint &value)
 {
     return ::testing::PrintToString(value);
 }
@@ -20355,7 +20355,7 @@ GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(const wchar_t, ::std::wstring);
 // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
 template<typename T1, typename T2>
 std::string FormatForComparisonFailureMessage(
-    const T1&value, const T2& /* other_operand */)
+    const T1 &value, const T2& /* other_operand */)
 {
     return FormatForComparison<T1, T2>::Format(value);
 }
@@ -20364,8 +20364,8 @@ std::string FormatForComparisonFailureMessage(
 template<typename T1, typename T2>
 AssertionResult CmpHelperEQ(const char *expected_expression,
                             const char *actual_expression,
-                            const T1&expected,
-                            const T2&actual)
+                            const T1 &expected,
+                            const T2 &actual)
 {
 #ifdef _MSC_VER
 # pragma warning(push)          // Saves the current warning state.
@@ -20409,8 +20409,8 @@ public:
 template<typename T1, typename T2>
 static AssertionResult Compare(const char *expected_expression,
                                const char *actual_expression,
-                               const T1&expected,
-                               const T2&actual)
+                               const T1 &expected,
+                               const T2 &actual)
 {
     return CmpHelperEQ(expected_expression, actual_expression, expected,
                        actual);
@@ -20446,8 +20446,8 @@ template<typename T1, typename T2>
 static AssertionResult Compare(
     const char *expected_expression,
     const char *actual_expression,
-    const T1&expected,
-    const T2&actual,
+    const T1 &expected,
+    const T2 &actual,
     // The following line prevents this overload from being considered if T2
     // is not a pointer type.  We need this because ASSERT_EQ(NULL, my_ptr)
     // expands to Compare("", "", NULL, my_ptr), which requires a conversion
@@ -20593,18 +20593,18 @@ GTEST_API_ AssertionResult IsNotSubstring(
     const wchar_t *needle, const wchar_t *haystack);
 GTEST_API_ AssertionResult IsSubstring(
     const char *needle_expr, const char *haystack_expr,
-    const ::std::string&needle, const ::std::string&haystack);
+    const ::std::string &needle, const ::std::string &haystack);
 GTEST_API_ AssertionResult IsNotSubstring(
     const char *needle_expr, const char *haystack_expr,
-    const ::std::string&needle, const ::std::string&haystack);
+    const ::std::string &needle, const ::std::string &haystack);
 
 #if GTEST_HAS_STD_WSTRING
 GTEST_API_ AssertionResult IsSubstring(
     const char *needle_expr, const char *haystack_expr,
-    const ::std::wstring&needle, const ::std::wstring&haystack);
+    const ::std::wstring &needle, const ::std::wstring &haystack);
 GTEST_API_ AssertionResult IsNotSubstring(
     const char *needle_expr, const char *haystack_expr,
-    const ::std::wstring&needle, const ::std::wstring&haystack);
+    const ::std::wstring &needle, const ::std::wstring &haystack);
 #endif  // GTEST_HAS_STD_WSTRING
 
 namespace internal
@@ -20668,7 +20668,7 @@ AssertHelper(TestPartResult::Type type,
 
 // Message assignment is a semantic trick to enable assertion
 // streaming; see the GTEST_MESSAGE_ macro below.
-void operator=(const Message&message) const;
+void operator=(const Message &message) const;
 
 private:
 // We put our data in a struct so that the size of the AssertHelper class can
@@ -20954,7 +20954,7 @@ template<typename Pred,
 AssertionResult AssertPred1Helper(const char *pred_text,
                                   const char *e1,
                                   Pred pred,
-                                  const T1&v1)
+                                  const T1 &v1)
 {
     if (pred(v1))
         return AssertionSuccess();
@@ -20999,8 +20999,8 @@ AssertionResult AssertPred2Helper(const char *pred_text,
                                   const char *e1,
                                   const char *e2,
                                   Pred pred,
-                                  const T1&v1,
-                                  const T2&v2)
+                                  const T1 &v1,
+                                  const T2 &v2)
 {
     if (pred(v1, v2))
         return AssertionSuccess();
@@ -21051,9 +21051,9 @@ AssertionResult AssertPred3Helper(const char *pred_text,
                                   const char *e2,
                                   const char *e3,
                                   Pred pred,
-                                  const T1&v1,
-                                  const T2&v2,
-                                  const T3&v3)
+                                  const T1 &v1,
+                                  const T2 &v2,
+                                  const T3 &v3)
 {
     if (pred(v1, v2, v3))
         return AssertionSuccess();
@@ -21110,10 +21110,10 @@ AssertionResult AssertPred4Helper(const char *pred_text,
                                   const char *e3,
                                   const char *e4,
                                   Pred pred,
-                                  const T1&v1,
-                                  const T2&v2,
-                                  const T3&v3,
-                                  const T4&v4)
+                                  const T1 &v1,
+                                  const T2 &v2,
+                                  const T3 &v3,
+                                  const T4 &v4)
 {
     if (pred(v1, v2, v3, v4))
         return AssertionSuccess();
@@ -21176,11 +21176,11 @@ AssertionResult AssertPred5Helper(const char *pred_text,
                                   const char *e4,
                                   const char *e5,
                                   Pred pred,
-                                  const T1&v1,
-                                  const T2&v2,
-                                  const T3&v3,
-                                  const T4&v4,
-                                  const T5&v5)
+                                  const T1 &v1,
+                                  const T2 &v2,
+                                  const T3 &v3,
+                                  const T4 &v4,
+                                  const T5 &v5)
 {
     if (pred(v1, v2, v3, v4, v5))
         return AssertionSuccess();

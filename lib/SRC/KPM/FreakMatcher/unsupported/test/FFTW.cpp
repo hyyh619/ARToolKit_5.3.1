@@ -68,7 +68,7 @@ complex<long double>  promote(long double x)
 
 
 template<typename VT1, typename VT2>
-long double fft_rmse(const VT1&fftbuf, const VT2&timebuf)
+long double fft_rmse(const VT1 &fftbuf, const VT2 &timebuf)
 {
     long double totalpower = 0;
     long double difpower   = 0;

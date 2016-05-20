@@ -66,14 +66,14 @@ public:
 /** Default constructor without initialization. */
 Translation() {}
 /**  */
-inline Translation(const Scalar&sx, const Scalar&sy)
+inline Translation(const Scalar &sx, const Scalar &sy)
 {
     ei_assert(Dim == 2);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
 }
 /**  */
-inline Translation(const Scalar&sx, const Scalar&sy, const Scalar&sz)
+inline Translation(const Scalar &sx, const Scalar &sy, const Scalar &sz)
 {
     ei_assert(Dim == 3);
     m_coeffs.x() = sx;
@@ -81,7 +81,7 @@ inline Translation(const Scalar&sx, const Scalar&sy, const Scalar&sz)
     m_coeffs.z() = sz;
 }
 /** Constructs and initialize the scaling transformation from a vector of scaling coefficients */
-explicit inline Translation(const VectorType&vector) : m_coeffs(vector) {}
+explicit inline Translation(const VectorType &vector) : m_coeffs(vector) {}
 
 const VectorType&vector() const
 {
@@ -93,26 +93,26 @@ VectorType&vector()
 }
 
 /** Concatenates two translation */
-inline Translation operator*(const Translation&other) const
+inline Translation operator*(const Translation &other) const
 {
     return Translation(m_coeffs + other.m_coeffs);
 }
 
 /** Concatenates a translation and a scaling */
-inline TransformType operator*(const ScalingType&other) const;
+inline TransformType operator*(const ScalingType &other) const;
 
 /** Concatenates a translation and a linear transformation */
-inline TransformType operator*(const LinearMatrixType&linear) const;
+inline TransformType operator*(const LinearMatrixType &linear) const;
 
 template<typename Derived>
-inline TransformType operator*(const RotationBase<Derived, Dim>&r) const
+inline TransformType operator*(const RotationBase<Derived, Dim> &r) const
 {
     return *this * r.toRotationMatrix();
 }
 
 /** Concatenates a linear transformation and a translation */
 // its a nightmare to define a templated friend function outside its declaration
-friend inline TransformType operator*(const LinearMatrixType&linear, const Translation&t)
+friend inline TransformType operator*(const LinearMatrixType &linear, const Translation &t)
 {
     TransformType res;
 
@@ -125,10 +125,10 @@ friend inline TransformType operator*(const LinearMatrixType&linear, const Trans
 }
 
 /** Concatenates a translation and an affine transformation */
-inline TransformType operator*(const TransformType&t) const;
+inline TransformType operator*(const TransformType &t) const;
 
 /** Applies translation to vector */
-inline VectorType operator*(const VectorType&other) const
+inline VectorType operator*(const VectorType &other) const
 {
     return m_coeffs + other;
 }
@@ -139,7 +139,7 @@ Translation inverse() const
     return Translation(-m_coeffs);
 }
 
-Translation&operator=(const Translation&other)
+Translation&operator=(const Translation &other)
 {
     m_coeffs = other.m_coeffs;
     return *this;
@@ -158,7 +158,7 @@ inline typename internal::cast_return_type<Translation, Translation<NewScalarTyp
 
 /** Copy constructor with scalar type conversion */
 template<typename OtherScalarType>
-inline explicit Translation(const Translation<OtherScalarType, Dim>&other)
+inline explicit Translation(const Translation<OtherScalarType, Dim> &other)
 {
     m_coeffs = other.vector().template cast<Scalar>();
 }
@@ -167,7 +167,7 @@ inline explicit Translation(const Translation<OtherScalarType, Dim>&other)
  * determined by \a prec.
  *
  * \sa MatrixBase::isApprox() */
-bool isApprox(const Translation&other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
+bool isApprox(const Translation &other, typename NumTraits<Scalar>::Real prec = precision<Scalar>()) const
 {
     return m_coeffs.isApprox(other.m_coeffs, prec);
 }
@@ -184,7 +184,7 @@ typedef Translation<double, 3> Translation3d;
 
 template<typename Scalar, int Dim>
 inline typename Translation<Scalar, Dim>::TransformType
-Translation<Scalar, Dim>::operator*(const ScalingType&other) const
+Translation<Scalar, Dim>::operator*(const ScalingType &other) const
 {
     TransformType res;
 
@@ -197,7 +197,7 @@ Translation<Scalar, Dim>::operator*(const ScalingType&other) const
 
 template<typename Scalar, int Dim>
 inline typename Translation<Scalar, Dim>::TransformType
-Translation<Scalar, Dim>::operator*(const LinearMatrixType&linear) const
+Translation<Scalar, Dim>::operator*(const LinearMatrixType &linear) const
 {
     TransformType res;
 
@@ -211,7 +211,7 @@ Translation<Scalar, Dim>::operator*(const LinearMatrixType&linear) const
 
 template<typename Scalar, int Dim>
 inline typename Translation<Scalar, Dim>::TransformType
-Translation<Scalar, Dim>::operator*(const TransformType&t) const
+Translation<Scalar, Dim>::operator*(const TransformType &t) const
 {
     TransformType res = t;
 

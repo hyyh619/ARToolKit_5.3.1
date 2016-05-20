@@ -73,7 +73,7 @@ public:
 typedef MatrixBase<Minor> Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(Minor)
 
-inline Minor(const MatrixType&matrix,
+inline Minor(const MatrixType &matrix,
              Index row, Index col)
     : m_matrix(matrix), m_row(row), m_col(col)
 {

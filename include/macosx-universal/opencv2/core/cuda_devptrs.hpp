@@ -130,7 +130,7 @@ template<typename T> struct PtrStepSz : public PtrStep<T>
         : PtrStep<T>(data_, step_), cols(cols_), rows(rows_) {}
 
     template<typename U>
-    explicit PtrStepSz(const PtrStepSz<U>&d) : PtrStep<T>((T*)d.data, d.step), cols(d.cols), rows(d.rows){}
+    explicit PtrStepSz(const PtrStepSz<U> &d) : PtrStep<T>((T*)d.data, d.step), cols(d.cols), rows(d.rows){}
 
     int cols;
     int rows;
@@ -163,7 +163,7 @@ template<typename T> struct __CV_GPU_DEPR_BEFORE__ DevMem2D_ : public PtrStepSz<
     DevMem2D_(int rows_, int cols_, T *data_, size_t step_) : PtrStepSz<T>(rows_, cols_, data_, step_) {}
 
     template<typename U>
-    explicit __CV_GPU_DEPR_BEFORE__ DevMem2D_(const DevMem2D_<U>&d) : PtrStepSz<T>(d.rows, d.cols, (T*)d.data, d.step) {}
+    explicit __CV_GPU_DEPR_BEFORE__ DevMem2D_(const DevMem2D_<U> &d) : PtrStepSz<T>(d.rows, d.cols, (T*)d.data, d.step) {}
 } __CV_GPU_DEPR_AFTER__;
 
 typedef DevMem2D_<unsigned char> DevMem2Db;
@@ -173,7 +173,7 @@ typedef DevMem2D_<int> DevMem2Di;
 
 template<typename T> struct PtrElemStep_ : public PtrStep<T>
 {
-    PtrElemStep_(const DevMem2D_<T>&mem) : PtrStep<T>(mem.data, mem.step)
+    PtrElemStep_(const DevMem2D_<T> &mem) : PtrStep<T>(mem.data, mem.step)
     {
         StaticAssert<256 % sizeof(T) == 0>::check();
 
@@ -201,7 +201,7 @@ template<typename T> struct PtrElemStep_ : public PtrStep<T>
 template<typename T> struct PtrStep_ : public PtrStep<T>
 {
     PtrStep_() {}
-    PtrStep_(const DevMem2D_<T>&mem) : PtrStep<T>(mem.data, mem.step) {}
+    PtrStep_(const DevMem2D_<T> &mem) : PtrStep<T>(mem.data, mem.step) {}
 };
 
 typedef PtrElemStep_<unsigned char> PtrElemStep;

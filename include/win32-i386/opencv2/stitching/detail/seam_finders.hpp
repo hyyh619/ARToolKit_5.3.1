@@ -55,8 +55,8 @@ class CV_EXPORTS SeamFinder
 {
 public:
 virtual ~SeamFinder() {}
-virtual void find(const std::vector<Mat>&src, const std::vector<Point>&corners,
-                  std::vector<Mat>&masks) = 0;
+virtual void find(const std::vector<Mat> &src, const std::vector<Point> &corners,
+                  std::vector<Mat> &masks) = 0;
 };
 
 
@@ -70,8 +70,8 @@ void find(const std::vector<Mat>&, const std::vector<Point>&, std::vector<Mat>&)
 class CV_EXPORTS PairwiseSeamFinder : public SeamFinder
 {
 public:
-virtual void find(const std::vector<Mat>&src, const std::vector<Point>&corners,
-                  std::vector<Mat>&masks);
+virtual void find(const std::vector<Mat> &src, const std::vector<Point> &corners,
+                  std::vector<Mat> &masks);
 
 protected:
 void run();
@@ -87,8 +87,8 @@ std::vector<Mat>   masks_;
 class CV_EXPORTS VoronoiSeamFinder : public PairwiseSeamFinder
 {
 public:
-virtual void find(const std::vector<Size>&size, const std::vector<Point>&corners,
-                  std::vector<Mat>&masks);
+virtual void find(const std::vector<Size> &size, const std::vector<Point> &corners,
+                  std::vector<Mat> &masks);
 private:
 void findInPair(size_t first, size_t second, Rect roi);
 };
@@ -110,8 +110,8 @@ void setCostFunction(CostFunction val)
     costFunc_ = val;
 }
 
-virtual void find(const std::vector<Mat>&src, const std::vector<Point>&corners,
-                  std::vector<Mat>&masks);
+virtual void find(const std::vector<Mat> &src, const std::vector<Point> &corners,
+                  std::vector<Mat> &masks);
 
 private:
 enum ComponentState
@@ -124,10 +124,10 @@ enum ComponentState
 class ImagePairLess
 {
 public:
-ImagePairLess(const std::vector<Mat>&images, const std::vector<Point>&corners)
+ImagePairLess(const std::vector<Mat> &images, const std::vector<Point> &corners)
     : src_(&images[0]), corners_(&corners[0]) {}
 
-bool operator()(const std::pair<size_t, size_t>&l, const std::pair<size_t, size_t>&r) const
+bool operator()(const std::pair<size_t, size_t> &l, const std::pair<size_t, size_t> &r) const
 {
     Point c1 = corners_[l.first] + Point(src_[l.first].cols / 2, src_[l.first].rows / 2);
     Point c2 = corners_[l.second] + Point(src_[l.second].cols / 2, src_[l.second].rows / 2);
@@ -150,7 +150,7 @@ class ClosePoints
 public:
 ClosePoints(int minDist) : minDist_(minDist) {}
 
-bool operator()(const Point&p1, const Point&p2) const
+bool operator()(const Point &p1, const Point &p2) const
 {
     int dist2 = (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
 
@@ -162,33 +162,33 @@ int minDist_;
 };
 
 void process(
-    const Mat&image1, const Mat&image2, Point tl1, Point tl2, Mat&mask1, Mat&mask2);
+    const Mat &image1, const Mat &image2, Point tl1, Point tl2, Mat &mask1, Mat &mask2);
 
 void findComponents();
 
 void findEdges();
 
 void resolveConflicts(
-    const Mat&image1, const Mat&image2, Point tl1, Point tl2, Mat&mask1, Mat&mask2);
+    const Mat &image1, const Mat &image2, Point tl1, Point tl2, Mat &mask1, Mat &mask2);
 
-void computeGradients(const Mat&image1, const Mat&image2);
+void computeGradients(const Mat &image1, const Mat &image2);
 
 bool hasOnlyOneNeighbor(int comp);
 
-bool closeToContour(int y, int x, const Mat_<uchar>&contourMask);
+bool closeToContour(int y, int x, const Mat_<uchar> &contourMask);
 
-bool getSeamTips(int comp1, int comp2, Point&p1, Point&p2);
+bool getSeamTips(int comp1, int comp2, Point &p1, Point &p2);
 
 void computeCosts(
-    const Mat&image1, const Mat&image2, Point tl1, Point tl2,
-    int comp, Mat_<float>&costV, Mat_<float>&costH);
+    const Mat &image1, const Mat &image2, Point tl1, Point tl2,
+    int comp, Mat_<float> &costV, Mat_<float> &costH);
 
 bool estimateSeam(
-    const Mat&image1, const Mat&image2, Point tl1, Point tl2, int comp,
-    Point p1, Point p2, std::vector<Point>&seam, bool&isHorizontal);
+    const Mat &image1, const Mat &image2, Point tl1, Point tl2, int comp,
+    Point p1, Point p2, std::vector<Point> &seam, bool &isHorizontal);
 
 void updateLabelsUsingSeam(
-    int comp1, int comp2, const std::vector<Point>&seam, bool isHorizontalSeam);
+    int comp1, int comp2, const std::vector<Point> &seam, bool isHorizontalSeam);
 
 CostFunction costFunc_;
 
@@ -225,8 +225,8 @@ GraphCutSeamFinder(int cost_type = COST_COLOR_GRAD, float terminal_cost = 10000.
 
 ~GraphCutSeamFinder();
 
-void find(const std::vector<Mat>&src, const std::vector<Point>&corners,
-          std::vector<Mat>&masks);
+void find(const std::vector<Mat> &src, const std::vector<Point> &corners,
+          std::vector<Mat> &masks);
 
 private:
 // To avoid GCGraph dependency
@@ -243,16 +243,16 @@ GraphCutSeamFinderGpu(int cost_type = COST_COLOR_GRAD, float terminal_cost = 100
     : cost_type_(cost_type), terminal_cost_(terminal_cost),
     bad_region_penalty_(bad_region_penalty) {}
 
-void find(const std::vector<cv::Mat>&src, const std::vector<cv::Point>&corners,
-          std::vector<cv::Mat>&masks);
+void find(const std::vector<cv::Mat> &src, const std::vector<cv::Point> &corners,
+          std::vector<cv::Mat> &masks);
 void findInPair(size_t first, size_t second, Rect roi);
 
 private:
-void setGraphWeightsColor(const cv::Mat&img1, const cv::Mat&img2, const cv::Mat&mask1, const cv::Mat&mask2,
-                          cv::Mat&terminals, cv::Mat&leftT, cv::Mat&rightT, cv::Mat&top, cv::Mat&bottom);
-void setGraphWeightsColorGrad(const cv::Mat&img1, const cv::Mat&img2, const cv::Mat&dx1, const cv::Mat&dx2,
-                              const cv::Mat&dy1, const cv::Mat&dy2, const cv::Mat&mask1, const cv::Mat&mask2,
-                              cv::Mat&terminals, cv::Mat&leftT, cv::Mat&rightT, cv::Mat&top, cv::Mat&bottom);
+void setGraphWeightsColor(const cv::Mat &img1, const cv::Mat &img2, const cv::Mat &mask1, const cv::Mat &mask2,
+                          cv::Mat &terminals, cv::Mat &leftT, cv::Mat &rightT, cv::Mat &top, cv::Mat &bottom);
+void setGraphWeightsColorGrad(const cv::Mat &img1, const cv::Mat &img2, const cv::Mat &dx1, const cv::Mat &dx2,
+                              const cv::Mat &dy1, const cv::Mat &dy2, const cv::Mat &mask1, const cv::Mat &mask2,
+                              cv::Mat &terminals, cv::Mat &leftT, cv::Mat &rightT, cv::Mat &top, cv::Mat &bottom);
 std::vector<Mat> dx_, dy_;
 int              cost_type_;
 float            terminal_cost_;

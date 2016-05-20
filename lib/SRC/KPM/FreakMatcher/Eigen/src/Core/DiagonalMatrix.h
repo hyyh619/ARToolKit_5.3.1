@@ -64,14 +64,14 @@ DenseMatrixType toDenseMatrix() const
     return derived();
 }
 template<typename DenseDerived>
-void evalTo(MatrixBase<DenseDerived>&other) const;
+void evalTo(MatrixBase<DenseDerived> &other) const;
 template<typename DenseDerived>
-void addTo(MatrixBase<DenseDerived>&other) const
+void addTo(MatrixBase<DenseDerived> &other) const
 {
     other.diagonal() += diagonal();
 }
 template<typename DenseDerived>
-void subTo(MatrixBase<DenseDerived>&other) const
+void subTo(MatrixBase<DenseDerived> &other) const
 {
     other.diagonal() -= diagonal();
 }
@@ -96,7 +96,7 @@ inline Index cols() const
 
 template<typename MatrixDerived>
 const DiagonalProduct<MatrixDerived, Derived, OnTheLeft>
-operator*(const MatrixBase<MatrixDerived>&matrix) const;
+operator*(const MatrixBase<MatrixDerived> &matrix) const;
 
 inline const DiagonalWrapper<CwiseUnaryOp<internal::scalar_inverse_op<Scalar>, const DiagonalVectorType> >
 inverse() const
@@ -106,12 +106,12 @@ inverse() const
 
     #ifdef EIGEN2_SUPPORT
 template<typename OtherDerived>
-bool isApprox(const DiagonalBase<OtherDerived>&other, typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const DiagonalBase<OtherDerived> &other, typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision()) const
 {
     return diagonal().isApprox(other.diagonal(), precision);
 }
 template<typename OtherDerived>
-bool isApprox(const MatrixBase<OtherDerived>&other, typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision()) const
+bool isApprox(const MatrixBase<OtherDerived> &other, typename NumTraits<Scalar>::Real precision = NumTraits<Scalar>::dummy_precision()) const
 {
     return toDenseMatrix().isApprox(other, precision);
 }
@@ -120,7 +120,7 @@ bool isApprox(const MatrixBase<OtherDerived>&other, typename NumTraits<Scalar>::
 
 template<typename Derived>
 template<typename DenseDerived>
-void DiagonalBase<Derived>::evalTo(MatrixBase<DenseDerived>&other) const
+void DiagonalBase<Derived>::evalTo(MatrixBase<DenseDerived> &other) const
 {
     other.setZero();
     other.diagonal() = diagonal();
@@ -192,28 +192,28 @@ inline DiagonalMatrix() {}
 inline DiagonalMatrix(Index dim) : m_diagonal(dim) {}
 
 /** 2D constructor. */
-inline DiagonalMatrix(const Scalar&x, const Scalar&y) : m_diagonal(x, y) {}
+inline DiagonalMatrix(const Scalar &x, const Scalar &y) : m_diagonal(x, y) {}
 
 /** 3D constructor. */
-inline DiagonalMatrix(const Scalar&x, const Scalar&y, const Scalar&z) : m_diagonal(x, y, z) {}
+inline DiagonalMatrix(const Scalar &x, const Scalar &y, const Scalar &z) : m_diagonal(x, y, z) {}
 
 /** Copy constructor. */
 template<typename OtherDerived>
-inline DiagonalMatrix(const DiagonalBase<OtherDerived>&other) : m_diagonal(other.diagonal()) {}
+inline DiagonalMatrix(const DiagonalBase<OtherDerived> &other) : m_diagonal(other.diagonal()) {}
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 /** copy constructor. prevent a default copy constructor from hiding the other templated constructor */
-inline DiagonalMatrix(const DiagonalMatrix&other) : m_diagonal(other.diagonal()) {}
+inline DiagonalMatrix(const DiagonalMatrix &other) : m_diagonal(other.diagonal()) {}
     #endif
 
 /** generic constructor from expression of the diagonal coefficients */
 template<typename OtherDerived>
-explicit inline DiagonalMatrix(const MatrixBase<OtherDerived>&other) : m_diagonal(other)
+explicit inline DiagonalMatrix(const MatrixBase<OtherDerived> &other) : m_diagonal(other)
 {}
 
 /** Copy operator. */
 template<typename OtherDerived>
-DiagonalMatrix&operator=(const DiagonalBase<OtherDerived>&other)
+DiagonalMatrix&operator=(const DiagonalBase<OtherDerived> &other)
 {
     m_diagonal = other.diagonal();
     return *this;
@@ -223,7 +223,7 @@ DiagonalMatrix&operator=(const DiagonalBase<OtherDerived>&other)
 /** This is a special case of the templated operator=. Its purpose is to
  * prevent a default operator= from hiding the templated operator=.
  */
-DiagonalMatrix&operator=(const DiagonalMatrix&other)
+DiagonalMatrix&operator=(const DiagonalMatrix &other)
 {
     m_diagonal = other.diagonal();
     return *this;
@@ -302,7 +302,7 @@ typedef DiagonalWrapper Nested;
     #endif
 
 /** Constructor from expression of diagonal coefficients to wrap. */
-inline DiagonalWrapper(const DiagonalVectorType&diagonal) : m_diagonal(diagonal) {}
+inline DiagonalWrapper(const DiagonalVectorType &diagonal) : m_diagonal(diagonal) {}
 
 /** \returns a const reference to the wrapped expression of diagonal coefficients. */
 const DiagonalVectorType&diagonal() const

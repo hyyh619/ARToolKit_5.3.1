@@ -192,9 +192,9 @@ struct SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, 0, true>
         LhsUpLo = LhsMode & (Upper | Lower)
     };
 
-    SelfadjointProductMatrix(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs) {}
+    SelfadjointProductMatrix(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs) {}
 
-    template<typename Dest> void scaleAndAddTo(Dest&dest, Scalar alpha) const
+    template<typename Dest> void scaleAndAddTo(Dest &dest, Scalar alpha) const
     {
         typedef typename Dest::Scalar ResScalar;
         typedef typename Base::RhsScalar RhsScalar;
@@ -275,9 +275,9 @@ struct SelfadjointProductMatrix<Lhs, 0, true, Rhs, RhsMode, false>
         RhsUpLo = RhsMode & (Upper | Lower)
     };
 
-    SelfadjointProductMatrix(const Lhs&lhs, const Rhs&rhs) : Base(lhs, rhs) {}
+    SelfadjointProductMatrix(const Lhs &lhs, const Rhs &rhs) : Base(lhs, rhs) {}
 
-    template<typename Dest> void scaleAndAddTo(Dest&dest, Scalar alpha) const
+    template<typename Dest> void scaleAndAddTo(Dest &dest, Scalar alpha) const
     {
         // let's simply transpose the product
         Transpose<Dest> destT(dest);

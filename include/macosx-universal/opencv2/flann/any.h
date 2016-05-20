@@ -27,7 +27,7 @@ struct bad_any_cast
 struct empty_any
 {};
 
-inline std::ostream&operator <<(std::ostream&out, const empty_any&)
+inline std::ostream&operator <<(std::ostream &out, const empty_any&)
 {
     out << "[empty_any]";
     return out;
@@ -42,7 +42,7 @@ struct base_any_policy
     virtual void                * get_value(void **src)                       = 0;
     virtual ::size_t            get_size()                                    = 0;
     virtual const std::type_info&type()                                       = 0;
-    virtual void                print(std::ostream&out, void* const *src)     = 0;
+    virtual void                print(std::ostream &out, void* const *src)    = 0;
 
 #ifdef OPENCV_CAN_BREAK_BINARY_COMPATIBILITY
     virtual ~base_any_policy() {}
@@ -82,7 +82,7 @@ struct small_any_policy : typed_base_any_policy<T>
     {
         return reinterpret_cast<void*>(src);
     }
-    virtual void print(std::ostream&out, void* const *src)
+    virtual void print(std::ostream &out, void* const *src)
     {
         out << *reinterpret_cast<T const*>(src);
     }
@@ -115,18 +115,18 @@ struct big_any_policy : typed_base_any_policy<T>
     {
         return *src;
     }
-    virtual void print(std::ostream&out, void* const *src)
+    virtual void print(std::ostream &out, void* const *src)
     {
         out << *reinterpret_cast<T const*>(*src);
     }
 };
 
-template<> inline void big_any_policy<flann_centers_init_t>::print(std::ostream&out, void* const *src)
+template<> inline void big_any_policy<flann_centers_init_t>::print(std::ostream &out, void* const *src)
 {
     out << int(*reinterpret_cast<flann_centers_init_t const*>(*src));
 }
 
-template<> inline void big_any_policy<flann_algorithm_t>::print(std::ostream&out, void* const *src)
+template<> inline void big_any_policy<flann_algorithm_t>::print(std::ostream &out, void* const *src)
 {
     out << int(*reinterpret_cast<flann_algorithm_t const*>(*src));
 }
@@ -191,7 +191,7 @@ private:
 public:
     /// Initializing constructor.
     template<typename T>
-    any(const T&x)
+    any(const T &x)
         : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL)
     {
         assign(x);
@@ -210,7 +210,7 @@ public:
     }
 
     /// Copy constructor.
-    any(const any&x)
+    any(const any &x)
         : policy(anyimpl::get_policy<anyimpl::empty_any>()), object(NULL)
     {
         assign(x);
@@ -223,7 +223,7 @@ public:
     }
 
     /// Assignment function from another any.
-    any&assign(const any&x)
+    any&assign(const any &x)
     {
         reset();
         policy = x.policy;
@@ -233,7 +233,7 @@ public:
 
     /// Assignment function.
     template<typename T>
-    any&assign(const T&x)
+    any&assign(const T &x)
     {
         reset();
         policy = anyimpl::get_policy<T>();
@@ -243,7 +243,7 @@ public:
 
     /// Assignment operator.
     template<typename T>
-    any&operator=(const T&x)
+    any&operator=(const T &x)
     {
         return assign(x);
     }
@@ -256,7 +256,7 @@ public:
     }
 
     /// Utility functions
-    any&swap(any&x)
+    any&swap(any &x)
     {
         std::swap(policy, x.policy);
         std::swap(object, x.object);
@@ -301,7 +301,7 @@ public:
     }
 
     /// Returns true if the two types are the same.
-    bool compatible(const any&x) const
+    bool compatible(const any &x) const
     {
         return policy->type() == x.policy->type();
     }
@@ -318,10 +318,10 @@ public:
         return policy->type();
     }
 
-    friend std::ostream&operator <<(std::ostream&out, const any&any_val);
+    friend std::ostream&operator <<(std::ostream &out, const any &any_val);
 };
 
-inline std::ostream&operator <<(std::ostream&out, const any&any_val)
+inline std::ostream&operator <<(std::ostream &out, const any &any_val)
 {
     any_val.policy->print(out, &any_val.object);
     return out;

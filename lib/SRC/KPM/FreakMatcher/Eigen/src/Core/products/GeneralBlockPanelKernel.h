@@ -86,7 +86,7 @@ inline void manage_caching_sizes(Action action, std::ptrdiff_t *l1 = 0, std::ptr
  *
  * \sa setCpuCacheSizes */
 template<typename LhsScalar, typename RhsScalar, int KcFactor>
-void computeProductBlockingSizes(std::ptrdiff_t&k, std::ptrdiff_t&m, std::ptrdiff_t&n)
+void computeProductBlockingSizes(std::ptrdiff_t &k, std::ptrdiff_t &m, std::ptrdiff_t &n)
 {
     EIGEN_UNUSED_VARIABLE(n);
     // Explanations:
@@ -115,7 +115,7 @@ void computeProductBlockingSizes(std::ptrdiff_t&k, std::ptrdiff_t&m, std::ptrdif
 }
 
 template<typename LhsScalar, typename RhsScalar>
-inline void computeProductBlockingSizes(std::ptrdiff_t&k, std::ptrdiff_t&m, std::ptrdiff_t&n)
+inline void computeProductBlockingSizes(std::ptrdiff_t &k, std::ptrdiff_t &m, std::ptrdiff_t &n)
 {
     computeProductBlockingSizes<LhsScalar, RhsScalar, 1>(k, m, n);
 }
@@ -127,7 +127,7 @@ inline void computeProductBlockingSizes(std::ptrdiff_t&k, std::ptrdiff_t&m, std:
 
 template<typename CJ, typename A, typename B, typename C, typename T> struct gebp_madd_selector
 {
-    EIGEN_ALWAYS_INLINE static void run(const CJ&cj, A&a, B&b, C&c, T& /*t*/)
+    EIGEN_ALWAYS_INLINE static void run(const CJ &cj, A &a, B &b, C &c, T& /*t*/)
     {
         c = cj.pmadd(a, b, c);
     }
@@ -135,14 +135,14 @@ template<typename CJ, typename A, typename B, typename C, typename T> struct geb
 
 template<typename CJ, typename T> struct gebp_madd_selector<CJ, T, T, T, T>
 {
-    EIGEN_ALWAYS_INLINE static void run(const CJ&cj, T&a, T&b, T&c, T&t)
+    EIGEN_ALWAYS_INLINE static void run(const CJ &cj, T &a, T &b, T &c, T &t)
     {
         t = b; t = cj.pmul(a, t); c = padd(c, t);
     }
 };
 
 template<typename CJ, typename A, typename B, typename C, typename T>
-EIGEN_STRONG_INLINE void gebp_madd(const CJ&cj, A&a, B&b, C&c, T&t)
+EIGEN_STRONG_INLINE void gebp_madd(const CJ &cj, A &a, B &b, C &c, T &t)
 {
     gebp_madd_selector<CJ, A, B, C, T>::run(cj, a, b, c, t);
 }
@@ -202,7 +202,7 @@ typedef typename conditional<Vectorizable, _ResPacket, ResScalar>::type ResPacke
 
 typedef ResPacket AccPacket;
 
-EIGEN_STRONG_INLINE void initAcc(AccPacket&p)
+EIGEN_STRONG_INLINE void initAcc(AccPacket &p)
 {
     p = pset1<ResPacket>(ResScalar(0));
 }
@@ -213,22 +213,22 @@ EIGEN_STRONG_INLINE void unpackRhs(DenseIndex n, const RhsScalar *rhs, RhsScalar
         pstore1<RhsPacket>(&b[k * RhsPacketSize], rhs[k]);
 }
 
-EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, RhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, RhsPacket &dest) const
 {
     dest = pload<RhsPacket>(b);
 }
 
-EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket &dest) const
 {
     dest = pload<LhsPacket>(a);
 }
 
-EIGEN_STRONG_INLINE void madd(const LhsPacket&a, const RhsPacket&b, AccPacket&c, AccPacket&tmp) const
+EIGEN_STRONG_INLINE void madd(const LhsPacket &a, const RhsPacket &b, AccPacket &c, AccPacket &tmp) const
 {
     tmp = b; tmp = pmul(a, tmp); c = padd(c, tmp);
 }
 
-EIGEN_STRONG_INLINE void acc(const AccPacket&c, const ResPacket&alpha, ResPacket&r) const
+EIGEN_STRONG_INLINE void acc(const AccPacket &c, const ResPacket &alpha, ResPacket &r) const
 {
     r = pmadd(c, alpha, r);
 }
@@ -274,7 +274,7 @@ typedef typename conditional<Vectorizable, _ResPacket, ResScalar>::type ResPacke
 
 typedef ResPacket AccPacket;
 
-EIGEN_STRONG_INLINE void initAcc(AccPacket&p)
+EIGEN_STRONG_INLINE void initAcc(AccPacket &p)
 {
     p = pset1<ResPacket>(ResScalar(0));
 }
@@ -285,32 +285,32 @@ EIGEN_STRONG_INLINE void unpackRhs(DenseIndex n, const RhsScalar *rhs, RhsScalar
         pstore1<RhsPacket>(&b[k * RhsPacketSize], rhs[k]);
 }
 
-EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, RhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, RhsPacket &dest) const
 {
     dest = pload<RhsPacket>(b);
 }
 
-EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket &dest) const
 {
     dest = pload<LhsPacket>(a);
 }
 
-EIGEN_STRONG_INLINE void madd(const LhsPacket&a, const RhsPacket&b, AccPacket&c, RhsPacket&tmp) const
+EIGEN_STRONG_INLINE void madd(const LhsPacket &a, const RhsPacket &b, AccPacket &c, RhsPacket &tmp) const
 {
     madd_impl(a, b, c, tmp, typename conditional<Vectorizable, true_type, false_type>::type());
 }
 
-EIGEN_STRONG_INLINE void madd_impl(const LhsPacket&a, const RhsPacket&b, AccPacket&c, RhsPacket&tmp, const true_type&) const
+EIGEN_STRONG_INLINE void madd_impl(const LhsPacket &a, const RhsPacket &b, AccPacket &c, RhsPacket &tmp, const true_type&) const
 {
     tmp = b; tmp = pmul(a.v, tmp); c.v = padd(c.v, tmp);
 }
 
-EIGEN_STRONG_INLINE void madd_impl(const LhsScalar&a, const RhsScalar&b, ResScalar&c, RhsScalar& /*tmp*/, const false_type&) const
+EIGEN_STRONG_INLINE void madd_impl(const LhsScalar &a, const RhsScalar &b, ResScalar &c, RhsScalar& /*tmp*/, const false_type&) const
 {
     c += a * b;
 }
 
-EIGEN_STRONG_INLINE void acc(const AccPacket&c, const ResPacket&alpha, ResPacket&r) const
+EIGEN_STRONG_INLINE void acc(const AccPacket &c, const ResPacket &alpha, ResPacket &r) const
 {
     r = cj.pmadd(c, alpha, r);
 }
@@ -358,12 +358,12 @@ typedef typename conditional<Vectorizable, DoublePacket, Scalar>::type RhsPacket
 typedef typename conditional<Vectorizable, ScalarPacket, Scalar>::type ResPacket;
 typedef typename conditional<Vectorizable, DoublePacket, Scalar>::type AccPacket;
 
-EIGEN_STRONG_INLINE void initAcc(Scalar&p)
+EIGEN_STRONG_INLINE void initAcc(Scalar &p)
 {
     p = Scalar(0);
 }
 
-EIGEN_STRONG_INLINE void initAcc(DoublePacket&p)
+EIGEN_STRONG_INLINE void initAcc(DoublePacket &p)
 {
     p.first  = pset1<RealPacket>(RealScalar(0));
     p.second = pset1<RealPacket>(RealScalar(0));
@@ -387,40 +387,40 @@ EIGEN_STRONG_INLINE void unpackRhs(DenseIndex n, const Scalar *rhs, Scalar *b)
     }
 }
 
-EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, ResPacket&dest) const
+EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, ResPacket &dest) const
 {
     dest = *b;
 }
 
-EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, DoublePacket&dest) const
+EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, DoublePacket &dest) const
 {
     dest.first  = pload<RealPacket>((const RealScalar*)b);
     dest.second = pload<RealPacket>((const RealScalar*)(b + ResPacketSize));
 }
 
 // nothing special here
-EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket &dest) const
 {
     dest = pload<LhsPacket>((const typename unpacket_traits<LhsPacket>::type*)(a));
 }
 
-EIGEN_STRONG_INLINE void madd(const LhsPacket&a, const RhsPacket&b, DoublePacket&c, RhsPacket& /*tmp*/) const
+EIGEN_STRONG_INLINE void madd(const LhsPacket &a, const RhsPacket &b, DoublePacket &c, RhsPacket& /*tmp*/) const
 {
     c.first  = padd(pmul(a, b.first), c.first);
     c.second = padd(pmul(a, b.second), c.second);
 }
 
-EIGEN_STRONG_INLINE void madd(const LhsPacket&a, const RhsPacket&b, ResPacket&c, RhsPacket& /*tmp*/) const
+EIGEN_STRONG_INLINE void madd(const LhsPacket &a, const RhsPacket &b, ResPacket &c, RhsPacket& /*tmp*/) const
 {
     c = cj.pmadd(a, b, c);
 }
 
-EIGEN_STRONG_INLINE void acc(const Scalar&c, const Scalar&alpha, Scalar&r) const
+EIGEN_STRONG_INLINE void acc(const Scalar &c, const Scalar &alpha, Scalar &r) const
 {
     r += alpha * c;
 }
 
-EIGEN_STRONG_INLINE void acc(const DoublePacket&c, const ResPacket&alpha, ResPacket&r) const
+EIGEN_STRONG_INLINE void acc(const DoublePacket &c, const ResPacket &alpha, ResPacket &r) const
 {
     // assemble c
     ResPacket tmp;
@@ -491,7 +491,7 @@ typedef typename conditional<Vectorizable, _ResPacket, ResScalar>::type ResPacke
 
 typedef ResPacket AccPacket;
 
-EIGEN_STRONG_INLINE void initAcc(AccPacket&p)
+EIGEN_STRONG_INLINE void initAcc(AccPacket &p)
 {
     p = pset1<ResPacket>(ResScalar(0));
 }
@@ -502,32 +502,32 @@ EIGEN_STRONG_INLINE void unpackRhs(DenseIndex n, const RhsScalar *rhs, RhsScalar
         pstore1<RhsPacket>(&b[k * RhsPacketSize], rhs[k]);
 }
 
-EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, RhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadRhs(const RhsScalar *b, RhsPacket &dest) const
 {
     dest = pload<RhsPacket>(b);
 }
 
-EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket&dest) const
+EIGEN_STRONG_INLINE void loadLhs(const LhsScalar *a, LhsPacket &dest) const
 {
     dest = ploaddup<LhsPacket>(a);
 }
 
-EIGEN_STRONG_INLINE void madd(const LhsPacket&a, const RhsPacket&b, AccPacket&c, RhsPacket&tmp) const
+EIGEN_STRONG_INLINE void madd(const LhsPacket &a, const RhsPacket &b, AccPacket &c, RhsPacket &tmp) const
 {
     madd_impl(a, b, c, tmp, typename conditional<Vectorizable, true_type, false_type>::type());
 }
 
-EIGEN_STRONG_INLINE void madd_impl(const LhsPacket&a, const RhsPacket&b, AccPacket&c, RhsPacket&tmp, const true_type&) const
+EIGEN_STRONG_INLINE void madd_impl(const LhsPacket &a, const RhsPacket &b, AccPacket &c, RhsPacket &tmp, const true_type&) const
 {
     tmp = b; tmp.v = pmul(a, tmp.v); c = padd(c, tmp);
 }
 
-EIGEN_STRONG_INLINE void madd_impl(const LhsScalar&a, const RhsScalar&b, ResScalar&c, RhsScalar& /*tmp*/, const false_type&) const
+EIGEN_STRONG_INLINE void madd_impl(const LhsScalar &a, const RhsScalar &b, ResScalar &c, RhsScalar& /*tmp*/, const false_type&) const
 {
     c += a * b;
 }
 
-EIGEN_STRONG_INLINE void acc(const AccPacket&c, const ResPacket&alpha, ResPacket&r) const
+EIGEN_STRONG_INLINE void acc(const AccPacket &c, const ResPacket &alpha, ResPacket &r) const
 {
     r = cj.pmadd(alpha, c, r);
 }

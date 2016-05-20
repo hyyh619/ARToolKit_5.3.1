@@ -166,7 +166,7 @@ using Base::coeffRef;
  *
  * \callgraph
  */
-EIGEN_STRONG_INLINE Matrix&operator=(const Matrix&other)
+EIGEN_STRONG_INLINE Matrix&operator=(const Matrix &other)
 {
     return Base::_set(other);
 }
@@ -182,7 +182,7 @@ EIGEN_STRONG_INLINE Matrix&operator=(const Matrix&other)
  * remain row-vectors and vectors remain vectors.
  */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Matrix&operator=(const MatrixBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Matrix&operator=(const MatrixBase<OtherDerived> &other)
 {
     return Base::_set(other);
 }
@@ -194,13 +194,13 @@ EIGEN_STRONG_INLINE Matrix&operator=(const MatrixBase<OtherDerived>&other)
  * \copydetails DenseBase::operator=(const EigenBase<OtherDerived> &other)
  */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Matrix&operator=(const EigenBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Matrix&operator=(const EigenBase<OtherDerived> &other)
 {
     return Base::operator=(other);
 }
 
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Matrix&operator=(const ReturnByValue<OtherDerived>&func)
+EIGEN_STRONG_INLINE Matrix&operator=(const ReturnByValue<OtherDerived> &func)
 {
     return Base::operator=(func);
 }
@@ -248,7 +248,7 @@ EIGEN_STRONG_INLINE explicit Matrix(Index dim)
 
     #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename T0, typename T1>
-EIGEN_STRONG_INLINE Matrix(const T0&x, const T1&y)
+EIGEN_STRONG_INLINE Matrix(const T0 &x, const T1 &y)
 {
     Base::_check_template_params();
     Base::template _init2<T0, T1>(x, y);
@@ -261,11 +261,11 @@ EIGEN_STRONG_INLINE Matrix(const T0&x, const T1&y)
  * Matrix() instead. */
 Matrix(Index rows, Index cols);
 /** \brief Constructs an initialized 2D vector with given coefficients */
-Matrix(const Scalar&x, const Scalar&y);
+Matrix(const Scalar &x, const Scalar &y);
     #endif
 
 /** \brief Constructs an initialized 3D vector with given coefficients */
-EIGEN_STRONG_INLINE Matrix(const Scalar&x, const Scalar&y, const Scalar&z)
+EIGEN_STRONG_INLINE Matrix(const Scalar &x, const Scalar &y, const Scalar &z)
 {
     Base::_check_template_params();
 
@@ -275,7 +275,7 @@ EIGEN_STRONG_INLINE Matrix(const Scalar&x, const Scalar&y, const Scalar&z)
     m_storage.data()[2] = z;
 }
 /** \brief Constructs an initialized 4D vector with given coefficients */
-EIGEN_STRONG_INLINE Matrix(const Scalar&x, const Scalar&y, const Scalar&z, const Scalar&w)
+EIGEN_STRONG_INLINE Matrix(const Scalar &x, const Scalar &y, const Scalar &z, const Scalar &w)
 {
     Base::_check_template_params();
 
@@ -290,7 +290,7 @@ explicit Matrix(const Scalar *data);
 
 /** \brief Constructor copying the value of the expression \a other */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Matrix(const MatrixBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Matrix(const MatrixBase<OtherDerived> &other)
     : Base(other.rows() * other.cols(), other.rows(), other.cols())
 {
     // This test resides here, to bring the error messages closer to the user. Normally, these checks
@@ -302,7 +302,7 @@ EIGEN_STRONG_INLINE Matrix(const MatrixBase<OtherDerived>&other)
     Base::_set_noalias(other);
 }
 /** \brief Copy constructor */
-EIGEN_STRONG_INLINE Matrix(const Matrix&other)
+EIGEN_STRONG_INLINE Matrix(const Matrix &other)
     : Base(other.rows() * other.cols(), other.rows(), other.cols())
 {
     Base::_check_template_params();
@@ -310,7 +310,7 @@ EIGEN_STRONG_INLINE Matrix(const Matrix&other)
 }
 /** \brief Copy constructor with in-place evaluation */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Matrix(const ReturnByValue<OtherDerived>&other)
+EIGEN_STRONG_INLINE Matrix(const ReturnByValue<OtherDerived> &other)
 {
     Base::_check_template_params();
     Base::resize(other.rows(), other.cols());
@@ -322,7 +322,7 @@ EIGEN_STRONG_INLINE Matrix(const ReturnByValue<OtherDerived>&other)
  * \sa MatrixBase::operator=(const EigenBase<OtherDerived>&)
  */
 template<typename OtherDerived>
-EIGEN_STRONG_INLINE Matrix(const EigenBase<OtherDerived>&other)
+EIGEN_STRONG_INLINE Matrix(const EigenBase<OtherDerived> &other)
     : Base(other.derived().rows() * other.derived().cols(), other.derived().rows(), other.derived().cols())
 {
     Base::_check_template_params();
@@ -338,7 +338,7 @@ EIGEN_STRONG_INLINE Matrix(const EigenBase<OtherDerived>&other)
  * of same type it is enough to swap the data pointers.
  */
 template<typename OtherDerived>
-void swap(MatrixBase<OtherDerived> const&other)
+void swap(MatrixBase<OtherDerived> const &other)
 {
     this->_swap(other.derived());
 }
@@ -355,15 +355,15 @@ inline Index outerStride() const
 /////////// Geometry module ///////////
 
 template<typename OtherDerived>
-explicit Matrix(const RotationBase<OtherDerived, ColsAtCompileTime>&r);
+explicit Matrix(const RotationBase<OtherDerived, ColsAtCompileTime> &r);
 template<typename OtherDerived>
-Matrix&operator=(const RotationBase<OtherDerived, ColsAtCompileTime>&r);
+Matrix&operator=(const RotationBase<OtherDerived, ColsAtCompileTime> &r);
 
     #ifdef EIGEN2_SUPPORT
 template<typename OtherDerived>
-explicit Matrix(const eigen2_RotationBase<OtherDerived, ColsAtCompileTime>&r);
+explicit Matrix(const eigen2_RotationBase<OtherDerived, ColsAtCompileTime> &r);
 template<typename OtherDerived>
-Matrix&operator=(const eigen2_RotationBase<OtherDerived, ColsAtCompileTime>&r);
+Matrix&operator=(const eigen2_RotationBase<OtherDerived, ColsAtCompileTime> &r);
     #endif
 
 // allow to extend Matrix outside Eigen

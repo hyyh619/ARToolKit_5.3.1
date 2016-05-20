@@ -36,7 +36,7 @@ struct all_unroller
         row = (UnrollCount - 1) % Derived::RowsAtCompileTime
     };
 
-    inline static bool run(const Derived&mat)
+    inline static bool run(const Derived &mat)
     {
         return all_unroller<Derived, UnrollCount - 1>::run(mat) && mat.coeff(row, col);
     }
@@ -45,7 +45,7 @@ struct all_unroller
 template<typename Derived>
 struct all_unroller<Derived, 1>
 {
-    inline static bool run(const Derived&mat)
+    inline static bool run(const Derived &mat)
     {
         return mat.coeff(0, 0);
     }
@@ -69,7 +69,7 @@ struct any_unroller
         row = (UnrollCount - 1) % Derived::RowsAtCompileTime
     };
 
-    inline static bool run(const Derived&mat)
+    inline static bool run(const Derived &mat)
     {
         return any_unroller<Derived, UnrollCount - 1>::run(mat) || mat.coeff(row, col);
     }
@@ -78,7 +78,7 @@ struct any_unroller
 template<typename Derived>
 struct any_unroller<Derived, 1>
 {
-    inline static bool run(const Derived&mat)
+    inline static bool run(const Derived &mat)
     {
         return mat.coeff(0, 0);
     }

@@ -118,7 +118,7 @@ GeneralizedSelfAdjointEigenSolver(Index size)
  *
  * \sa compute(const MatrixType&, const MatrixType&, int)
  */
-GeneralizedSelfAdjointEigenSolver(const MatrixType&matA, const MatrixType&matB,
+GeneralizedSelfAdjointEigenSolver(const MatrixType &matA, const MatrixType &matB,
                                   int options = ComputeEigenvectors | Ax_lBx)
     : Base(matA.cols())
 {
@@ -165,7 +165,7 @@ GeneralizedSelfAdjointEigenSolver(const MatrixType&matA, const MatrixType&matB,
  *
  * \sa GeneralizedSelfAdjointEigenSolver(const MatrixType&, const MatrixType&, int)
  */
-GeneralizedSelfAdjointEigenSolver&compute(const MatrixType&matA, const MatrixType&matB,
+GeneralizedSelfAdjointEigenSolver&compute(const MatrixType &matA, const MatrixType &matB,
                                           int options = ComputeEigenvectors | Ax_lBx);
 
 protected:
@@ -174,7 +174,7 @@ protected:
 
 template<typename MatrixType>
 GeneralizedSelfAdjointEigenSolver<MatrixType>&GeneralizedSelfAdjointEigenSolver<MatrixType>::
-compute(const MatrixType&matA, const MatrixType&matB, int options)
+compute(const MatrixType &matA, const MatrixType &matB, int options)
 {
     eigen_assert(matA.cols() == matA.rows() && matB.rows() == matA.rows() && matB.cols() == matB.rows());
     eigen_assert((options & ~(EigVecMask | GenEigMask)) == 0

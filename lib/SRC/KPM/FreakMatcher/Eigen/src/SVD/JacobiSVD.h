@@ -74,7 +74,7 @@ struct qr_preconditioner_impl<MatrixType, QRPreconditioner, Case, false>
 template<typename MatrixType>
 struct qr_preconditioner_impl<MatrixType, FullPivHouseholderQRPreconditioner, PreconditionIfMoreRowsThanCols, true>
 {
-    static bool run(JacobiSVD<MatrixType, FullPivHouseholderQRPreconditioner>&svd, const MatrixType&matrix)
+    static bool run(JacobiSVD<MatrixType, FullPivHouseholderQRPreconditioner> &svd, const MatrixType &matrix)
     {
         if (matrix.rows() > matrix.cols())
         {
@@ -96,7 +96,7 @@ struct qr_preconditioner_impl<MatrixType, FullPivHouseholderQRPreconditioner, Pr
 template<typename MatrixType>
 struct qr_preconditioner_impl<MatrixType, FullPivHouseholderQRPreconditioner, PreconditionIfMoreColsThanRows, true>
 {
-    static bool run(JacobiSVD<MatrixType, FullPivHouseholderQRPreconditioner>&svd, const MatrixType&matrix)
+    static bool run(JacobiSVD<MatrixType, FullPivHouseholderQRPreconditioner> &svd, const MatrixType &matrix)
     {
         if (matrix.cols() > matrix.rows())
         {
@@ -123,7 +123,7 @@ struct qr_preconditioner_impl<MatrixType, FullPivHouseholderQRPreconditioner, Pr
 template<typename MatrixType>
 struct qr_preconditioner_impl<MatrixType, ColPivHouseholderQRPreconditioner, PreconditionIfMoreRowsThanCols, true>
 {
-    static bool run(JacobiSVD<MatrixType, ColPivHouseholderQRPreconditioner>&svd, const MatrixType&matrix)
+    static bool run(JacobiSVD<MatrixType, ColPivHouseholderQRPreconditioner> &svd, const MatrixType &matrix)
     {
         if (matrix.rows() > matrix.cols())
         {
@@ -150,7 +150,7 @@ struct qr_preconditioner_impl<MatrixType, ColPivHouseholderQRPreconditioner, Pre
 template<typename MatrixType>
 struct qr_preconditioner_impl<MatrixType, ColPivHouseholderQRPreconditioner, PreconditionIfMoreColsThanRows, true>
 {
-    static bool run(JacobiSVD<MatrixType, ColPivHouseholderQRPreconditioner>&svd, const MatrixType&matrix)
+    static bool run(JacobiSVD<MatrixType, ColPivHouseholderQRPreconditioner> &svd, const MatrixType &matrix)
     {
         if (matrix.cols() > matrix.rows())
         {
@@ -182,7 +182,7 @@ struct qr_preconditioner_impl<MatrixType, ColPivHouseholderQRPreconditioner, Pre
 template<typename MatrixType>
 struct qr_preconditioner_impl<MatrixType, HouseholderQRPreconditioner, PreconditionIfMoreRowsThanCols, true>
 {
-    static bool run(JacobiSVD<MatrixType, HouseholderQRPreconditioner>&svd, const MatrixType&matrix)
+    static bool run(JacobiSVD<MatrixType, HouseholderQRPreconditioner> &svd, const MatrixType &matrix)
     {
         if (matrix.rows() > matrix.cols())
         {
@@ -209,7 +209,7 @@ struct qr_preconditioner_impl<MatrixType, HouseholderQRPreconditioner, Precondit
 template<typename MatrixType>
 struct qr_preconditioner_impl<MatrixType, HouseholderQRPreconditioner, PreconditionIfMoreColsThanRows, true>
 {
-    static bool run(JacobiSVD<MatrixType, HouseholderQRPreconditioner>&svd, const MatrixType&matrix)
+    static bool run(JacobiSVD<MatrixType, HouseholderQRPreconditioner> &svd, const MatrixType &matrix)
     {
         if (matrix.cols() > matrix.rows())
         {
@@ -256,7 +256,7 @@ struct svd_precondition_2x2_block_to_be_real<MatrixType, QRPreconditioner, true>
     typedef typename MatrixType::Scalar Scalar;
     typedef typename MatrixType::RealScalar RealScalar;
     typedef typename SVD::Index Index;
-    static void run(typename SVD::WorkMatrixType&work_matrix, SVD&svd, Index p, Index q)
+    static void run(typename SVD::WorkMatrixType &work_matrix, SVD &svd, Index p, Index q)
     {
         Scalar z;
 
@@ -302,7 +302,7 @@ struct svd_precondition_2x2_block_to_be_real<MatrixType, QRPreconditioner, true>
 };
 
 template<typename MatrixType, typename RealScalar, typename Index>
-void real_2x2_jacobi_svd(const MatrixType&matrix, Index p, Index q,
+void real_2x2_jacobi_svd(const MatrixType &matrix, Index p, Index q,
                          JacobiRotation<RealScalar> *j_left,
                          JacobiRotation<RealScalar> *j_right)
 {
@@ -453,7 +453,7 @@ JacobiSVD(Index rows, Index cols, unsigned int computationOptions = 0)
  * Thin unitaries are only available if your matrix type has a Dynamic number of columns (for example MatrixXf). They also are not
  * available with the (non-default) FullPivHouseholderQR preconditioner.
  */
-JacobiSVD(const MatrixType&matrix, unsigned int computationOptions = 0)
+JacobiSVD(const MatrixType &matrix, unsigned int computationOptions = 0)
     : m_isInitialized(false),
     m_isAllocated(false),
     m_computationOptions(0),
@@ -472,7 +472,7 @@ JacobiSVD(const MatrixType&matrix, unsigned int computationOptions = 0)
  * Thin unitaries are only available if your matrix type has a Dynamic number of columns (for example MatrixXf). They also are not
  * available with the (non-default) FullPivHouseholderQR preconditioner.
  */
-JacobiSVD&compute(const MatrixType&matrix, unsigned int computationOptions);
+JacobiSVD&compute(const MatrixType &matrix, unsigned int computationOptions);
 
 /** \brief Method performing the decomposition of given matrix using current options.
  *
@@ -480,7 +480,7 @@ JacobiSVD&compute(const MatrixType&matrix, unsigned int computationOptions);
  *
  * This method uses the current \a computationOptions, as already passed to the constructor or to compute(const MatrixType&, unsigned int).
  */
-JacobiSVD&compute(const MatrixType&matrix)
+JacobiSVD&compute(const MatrixType &matrix)
 {
     return compute(matrix, m_computationOptions);
 }
@@ -550,7 +550,7 @@ inline bool computeV() const
  */
 template<typename Rhs>
 inline const internal::solve_retval<JacobiSVD, Rhs>
-solve(const MatrixBase<Rhs>&b) const
+solve(const MatrixBase<Rhs> &b) const
 {
     eigen_assert(m_isInitialized && "JacobiSVD is not initialized.");
     eigen_assert(computeU() && computeV() && "JacobiSVD::solve() requires both unitaries U and V to be computed (thin unitaries suffice).");
@@ -639,7 +639,7 @@ void JacobiSVD<MatrixType, QRPreconditioner>::allocate(Index rows, Index cols, u
 
 template<typename MatrixType, int QRPreconditioner>
 JacobiSVD<MatrixType, QRPreconditioner>&
-JacobiSVD<MatrixType, QRPreconditioner>::compute(const MatrixType&matrix, unsigned int computationOptions)
+JacobiSVD<MatrixType, QRPreconditioner>::compute(const MatrixType &matrix, unsigned int computationOptions)
 {
     allocate(matrix.rows(), matrix.cols(), computationOptions);
 
@@ -760,7 +760,7 @@ struct solve_retval<JacobiSVD<_MatrixType, QRPreconditioner>, Rhs>
     typedef JacobiSVD<_MatrixType, QRPreconditioner> JacobiSVDType;
     EIGEN_MAKE_SOLVE_HELPERS(JacobiSVDType, Rhs)
 
-    template<typename Dest> void evalTo(Dest&dst) const
+    template<typename Dest> void evalTo(Dest &dst) const
     {
         eigen_assert(rhs().rows() == dec().rows());
 

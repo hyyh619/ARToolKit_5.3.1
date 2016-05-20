@@ -554,7 +554,7 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ thresh_binary_func() {}
-        __host__ __device__ __forceinline__ thresh_binary_func(const thresh_binary_func&other)
+        __host__ __device__ __forceinline__ thresh_binary_func(const thresh_binary_func &other)
             : thresh(other.thresh), maxVal(other.maxVal) {}
 
         const T thresh;
@@ -571,7 +571,7 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ thresh_binary_inv_func() {}
-        __host__ __device__ __forceinline__ thresh_binary_inv_func(const thresh_binary_inv_func&other)
+        __host__ __device__ __forceinline__ thresh_binary_inv_func(const thresh_binary_inv_func &other)
             : thresh(other.thresh), maxVal(other.maxVal) {}
 
         const T thresh;
@@ -591,7 +591,7 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ thresh_trunc_func() {}
-        __host__ __device__ __forceinline__ thresh_trunc_func(const thresh_trunc_func&other)
+        __host__ __device__ __forceinline__ thresh_trunc_func(const thresh_trunc_func &other)
             : thresh(other.thresh) {}
 
         const T thresh;
@@ -610,7 +610,7 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ thresh_to_zero_func() {}
-        __host__ __device__ __forceinline__ thresh_to_zero_func(const thresh_to_zero_func&other)
+        __host__ __device__ __forceinline__ thresh_to_zero_func(const thresh_to_zero_func &other)
             : thresh(other.thresh) {}
 
         const T thresh;
@@ -629,7 +629,7 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ thresh_to_zero_inv_func() {}
-        __host__ __device__ __forceinline__ thresh_to_zero_inv_func(const thresh_to_zero_inv_func&other)
+        __host__ __device__ __forceinline__ thresh_to_zero_inv_func(const thresh_to_zero_inv_func &other)
             : thresh(other.thresh) {}
 
         const T thresh;
@@ -638,7 +638,7 @@ namespace cv
     // Function Object Adaptors
     template<typename Predicate> struct unary_negate : unary_function<typename Predicate::argument_type, bool>
     {
-        explicit __host__ __device__ __forceinline__ unary_negate(const Predicate&p) : pred(p) {}
+        explicit __host__ __device__ __forceinline__ unary_negate(const Predicate &p) : pred(p) {}
 
         __device__ __forceinline__ bool operator()(typename TypeTraits<typename Predicate::argument_type>::ParameterType x) const
         {
@@ -646,19 +646,19 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ unary_negate() {}
-        __host__ __device__ __forceinline__ unary_negate(const unary_negate&other) : pred(other.pred) {}
+        __host__ __device__ __forceinline__ unary_negate(const unary_negate &other) : pred(other.pred) {}
 
         const Predicate pred;
     };
 
-    template<typename Predicate> __host__ __device__ __forceinline__ unary_negate<Predicate> not1(const Predicate&pred)
+    template<typename Predicate> __host__ __device__ __forceinline__ unary_negate<Predicate> not1(const Predicate &pred)
     {
         return unary_negate<Predicate>(pred);
     }
 
     template<typename Predicate> struct binary_negate : binary_function<typename Predicate::first_argument_type, typename Predicate::second_argument_type, bool>
     {
-        explicit __host__ __device__ __forceinline__ binary_negate(const Predicate&p) : pred(p) {}
+        explicit __host__ __device__ __forceinline__ binary_negate(const Predicate &p) : pred(p) {}
 
         __device__ __forceinline__ bool operator()(typename TypeTraits<typename Predicate::first_argument_type>::ParameterType x,
                                                    typename TypeTraits<typename Predicate::second_argument_type>::ParameterType y) const
@@ -667,19 +667,19 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ binary_negate() {}
-        __host__ __device__ __forceinline__ binary_negate(const binary_negate&other) : pred(other.pred) {}
+        __host__ __device__ __forceinline__ binary_negate(const binary_negate &other) : pred(other.pred) {}
 
         const Predicate pred;
     };
 
-    template<typename BinaryPredicate> __host__ __device__ __forceinline__ binary_negate<BinaryPredicate> not2(const BinaryPredicate&pred)
+    template<typename BinaryPredicate> __host__ __device__ __forceinline__ binary_negate<BinaryPredicate> not2(const BinaryPredicate &pred)
     {
         return binary_negate<BinaryPredicate>(pred);
     }
 
     template<typename Op> struct binder1st : unary_function<typename Op::second_argument_type, typename Op::result_type>
     {
-        __host__ __device__ __forceinline__ binder1st(const Op&op_, const typename Op::first_argument_type&arg1_) : op(op_), arg1(arg1_) {}
+        __host__ __device__ __forceinline__ binder1st(const Op &op_, const typename Op::first_argument_type &arg1_) : op(op_), arg1(arg1_) {}
 
         __device__ __forceinline__ typename Op::result_type operator ()(typename TypeTraits<typename Op::second_argument_type>::ParameterType a) const
         {
@@ -687,20 +687,20 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ binder1st() {}
-        __host__ __device__ __forceinline__ binder1st(const binder1st&other) : op(other.op), arg1(other.arg1) {}
+        __host__ __device__ __forceinline__ binder1st(const binder1st &other) : op(other.op), arg1(other.arg1) {}
 
         const Op op;
         const typename Op::first_argument_type arg1;
     };
 
-    template<typename Op, typename T> __host__ __device__ __forceinline__ binder1st<Op> bind1st(const Op&op, const T&x)
+    template<typename Op, typename T> __host__ __device__ __forceinline__ binder1st<Op> bind1st(const Op &op, const T &x)
     {
         return binder1st<Op>(op, typename Op::first_argument_type(x));
     }
 
     template<typename Op> struct binder2nd : unary_function<typename Op::first_argument_type, typename Op::result_type>
     {
-        __host__ __device__ __forceinline__ binder2nd(const Op&op_, const typename Op::second_argument_type&arg2_) : op(op_), arg2(arg2_) {}
+        __host__ __device__ __forceinline__ binder2nd(const Op &op_, const typename Op::second_argument_type &arg2_) : op(op_), arg2(arg2_) {}
 
         __forceinline__ __device__ typename Op::result_type operator ()(typename TypeTraits<typename Op::first_argument_type>::ParameterType a) const
         {
@@ -708,13 +708,13 @@ namespace cv
         }
 
         __host__ __device__ __forceinline__ binder2nd() {}
-        __host__ __device__ __forceinline__ binder2nd(const binder2nd&other) : op(other.op), arg2(other.arg2) {}
+        __host__ __device__ __forceinline__ binder2nd(const binder2nd &other) : op(other.op), arg2(other.arg2) {}
 
         const Op op;
         const typename Op::second_argument_type arg2;
     };
 
-    template<typename Op, typename T> __host__ __device__ __forceinline__ binder2nd<Op> bind2nd(const Op&op, const T&x)
+    template<typename Op, typename T> __host__ __device__ __forceinline__ binder2nd<Op> bind2nd(const Op &op, const T &x)
     {
         return binder2nd<Op>(op, typename Op::second_argument_type(x));
     }

@@ -51,7 +51,7 @@ SkylineStorage()
     m_lowerProfileSize(0),
     m_allocatedSize(0) {}
 
-SkylineStorage(const SkylineStorage&other)
+SkylineStorage(const SkylineStorage &other)
     : m_diag(0),
     m_lower(0),
     m_upper(0),
@@ -67,7 +67,7 @@ SkylineStorage(const SkylineStorage&other)
     *this = other;
 }
 
-SkylineStorage&operator=(const SkylineStorage&other)
+SkylineStorage&operator=(const SkylineStorage &other)
 {
     resize(other.diagSize(), other.m_upperProfileSize, other.m_lowerProfileSize, other.upperSize(), other.lowerSize());
     memcpy(m_diag, other.m_diag, m_diagSize * sizeof(Scalar));
@@ -78,7 +78,7 @@ SkylineStorage&operator=(const SkylineStorage&other)
     return *this;
 }
 
-void swap(SkylineStorage&other)
+void swap(SkylineStorage &other)
 {
     std::swap(m_diag, other.m_diag);
     std::swap(m_upper, other.m_upper);

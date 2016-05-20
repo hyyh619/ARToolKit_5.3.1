@@ -750,19 +750,19 @@ inline SkylineMatrix(size_t rows, size_t cols)
 }
 
 template<typename OtherDerived>
-inline SkylineMatrix(const SkylineMatrixBase<OtherDerived>&other)
+inline SkylineMatrix(const SkylineMatrixBase<OtherDerived> &other)
     : m_outerSize(0), m_innerSize(0), m_colStartIndex(0), m_rowStartIndex(0)
 {
     *this = other.derived();
 }
 
-inline SkylineMatrix(const SkylineMatrix&other)
+inline SkylineMatrix(const SkylineMatrix &other)
     : Base(), m_outerSize(0), m_innerSize(0), m_colStartIndex(0), m_rowStartIndex(0)
 {
     *this = other.derived();
 }
 
-inline void swap(SkylineMatrix&other)
+inline void swap(SkylineMatrix &other)
 {
     // EIGEN_DBG_SKYLINE(std::cout << "SkylineMatrix:: swap\n");
     std::swap(m_colStartIndex, other.m_colStartIndex);
@@ -773,7 +773,7 @@ inline void swap(SkylineMatrix&other)
     m_data.swap(other.m_data);
 }
 
-inline SkylineMatrix&operator=(const SkylineMatrix&other)
+inline SkylineMatrix&operator=(const SkylineMatrix &other)
 {
     std::cout << "SkylineMatrix& operator=(const SkylineMatrix& other)\n";
 
@@ -793,7 +793,7 @@ inline SkylineMatrix&operator=(const SkylineMatrix&other)
 }
 
 template<typename OtherDerived>
-inline SkylineMatrix&operator=(const SkylineMatrixBase<OtherDerived>&other)
+inline SkylineMatrix&operator=(const SkylineMatrixBase<OtherDerived> &other)
 {
     const bool needToTranspose = (Flags & RowMajorBit) != (OtherDerived::Flags & RowMajorBit);
 
@@ -809,7 +809,7 @@ inline SkylineMatrix&operator=(const SkylineMatrixBase<OtherDerived>&other)
     }
 }
 
-friend std::ostream&operator <<(std::ostream&s, const SkylineMatrix&m)
+friend std::ostream&operator <<(std::ostream &s, const SkylineMatrix &m)
 {
     EIGEN_DBG_SKYLINE(
         std::cout << "upper elements : " << std::endl;
@@ -881,7 +881,7 @@ class SkylineMatrix<Scalar, _Options>::InnerUpperIterator
 {
 public:
 
-InnerUpperIterator(const SkylineMatrix&mat, Index outer)
+InnerUpperIterator(const SkylineMatrix &mat, Index outer)
     : m_matrix(mat), m_outer(outer),
     m_id(_Options == RowMajor ? mat.m_colStartIndex[outer] : mat.m_rowStartIndex[outer] + 1),
     m_start(m_id),
@@ -941,11 +941,11 @@ inline operator bool() const
 }
 
 protected:
-const SkylineMatrix&m_matrix;
-const Index        m_outer;
-Index              m_id;
-const Index        m_start;
-const Index        m_end;
+const SkylineMatrix &m_matrix;
+const Index         m_outer;
+Index               m_id;
+const Index         m_start;
+const Index         m_end;
 };
 
 template<typename Scalar, int _Options>
@@ -953,7 +953,7 @@ class SkylineMatrix<Scalar, _Options>::InnerLowerIterator
 {
 public:
 
-InnerLowerIterator(const SkylineMatrix&mat, Index outer)
+InnerLowerIterator(const SkylineMatrix &mat, Index outer)
     : m_matrix(mat),
     m_outer(outer),
     m_id(_Options == RowMajor ? mat.m_rowStartIndex[outer] : mat.m_colStartIndex[outer] + 1),
@@ -1015,10 +1015,10 @@ inline operator bool() const
 }
 
 protected:
-const SkylineMatrix&m_matrix;
-const Index        m_outer;
-Index              m_id;
-const Index        m_start;
-const Index        m_end;
+const SkylineMatrix &m_matrix;
+const Index         m_outer;
+Index               m_id;
+const Index         m_start;
+const Index         m_end;
 };
 #endif // EIGEN_SkylineMatrix_H

@@ -66,7 +66,7 @@ virtual void buildIndex() = 0;
  * \param[in] knn Number of nearest neighbors to return
  * \param[in] params Search parameters
  */
-virtual void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, Matrix<DistanceType>&dists, int knn, const SearchParams&params)
+virtual void knnSearch(const Matrix<ElementType> &queries, Matrix<int> &indices, Matrix<DistanceType> &dists, int knn, const SearchParams &params)
 {
     assert(queries.cols == veclen());
     assert(indices.rows >= queries.rows);
@@ -107,7 +107,7 @@ virtual void knnSearch(const Matrix<ElementType>&queries, Matrix<int>&indices, M
  * \param[in] params Search parameters
  * \returns Number of neighbors found
  */
-virtual int radiusSearch(const Matrix<ElementType>&query, Matrix<int>&indices, Matrix<DistanceType>&dists, float radius, const SearchParams&params)
+virtual int radiusSearch(const Matrix<ElementType> &query, Matrix<int> &indices, Matrix<DistanceType> &dists, float radius, const SearchParams &params)
 {
     if (query.rows != 1)
     {
@@ -183,7 +183,7 @@ virtual IndexParams getParameters() const = 0;
 /**
  * \brief Method that searches for nearest-neighbours
  */
-virtual void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams) = 0;
+virtual void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams) = 0;
 };
 }
 #endif // OPENCV_FLANN_NNINDEX_H

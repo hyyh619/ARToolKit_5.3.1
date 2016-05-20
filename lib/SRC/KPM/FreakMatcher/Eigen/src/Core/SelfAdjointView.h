@@ -85,7 +85,7 @@ enum
 };
 typedef typename MatrixType::PlainObject PlainObject;
 
-inline SelfAdjointView(const MatrixType&matrix) : m_matrix(matrix)
+inline SelfAdjointView(const MatrixType &matrix) : m_matrix(matrix)
 {}
 
 inline Index rows() const
@@ -143,7 +143,7 @@ MatrixTypeNestedCleaned&nestedExpression()
 /** Efficient self-adjoint matrix times vector/matrix product */
 template<typename OtherDerived>
 SelfadjointProductMatrix<MatrixType, Mode, false, OtherDerived, 0, OtherDerived::IsVectorAtCompileTime>
-operator*(const MatrixBase<OtherDerived>&rhs) const
+operator*(const MatrixBase<OtherDerived> &rhs) const
 {
     return SelfadjointProductMatrix
            <MatrixType, Mode, false, OtherDerived, 0, OtherDerived::IsVectorAtCompileTime>
@@ -153,7 +153,7 @@ operator*(const MatrixBase<OtherDerived>&rhs) const
 /** Efficient vector/matrix times self-adjoint matrix product */
 template<typename OtherDerived> friend
 SelfadjointProductMatrix<OtherDerived, 0, OtherDerived::IsVectorAtCompileTime, MatrixType, Mode, false>
-operator*(const MatrixBase<OtherDerived>&lhs, const SelfAdjointView&rhs)
+operator*(const MatrixBase<OtherDerived> &lhs, const SelfAdjointView &rhs)
 {
     return SelfadjointProductMatrix
            <OtherDerived, 0, OtherDerived::IsVectorAtCompileTime, MatrixType, Mode, false>
@@ -171,7 +171,7 @@ operator*(const MatrixBase<OtherDerived>&lhs, const SelfAdjointView&rhs)
  * \sa rankUpdate(const MatrixBase<DerivedU>&, Scalar)
  */
 template<typename DerivedU, typename DerivedV>
-SelfAdjointView&rankUpdate(const MatrixBase<DerivedU>&u, const MatrixBase<DerivedV>&v, Scalar alpha = Scalar(1));
+SelfAdjointView&rankUpdate(const MatrixBase<DerivedU> &u, const MatrixBase<DerivedV> &v, Scalar alpha = Scalar(1));
 
 /** Perform a symmetric rank K update of the selfadjoint matrix \c *this:
  * \f$ this = this + \alpha ( u u^* ) \f$ where \a u is a vector or matrix.
@@ -184,7 +184,7 @@ SelfAdjointView&rankUpdate(const MatrixBase<DerivedU>&u, const MatrixBase<Derive
  * \sa rankUpdate(const MatrixBase<DerivedU>&, const MatrixBase<DerivedV>&, Scalar)
  */
 template<typename DerivedU>
-SelfAdjointView&rankUpdate(const MatrixBase<DerivedU>&u, Scalar alpha = Scalar(1));
+SelfAdjointView&rankUpdate(const MatrixBase<DerivedU> &u, Scalar alpha = Scalar(1));
 
 /////////// Cholesky module ///////////
 
@@ -203,7 +203,7 @@ RealScalar operatorNorm() const;
 
     #ifdef EIGEN2_SUPPORT
 template<typename OtherDerived>
-SelfAdjointView&operator=(const MatrixBase<OtherDerived>&other)
+SelfAdjointView&operator=(const MatrixBase<OtherDerived> &other)
 {
     enum
     {
@@ -214,7 +214,7 @@ SelfAdjointView&operator=(const MatrixBase<OtherDerived>&other)
     return *this;
 }
 template<typename OtherMatrixType, unsigned int OtherMode>
-SelfAdjointView&operator=(const TriangularView<OtherMatrixType, OtherMode>&other)
+SelfAdjointView&operator=(const TriangularView<OtherMatrixType, OtherMode> &other)
 {
     enum
     {
@@ -251,7 +251,7 @@ struct triangular_assignment_selector<Derived1, Derived2, (SelfAdjoint | Upper),
         row = (UnrollCount - 1) % Derived1::RowsAtCompileTime
     };
 
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         triangular_assignment_selector<Derived1, Derived2, (SelfAdjoint | Upper), UnrollCount - 1, ClearOpposite>::run(dst, src);
 
@@ -277,7 +277,7 @@ struct triangular_assignment_selector<Derived1, Derived2, (SelfAdjoint | Lower),
         row = (UnrollCount - 1) % Derived1::RowsAtCompileTime
     };
 
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         triangular_assignment_selector<Derived1, Derived2, (SelfAdjoint | Lower), UnrollCount - 1, ClearOpposite>::run(dst, src);
 
@@ -298,7 +298,7 @@ template<typename Derived1, typename Derived2, bool ClearOpposite>
 struct triangular_assignment_selector<Derived1, Derived2, SelfAdjoint | Upper, Dynamic, ClearOpposite>
 {
     typedef typename Derived1::Index Index;
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         for (Index j = 0; j < dst.cols(); ++j)
         {
@@ -316,7 +316,7 @@ struct triangular_assignment_selector<Derived1, Derived2, SelfAdjoint | Upper, D
 template<typename Derived1, typename Derived2, bool ClearOpposite>
 struct triangular_assignment_selector<Derived1, Derived2, SelfAdjoint | Lower, Dynamic, ClearOpposite>
 {
-    inline static void run(Derived1&dst, const Derived2&src)
+    inline static void run(Derived1 &dst, const Derived2 &src)
     {
         typedef typename Derived1::Index Index;
 

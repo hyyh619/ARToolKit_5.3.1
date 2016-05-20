@@ -70,7 +70,7 @@ namespace cv
         }
 
         template<typename It, typename T>
-        static __device__ __forceinline__ void fill(It beg, It end, const T&value)
+        static __device__ __forceinline__ void fill(It beg, It end, const T &value)
         {
             int STRIDE = stride();
             It  t      = beg + flattenedThreadId();

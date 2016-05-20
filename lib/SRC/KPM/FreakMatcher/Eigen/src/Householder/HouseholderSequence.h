@@ -93,7 +93,7 @@ struct hseq_side_dependent_impl
     typedef Block<const VectorsType, Dynamic, 1> EssentialVectorType;
     typedef HouseholderSequence<VectorsType, CoeffsType, OnTheLeft> HouseholderSequenceType;
     typedef typename VectorsType::Index Index;
-    static inline const EssentialVectorType essentialVector(const HouseholderSequenceType&h, Index k)
+    static inline const EssentialVectorType essentialVector(const HouseholderSequenceType &h, Index k)
     {
         Index start = k + 1 + h.m_shift;
 
@@ -107,7 +107,7 @@ struct hseq_side_dependent_impl<VectorsType, CoeffsType, OnTheRight>
     typedef Transpose<Block<const VectorsType, 1, Dynamic> > EssentialVectorType;
     typedef HouseholderSequence<VectorsType, CoeffsType, OnTheRight> HouseholderSequenceType;
     typedef typename VectorsType::Index Index;
-    static inline const EssentialVectorType essentialVector(const HouseholderSequenceType&h, Index k)
+    static inline const EssentialVectorType essentialVector(const HouseholderSequenceType &h, Index k)
     {
         Index start = k + 1 + h.m_shift;
 
@@ -167,13 +167,13 @@ typedef HouseholderSequence<
  *
  * \sa setLength(), setShift()
  */
-HouseholderSequence(const VectorsType&v, const CoeffsType&h)
+HouseholderSequence(const VectorsType &v, const CoeffsType &h)
     : m_vectors(v), m_coeffs(h), m_trans(false), m_length(v.diagonalSize()),
     m_shift(0)
 {}
 
 /** \brief Copy constructor. */
-HouseholderSequence(const HouseholderSequence&other)
+HouseholderSequence(const HouseholderSequence &other)
     : m_vectors(other.m_vectors),
     m_coeffs(other.m_coeffs),
     m_trans(other.m_trans),
@@ -247,7 +247,7 @@ ConjugateReturnType inverse() const
 }
 
 /** \internal */
-template<typename DestType> void evalTo(DestType&dst) const
+template<typename DestType> void evalTo(DestType &dst) const
 {
     Index vecs = m_length;
 
@@ -297,7 +297,7 @@ template<typename DestType> void evalTo(DestType&dst) const
 }
 
 /** \internal */
-template<typename Dest> inline void applyThisOnTheRight(Dest&dst) const
+template<typename Dest> inline void applyThisOnTheRight(Dest &dst) const
 {
     Matrix<Scalar, 1, Dest::RowsAtCompileTime> temp(dst.rows());
 
@@ -310,7 +310,7 @@ template<typename Dest> inline void applyThisOnTheRight(Dest&dst) const
 }
 
 /** \internal */
-template<typename Dest> inline void applyThisOnTheLeft(Dest&dst) const
+template<typename Dest> inline void applyThisOnTheLeft(Dest &dst) const
 {
     Matrix<Scalar, 1, Dest::ColsAtCompileTime> temp(dst.cols());
 
@@ -330,7 +330,7 @@ template<typename Dest> inline void applyThisOnTheLeft(Dest&dst) const
  * and \f$ M \f$ is the matrix \p other.
  */
 template<typename OtherDerived>
-typename internal::matrix_type_times_scalar_type<Scalar, OtherDerived>::Type operator*(const MatrixBase<OtherDerived>&other) const
+typename internal::matrix_type_times_scalar_type<Scalar, OtherDerived>::Type operator*(const MatrixBase<OtherDerived> &other) const
 {
     typename internal::matrix_type_times_scalar_type<Scalar, OtherDerived>::Type
         res(other.template cast<typename internal::matrix_type_times_scalar_type<Scalar, OtherDerived>::ResultScalar>());
@@ -421,7 +421,7 @@ Index m_shift;
  * Householder sequence represented by \p h.
  */
 template<typename OtherDerived, typename VectorsType, typename CoeffsType, int Side>
-typename internal::matrix_type_times_scalar_type<typename VectorsType::Scalar, OtherDerived>::Type operator*(const MatrixBase<OtherDerived>&other, const HouseholderSequence<VectorsType, CoeffsType, Side>&h)
+typename internal::matrix_type_times_scalar_type<typename VectorsType::Scalar, OtherDerived>::Type operator*(const MatrixBase<OtherDerived> &other, const HouseholderSequence<VectorsType, CoeffsType, Side> &h)
 {
     typename internal::matrix_type_times_scalar_type<typename VectorsType::Scalar, OtherDerived>::Type
         res(other.template cast<typename internal::matrix_type_times_scalar_type<typename VectorsType::Scalar, OtherDerived>::ResultScalar>());
@@ -434,7 +434,7 @@ typename internal::matrix_type_times_scalar_type<typename VectorsType::Scalar, O
  * \returns A HouseholderSequence constructed from the specified arguments.
  */
 template<typename VectorsType, typename CoeffsType>
-HouseholderSequence<VectorsType, CoeffsType> householderSequence(const VectorsType&v, const CoeffsType&h)
+HouseholderSequence<VectorsType, CoeffsType> householderSequence(const VectorsType &v, const CoeffsType &h)
 {
     return HouseholderSequence<VectorsType, CoeffsType, OnTheLeft>(v, h);
 }
@@ -446,7 +446,7 @@ HouseholderSequence<VectorsType, CoeffsType> householderSequence(const VectorsTy
  * the constructed HouseholderSequence is set to OnTheRight, instead of the default OnTheLeft.
  */
 template<typename VectorsType, typename CoeffsType>
-HouseholderSequence<VectorsType, CoeffsType, OnTheRight> rightHouseholderSequence(const VectorsType&v, const CoeffsType&h)
+HouseholderSequence<VectorsType, CoeffsType, OnTheRight> rightHouseholderSequence(const VectorsType &v, const CoeffsType &h)
 {
     return HouseholderSequence<VectorsType, CoeffsType, OnTheRight>(v, h);
 }

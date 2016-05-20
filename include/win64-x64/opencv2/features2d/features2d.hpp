@@ -84,18 +84,18 @@ CV_WRAP KeyPoint(float x, float y, float _size, float _angle = -1,
 size_t hash() const;
 
 // ! converts vector of keypoints to vector of points
-static void convert(const vector<KeyPoint>&keypoints,
-                    CV_OUT vector<Point2f>&points2f,
-                    const vector<int>&keypointIndexes = vector<int>());
+static void convert(const vector<KeyPoint> &keypoints,
+                    CV_OUT vector<Point2f> &points2f,
+                    const vector<int> &keypointIndexes = vector<int>());
 // ! converts vector of points to the vector of keypoints, where each keypoint is assigned the same size and the same orientation
-static void convert(const vector<Point2f>&points2f,
-                    CV_OUT vector<KeyPoint>&keypoints,
+static void convert(const vector<Point2f> &points2f,
+                    CV_OUT vector<KeyPoint> &keypoints,
                     float size = 1, float response = 1, int octave = 0, int class_id = -1);
 
 // ! computes overlap for pair of keypoints;
 // ! overlap is a ratio between area of keypoint regions intersection and
 // ! area of keypoint regions union (now keypoint region is circle)
-static float overlap(const KeyPoint&kp1, const KeyPoint&kp2);
+static float overlap(const KeyPoint &kp1, const KeyPoint &kp2);
 
 CV_PROP_RW Point2f pt;     // !< coordinates of the keypoints
 CV_PROP_RW float   size;   // !< diameter of the meaningful keypoint neighborhood
@@ -108,9 +108,9 @@ CV_PROP_RW int   class_id;   // !< object class (if the keypoints need to be clu
 };
 
 // ! writes vector of keypoints to the file storage
-CV_EXPORTS void write(FileStorage&fs, const string&name, const vector<KeyPoint>&keypoints);
+CV_EXPORTS void write(FileStorage &fs, const string &name, const vector<KeyPoint> &keypoints);
 // ! reads vector of keypoints from the specified file storage node
-CV_EXPORTS void read(const FileNode&node, CV_OUT vector<KeyPoint>&keypoints);
+CV_EXPORTS void read(const FileNode &node, CV_OUT vector<KeyPoint> &keypoints);
 
 /*
  * A class filters a vector of keypoints.
@@ -125,25 +125,25 @@ KeyPointsFilter(){}
 /*
  * Remove keypoints within borderPixels of an image edge.
  */
-static void runByImageBorder(vector<KeyPoint>&keypoints, Size imageSize, int borderSize);
+static void runByImageBorder(vector<KeyPoint> &keypoints, Size imageSize, int borderSize);
 /*
  * Remove keypoints of sizes out of range.
  */
-static void runByKeypointSize(vector<KeyPoint>&keypoints, float minSize,
+static void runByKeypointSize(vector<KeyPoint> &keypoints, float minSize,
                               float maxSize = FLT_MAX);
 /*
  * Remove keypoints from some image by mask for pixels of this image.
  */
-static void runByPixelsMask(vector<KeyPoint>&keypoints, const Mat&mask);
+static void runByPixelsMask(vector<KeyPoint> &keypoints, const Mat &mask);
 /*
  * Remove duplicated keypoints.
  */
-static void removeDuplicated(vector<KeyPoint>&keypoints);
+static void removeDuplicated(vector<KeyPoint> &keypoints);
 
 /*
  * Retain the specified number of the best keypoints (according to the response)
  */
-static void retainBest(vector<KeyPoint>&keypoints, int npoints);
+static void retainBest(vector<KeyPoint> &keypoints, int npoints);
 };
 
 
@@ -164,7 +164,7 @@ virtual ~FeatureDetector();
  * mask         Mask specifying where to look for keypoints (optional). Must be a char
  *              matrix with non-zero values in the region of interest.
  */
-CV_WRAP void detect(const Mat&image, CV_OUT vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+CV_WRAP void detect(const Mat &image, CV_OUT vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 /*
  * Detect keypoints in an image set.
@@ -172,23 +172,23 @@ CV_WRAP void detect(const Mat&image, CV_OUT vector<KeyPoint>&keypoints, const Ma
  * keypoints    Collection of keypoints detected in an input images. keypoints[i] is a set of keypoints detected in an images[i].
  * masks        Masks for image set. masks[i] is a mask for images[i].
  */
-void detect(const vector<Mat>&images, vector<vector<KeyPoint> >&keypoints, const vector<Mat>&masks = vector<Mat>()) const;
+void detect(const vector<Mat> &images, vector<vector<KeyPoint> > &keypoints, const vector<Mat> &masks = vector<Mat>()) const;
 
 // Return true if detector object is empty
 CV_WRAP virtual bool empty() const;
 
 // Create feature detector by detector name.
-CV_WRAP static Ptr<FeatureDetector> create(const string&detectorType);
+CV_WRAP static Ptr<FeatureDetector> create(const string &detectorType);
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const = 0;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const = 0;
 
 /*
  * Remove keypoints that are not in the mask.
  * Helper function, useful when wrapping a library call for keypoint detection that
  * does not support a mask argument.
  */
-static void removeInvalidPoints(const Mat&mask, vector<KeyPoint>&keypoints);
+static void removeInvalidPoints(const Mat &mask, vector<KeyPoint> &keypoints);
 };
 
 
@@ -212,7 +212,7 @@ virtual ~DescriptorExtractor();
  * keypoints    The input keypoints. Keypoints for which a descriptor cannot be computed are removed.
  * descriptors  Copmputed descriptors. Row i is the descriptor for keypoint i.
  */
-CV_WRAP void compute(const Mat&image, CV_OUT CV_IN_OUT vector<KeyPoint>&keypoints, CV_OUT Mat&descriptors) const;
+CV_WRAP void compute(const Mat &image, CV_OUT CV_IN_OUT vector<KeyPoint> &keypoints, CV_OUT Mat &descriptors) const;
 
 /*
  * Compute the descriptors for a keypoints collection detected in image collection.
@@ -221,22 +221,22 @@ CV_WRAP void compute(const Mat&image, CV_OUT CV_IN_OUT vector<KeyPoint>&keypoint
  *              Keypoints for which a descriptor cannot be computed are removed.
  * descriptors  Descriptor collection. descriptors[i] are descriptors computed for set keypoints[i].
  */
-void compute(const vector<Mat>&images, vector<vector<KeyPoint> >&keypoints, vector<Mat>&descriptors) const;
+void compute(const vector<Mat> &images, vector<vector<KeyPoint> > &keypoints, vector<Mat> &descriptors) const;
 
 CV_WRAP virtual int descriptorSize() const = 0;
 CV_WRAP virtual int descriptorType() const = 0;
 
 CV_WRAP virtual bool empty() const;
 
-CV_WRAP static Ptr<DescriptorExtractor> create(const string&descriptorExtractorType);
+CV_WRAP static Ptr<DescriptorExtractor> create(const string &descriptorExtractorType);
 
 protected:
-virtual void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const = 0;
+virtual void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const = 0;
 
 /*
  * Remove keypoints within borderPixels of an image edge.
  */
-static void removeBorderKeypoints(vector<KeyPoint>&keypoints,
+static void removeBorderKeypoints(vector<KeyPoint> &keypoints,
                                   Size imageSize, int borderSize);
 };
 
@@ -258,14 +258,14 @@ public:
  *                      descriptors for the provided keypoints
  */
 CV_WRAP_AS(detectAndCompute) virtual void operator()(InputArray image, InputArray mask,
-                                                     CV_OUT vector<KeyPoint>&keypoints,
+                                                     CV_OUT vector<KeyPoint> &keypoints,
                                                      OutputArray descriptors,
                                                      bool useProvidedKeypoints = false) const = 0;
 
-CV_WRAP void compute(const Mat&image, CV_OUT CV_IN_OUT std::vector<KeyPoint>&keypoints, CV_OUT Mat&descriptors) const;
+CV_WRAP void compute(const Mat &image, CV_OUT CV_IN_OUT std::vector<KeyPoint> &keypoints, CV_OUT Mat &descriptors) const;
 
 // Create feature detector and descriptor extractor by name.
-CV_WRAP static Ptr<Feature2D> create(const string&name);
+CV_WRAP static Ptr<Feature2D> create(const string &name);
 };
 
 /*!
@@ -284,32 +284,32 @@ int descriptorSize() const;
 int descriptorType() const;
 
 // Compute the BRISK features on an image
-void operator()(InputArray image, InputArray mask, vector<KeyPoint>&keypoints) const;
+void operator()(InputArray image, InputArray mask, vector<KeyPoint> &keypoints) const;
 
 // Compute the BRISK features and descriptors on an image
-void operator()(InputArray image, InputArray mask, vector<KeyPoint>&keypoints,
+void operator()(InputArray image, InputArray mask, vector<KeyPoint> &keypoints,
                 OutputArray descriptors, bool useProvidedKeypoints = false) const;
 
 AlgorithmInfo* info() const;
 
 // custom setup
-CV_WRAP explicit BRISK(std::vector<float>&radiusList, std::vector<int>&numberList,
+CV_WRAP explicit BRISK(std::vector<float> &radiusList, std::vector<int> &numberList,
                        float dMax = 5.85f, float dMin = 8.2f, std::vector<int> indexChange = std::vector<int>());
 
 // call this to generate the kernel:
 // circle of radius r (pixels), with n points;
 // short pairings with dMax, long pairings with dMin
-CV_WRAP void generateKernel(std::vector<float>&radiusList,
-                            std::vector<int>&numberList, float dMax = 5.85f, float dMin = 8.2f,
+CV_WRAP void generateKernel(std::vector<float> &radiusList,
+                            std::vector<int> &numberList, float dMax = 5.85f, float dMin = 8.2f,
                             std::vector<int> indexChange = std::vector<int>());
 
 protected:
 
-void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
-void computeKeypointsNoOrientation(InputArray image, InputArray mask, vector<KeyPoint>&keypoints) const;
-void computeDescriptorsAndOrOrientation(InputArray image, InputArray mask, vector<KeyPoint>&keypoints,
+void computeKeypointsNoOrientation(InputArray image, InputArray mask, vector<KeyPoint> &keypoints) const;
+void computeDescriptorsAndOrOrientation(InputArray image, InputArray mask, vector<KeyPoint> &keypoints,
                                         OutputArray descriptors, bool doDescriptors, bool doOrientation,
                                         bool useProvidedKeypoints) const;
 
@@ -336,8 +336,8 @@ struct BriskLongPair
     int          weighted_dx; // 1024.0/dx
     int          weighted_dy; // 1024.0/dy
 };
-inline int smoothedIntensity(const cv::Mat&image,
-                             const cv::Mat&integral, const float key_x,
+inline int smoothedIntensity(const cv::Mat &image,
+                             const cv::Mat &integral, const float key_x,
                              const float key_y, const unsigned int scale,
                              const unsigned int rot, const unsigned int point) const;
 // pattern properties
@@ -381,18 +381,18 @@ int descriptorSize() const;
 int descriptorType() const;
 
 // Compute the ORB features and descriptors on an image
-void operator()(InputArray image, InputArray mask, vector<KeyPoint>&keypoints) const;
+void operator()(InputArray image, InputArray mask, vector<KeyPoint> &keypoints) const;
 
 // Compute the ORB features and descriptors on an image
-void operator()(InputArray image, InputArray mask, vector<KeyPoint>&keypoints,
+void operator()(InputArray image, InputArray mask, vector<KeyPoint> &keypoints,
                 OutputArray descriptors, bool useProvidedKeypoints = false) const;
 
 AlgorithmInfo* info() const;
 
 protected:
 
-void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 CV_PROP_RW int    nfeatures;
 CV_PROP_RW double scaleFactor;
@@ -424,8 +424,8 @@ explicit FREAK(bool orientationNormalized = true,
                bool scaleNormalized = true,
                float patternScale = 22.0f,
                int nOctaves = 4,
-               const vector<int>&selectedPairs = vector<int>());
-FREAK(const FREAK&rhs);
+               const vector<int> &selectedPairs = vector<int>());
+FREAK(const FREAK &rhs);
 FREAK&operator=(const FREAK&);
 
 virtual ~FREAK();
@@ -443,7 +443,7 @@ virtual int descriptorType() const;
  * @param verbose print construction information
  * @return list of best pair indexes
  */
-vector<int> selectPairs(const vector<Mat>&images, vector<vector<KeyPoint> >&keypoints,
+vector<int> selectPairs(const vector<Mat> &images, vector<vector<KeyPoint> > &keypoints,
                         const double corrThresh = 0.7, bool verbose = true);
 
 AlgorithmInfo* info() const;
@@ -454,9 +454,9 @@ enum
 };
 
 protected:
-virtual void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
+virtual void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
 void buildPattern();
-uchar meanIntensity(const Mat&image, const Mat&integral, const float kp_x, const float kp_y,
+uchar meanIntensity(const Mat &image, const Mat &integral, const float kp_x, const float kp_y,
                     const unsigned int scale, const unsigned int rot, const unsigned int point) const;
 
 bool   orientationNormalized;   // true if the orientation is normalized, false otherwise
@@ -516,12 +516,12 @@ CV_WRAP explicit MSER(int _delta = 5, int _min_area = 60, int _max_area = 14400,
                       double _min_margin = 0.003, int _edge_blur_size = 5);
 
 // ! the operator that extracts the MSERs from the image or the specific part of it
-CV_WRAP_AS(detect) void operator()(const Mat&image, CV_OUT vector<vector<Point> >&msers,
-                                   const Mat&mask = Mat()) const;
+CV_WRAP_AS(detect) void operator()(const Mat &image, CV_OUT vector<vector<Point> > &msers,
+                                   const Mat &mask = Mat()) const;
 AlgorithmInfo* info() const;
 
 protected:
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 int    delta;
 int    minArea;
@@ -551,13 +551,13 @@ CV_WRAP StarDetector(int _maxSize = 45, int _responseThreshold = 30,
                      int _suppressNonmaxSize = 5);
 
 // ! finds the keypoints in the image
-CV_WRAP_AS(detect) void operator()(const Mat&image,
-                                   CV_OUT vector<KeyPoint>&keypoints) const;
+CV_WRAP_AS(detect) void operator()(const Mat &image,
+                                   CV_OUT vector<KeyPoint> &keypoints) const;
 
 AlgorithmInfo* info() const;
 
 protected:
-void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 int maxSize;
 int responseThreshold;
@@ -567,10 +567,10 @@ int suppressNonmaxSize;
 };
 
 // ! detects corners using FAST algorithm by E. Rosten
-CV_EXPORTS void FAST(InputArray image, CV_OUT vector<KeyPoint>&keypoints,
+CV_EXPORTS void FAST(InputArray image, CV_OUT vector<KeyPoint> &keypoints,
                      int threshold, bool nonmaxSuppression = true);
 
-CV_EXPORTS void FASTX(InputArray image, CV_OUT vector<KeyPoint>&keypoints,
+CV_EXPORTS void FASTX(InputArray image, CV_OUT vector<KeyPoint> &keypoints,
                       int threshold, bool nonmaxSuppression, int type);
 
 class CV_EXPORTS_W FastFeatureDetector : public FeatureDetector
@@ -586,7 +586,7 @@ CV_WRAP FastFeatureDetector(int threshold = 10, bool nonmaxSuppression = true);
 AlgorithmInfo* info() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 int  threshold;
 bool nonmaxSuppression;
@@ -601,7 +601,7 @@ CV_WRAP GFTTDetector(int maxCorners = 1000, double qualityLevel = 0.01, double m
 AlgorithmInfo* info() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 int    nfeatures;
 double qualityLevel;
@@ -641,14 +641,14 @@ struct CV_EXPORTS_W_SIMPLE Params
     CV_PROP_RW bool  filterByConvexity;
     CV_PROP_RW float minConvexity, maxConvexity;
 
-    void read(const FileNode&fn);
-    void write(FileStorage&fs) const;
+    void read(const FileNode &fn);
+    void write(FileStorage &fs) const;
 };
 
-CV_WRAP SimpleBlobDetector(const SimpleBlobDetector::Params&parameters = SimpleBlobDetector::Params());
+CV_WRAP SimpleBlobDetector(const SimpleBlobDetector::Params &parameters = SimpleBlobDetector::Params());
 
-virtual void read(const FileNode&fn);
-virtual void write(FileStorage&fs) const;
+virtual void read(const FileNode &fn);
+virtual void write(FileStorage &fs) const;
 
 protected:
 struct CV_EXPORTS Center
@@ -658,8 +658,8 @@ struct CV_EXPORTS Center
     double  confidence;
 };
 
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
-virtual void findBlobs(const Mat&image, const Mat&binaryImage, vector<Center>&centers) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
+virtual void findBlobs(const Mat &image, const Mat &binaryImage, vector<Center> &centers) const;
 
 Params params;
 AlgorithmInfo* info() const;
@@ -677,7 +677,7 @@ explicit DenseFeatureDetector(float initFeatureScale = 1.f, int featureScaleLeve
 AlgorithmInfo* info() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 double initFeatureScale;
 int    featureScaleLevels;
@@ -704,7 +704,7 @@ public:
  * gridRows            Grid rows count.
  * gridCols            Grid column count.
  */
-CV_WRAP GridAdaptedFeatureDetector(const Ptr<FeatureDetector>&detector = 0,
+CV_WRAP GridAdaptedFeatureDetector(const Ptr<FeatureDetector> &detector = 0,
                                    int maxTotalKeypoints = 1000,
                                    int gridRows = 4, int gridCols = 4);
 
@@ -714,7 +714,7 @@ virtual bool empty() const;
 AlgorithmInfo* info() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 Ptr<FeatureDetector> detector;
 int                  maxTotalKeypoints;
@@ -730,13 +730,13 @@ class CV_EXPORTS_W PyramidAdaptedFeatureDetector : public FeatureDetector
 {
 public:
 // maxLevel - The 0-based index of the last pyramid layer
-CV_WRAP PyramidAdaptedFeatureDetector(const Ptr<FeatureDetector>&detector, int maxLevel = 2);
+CV_WRAP PyramidAdaptedFeatureDetector(const Ptr<FeatureDetector> &detector, int maxLevel = 2);
 
 // TODO implement read/write
 virtual bool empty() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 Ptr<FeatureDetector> detector;
 int                  maxLevel;
@@ -768,7 +768,7 @@ virtual bool good() const = 0;
 
 virtual Ptr<AdjusterAdapter> clone() const = 0;
 
-static Ptr<AdjusterAdapter> create(const string&detectorType);
+static Ptr<AdjusterAdapter> create(const string &detectorType);
 };
 /** \brief an adaptively adjusting detector that iteratively detects until the desired number
  * of features are detected.
@@ -792,12 +792,12 @@ public:
  *          for the FastAdjuster this can be high, but with Star or Surf this can get time consuming
  *  \param min_features the minimum desired features
  */
-DynamicAdaptedFeatureDetector(const Ptr<AdjusterAdapter>&adjuster, int min_features = 400, int max_features = 500, int max_iters = 5);
+DynamicAdaptedFeatureDetector(const Ptr<AdjusterAdapter> &adjuster, int min_features = 400, int max_features = 500, int max_iters = 5);
 
 virtual bool empty() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 private:
 DynamicAdaptedFeatureDetector&operator=(const DynamicAdaptedFeatureDetector&);
@@ -826,7 +826,7 @@ virtual bool good() const;
 virtual Ptr<AdjusterAdapter> clone() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 int  thresh_;
 bool nonmax_;
@@ -849,7 +849,7 @@ virtual bool good() const;
 virtual Ptr<AdjusterAdapter> clone() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 double thresh_, init_thresh_, min_thresh_, max_thresh_;
 };
@@ -866,12 +866,12 @@ virtual bool good() const;
 virtual Ptr<AdjusterAdapter> clone() const;
 
 protected:
-virtual void detectImpl(const Mat&image, vector<KeyPoint>&keypoints, const Mat&mask = Mat()) const;
+virtual void detectImpl(const Mat &image, vector<KeyPoint> &keypoints, const Mat &mask = Mat()) const;
 
 double thresh_, init_thresh_, min_thresh_, max_thresh_;
 };
 
-CV_EXPORTS Mat windowedMatchingMask(const vector<KeyPoint>&keypoints1, const vector<KeyPoint>&keypoints2,
+CV_EXPORTS Mat windowedMatchingMask(const vector<KeyPoint> &keypoints1, const vector<KeyPoint> &keypoints2,
                                     float maxDeltaX, float maxDeltaY);
 
 
@@ -888,7 +888,7 @@ CV_EXPORTS Mat windowedMatchingMask(const vector<KeyPoint>&keypoints1, const vec
 class CV_EXPORTS OpponentColorDescriptorExtractor : public DescriptorExtractor
 {
 public:
-OpponentColorDescriptorExtractor(const Ptr<DescriptorExtractor>&descriptorExtractor);
+OpponentColorDescriptorExtractor(const Ptr<DescriptorExtractor> &descriptorExtractor);
 
 virtual void read(const FileNode&);
 virtual void write(FileStorage&) const;
@@ -899,7 +899,7 @@ virtual int descriptorType() const;
 virtual bool empty() const;
 
 protected:
-virtual void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
+virtual void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
 
 Ptr<DescriptorExtractor> descriptorExtractor;
 };
@@ -927,7 +927,7 @@ virtual int descriptorType() const;
 AlgorithmInfo* info() const;
 
 protected:
-virtual void computeImpl(const Mat&image, vector<KeyPoint>&keypoints, Mat&descriptors) const;
+virtual void computeImpl(const Mat &image, vector<KeyPoint> &keypoints, Mat &descriptors) const;
 
 typedef void (*PixelTestFn)(const Mat&, const vector<KeyPoint>&, Mat&);
 
@@ -1052,7 +1052,7 @@ struct CV_EXPORTS_W_SIMPLE DMatch
     CV_PROP_RW float distance;
 
     // less is better
-    bool operator<(const DMatch&m) const
+    bool operator<(const DMatch &m) const
     {
         return distance < m.distance;
     }
@@ -1073,7 +1073,7 @@ virtual ~DescriptorMatcher();
  * Add descriptors to train descriptor collection.
  * descriptors      Descriptors to add. Each descriptors[i] is a descriptors set from one image.
  */
-CV_WRAP virtual void add(const vector<Mat>&descriptors);
+CV_WRAP virtual void add(const vector<Mat> &descriptors);
 /*
  * Get train descriptors collection.
  */
@@ -1109,30 +1109,30 @@ CV_WRAP virtual void train();
  * Method train() is run in this methods.
  */
 // Find one best match for each query descriptor (if mask is empty).
-CV_WRAP void match(const Mat&queryDescriptors, const Mat&trainDescriptors,
-                   CV_OUT vector<DMatch>&matches, const Mat&mask = Mat()) const;
+CV_WRAP void match(const Mat &queryDescriptors, const Mat &trainDescriptors,
+                   CV_OUT vector<DMatch> &matches, const Mat &mask = Mat()) const;
 // Find k best matches for each query descriptor (in increasing order of distances).
 // compactResult is used when mask is not empty. If compactResult is false matches
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
-CV_WRAP void knnMatch(const Mat&queryDescriptors, const Mat&trainDescriptors,
-                      CV_OUT vector<vector<DMatch> >&matches, int k,
-                      const Mat&mask = Mat(), bool compactResult = false) const;
+CV_WRAP void knnMatch(const Mat &queryDescriptors, const Mat &trainDescriptors,
+                      CV_OUT vector<vector<DMatch> > &matches, int k,
+                      const Mat &mask = Mat(), bool compactResult = false) const;
 // Find best matches for each query descriptor which have distance less than
 // maxDistance (in increasing order of distances).
-void radiusMatch(const Mat&queryDescriptors, const Mat&trainDescriptors,
-                 vector<vector<DMatch> >&matches, float maxDistance,
-                 const Mat&mask = Mat(), bool compactResult = false) const;
+void radiusMatch(const Mat &queryDescriptors, const Mat &trainDescriptors,
+                 vector<vector<DMatch> > &matches, float maxDistance,
+                 const Mat &mask = Mat(), bool compactResult = false) const;
 /*
  * Group of methods to match descriptors from one image to image set.
  * See description of similar methods for matching image pair above.
  */
-CV_WRAP void match(const Mat&queryDescriptors, CV_OUT vector<DMatch>&matches,
-                   const vector<Mat>&masks = vector<Mat>());
-CV_WRAP void knnMatch(const Mat&queryDescriptors, CV_OUT vector<vector<DMatch> >&matches, int k,
-                      const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
-void radiusMatch(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, float maxDistance,
-                 const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
+CV_WRAP void match(const Mat &queryDescriptors, CV_OUT vector<DMatch> &matches,
+                   const vector<Mat> &masks = vector<Mat>());
+CV_WRAP void knnMatch(const Mat &queryDescriptors, CV_OUT vector<vector<DMatch> > &matches, int k,
+                      const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
+void radiusMatch(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+                 const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 // Reads matcher object from a file node
 virtual void read(const FileNode&);
@@ -1144,7 +1144,7 @@ virtual void write(FileStorage&) const;
 // but with empty train data.
 virtual Ptr<DescriptorMatcher> clone(bool emptyTrainData = false) const = 0;
 
-CV_WRAP static Ptr<DescriptorMatcher> create(const string&descriptorMatcherType);
+CV_WRAP static Ptr<DescriptorMatcher> create(const string &descriptorMatcherType);
 protected:
 /*
  * Class to work with descriptors from several images as with one merged matrix.
@@ -1154,17 +1154,17 @@ class CV_EXPORTS DescriptorCollection
 {
 public:
 DescriptorCollection();
-DescriptorCollection(const DescriptorCollection&collection);
+DescriptorCollection(const DescriptorCollection &collection);
 virtual ~DescriptorCollection();
 
 // Vector of matrices "descriptors" will be merged to one matrix "mergedDescriptors" here.
-void set(const vector<Mat>&descriptors);
+void set(const vector<Mat> &descriptors);
 virtual void clear();
 
 const Mat&getDescriptors() const;
 const Mat getDescriptor(int imgIdx, int localDescIdx) const;
 const Mat getDescriptor(int globalDescIdx) const;
-void getLocalIdx(int globalDescIdx, int&imgIdx, int&localDescIdx) const;
+void getLocalIdx(int globalDescIdx, int &imgIdx, int &localDescIdx) const;
 
 int size() const;
 
@@ -1176,19 +1176,19 @@ vector<int> startIdxs;
 // In fact the matching is implemented only by the following two methods. These methods suppose
 // that the class object has been trained already. Public match methods call these methods
 // after calling train().
-virtual void knnMatchImpl(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, int k,
-                          const vector<Mat>&masks = vector<Mat>(), bool compactResult = false) = 0;
-virtual void radiusMatchImpl(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, float maxDistance,
-                             const vector<Mat>&masks = vector<Mat>(), bool compactResult = false) = 0;
+virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, int k,
+                          const vector<Mat> &masks = vector<Mat>(), bool compactResult = false) = 0;
+virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+                             const vector<Mat> &masks = vector<Mat>(), bool compactResult = false) = 0;
 
-static bool isPossibleMatch(const Mat&mask, int queryIdx, int trainIdx);
-static bool isMaskedOut(const vector<Mat>&masks, int queryIdx);
+static bool isPossibleMatch(const Mat &mask, int queryIdx, int trainIdx);
+static bool isMaskedOut(const vector<Mat> &masks, int queryIdx);
 
 static Mat clone_op(Mat m)
 {
     return m.clone();
 }
-void checkMasks(const vector<Mat>&masks, int queryDescriptorsCount) const;
+void checkMasks(const vector<Mat> &masks, int queryDescriptorsCount) const;
 
 // Collection of descriptors from train images.
 vector<Mat> trainDescCollection;
@@ -1218,10 +1218,10 @@ virtual Ptr<DescriptorMatcher> clone(bool emptyTrainData = false) const;
 
 AlgorithmInfo* info() const;
 protected:
-virtual void knnMatchImpl(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, int k,
-                          const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
-virtual void radiusMatchImpl(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, float maxDistance,
-                             const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
+virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, int k,
+                          const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
+virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+                             const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 int  normType;
 bool crossCheck;
@@ -1234,10 +1234,10 @@ bool crossCheck;
 class CV_EXPORTS_W FlannBasedMatcher : public DescriptorMatcher
 {
 public:
-CV_WRAP FlannBasedMatcher(const Ptr<flann::IndexParams>&indexParams = new flann::KDTreeIndexParams(),
-                          const Ptr<flann::SearchParams>&searchParams = new flann::SearchParams());
+CV_WRAP FlannBasedMatcher(const Ptr<flann::IndexParams> &indexParams = new flann::KDTreeIndexParams(),
+                          const Ptr<flann::SearchParams> &searchParams = new flann::SearchParams());
 
-virtual void add(const vector<Mat>&descriptors);
+virtual void add(const vector<Mat> &descriptors);
 virtual void clear();
 
 // Reads matcher object from a file node
@@ -1252,14 +1252,14 @@ virtual Ptr<DescriptorMatcher> clone(bool emptyTrainData = false) const;
 
 AlgorithmInfo* info() const;
 protected:
-static void convertToDMatches(const DescriptorCollection&descriptors,
-                              const Mat&indices, const Mat&distances,
-                              vector<vector<DMatch> >&matches);
+static void convertToDMatches(const DescriptorCollection &descriptors,
+                              const Mat &indices, const Mat &distances,
+                              vector<vector<DMatch> > &matches);
 
-virtual void knnMatchImpl(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, int k,
-                          const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
-virtual void radiusMatchImpl(const Mat&queryDescriptors, vector<vector<DMatch> >&matches, float maxDistance,
-                             const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
+virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, int k,
+                          const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
+virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+                             const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 Ptr<flann::IndexParams>  indexParams;
 Ptr<flann::SearchParams> searchParams;
@@ -1294,8 +1294,8 @@ virtual ~GenericDescriptorMatcher();
  * If inheritor class need perform such prefiltering the method add() must be overloaded.
  * In the other class methods programmer has access to the train keypoints by a constant link.
  */
-virtual void add(const vector<Mat>&images,
-                 vector<vector<KeyPoint> >&keypoints);
+virtual void add(const vector<Mat> &images,
+                 vector<vector<KeyPoint> > &keypoints);
 
 const vector<Mat>&getTrainImages() const;
 const vector<vector<KeyPoint> >&getTrainKeypoints() const;
@@ -1323,10 +1323,10 @@ virtual void train();
  * trainKeypoints   Keypoints from the train image
  */
 // Classify keypoints from query image under one train image.
-void classify(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-              const Mat&trainImage, vector<KeyPoint>&trainKeypoints) const;
+void classify(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+              const Mat &trainImage, vector<KeyPoint> &trainKeypoints) const;
 // Classify keypoints from query image under train image collection.
-void classify(const Mat&queryImage, vector<KeyPoint>&queryKeypoints);
+void classify(const Mat &queryImage, vector<KeyPoint> &queryKeypoints);
 
 /*
  * Group of methods to match keypoints from image pair.
@@ -1334,39 +1334,39 @@ void classify(const Mat&queryImage, vector<KeyPoint>&queryKeypoints);
  * train() method is called here.
  */
 // Find one best match for each query descriptor (if mask is empty).
-void match(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-           const Mat&trainImage, vector<KeyPoint>&trainKeypoints,
-           vector<DMatch>&matches, const Mat&mask = Mat()) const;
+void match(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+           const Mat &trainImage, vector<KeyPoint> &trainKeypoints,
+           vector<DMatch> &matches, const Mat &mask = Mat()) const;
 // Find k best matches for each query keypoint (in increasing order of distances).
 // compactResult is used when mask is not empty. If compactResult is false matches
 // vector will have the same size as queryDescriptors rows.
 // If compactResult is true matches vector will not contain matches for fully masked out query descriptors.
-void knnMatch(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-              const Mat&trainImage, vector<KeyPoint>&trainKeypoints,
-              vector<vector<DMatch> >&matches, int k,
-              const Mat&mask = Mat(), bool compactResult = false) const;
+void knnMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+              const Mat &trainImage, vector<KeyPoint> &trainKeypoints,
+              vector<vector<DMatch> > &matches, int k,
+              const Mat &mask = Mat(), bool compactResult = false) const;
 // Find best matches for each query descriptor which have distance less than maxDistance (in increasing order of distances).
-void radiusMatch(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-                 const Mat&trainImage, vector<KeyPoint>&trainKeypoints,
-                 vector<vector<DMatch> >&matches, float maxDistance,
-                 const Mat&mask = Mat(), bool compactResult = false) const;
+void radiusMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+                 const Mat &trainImage, vector<KeyPoint> &trainKeypoints,
+                 vector<vector<DMatch> > &matches, float maxDistance,
+                 const Mat &mask = Mat(), bool compactResult = false) const;
 /*
  * Group of methods to match keypoints from one image to image set.
  * See description of similar methods for matching image pair above.
  */
-void match(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-           vector<DMatch>&matches, const vector<Mat>&masks = vector<Mat>());
-void knnMatch(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-              vector<vector<DMatch> >&matches, int k,
-              const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
-void radiusMatch(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-                 vector<vector<DMatch> >&matches, float maxDistance,
-                 const vector<Mat>&masks = vector<Mat>(), bool compactResult = false);
+void match(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+           vector<DMatch> &matches, const vector<Mat> &masks = vector<Mat>());
+void knnMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+              vector<vector<DMatch> > &matches, int k,
+              const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
+void radiusMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+                 vector<vector<DMatch> > &matches, float maxDistance,
+                 const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 // Reads matcher object from a file node
-virtual void read(const FileNode&fn);
+virtual void read(const FileNode &fn);
 // Writes matcher object to a file storage
-virtual void write(FileStorage&fs) const;
+virtual void write(FileStorage &fs) const;
 
 // Return true if matching object is empty (e.g. feature detector or descriptor matcher are empty)
 virtual bool empty() const;
@@ -1376,19 +1376,19 @@ virtual bool empty() const;
 // but with empty train data.
 virtual Ptr<GenericDescriptorMatcher> clone(bool emptyTrainData = false) const = 0;
 
-static Ptr<GenericDescriptorMatcher> create(const string&genericDescritptorMatcherType,
-                                            const string&paramsFilename = string());
+static Ptr<GenericDescriptorMatcher> create(const string &genericDescritptorMatcherType,
+                                            const string &paramsFilename = string());
 
 protected:
 // In fact the matching is implemented only by the following two methods. These methods suppose
 // that the class object has been trained already. Public match methods call these methods
 // after calling train().
-virtual void knnMatchImpl(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-                          vector<vector<DMatch> >&matches, int k,
-                          const vector<Mat>&masks, bool compactResult) = 0;
-virtual void radiusMatchImpl(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-                             vector<vector<DMatch> >&matches, float maxDistance,
-                             const vector<Mat>&masks, bool compactResult) = 0;
+virtual void knnMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+                          vector<vector<DMatch> > &matches, int k,
+                          const vector<Mat> &masks, bool compactResult) = 0;
+virtual void radiusMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+                             vector<vector<DMatch> > &matches, float maxDistance,
+                             const vector<Mat> &masks, bool compactResult) = 0;
 /*
  * A storage for sets of keypoints together with corresponding images and class IDs
  */
@@ -1396,8 +1396,8 @@ class CV_EXPORTS KeyPointCollection
 {
 public:
 KeyPointCollection();
-KeyPointCollection(const KeyPointCollection&collection);
-void add(const vector<Mat>&images, const vector<vector<KeyPoint> >&keypoints);
+KeyPointCollection(const KeyPointCollection &collection);
+void add(const vector<Mat> &images, const vector<vector<KeyPoint> > &keypoints);
 void clear();
 
 // Returns the total number of keypoints in the collection
@@ -1408,7 +1408,7 @@ const vector<vector<KeyPoint> >&getKeypoints() const;
 const vector<KeyPoint>&getKeypoints(int imgIdx) const;
 const KeyPoint&getKeyPoint(int imgIdx, int localPointIdx) const;
 const KeyPoint&getKeyPoint(int globalPointIdx) const;
-void getLocalIdx(int globalPointIdx, int&imgIdx, int&localPointIdx) const;
+void getLocalIdx(int globalPointIdx, int &imgIdx, int &localPointIdx) const;
 
 const vector<Mat>&getImages() const;
 const Mat&getImage(int imgIdx) const;
@@ -1445,11 +1445,11 @@ typedef VectorDescriptorMatcher VectorDescriptorMatch;
 class CV_EXPORTS VectorDescriptorMatcher : public GenericDescriptorMatcher
 {
 public:
-VectorDescriptorMatcher(const Ptr<DescriptorExtractor>&extractor, const Ptr<DescriptorMatcher>&matcher);
+VectorDescriptorMatcher(const Ptr<DescriptorExtractor> &extractor, const Ptr<DescriptorMatcher> &matcher);
 virtual ~VectorDescriptorMatcher();
 
-virtual void add(const vector<Mat>&imgCollection,
-                 vector<vector<KeyPoint> >&pointCollection);
+virtual void add(const vector<Mat> &imgCollection,
+                 vector<vector<KeyPoint> > &pointCollection);
 
 virtual void clear();
 
@@ -1457,19 +1457,19 @@ virtual void train();
 
 virtual bool isMaskSupported();
 
-virtual void read(const FileNode&fn);
-virtual void write(FileStorage&fs) const;
+virtual void read(const FileNode &fn);
+virtual void write(FileStorage &fs) const;
 virtual bool empty() const;
 
 virtual Ptr<GenericDescriptorMatcher> clone(bool emptyTrainData = false) const;
 
 protected:
-virtual void knnMatchImpl(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-                          vector<vector<DMatch> >&matches, int k,
-                          const vector<Mat>&masks, bool compactResult);
-virtual void radiusMatchImpl(const Mat&queryImage, vector<KeyPoint>&queryKeypoints,
-                             vector<vector<DMatch> >&matches, float maxDistance,
-                             const vector<Mat>&masks, bool compactResult);
+virtual void knnMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+                          vector<vector<DMatch> > &matches, int k,
+                          const vector<Mat> &masks, bool compactResult);
+virtual void radiusMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
+                             vector<vector<DMatch> > &matches, float maxDistance,
+                             const vector<Mat> &masks, bool compactResult);
 
 Ptr<DescriptorExtractor> extractor;
 Ptr<DescriptorMatcher>   matcher;
@@ -1494,43 +1494,43 @@ struct CV_EXPORTS DrawMatchesFlags
 };
 
 // Draw keypoints.
-CV_EXPORTS_W void drawKeypoints(const Mat&image, const vector<KeyPoint>&keypoints, CV_OUT Mat&outImage,
-                                const Scalar&color = Scalar::all(-1), int flags = DrawMatchesFlags::DEFAULT);
+CV_EXPORTS_W void drawKeypoints(const Mat &image, const vector<KeyPoint> &keypoints, CV_OUT Mat &outImage,
+                                const Scalar &color = Scalar::all(-1), int flags = DrawMatchesFlags::DEFAULT);
 
 // Draws matches of keypints from two images on output image.
-CV_EXPORTS void drawMatches(const Mat&img1, const vector<KeyPoint>&keypoints1,
-                            const Mat&img2, const vector<KeyPoint>&keypoints2,
-                            const vector<DMatch>&matches1to2, Mat&outImg,
-                            const Scalar&matchColor = Scalar::all(-1), const Scalar&singlePointColor = Scalar::all(-1),
-                            const vector<char>&matchesMask = vector<char>(), int flags = DrawMatchesFlags::DEFAULT);
+CV_EXPORTS void drawMatches(const Mat &img1, const vector<KeyPoint> &keypoints1,
+                            const Mat &img2, const vector<KeyPoint> &keypoints2,
+                            const vector<DMatch> &matches1to2, Mat &outImg,
+                            const Scalar &matchColor = Scalar::all(-1), const Scalar &singlePointColor = Scalar::all(-1),
+                            const vector<char> &matchesMask = vector<char>(), int flags = DrawMatchesFlags::DEFAULT);
 
-CV_EXPORTS void drawMatches(const Mat&img1, const vector<KeyPoint>&keypoints1,
-                            const Mat&img2, const vector<KeyPoint>&keypoints2,
-                            const vector<vector<DMatch> >&matches1to2, Mat&outImg,
-                            const Scalar&matchColor = Scalar::all(-1), const Scalar&singlePointColor = Scalar::all(-1),
-                            const vector<vector<char> >&matchesMask = vector<vector<char> >(), int flags = DrawMatchesFlags::DEFAULT);
+CV_EXPORTS void drawMatches(const Mat &img1, const vector<KeyPoint> &keypoints1,
+                            const Mat &img2, const vector<KeyPoint> &keypoints2,
+                            const vector<vector<DMatch> > &matches1to2, Mat &outImg,
+                            const Scalar &matchColor = Scalar::all(-1), const Scalar &singlePointColor = Scalar::all(-1),
+                            const vector<vector<char> > &matchesMask = vector<vector<char> >(), int flags = DrawMatchesFlags::DEFAULT);
 
 /****************************************************************************************\
 *   Functions to evaluate the feature detectors and [generic] descriptor extractors      *
 \****************************************************************************************/
 
-CV_EXPORTS void evaluateFeatureDetector(const Mat&img1, const Mat&img2, const Mat&H1to2,
+CV_EXPORTS void evaluateFeatureDetector(const Mat &img1, const Mat &img2, const Mat &H1to2,
                                         vector<KeyPoint> *keypoints1, vector<KeyPoint> *keypoints2,
-                                        float&repeatability, int&correspCount,
-                                        const Ptr<FeatureDetector>&fdetector = Ptr<FeatureDetector>());
+                                        float &repeatability, int &correspCount,
+                                        const Ptr<FeatureDetector> &fdetector = Ptr<FeatureDetector>());
 
-CV_EXPORTS void computeRecallPrecisionCurve(const vector<vector<DMatch> >&matches1to2,
-                                            const vector<vector<uchar> >&correctMatches1to2Mask,
-                                            vector<Point2f>&recallPrecisionCurve);
+CV_EXPORTS void computeRecallPrecisionCurve(const vector<vector<DMatch> > &matches1to2,
+                                            const vector<vector<uchar> > &correctMatches1to2Mask,
+                                            vector<Point2f> &recallPrecisionCurve);
 
-CV_EXPORTS float getRecall(const vector<Point2f>&recallPrecisionCurve, float l_precision);
-CV_EXPORTS int getNearestPoint(const vector<Point2f>&recallPrecisionCurve, float l_precision);
+CV_EXPORTS float getRecall(const vector<Point2f> &recallPrecisionCurve, float l_precision);
+CV_EXPORTS int getNearestPoint(const vector<Point2f> &recallPrecisionCurve, float l_precision);
 
-CV_EXPORTS void evaluateGenericDescriptorMatcher(const Mat&img1, const Mat&img2, const Mat&H1to2,
-                                                 vector<KeyPoint>&keypoints1, vector<KeyPoint>&keypoints2,
+CV_EXPORTS void evaluateGenericDescriptorMatcher(const Mat &img1, const Mat &img2, const Mat &H1to2,
+                                                 vector<KeyPoint> &keypoints1, vector<KeyPoint> &keypoints2,
                                                  vector<vector<DMatch> > *matches1to2, vector<vector<uchar> > *correctMatches1to2Mask,
-                                                 vector<Point2f>&recallPrecisionCurve,
-                                                 const Ptr<GenericDescriptorMatcher>&dmatch = Ptr<GenericDescriptorMatcher>());
+                                                 vector<Point2f> &recallPrecisionCurve,
+                                                 const Ptr<GenericDescriptorMatcher> &dmatch = Ptr<GenericDescriptorMatcher>());
 
 
 /****************************************************************************************\
@@ -1545,7 +1545,7 @@ public:
 BOWTrainer();
 virtual ~BOWTrainer();
 
-CV_WRAP void add(const Mat&descriptors);
+CV_WRAP void add(const Mat &descriptors);
 CV_WRAP const vector<Mat>&getDescriptors() const;
 CV_WRAP int descripotorsCount() const;
 
@@ -1558,8 +1558,8 @@ CV_WRAP virtual void clear();
  *
  * descriptors      Training descriptors computed on images keypoints.
  */
-CV_WRAP virtual Mat cluster() const                      = 0;
-CV_WRAP virtual Mat cluster(const Mat&descriptors) const = 0;
+CV_WRAP virtual Mat cluster() const                       = 0;
+CV_WRAP virtual Mat cluster(const Mat &descriptors) const = 0;
 
 protected:
 vector<Mat> descriptors;
@@ -1572,13 +1572,13 @@ int         size;
 class CV_EXPORTS_W BOWKMeansTrainer : public BOWTrainer
 {
 public:
-CV_WRAP BOWKMeansTrainer(int clusterCount, const TermCriteria&termcrit = TermCriteria(),
+CV_WRAP BOWKMeansTrainer(int clusterCount, const TermCriteria &termcrit = TermCriteria(),
                          int attempts = 3, int flags = KMEANS_PP_CENTERS);
 virtual ~BOWKMeansTrainer();
 
 // Returns trained vocabulary (i.e. cluster centers).
 CV_WRAP virtual Mat cluster() const;
-CV_WRAP virtual Mat cluster(const Mat&descriptors) const;
+CV_WRAP virtual Mat cluster(const Mat &descriptors) const;
 
 protected:
 
@@ -1594,17 +1594,17 @@ int          flags;
 class CV_EXPORTS_W BOWImgDescriptorExtractor
 {
 public:
-CV_WRAP BOWImgDescriptorExtractor(const Ptr<DescriptorExtractor>&dextractor,
-                                  const Ptr<DescriptorMatcher>&dmatcher);
+CV_WRAP BOWImgDescriptorExtractor(const Ptr<DescriptorExtractor> &dextractor,
+                                  const Ptr<DescriptorMatcher> &dmatcher);
 virtual ~BOWImgDescriptorExtractor();
 
-CV_WRAP void setVocabulary(const Mat&vocabulary);
+CV_WRAP void setVocabulary(const Mat &vocabulary);
 CV_WRAP const Mat&getVocabulary() const;
-void compute(const Mat&image, vector<KeyPoint>&keypoints, Mat&imgDescriptor,
+void compute(const Mat &image, vector<KeyPoint> &keypoints, Mat &imgDescriptor,
              vector<vector<int> > *pointIdxsOfClusters = 0, Mat *descriptors = 0);
 // compute() is not constant because DescriptorMatcher::match is not constant
 
-CV_WRAP_AS(compute) void compute2(const Mat&image, vector<KeyPoint>&keypoints, CV_OUT Mat&imgDescriptor)
+CV_WRAP_AS(compute) void compute2(const Mat &image, vector<KeyPoint> &keypoints, CV_OUT Mat &imgDescriptor)
 {
     compute(image, keypoints, imgDescriptor);
 }

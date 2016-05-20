@@ -140,7 +140,7 @@ inline const FeaturePoint&point(size_t i) const
 /**
  * Copy a feature store.
  */
-void copy(const BinaryFeatureStore&store)
+void copy(const BinaryFeatureStore &store)
 {
     mNumBytesPerFeature = store.mNumBytesPerFeature;
     mFeatures           = store.mFeatures;

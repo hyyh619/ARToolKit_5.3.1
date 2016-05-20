@@ -73,7 +73,7 @@ virtual Mat nextFrame()
 class CV_EXPORTS VideoFileSource : public IFrameSource
 {
 public:
-VideoFileSource(const std::string&path, bool volatileFrame = false);
+VideoFileSource(const std::string &path, bool volatileFrame = false);
 
 virtual void reset();
 virtual Mat nextFrame();

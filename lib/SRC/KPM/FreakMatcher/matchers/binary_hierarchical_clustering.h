@@ -83,7 +83,7 @@ inline unsigned int dist() const
 /**
  * Operator for sorting the queue. Smallest item is always the first.
  */
-bool operator<(const PriorityQueueItem&item) const
+bool operator<(const PriorityQueueItem &item) const
 {
     return mDistance > item.mDistance;
 }
@@ -167,8 +167,8 @@ inline const std::vector<int>&reverseIndex() const
 /**
  * Get a queue of all the children nodes sorted by distance from node center.
  */
-inline void nearest(std::vector<const node_t*>&nodes,
-                    queue_t&queue,
+inline void nearest(std::vector<const node_t*> &nodes,
+                    queue_t &queue,
                     const unsigned char *feature) const
 {
     unsigned int mind = std::numeric_limits<unsigned int>::max();
@@ -382,7 +382,7 @@ void build(node_t *node, const unsigned char *features, int num_features, const 
 /**
  * Recursive function query function.
  */
-void query(queue_t&queue, const node_t *node, const unsigned char *feature) const;
+void query(queue_t &queue, const node_t *node, const unsigned char *feature) const;
 };     // BinaryHierarchicalClustering
 
 template<int NUM_BYTES_PER_FEATURE>
@@ -442,7 +442,7 @@ void BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE>::build(node_t *node, co
         mBinarykMedoids.assign(features, num_features, indices, num_indices);
 
         // Get a list of features for each cluster center
-        const std::vector<int>&assignment = mBinarykMedoids.assignment();
+        const std::vector<int> &assignment = mBinarykMedoids.assignment();
         ASSERT(assignment.size() == num_indices, "Assignment size wrong");
 
         for (size_t i = 0; i < assignment.size(); i++)
@@ -485,7 +485,7 @@ void BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE>::build(node_t *node, co
             node->children().push_back(new_node);
 
             // Recursively build the tree
-            const std::vector<int>&v = it->second;
+            const std::vector<int> &v = it->second;
             build(new_node, features, num_features, &v[0], (int)v.size());
         }
     }
@@ -510,7 +510,7 @@ int BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE>::query(const unsigned ch
 }
 
 template<int NUM_BYTES_PER_FEATURE>
-void BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE>::query(queue_t&queue,
+void BinaryHierarchicalClustering<NUM_BYTES_PER_FEATURE>::query(queue_t &queue,
                                                                 const node_t *node,
                                                                 const unsigned char *feature) const
 {

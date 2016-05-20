@@ -131,7 +131,7 @@ size_t BinaryFeatureMatcher<FEATURE_SIZE>::match(const BinaryFeatureStore *featu
 template<int FEATURE_SIZE>
 size_t BinaryFeatureMatcher<FEATURE_SIZE>::match(const BinaryFeatureStore *features1,
                                                  const BinaryFeatureStore *features2,
-                                                 const index_t&index2)
+                                                 const index_t &index2)
 {
     mMatches.clear();
 
@@ -153,10 +153,10 @@ size_t BinaryFeatureMatcher<FEATURE_SIZE>::match(const BinaryFeatureStore *featu
         const unsigned char *f1 = features1->feature(i);
         index2.query(f1);
 
-        const FeaturePoint&p1 = features1->point(i);
+        const FeaturePoint &p1 = features1->point(i);
 
         // Search for 1st and 2nd best match
-        const std::vector<int>&v = index2.reverseIndex();
+        const std::vector<int> &v = index2.reverseIndex();
 
         for (size_t j = 0; j < v.size(); j++)
         {
@@ -248,7 +248,7 @@ size_t BinaryFeatureMatcher<FEATURE_SIZE>::match(const BinaryFeatureStore *featu
         // Search for 1st and 2nd best match
         for (size_t j = 0; j < features2->size(); j++)
         {
-            const FeaturePoint&p2 = features2->point(j);
+            const FeaturePoint &p2 = features2->point(j);
 
             // Both points should be a MINIMA or MAXIMA
             if (p1.maxima != p2.maxima)
@@ -335,11 +335,11 @@ size_t MutualCorrespondenceBinaryFeatureMatcher<FEATURE_SIZE>::match(const Binar
         unsigned int       best_d     = std::numeric_limits<unsigned int>::max();
         const unsigned int *f1        = (unsigned int*)features1->feature(i);
 
-        const FeaturePoint&p1 = features1->point(i);
+        const FeaturePoint &p1 = features1->point(i);
 
         for (size_t j = 0; j < features2->size(); j++)
         {
-            const FeaturePoint&p2 = features2->point(j);
+            const FeaturePoint &p2 = features2->point(j);
 
             // Both points should be a MINIMA or MAXIMA
             if (p1.maxima != p2.maxima)
@@ -373,11 +373,11 @@ size_t MutualCorrespondenceBinaryFeatureMatcher<FEATURE_SIZE>::match(const Binar
         unsigned int       best_d     = std::numeric_limits<unsigned int>::max();
         const unsigned int *f2        = (unsigned int*)features2->feature(i);
 
-        const FeaturePoint&p2 = features2->point(i);
+        const FeaturePoint &p2 = features2->point(i);
 
         for (size_t j = 0; j < features1->size(); j++)
         {
-            const FeaturePoint&p1 = features1->point(j);
+            const FeaturePoint &p1 = features1->point(j);
 
             // Both points should be a MINIMA or MAXIMA
             if (p1.maxima != p2.maxima)
@@ -444,7 +444,7 @@ size_t MutualCorrespondenceBinaryFeatureMatcher<FEATURE_SIZE>::match(const Binar
         int          best_index = -1;
         unsigned int best_d     = std::numeric_limits<unsigned int>::max();
 
-        const FeaturePoint&p1 = features1->point(i);
+        const FeaturePoint &p1 = features1->point(i);
 
         // Map p1 to p2 space through H
         float xp1, yp1;
@@ -452,7 +452,7 @@ size_t MutualCorrespondenceBinaryFeatureMatcher<FEATURE_SIZE>::match(const Binar
 
         for (size_t j = 0; j < features2->size(); j++)
         {
-            const FeaturePoint&p2 = features1->point(j);
+            const FeaturePoint &p2 = features1->point(j);
 
             // Both points should be a MINIMA or MAXIMA
             if (p1.maxima != p2.maxima)
@@ -485,7 +485,7 @@ size_t MutualCorrespondenceBinaryFeatureMatcher<FEATURE_SIZE>::match(const Binar
         int          best_index = -1;
         unsigned int best_d     = std::numeric_limits<unsigned int>::max();
 
-        const FeaturePoint&p2 = features2->point(i);
+        const FeaturePoint &p2 = features2->point(i);
 
         // Map p2 to p1 space through inv(H)
         float xp2, yp2;
@@ -493,7 +493,7 @@ size_t MutualCorrespondenceBinaryFeatureMatcher<FEATURE_SIZE>::match(const Binar
 
         for (size_t j = 0; j < features1->size(); j++)
         {
-            const FeaturePoint&p1 = features1->point(j);
+            const FeaturePoint &p1 = features1->point(j);
 
             // Both points should be a MINIMA or MAXIMA
             if (p1.maxima != p2.maxima)

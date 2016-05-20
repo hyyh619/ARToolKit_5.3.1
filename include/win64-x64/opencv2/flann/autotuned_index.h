@@ -45,7 +45,7 @@
 namespace cvflann
 {
 template<typename Distance>
-NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementType>&dataset, const IndexParams&params, const Distance&distance);
+NNIndex<Distance>* create_index_by_type(const Matrix<typename Distance::ElementType> &dataset, const IndexParams &params, const Distance &distance);
 
 
 struct AutotunedIndexParams : public IndexParams
@@ -72,7 +72,7 @@ public:
 typedef typename Distance::ElementType ElementType;
 typedef typename Distance::ResultType DistanceType;
 
-AutotunedIndex(const Matrix<ElementType>&inputData, const IndexParams&params = AutotunedIndexParams(), Distance d = Distance()) :
+AutotunedIndex(const Matrix<ElementType> &inputData, const IndexParams &params = AutotunedIndexParams(), Distance d = Distance()) :
     dataset_(inputData), distance_(d)
 {
     target_precision_ = get_param(params, "target_precision", 0.8f);
@@ -149,7 +149,7 @@ virtual void loadIndex(FILE *stream)
 /**
  *      Method that searches for nearest-neighbors
  */
-virtual void findNeighbors(ResultSet<DistanceType>&result, const ElementType *vec, const SearchParams&searchParams)
+virtual void findNeighbors(ResultSet<DistanceType> &result, const ElementType *vec, const SearchParams &searchParams)
 {
     int checks = get_param<int>(searchParams, "checks", FLANN_CHECKS_AUTOTUNED);
 
@@ -223,7 +223,7 @@ struct CostData
     IndexParams params;
 };
 
-void evaluate_kmeans(CostData&cost)
+void evaluate_kmeans(CostData &cost)
 {
     StartStopTimer t;
     int            checks;
@@ -251,7 +251,7 @@ void evaluate_kmeans(CostData&cost)
 }
 
 
-void evaluate_kdtree(CostData&cost)
+void evaluate_kdtree(CostData &cost)
 {
     StartStopTimer t;
     int            checks;
@@ -325,7 +325,7 @@ void evaluate_kdtree(CostData&cost)
 
 
 
-void optimizeKMeans(std::vector<CostData>&costs)
+void optimizeKMeans(std::vector<CostData> &costs)
 {
     Logger::info("KMEANS, Step 1: Exploring parameter space\n");
 
@@ -376,7 +376,7 @@ void optimizeKMeans(std::vector<CostData>&costs)
 }
 
 
-void optimizeKDTree(std::vector<CostData>&costs)
+void optimizeKDTree(std::vector<CostData> &costs)
 {
     Logger::info("KD-TREE, Step 1: Exploring parameter space\n");
 
@@ -503,7 +503,7 @@ IndexParams estimateBuildParams()
  *  Precondition: the index is built
  *  Postcondition: the searchParams will have the optimum params set, also the speedup obtained over linear search.
  */
-float estimateSearchParams(SearchParams&searchParams)
+float estimateSearchParams(SearchParams &searchParams)
 {
     const int    nn           = 1;
     const size_t SAMPLE_COUNT = 1000;

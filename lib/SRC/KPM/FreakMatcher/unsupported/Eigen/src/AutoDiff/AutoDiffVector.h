@@ -57,7 +57,7 @@ typedef typename JacobianType::Index Index;
 
 inline AutoDiffVector() {}
 
-inline AutoDiffVector(const ValueType&values)
+inline AutoDiffVector(const ValueType &values)
     : m_values(values)
 {
     m_jacobian.setZero();
@@ -103,28 +103,28 @@ Scalar sum() const       /*std::cerr << "sum \n\n";*/ /*std::cerr << m_jacobian.
 }
 
 
-inline AutoDiffVector(const ValueType&values, const JacobianType&jac)
+inline AutoDiffVector(const ValueType &values, const JacobianType &jac)
     : m_values(values), m_jacobian(jac)
 {}
 
 template<typename OtherValueType, typename OtherJacobianType>
-inline AutoDiffVector(const AutoDiffVector<OtherValueType, OtherJacobianType>&other)
+inline AutoDiffVector(const AutoDiffVector<OtherValueType, OtherJacobianType> &other)
     : m_values(other.values()), m_jacobian(other.jacobian())
 {}
 
-inline AutoDiffVector(const AutoDiffVector&other)
+inline AutoDiffVector(const AutoDiffVector &other)
     : m_values(other.values()), m_jacobian(other.jacobian())
 {}
 
 template<typename OtherValueType, typename OtherJacobianType>
-inline AutoDiffVector&operator=(const AutoDiffVector<OtherValueType, OtherJacobianType>&other)
+inline AutoDiffVector&operator=(const AutoDiffVector<OtherValueType, OtherJacobianType> &other)
 {
     m_values   = other.values();
     m_jacobian = other.jacobian();
     return *this;
 }
 
-inline AutoDiffVector&operator=(const AutoDiffVector&other)
+inline AutoDiffVector&operator=(const AutoDiffVector &other)
 {
     m_values   = other.values();
     m_jacobian = other.jacobian();
@@ -153,7 +153,7 @@ template<typename OtherValueType, typename OtherJacobianType>
 inline const AutoDiffVector<
     typename MakeCwiseBinaryOp<internal::scalar_sum_op<BaseScalar>, ValueType, OtherValueType>::Type,
     typename MakeCwiseBinaryOp<internal::scalar_sum_op<BaseScalar>, JacobianType, OtherJacobianType>::Type>
-operator+(const AutoDiffVector<OtherValueType, OtherJacobianType>&other) const
+operator+(const AutoDiffVector<OtherValueType, OtherJacobianType> &other) const
 {
     return AutoDiffVector<
         typename MakeCwiseBinaryOp<internal::scalar_sum_op<BaseScalar>, ValueType, OtherValueType>::Type,
@@ -164,7 +164,7 @@ operator+(const AutoDiffVector<OtherValueType, OtherJacobianType>&other) const
 
 template<typename OtherValueType, typename OtherJacobianType>
 inline AutoDiffVector&
-operator+=(const AutoDiffVector<OtherValueType, OtherJacobianType>&other)
+operator+=(const AutoDiffVector<OtherValueType, OtherJacobianType> &other)
 {
     m_values   += other.values();
     m_jacobian += other.jacobian();
@@ -175,7 +175,7 @@ template<typename OtherValueType, typename OtherJacobianType>
 inline const AutoDiffVector<
     typename MakeCwiseBinaryOp<internal::scalar_difference_op<Scalar>, ValueType, OtherValueType>::Type,
     typename MakeCwiseBinaryOp<internal::scalar_difference_op<Scalar>, JacobianType, OtherJacobianType>::Type>
-operator-(const AutoDiffVector<OtherValueType, OtherJacobianType>&other) const
+operator-(const AutoDiffVector<OtherValueType, OtherJacobianType> &other) const
 {
     return AutoDiffVector<
         typename MakeCwiseBinaryOp<internal::scalar_difference_op<Scalar>, ValueType, OtherValueType>::Type,
@@ -186,7 +186,7 @@ operator-(const AutoDiffVector<OtherValueType, OtherJacobianType>&other) const
 
 template<typename OtherValueType, typename OtherJacobianType>
 inline AutoDiffVector&
-operator-=(const AutoDiffVector<OtherValueType, OtherJacobianType>&other)
+operator-=(const AutoDiffVector<OtherValueType, OtherJacobianType> &other)
 {
     m_values   -= other.values();
     m_jacobian -= other.jacobian();
@@ -208,7 +208,7 @@ operator-() const
 inline const AutoDiffVector<
     typename MakeCwiseUnaryOp<internal::scalar_multiple_op<Scalar>, ValueType>::Type,
     typename MakeCwiseUnaryOp<internal::scalar_multiple_op<Scalar>, JacobianType>::Type>
-operator*(const BaseScalar&other) const
+operator*(const BaseScalar &other) const
 {
     return AutoDiffVector<
         typename MakeCwiseUnaryOp<internal::scalar_multiple_op<Scalar>, ValueType>::Type,
@@ -220,7 +220,7 @@ operator*(const BaseScalar&other) const
 friend inline const AutoDiffVector<
     typename MakeCwiseUnaryOp<internal::scalar_multiple_op<Scalar>, ValueType>::Type,
     typename MakeCwiseUnaryOp<internal::scalar_multiple_op<Scalar>, JacobianType>::Type>
-operator*(const Scalar&other, const AutoDiffVector&v)
+operator*(const Scalar &other, const AutoDiffVector &v)
 {
     return AutoDiffVector<
         typename MakeCwiseUnaryOp<internal::scalar_multiple_op<Scalar>, ValueType>::Type,
@@ -246,7 +246,7 @@ operator*(const Scalar&other, const AutoDiffVector&v)
 //             (m_jacobian * other.values()) + (m_values * other.jacobian()));
 //     }
 
-inline AutoDiffVector&operator*=(const Scalar&other)
+inline AutoDiffVector&operator*=(const Scalar &other)
 {
     m_values   *= other;
     m_jacobian *= other;
@@ -254,7 +254,7 @@ inline AutoDiffVector&operator*=(const Scalar&other)
 }
 
 template<typename OtherValueType, typename OtherJacobianType>
-inline AutoDiffVector&operator*=(const AutoDiffVector<OtherValueType, OtherJacobianType>&other)
+inline AutoDiffVector&operator*=(const AutoDiffVector<OtherValueType, OtherJacobianType> &other)
 {
     *this = *this * other;
     return *this;

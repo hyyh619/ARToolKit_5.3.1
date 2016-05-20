@@ -240,7 +240,7 @@ protected:
 class StringToBuffer
 {
 public:
-StringToBuffer(const TIXML_STRING&str);
+StringToBuffer(const TIXML_STRING &str);
 ~StringToBuffer();
 char *buffer;
 };
@@ -314,9 +314,9 @@ inline static const char* GetChar(const char *p, char *_value, int *length, TiXm
 
 // Puts a string to a stream, expanding entities as it goes.
 // Note this should not contian the '<', '>', etc, or they will be transformed into entities!
-static void PutString(const TIXML_STRING&str, TIXML_OSTREAM *out);
+static void PutString(const TIXML_STRING &str, TIXML_OSTREAM *out);
 
-static void PutString(const TIXML_STRING&str, TIXML_STRING *out);
+static void PutString(const TIXML_STRING &str, TIXML_STRING *out);
 
 // Return true if the next characters in the stream are any of the endTag sequences.
 // Ignore case only works for english, and should only be relied on when comparing
@@ -355,7 +355,7 @@ static void ConvertUTF32ToUTF8(unsigned long input, char *output, int *length);
 
 private:
 TiXmlBase(const TiXmlBase&);                                    // not implemented.
-void operator=(const TiXmlBase&base);                   // not allowed.
+void operator=(const TiXmlBase &base);                   // not allowed.
 
 struct Entity
 {
@@ -389,7 +389,7 @@ public:
 /** An input stream operator, for every class. Tolerant of newlines and
         formatting, but doesn't expect them.
  */
-friend std::istream&operator >>(std::istream&in, TiXmlNode&base);
+friend std::istream&operator >>(std::istream &in, TiXmlNode &base);
 
 /** An output stream operator, for every class. Note that this outputs
         without any newlines or formatting, as opposed to Print(), which
@@ -407,14 +407,14 @@ friend std::istream&operator >>(std::istream&in, TiXmlNode&base);
         A TiXmlDocument will read nodes until it reads a root element, and
             all the children of that root element.
  */
-friend std::ostream&operator<<(std::ostream&out, const TiXmlNode&base);
+friend std::ostream&operator<<(std::ostream &out, const TiXmlNode &base);
 
 /// Appends the XML node or attribute to a std::string.
-friend std::string&operator<<(std::string&out, const TiXmlNode&base);
+friend std::string&operator<<(std::string &out, const TiXmlNode &base);
 
         #else
 // Used internally, not part of the public API.
-friend TIXML_OSTREAM&operator<<(TIXML_OSTREAM&out, const TiXmlNode&base);
+friend TIXML_OSTREAM&operator<<(TIXML_OSTREAM &out, const TiXmlNode &base);
         #endif
 
 /** The types of XML nodes supported by TinyXml. (All the
@@ -466,7 +466,7 @@ void SetValue(const char *_value)
 
     #ifdef TIXML_USE_STL
 /// STL std::string form.
-void SetValue(const std::string&_value)
+void SetValue(const std::string &_value)
 {
     StringToBuffer buf(_value);
 
@@ -510,19 +510,19 @@ const TiXmlNode* LastChild(const char *value) const;                            
 TiXmlNode* LastChild(const char *value);
 
     #ifdef TIXML_USE_STL
-const TiXmlNode* FirstChild(const std::string&_value) const
+const TiXmlNode* FirstChild(const std::string &_value) const
 {
     return FirstChild (_value.c_str ());
 }                                                                                                                               ///< STL std::string form.
-TiXmlNode* FirstChild(const std::string&_value)
+TiXmlNode* FirstChild(const std::string &_value)
 {
     return FirstChild (_value.c_str ());
 }                                                                                                                                               ///< STL std::string form.
-const TiXmlNode* LastChild(const std::string&_value) const
+const TiXmlNode* LastChild(const std::string &_value) const
 {
     return LastChild (_value.c_str ());
 }                                                                                                                               ///< STL std::string form.
-TiXmlNode* LastChild(const std::string&_value)
+TiXmlNode* LastChild(const std::string &_value)
 {
     return LastChild (_value.c_str ());
 }                                                                                                                                               ///< STL std::string form.
@@ -552,11 +552,11 @@ const TiXmlNode* IterateChildren(const char *value, const TiXmlNode *previous) c
 TiXmlNode* IterateChildren(const char *value, TiXmlNode *previous);
 
     #ifdef TIXML_USE_STL
-const TiXmlNode* IterateChildren(const std::string&_value, const TiXmlNode *previous) const
+const TiXmlNode* IterateChildren(const std::string &_value, const TiXmlNode *previous) const
 {
     return IterateChildren (_value.c_str (), previous);
 }                                                                                                                                                                               ///< STL std::string form.
-TiXmlNode* IterateChildren(const std::string&_value, TiXmlNode *previous)
+TiXmlNode* IterateChildren(const std::string &_value, TiXmlNode *previous)
 {
     return IterateChildren (_value.c_str (), previous);
 }                                                                                                                                                       ///< STL std::string form.
@@ -565,7 +565,7 @@ TiXmlNode* IterateChildren(const std::string&_value, TiXmlNode *previous)
 /** Add a new node related to this. Adds a child past the LastChild.
         Returns a pointer to the new object or NULL if an error occured.
  */
-TiXmlNode* InsertEndChild(const TiXmlNode&addThis);
+TiXmlNode* InsertEndChild(const TiXmlNode &addThis);
 
 
 /** Add a new node related to this. Adds a child past the LastChild.
@@ -582,17 +582,17 @@ TiXmlNode* LinkEndChild(TiXmlNode *addThis);
 /** Add a new node related to this. Adds a child before the specified child.
         Returns a pointer to the new object or NULL if an error occured.
  */
-TiXmlNode* InsertBeforeChild(TiXmlNode *beforeThis, const TiXmlNode&addThis);
+TiXmlNode* InsertBeforeChild(TiXmlNode *beforeThis, const TiXmlNode &addThis);
 
 /** Add a new node related to this. Adds a child after the specified child.
         Returns a pointer to the new object or NULL if an error occured.
  */
-TiXmlNode* InsertAfterChild(TiXmlNode *afterThis, const TiXmlNode&addThis);
+TiXmlNode* InsertAfterChild(TiXmlNode *afterThis, const TiXmlNode &addThis);
 
 /** Replace a child of this node.
         Returns a pointer to the new object or NULL if an error occured.
  */
-TiXmlNode* ReplaceChild(TiXmlNode *replaceThis, const TiXmlNode&withThis);
+TiXmlNode* ReplaceChild(TiXmlNode *replaceThis, const TiXmlNode &withThis);
 
 /// Delete a child of this node.
 bool RemoveChild(TiXmlNode *removeThis);
@@ -612,19 +612,19 @@ const TiXmlNode* PreviousSibling(const char*) const;
 TiXmlNode* PreviousSibling(const char*);
 
     #ifdef TIXML_USE_STL
-const TiXmlNode* PreviousSibling(const std::string&_value) const
+const TiXmlNode* PreviousSibling(const std::string &_value) const
 {
     return PreviousSibling (_value.c_str ());
 }                                                                                                                                               ///< STL std::string form.
-TiXmlNode* PreviousSibling(const std::string&_value)
+TiXmlNode* PreviousSibling(const std::string &_value)
 {
     return PreviousSibling (_value.c_str ());
 }                                                                                                                                                       ///< STL std::string form.
-const TiXmlNode* NextSibling(const std::string&_value) const
+const TiXmlNode* NextSibling(const std::string &_value) const
 {
     return NextSibling (_value.c_str ());
 }                                                                                                                                       ///< STL std::string form.
-TiXmlNode* NextSibling(const std::string&_value)
+TiXmlNode* NextSibling(const std::string &_value)
 {
     return NextSibling (_value.c_str ());
 }                                                                                                                                                       ///< STL std::string form.
@@ -659,11 +659,11 @@ const TiXmlElement* NextSiblingElement(const char*) const;
 TiXmlElement* NextSiblingElement(const char*);
 
     #ifdef TIXML_USE_STL
-const TiXmlElement* NextSiblingElement(const std::string&_value) const
+const TiXmlElement* NextSiblingElement(const std::string &_value) const
 {
     return NextSiblingElement (_value.c_str ());
 }                                                                                                                                                       ///< STL std::string form.
-TiXmlElement* NextSiblingElement(const std::string&_value)
+TiXmlElement* NextSiblingElement(const std::string &_value)
 {
     return NextSiblingElement (_value.c_str ());
 }                                                                                                                                                               ///< STL std::string form.
@@ -678,11 +678,11 @@ const TiXmlElement* FirstChildElement(const char *value) const;
 TiXmlElement* FirstChildElement(const char *value);
 
     #ifdef TIXML_USE_STL
-const TiXmlElement* FirstChildElement(const std::string&_value) const
+const TiXmlElement* FirstChildElement(const std::string &_value) const
 {
     return FirstChildElement (_value.c_str ());
 }                                                                                                                                                       ///< STL std::string form.
-TiXmlElement* FirstChildElement(const std::string&_value)
+TiXmlElement* FirstChildElement(const std::string &_value)
 {
     return FirstChildElement (_value.c_str ());
 }                                                                                                                                                               ///< STL std::string form.
@@ -798,7 +798,7 @@ TiXmlNode *next;
 
 private:
 TiXmlNode(const TiXmlNode&);                                    // not implemented.
-void operator=(const TiXmlNode&base);                   // not allowed.
+void operator=(const TiXmlNode &base);                   // not allowed.
 };
 
 
@@ -823,7 +823,7 @@ TiXmlAttribute() : TiXmlBase()
 
         #ifdef TIXML_USE_STL
 /// std::string constructor.
-TiXmlAttribute(const std::string&_name, const std::string&_value)
+TiXmlAttribute(const std::string &_name, const std::string &_value)
 {
     name     = _name;
     value    = _value;
@@ -879,14 +879,14 @@ void SetDoubleValue(double value);                                              
 
     #ifdef TIXML_USE_STL
 /// STL std::string form.
-void SetName(const std::string&_name)
+void SetName(const std::string &_name)
 {
     StringToBuffer buf(_name);
 
     SetName (buf.buffer ? buf.buffer : "error");
 }
 /// STL std::string form.
-void SetValue(const std::string&_value)
+void SetValue(const std::string &_value)
 {
     StringToBuffer buf(_value);
 
@@ -901,15 +901,15 @@ TiXmlAttribute* Next();
 const TiXmlAttribute* Previous() const;
 TiXmlAttribute* Previous();
 
-bool operator==(const TiXmlAttribute&rhs) const
+bool operator==(const TiXmlAttribute &rhs) const
 {
     return rhs.name == name;
 }
-bool operator<(const TiXmlAttribute&rhs)      const
+bool operator<(const TiXmlAttribute &rhs)      const
 {
     return name < rhs.name;
 }
-bool operator>(const TiXmlAttribute&rhs)  const
+bool operator>(const TiXmlAttribute &rhs)  const
 {
     return name > rhs.name;
 }
@@ -932,7 +932,7 @@ void SetDocument(TiXmlDocument *doc)
 
 private:
 TiXmlAttribute(const TiXmlAttribute&);                                          // not implemented.
-void operator=(const TiXmlAttribute&base);              // not allowed.
+void operator=(const TiXmlAttribute &base);              // not allowed.
 
 TiXmlDocument  *document;               // A pointer back to a document, for error reporting.
 TIXML_STRING   name;
@@ -1005,12 +1005,12 @@ TiXmlElement (const char *in_value);
 
         #ifdef TIXML_USE_STL
 /// std::string constructor.
-TiXmlElement(const std::string&_value);
+TiXmlElement(const std::string &_value);
         #endif
 
 TiXmlElement(const TiXmlElement&);
 
-void operator=(const TiXmlElement&base);
+void operator=(const TiXmlElement &base);
 
 virtual ~TiXmlElement();
 
@@ -1061,29 +1061,29 @@ int QueryDoubleAttribute(const char *name, float *value) const
 void SetAttribute(const char *name, const char *value);
 
     #ifdef TIXML_USE_STL
-const char* Attribute(const std::string&name) const
+const char* Attribute(const std::string &name) const
 {
     return Attribute(name.c_str());
 }
-const char* Attribute(const std::string&name, int *i) const
+const char* Attribute(const std::string &name, int *i) const
 {
     return Attribute(name.c_str(), i);
 }
-const char* Attribute(const std::string&name, double *d) const
+const char* Attribute(const std::string &name, double *d) const
 {
     return Attribute(name.c_str(), d);
 }
-int QueryIntAttribute(const std::string&name, int *value) const
+int QueryIntAttribute(const std::string &name, int *value) const
 {
     return QueryIntAttribute(name.c_str(), value);
 }
-int QueryDoubleAttribute(const std::string&name, double *value) const
+int QueryDoubleAttribute(const std::string &name, double *value) const
 {
     return QueryDoubleAttribute(name.c_str(), value);
 }
 
 /// STL std::string form.
-void SetAttribute(const std::string&name, const std::string&_value)
+void SetAttribute(const std::string &name, const std::string &_value)
 {
     StringToBuffer n(name);
     StringToBuffer v(_value);
@@ -1092,7 +1092,7 @@ void SetAttribute(const std::string&name, const std::string&_value)
         SetAttribute (n.buffer, v.buffer);
 }
 ///< STL std::string form.
-void SetAttribute(const std::string&name, int _value)
+void SetAttribute(const std::string &name, int _value)
 {
     StringToBuffer n(name);
 
@@ -1115,7 +1115,7 @@ void SetDoubleAttribute(const char *name, double value);
  */
 void RemoveAttribute(const char *name);
     #ifdef TIXML_USE_STL
-void RemoveAttribute(const std::string&name)
+void RemoveAttribute(const std::string &name)
 {
     RemoveAttribute (name.c_str ());
 }                                                                                                               ///< STL std::string form.
@@ -1179,7 +1179,7 @@ public:
 /// Constructs an empty comment.
 TiXmlComment() : TiXmlNode(TiXmlNode::COMMENT) {}
 TiXmlComment(const TiXmlComment&);
-void operator=(const TiXmlComment&base);
+void operator=(const TiXmlComment &base);
 
 virtual ~TiXmlComment() {}
 
@@ -1221,17 +1221,17 @@ virtual ~TiXmlText() {}
 
         #ifdef TIXML_USE_STL
 /// Constructor.
-TiXmlText(const std::string&initValue) : TiXmlNode (TiXmlNode::TEXT)
+TiXmlText(const std::string &initValue) : TiXmlNode (TiXmlNode::TEXT)
 {
     SetValue(initValue);
 }
         #endif
 
-TiXmlText(const TiXmlText&copy) : TiXmlNode(TiXmlNode::TEXT)
+TiXmlText(const TiXmlText &copy) : TiXmlNode(TiXmlNode::TEXT)
 {
     copy.CopyTo(this);
 }
-void operator=(const TiXmlText&base)
+void operator=(const TiXmlText &base)
 {
     base.CopyTo(this);
 }
@@ -1278,9 +1278,9 @@ TiXmlDeclaration()   : TiXmlNode(TiXmlNode::DECLARATION) {}
 
 #ifdef TIXML_USE_STL
 /// Constructor.
-TiXmlDeclaration(const std::string&_version,
-                 const std::string&_encoding,
-                 const std::string&_standalone);
+TiXmlDeclaration(const std::string &_version,
+                 const std::string &_encoding,
+                 const std::string &_standalone);
 #endif
 
 /// Construct.
@@ -1288,8 +1288,8 @@ TiXmlDeclaration(const char *_version,
                  const char *_encoding,
                  const char *_standalone);
 
-TiXmlDeclaration(const TiXmlDeclaration&copy);
-void operator=(const TiXmlDeclaration&copy);
+TiXmlDeclaration(const TiXmlDeclaration &copy);
+void operator=(const TiXmlDeclaration &copy);
 
 virtual ~TiXmlDeclaration()     {}
 
@@ -1345,11 +1345,11 @@ public:
 TiXmlUnknown() : TiXmlNode(TiXmlNode::UNKNOWN)        {}
 virtual ~TiXmlUnknown() {}
 
-TiXmlUnknown(const TiXmlUnknown&copy) : TiXmlNode(TiXmlNode::UNKNOWN)
+TiXmlUnknown(const TiXmlUnknown &copy) : TiXmlNode(TiXmlNode::UNKNOWN)
 {
     copy.CopyTo(this);
 }
-void operator=(const TiXmlUnknown&copy)
+void operator=(const TiXmlUnknown &copy)
 {
     copy.CopyTo(this);
 }
@@ -1387,11 +1387,11 @@ TiXmlDocument(const char *documentName);
 
         #ifdef TIXML_USE_STL
 /// Constructor.
-TiXmlDocument(const std::string&documentName);
+TiXmlDocument(const std::string &documentName);
         #endif
 
-TiXmlDocument(const TiXmlDocument&copy);
-void operator=(const TiXmlDocument&copy);
+TiXmlDocument(const TiXmlDocument &copy);
+void operator=(const TiXmlDocument &copy);
 
 virtual ~TiXmlDocument() {}
 
@@ -1408,13 +1408,13 @@ bool LoadFile(const char *filename, TiXmlEncoding encoding = TIXML_DEFAULT_ENCOD
 bool SaveFile(const char *filename) const;
 
         #ifdef TIXML_USE_STL
-bool LoadFile(const std::string&filename, TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING)                              ///< STL std::string version.
+bool LoadFile(const std::string &filename, TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING)                              ///< STL std::string version.
 {
     StringToBuffer f(filename);
 
     return (f.buffer && LoadFile(f.buffer, encoding));
 }
-bool SaveFile(const std::string&filename) const                         ///< STL std::string version.
+bool SaveFile(const std::string &filename) const                         ///< STL std::string version.
 {
     StringToBuffer f(filename);
 
@@ -1642,11 +1642,11 @@ TiXmlHandle(TiXmlNode *node)
     this->node = node;
 }
 /// Copy constructor
-TiXmlHandle(const TiXmlHandle&ref)
+TiXmlHandle(const TiXmlHandle &ref)
 {
     this->node = ref.node;
 }
-TiXmlHandle operator=(const TiXmlHandle&ref)
+TiXmlHandle operator=(const TiXmlHandle &ref)
 {
     this->node = ref.node; return *this;
 }
@@ -1680,20 +1680,20 @@ TiXmlHandle ChildElement(const char *value, int index) const;
 TiXmlHandle ChildElement(int index) const;
 
         #ifdef TIXML_USE_STL
-TiXmlHandle FirstChild(const std::string&_value) const
+TiXmlHandle FirstChild(const std::string &_value) const
 {
     return FirstChild(_value.c_str());
 }
-TiXmlHandle FirstChildElement(const std::string&_value) const
+TiXmlHandle FirstChildElement(const std::string &_value) const
 {
     return FirstChildElement(_value.c_str());
 }
 
-TiXmlHandle Child(const std::string&_value, int index) const
+TiXmlHandle Child(const std::string &_value, int index) const
 {
     return Child(_value.c_str(), index);
 }
-TiXmlHandle ChildElement(const std::string&_value, int index) const
+TiXmlHandle ChildElement(const std::string &_value, int index) const
 {
     return ChildElement(_value.c_str(), index);
 }

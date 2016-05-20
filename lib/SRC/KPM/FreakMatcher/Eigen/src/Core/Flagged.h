@@ -62,7 +62,7 @@ typedef typename internal::conditional<internal::must_nest_by_value<ExpressionTy
                                        ExpressionType, const ExpressionType&>::type ExpressionTypeNested;
 typedef typename ExpressionType::InnerIterator InnerIterator;
 
-inline Flagged(const ExpressionType&matrix) : m_matrix(matrix) {}
+inline Flagged(const ExpressionType &matrix) : m_matrix(matrix) {}
 
 inline Index rows() const
 {
@@ -118,7 +118,7 @@ inline const PacketScalar packet(Index row, Index col) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index row, Index col, const PacketScalar&x)
+inline void writePacket(Index row, Index col, const PacketScalar &x)
 {
     m_matrix.const_cast_derived().template writePacket<LoadMode>(row, col, x);
 }
@@ -130,7 +130,7 @@ inline const PacketScalar packet(Index index) const
 }
 
 template<int LoadMode>
-inline void writePacket(Index index, const PacketScalar&x)
+inline void writePacket(Index index, const PacketScalar &x)
 {
     m_matrix.const_cast_derived().template writePacket<LoadMode>(index, x);
 }
@@ -141,10 +141,10 @@ const ExpressionType&_expression() const
 }
 
 template<typename OtherDerived>
-typename ExpressionType::PlainObject solveTriangular(const MatrixBase<OtherDerived>&other) const;
+typename ExpressionType::PlainObject solveTriangular(const MatrixBase<OtherDerived> &other) const;
 
 template<typename OtherDerived>
-void solveTriangularInPlace(const MatrixBase<OtherDerived>&other) const;
+void solveTriangularInPlace(const MatrixBase<OtherDerived> &other) const;
 
 protected:
 ExpressionTypeNested m_matrix;

@@ -47,7 +47,7 @@ typedef typename internal::dense_xpr_base<SwapWrapper>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(SwapWrapper)
 typedef typename internal::packet_traits<Scalar>::type Packet;
 
-inline SwapWrapper(ExpressionType&xpr) : m_expression(xpr) {}
+inline SwapWrapper(ExpressionType &xpr) : m_expression(xpr) {}
 
 inline Index rows() const
 {
@@ -87,9 +87,9 @@ inline Scalar&coeffRef(Index index) const
 }
 
 template<typename OtherDerived>
-void copyCoeff(Index row, Index col, const DenseBase<OtherDerived>&other)
+void copyCoeff(Index row, Index col, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
@@ -99,9 +99,9 @@ void copyCoeff(Index row, Index col, const DenseBase<OtherDerived>&other)
 }
 
 template<typename OtherDerived>
-void copyCoeff(Index index, const DenseBase<OtherDerived>&other)
+void copyCoeff(Index index, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(index >= 0 && index < m_expression.size());
     Scalar tmp = m_expression.coeff(index);
@@ -110,9 +110,9 @@ void copyCoeff(Index index, const DenseBase<OtherDerived>&other)
 }
 
 template<typename OtherDerived, int StoreMode, int LoadMode>
-void copyPacket(Index row, Index col, const DenseBase<OtherDerived>&other)
+void copyPacket(Index row, Index col, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
@@ -124,9 +124,9 @@ void copyPacket(Index row, Index col, const DenseBase<OtherDerived>&other)
 }
 
 template<typename OtherDerived, int StoreMode, int LoadMode>
-void copyPacket(Index index, const DenseBase<OtherDerived>&other)
+void copyPacket(Index index, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(index >= 0 && index < m_expression.size());
     Packet tmp = m_expression.template packet<StoreMode>(index);
@@ -137,6 +137,6 @@ void copyPacket(Index index, const DenseBase<OtherDerived>&other)
 }
 
 protected:
-ExpressionType&m_expression;
+ExpressionType &m_expression;
 };
 #endif // EIGEN_SWAP_H

@@ -51,7 +51,7 @@ namespace cv
 namespace detail
 {
 template<class P>
-Point2f RotationWarperBase<P>::warpPoint(const Point2f&pt, const Mat&K, const Mat&R)
+Point2f RotationWarperBase<P>::warpPoint(const Point2f &pt, const Mat &K, const Mat &R)
 {
     projector_.setCameraParams(K, R);
     Point2f uv;
@@ -61,7 +61,7 @@ Point2f RotationWarperBase<P>::warpPoint(const Point2f&pt, const Mat&K, const Ma
 
 
 template<class P>
-Rect RotationWarperBase<P>::buildMaps(Size src_size, const Mat&K, const Mat&R, Mat&xmap, Mat&ymap)
+Rect RotationWarperBase<P>::buildMaps(Size src_size, const Mat &K, const Mat &R, Mat &xmap, Mat &ymap)
 {
     projector_.setCameraParams(K, R);
 
@@ -88,8 +88,8 @@ Rect RotationWarperBase<P>::buildMaps(Size src_size, const Mat&K, const Mat&R, M
 
 
 template<class P>
-Point RotationWarperBase<P>::warp(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-                                  Mat&dst)
+Point RotationWarperBase<P>::warp(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+                                  Mat &dst)
 {
     Mat  xmap, ymap;
     Rect dst_roi = buildMaps(src.size(), K, R, xmap, ymap);
@@ -102,8 +102,8 @@ Point RotationWarperBase<P>::warp(const Mat&src, const Mat&K, const Mat&R, int i
 
 
 template<class P>
-void RotationWarperBase<P>::warpBackward(const Mat&src, const Mat&K, const Mat&R, int interp_mode, int border_mode,
-                                         Size dst_size, Mat&dst)
+void RotationWarperBase<P>::warpBackward(const Mat &src, const Mat &K, const Mat &R, int interp_mode, int border_mode,
+                                         Size dst_size, Mat &dst)
 {
     projector_.setCameraParams(K, R);
 
@@ -132,7 +132,7 @@ void RotationWarperBase<P>::warpBackward(const Mat&src, const Mat&K, const Mat&R
 
 
 template<class P>
-Rect RotationWarperBase<P>::warpRoi(Size src_size, const Mat&K, const Mat&R)
+Rect RotationWarperBase<P>::warpRoi(Size src_size, const Mat &K, const Mat &R)
 {
     projector_.setCameraParams(K, R);
 
@@ -144,7 +144,7 @@ Rect RotationWarperBase<P>::warpRoi(Size src_size, const Mat&K, const Mat&R)
 
 
 template<class P>
-void RotationWarperBase<P>::detectResultRoi(Size src_size, Point&dst_tl, Point&dst_br)
+void RotationWarperBase<P>::detectResultRoi(Size src_size, Point &dst_tl, Point &dst_br)
 {
     float tl_uf = std::numeric_limits<float>::max();
     float tl_vf = std::numeric_limits<float>::max();
@@ -171,7 +171,7 @@ void RotationWarperBase<P>::detectResultRoi(Size src_size, Point&dst_tl, Point&d
 
 
 template<class P>
-void RotationWarperBase<P>::detectResultRoiByBorder(Size src_size, Point&dst_tl, Point&dst_br)
+void RotationWarperBase<P>::detectResultRoiByBorder(Size src_size, Point &dst_tl, Point &dst_br)
 {
     float tl_uf = std::numeric_limits<float>::max();
     float tl_vf = std::numeric_limits<float>::max();
@@ -210,7 +210,7 @@ void RotationWarperBase<P>::detectResultRoiByBorder(Size src_size, Point&dst_tl,
 
 
 inline
-void PlaneProjector::mapForward(float x, float y, float&u, float&v)
+void PlaneProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -225,7 +225,7 @@ void PlaneProjector::mapForward(float x, float y, float&u, float&v)
 
 
 inline
-void PlaneProjector::mapBackward(float u, float v, float&x, float&y)
+void PlaneProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u = u / scale - t[0];
     v = v / scale - t[1];
@@ -241,7 +241,7 @@ void PlaneProjector::mapBackward(float u, float v, float&x, float&y)
 
 
 inline
-void SphericalProjector::mapForward(float x, float y, float&u, float&v)
+void SphericalProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -254,7 +254,7 @@ void SphericalProjector::mapForward(float x, float y, float&u, float&v)
 
 
 inline
-void SphericalProjector::mapBackward(float u, float v, float&x, float&y)
+void SphericalProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -279,7 +279,7 @@ void SphericalProjector::mapBackward(float u, float v, float&x, float&y)
 
 
 inline
-void CylindricalProjector::mapForward(float x, float y, float&u, float&v)
+void CylindricalProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -291,7 +291,7 @@ void CylindricalProjector::mapForward(float x, float y, float&u, float&v)
 
 
 inline
-void CylindricalProjector::mapBackward(float u, float v, float&x, float&y)
+void CylindricalProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -314,7 +314,7 @@ void CylindricalProjector::mapBackward(float u, float v, float&x, float&y)
 }
 
 inline
-void FisheyeProjector::mapForward(float x, float y, float&u, float&v)
+void FisheyeProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -328,7 +328,7 @@ void FisheyeProjector::mapForward(float x, float y, float&u, float&v)
 }
 
 inline
-void FisheyeProjector::mapBackward(float u, float v, float&x, float&y)
+void FisheyeProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -355,7 +355,7 @@ void FisheyeProjector::mapBackward(float u, float v, float&x, float&y)
 }
 
 inline
-void StereographicProjector::mapForward(float x, float y, float&u, float&v)
+void StereographicProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -371,7 +371,7 @@ void StereographicProjector::mapForward(float x, float y, float&u, float&v)
 }
 
 inline
-void StereographicProjector::mapBackward(float u, float v, float&x, float&y)
+void StereographicProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -399,7 +399,7 @@ void StereographicProjector::mapBackward(float u, float v, float&x, float&y)
 }
 
 inline
-void CompressedRectilinearProjector::mapForward(float x, float y, float&u, float&v)
+void CompressedRectilinearProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -413,7 +413,7 @@ void CompressedRectilinearProjector::mapForward(float x, float y, float&u, float
 }
 
 inline
-void CompressedRectilinearProjector::mapBackward(float u, float v, float&x, float&y)
+void CompressedRectilinearProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -441,7 +441,7 @@ void CompressedRectilinearProjector::mapBackward(float u, float v, float&x, floa
 }
 
 inline
-void CompressedRectilinearPortraitProjector::mapForward(float x, float y, float&u, float&v)
+void CompressedRectilinearPortraitProjector::mapForward(float x, float y, float &u, float &v)
 {
     float y_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float x_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -455,7 +455,7 @@ void CompressedRectilinearPortraitProjector::mapForward(float x, float y, float&
 }
 
 inline
-void CompressedRectilinearPortraitProjector::mapBackward(float u, float v, float&x, float&y)
+void CompressedRectilinearPortraitProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= -scale;
     v /= scale;
@@ -483,7 +483,7 @@ void CompressedRectilinearPortraitProjector::mapBackward(float u, float v, float
 }
 
 inline
-void PaniniProjector::mapForward(float x, float y, float&u, float&v)
+void PaniniProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -504,7 +504,7 @@ void PaniniProjector::mapForward(float x, float y, float&u, float&v)
 }
 
 inline
-void PaniniProjector::mapBackward(float u, float v, float&x, float&y)
+void PaniniProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -537,7 +537,7 @@ void PaniniProjector::mapBackward(float u, float v, float&x, float&y)
 }
 
 inline
-void PaniniPortraitProjector::mapForward(float x, float y, float&u, float&v)
+void PaniniPortraitProjector::mapForward(float x, float y, float &u, float &v)
 {
     float y_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float x_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -558,7 +558,7 @@ void PaniniPortraitProjector::mapForward(float x, float y, float&u, float&v)
 }
 
 inline
-void PaniniPortraitProjector::mapBackward(float u, float v, float&x, float&y)
+void PaniniPortraitProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= -scale;
     v /= scale;
@@ -591,7 +591,7 @@ void PaniniPortraitProjector::mapBackward(float u, float v, float&x, float&y)
 }
 
 inline
-void MercatorProjector::mapForward(float x, float y, float&u, float&v)
+void MercatorProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -605,7 +605,7 @@ void MercatorProjector::mapForward(float x, float y, float&u, float&v)
 }
 
 inline
-void MercatorProjector::mapBackward(float u, float v, float&x, float&y)
+void MercatorProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -632,7 +632,7 @@ void MercatorProjector::mapBackward(float u, float v, float&x, float&y)
 }
 
 inline
-void TransverseMercatorProjector::mapForward(float x, float y, float&u, float&v)
+void TransverseMercatorProjector::mapForward(float x, float y, float &u, float &v)
 {
     float x_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -648,7 +648,7 @@ void TransverseMercatorProjector::mapForward(float x, float y, float&u, float&v)
 }
 
 inline
-void TransverseMercatorProjector::mapBackward(float u, float v, float&x, float&y)
+void TransverseMercatorProjector::mapBackward(float u, float v, float &x, float &y)
 {
     u /= scale;
     v /= scale;
@@ -675,7 +675,7 @@ void TransverseMercatorProjector::mapBackward(float u, float v, float&x, float&y
 }
 
 inline
-void SphericalPortraitProjector::mapForward(float x, float y, float&u0, float&v0)
+void SphericalPortraitProjector::mapForward(float x, float y, float &u0, float &v0)
 {
     float x0_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y0_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -694,7 +694,7 @@ void SphericalPortraitProjector::mapForward(float x, float y, float&u0, float&v0
 
 
 inline
-void SphericalPortraitProjector::mapBackward(float u0, float v0, float&x, float&y)
+void SphericalPortraitProjector::mapBackward(float u0, float v0, float &x, float &y)
 {
     float u, v;
 
@@ -726,7 +726,7 @@ void SphericalPortraitProjector::mapBackward(float u0, float v0, float&x, float&
 }
 
 inline
-void CylindricalPortraitProjector::mapForward(float x, float y, float&u0, float&v0)
+void CylindricalPortraitProjector::mapForward(float x, float y, float &u0, float &v0)
 {
     float x0_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y0_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -745,7 +745,7 @@ void CylindricalPortraitProjector::mapForward(float x, float y, float&u0, float&
 
 
 inline
-void CylindricalPortraitProjector::mapBackward(float u0, float v0, float&x, float&y)
+void CylindricalPortraitProjector::mapBackward(float u0, float v0, float &x, float &y)
 {
     float u, v;
 
@@ -776,7 +776,7 @@ void CylindricalPortraitProjector::mapBackward(float u0, float v0, float&x, floa
 }
 
 inline
-void PlanePortraitProjector::mapForward(float x, float y, float&u0, float&v0)
+void PlanePortraitProjector::mapForward(float x, float y, float &u0, float &v0)
 {
     float x0_ = r_kinv[0] * x + r_kinv[1] * y + r_kinv[2];
     float y0_ = r_kinv[3] * x + r_kinv[4] * y + r_kinv[5];
@@ -798,7 +798,7 @@ void PlanePortraitProjector::mapForward(float x, float y, float&u0, float&v0)
 
 
 inline
-void PlanePortraitProjector::mapBackward(float u0, float v0, float&x, float&y)
+void PlanePortraitProjector::mapBackward(float u0, float v0, float &x, float &y)
 {
     float u, v;
 

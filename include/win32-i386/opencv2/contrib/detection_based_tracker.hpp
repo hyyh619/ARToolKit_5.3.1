@@ -22,22 +22,22 @@ struct Parameters
     Parameters();
 };
 
-DetectionBasedTracker(const std::string&cascadeFilename, const Parameters&params);
+DetectionBasedTracker(const std::string &cascadeFilename, const Parameters &params);
 virtual ~DetectionBasedTracker();
 
 virtual bool run();
 virtual void stop();
 virtual void resetTracking();
 
-virtual void process(const cv::Mat&imageGray);
+virtual void process(const cv::Mat &imageGray);
 
-bool setParameters(const Parameters&params);
+bool setParameters(const Parameters &params);
 const Parameters&getParameters();
 
 
 typedef std::pair<cv::Rect, int> Object;
-virtual void getObjects(std::vector<cv::Rect>&result) const;
-virtual void getObjects(std::vector<Object>&result) const;
+virtual void getObjects(std::vector<cv::Rect> &result) const;
+virtual void getObjects(std::vector<Object> &result) const;
 
 protected:
 class SeparateDetectionWork;
@@ -71,7 +71,7 @@ struct TrackedObject
     int numFramesNotDetected;
     int id;
 
-    TrackedObject(const cv::Rect&rect) : numDetectedFrames(1), numFramesNotDetected(0)
+    TrackedObject(const cv::Rect &rect) : numDetectedFrames(1), numFramesNotDetected(0)
     {
         lastPositions.push_back(rect);
         id = getNextId();
@@ -94,9 +94,9 @@ std::vector<float> weightsSizesSmoothing;
 cv::CascadeClassifier cascadeForTracking;
 
 
-void updateTrackedObjects(const std::vector<cv::Rect>&detectedObjects);
+void updateTrackedObjects(const std::vector<cv::Rect> &detectedObjects);
 cv::Rect calcTrackedObjectPositionToShow(int i) const;
-void detectInRegion(const cv::Mat&img, const cv::Rect&r, std::vector<cv::Rect>&detectedObjectsInRegions);
+void detectInRegion(const cv::Mat &img, const cv::Rect &r, std::vector<cv::Rect> &detectedObjectsInRegions);
 };
 
 namespace cv

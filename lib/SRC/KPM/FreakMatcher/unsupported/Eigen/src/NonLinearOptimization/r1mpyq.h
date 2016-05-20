@@ -3,7 +3,7 @@ namespace internal
 // TODO : move this to GivensQR once there's such a thing in Eigen
 
 template<typename Scalar>
-void r1mpyq(DenseIndex m, DenseIndex n, Scalar *a, const std::vector<JacobiRotation<Scalar> >&v_givens, const std::vector<JacobiRotation<Scalar> >&w_givens)
+void r1mpyq(DenseIndex m, DenseIndex n, Scalar *a, const std::vector<JacobiRotation<Scalar> > &v_givens, const std::vector<JacobiRotation<Scalar> > &w_givens)
 {
     typedef DenseIndex Index;
 

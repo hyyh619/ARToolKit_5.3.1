@@ -43,7 +43,7 @@ typedef typename Derived::Index Index;
 
 enum { IsRowMajor = (Derived::Flags&RowMajorBit) == RowMajorBit };
 public:
-EIGEN_STRONG_INLINE InnerIterator(const Derived&expr, Index outer)
+EIGEN_STRONG_INLINE InnerIterator(const Derived &expr, Index outer)
     : m_expression(expr), m_inner(0), m_outer(outer), m_end(expr.innerSize())
 {}
 
@@ -77,9 +77,9 @@ EIGEN_STRONG_INLINE operator bool() const
 }
 
 protected:
-const Derived&m_expression;
-Index        m_inner;
-const Index  m_outer;
-const Index  m_end;
+const Derived &m_expression;
+Index         m_inner;
+const Index   m_outer;
+const Index   m_end;
 };
 #endif // EIGEN_COREITERATORS_H

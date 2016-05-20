@@ -190,7 +190,7 @@ void setup(std::string retinaParameterFile = "", const bool applyDefaultSetupOnF
  * @param fs : the open Filestorage which contains retina parameters
  * @param applyDefaultSetupOnFailure : set to true if an error must be thrown on error
  */
-void setup(cv::FileStorage&fs, const bool applyDefaultSetupOnFailure = true);
+void setup(cv::FileStorage &fs, const bool applyDefaultSetupOnFailure = true);
 
 /**
  * try to open an XML retina parameters file to adjust current retina instance setup
@@ -223,7 +223,7 @@ virtual void write(std::string fs) const;
  * write xml/yml formated parameters information
  * @param fs : a cv::Filestorage object ready to be filled
  */
-virtual void write(FileStorage&fs) const;
+virtual void write(FileStorage &fs) const;
 
 /**
  * setup the OPL and IPL parvo channels (see biologocal model)
@@ -260,31 +260,31 @@ void setupIPLMagnoChannel(const bool normaliseOutput = true, const float parasol
  * method which allows retina to be applied on an input image, after run, encapsulated retina module is ready to deliver its outputs using dedicated acccessors, see getParvo and getMagno methods
  * @param inputImage : the input cv::Mat image to be processed, can be gray level or BGR coded in any format (from 8bit to 16bits)
  */
-void run(const Mat&inputImage);
+void run(const Mat &inputImage);
 
 /**
  * accessor of the details channel of the retina (models foveal vision)
  * @param retinaOutput_parvo : the output buffer (reallocated if necessary), this output is rescaled for standard 8bits image processing use in OpenCV
  */
-void getParvo(Mat&retinaOutput_parvo);
+void getParvo(Mat &retinaOutput_parvo);
 
 /**
  * accessor of the details channel of the retina (models foveal vision)
  * @param retinaOutput_parvo : the output buffer (reallocated if necessary), this output is the original retina filter model output, without any quantification or rescaling
  */
-void getParvo(std::valarray<float>&retinaOutput_parvo);
+void getParvo(std::valarray<float> &retinaOutput_parvo);
 
 /**
  * accessor of the motion channel of the retina (models peripheral vision)
  * @param retinaOutput_magno : the output buffer (reallocated if necessary), this output is rescaled for standard 8bits image processing use in OpenCV
  */
-void getMagno(Mat&retinaOutput_magno);
+void getMagno(Mat &retinaOutput_magno);
 
 /**
  * accessor of the motion channel of the retina (models peripheral vision)
  * @param retinaOutput_magno : the output buffer (reallocated if necessary), this output is the original retina filter model output, without any quantification or rescaling
  */
-void getMagno(std::valarray<float>&retinaOutput_magno);
+void getMagno(std::valarray<float> &retinaOutput_magno);
 
 // original API level data accessors : get buffers addresses...
 const std::valarray<float>&getMagno() const;
@@ -333,7 +333,7 @@ RetinaFilter *_retinaFilter;     // !< the pointer to the retina module, allocat
  * @param colorMode : a flag which mentions if matrix is color (true) or graylevel (false)
  * @param outBuffer : the output matrix which is reallocated to satisfy Retina output buffer dimensions
  */
-void _convertValarrayBuffer2cvMat(const std::valarray<float>&grayMatrixToConvert, const unsigned int nbRows, const unsigned int nbColumns, const bool colorMode, Mat&outBuffer);
+void _convertValarrayBuffer2cvMat(const std::valarray<float> &grayMatrixToConvert, const unsigned int nbRows, const unsigned int nbColumns, const bool colorMode, Mat &outBuffer);
 
 /**
  *
@@ -341,7 +341,7 @@ void _convertValarrayBuffer2cvMat(const std::valarray<float>&grayMatrixToConvert
  * @param outputValarrayMatrix : the output valarray
  * @return the input image color mode (color=true, gray levels=false)
  */
-bool _convertCvMat2ValarrayBuffer(const cv::Mat inputMatToConvert, std::valarray<float>&outputValarrayMatrix);
+bool _convertCvMat2ValarrayBuffer(const cv::Mat inputMatToConvert, std::valarray<float> &outputValarrayMatrix);
 
 // ! private method called by constructors, gathers their parameters and use them in a unified way
 void _init(const Size inputSize, const bool colorMode, RETINA_COLORSAMPLINGMETHOD colorSamplingMethod = RETINA_COLOR_BAYER, const bool useRetinaLogSampling = false, const double reductionFactor = 1.0, const double samplingStrenght = 10.0);

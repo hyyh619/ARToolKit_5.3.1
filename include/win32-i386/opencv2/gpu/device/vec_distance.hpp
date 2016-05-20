@@ -154,7 +154,7 @@ namespace cv
 
     // calc distance between two vectors in global memory
     template<int THREAD_DIM, typename Dist, typename T1, typename T2>
-    __device__ void calcVecDiffGlobal(const T1 *vec1, const T2 *vec2, int len, Dist&dist, typename Dist::result_type *smem, int tid)
+    __device__ void calcVecDiffGlobal(const T1 *vec1, const T2 *vec2, int len, Dist &dist, typename Dist::result_type *smem, int tid)
     {
         for (int i = tid; i < len; i += THREAD_DIM)
         {
@@ -172,7 +172,7 @@ namespace cv
 
     // calc distance between two vectors, first vector is cached in register or shared memory, second vector is in global memory
     template<int THREAD_DIM, int MAX_LEN, bool LEN_EQ_MAX_LEN, typename Dist, typename T1, typename T2>
-    __device__ __forceinline__ void calcVecDiffCached(const T1 *vecCached, const T2 *vecGlob, int len, Dist&dist, typename Dist::result_type *smem, int tid)
+    __device__ __forceinline__ void calcVecDiffCached(const T1 *vecCached, const T2 *vecGlob, int len, Dist &dist, typename Dist::result_type *smem, int tid)
     {
         vec_distance_detail::VecDiffCachedCalculator<THREAD_DIM, MAX_LEN, LEN_EQ_MAX_LEN>::calc(vecCached, vecGlob, len, dist, tid);
 
@@ -188,7 +188,7 @@ namespace cv
         }
 
         template<typename T2, typename Dist>
-        __device__ __forceinline__ void calc(const T2 *vec2, int len, Dist&dist, typename Dist::result_type *smem, int tid) const
+        __device__ __forceinline__ void calc(const T2 *vec2, int len, Dist &dist, typename Dist::result_type *smem, int tid) const
         {
             calcVecDiffGlobal<THREAD_DIM>(vec1, vec2, len, dist, smem, tid);
         }
@@ -217,7 +217,7 @@ namespace cv
         }
 
         template<typename T2, typename Dist>
-        __device__ __forceinline__ void calc(const T2 *vec2, int len, Dist&dist, typename Dist::result_type *smem, int tid) const
+        __device__ __forceinline__ void calc(const T2 *vec2, int len, Dist &dist, typename Dist::result_type *smem, int tid) const
         {
             calcVecDiffCached<THREAD_DIM, MAX_LEN, LEN_EQ_MAX_LEN>(vec1Vals, vec2, len, dist, smem, tid);
         }

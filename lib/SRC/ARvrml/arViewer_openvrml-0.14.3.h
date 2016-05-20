@@ -45,7 +45,7 @@
 class arVrmlViewer : public openvrml::gl::viewer
 {
 public:
-arVrmlViewer(openvrml::browser&browser);
+arVrmlViewer(openvrml::browser &browser);
 ~arVrmlViewer();
 
 char   filename[512];
@@ -65,41 +65,41 @@ virtual void swap_buffers();
 virtual void set_timer(double);
 
 
-virtual void set_viewpoint(const openvrml::vec3f&position,
-                           const openvrml::rotation&orientation,
+virtual void set_viewpoint(const openvrml::vec3f &position,
+                           const openvrml::rotation &orientation,
                            float fieldOfView,
                            float avatarSize,
                            float visibilityLimit);
 
-virtual viewer::object_t insert_background(const std::vector<float>&groundAngle,
-                                           const std::vector<openvrml::color>&groundColor,
-                                           const std::vector<float>&skyAngle,
-                                           const std::vector<openvrml::color>&skyColor,
+virtual viewer::object_t insert_background(const std::vector<float> &groundAngle,
+                                           const std::vector<openvrml::color> &groundColor,
+                                           const std::vector<float> &skyAngle,
+                                           const std::vector<openvrml::color> &skyColor,
                                            size_t *whc = 0,
                                            unsigned char **pixels = 0);
 
 virtual viewer::object_t insert_dir_light(float ambientIntensity,
                                           float intensity,
-                                          const openvrml::color&color,
-                                          const openvrml::vec3f&direction);
+                                          const openvrml::color &color,
+                                          const openvrml::vec3f &direction);
 
 virtual viewer::object_t insert_point_light(float ambientIntensity,
-                                            const openvrml::vec3f&attenuation,
-                                            const openvrml::color&color,
+                                            const openvrml::vec3f &attenuation,
+                                            const openvrml::color &color,
                                             float intensity,
-                                            const openvrml::vec3f&location,
+                                            const openvrml::vec3f &location,
                                             float radius);
 
 virtual viewer::object_t insert_spot_light(float ambientIntensity,
-                                           const openvrml::vec3f&attenuation,
+                                           const openvrml::vec3f &attenuation,
                                            float beamWidth,
-                                           const openvrml::color&color,
+                                           const openvrml::color &color,
                                            float cutOffAngle,
-                                           const openvrml::vec3f&direction,
+                                           const openvrml::vec3f &direction,
                                            float intensity,
-                                           const openvrml::vec3f&location,
+                                           const openvrml::vec3f &location,
                                            float radius);
 virtual openvrml::bounding_volume::intersection
-intersect_view_volume(const openvrml::bounding_volume&bvolume) const;
+intersect_view_volume(const openvrml::bounding_volume &bvolume) const;
 };
 #endif

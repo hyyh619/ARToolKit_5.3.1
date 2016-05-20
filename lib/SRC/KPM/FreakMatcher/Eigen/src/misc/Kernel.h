@@ -54,7 +54,7 @@ template<typename _DecompositionType> struct kernel_retval_base
     typedef ReturnByValue<kernel_retval_base> Base;
     typedef typename Base::Index Index;
 
-    kernel_retval_base(const DecompositionType&dec)
+    kernel_retval_base(const DecompositionType &dec)
         : m_dec(dec),
         m_rank(dec.rank()),
         m_cols(m_rank == dec.cols() ? 1 : dec.cols() - m_rank)
@@ -77,14 +77,14 @@ template<typename _DecompositionType> struct kernel_retval_base
         return m_dec;
     }
 
-    template<typename Dest> inline void evalTo(Dest&dst) const
+    template<typename Dest> inline void evalTo(Dest &dst) const
     {
         static_cast<const kernel_retval<DecompositionType>*>(this)->evalTo(dst);
     }
 
 protected:
-    const DecompositionType&m_dec;
-    Index                  m_rank, m_cols;
+    const DecompositionType &m_dec;
+    Index                   m_rank, m_cols;
 };
 } // end namespace internal
 

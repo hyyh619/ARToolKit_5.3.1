@@ -70,15 +70,15 @@ FREAKExtractor();
 /**
  * Get a set of tests for an 84 byte descriptor.
  */
-void layout84(std::vector<receptor>&receptors,
-              std::vector<std::vector<int> >&tests);
+void layout84(std::vector<receptor> &receptors,
+              std::vector<std::vector<int> > &tests);
 
 /**
  * Extract a 96 byte descriptor.
  */
-void extract(BinaryFeatureStore&store,
+void extract(BinaryFeatureStore &store,
              const GaussianScaleSpacePyramid *pyramid,
-             const std::vector<FeaturePoint>&points);
+             const std::vector<FeaturePoint> &points);
 
 #ifdef FREAK_DEBUG
 std::vector<Point2d<float> > mMappedPoints0;
@@ -124,7 +124,7 @@ float mExpansionFactor;
 /**
  * Sample a receptor given (x,y) given an image using bilinear interpolation.
  */
-inline float SampleReceptorBilinear(const Image&image,
+inline float SampleReceptorBilinear(const Image &image,
                                     float x,
                                     float y)
 {
@@ -136,7 +136,7 @@ inline float SampleReceptorBilinear(const Image&image,
 /**
  * Sample a receptor given (x,y) given an image using nearest neighbor.
  */
-inline float SampleReceptorNN(const Image&image,
+inline float SampleReceptorNN(const Image &image,
                               float x,
                               float y)
 {
@@ -148,7 +148,7 @@ inline float SampleReceptorNN(const Image&image,
 /**
  * Sample a receptor given (x,y) given an image.
  */
-inline float SampleReceptor(const Image&image,
+inline float SampleReceptor(const Image &image,
                             float x,
                             float y)
 {
@@ -169,7 +169,7 @@ inline float SampleReceptor(const GaussianScaleSpacePyramid *pyramid,
                             int scale)
 {
     // Get the correct image from the pyramid
-    const Image&image = pyramid->get(octave, scale);
+    const Image &image = pyramid->get(octave, scale);
 
     float xp, yp;
 
@@ -184,7 +184,7 @@ inline float SampleReceptor(const GaussianScaleSpacePyramid *pyramid,
  */
 inline bool SamplePyramidFREAK84(float samples[37],
                                  const GaussianScaleSpacePyramid *pyramid,
-                                 const FeaturePoint&point,
+                                 const FeaturePoint &point,
                                  const float points_ring0[12],
                                  const float points_ring1[12],
                                  const float points_ring2[12],
@@ -208,13 +208,13 @@ inline bool SamplePyramidFREAK84(float samples[37],
                                  float mapped_ring4[12],
                                  float mapped_ring5[12],
                                  float mapped_center[2],
-                                 float&mapped_s0,
-                                 float&mapped_s1,
-                                 float&mapped_s2,
-                                 float&mapped_s3,
-                                 float&mapped_s4,
-                                 float&mapped_s5,
-                                 float&mapped_sc
+                                 float &mapped_s0,
+                                 float &mapped_s1,
+                                 float &mapped_s2,
+                                 float &mapped_s3,
+                                 float &mapped_s4,
+                                 float &mapped_s5,
+                                 float &mapped_sc
 #endif
                                  )
 {
@@ -430,7 +430,7 @@ inline void CompareFREAK84(unsigned char desc[84], const float samples[37])
  */
 inline bool ExtractFREAK84(unsigned char desc[84],
                            const GaussianScaleSpacePyramid *pyramid,
-                           const FeaturePoint&point,
+                           const FeaturePoint &point,
                            const float points_ring0[12],
                            const float points_ring1[12],
                            const float points_ring2[12],
@@ -454,13 +454,13 @@ inline bool ExtractFREAK84(unsigned char desc[84],
                            float mapped_ring4[12],
                            float mapped_ring5[12],
                            float mapped_center[2],
-                           float&mapped_s0,
-                           float&mapped_s1,
-                           float&mapped_s2,
-                           float&mapped_s3,
-                           float&mapped_s4,
-                           float&mapped_s5,
-                           float&mapped_sc
+                           float &mapped_s0,
+                           float &mapped_s1,
+                           float &mapped_s2,
+                           float &mapped_s3,
+                           float &mapped_s4,
+                           float &mapped_s5,
+                           float &mapped_sc
 #endif
                            )
 {
@@ -515,9 +515,9 @@ inline bool ExtractFREAK84(unsigned char desc[84],
 /**
  * Extract the descriptors for all the feature points.
  */
-inline void ExtractFREAK84(BinaryFeatureStore&store,
+inline void ExtractFREAK84(BinaryFeatureStore &store,
                            const GaussianScaleSpacePyramid *pyramid,
-                           const std::vector<FeaturePoint>&points,
+                           const std::vector<FeaturePoint> &points,
                            const float points_ring0[12],
                            const float points_ring1[12],
                            const float points_ring2[12],
@@ -534,20 +534,20 @@ inline void ExtractFREAK84(BinaryFeatureStore&store,
                            float expansion_factor
 #ifdef FREAK_DEBUG
                            ,
-                           std::vector<Point2d<float> >&mapped_ring0,
-                           std::vector<Point2d<float> >&mapped_ring1,
-                           std::vector<Point2d<float> >&mapped_ring2,
-                           std::vector<Point2d<float> >&mapped_ring3,
-                           std::vector<Point2d<float> >&mapped_ring4,
-                           std::vector<Point2d<float> >&mapped_ring5,
-                           std::vector<Point2d<float> >&mapped_ringC,
-                           std::vector<float>&mapped_s0,
-                           std::vector<float>&mapped_s1,
-                           std::vector<float>&mapped_s2,
-                           std::vector<float>&mapped_s3,
-                           std::vector<float>&mapped_s4,
-                           std::vector<float>&mapped_s5,
-                           std::vector<float>&mapped_sc
+                           std::vector<Point2d<float> > &mapped_ring0,
+                           std::vector<Point2d<float> > &mapped_ring1,
+                           std::vector<Point2d<float> > &mapped_ring2,
+                           std::vector<Point2d<float> > &mapped_ring3,
+                           std::vector<Point2d<float> > &mapped_ring4,
+                           std::vector<Point2d<float> > &mapped_ring5,
+                           std::vector<Point2d<float> > &mapped_ringC,
+                           std::vector<float> &mapped_s0,
+                           std::vector<float> &mapped_s1,
+                           std::vector<float> &mapped_s2,
+                           std::vector<float> &mapped_s3,
+                           std::vector<float> &mapped_s4,
+                           std::vector<float> &mapped_s5,
+                           std::vector<float> &mapped_sc
 #endif
 
                            )

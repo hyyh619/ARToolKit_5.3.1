@@ -59,7 +59,7 @@ public:
 FastMarchingMethod() : inf_(1e6f) {}
 
 template<typename Inpaint>
-Inpaint run(const Mat&mask, Inpaint inpaint);
+Inpaint run(const Mat &mask, Inpaint inpaint);
 
 Mat distanceMap() const
 {
@@ -76,21 +76,21 @@ struct DXY
 
     DXY() : dist(0), x(0), y(0) {}
     DXY(float _dist, int _x, int _y) : dist(_dist), x(_x), y(_y) {}
-    bool operator <(const DXY&dxy) const
+    bool operator <(const DXY &dxy) const
     {
         return dist < dxy.dist;
     }
 };
 
 float solve(int x1, int y1, int x2, int y2) const;
-int&indexOf(const DXY&dxy)
+int&indexOf(const DXY &dxy)
 {
     return index_(dxy.y, dxy.x);
 }
 
 void heapUp(int idx);
 void heapDown(int idx);
-void heapAdd(const DXY&dxy);
+void heapAdd(const DXY &dxy);
 void heapRemoveMin();
 
 float inf_;

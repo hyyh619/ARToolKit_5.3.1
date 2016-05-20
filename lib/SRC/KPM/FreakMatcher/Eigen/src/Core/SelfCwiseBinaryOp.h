@@ -67,7 +67,7 @@ EIGEN_DENSE_PUBLIC_INTERFACE(SelfCwiseBinaryOp)
 
 typedef typename internal::packet_traits<Scalar>::type Packet;
 
-inline SelfCwiseBinaryOp(Lhs&xpr, const BinaryOp&func = BinaryOp()) : m_matrix(xpr), m_functor(func) {}
+inline SelfCwiseBinaryOp(Lhs &xpr, const BinaryOp &func = BinaryOp()) : m_matrix(xpr), m_functor(func) {}
 
 inline Index rows() const
 {
@@ -115,30 +115,30 @@ inline const Scalar&coeffRef(Index index) const
 }
 
 template<typename OtherDerived>
-void copyCoeff(Index row, Index col, const DenseBase<OtherDerived>&other)
+void copyCoeff(Index row, Index col, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
-    Scalar&tmp = m_matrix.coeffRef(row, col);
+    Scalar &tmp = m_matrix.coeffRef(row, col);
     tmp = m_functor(tmp, _other.coeff(row, col));
 }
 
 template<typename OtherDerived>
-void copyCoeff(Index index, const DenseBase<OtherDerived>&other)
+void copyCoeff(Index index, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(index >= 0 && index < m_matrix.size());
-    Scalar&tmp = m_matrix.coeffRef(index);
+    Scalar &tmp = m_matrix.coeffRef(index);
     tmp = m_functor(tmp, _other.coeff(index));
 }
 
 template<typename OtherDerived, int StoreMode, int LoadMode>
-void copyPacket(Index row, Index col, const DenseBase<OtherDerived>&other)
+void copyPacket(Index row, Index col, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(row >= 0 && row < rows()
                           && col >= 0 && col < cols());
@@ -147,9 +147,9 @@ void copyPacket(Index row, Index col, const DenseBase<OtherDerived>&other)
 }
 
 template<typename OtherDerived, int StoreMode, int LoadMode>
-void copyPacket(Index index, const DenseBase<OtherDerived>&other)
+void copyPacket(Index index, const DenseBase<OtherDerived> &other)
 {
-    OtherDerived&_other = other.const_cast_derived();
+    OtherDerived &_other = other.const_cast_derived();
 
     eigen_internal_assert(index >= 0 && index < m_matrix.size());
     m_matrix.template writePacket<StoreMode>(index,
@@ -159,7 +159,7 @@ void copyPacket(Index index, const DenseBase<OtherDerived>&other)
 // reimplement lazyAssign to handle complex *= real
 // see CwiseBinaryOp ctor for details
 template<typename RhsDerived>
-EIGEN_STRONG_INLINE SelfCwiseBinaryOp&lazyAssign(const DenseBase<RhsDerived>&rhs)
+EIGEN_STRONG_INLINE SelfCwiseBinaryOp&lazyAssign(const DenseBase<RhsDerived> &rhs)
 {
     EIGEN_STATIC_ASSERT_SAME_MATRIX_SIZE(Lhs, RhsDerived)
     EIGEN_CHECK_BINARY_COMPATIBILIY(BinaryOp, typename Lhs::Scalar, typename RhsDerived::Scalar);
@@ -178,22 +178,22 @@ EIGEN_STRONG_INLINE SelfCwiseBinaryOp&lazyAssign(const DenseBase<RhsDerived>&rhs
 // overloaded to honor evaluation of special matrices
 // maybe another solution would be to not use SelfCwiseBinaryOp
 // at first...
-SelfCwiseBinaryOp&operator=(const Rhs&_rhs)
+SelfCwiseBinaryOp&operator=(const Rhs &_rhs)
 {
     typename internal::nested<Rhs>::type rhs(_rhs);
     return Base::operator=(rhs);
 }
 
 protected:
-Lhs           &m_matrix;
-const BinaryOp&m_functor;
+Lhs            &m_matrix;
+const BinaryOp &m_functor;
 
 private:
 SelfCwiseBinaryOp&operator=(const SelfCwiseBinaryOp&);
 };
 
 template<typename Derived>
-inline Derived&DenseBase<Derived>::operator*=(const Scalar&other)
+inline Derived&DenseBase<Derived>::operator*=(const Scalar &other)
 {
     typedef typename Derived::PlainObject PlainObject;
     SelfCwiseBinaryOp<internal::scalar_product_op<Scalar>, Derived, typename PlainObject::ConstantReturnType> tmp(derived());
@@ -202,7 +202,7 @@ inline Derived&DenseBase<Derived>::operator*=(const Scalar&other)
 }
 
 template<typename Derived>
-inline Derived&DenseBase<Derived>::operator/=(const Scalar&other)
+inline Derived&DenseBase<Derived>::operator/=(const Scalar &other)
 {
     typedef typename internal::conditional<NumTraits<Scalar>::IsInteger,
                                            internal::scalar_quotient_op<Scalar>,

@@ -57,7 +57,7 @@ namespace cv
     template<ScanKind Kind, typename T, typename F> struct WarpScan
     {
         __device__ __forceinline__ WarpScan() {}
-        __device__ __forceinline__ WarpScan(const WarpScan&other)
+        __device__ __forceinline__ WarpScan(const WarpScan &other)
         {
             (void)other;
         }
@@ -103,7 +103,7 @@ namespace cv
     template<ScanKind Kind, typename T, typename F> struct WarpScanNoComp
     {
         __device__ __forceinline__ WarpScanNoComp() {}
-        __device__ __forceinline__ WarpScanNoComp(const WarpScanNoComp&other)
+        __device__ __forceinline__ WarpScanNoComp(const WarpScanNoComp &other)
         {
             (void)other;
         }
@@ -146,7 +146,7 @@ namespace cv
     template<ScanKind Kind, typename T, typename Sc, typename F> struct BlockScan
     {
         __device__ __forceinline__ BlockScan() {}
-        __device__ __forceinline__ BlockScan(const BlockScan&other)
+        __device__ __forceinline__ BlockScan(const BlockScan &other)
         {
             (void)other;
         }

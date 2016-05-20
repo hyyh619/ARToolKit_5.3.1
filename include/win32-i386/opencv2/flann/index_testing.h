@@ -65,8 +65,8 @@ inline int countCorrectMatches(int *neighbors, int *groundTruth, int n)
 
 
 template<typename Distance>
-typename Distance::ResultType computeDistanceRaport(const Matrix<typename Distance::ElementType>&inputData, typename Distance::ElementType *target,
-                                                    int *neighbors, int *groundTruth, int veclen, int n, const Distance&distance)
+typename Distance::ResultType computeDistanceRaport(const Matrix<typename Distance::ElementType> &inputData, typename Distance::ElementType *target,
+                                                    int *neighbors, int *groundTruth, int veclen, int n, const Distance &distance)
 {
     typedef typename Distance::ResultType DistanceType;
 
@@ -91,9 +91,9 @@ typename Distance::ResultType computeDistanceRaport(const Matrix<typename Distan
 }
 
 template<typename Distance>
-float search_with_ground_truth(NNIndex<Distance>&index, const Matrix<typename Distance::ElementType>&inputData,
-                               const Matrix<typename Distance::ElementType>&testData, const Matrix<int>&matches, int nn, int checks,
-                               float&time, typename Distance::ResultType&dist, const Distance&distance, int skipMatches)
+float search_with_ground_truth(NNIndex<Distance> &index, const Matrix<typename Distance::ElementType> &inputData,
+                               const Matrix<typename Distance::ElementType> &testData, const Matrix<int> &matches, int nn, int checks,
+                               float &time, typename Distance::ResultType &dist, const Distance &distance, int skipMatches)
 {
     typedef typename Distance::ResultType DistanceType;
 
@@ -149,9 +149,9 @@ float search_with_ground_truth(NNIndex<Distance>&index, const Matrix<typename Di
 
 
 template<typename Distance>
-float test_index_checks(NNIndex<Distance>&index, const Matrix<typename Distance::ElementType>&inputData,
-                        const Matrix<typename Distance::ElementType>&testData, const Matrix<int>&matches,
-                        int checks, float&precision, const Distance&distance, int nn = 1, int skipMatches = 0)
+float test_index_checks(NNIndex<Distance> &index, const Matrix<typename Distance::ElementType> &inputData,
+                        const Matrix<typename Distance::ElementType> &testData, const Matrix<int> &matches,
+                        int checks, float &precision, const Distance &distance, int nn = 1, int skipMatches = 0)
 {
     typedef typename Distance::ResultType DistanceType;
 
@@ -166,9 +166,9 @@ float test_index_checks(NNIndex<Distance>&index, const Matrix<typename Distance:
 }
 
 template<typename Distance>
-float test_index_precision(NNIndex<Distance>&index, const Matrix<typename Distance::ElementType>&inputData,
-                           const Matrix<typename Distance::ElementType>&testData, const Matrix<int>&matches,
-                           float precision, int&checks, const Distance&distance, int nn = 1, int skipMatches = 0)
+float test_index_precision(NNIndex<Distance> &index, const Matrix<typename Distance::ElementType> &inputData,
+                           const Matrix<typename Distance::ElementType> &testData, const Matrix<int> &matches,
+                           float precision, int &checks, const Distance &distance, int nn = 1, int skipMatches = 0)
 {
     typedef typename Distance::ResultType DistanceType;
     const float SEARCH_EPS = 0.001f;
@@ -248,9 +248,9 @@ float test_index_precision(NNIndex<Distance>&index, const Matrix<typename Distan
 
 
 template<typename Distance>
-void test_index_precisions(NNIndex<Distance>&index, const Matrix<typename Distance::ElementType>&inputData,
-                           const Matrix<typename Distance::ElementType>&testData, const Matrix<int>&matches,
-                           float *precisions, int precisions_length, const Distance&distance, int nn = 1, int skipMatches = 0, float maxTime = 0)
+void test_index_precisions(NNIndex<Distance> &index, const Matrix<typename Distance::ElementType> &inputData,
+                           const Matrix<typename Distance::ElementType> &testData, const Matrix<int> &matches,
+                           float *precisions, int precisions_length, const Distance &distance, int nn = 1, int skipMatches = 0, float maxTime = 0)
 {
     typedef typename Distance::ResultType DistanceType;
 
