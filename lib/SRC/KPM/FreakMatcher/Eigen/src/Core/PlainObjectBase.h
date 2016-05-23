@@ -515,65 +515,65 @@ public:
             }
 
             template<int Outer, int Inner>
-            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, const Stride<Outer, Inner> &stride)
+            inline static typename StridedConstMapType<Stride<Outer, Inner>>::type Map(const Scalar *data, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedConstMapType<Stride<Outer, Inner> >::type(data, stride);
+                return typename StridedConstMapType<Stride<Outer, Inner>>::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, const Stride<Outer, Inner> &stride)
+            inline static typename StridedMapType<Stride<Outer, Inner>>::type Map(Scalar *data, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedMapType<Stride<Outer, Inner> >::type(data, stride);
+                return typename StridedMapType<Stride<Outer, Inner>>::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, Index size, const Stride<Outer, Inner> &stride)
+            inline static typename StridedConstMapType<Stride<Outer, Inner>>::type Map(const Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedConstMapType<Stride<Outer, Inner> >::type(data, size, stride);
+                return typename StridedConstMapType<Stride<Outer, Inner>>::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, Index size, const Stride<Outer, Inner> &stride)
+            inline static typename StridedMapType<Stride<Outer, Inner>>::type Map(Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedMapType<Stride<Outer, Inner> >::type(data, size, stride);
+                return typename StridedMapType<Stride<Outer, Inner>>::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstMapType<Stride<Outer, Inner> >::type Map(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
+            inline static typename StridedConstMapType<Stride<Outer, Inner>>::type Map(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedConstMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
+                return typename StridedConstMapType<Stride<Outer, Inner>>::type(data, rows, cols, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedMapType<Stride<Outer, Inner> >::type Map(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
+            inline static typename StridedMapType<Stride<Outer, Inner>>::type Map(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
+                return typename StridedMapType<Stride<Outer, Inner>>::type(data, rows, cols, stride);
             }
 
             template<int Outer, int Inner>
-            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, const Stride<Outer, Inner> &stride)
+            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner>>::type MapAligned(const Scalar *data, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type(data, stride);
+                return typename StridedConstAlignedMapType<Stride<Outer, Inner>>::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, const Stride<Outer, Inner> &stride)
+            inline static typename StridedAlignedMapType<Stride<Outer, Inner>>::type MapAligned(Scalar *data, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedAlignedMapType<Stride<Outer, Inner> >::type(data, stride);
+                return typename StridedAlignedMapType<Stride<Outer, Inner>>::type(data, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, Index size, const Stride<Outer, Inner> &stride)
+            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner>>::type MapAligned(const Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type(data, size, stride);
+                return typename StridedConstAlignedMapType<Stride<Outer, Inner>>::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, Index size, const Stride<Outer, Inner> &stride)
+            inline static typename StridedAlignedMapType<Stride<Outer, Inner>>::type MapAligned(Scalar *data, Index size, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedAlignedMapType<Stride<Outer, Inner> >::type(data, size, stride);
+                return typename StridedAlignedMapType<Stride<Outer, Inner>>::type(data, size, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type MapAligned(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
+            inline static typename StridedConstAlignedMapType<Stride<Outer, Inner>>::type MapAligned(const Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedConstAlignedMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
+                return typename StridedConstAlignedMapType<Stride<Outer, Inner>>::type(data, rows, cols, stride);
             }
             template<int Outer, int Inner>
-            inline static typename StridedAlignedMapType<Stride<Outer, Inner> >::type MapAligned(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
+            inline static typename StridedAlignedMapType<Stride<Outer, Inner>>::type MapAligned(Scalar *data, Index rows, Index cols, const Stride<Outer, Inner> &stride)
             {
-                return typename StridedAlignedMapType<Stride<Outer, Inner> >::type(data, rows, cols, stride);
+                return typename StridedAlignedMapType<Stride<Outer, Inner>>::type(data, rows, cols, stride);
             }
             // @}
 

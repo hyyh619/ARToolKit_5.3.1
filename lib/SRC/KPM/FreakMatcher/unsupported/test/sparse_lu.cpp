@@ -113,7 +113,7 @@ void test_sparse_lu()
     {
         CALL_SUBTEST_1(sparse_lu<double>(8, 8));
         int s = internal::random<int>(1, 300);
-        CALL_SUBTEST_2(sparse_lu<std::complex<double> >(s, s));
+        CALL_SUBTEST_2(sparse_lu<std::complex<double>>(s, s));
         CALL_SUBTEST_1(sparse_lu<double>(s, s));
     }
 }

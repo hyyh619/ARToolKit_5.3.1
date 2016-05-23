@@ -296,7 +296,7 @@ static void warmup(cv::InputOutputArray a, int wtype = WARMUP_READ);
 performance_metrics&calcMetrics();
 void RunPerfTestBody();
 private:
-typedef std::vector<std::pair<int, cv::Size> > SizeVector;
+typedef std::vector<std::pair<int, cv::Size>> SizeVector;
 typedef std::vector<int64> TimeVector;
 
 SizeVector inputData;

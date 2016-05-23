@@ -153,10 +153,10 @@ inline Scalar exteriorDistance(const VectorType &p) const
  */
 template<typename NewScalarType>
 inline typename internal::cast_return_type<AlignedBox,
-                                           AlignedBox<NewScalarType, AmbientDimAtCompileTime> >::type cast() const
+                                           AlignedBox<NewScalarType, AmbientDimAtCompileTime>>::type cast() const
 {
     return typename internal::cast_return_type<AlignedBox,
-                                               AlignedBox<NewScalarType, AmbientDimAtCompileTime> >::type(*this);
+                                               AlignedBox<NewScalarType, AmbientDimAtCompileTime>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

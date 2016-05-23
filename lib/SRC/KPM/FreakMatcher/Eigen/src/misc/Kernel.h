@@ -31,7 +31,7 @@ namespace internal
  *
  */
 template<typename DecompositionType>
-struct traits<kernel_retval_base<DecompositionType> >
+struct traits<kernel_retval_base<DecompositionType>>
 {
     typedef typename DecompositionType::MatrixType MatrixType;
     typedef Matrix<
@@ -48,7 +48,7 @@ struct traits<kernel_retval_base<DecompositionType> >
 };
 
 template<typename _DecompositionType> struct kernel_retval_base
-    : public ReturnByValue<kernel_retval_base<_DecompositionType> >
+    : public ReturnByValue<kernel_retval_base<_DecompositionType>>
 {
     typedef _DecompositionType DecompositionType;
     typedef ReturnByValue<kernel_retval_base> Base;

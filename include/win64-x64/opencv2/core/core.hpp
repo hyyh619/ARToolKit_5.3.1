@@ -1181,7 +1181,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 1,
        type         = CV_MAKETYPE(depth, channels) };
 };
 
-template<typename _Tp, int m, int n> class DataType<Matx<_Tp, m, n> >
+template<typename _Tp, int m, int n> class DataType<Matx<_Tp, m, n>>
 {
 public:
 typedef Matx<_Tp, m, n> value_type;
@@ -1193,7 +1193,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = m * 
        type         = CV_MAKETYPE(depth, channels) };
 };
 
-template<typename _Tp, int cn> class DataType<Vec<_Tp, cn> >
+template<typename _Tp, int cn> class DataType<Vec<_Tp, cn>>
 {
 public:
 typedef Vec<_Tp, cn> value_type;
@@ -1205,7 +1205,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = cn,
        type         = CV_MAKETYPE(depth, channels) };
 };
 
-template<typename _Tp> class DataType<std::complex<_Tp> >
+template<typename _Tp> class DataType<std::complex<_Tp>>
 {
 public:
 typedef std::complex<_Tp> value_type;
@@ -1217,7 +1217,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 2,
 typedef Vec<channel_type, channels> vec_type;
 };
 
-template<typename _Tp> class DataType<Complex<_Tp> >
+template<typename _Tp> class DataType<Complex<_Tp>>
 {
 public:
 typedef Complex<_Tp> value_type;
@@ -1229,7 +1229,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 2,
 typedef Vec<channel_type, channels> vec_type;
 };
 
-template<typename _Tp> class DataType<Point_<_Tp> >
+template<typename _Tp> class DataType<Point_<_Tp>>
 {
 public:
 typedef Point_<_Tp> value_type;
@@ -1241,7 +1241,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 2,
 typedef Vec<channel_type, channels> vec_type;
 };
 
-template<typename _Tp> class DataType<Point3_<_Tp> >
+template<typename _Tp> class DataType<Point3_<_Tp>>
 {
 public:
 typedef Point3_<_Tp> value_type;
@@ -1253,7 +1253,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 3,
 typedef Vec<channel_type, channels> vec_type;
 };
 
-template<typename _Tp> class DataType<Size_<_Tp> >
+template<typename _Tp> class DataType<Size_<_Tp>>
 {
 public:
 typedef Size_<_Tp> value_type;
@@ -1265,7 +1265,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 2,
 typedef Vec<channel_type, channels> vec_type;
 };
 
-template<typename _Tp> class DataType<Rect_<_Tp> >
+template<typename _Tp> class DataType<Rect_<_Tp>>
 {
 public:
 typedef Rect_<_Tp> value_type;
@@ -1277,7 +1277,7 @@ enum { generic_type = 0, depth = DataDepth<channel_type>::value, channels = 4,
 typedef Vec<channel_type, channels> vec_type;
 };
 
-template<typename _Tp> class DataType<Scalar_<_Tp> >
+template<typename _Tp> class DataType<Scalar_<_Tp>>
 {
 public:
 typedef Scalar_<_Tp> value_type;
@@ -1396,9 +1396,9 @@ _InputArray(const Mat &m);
 _InputArray(const MatExpr &expr);
 template<typename _Tp> _InputArray(const _Tp *vec, int n);
 template<typename _Tp> _InputArray(const vector<_Tp> &vec);
-template<typename _Tp> _InputArray(const vector<vector<_Tp> > &vec);
+template<typename _Tp> _InputArray(const vector<vector<_Tp>> &vec);
 _InputArray(const vector<Mat> &vec);
-template<typename _Tp> _InputArray(const vector<Mat_<_Tp> > &vec);
+template<typename _Tp> _InputArray(const vector<Mat_<_Tp>> &vec);
 template<typename _Tp> _InputArray(const Mat_<_Tp> &m);
 template<typename _Tp, int m, int n> _InputArray(const Matx<_Tp, m, n> &matx);
 _InputArray(const Scalar &s);
@@ -1464,9 +1464,9 @@ _OutputArray();
 
 _OutputArray(Mat &m);
 template<typename _Tp> _OutputArray(vector<_Tp> &vec);
-template<typename _Tp> _OutputArray(vector<vector<_Tp> > &vec);
+template<typename _Tp> _OutputArray(vector<vector<_Tp>> &vec);
 _OutputArray(vector<Mat> &vec);
-template<typename _Tp> _OutputArray(vector<Mat_<_Tp> > &vec);
+template<typename _Tp> _OutputArray(vector<Mat_<_Tp>> &vec);
 template<typename _Tp> _OutputArray(Mat_<_Tp> &m);
 template<typename _Tp, int m, int n> _OutputArray(Matx<_Tp, m, n> &matx);
 template<typename _Tp> _OutputArray(_Tp *vec, int n);
@@ -1476,9 +1476,9 @@ _OutputArray(ogl::Texture2D &tex);
 
 _OutputArray(const Mat &m);
 template<typename _Tp> _OutputArray(const vector<_Tp> &vec);
-template<typename _Tp> _OutputArray(const vector<vector<_Tp> > &vec);
+template<typename _Tp> _OutputArray(const vector<vector<_Tp>> &vec);
 _OutputArray(const vector<Mat> &vec);
-template<typename _Tp> _OutputArray(const vector<Mat_<_Tp> > &vec);
+template<typename _Tp> _OutputArray(const vector<Mat_<_Tp>> &vec);
 template<typename _Tp> _OutputArray(const Mat_<_Tp> &m);
 template<typename _Tp, int m, int n> _OutputArray(const Matx<_Tp, m, n> &matx);
 template<typename _Tp> _OutputArray(const _Tp *vec, int n);
@@ -4702,7 +4702,7 @@ template<> struct ParamType<Mat>
     enum { type = Param::MAT };
 };
 
-template<> struct ParamType<vector<Mat> >
+template<> struct ParamType<vector<Mat>>
 {
     typedef const vector<Mat>&const_param_type;
     typedef vector<Mat> member_type;
@@ -4815,7 +4815,7 @@ _Tp get(const std::string &name, bool space_delete = true)
 void printParams();
 
 protected:
-std::map<std::string, std::vector<std::string> > data;
+std::map<std::string, std::vector<std::string>> data;
 std::string getString(const std::string &name);
 
 bool has(const std::string &keys);

@@ -28,7 +28,7 @@
 namespace internal
 {
 template<typename MatrixType, int Size>
-struct traits<SparseInnerVectorSet<MatrixType, Size> >
+struct traits<SparseInnerVectorSet<MatrixType, Size>>
 {
     typedef typename traits<MatrixType>::Scalar Scalar;
     typedef typename traits<MatrixType>::Index Index;
@@ -49,7 +49,7 @@ struct traits<SparseInnerVectorSet<MatrixType, Size> >
 
 template<typename MatrixType, int Size>
 class SparseInnerVectorSet : internal::no_assignment_operator,
-    public SparseMatrixBase<SparseInnerVectorSet<MatrixType, Size> >
+    public SparseMatrixBase<SparseInnerVectorSet<MatrixType, Size>>
 {
 public:
 
@@ -121,7 +121,7 @@ const internal::variable_if_dynamic<Index, Size> m_outerSize;
 
 template<typename _Scalar, int _Options, int Size>
 class SparseInnerVectorSet<DynamicSparseMatrix<_Scalar, _Options>, Size>
-    : public SparseMatrixBase<SparseInnerVectorSet<DynamicSparseMatrix<_Scalar, _Options>, Size> >
+    : public SparseMatrixBase<SparseInnerVectorSet<DynamicSparseMatrix<_Scalar, _Options>, Size>>
 {
 typedef DynamicSparseMatrix<_Scalar, _Options> MatrixType;
 public:
@@ -233,7 +233,7 @@ const internal::variable_if_dynamic<Index, Size> m_outerSize;
 
 template<typename _Scalar, int _Options, typename _Index, int Size>
 class SparseInnerVectorSet<SparseMatrix<_Scalar, _Options, _Index>, Size>
-    : public SparseMatrixBase<SparseInnerVectorSet<SparseMatrix<_Scalar, _Options>, Size> >
+    : public SparseMatrixBase<SparseInnerVectorSet<SparseMatrix<_Scalar, _Options>, Size>>
 {
 typedef SparseMatrix<_Scalar, _Options> MatrixType;
 public:

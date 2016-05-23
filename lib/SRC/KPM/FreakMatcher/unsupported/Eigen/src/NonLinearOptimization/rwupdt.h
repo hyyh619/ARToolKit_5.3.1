@@ -11,7 +11,7 @@ void rwupdt(
 
     const Index n = r.cols();
     assert(r.rows() >= n);
-    std::vector<JacobiRotation<Scalar> > givens(n);
+    std::vector<JacobiRotation<Scalar>> givens(n);
 
     /* Local variables */
     Scalar temp, rowj;

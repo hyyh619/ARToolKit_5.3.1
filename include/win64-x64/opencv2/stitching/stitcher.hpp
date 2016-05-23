@@ -220,13 +220,13 @@ void setBlender(Ptr<detail::Blender> b)
 }
 
 Status estimateTransform(InputArray images);
-Status estimateTransform(InputArray images, const std::vector<std::vector<Rect> > &rois);
+Status estimateTransform(InputArray images, const std::vector<std::vector<Rect>> &rois);
 
 Status composePanorama(OutputArray pano);
 Status composePanorama(InputArray images, OutputArray pano);
 
 Status stitch(InputArray images, OutputArray pano);
-Status stitch(InputArray images, const std::vector<std::vector<Rect> > &rois, OutputArray pano);
+Status stitch(InputArray images, const std::vector<std::vector<Rect>> &rois, OutputArray pano);
 
 std::vector<int> component() const
 {
@@ -262,18 +262,18 @@ Ptr<detail::ExposureCompensator> exposure_comp_;
 Ptr<detail::SeamFinder>          seam_finder_;
 Ptr<detail::Blender>             blender_;
 
-std::vector<cv::Mat>                imgs_;
-std::vector<std::vector<cv::Rect> > rois_;
-std::vector<cv::Size>               full_img_sizes_;
-std::vector<detail::ImageFeatures>  features_;
-std::vector<detail::MatchesInfo>    pairwise_matches_;
-std::vector<cv::Mat>                seam_est_imgs_;
-std::vector<int>                    indices_;
-std::vector<detail::CameraParams>   cameras_;
-double                              work_scale_;
-double                              seam_scale_;
-double                              seam_work_aspect_;
-double                              warped_image_scale_;
+std::vector<cv::Mat>               imgs_;
+std::vector<std::vector<cv::Rect>> rois_;
+std::vector<cv::Size>              full_img_sizes_;
+std::vector<detail::ImageFeatures> features_;
+std::vector<detail::MatchesInfo>   pairwise_matches_;
+std::vector<cv::Mat>               seam_est_imgs_;
+std::vector<int>                   indices_;
+std::vector<detail::CameraParams>  cameras_;
+double                             work_scale_;
+double                             seam_scale_;
+double                             seam_work_aspect_;
+double                             warped_image_scale_;
 };
 } // namespace cv
 #endif // __OPENCV_STITCHING_STITCHER_HPP__

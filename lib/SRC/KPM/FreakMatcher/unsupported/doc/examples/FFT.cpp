@@ -42,7 +42,7 @@ T mag2(const std::vector<T> &vec)
 }
 
 template<typename T>
-T mag2(const std::vector<std::complex<T> > &vec)
+T mag2(const std::vector<std::complex<T>> &vec)
 {
     T out = 0;
 
@@ -71,7 +71,7 @@ void RandomFill(std::vector<T> &vec)
 }
 
 template<typename T>
-void RandomFill(std::vector<std::complex<T> > &vec)
+void RandomFill(std::vector<std::complex<T>> &vec)
 {
     for (size_t k = 0; k < vec.size(); ++k)
         vec[k] = std::complex<T> (T(rand()) / T(RAND_MAX) - .5, T(rand()) / T(RAND_MAX) - .5);
@@ -99,9 +99,9 @@ template<typename T_scalar>
 void two_demos(int nfft)
 {
     cout << "     scalar ";
-    fwd_inv<T_scalar, std::complex<T_scalar> >(nfft);
+    fwd_inv<T_scalar, std::complex<T_scalar>>(nfft);
     cout << "    complex ";
-    fwd_inv<std::complex<T_scalar>, std::complex<T_scalar> >(nfft);
+    fwd_inv<std::complex<T_scalar>, std::complex<T_scalar>>(nfft);
 }
 
 void demo_all_types(int nfft)

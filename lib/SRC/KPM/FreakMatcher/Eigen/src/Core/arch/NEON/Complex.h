@@ -38,7 +38,7 @@ struct Packet2cf
     Packet4f v;
 };
 
-template<> struct packet_traits<std::complex<float> >  : default_packet_traits
+template<> struct packet_traits<std::complex<float>>  : default_packet_traits
 {
     typedef Packet2cf type;
     enum
@@ -144,16 +144,16 @@ template<> EIGEN_STRONG_INLINE Packet2cf ploaddup<Packet2cf>(const std::complex<
     return pset1<Packet2cf>(*from);
 }
 
-template<> EIGEN_STRONG_INLINE void pstore<std::complex<float> >(std::complex<float> *to, const Packet2cf &from)
+template<> EIGEN_STRONG_INLINE void pstore<std::complex<float>>(std::complex<float> *to, const Packet2cf &from)
 {
     EIGEN_DEBUG_ALIGNED_STORE pstore((float*)to, from.v);
 }
-template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float> >(std::complex<float> *to, const Packet2cf &from)
+template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float>>(std::complex<float> *to, const Packet2cf &from)
 {
     EIGEN_DEBUG_UNALIGNED_STORE pstoreu((float*)to, from.v);
 }
 
-template<> EIGEN_STRONG_INLINE void prefetch<std::complex<float> >(const std::complex<float> *addr)
+template<> EIGEN_STRONG_INLINE void prefetch<std::complex<float>>(const std::complex<float> *addr)
 {
     __pld((float*)addr);
 }

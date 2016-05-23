@@ -156,7 +156,7 @@ template<typename B> B forEach(B body) const;
 template<typename B> B walkBreadthFirst(int from, B body) const;
 
 private:
-std::vector<std::list<GraphEdge> > edges_;
+std::vector<std::list<GraphEdge>> edges_;
 };
 
 

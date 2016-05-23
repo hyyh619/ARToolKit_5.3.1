@@ -38,7 +38,7 @@ template<typename Scalar> struct scalar_random_op
 };
 
 template<typename Scalar>
-struct functor_traits<scalar_random_op<Scalar> >
+struct functor_traits<scalar_random_op<Scalar>>
 { enum { Cost = 5 * NumTraits<Scalar>::MulCost, PacketAccess = false, IsRepeatable = false }; };
 } // end namespace internal
 

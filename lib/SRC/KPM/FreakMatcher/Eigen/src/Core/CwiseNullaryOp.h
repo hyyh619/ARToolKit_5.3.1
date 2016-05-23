@@ -46,7 +46,7 @@
 namespace internal
 {
 template<typename NullaryOp, typename PlainObjectType>
-struct traits<CwiseNullaryOp<NullaryOp, PlainObjectType> > : traits<PlainObjectType>
+struct traits<CwiseNullaryOp<NullaryOp, PlainObjectType>> : traits<PlainObjectType>
 {
     enum
     {
@@ -62,7 +62,7 @@ struct traits<CwiseNullaryOp<NullaryOp, PlainObjectType> > : traits<PlainObjectT
 
 template<typename NullaryOp, typename PlainObjectType>
 class CwiseNullaryOp : internal::no_assignment_operator,
-    public internal::dense_xpr_base<CwiseNullaryOp<NullaryOp, PlainObjectType> >::type
+    public internal::dense_xpr_base<CwiseNullaryOp<NullaryOp, PlainObjectType>>::type
 {
 public:
 

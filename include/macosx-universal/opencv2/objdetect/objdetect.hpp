@@ -930,7 +930,7 @@ Detector();
  * \param T_pyramid        Value of the sampling step T at each pyramid level. The
  *                         number of pyramid levels is T_pyramid.size().
  */
-Detector(const std::vector<Ptr<Modality> > &modalities, const std::vector<int> &T_pyramid);
+Detector(const std::vector<Ptr<Modality>> &modalities, const std::vector<int> &T_pyramid);
 
 /**
  * \brief Detect objects by template matching.
@@ -976,7 +976,7 @@ int addSyntheticTemplate(const std::vector<Template> &templates, const std::stri
  * You are not permitted to add/remove modalities, but you may dynamic_cast them to
  * tweak parameters.
  */
-const std::vector<Ptr<Modality> >&getModalities() const
+const std::vector<Ptr<Modality>>&getModalities() const
 {
     return modalities;
 }
@@ -1025,17 +1025,17 @@ void readClasses(const std::vector<std::string> &class_ids,
 void writeClasses(const std::string &format = "templates_%s.yml.gz") const;
 
 protected:
-std::vector<Ptr<Modality> > modalities;
-int                         pyramid_levels;
-std::vector<int>            T_at_level;
+std::vector<Ptr<Modality>> modalities;
+int                        pyramid_levels;
+std::vector<int>           T_at_level;
 
 typedef std::vector<Template> TemplatePyramid;
-typedef std::map<std::string, std::vector<TemplatePyramid> > TemplatesMap;
+typedef std::map<std::string, std::vector<TemplatePyramid>> TemplatesMap;
 TemplatesMap class_templates;
 
 typedef std::vector<Mat> LinearMemories;
 // Indexed as [pyramid level][modality][quantized label]
-typedef std::vector<std::vector<LinearMemories> > LinearMemoryPyramid;
+typedef std::vector<std::vector<LinearMemories>> LinearMemoryPyramid;
 
 void matchClass(const LinearMemoryPyramid &lm_pyramid,
                 const std::vector<Size> &sizes,

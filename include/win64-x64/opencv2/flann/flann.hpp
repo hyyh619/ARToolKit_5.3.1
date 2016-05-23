@@ -333,8 +333,8 @@ public:
 
 private:
     // providing backwards compatibility for L2 and L1 distances (most common)
-    ::cvflann::Index<L2<ElementType> > *nnIndex_L2;
-    ::cvflann::Index<L1<ElementType> > *nnIndex_L1;
+    ::cvflann::Index<L2<ElementType>> *nnIndex_L2;
+    ::cvflann::Index<L1<ElementType>> *nnIndex_L1;
 };
 
 #ifdef _MSC_VER
@@ -354,11 +354,11 @@ Index_<T>::Index_(const Mat &dataset, const ::cvflann::IndexParams &params)
     if (::cvflann::flann_distance_type() == cvflann::FLANN_DIST_L2)
     {
         nnIndex_L1 = NULL;
-        nnIndex_L2 = new ::cvflann::Index<L2<ElementType> >(m_dataset, params);
+        nnIndex_L2 = new ::cvflann::Index<L2<ElementType>>(m_dataset, params);
     }
     else if (::cvflann::flann_distance_type() == cvflann::FLANN_DIST_L1)
     {
-        nnIndex_L1 = new ::cvflann::Index<L1<ElementType> >(m_dataset, params);
+        nnIndex_L1 = new ::cvflann::Index<L1<ElementType>>(m_dataset, params);
         nnIndex_L2 = NULL;
     }
     else
@@ -486,11 +486,11 @@ FLANN_DEPRECATED int hierarchicalClustering(const Mat &features, Mat &centers, c
 
     if (::cvflann::flann_distance_type() == cvflann::FLANN_DIST_L2)
     {
-        return hierarchicalClustering<L2<ELEM_TYPE> >(features, centers, params);
+        return hierarchicalClustering<L2<ELEM_TYPE>>(features, centers, params);
     }
     else if (::cvflann::flann_distance_type() == cvflann::FLANN_DIST_L1)
     {
-        return hierarchicalClustering<L1<ELEM_TYPE> >(features, centers, params);
+        return hierarchicalClustering<L1<ELEM_TYPE>>(features, centers, params);
     }
     else
     {

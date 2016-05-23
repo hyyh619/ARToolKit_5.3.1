@@ -29,7 +29,7 @@
 namespace internal
 {
 template<typename MatrixType, typename DiagonalType, int ProductOrder>
-struct traits<DiagonalProduct<MatrixType, DiagonalType, ProductOrder> >
+struct traits<DiagonalProduct<MatrixType, DiagonalType, ProductOrder>>
     : traits<MatrixType>
 {
     typedef typename scalar_product_traits<typename MatrixType::Scalar, typename DiagonalType::Scalar>::ReturnType Scalar;
@@ -56,7 +56,7 @@ struct traits<DiagonalProduct<MatrixType, DiagonalType, ProductOrder> >
 
 template<typename MatrixType, typename DiagonalType, int ProductOrder>
 class DiagonalProduct : internal::no_assignment_operator,
-    public MatrixBase<DiagonalProduct<MatrixType, DiagonalType, ProductOrder> >
+    public MatrixBase<DiagonalProduct<MatrixType, DiagonalType, ProductOrder>>
 {
 public:
 

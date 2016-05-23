@@ -688,7 +688,7 @@ namespace cv
 
     // under win32 there is some bug with templated types that passed as kernel parameters
     // with this specialization all works fine
-    template<typename Ptr2D, typename D> struct BorderReader<Ptr2D, BrdConstant<D> >
+    template<typename Ptr2D, typename D> struct BorderReader<Ptr2D, BrdConstant<D>>
     {
         typedef typename BrdConstant<D>::result_type elem_type;
         typedef typename Ptr2D::index_type index_type;

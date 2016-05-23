@@ -1417,17 +1417,17 @@ public:
   // vector will have the same size as queryDescriptors rows. If compactResult is true
   // matches vector will not contain matches for fully masked out query descriptors.
   static void knnMatchDownload(const GpuMat &trainIdx, const GpuMat &distance,
-                               std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                               std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
   // Convert trainIdx and distance to vector with DMatch
   static void knnMatchConvert(const Mat &trainIdx, const Mat &distance,
-                              std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                              std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
   // Find k best matches for each query descriptor (in increasing order of distances).
   // compactResult is used when mask is not empty. If compactResult is false matches
   // vector will have the same size as queryDescriptors rows. If compactResult is true
   // matches vector will not contain matches for fully masked out query descriptors.
   void knnMatch(const GpuMat &query, const GpuMat &train,
-                std::vector<std::vector<DMatch> > &matches, int k, const GpuMat &mask = GpuMat(),
+                std::vector<std::vector<DMatch>> &matches, int k, const GpuMat &mask = GpuMat(),
                 bool compactResult = false);
 
   // Find k best matches from train collection for each query descriptor (in increasing order of distances)
@@ -1440,16 +1440,16 @@ public:
   // vector will have the same size as queryDescriptors rows. If compactResult is true
   // matches vector will not contain matches for fully masked out query descriptors.
   static void knnMatch2Download(const GpuMat &trainIdx, const GpuMat &imgIdx, const GpuMat &distance,
-                                std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
   // Convert trainIdx and distance to vector with DMatch
   static void knnMatch2Convert(const Mat &trainIdx, const Mat &imgIdx, const Mat &distance,
-                               std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                               std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
   // Find k best matches  for each query descriptor (in increasing order of distances).
   // compactResult is used when mask is not empty. If compactResult is false matches
   // vector will have the same size as queryDescriptors rows. If compactResult is true
   // matches vector will not contain matches for fully masked out query descriptors.
-  void knnMatch(const GpuMat &query, std::vector<std::vector<DMatch> > &matches, int k,
+  void knnMatch(const GpuMat &query, std::vector<std::vector<DMatch>> &matches, int k,
                 const std::vector<GpuMat> &masks = std::vector<GpuMat>(), bool compactResult = false);
 
   // Find best matches for each query descriptor which have distance less than maxDistance.
@@ -1469,15 +1469,15 @@ public:
   // vector will have the same size as queryDescriptors rows. If compactResult is true
   // matches vector will not contain matches for fully masked out query descriptors.
   static void radiusMatchDownload(const GpuMat &trainIdx, const GpuMat &distance, const GpuMat &nMatches,
-                                  std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                  std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
   // Convert trainIdx, nMatches and distance to vector with DMatch.
   static void radiusMatchConvert(const Mat &trainIdx, const Mat &distance, const Mat &nMatches,
-                                 std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                 std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
   // Find best matches for each query descriptor which have distance less than maxDistance
   // in increasing order of distances).
   void radiusMatch(const GpuMat &query, const GpuMat &train,
-                   std::vector<std::vector<DMatch> > &matches, float maxDistance,
+                   std::vector<std::vector<DMatch>> &matches, float maxDistance,
                    const GpuMat &mask = GpuMat(), bool compactResult = false);
 
   // Find best matches for each query descriptor which have distance less than maxDistance.
@@ -1493,14 +1493,14 @@ public:
   // vector will have the same size as queryDescriptors rows. If compactResult is true
   // matches vector will not contain matches for fully masked out query descriptors.
   static void radiusMatchDownload(const GpuMat &trainIdx, const GpuMat &imgIdx, const GpuMat &distance, const GpuMat &nMatches,
-                                  std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                  std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
   // Convert trainIdx, nMatches and distance to vector with DMatch.
   static void radiusMatchConvert(const Mat &trainIdx, const Mat &imgIdx, const Mat &distance, const Mat &nMatches,
-                                 std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                 std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
   // Find best matches from train collection for each query descriptor which have distance less than
   // maxDistance (in increasing order of distances).
-  void radiusMatch(const GpuMat &query, std::vector<std::vector<DMatch> > &matches, float maxDistance,
+  void radiusMatch(const GpuMat &query, std::vector<std::vector<DMatch>> &matches, float maxDistance,
                    const std::vector<GpuMat> &masks = std::vector<GpuMat>(), bool compactResult = false);
 
   DistType distType;
@@ -1513,14 +1513,14 @@ private:
   class CV_EXPORTS BruteForceMatcher_GPU;
 
   template<typename T>
-  class CV_EXPORTS BruteForceMatcher_GPU<L1<T> > : public BruteForceMatcher_GPU_base
+  class CV_EXPORTS BruteForceMatcher_GPU<L1<T>> : public BruteForceMatcher_GPU_base
   {
 public:
   explicit BruteForceMatcher_GPU() : BruteForceMatcher_GPU_base(L1Dist) {}
   explicit BruteForceMatcher_GPU(L1<T> /*d*/) : BruteForceMatcher_GPU_base(L1Dist) {}
   };
   template<typename T>
-  class CV_EXPORTS BruteForceMatcher_GPU<L2<T> > : public BruteForceMatcher_GPU_base
+  class CV_EXPORTS BruteForceMatcher_GPU<L2<T>> : public BruteForceMatcher_GPU_base
   {
 public:
   explicit BruteForceMatcher_GPU() : BruteForceMatcher_GPU_base(L2Dist) {}
@@ -2097,7 +2097,7 @@ public:
   // 8UC1 foreground image
   cv::gpu::GpuMat foreground;
 
-  std::vector<std::vector<cv::Point> > foreground_regions;
+  std::vector<std::vector<cv::Point>> foreground_regions;
 
 private:
   FGDStatModel(const FGDStatModel&);

@@ -1268,10 +1268,10 @@ process(const Mat_<T1> &m1, const Mat_<T2> &m2, Mat_<T3> &m3, Op op)
 template<typename _Tp> inline _InputArray::_InputArray(const vector<_Tp> &vec)
     : flags(FIXED_TYPE + STD_VECTOR + DataType<_Tp>::type), obj((void*)&vec) {}
 
-template<typename _Tp> inline _InputArray::_InputArray(const vector<vector<_Tp> > &vec)
+template<typename _Tp> inline _InputArray::_InputArray(const vector<vector<_Tp>> &vec)
     : flags(FIXED_TYPE + STD_VECTOR_VECTOR + DataType<_Tp>::type), obj((void*)&vec) {}
 
-template<typename _Tp> inline _InputArray::_InputArray(const vector<Mat_<_Tp> > &vec)
+template<typename _Tp> inline _InputArray::_InputArray(const vector<Mat_<_Tp>> &vec)
     : flags(FIXED_TYPE + STD_VECTOR_MAT + DataType<_Tp>::type), obj((void*)&vec) {}
 
 template<typename _Tp, int m, int n> inline _InputArray::_InputArray(const Matx<_Tp, m, n> &mtx)
@@ -1288,9 +1288,9 @@ template<typename _Tp> inline _InputArray::_InputArray(const Mat_<_Tp> &m)
 
 template<typename _Tp> inline _OutputArray::_OutputArray(vector<_Tp> &vec)
     : _InputArray(vec) {}
-template<typename _Tp> inline _OutputArray::_OutputArray(vector<vector<_Tp> > &vec)
+template<typename _Tp> inline _OutputArray::_OutputArray(vector<vector<_Tp>> &vec)
     : _InputArray(vec) {}
-template<typename _Tp> inline _OutputArray::_OutputArray(vector<Mat_<_Tp> > &vec)
+template<typename _Tp> inline _OutputArray::_OutputArray(vector<Mat_<_Tp>> &vec)
     : _InputArray(vec) {}
 template<typename _Tp> inline _OutputArray::_OutputArray(Mat_<_Tp> &m)
     : _InputArray(m) {}
@@ -1304,12 +1304,12 @@ template<typename _Tp> inline _OutputArray::_OutputArray(const vector<_Tp> &vec)
 {
     flags |= FIXED_SIZE;
 }
-template<typename _Tp> inline _OutputArray::_OutputArray(const vector<vector<_Tp> > &vec)
+template<typename _Tp> inline _OutputArray::_OutputArray(const vector<vector<_Tp>> &vec)
     : _InputArray(vec)
 {
     flags |= FIXED_SIZE;
 }
-template<typename _Tp> inline _OutputArray::_OutputArray(const vector<Mat_<_Tp> > &vec)
+template<typename _Tp> inline _OutputArray::_OutputArray(const vector<Mat_<_Tp>> &vec)
     : _InputArray(vec)
 {
     flags |= FIXED_SIZE;
@@ -1828,7 +1828,7 @@ operator ^=(const Mat_<_Tp> &a, const Scalar &s)
 
 /////////////////////////////// Miscellaneous operations //////////////////////////////
 
-template<typename _Tp> void split(const Mat &src, vector<Mat_<_Tp> > &mv)
+template<typename _Tp> void split(const Mat &src, vector<Mat_<_Tp>> &mv)
 {
     split(src, (vector<Mat>&)mv);
 }

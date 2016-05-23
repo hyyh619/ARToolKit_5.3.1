@@ -90,7 +90,7 @@ template<typename SparseMatrixType> void sparse_extra(const SparseMatrixType &re
     for (int i = 0; i < (int)zeroCoords.size(); ++i)
     {
         VERIFY_IS_MUCH_SMALLER_THAN(m.coeff(zeroCoords[i].x(), zeroCoords[i].y()), eps);
-        if (internal::is_same<SparseMatrixType, SparseMatrix<Scalar, Flags> >::value)
+        if (internal::is_same<SparseMatrixType, SparseMatrix<Scalar, Flags>>::value)
             VERIFY_RAISES_ASSERT(m.coeffRef(zeroCoords[0].x(), zeroCoords[0].y()) = 5);
     }
 
@@ -117,15 +117,15 @@ template<typename SparseMatrixType> void sparse_extra(const SparseMatrixType &re
 //   }
 //   VERIFY_IS_APPROX(m, refMat);
 
-    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, StdMapTraits> >(m, refMat, nonzeroCoords)));
+    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, StdMapTraits>>(m, refMat, nonzeroCoords)));
     #ifdef EIGEN_UNORDERED_MAP_SUPPORT
-    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, StdUnorderedMapTraits> >(m, refMat, nonzeroCoords)));
+    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, StdUnorderedMapTraits>>(m, refMat, nonzeroCoords)));
     #endif
     #ifdef _DENSE_HASH_MAP_H_
-    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, GoogleDenseHashMapTraits> >(m, refMat, nonzeroCoords)));
+    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, GoogleDenseHashMapTraits>>(m, refMat, nonzeroCoords)));
     #endif
     #ifdef _SPARSE_HASH_MAP_H_
-    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, GoogleSparseHashMapTraits> >(m, refMat, nonzeroCoords)));
+    VERIFY((test_random_setter<RandomSetter<SparseMatrixType, GoogleSparseHashMapTraits>>(m, refMat, nonzeroCoords)));
     #endif
 
 
@@ -149,7 +149,7 @@ void test_sparse_extra()
     for (int i = 0; i < g_repeat; i++)
     {
         CALL_SUBTEST_1(sparse_extra(SparseMatrix<double>(8, 8)));
-        CALL_SUBTEST_2(sparse_extra(SparseMatrix<std::complex<double> >(16, 16)));
+        CALL_SUBTEST_2(sparse_extra(SparseMatrix<std::complex<double>>(16, 16)));
         CALL_SUBTEST_1(sparse_extra(SparseMatrix<double>(33, 33)));
 
         CALL_SUBTEST_3(sparse_extra(DynamicSparseMatrix<double>(8, 8)));

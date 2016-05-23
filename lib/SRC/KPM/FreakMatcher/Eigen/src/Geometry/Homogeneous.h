@@ -43,7 +43,7 @@
 namespace internal
 {
 template<typename MatrixType, int Direction>
-struct traits<Homogeneous<MatrixType, Direction> >
+struct traits<Homogeneous<MatrixType, Direction>>
     : traits<MatrixType>
 {
     typedef typename traits<MatrixType>::StorageKind StorageKind;
@@ -72,7 +72,7 @@ template<typename MatrixType, typename Rhs> struct homogeneous_right_product_imp
 } // end namespace internal
 
 template<typename MatrixType, int _Direction> class Homogeneous
-    : public MatrixBase<Homogeneous<MatrixType, _Direction> >
+    : public MatrixBase<Homogeneous<MatrixType, _Direction>>
 {
 public:
 
@@ -120,11 +120,11 @@ operator*(const MatrixBase<Lhs> &lhs, const Homogeneous &rhs)
 }
 
 template<typename Scalar, int Dim, int Mode, int Options> friend
-inline const internal::homogeneous_left_product_impl<Homogeneous, Transform<Scalar, Dim, Mode, Options> >
+inline const internal::homogeneous_left_product_impl<Homogeneous, Transform<Scalar, Dim, Mode, Options>>
 operator*(const Transform<Scalar, Dim, Mode, Options> &lhs, const Homogeneous &rhs)
 {
     eigen_assert(int(Direction) == Vertical);
-    return internal::homogeneous_left_product_impl<Homogeneous, Transform<Scalar, Dim, Mode, Options> >(lhs, rhs.m_matrix);
+    return internal::homogeneous_left_product_impl<Homogeneous, Transform<Scalar, Dim, Mode, Options>>(lhs, rhs.m_matrix);
 }
 
 protected:
@@ -223,7 +223,7 @@ struct take_matrix_for_product
 };
 
 template<typename Scalar, int Dim, int Mode, int Options>
-struct take_matrix_for_product<Transform<Scalar, Dim, Mode, Options> >
+struct take_matrix_for_product<Transform<Scalar, Dim, Mode, Options>>
 {
     typedef Transform<Scalar, Dim, Mode, Options> TransformType;
     typedef typename TransformType::ConstAffinePart type;
@@ -234,7 +234,7 @@ struct take_matrix_for_product<Transform<Scalar, Dim, Mode, Options> >
 };
 
 template<typename Scalar, int Dim, int Options>
-struct take_matrix_for_product<Transform<Scalar, Dim, Projective, Options> >
+struct take_matrix_for_product<Transform<Scalar, Dim, Projective, Options>>
 {
     typedef Transform<Scalar, Dim, Projective, Options> TransformType;
     typedef typename TransformType::MatrixType type;
@@ -245,7 +245,7 @@ struct take_matrix_for_product<Transform<Scalar, Dim, Projective, Options> >
 };
 
 template<typename MatrixType, typename Lhs>
-struct traits<homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs> >
+struct traits<homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs>>
 {
     typedef typename take_matrix_for_product<Lhs>::type LhsMatrixType;
     typedef typename remove_all<MatrixType>::type MatrixTypeCleaned;
@@ -261,7 +261,7 @@ struct traits<homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, L
 
 template<typename MatrixType, typename Lhs>
 struct homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs>
-    : public ReturnByValue<homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs> >
+    : public ReturnByValue<homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs>>
 {
     typedef typename traits<homogeneous_left_product_impl>::LhsMatrixType LhsMatrixType;
     typedef typename remove_all<LhsMatrixType>::type LhsMatrixTypeCleaned;
@@ -297,7 +297,7 @@ struct homogeneous_left_product_impl<Homogeneous<MatrixType, Vertical>, Lhs>
 };
 
 template<typename MatrixType, typename Rhs>
-struct traits<homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs> >
+struct traits<homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs>>
 {
     typedef typename make_proper_matrix_type<typename traits<MatrixType>::Scalar,
                                              MatrixType::RowsAtCompileTime,
@@ -309,7 +309,7 @@ struct traits<homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>
 
 template<typename MatrixType, typename Rhs>
 struct homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs>
-    : public ReturnByValue<homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs> >
+    : public ReturnByValue<homogeneous_right_product_impl<Homogeneous<MatrixType, Horizontal>, Rhs>>
 {
     typedef typename remove_all<typename Rhs::Nested>::type RhsNested;
     typedef typename MatrixType::Index Index;

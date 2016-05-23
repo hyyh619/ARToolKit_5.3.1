@@ -42,7 +42,7 @@
 namespace internal
 {
 template<typename MatrixType>
-struct traits<Minor<MatrixType> >
+struct traits<Minor<MatrixType>>
     : traits<MatrixType>
 {
     typedef typename nested<MatrixType>::type MatrixTypeNested;
@@ -66,7 +66,7 @@ struct traits<Minor<MatrixType> >
 }
 
 template<typename MatrixType> class Minor
-    : public MatrixBase<Minor<MatrixType> >
+    : public MatrixBase<Minor<MatrixType>>
 {
 public:
 

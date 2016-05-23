@@ -29,7 +29,7 @@
 namespace internal
 {
 template<typename MatrixType>
-struct traits<SparseView<MatrixType> > : traits<MatrixType>
+struct traits<SparseView<MatrixType>> : traits<MatrixType>
 {
     typedef int Index;
     typedef Sparse StorageKind;
@@ -41,7 +41,7 @@ struct traits<SparseView<MatrixType> > : traits<MatrixType>
 } // end namespace internal
 
 template<typename MatrixType>
-class SparseView : public SparseMatrixBase<SparseView<MatrixType> >
+class SparseView : public SparseMatrixBase<SparseView<MatrixType>>
 {
 typedef typename MatrixType::Nested MatrixTypeNested;
 typedef typename internal::remove_all<MatrixTypeNested>::type _MatrixTypeNested;

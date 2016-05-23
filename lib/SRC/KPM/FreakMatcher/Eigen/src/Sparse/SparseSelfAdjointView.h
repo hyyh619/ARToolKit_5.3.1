@@ -51,7 +51,7 @@ class SparseSymmetricPermutationProduct;
 namespace internal
 {
 template<typename MatrixType, unsigned int UpLo>
-struct traits<SparseSelfAdjointView<MatrixType, UpLo> > : traits<MatrixType>
+struct traits<SparseSelfAdjointView<MatrixType, UpLo>> : traits<MatrixType>
 {};
 
 template<int SrcUpLo, int DstUpLo, typename MatrixType, int DestOrder>
@@ -62,7 +62,7 @@ void permute_symm_to_fullsymm(const MatrixType &mat, SparseMatrix<typename Matri
 }
 
 template<typename MatrixType, unsigned int UpLo> class SparseSelfAdjointView
-    : public EigenBase<SparseSelfAdjointView<MatrixType, UpLo> >
+    : public EigenBase<SparseSelfAdjointView<MatrixType, UpLo>>
 {
 public:
 
@@ -207,8 +207,8 @@ SparseSelfAdjointView<MatrixType, UpLo>::rankUpdate(const SparseMatrixBase<Deriv
 namespace internal
 {
 template<typename Lhs, typename Rhs, int UpLo>
-struct traits<SparseSelfAdjointTimeDenseProduct<Lhs, Rhs, UpLo> >
-    : traits<ProductBase<SparseSelfAdjointTimeDenseProduct<Lhs, Rhs, UpLo>, Lhs, Rhs> >
+struct traits<SparseSelfAdjointTimeDenseProduct<Lhs, Rhs, UpLo>>
+    : traits<ProductBase<SparseSelfAdjointTimeDenseProduct<Lhs, Rhs, UpLo>, Lhs, Rhs>>
 {
     typedef Dense StorageKind;
 };
@@ -273,8 +273,8 @@ SparseSelfAdjointTimeDenseProduct&operator=(const SparseSelfAdjointTimeDenseProd
 namespace internal
 {
 template<typename Lhs, typename Rhs, int UpLo>
-struct traits<DenseTimeSparseSelfAdjointProduct<Lhs, Rhs, UpLo> >
-    : traits<ProductBase<DenseTimeSparseSelfAdjointProduct<Lhs, Rhs, UpLo>, Lhs, Rhs> >
+struct traits<DenseTimeSparseSelfAdjointProduct<Lhs, Rhs, UpLo>>
+    : traits<ProductBase<DenseTimeSparseSelfAdjointProduct<Lhs, Rhs, UpLo>, Lhs, Rhs>>
 {};
 }
 
@@ -303,7 +303,7 @@ DenseTimeSparseSelfAdjointProduct&operator=(const DenseTimeSparseSelfAdjointProd
 namespace internal
 {
 template<typename MatrixType, int UpLo>
-struct traits<SparseSymmetricPermutationProduct<MatrixType, UpLo> > : traits<MatrixType>
+struct traits<SparseSymmetricPermutationProduct<MatrixType, UpLo>> : traits<MatrixType>
 {};
 
 template<int UpLo, typename MatrixType, int DestOrder>
@@ -449,7 +449,7 @@ void permute_symm_to_symm(const MatrixType &mat, SparseMatrix<typename MatrixTyp
 
 template<typename MatrixType, int UpLo>
 class SparseSymmetricPermutationProduct
-    : public EigenBase<SparseSymmetricPermutationProduct<MatrixType, UpLo> >
+    : public EigenBase<SparseSymmetricPermutationProduct<MatrixType, UpLo>>
 {
 typedef PermutationMatrix<Dynamic> Perm;
 public:

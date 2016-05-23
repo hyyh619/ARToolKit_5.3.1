@@ -65,7 +65,7 @@ CV_ENUM(MatCn, Gray, TwoChannel, BGR, BGRA)
 
     #define GET_PARAM(k) std::tr1::get<k>(GetParam())
 
-    #define DEF_PARAM_TEST(name, ...)          typedef ::perf::TestBaseWithParam<std::tr1::tuple<__VA_ARGS__> > name
+    #define DEF_PARAM_TEST(name, ...)          typedef ::perf::TestBaseWithParam<std::tr1::tuple<__VA_ARGS__>> name
     #define DEF_PARAM_TEST_1(name, param_type) typedef ::perf::TestBaseWithParam<param_type> name
 
 DEF_PARAM_TEST_1(Sz, cv::Size);

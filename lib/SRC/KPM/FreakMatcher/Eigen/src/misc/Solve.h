@@ -31,7 +31,7 @@ namespace internal
  *
  */
 template<typename DecompositionType, typename Rhs>
-struct traits<solve_retval_base<DecompositionType, Rhs> >
+struct traits<solve_retval_base<DecompositionType, Rhs>>
 {
     typedef typename DecompositionType::MatrixType MatrixType;
     typedef Matrix<typename Rhs::Scalar,
@@ -43,7 +43,7 @@ struct traits<solve_retval_base<DecompositionType, Rhs> >
 };
 
 template<typename _DecompositionType, typename Rhs> struct solve_retval_base
-    : public ReturnByValue<solve_retval_base<_DecompositionType, Rhs> >
+    : public ReturnByValue<solve_retval_base<_DecompositionType, Rhs>>
 {
     typedef typename remove_all<typename Rhs::Nested>::type RhsNestedCleaned;
     typedef _DecompositionType DecompositionType;

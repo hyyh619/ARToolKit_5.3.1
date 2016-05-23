@@ -48,7 +48,7 @@ class PartialReduxExpr;
 namespace internal
 {
 template<typename MatrixType, typename MemberOp, int Direction>
-struct traits<PartialReduxExpr<MatrixType, MemberOp, Direction> >
+struct traits<PartialReduxExpr<MatrixType, MemberOp, Direction>>
     : traits<MatrixType>
 {
     typedef typename MemberOp::result_type Scalar;
@@ -81,7 +81,7 @@ struct traits<PartialReduxExpr<MatrixType, MemberOp, Direction> >
 
 template<typename MatrixType, typename MemberOp, int Direction>
 class PartialReduxExpr : internal::no_assignment_operator,
-    public internal::dense_xpr_base<PartialReduxExpr<MatrixType, MemberOp, Direction> >::type
+    public internal::dense_xpr_base<PartialReduxExpr<MatrixType, MemberOp, Direction>>::type
 {
 public:
 
@@ -141,7 +141,7 @@ EIGEN_MEMBER_FUNCTOR(squaredNorm, Size * NumTraits<Scalar>::MulCost + (Size - 1)
 EIGEN_MEMBER_FUNCTOR(norm, (Size + 5) * NumTraits<Scalar>::MulCost + (Size - 1) * NumTraits<Scalar>::AddCost);
 EIGEN_MEMBER_FUNCTOR(stableNorm, (Size + 5) * NumTraits<Scalar>::MulCost + (Size - 1) * NumTraits<Scalar>::AddCost);
 EIGEN_MEMBER_FUNCTOR(blueNorm, (Size + 5) * NumTraits<Scalar>::MulCost + (Size - 1) * NumTraits<Scalar>::AddCost);
-EIGEN_MEMBER_FUNCTOR(hypotNorm, (Size - 1) * functor_traits<scalar_hypot_op<Scalar> >::Cost);
+EIGEN_MEMBER_FUNCTOR(hypotNorm, (Size - 1) * functor_traits<scalar_hypot_op<Scalar>>::Cost);
 EIGEN_MEMBER_FUNCTOR(sum, (Size - 1) * NumTraits<Scalar>::AddCost);
 EIGEN_MEMBER_FUNCTOR(mean, (Size - 1) * NumTraits<Scalar>::AddCost + NumTraits<Scalar>::MulCost);
 EIGEN_MEMBER_FUNCTOR(minCoeff, (Size - 1) * NumTraits<Scalar>::AddCost);
@@ -551,7 +551,7 @@ typedef CwiseBinaryOp<internal::scalar_quotient_op<typename internal::traits<Exp
                       const HNormalized_Block,
                       const Replicate<HNormalized_Factors,
                                       Direction == Vertical ? HNormalized_SizeMinusOne : 1,
-                                      Direction == Horizontal ? HNormalized_SizeMinusOne : 1> >
+                                      Direction == Horizontal ? HNormalized_SizeMinusOne : 1>>
     HNormalizedReturnType;
 
 const HNormalizedReturnType hnormalized() const;

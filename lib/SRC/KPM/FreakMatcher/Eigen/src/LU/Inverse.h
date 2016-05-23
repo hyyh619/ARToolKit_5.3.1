@@ -282,13 +282,13 @@ struct compute_inverse_and_det_with_check<MatrixType, ResultType, 4>
 *************************/
 
 template<typename MatrixType>
-struct traits<inverse_impl<MatrixType> >
+struct traits<inverse_impl<MatrixType>>
 {
     typedef typename MatrixType::PlainObject ReturnType;
 };
 
 template<typename MatrixType>
-struct inverse_impl : public ReturnByValue<inverse_impl<MatrixType> >
+struct inverse_impl : public ReturnByValue<inverse_impl<MatrixType>>
 {
     typedef typename MatrixType::Index Index;
     typedef typename internal::eval<MatrixType>::type MatrixTypeNested;

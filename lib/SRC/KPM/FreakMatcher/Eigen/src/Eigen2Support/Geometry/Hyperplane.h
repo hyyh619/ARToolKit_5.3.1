@@ -273,10 +273,10 @@ inline Hyperplane&transform(const Transform<Scalar, AmbientDimAtCompileTime> &t,
  */
 template<typename NewScalarType>
 inline typename internal::cast_return_type<Hyperplane,
-                                           Hyperplane<NewScalarType, AmbientDimAtCompileTime> >::type cast() const
+                                           Hyperplane<NewScalarType, AmbientDimAtCompileTime>>::type cast() const
 {
     return typename internal::cast_return_type<Hyperplane,
-                                               Hyperplane<NewScalarType, AmbientDimAtCompileTime> >::type(*this);
+                                               Hyperplane<NewScalarType, AmbientDimAtCompileTime>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

@@ -54,7 +54,7 @@ template<typename Scalar> void sparse_llt(int rows, int cols)
     if (!NumTraits<Scalar>::IsComplex)
     {
         x = b;
-        SparseLLT<SparseMatrix<Scalar> > (m2).solveInPlace(x);
+        SparseLLT<SparseMatrix<Scalar>> (m2).solveInPlace(x);
         VERIFY(ref_x.isApprox(x, test_precision<Scalar>()) && "LLT: default");
     }
 
@@ -135,7 +135,7 @@ void test_sparse_llt()
     {
         CALL_SUBTEST_1(sparse_llt<double>(8, 8));
         int s = internal::random<int>(1, 300);
-        CALL_SUBTEST_2(sparse_llt<std::complex<double> >(s, s));
+        CALL_SUBTEST_2(sparse_llt<std::complex<double>>(s, s));
         CALL_SUBTEST_1(sparse_llt<double>(s, s));
     }
 }

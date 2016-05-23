@@ -49,7 +49,7 @@
 namespace internal
 {
 template<typename BinaryOp, typename Lhs, typename Rhs>
-struct traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >
+struct traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs>>
 {
     // we must not inherit from traits<Lhs> since it has
     // the potential to cause problems with MSVC
@@ -188,12 +188,12 @@ const BinaryOp  m_functor;
 
 template<typename BinaryOp, typename Lhs, typename Rhs>
 class CwiseBinaryOpImpl<BinaryOp, Lhs, Rhs, Dense>
-    : public internal::dense_xpr_base<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >::type
+    : public internal::dense_xpr_base<CwiseBinaryOp<BinaryOp, Lhs, Rhs>>::type
 {
 typedef CwiseBinaryOp<BinaryOp, Lhs, Rhs> Derived;
 public:
 
-typedef typename internal::dense_xpr_base<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >::type Base;
+typedef typename internal::dense_xpr_base<CwiseBinaryOp<BinaryOp, Lhs, Rhs>>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(Derived)
 
 EIGEN_STRONG_INLINE const Scalar coeff(Index row, Index col) const

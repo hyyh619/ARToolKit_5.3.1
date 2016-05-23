@@ -71,7 +71,7 @@ FREAKExtractor();
  * Get a set of tests for an 84 byte descriptor.
  */
 void layout84(std::vector<receptor> &receptors,
-              std::vector<std::vector<int> > &tests);
+              std::vector<std::vector<int>> &tests);
 
 /**
  * Extract a 96 byte descriptor.
@@ -81,13 +81,13 @@ void extract(BinaryFeatureStore &store,
              const std::vector<FeaturePoint> &points);
 
 #ifdef FREAK_DEBUG
-std::vector<Point2d<float> > mMappedPoints0;
-std::vector<Point2d<float> > mMappedPoints1;
-std::vector<Point2d<float> > mMappedPoints2;
-std::vector<Point2d<float> > mMappedPoints3;
-std::vector<Point2d<float> > mMappedPoints4;
-std::vector<Point2d<float> > mMappedPoints5;
-std::vector<Point2d<float> > mMappedPointsC;
+std::vector<Point2d<float>> mMappedPoints0;
+std::vector<Point2d<float>> mMappedPoints1;
+std::vector<Point2d<float>> mMappedPoints2;
+std::vector<Point2d<float>> mMappedPoints3;
+std::vector<Point2d<float>> mMappedPoints4;
+std::vector<Point2d<float>> mMappedPoints5;
+std::vector<Point2d<float>> mMappedPointsC;
 
 std::vector<float> mMappedS0;
 std::vector<float> mMappedS1;
@@ -534,13 +534,13 @@ inline void ExtractFREAK84(BinaryFeatureStore &store,
                            float expansion_factor
 #ifdef FREAK_DEBUG
                            ,
-                           std::vector<Point2d<float> > &mapped_ring0,
-                           std::vector<Point2d<float> > &mapped_ring1,
-                           std::vector<Point2d<float> > &mapped_ring2,
-                           std::vector<Point2d<float> > &mapped_ring3,
-                           std::vector<Point2d<float> > &mapped_ring4,
-                           std::vector<Point2d<float> > &mapped_ring5,
-                           std::vector<Point2d<float> > &mapped_ringC,
+                           std::vector<Point2d<float>> &mapped_ring0,
+                           std::vector<Point2d<float>> &mapped_ring1,
+                           std::vector<Point2d<float>> &mapped_ring2,
+                           std::vector<Point2d<float>> &mapped_ring3,
+                           std::vector<Point2d<float>> &mapped_ring4,
+                           std::vector<Point2d<float>> &mapped_ring5,
+                           std::vector<Point2d<float>> &mapped_ringC,
                            std::vector<float> &mapped_s0,
                            std::vector<float> &mapped_s1,
                            std::vector<float> &mapped_s2,
@@ -559,20 +559,20 @@ inline void ExtractFREAK84(BinaryFeatureStore &store,
     for (size_t i = 0; i < points.size(); i++)
     {
 #ifdef FREAK_DEBUG
-        std::vector<Point2d<float> > tmp_p0(6);
-        std::vector<Point2d<float> > tmp_p1(6);
-        std::vector<Point2d<float> > tmp_p2(6);
-        std::vector<Point2d<float> > tmp_p3(6);
-        std::vector<Point2d<float> > tmp_p4(6);
-        std::vector<Point2d<float> > tmp_p5(6);
-        Point2d<float>               tmp_pc;
-        float                        tmp_s0;
-        float                        tmp_s1;
-        float                        tmp_s2;
-        float                        tmp_s3;
-        float                        tmp_s4;
-        float                        tmp_s5;
-        float                        tmp_sc;
+        std::vector<Point2d<float>> tmp_p0(6);
+        std::vector<Point2d<float>> tmp_p1(6);
+        std::vector<Point2d<float>> tmp_p2(6);
+        std::vector<Point2d<float>> tmp_p3(6);
+        std::vector<Point2d<float>> tmp_p4(6);
+        std::vector<Point2d<float>> tmp_p5(6);
+        Point2d<float>              tmp_pc;
+        float                       tmp_s0;
+        float                       tmp_s1;
+        float                       tmp_s2;
+        float                       tmp_s3;
+        float                       tmp_s4;
+        float                       tmp_s5;
+        float                       tmp_sc;
 #endif
 
         if (!ExtractFREAK84(store.feature(num_points),

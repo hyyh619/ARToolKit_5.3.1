@@ -42,8 +42,8 @@
 
 namespace vision
 {
-typedef VisualDatabase<FREAKExtractor, BinaryFeatureStore, BinaryFeatureMatcher<96> > vdb_t;
-typedef std::vector<vision::Point3d<float> > Point3dVector;
+typedef VisualDatabase<FREAKExtractor, BinaryFeatureStore, BinaryFeatureMatcher<96>> vdb_t;
+typedef std::vector<vision::Point3d<float>> Point3dVector;
 typedef std::unordered_map<int, Point3dVector> point3d_map_t;
 
 class VisualDatabaseImpl
@@ -78,12 +78,12 @@ void VisualDatabaseFacade::addImage(unsigned char *grayImage,
 
 void VisualDatabaseFacade::addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint> &featurePoints,
                                                           const std::vector<unsigned char> &descriptors,
-                                                          const std::vector<vision::Point3d<float> > &points3D,
+                                                          const std::vector<vision::Point3d<float>> &points3D,
                                                           size_t width,
                                                           size_t height,
                                                           int image_id)
 {
-    std::shared_ptr<Keyframe<96> > keyframe(new Keyframe<96>());
+    std::shared_ptr<Keyframe<96>> keyframe(new Keyframe<96>());
 
     keyframe->setWidth((int)width);
     keyframe->setHeight((int)height);
@@ -150,7 +150,7 @@ const std::vector<unsigned char>&VisualDatabaseFacade::getDescriptors(int image_
     return mVisualDbImpl->mVdb->keyframe(image_id)->store().features();
 }
 
-const std::vector<vision::Point3d<float> >&VisualDatabaseFacade::get3DFeaturePoints(int image_id) const
+const std::vector<vision::Point3d<float>>&VisualDatabaseFacade::get3DFeaturePoints(int image_id) const
 {
     return mVisualDbImpl->mPoint3d[image_id];
 }

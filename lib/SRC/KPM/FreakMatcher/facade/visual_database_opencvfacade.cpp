@@ -45,7 +45,7 @@ static int fileId = 0;
 
 namespace vision
 {
-typedef std::unordered_map<int, std::vector<cv::KeyPoint> > keypoint_map_t;
+typedef std::unordered_map<int, std::vector<cv::KeyPoint>> keypoint_map_t;
 typedef std::unordered_map<int, cv::Mat> descriptor_map_t;
 typedef std::unordered_map<int, cv::Size> size_map_t;
 typedef std::unordered_map<int, cv::Mat> image_map_t;

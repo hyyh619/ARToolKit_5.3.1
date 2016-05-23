@@ -393,9 +393,9 @@ void ComputeHarrisStrengthImageNeon(float *S,
 }
 #endif
 
-void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
-                        std::vector<Point2d<int> > &outPoints,
-                        const std::vector<Point2d<int> > &inPoints,
+void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, size_t>>>> &buckets,
+                        std::vector<Point2d<int>> &outPoints,
+                        const std::vector<Point2d<int>> &inPoints,
                         const std::vector<float> &scores,
                         int num_buckets_X,
                         int num_buckets_Y,
@@ -440,8 +440,8 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
     {
         for (size_t j = 0; j < buckets[i].size(); j++)
         {
-            std::vector<std::pair<float, size_t> > &bucket = buckets[i][j];
-            size_t                                 n       = std::min<size_t>(bucket.size(), num_points_per_bucket);
+            std::vector<std::pair<float, size_t>> &bucket = buckets[i][j];
+            size_t                                n       = std::min<size_t>(bucket.size(), num_points_per_bucket);
             if (n == 0)
             {
                 continue;
@@ -449,7 +449,7 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
 
             std::nth_element(bucket.begin(),
                              bucket.begin() + n,
-                             bucket.end(), std::greater<std::pair<float, size_t> >());
+                             bucket.end(), std::greater<std::pair<float, size_t>>());
 
             DEBUG_BLOCK(
                 if (n > bucket.size())
@@ -467,7 +467,7 @@ void PruneHarrisCorners(std::vector<std::vector<std::vector<std::pair<float, siz
     }
 }
 
-void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> > &points,
+void HarrisNonmaxSuppression3x3(std::vector<Point2d<int>> &points,
                                 std::vector<float> &scores,
                                 const float *S,
                                 int width,
@@ -529,7 +529,7 @@ void HarrisNonmaxSuppression3x3(std::vector<Point2d<int> > &points,
     }
 }
 
-void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> > &points,
+void HarrisNonmaxSuppression5x5(std::vector<Point2d<int>> &points,
                                 std::vector<float> &scores,
                                 const float *S,
                                 int width,
@@ -607,8 +607,8 @@ void HarrisNonmaxSuppression5x5(std::vector<Point2d<int> > &points,
     }
 }
 
-void RefineHarrisCorners(std::vector<Point2d<float> > &outPoints,
-                         const std::vector<Point2d<int> > &inPoints,
+void RefineHarrisCorners(std::vector<Point2d<float>> &outPoints,
+                         const std::vector<Point2d<int>> &inPoints,
                          const float *S,
                          int width,
                          int height,

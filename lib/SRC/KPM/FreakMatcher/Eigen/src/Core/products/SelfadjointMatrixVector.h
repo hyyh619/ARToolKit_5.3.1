@@ -176,8 +176,8 @@ static EIGEN_DONT_INLINE void product_selfadjoint_vector(
 namespace internal
 {
 template<typename Lhs, int LhsMode, typename Rhs>
-struct traits<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, 0, true> >
-    : traits<ProductBase<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, 0, true>, Lhs, Rhs> >
+struct traits<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, 0, true>>
+    : traits<ProductBase<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, 0, true>, Lhs, Rhs>>
 {};
 }
 
@@ -259,8 +259,8 @@ struct SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, 0, true>
 namespace internal
 {
 template<typename Lhs, typename Rhs, int RhsMode>
-struct traits<SelfadjointProductMatrix<Lhs, 0, true, Rhs, RhsMode, false> >
-    : traits<ProductBase<SelfadjointProductMatrix<Lhs, 0, true, Rhs, RhsMode, false>, Lhs, Rhs> >
+struct traits<SelfadjointProductMatrix<Lhs, 0, true, Rhs, RhsMode, false>>
+    : traits<ProductBase<SelfadjointProductMatrix<Lhs, 0, true, Rhs, RhsMode, false>, Lhs, Rhs>>
 {};
 }
 

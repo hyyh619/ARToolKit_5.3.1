@@ -56,7 +56,7 @@ void addImage(unsigned char *grayImage, size_t width, size_t height, int image_i
 
 void addFreakFeaturesAndDescriptors(const std::vector<FeaturePoint> &featurePoints,
                                     const std::vector<unsigned char> &descriptors,
-                                    const std::vector<vision::Point3d<float> > &points3D,
+                                    const std::vector<vision::Point3d<float>> &points3D,
                                     size_t width,
                                     size_t height,
                                     int image_id);
@@ -81,7 +81,7 @@ const std::vector<FeaturePoint>&getFeaturePoints(int image_id) const;
 
 const std::vector<unsigned char>&getDescriptors(int image_id) const;
 
-const std::vector<vision::Point3d<float> >&get3DFeaturePoints(int image_id) const;
+const std::vector<vision::Point3d<float>>&get3DFeaturePoints(int image_id) const;
 
 int getWidth(int image_id) const;
 int getHeight(int image_id) const;

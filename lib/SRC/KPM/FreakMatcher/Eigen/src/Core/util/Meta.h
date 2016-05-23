@@ -197,7 +197,7 @@ public:
              typedef T ReturnType;
          };
 
-         template<typename T> struct scalar_product_traits<T, std::complex<T> >
+         template<typename T> struct scalar_product_traits<T, std::complex<T>>
          {
              // enum { Cost = 2*NumTraits<T>::MulCost };
              typedef std::complex<T> ReturnType;
@@ -218,13 +218,13 @@ public:
          template<typename T> struct is_diagonal
          { enum { ret = false }; };
 
-         template<typename T> struct is_diagonal<DiagonalBase<T> >
+         template<typename T> struct is_diagonal<DiagonalBase<T>>
          { enum { ret = true }; };
 
-         template<typename T> struct is_diagonal<DiagonalWrapper<T> >
+         template<typename T> struct is_diagonal<DiagonalWrapper<T>>
          { enum { ret = true }; };
 
-         template<typename T, int S> struct is_diagonal<DiagonalMatrix<T, S> >
+         template<typename T, int S> struct is_diagonal<DiagonalMatrix<T, S>>
          { enum { ret = true }; };
          } // end namespace internal
 #endif // EIGEN_META_H

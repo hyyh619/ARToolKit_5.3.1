@@ -52,7 +52,7 @@ extern "C" {
 #  include "AnnMatch2.h"
 #endif
 
-int kpmUtilGetPose_binary(ARParamLT * cparamLT, const vision::matches_t & matchData, const std::vector<vision::Point3d<float> > &refDataSet, const std::vector<vision::FeaturePoint> &inputDataSet, float camPose[3][4], float  *error);
+int kpmUtilGetPose_binary(ARParamLT * cparamLT, const vision::matches_t & matchData, const std::vector<vision::Point3d<float>> &refDataSet, const std::vector<vision::FeaturePoint> &inputDataSet, float camPose[3][4], float  *error);
 
 template<typename T>
 std::string arrayToString(T *v, size_t size)
@@ -339,9 +339,9 @@ int kpmSetRefDataSet(KpmHandle *kpmHandle, KpmRefDataSet *refDataSet)
         {
             for (int m = 0; m < kpmHandle->refDataSet.pageInfo[k].imageNum; m++)
             {
-                std::vector<vision::FeaturePoint>    points;
-                std::vector<vision::Point3d<float> > points_3d;
-                std::vector<unsigned char>           descriptors;
+                std::vector<vision::FeaturePoint>   points;
+                std::vector<vision::Point3d<float>> points_3d;
+                std::vector<unsigned char>          descriptors;
 
                 for (int i = 0; i < featureVector.num; i++)
                 {
@@ -843,7 +843,7 @@ int kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImage)
 }
 
 
-int kpmUtilGetPose_binary(ARParamLT *cparamLT, const vision::matches_t &matchData, const std::vector<vision::Point3d<float> > &refDataSet, const std::vector<vision::FeaturePoint> &inputDataSet, float camPose[3][4], float *error)
+int kpmUtilGetPose_binary(ARParamLT *cparamLT, const vision::matches_t &matchData, const std::vector<vision::Point3d<float>> &refDataSet, const std::vector<vision::FeaturePoint> &inputDataSet, float camPose[3][4], float *error)
 {
     ICPHandleT  *icpHandle;
     ICPDataT    icpData;

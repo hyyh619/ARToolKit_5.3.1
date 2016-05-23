@@ -135,7 +135,7 @@ void BVIntersect(const BVH1 &tree1, const BVH2 &tree2, Intersector &intersector)
     VolIter2 vBegin2 = VolIter2(), vEnd2 = VolIter2(), vCur2 = VolIter2();
     ObjIter2 oBegin2 = ObjIter2(), oEnd2 = ObjIter2(), oCur2 = ObjIter2();
 
-    std::vector<std::pair<Index1, Index2> > todo(1, std::make_pair(tree1.getRootIndex(), tree2.getRootIndex()));
+    std::vector<std::pair<Index1, Index2>> todo(1, std::make_pair(tree1.getRootIndex(), tree2.getRootIndex()));
 
     while (!todo.empty())
     {
@@ -191,9 +191,9 @@ typename Minimizer::Scalar minimize_helper(const BVH &tree, Minimizer &minimizer
     typedef typename BVH::VolumeIterator VolIter;
     typedef typename BVH::ObjectIterator ObjIter;
 
-    VolIter                                                                                   vBegin = VolIter(), vEnd = VolIter();
-    ObjIter                                                                                   oBegin = ObjIter(), oEnd = ObjIter();
-    std::priority_queue<QueueElement, std::vector<QueueElement>, std::greater<QueueElement> > todo; // smallest is at the top
+    VolIter                                                                                  vBegin = VolIter(), vEnd = VolIter();
+    ObjIter                                                                                  oBegin = ObjIter(), oEnd = ObjIter();
+    std::priority_queue<QueueElement, std::vector<QueueElement>, std::greater<QueueElement>> todo;  // smallest is at the top
 
     todo.push(std::make_pair(Scalar(), root));
 
@@ -289,17 +289,17 @@ typename Minimizer::Scalar BVMinimize(const BVH1 &tree1, const BVH2 &tree2, Mini
     typedef typename BVH2::Index Index2;
     typedef internal::minimizer_helper1<typename BVH1::Volume, typename BVH1::Object, typename BVH2::Object, Minimizer> Helper1;
     typedef internal::minimizer_helper2<typename BVH2::Volume, typename BVH2::Object, typename BVH1::Object, Minimizer> Helper2;
-    typedef std::pair<Scalar, std::pair<Index1, Index2> > QueueElement; // first element is priority
+    typedef std::pair<Scalar, std::pair<Index1, Index2>> QueueElement;  // first element is priority
     typedef typename BVH1::VolumeIterator VolIter1;
     typedef typename BVH1::ObjectIterator ObjIter1;
     typedef typename BVH2::VolumeIterator VolIter2;
     typedef typename BVH2::ObjectIterator ObjIter2;
 
-    VolIter1                                                                                  vBegin1 = VolIter1(), vEnd1 = VolIter1();
-    ObjIter1                                                                                  oBegin1 = ObjIter1(), oEnd1 = ObjIter1();
-    VolIter2                                                                                  vBegin2 = VolIter2(), vEnd2 = VolIter2(), vCur2 = VolIter2();
-    ObjIter2                                                                                  oBegin2 = ObjIter2(), oEnd2 = ObjIter2(), oCur2 = ObjIter2();
-    std::priority_queue<QueueElement, std::vector<QueueElement>, std::greater<QueueElement> > todo; // smallest is at the top
+    VolIter1                                                                                 vBegin1 = VolIter1(), vEnd1 = VolIter1();
+    ObjIter1                                                                                 oBegin1 = ObjIter1(), oEnd1 = ObjIter1();
+    VolIter2                                                                                 vBegin2 = VolIter2(), vEnd2 = VolIter2(), vCur2 = VolIter2();
+    ObjIter2                                                                                 oBegin2 = ObjIter2(), oEnd2 = ObjIter2(), oCur2 = ObjIter2();
+    std::priority_queue<QueueElement, std::vector<QueueElement>, std::greater<QueueElement>> todo;  // smallest is at the top
 
     Scalar minimum = (std::numeric_limits<Scalar>::max)();
     todo.push(std::make_pair(Scalar(), std::make_pair(tree1.getRootIndex(), tree2.getRootIndex())));

@@ -42,7 +42,7 @@
 namespace internal
 {
 template<typename ViewOp, typename MatrixType>
-struct traits<CwiseUnaryView<ViewOp, MatrixType> >
+struct traits<CwiseUnaryView<ViewOp, MatrixType>>
     : traits<MatrixType>
 {
     typedef typename result_of<
@@ -117,12 +117,12 @@ ViewOp m_functor;
 
 template<typename ViewOp, typename MatrixType>
 class CwiseUnaryViewImpl<ViewOp, MatrixType, Dense>
-    : public internal::dense_xpr_base<CwiseUnaryView<ViewOp, MatrixType> >::type
+    : public internal::dense_xpr_base<CwiseUnaryView<ViewOp, MatrixType>>::type
 {
 public:
 
 typedef CwiseUnaryView<ViewOp, MatrixType> Derived;
-typedef typename internal::dense_xpr_base<CwiseUnaryView<ViewOp, MatrixType> >::type Base;
+typedef typename internal::dense_xpr_base<CwiseUnaryView<ViewOp, MatrixType>>::type Base;
 
 EIGEN_DENSE_PUBLIC_INTERFACE(Derived)
 

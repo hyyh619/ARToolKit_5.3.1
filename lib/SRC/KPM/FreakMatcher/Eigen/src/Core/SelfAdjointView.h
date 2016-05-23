@@ -44,7 +44,7 @@
 namespace internal
 {
 template<typename MatrixType, unsigned int UpLo>
-struct traits<SelfAdjointView<MatrixType, UpLo> > : traits<MatrixType>
+struct traits<SelfAdjointView<MatrixType, UpLo>> : traits<MatrixType>
 {
     typedef typename nested<MatrixType>::type MatrixTypeNested;
     typedef typename remove_all<MatrixTypeNested>::type MatrixTypeNestedCleaned;
@@ -66,7 +66,7 @@ struct SelfadjointProductMatrix;
 
 // FIXME could also be called SelfAdjointWrapper to be consistent with DiagonalWrapper ??
 template<typename MatrixType, unsigned int UpLo> class SelfAdjointView
-    : public TriangularBase<SelfAdjointView<MatrixType, UpLo> >
+    : public TriangularBase<SelfAdjointView<MatrixType, UpLo>>
 {
 public:
 

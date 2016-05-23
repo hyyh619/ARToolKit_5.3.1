@@ -121,7 +121,7 @@ template<typename Derived,
          int Level = internal::accessors_level<Derived>::has_write_access ? WriteAccessors : ReadOnlyAccessors
          > class MapBase;
 template<int InnerStrideAtCompileTime, int OuterStrideAtCompileTime> class Stride;
-template<typename MatrixType, int MapOptions = Unaligned, typename StrideType = Stride<0, 0> > class Map;
+template<typename MatrixType, int MapOptions = Unaligned, typename StrideType = Stride<0, 0>> class Map;
 
 template<typename Derived> class TriangularBase;
 template<typename MatrixType, unsigned int Mode> class TriangularView;

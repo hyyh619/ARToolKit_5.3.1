@@ -88,7 +88,7 @@ struct LshStats
     size_t                    bucket_size_std_dev;
     /** Each contained vector contains three value: beginning/end for interval, number of elements in the bin
      */
-    std::vector<std::vector<unsigned int> > size_histogram_;
+    std::vector<std::vector<unsigned int>> size_histogram_;
 };
 
 /** Overload the << operator for LshStats
@@ -112,7 +112,7 @@ inline std::ostream&operator <<(std::ostream &out, const LshStats &stats)
     out << std::endl << std::setw(w) << std::setiosflags(std::ios::right) << "histogram : "
         << std::setiosflags(std::ios::left);
 
-    for (std::vector<std::vector<unsigned int> >::const_iterator iterator = stats.size_histogram_.begin(), end =
+    for (std::vector<std::vector<unsigned int>>::const_iterator iterator = stats.size_histogram_.begin(), end =
              stats.size_histogram_.end(); iterator != end; ++iterator)
         out << (*iterator)[0] << "-" << (*iterator)[1] << ": " << (*iterator)[2] << ",  ";
 

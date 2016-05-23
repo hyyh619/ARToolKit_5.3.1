@@ -138,8 +138,8 @@ template<> struct NumTraits<long double>
     }
 };
 
-template<typename _Real> struct NumTraits<std::complex<_Real> >
-    : GenericNumTraits<std::complex<_Real> >
+template<typename _Real> struct NumTraits<std::complex<_Real>>
+    : GenericNumTraits<std::complex<_Real>>
 {
     typedef _Real Real;
     enum
@@ -162,7 +162,7 @@ template<typename _Real> struct NumTraits<std::complex<_Real> >
 };
 
 template<typename Scalar, int Rows, int Cols, int Options, int MaxRows, int MaxCols>
-struct NumTraits<Array<Scalar, Rows, Cols, Options, MaxRows, MaxCols> >
+struct NumTraits<Array<Scalar, Rows, Cols, Options, MaxRows, MaxCols>>
 {
     typedef Array<Scalar, Rows, Cols, Options, MaxRows, MaxCols> ArrayType;
     typedef typename NumTraits<Scalar>::Real RealScalar;

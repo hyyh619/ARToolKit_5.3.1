@@ -40,7 +40,7 @@
 
 template<typename UnaryOp, typename MatrixType>
 class CwiseUnaryOpImpl<UnaryOp, MatrixType, Sparse>
-    : public SparseMatrixBase<CwiseUnaryOp<UnaryOp, MatrixType> >
+    : public SparseMatrixBase<CwiseUnaryOp<UnaryOp, MatrixType>>
 {
 public:
 
@@ -99,7 +99,7 @@ const UnaryOp      m_functor;
 
 template<typename ViewOp, typename MatrixType>
 class CwiseUnaryViewImpl<ViewOp, MatrixType, Sparse>
-    : public SparseMatrixBase<CwiseUnaryView<ViewOp, MatrixType> >
+    : public SparseMatrixBase<CwiseUnaryView<ViewOp, MatrixType>>
 {
 public:
 

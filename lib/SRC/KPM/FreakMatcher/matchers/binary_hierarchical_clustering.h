@@ -258,7 +258,7 @@ public:
 typedef Node<NUM_BYTES_PER_FEATURE> node_t;
 typedef std::unique_ptr<node_t> node_ptr_t;
 typedef BinarykMedoids<NUM_BYTES_PER_FEATURE> kmedoids_t;
-typedef std::unordered_map<int, std::vector<int> > cluster_map_t;
+typedef std::unordered_map<int, std::vector<int>> cluster_map_t;
 
 typedef PriorityQueueItem<NUM_BYTES_PER_FEATURE> queue_item_t;
 typedef std::priority_queue<queue_item_t> queue_t;

@@ -80,7 +80,7 @@
 namespace internal
 {
 template<typename PlainObjectType, int MapOptions, typename StrideType>
-struct traits<Map<PlainObjectType, MapOptions, StrideType> >
+struct traits<Map<PlainObjectType, MapOptions, StrideType>>
     : public traits<PlainObjectType>
 {
     typedef traits<PlainObjectType> TraitsBase;
@@ -117,7 +117,7 @@ private:
 }
 
 template<typename PlainObjectType, int MapOptions, typename StrideType> class Map
-    : public MapBase<Map<PlainObjectType, MapOptions, StrideType> >
+    : public MapBase<Map<PlainObjectType, MapOptions, StrideType>>
 {
 public:
 

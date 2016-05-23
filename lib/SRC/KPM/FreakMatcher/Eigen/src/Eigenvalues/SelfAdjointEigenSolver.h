@@ -520,7 +520,7 @@ static void tridiagonal_qr_step(RealScalar *diag, RealScalar *subdiag, Index sta
         if (matrixQ)
         {
             // FIXME if StorageOrder == RowMajor this operation is not very efficient
-            Map<Matrix<Scalar, Dynamic, Dynamic, StorageOrder> > q(matrixQ, n, n);
+            Map<Matrix<Scalar, Dynamic, Dynamic, StorageOrder>> q(matrixQ, n, n);
             q.applyOnTheRight(k, k + 1, rot);
         }
     }

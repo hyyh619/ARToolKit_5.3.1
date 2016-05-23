@@ -369,8 +369,8 @@ struct product_triangular_matrix_matrix<Scalar, Index, Mode, false,
 ***************************************************************************/
 
 template<int Mode, bool LhsIsTriangular, typename Lhs, typename Rhs>
-struct traits<TriangularProduct<Mode, LhsIsTriangular, Lhs, false, Rhs, false> >
-    : traits<ProductBase<TriangularProduct<Mode, LhsIsTriangular, Lhs, false, Rhs, false>, Lhs, Rhs> >
+struct traits<TriangularProduct<Mode, LhsIsTriangular, Lhs, false, Rhs, false>>
+    : traits<ProductBase<TriangularProduct<Mode, LhsIsTriangular, Lhs, false, Rhs, false>, Lhs, Rhs>>
 {};
 } // end namespace internal
 

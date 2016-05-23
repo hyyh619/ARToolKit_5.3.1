@@ -49,7 +49,7 @@
 namespace internal
 {
 template<typename UnaryOp, typename XprType>
-struct traits<CwiseUnaryOp<UnaryOp, XprType> >
+struct traits<CwiseUnaryOp<UnaryOp, XprType>>
     : traits<XprType>
 {
     typedef typename result_of<
@@ -117,12 +117,12 @@ const UnaryOp m_functor;
 // It can be used for any expression types implementing the dense concept.
 template<typename UnaryOp, typename XprType>
 class CwiseUnaryOpImpl<UnaryOp, XprType, Dense>
-    : public internal::dense_xpr_base<CwiseUnaryOp<UnaryOp, XprType> >::type
+    : public internal::dense_xpr_base<CwiseUnaryOp<UnaryOp, XprType>>::type
 {
 public:
 
 typedef CwiseUnaryOp<UnaryOp, XprType> Derived;
-typedef typename internal::dense_xpr_base<CwiseUnaryOp<UnaryOp, XprType> >::type Base;
+typedef typename internal::dense_xpr_base<CwiseUnaryOp<UnaryOp, XprType>>::type Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(Derived)
 
 EIGEN_STRONG_INLINE const Scalar coeff(Index row, Index col) const

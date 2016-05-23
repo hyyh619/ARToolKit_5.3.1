@@ -276,8 +276,8 @@ void getNeighbors(const ElementType *vec, bool /*do_radius*/, float radius, bool
     if (do_k)
     {
         unsigned int worst_score = std::numeric_limits<unsigned int>::max();
-        typename std::vector<lsh::LshTable<ElementType> >::const_iterator table     = tables_.begin();
-        typename std::vector<lsh::LshTable<ElementType> >::const_iterator table_end = tables_.end();
+        typename std::vector<lsh::LshTable<ElementType>>::const_iterator table     = tables_.begin();
+        typename std::vector<lsh::LshTable<ElementType>>::const_iterator table_end = tables_.end();
 
         for (; table != table_end; ++table)
         {
@@ -323,8 +323,8 @@ void getNeighbors(const ElementType *vec, bool /*do_radius*/, float radius, bool
     }
     else
     {
-        typename std::vector<lsh::LshTable<ElementType> >::const_iterator table     = tables_.begin();
-        typename std::vector<lsh::LshTable<ElementType> >::const_iterator table_end = tables_.end();
+        typename std::vector<lsh::LshTable<ElementType>>::const_iterator table     = tables_.begin();
+        typename std::vector<lsh::LshTable<ElementType>>::const_iterator table_end = tables_.end();
 
         for (; table != table_end; ++table)
         {
@@ -363,8 +363,8 @@ void getNeighbors(const ElementType *vec, bool /*do_radius*/, float radius, bool
  */
 void getNeighbors(const ElementType *vec, ResultSet<DistanceType> &result)
 {
-    typename std::vector<lsh::LshTable<ElementType> >::const_iterator table     = tables_.begin();
-    typename std::vector<lsh::LshTable<ElementType> >::const_iterator table_end = tables_.end();
+    typename std::vector<lsh::LshTable<ElementType>>::const_iterator table     = tables_.begin();
+    typename std::vector<lsh::LshTable<ElementType>>::const_iterator table_end = tables_.end();
 
     for (; table != table_end; ++table)
     {
@@ -396,7 +396,7 @@ void getNeighbors(const ElementType *vec, ResultSet<DistanceType> &result)
 }
 
 /** The different hash tables */
-std::vector<lsh::LshTable<ElementType> > tables_;
+std::vector<lsh::LshTable<ElementType>> tables_;
 
 /** The data the LSH tables where built from */
 Matrix<ElementType> dataset_;

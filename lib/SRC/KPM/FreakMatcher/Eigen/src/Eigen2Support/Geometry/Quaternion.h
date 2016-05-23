@@ -51,7 +51,7 @@ struct ei_quaternion_assign_impl;
  * \sa  class AngleAxis, class Transform
  */
 
-template<typename _Scalar> struct ei_traits<Quaternion<_Scalar> >
+template<typename _Scalar> struct ei_traits<Quaternion<_Scalar>>
 {
     typedef _Scalar Scalar;
 };
@@ -265,9 +265,9 @@ Vector3 operator*(const MatrixBase<Derived> &vec) const;
  * then this function smartly returns a const reference to \c *this.
  */
 template<typename NewScalarType>
-inline typename internal::cast_return_type<Quaternion, Quaternion<NewScalarType> >::type cast() const
+inline typename internal::cast_return_type<Quaternion, Quaternion<NewScalarType>>::type cast() const
 {
-    return typename internal::cast_return_type<Quaternion, Quaternion<NewScalarType> >::type(*this);
+    return typename internal::cast_return_type<Quaternion, Quaternion<NewScalarType>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

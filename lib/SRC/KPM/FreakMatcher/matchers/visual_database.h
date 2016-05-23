@@ -414,8 +414,8 @@ inline bool EstimateHomography(float H[9],
                                int refWidth,
                                int refHeight)
 {
-    std::vector<vision::Point2d<float> > srcPoints(matches.size());
-    std::vector<vision::Point2d<float> > dstPoints(matches.size());
+    std::vector<vision::Point2d<float>> srcPoints(matches.size());
+    std::vector<vision::Point2d<float>> dstPoints(matches.size());
 
     //
     // Copy correspondences

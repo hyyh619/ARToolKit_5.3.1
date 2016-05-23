@@ -544,7 +544,7 @@ typename MatrixFunction<MatrixType, 1>::DynMatrixType MatrixFunction<MatrixType,
  * time this is the only way it is used.
  */
 template<typename Derived> class MatrixFunctionReturnValue
-    : public ReturnByValue<MatrixFunctionReturnValue<Derived> >
+    : public ReturnByValue<MatrixFunctionReturnValue<Derived>>
 {
 public:
 
@@ -592,7 +592,7 @@ MatrixFunctionReturnValue&operator=(const MatrixFunctionReturnValue&);
 namespace internal
 {
 template<typename Derived>
-struct traits<MatrixFunctionReturnValue<Derived> >
+struct traits<MatrixFunctionReturnValue<Derived>>
 {
     typedef typename Derived::PlainObject ReturnType;
 };

@@ -148,7 +148,7 @@ virtual void update();
 virtual void inpaint(int idx, Mat &frame, Mat &mask);
 
 private:
-std::vector<Ptr<InpainterBase> > inpainters_;
+std::vector<Ptr<InpainterBase>> inpainters_;
 };
 
 class CV_EXPORTS ConsistentMosaicInpainter : public InpainterBase

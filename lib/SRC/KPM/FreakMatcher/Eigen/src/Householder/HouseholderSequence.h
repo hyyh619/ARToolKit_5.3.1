@@ -70,7 +70,7 @@
 namespace internal
 {
 template<typename VectorsType, typename CoeffsType, int Side>
-struct traits<HouseholderSequence<VectorsType, CoeffsType, Side> >
+struct traits<HouseholderSequence<VectorsType, CoeffsType, Side>>
 {
     typedef typename VectorsType::Scalar Scalar;
     typedef typename VectorsType::Index Index;
@@ -104,7 +104,7 @@ struct hseq_side_dependent_impl
 template<typename VectorsType, typename CoeffsType>
 struct hseq_side_dependent_impl<VectorsType, CoeffsType, OnTheRight>
 {
-    typedef Transpose<Block<const VectorsType, 1, Dynamic> > EssentialVectorType;
+    typedef Transpose<Block<const VectorsType, 1, Dynamic>> EssentialVectorType;
     typedef HouseholderSequence<VectorsType, CoeffsType, OnTheRight> HouseholderSequenceType;
     typedef typename VectorsType::Index Index;
     static inline const EssentialVectorType essentialVector(const HouseholderSequenceType &h, Index k)
@@ -125,7 +125,7 @@ template<typename OtherScalarType, typename MatrixType> struct matrix_type_times
 } // end namespace internal
 
 template<typename VectorsType, typename CoeffsType, int Side> class HouseholderSequence
-    : public EigenBase<HouseholderSequence<VectorsType, CoeffsType, Side> >
+    : public EigenBase<HouseholderSequence<VectorsType, CoeffsType, Side>>
 {
 enum
 {

@@ -44,7 +44,7 @@
 namespace internal
 {
 template<typename MatrixType, int Direction>
-struct traits<Reverse<MatrixType, Direction> >
+struct traits<Reverse<MatrixType, Direction>>
     : traits<MatrixType>
 {
     typedef typename MatrixType::Scalar Scalar;
@@ -87,7 +87,7 @@ template<typename PacketScalar> struct reverse_packet_cond<PacketScalar, false>
 } // end namespace internal
 
 template<typename MatrixType, int Direction> class Reverse
-    : public internal::dense_xpr_base<Reverse<MatrixType, Direction> >::type
+    : public internal::dense_xpr_base<Reverse<MatrixType, Direction>>::type
 {
 public:
 

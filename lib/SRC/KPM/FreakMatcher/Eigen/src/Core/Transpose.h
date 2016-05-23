@@ -43,7 +43,7 @@
 namespace internal
 {
 template<typename MatrixType>
-struct traits<Transpose<MatrixType> > : traits<MatrixType>
+struct traits<Transpose<MatrixType>> : traits<MatrixType>
 {
     typedef typename MatrixType::Scalar Scalar;
     typedef typename nested<MatrixType>::type MatrixTypeNested;
@@ -110,13 +110,13 @@ namespace internal
 template<typename MatrixType, bool HasDirectAccess = has_direct_access<MatrixType>::ret>
 struct TransposeImpl_base
 {
-    typedef typename dense_xpr_base<Transpose<MatrixType> >::type type;
+    typedef typename dense_xpr_base<Transpose<MatrixType>>::type type;
 };
 
 template<typename MatrixType>
 struct TransposeImpl_base<MatrixType, false>
 {
-    typedef typename dense_xpr_base<Transpose<MatrixType> >::type type;
+    typedef typename dense_xpr_base<Transpose<MatrixType>>::type type;
 };
 } // end namespace internal
 
@@ -363,7 +363,7 @@ inline void MatrixBase<Derived>::adjointInPlace()
 namespace internal
 {
 template<typename BinOp, typename NestedXpr, typename Rhs>
-struct blas_traits<SelfCwiseBinaryOp<BinOp, NestedXpr, Rhs> >
+struct blas_traits<SelfCwiseBinaryOp<BinOp, NestedXpr, Rhs>>
     : blas_traits<NestedXpr>
 {
     typedef SelfCwiseBinaryOp<BinOp, NestedXpr, Rhs> XprType;
@@ -380,7 +380,7 @@ struct check_transpose_aliasing_compile_time_selector
 };
 
 template<bool DestIsTransposed, typename BinOp, typename DerivedA, typename DerivedB>
-struct check_transpose_aliasing_compile_time_selector<DestIsTransposed, CwiseBinaryOp<BinOp, DerivedA, DerivedB> >
+struct check_transpose_aliasing_compile_time_selector<DestIsTransposed, CwiseBinaryOp<BinOp, DerivedA, DerivedB>>
 {
     enum { ret = bool(blas_traits<DerivedA>::IsTransposed) != DestIsTransposed
                  || bool(blas_traits<DerivedB>::IsTransposed) != DestIsTransposed};
@@ -396,7 +396,7 @@ struct check_transpose_aliasing_run_time_selector
 };
 
 template<typename Scalar, bool DestIsTransposed, typename BinOp, typename DerivedA, typename DerivedB>
-struct check_transpose_aliasing_run_time_selector<Scalar, DestIsTransposed, CwiseBinaryOp<BinOp, DerivedA, DerivedB> >
+struct check_transpose_aliasing_run_time_selector<Scalar, DestIsTransposed, CwiseBinaryOp<BinOp, DerivedA, DerivedB>>
 {
     static bool run(const Scalar *dest, const CwiseBinaryOp<BinOp, DerivedA, DerivedB> &src)
     {

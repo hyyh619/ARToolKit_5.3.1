@@ -43,7 +43,7 @@
 namespace internal
 {
 template<typename MatrixType, int RowFactor, int ColFactor>
-struct traits<Replicate<MatrixType, RowFactor, ColFactor> >
+struct traits<Replicate<MatrixType, RowFactor, ColFactor>>
     : traits<MatrixType>
 {
     typedef typename MatrixType::Scalar Scalar;
@@ -76,7 +76,7 @@ struct traits<Replicate<MatrixType, RowFactor, ColFactor> >
 }
 
 template<typename MatrixType, int RowFactor, int ColFactor> class Replicate
-    : public internal::dense_xpr_base<Replicate<MatrixType, RowFactor, ColFactor> >::type
+    : public internal::dense_xpr_base<Replicate<MatrixType, RowFactor, ColFactor>>::type
 {
 typedef typename internal::traits<Replicate>::MatrixTypeNested MatrixTypeNested;
 typedef typename internal::traits<Replicate>::_MatrixTypeNested _MatrixTypeNested;

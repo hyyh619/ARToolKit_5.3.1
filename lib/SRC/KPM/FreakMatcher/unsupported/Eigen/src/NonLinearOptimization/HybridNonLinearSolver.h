@@ -212,8 +212,8 @@ HybridNonLinearSolver<FunctorType, Scalar>::solveOneStep(FVectorType &x)
 {
     assert(x.size() == n); // check the caller is not cheating us
 
-    Index                                j;
-    std::vector<JacobiRotation<Scalar> > v_givens(n), w_givens(n);
+    Index                               j;
+    std::vector<JacobiRotation<Scalar>> v_givens(n), w_givens(n);
 
     jeval = true;
 
@@ -476,8 +476,8 @@ HybridNonLinearSolver<FunctorType, Scalar>::solveNumericalDiffOneStep(FVectorTyp
 {
     assert(x.size() == n); // check the caller is not cheating us
 
-    Index                                j;
-    std::vector<JacobiRotation<Scalar> > v_givens(n), w_givens(n);
+    Index                               j;
+    std::vector<JacobiRotation<Scalar>> v_givens(n), w_givens(n);
 
     jeval = true;
     if (parameters.nb_of_subdiagonals < 0)

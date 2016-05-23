@@ -43,7 +43,7 @@ struct PointPointMinimizer // how to compute squared distances between points an
 
 int main()
 {
-    typedef std::vector<Vector2d, aligned_allocator<Vector2d> > StdVectorOfVector2d;
+    typedef std::vector<Vector2d, aligned_allocator<Vector2d>> StdVectorOfVector2d;
     StdVectorOfVector2d redPoints, bluePoints;
 
     for (int i = 0; i < 100; ++i) // initialize random set of red points and blue points

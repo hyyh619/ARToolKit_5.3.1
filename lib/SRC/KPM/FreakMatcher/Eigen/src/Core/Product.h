@@ -205,8 +205,8 @@ struct LazyProductReturnType : public ProductReturnType<Lhs, Rhs, LazyCoeffBased
 namespace internal
 {
 template<typename Lhs, typename Rhs>
-struct traits<GeneralProduct<Lhs, Rhs, InnerProduct> >
-    : traits<Matrix<typename scalar_product_traits<typename Lhs::Scalar, typename Rhs::Scalar>::ReturnType, 1, 1> >
+struct traits<GeneralProduct<Lhs, Rhs, InnerProduct>>
+    : traits<Matrix<typename scalar_product_traits<typename Lhs::Scalar, typename Rhs::Scalar>::ReturnType, 1, 1>>
 {};
 }
 
@@ -240,8 +240,8 @@ namespace internal
 template<int StorageOrder> struct outer_product_selector;
 
 template<typename Lhs, typename Rhs>
-struct traits<GeneralProduct<Lhs, Rhs, OuterProduct> >
-    : traits<ProductBase<GeneralProduct<Lhs, Rhs, OuterProduct>, Lhs, Rhs> >
+struct traits<GeneralProduct<Lhs, Rhs, OuterProduct>>
+    : traits<ProductBase<GeneralProduct<Lhs, Rhs, OuterProduct>, Lhs, Rhs>>
 {};
 }
 
@@ -311,8 +311,8 @@ template<> struct outer_product_selector<RowMajor>
 namespace internal
 {
 template<typename Lhs, typename Rhs>
-struct traits<GeneralProduct<Lhs, Rhs, GemvProduct> >
-    : traits<ProductBase<GeneralProduct<Lhs, Rhs, GemvProduct>, Lhs, Rhs> >
+struct traits<GeneralProduct<Lhs, Rhs, GemvProduct>>
+    : traits<ProductBase<GeneralProduct<Lhs, Rhs, GemvProduct>, Lhs, Rhs>>
 {};
 
 template<int Side, int StorageOrder, bool BlasCompatible>

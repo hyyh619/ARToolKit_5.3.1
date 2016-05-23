@@ -35,11 +35,11 @@
 namespace internal
 {
 template<typename ExpressionType>
-struct traits<SwapWrapper<ExpressionType> > : traits<ExpressionType> {};
+struct traits<SwapWrapper<ExpressionType>> : traits<ExpressionType> {};
 }
 
 template<typename ExpressionType> class SwapWrapper
-    : public internal::dense_xpr_base<SwapWrapper<ExpressionType> >::type
+    : public internal::dense_xpr_base<SwapWrapper<ExpressionType>>::type
 {
 public:
 

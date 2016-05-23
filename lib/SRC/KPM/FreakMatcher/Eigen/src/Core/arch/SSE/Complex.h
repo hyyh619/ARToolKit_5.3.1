@@ -35,7 +35,7 @@ struct Packet2cf
     __m128 v;
 };
 
-template<> struct packet_traits<std::complex<float> >  : default_packet_traits
+template<> struct packet_traits<std::complex<float>>  : default_packet_traits
 {
     typedef Packet2cf type;
     enum
@@ -142,16 +142,16 @@ template<> EIGEN_STRONG_INLINE Packet2cf ploaddup<Packet2cf>(const std::complex<
     return pset1<Packet2cf>(*from);
 }
 
-template<> EIGEN_STRONG_INLINE void pstore<std::complex<float> >(std::complex<float> *to, const Packet2cf &from)
+template<> EIGEN_STRONG_INLINE void pstore<std::complex<float>>(std::complex<float> *to, const Packet2cf &from)
 {
     EIGEN_DEBUG_ALIGNED_STORE pstore(&real_ref(*to), from.v);
 }
-template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float> >(std::complex<float> *to, const Packet2cf &from)
+template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<float>>(std::complex<float> *to, const Packet2cf &from)
 {
     EIGEN_DEBUG_UNALIGNED_STORE pstoreu(&real_ref(*to), from.v);
 }
 
-template<> EIGEN_STRONG_INLINE void prefetch<std::complex<float> >(const std::complex<float> *addr)
+template<> EIGEN_STRONG_INLINE void prefetch<std::complex<float>>(const std::complex<float> *addr)
 {
     _mm_prefetch((const char*)(addr), _MM_HINT_T0);
 }
@@ -313,7 +313,7 @@ struct Packet1cd
     __m128d v;
 };
 
-template<> struct packet_traits<std::complex<double> >  : default_packet_traits
+template<> struct packet_traits<std::complex<double>>  : default_packet_traits
 {
     typedef Packet1cd type;
     enum
@@ -408,16 +408,16 @@ template<> EIGEN_STRONG_INLINE Packet1cd ploaddup<Packet1cd>(const std::complex<
 }
 
 // FIXME force unaligned store, this is a temporary fix
-template<> EIGEN_STRONG_INLINE void pstore<std::complex<double> >(std::complex<double> *to, const Packet1cd &from)
+template<> EIGEN_STRONG_INLINE void pstore<std::complex<double>>(std::complex<double> *to, const Packet1cd &from)
 {
     EIGEN_DEBUG_ALIGNED_STORE pstore((double*)to, from.v);
 }
-template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<double> >(std::complex<double> *to, const Packet1cd &from)
+template<> EIGEN_STRONG_INLINE void pstoreu<std::complex<double>>(std::complex<double> *to, const Packet1cd &from)
 {
     EIGEN_DEBUG_UNALIGNED_STORE pstoreu((double*)to, from.v);
 }
 
-template<> EIGEN_STRONG_INLINE void prefetch<std::complex<double> >(const std::complex<double> *addr)
+template<> EIGEN_STRONG_INLINE void prefetch<std::complex<double>>(const std::complex<double> *addr)
 {
     _mm_prefetch((const char*)(addr), _MM_HINT_T0);
 }

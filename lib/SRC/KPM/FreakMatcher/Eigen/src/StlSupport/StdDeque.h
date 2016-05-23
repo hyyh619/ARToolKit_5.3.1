@@ -30,7 +30,7 @@
 
 // Define the explicit instantiation (e.g. necessary for the Intel compiler)
 #if defined(__INTEL_COMPILER) || defined(__GNUC__)
-  #define EIGEN_EXPLICIT_STL_DEQUE_INSTANTIATION(...) template class std::deque<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__> >;
+  #define EIGEN_EXPLICIT_STL_DEQUE_INSTANTIATION(...) template class std::deque<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__>>;
 #else
   #define EIGEN_EXPLICIT_STL_DEQUE_INSTANTIATION(...)
 #endif
@@ -46,9 +46,9 @@
     {                                                                                                                          \
     template<typename _Ay>                                                                                                     \
     class deque<__VA_ARGS__, _Ay>                                                                                              \
-        : public deque<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__> >                                                     \
+        : public deque<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__>>                                                      \
     {                                                                                                                          \
-    typedef deque<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__> > deque_base;                                              \
+    typedef deque<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__>> deque_base;                                               \
 public:                                                                                                                        \
     typedef __VA_ARGS__ value_type;                                                                                            \
     typedef typename deque_base::allocator_type allocator_type;                                                                \
@@ -92,12 +92,12 @@ public:                                                                         
     }
 
 template<typename T>
-class deque<T, EIGEN_ALIGNED_ALLOCATOR<T> >
+class deque<T, EIGEN_ALIGNED_ALLOCATOR<T>>
     : public deque<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T),
-                   Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)> >
+                   Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)>>
 {
 typedef deque<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T),
-              Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)> > deque_base;
+              Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)>> deque_base;
 EIGEN_STD_DEQUE_SPECIALIZATION_BODY
 
 void resize(size_type new_size)

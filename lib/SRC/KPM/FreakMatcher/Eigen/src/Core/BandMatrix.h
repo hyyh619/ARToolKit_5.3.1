@@ -214,7 +214,7 @@ inline Index diagonalLength(Index i) const
  */
 
 template<typename _Scalar, int _Rows, int _Cols, int _Supers, int _Subs, int _Options>
-struct traits<BandMatrix<_Scalar, _Rows, _Cols, _Supers, _Subs, _Options> >
+struct traits<BandMatrix<_Scalar, _Rows, _Cols, _Supers, _Subs, _Options>>
 {
     typedef _Scalar Scalar;
     typedef Dense StorageKind;
@@ -236,7 +236,7 @@ struct traits<BandMatrix<_Scalar, _Rows, _Cols, _Supers, _Subs, _Options> >
 };
 
 template<typename _Scalar, int Rows, int Cols, int Supers, int Subs, int Options>
-class BandMatrix : public BandMatrixBase<BandMatrix<_Scalar, Rows, Cols, Supers, Subs, Options> >
+class BandMatrix : public BandMatrixBase<BandMatrix<_Scalar, Rows, Cols, Supers, Subs, Options>>
 {
 public:
 
@@ -294,7 +294,7 @@ template<typename _CoefficientsType, int _Rows, int _Cols, int _Supers, int _Sub
 class BandMatrixWrapper;
 
 template<typename _CoefficientsType, int _Rows, int _Cols, int _Supers, int _Subs, int _Options>
-struct traits<BandMatrixWrapper<_CoefficientsType, _Rows, _Cols, _Supers, _Subs, _Options> >
+struct traits<BandMatrixWrapper<_CoefficientsType, _Rows, _Cols, _Supers, _Subs, _Options>>
 {
     typedef typename _CoefficientsType::Scalar Scalar;
     typedef typename _CoefficientsType::StorageKind StorageKind;
@@ -316,7 +316,7 @@ struct traits<BandMatrixWrapper<_CoefficientsType, _Rows, _Cols, _Supers, _Subs,
 };
 
 template<typename _CoefficientsType, int _Rows, int _Cols, int _Supers, int _Subs, int _Options>
-class BandMatrixWrapper : public BandMatrixBase<BandMatrixWrapper<_CoefficientsType, _Rows, _Cols, _Supers, _Subs, _Options> >
+class BandMatrixWrapper : public BandMatrixBase<BandMatrixWrapper<_CoefficientsType, _Rows, _Cols, _Supers, _Subs, _Options>>
 {
 public:
 

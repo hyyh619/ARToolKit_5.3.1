@@ -29,7 +29,7 @@
 
 // Define the explicit instantiation (e.g. necessary for the Intel compiler)
 #if defined(__INTEL_COMPILER) || defined(__GNUC__)
-  #define EIGEN_EXPLICIT_STL_LIST_INSTANTIATION(...) template class std::list<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__> >;
+  #define EIGEN_EXPLICIT_STL_LIST_INSTANTIATION(...) template class std::list<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__>>;
 #else
   #define EIGEN_EXPLICIT_STL_LIST_INSTANTIATION(...)
 #endif
@@ -45,9 +45,9 @@
     {                                                                                                                        \
     template<typename _Ay>                                                                                                   \
     class list<__VA_ARGS__, _Ay>                                                                                             \
-        : public list<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__> >                                                    \
+        : public list<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__>>                                                     \
     {                                                                                                                        \
-    typedef list<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__> > list_base;                                              \
+    typedef list<__VA_ARGS__, EIGEN_ALIGNED_ALLOCATOR<__VA_ARGS__>> list_base;                                               \
 public:                                                                                                                      \
     typedef __VA_ARGS__ value_type;                                                                                          \
     typedef typename list_base::allocator_type allocator_type;                                                               \
@@ -91,12 +91,12 @@ public:                                                                         
     }
 
 template<typename T>
-class list<T, EIGEN_ALIGNED_ALLOCATOR<T> >
+class list<T, EIGEN_ALIGNED_ALLOCATOR<T>>
     : public list<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T),
-                  Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)> >
+                  Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)>>
 {
 typedef list<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T),
-             Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)> > list_base;
+             Eigen::aligned_allocator_indirection<EIGEN_WORKAROUND_MSVC_STL_SUPPORT(T)>> list_base;
 EIGEN_STD_LIST_SPECIALIZATION_BODY
 
 void resize(size_type new_size)

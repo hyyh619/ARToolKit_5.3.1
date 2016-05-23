@@ -60,7 +60,7 @@ static Ptr<ExposureCompensator> createDefault(int type);
 void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
           const std::vector<Mat> &masks);
 virtual void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
-                  const std::vector<std::pair<Mat, uchar> > &masks)      = 0;
+                  const std::vector<std::pair<Mat, uchar>> &masks)       = 0;
 virtual void apply(int index, Point corner, Mat &image, const Mat &mask) = 0;
 };
 
@@ -69,7 +69,7 @@ class CV_EXPORTS NoExposureCompensator : public ExposureCompensator
 {
 public:
 void feed(const std::vector<Point>& /*corners*/, const std::vector<Mat>& /*images*/,
-          const std::vector<std::pair<Mat, uchar> >& /*masks*/) {};
+          const std::vector<std::pair<Mat, uchar>>& /*masks*/) {};
 void apply(int /*index*/, Point /*corner*/, Mat& /*image*/, const Mat& /*mask*/) {};
 };
 
@@ -78,7 +78,7 @@ class CV_EXPORTS GainCompensator : public ExposureCompensator
 {
 public:
 void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
-          const std::vector<std::pair<Mat, uchar> > &masks);
+          const std::vector<std::pair<Mat, uchar>> &masks);
 void apply(int index, Point corner, Mat &image, const Mat &mask);
 std::vector<double> gains() const;
 
@@ -93,12 +93,12 @@ public:
 BlocksGainCompensator(int bl_width = 32, int bl_height = 32)
     : bl_width_(bl_width), bl_height_(bl_height) {}
 void feed(const std::vector<Point> &corners, const std::vector<Mat> &images,
-          const std::vector<std::pair<Mat, uchar> > &masks);
+          const std::vector<std::pair<Mat, uchar>> &masks);
 void apply(int index, Point corner, Mat &image, const Mat &mask);
 
 private:
-int                       bl_width_, bl_height_;
-std::vector<Mat_<float> > gain_maps_;
+int                      bl_width_, bl_height_;
+std::vector<Mat_<float>> gain_maps_;
 };
 }   // namespace detail
 } // namespace cv

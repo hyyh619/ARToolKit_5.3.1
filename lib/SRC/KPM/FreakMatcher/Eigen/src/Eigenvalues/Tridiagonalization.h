@@ -30,7 +30,7 @@ namespace internal
 {
 template<typename MatrixType> struct TridiagonalizationMatrixTReturnType;
 template<typename MatrixType>
-struct traits<TridiagonalizationMatrixTReturnType<MatrixType> >
+struct traits<TridiagonalizationMatrixTReturnType<MatrixType>>
 {
     typedef typename MatrixType::PlainObject ReturnType;
 };
@@ -104,9 +104,9 @@ typedef typename internal::conditional<NumTraits<Scalar>::IsComplex,
 
 typedef typename internal::conditional<NumTraits<Scalar>::IsComplex,
                                        const typename Diagonal<
-                                           Block<const MatrixType, SizeMinusOne, SizeMinusOne> >::RealReturnType,
+                                           Block<const MatrixType, SizeMinusOne, SizeMinusOne>>::RealReturnType,
                                        const Diagonal<
-                                           Block<const MatrixType, SizeMinusOne, SizeMinusOne> >
+                                           Block<const MatrixType, SizeMinusOne, SizeMinusOne>>
                                        >::type SubDiagonalReturnType;
 
 /** \brief Return type of matrixQ() */
@@ -540,7 +540,7 @@ struct tridiagonalization_inplace_selector<MatrixType, 1, IsComplex>
  * \tparam MatrixType type of underlying dense matrix
  */
 template<typename MatrixType> struct TridiagonalizationMatrixTReturnType
-    : public ReturnByValue<TridiagonalizationMatrixTReturnType<MatrixType> >
+    : public ReturnByValue<TridiagonalizationMatrixTReturnType<MatrixType>>
 {
     typedef typename MatrixType::Index Index;
 public:

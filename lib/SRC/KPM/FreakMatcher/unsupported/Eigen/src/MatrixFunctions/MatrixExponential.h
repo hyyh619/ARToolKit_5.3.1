@@ -323,7 +323,7 @@ void MatrixExponential<MatrixType>::computeUV(double)
  * used.
  */
 template<typename Derived> struct MatrixExponentialReturnValue
-    : public ReturnByValue<MatrixExponentialReturnValue<Derived> >
+    : public ReturnByValue<MatrixExponentialReturnValue<Derived>>
 {
     typedef typename Derived::Index Index;
 public:
@@ -365,7 +365,7 @@ private:
 namespace internal
 {
 template<typename Derived>
-struct traits<MatrixExponentialReturnValue<Derived> >
+struct traits<MatrixExponentialReturnValue<Derived>>
 {
     typedef typename Derived::PlainObject ReturnType;
 };

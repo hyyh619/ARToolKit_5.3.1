@@ -181,7 +181,7 @@ void lmpar(
 
 template<typename Scalar>
 void lmpar2(
-    const ColPivHouseholderQR<Matrix<Scalar, Dynamic, Dynamic> > &qr,
+    const ColPivHouseholderQR<Matrix<Scalar, Dynamic, Dynamic>> &qr,
     const Matrix<Scalar, Dynamic, 1> &diag,
     const Matrix<Scalar, Dynamic, 1> &qtb,
     Scalar delta,

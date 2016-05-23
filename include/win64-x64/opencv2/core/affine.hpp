@@ -137,7 +137,7 @@ typedef Affine3<double> Affine3d;
 static Vec3f operator*(const Affine3f &affine, const Vec3f &vector);
 static Vec3d operator*(const Affine3d &affine, const Vec3d &vector);
 
-template<typename _Tp> class DataType<Affine3<_Tp> >
+template<typename _Tp> class DataType<Affine3<_Tp>>
 {
 public:
 typedef Affine3<_Tp>                               value_type;

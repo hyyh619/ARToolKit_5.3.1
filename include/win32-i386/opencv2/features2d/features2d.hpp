@@ -172,7 +172,7 @@ CV_WRAP void detect(const Mat &image, CV_OUT vector<KeyPoint> &keypoints, const 
  * keypoints    Collection of keypoints detected in an input images. keypoints[i] is a set of keypoints detected in an images[i].
  * masks        Masks for image set. masks[i] is a mask for images[i].
  */
-void detect(const vector<Mat> &images, vector<vector<KeyPoint> > &keypoints, const vector<Mat> &masks = vector<Mat>()) const;
+void detect(const vector<Mat> &images, vector<vector<KeyPoint>> &keypoints, const vector<Mat> &masks = vector<Mat>()) const;
 
 // Return true if detector object is empty
 CV_WRAP virtual bool empty() const;
@@ -221,7 +221,7 @@ CV_WRAP void compute(const Mat &image, CV_OUT CV_IN_OUT vector<KeyPoint> &keypoi
  *              Keypoints for which a descriptor cannot be computed are removed.
  * descriptors  Descriptor collection. descriptors[i] are descriptors computed for set keypoints[i].
  */
-void compute(const vector<Mat> &images, vector<vector<KeyPoint> > &keypoints, vector<Mat> &descriptors) const;
+void compute(const vector<Mat> &images, vector<vector<KeyPoint>> &keypoints, vector<Mat> &descriptors) const;
 
 CV_WRAP virtual int descriptorSize() const = 0;
 CV_WRAP virtual int descriptorType() const = 0;
@@ -443,7 +443,7 @@ virtual int descriptorType() const;
  * @param verbose print construction information
  * @return list of best pair indexes
  */
-vector<int> selectPairs(const vector<Mat> &images, vector<vector<KeyPoint> > &keypoints,
+vector<int> selectPairs(const vector<Mat> &images, vector<vector<KeyPoint>> &keypoints,
                         const double corrThresh = 0.7, bool verbose = true);
 
 AlgorithmInfo* info() const;
@@ -516,7 +516,7 @@ CV_WRAP explicit MSER(int _delta = 5, int _min_area = 60, int _max_area = 14400,
                       double _min_margin = 0.003, int _edge_blur_size = 5);
 
 // ! the operator that extracts the MSERs from the image or the specific part of it
-CV_WRAP_AS(detect) void operator()(const Mat &image, CV_OUT vector<vector<Point> > &msers,
+CV_WRAP_AS(detect) void operator()(const Mat &image, CV_OUT vector<vector<Point>> &msers,
                                    const Mat &mask = Mat()) const;
 AlgorithmInfo* info() const;
 
@@ -1116,12 +1116,12 @@ CV_WRAP void match(const Mat &queryDescriptors, const Mat &trainDescriptors,
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
 CV_WRAP void knnMatch(const Mat &queryDescriptors, const Mat &trainDescriptors,
-                      CV_OUT vector<vector<DMatch> > &matches, int k,
+                      CV_OUT vector<vector<DMatch>> &matches, int k,
                       const Mat &mask = Mat(), bool compactResult = false) const;
 // Find best matches for each query descriptor which have distance less than
 // maxDistance (in increasing order of distances).
 void radiusMatch(const Mat &queryDescriptors, const Mat &trainDescriptors,
-                 vector<vector<DMatch> > &matches, float maxDistance,
+                 vector<vector<DMatch>> &matches, float maxDistance,
                  const Mat &mask = Mat(), bool compactResult = false) const;
 /*
  * Group of methods to match descriptors from one image to image set.
@@ -1129,9 +1129,9 @@ void radiusMatch(const Mat &queryDescriptors, const Mat &trainDescriptors,
  */
 CV_WRAP void match(const Mat &queryDescriptors, CV_OUT vector<DMatch> &matches,
                    const vector<Mat> &masks = vector<Mat>());
-CV_WRAP void knnMatch(const Mat &queryDescriptors, CV_OUT vector<vector<DMatch> > &matches, int k,
+CV_WRAP void knnMatch(const Mat &queryDescriptors, CV_OUT vector<vector<DMatch>> &matches, int k,
                       const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
-void radiusMatch(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+void radiusMatch(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, float maxDistance,
                  const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 // Reads matcher object from a file node
@@ -1176,9 +1176,9 @@ vector<int> startIdxs;
 // In fact the matching is implemented only by the following two methods. These methods suppose
 // that the class object has been trained already. Public match methods call these methods
 // after calling train().
-virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, int k,
+virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks = vector<Mat>(), bool compactResult = false) = 0;
-virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks = vector<Mat>(), bool compactResult = false) = 0;
 
 static bool isPossibleMatch(const Mat &mask, int queryIdx, int trainIdx);
@@ -1218,9 +1218,9 @@ virtual Ptr<DescriptorMatcher> clone(bool emptyTrainData = false) const;
 
 AlgorithmInfo* info() const;
 protected:
-virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, int k,
+virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
-virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 int  normType;
@@ -1254,11 +1254,11 @@ AlgorithmInfo* info() const;
 protected:
 static void convertToDMatches(const DescriptorCollection &descriptors,
                               const Mat &indices, const Mat &distances,
-                              vector<vector<DMatch> > &matches);
+                              vector<vector<DMatch>> &matches);
 
-virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, int k,
+virtual void knnMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
-virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch> > &matches, float maxDistance,
+virtual void radiusMatchImpl(const Mat &queryDescriptors, vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 Ptr<flann::IndexParams>  indexParams;
@@ -1295,10 +1295,10 @@ virtual ~GenericDescriptorMatcher();
  * In the other class methods programmer has access to the train keypoints by a constant link.
  */
 virtual void add(const vector<Mat> &images,
-                 vector<vector<KeyPoint> > &keypoints);
+                 vector<vector<KeyPoint>> &keypoints);
 
 const vector<Mat>&getTrainImages() const;
-const vector<vector<KeyPoint> >&getTrainKeypoints() const;
+const vector<vector<KeyPoint>>&getTrainKeypoints() const;
 
 /*
  * Clear images and keypoints storing in train collection.
@@ -1343,12 +1343,12 @@ void match(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
 // If compactResult is true matches vector will not contain matches for fully masked out query descriptors.
 void knnMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
               const Mat &trainImage, vector<KeyPoint> &trainKeypoints,
-              vector<vector<DMatch> > &matches, int k,
+              vector<vector<DMatch>> &matches, int k,
               const Mat &mask = Mat(), bool compactResult = false) const;
 // Find best matches for each query descriptor which have distance less than maxDistance (in increasing order of distances).
 void radiusMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
                  const Mat &trainImage, vector<KeyPoint> &trainKeypoints,
-                 vector<vector<DMatch> > &matches, float maxDistance,
+                 vector<vector<DMatch>> &matches, float maxDistance,
                  const Mat &mask = Mat(), bool compactResult = false) const;
 /*
  * Group of methods to match keypoints from one image to image set.
@@ -1357,10 +1357,10 @@ void radiusMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
 void match(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
            vector<DMatch> &matches, const vector<Mat> &masks = vector<Mat>());
 void knnMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-              vector<vector<DMatch> > &matches, int k,
+              vector<vector<DMatch>> &matches, int k,
               const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 void radiusMatch(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                 vector<vector<DMatch> > &matches, float maxDistance,
+                 vector<vector<DMatch>> &matches, float maxDistance,
                  const vector<Mat> &masks = vector<Mat>(), bool compactResult = false);
 
 // Reads matcher object from a file node
@@ -1384,10 +1384,10 @@ protected:
 // that the class object has been trained already. Public match methods call these methods
 // after calling train().
 virtual void knnMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                          vector<vector<DMatch> > &matches, int k,
+                          vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks, bool compactResult) = 0;
 virtual void radiusMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                             vector<vector<DMatch> > &matches, float maxDistance,
+                             vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks, bool compactResult) = 0;
 /*
  * A storage for sets of keypoints together with corresponding images and class IDs
@@ -1397,14 +1397,14 @@ class CV_EXPORTS KeyPointCollection
 public:
 KeyPointCollection();
 KeyPointCollection(const KeyPointCollection &collection);
-void add(const vector<Mat> &images, const vector<vector<KeyPoint> > &keypoints);
+void add(const vector<Mat> &images, const vector<vector<KeyPoint>> &keypoints);
 void clear();
 
 // Returns the total number of keypoints in the collection
 size_t keypointCount() const;
 size_t imageCount() const;
 
-const vector<vector<KeyPoint> >&getKeypoints() const;
+const vector<vector<KeyPoint>>&getKeypoints() const;
 const vector<KeyPoint>&getKeypoints(int imgIdx) const;
 const KeyPoint&getKeyPoint(int imgIdx, int localPointIdx) const;
 const KeyPoint&getKeyPoint(int globalPointIdx) const;
@@ -1416,8 +1416,8 @@ const Mat&getImage(int imgIdx) const;
 protected:
 int pointCount;
 
-vector<Mat>               images;
-vector<vector<KeyPoint> > keypoints;
+vector<Mat>              images;
+vector<vector<KeyPoint>> keypoints;
 // global indices of the first points in each image, startIndices.size() = keypoints.size()
 vector<int> startIndices;
 
@@ -1449,7 +1449,7 @@ VectorDescriptorMatcher(const Ptr<DescriptorExtractor> &extractor, const Ptr<Des
 virtual ~VectorDescriptorMatcher();
 
 virtual void add(const vector<Mat> &imgCollection,
-                 vector<vector<KeyPoint> > &pointCollection);
+                 vector<vector<KeyPoint>> &pointCollection);
 
 virtual void clear();
 
@@ -1465,10 +1465,10 @@ virtual Ptr<GenericDescriptorMatcher> clone(bool emptyTrainData = false) const;
 
 protected:
 virtual void knnMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                          vector<vector<DMatch> > &matches, int k,
+                          vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks, bool compactResult);
 virtual void radiusMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                             vector<vector<DMatch> > &matches, float maxDistance,
+                             vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks, bool compactResult);
 
 Ptr<DescriptorExtractor> extractor;
@@ -1506,9 +1506,9 @@ CV_EXPORTS void drawMatches(const Mat &img1, const vector<KeyPoint> &keypoints1,
 
 CV_EXPORTS void drawMatches(const Mat &img1, const vector<KeyPoint> &keypoints1,
                             const Mat &img2, const vector<KeyPoint> &keypoints2,
-                            const vector<vector<DMatch> > &matches1to2, Mat &outImg,
+                            const vector<vector<DMatch>> &matches1to2, Mat &outImg,
                             const Scalar &matchColor = Scalar::all(-1), const Scalar &singlePointColor = Scalar::all(-1),
-                            const vector<vector<char> > &matchesMask = vector<vector<char> >(), int flags = DrawMatchesFlags::DEFAULT);
+                            const vector<vector<char>> &matchesMask = vector<vector<char>>(), int flags = DrawMatchesFlags::DEFAULT);
 
 /****************************************************************************************\
 *   Functions to evaluate the feature detectors and [generic] descriptor extractors      *
@@ -1519,8 +1519,8 @@ CV_EXPORTS void evaluateFeatureDetector(const Mat &img1, const Mat &img2, const 
                                         float &repeatability, int &correspCount,
                                         const Ptr<FeatureDetector> &fdetector = Ptr<FeatureDetector>());
 
-CV_EXPORTS void computeRecallPrecisionCurve(const vector<vector<DMatch> > &matches1to2,
-                                            const vector<vector<uchar> > &correctMatches1to2Mask,
+CV_EXPORTS void computeRecallPrecisionCurve(const vector<vector<DMatch>> &matches1to2,
+                                            const vector<vector<uchar>> &correctMatches1to2Mask,
                                             vector<Point2f> &recallPrecisionCurve);
 
 CV_EXPORTS float getRecall(const vector<Point2f> &recallPrecisionCurve, float l_precision);
@@ -1528,7 +1528,7 @@ CV_EXPORTS int getNearestPoint(const vector<Point2f> &recallPrecisionCurve, floa
 
 CV_EXPORTS void evaluateGenericDescriptorMatcher(const Mat &img1, const Mat &img2, const Mat &H1to2,
                                                  vector<KeyPoint> &keypoints1, vector<KeyPoint> &keypoints2,
-                                                 vector<vector<DMatch> > *matches1to2, vector<vector<uchar> > *correctMatches1to2Mask,
+                                                 vector<vector<DMatch>> *matches1to2, vector<vector<uchar>> *correctMatches1to2Mask,
                                                  vector<Point2f> &recallPrecisionCurve,
                                                  const Ptr<GenericDescriptorMatcher> &dmatch = Ptr<GenericDescriptorMatcher>());
 
@@ -1601,7 +1601,7 @@ virtual ~BOWImgDescriptorExtractor();
 CV_WRAP void setVocabulary(const Mat &vocabulary);
 CV_WRAP const Mat&getVocabulary() const;
 void compute(const Mat &image, vector<KeyPoint> &keypoints, Mat &imgDescriptor,
-             vector<vector<int> > *pointIdxsOfClusters = 0, Mat *descriptors = 0);
+             vector<vector<int>> *pointIdxsOfClusters = 0, Mat *descriptors = 0);
 // compute() is not constant because DescriptorMatcher::match is not constant
 
 CV_WRAP_AS(compute) void compute2(const Mat &image, vector<KeyPoint> &keypoints, CV_OUT Mat &imgDescriptor)

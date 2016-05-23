@@ -106,7 +106,7 @@ bool PreemptiveRobustHomography(T H[9],
                                 int num_test_points,
                                 std::vector<T> &hyp /* 9*max_num_hypotheses */,
                                 std::vector<int> &tmp_i /* num_points */,
-                                std::vector<std::pair<T, int> > &hyp_costs /* max_num_hypotheses */,
+                                std::vector<std::pair<T, int>> &hyp_costs /* max_num_hypotheses */,
                                 T scale = HOMOGRAPHY_DEFAULT_CAUCHY_SCALE,
                                 int max_num_hypotheses = HOMOGRAPHY_DEFAULT_NUM_HYPOTHESES,
                                 int max_trials = HOMOGRAPHY_DEFAULT_MAX_TRIALS,
@@ -636,9 +636,9 @@ bool find(float H[9], const T * p, const T * q, int num_points, const T * test_p
 private:
 
 // Temporary memory for RANSAC
-std::vector<T>                  mHyp;
-std::vector<int>                mTmpi;
-std::vector<std::pair<T, int> > mHypCosts;
+std::vector<T>                 mHyp;
+std::vector<int>               mTmpi;
+std::vector<std::pair<T, int>> mHypCosts;
 
 // RANSAC params
 T   mCauchyScale;

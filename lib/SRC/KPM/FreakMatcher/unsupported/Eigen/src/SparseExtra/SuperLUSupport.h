@@ -149,9 +149,9 @@ struct SluMatrix : SuperMatrix
             Dtype = SLU_S;
         else if (internal::is_same<Scalar, double>::value)
             Dtype = SLU_D;
-        else if (internal::is_same<Scalar, std::complex<float> >::value)
+        else if (internal::is_same<Scalar, std::complex<float>>::value)
             Dtype = SLU_C;
-        else if (internal::is_same<Scalar, std::complex<double> >::value)
+        else if (internal::is_same<Scalar, std::complex<double>>::value)
             Dtype = SLU_Z;
         else
         {
@@ -219,7 +219,7 @@ struct SluMatrix : SuperMatrix
 };
 
 template<typename Scalar, int Rows, int Cols, int Options, int MRows, int MCols>
-struct SluMatrixMapHelper<Matrix<Scalar, Rows, Cols, Options, MRows, MCols> >
+struct SluMatrixMapHelper<Matrix<Scalar, Rows, Cols, Options, MRows, MCols>>
 {
     typedef Matrix<Scalar, Rows, Cols, Options, MRows, MCols> MatrixType;
     static void run(MatrixType &mat, SluMatrix &res)
@@ -238,7 +238,7 @@ struct SluMatrixMapHelper<Matrix<Scalar, Rows, Cols, Options, MRows, MCols> >
 };
 
 template<typename Derived>
-struct SluMatrixMapHelper<SparseMatrixBase<Derived> >
+struct SluMatrixMapHelper<SparseMatrixBase<Derived>>
 {
     typedef Derived MatrixType;
     static void run(MatrixType &mat, SluMatrix &res)

@@ -44,7 +44,7 @@
 
 namespace internal
 {
-template<typename _Scalar> struct traits<Rotation2D<_Scalar> >
+template<typename _Scalar> struct traits<Rotation2D<_Scalar>>
 {
     typedef _Scalar Scalar;
 };
@@ -128,9 +128,9 @@ inline Rotation2D slerp(Scalar t, const Rotation2D &other) const
  * then this function smartly returns a const reference to \c *this.
  */
 template<typename NewScalarType>
-inline typename internal::cast_return_type<Rotation2D, Rotation2D<NewScalarType> >::type cast() const
+inline typename internal::cast_return_type<Rotation2D, Rotation2D<NewScalarType>>::type cast() const
 {
-    return typename internal::cast_return_type<Rotation2D, Rotation2D<NewScalarType> >::type(*this);
+    return typename internal::cast_return_type<Rotation2D, Rotation2D<NewScalarType>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

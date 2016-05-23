@@ -143,7 +143,7 @@ struct min_coeff_visitor : coeff_visitor<Derived>
 };
 
 template<typename Scalar>
-struct functor_traits<min_coeff_visitor<Scalar> >
+struct functor_traits<min_coeff_visitor<Scalar>>
 {
     enum
     {
@@ -173,7 +173,7 @@ struct max_coeff_visitor : coeff_visitor<Derived>
 };
 
 template<typename Scalar>
-struct functor_traits<max_coeff_visitor<Scalar> >
+struct functor_traits<max_coeff_visitor<Scalar>>
 {
     enum
     {

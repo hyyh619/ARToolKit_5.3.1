@@ -394,8 +394,8 @@ struct product_selfadjoint_matrix<Scalar, Index, LhsStorageOrder, false, Conjuga
 namespace internal
 {
 template<typename Lhs, int LhsMode, typename Rhs, int RhsMode>
-struct traits<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, RhsMode, false> >
-    : traits<ProductBase<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, RhsMode, false>, Lhs, Rhs> >
+struct traits<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, RhsMode, false>>
+    : traits<ProductBase<SelfadjointProductMatrix<Lhs, LhsMode, false, Rhs, RhsMode, false>, Lhs, Rhs>>
 {};
 }
 

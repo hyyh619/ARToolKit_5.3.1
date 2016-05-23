@@ -51,7 +51,7 @@ struct SparseSparseProductReturnType
 namespace internal
 {
 template<typename LhsNested, typename RhsNested>
-struct traits<SparseSparseProduct<LhsNested, RhsNested> >
+struct traits<SparseSparseProduct<LhsNested, RhsNested>>
 {
     typedef MatrixXpr XprKind;
     // clean the nested types:
@@ -92,7 +92,7 @@ struct traits<SparseSparseProduct<LhsNested, RhsNested> >
 
 template<typename LhsNested, typename RhsNested>
 class SparseSparseProduct : internal::no_assignment_operator,
-    public SparseMatrixBase<SparseSparseProduct<LhsNested, RhsNested> >
+    public SparseMatrixBase<SparseSparseProduct<LhsNested, RhsNested>>
 {
 public:
 

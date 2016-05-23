@@ -169,7 +169,7 @@ void test_sparse_ldlt()
     {
         CALL_SUBTEST_1(sparse_ldlt<double>(8, 8));
         int s = internal::random<int>(1, 300);
-        CALL_SUBTEST_2(sparse_ldlt<std::complex<double> >(s, s));
+        CALL_SUBTEST_2(sparse_ldlt<std::complex<double>>(s, s));
         CALL_SUBTEST_1(sparse_ldlt<double>(s, s));
     }
 }

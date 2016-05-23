@@ -83,7 +83,7 @@ struct real_impl
 };
 
 template<typename RealScalar>
-struct real_impl<std::complex<RealScalar> >
+struct real_impl<std::complex<RealScalar>>
 {
     static inline RealScalar run(const std::complex<RealScalar> &x)
     {
@@ -119,7 +119,7 @@ struct imag_impl
 };
 
 template<typename RealScalar>
-struct imag_impl<std::complex<RealScalar> >
+struct imag_impl<std::complex<RealScalar>>
 {
     static inline RealScalar run(const std::complex<RealScalar> &x)
     {
@@ -242,7 +242,7 @@ struct conj_impl
 };
 
 template<typename RealScalar>
-struct conj_impl<std::complex<RealScalar> >
+struct conj_impl<std::complex<RealScalar>>
 {
     static inline std::complex<RealScalar> run(const std::complex<RealScalar> &x)
     {
@@ -305,7 +305,7 @@ struct abs2_impl
 };
 
 template<typename RealScalar>
-struct abs2_impl<std::complex<RealScalar> >
+struct abs2_impl<std::complex<RealScalar>>
 {
     static inline RealScalar run(const std::complex<RealScalar> &x)
     {

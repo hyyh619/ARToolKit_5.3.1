@@ -197,7 +197,7 @@ protected:
 namespace internal
 {
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType>
-struct traits<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType> >
+struct traits<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>>
 {
     typedef IndexType Index;
     typedef Matrix<Index, SizeAtCompileTime, 1, 0, MaxSizeAtCompileTime, 1> IndicesType;
@@ -205,7 +205,7 @@ struct traits<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>
 }
 
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType>
-class Transpositions : public TranspositionsBase<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType> >
+class Transpositions : public TranspositionsBase<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>>
 {
 typedef internal::traits<Transpositions> Traits;
 public:
@@ -275,7 +275,7 @@ IndicesType m_indices;
 namespace internal
 {
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType, int _PacketAccess>
-struct traits<Map<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess> >
+struct traits<Map<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess>>
 {
     typedef IndexType Index;
     typedef Map<const Matrix<Index, SizeAtCompileTime, 1, 0, MaxSizeAtCompileTime, 1>, _PacketAccess> IndicesType;
@@ -284,7 +284,7 @@ struct traits<Map<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexT
 
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType, int PacketAccess>
 class Map<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, PacketAccess>
-    : public TranspositionsBase<Map<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, PacketAccess> >
+    : public TranspositionsBase<Map<Transpositions<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, PacketAccess>>
 {
 typedef internal::traits<Map> Traits;
 public:
@@ -339,7 +339,7 @@ IndicesType m_indices;
 namespace internal
 {
 template<typename _IndicesType>
-struct traits<TranspositionsWrapper<_IndicesType> >
+struct traits<TranspositionsWrapper<_IndicesType>>
 {
     typedef typename _IndicesType::Scalar Index;
     typedef _IndicesType IndicesType;
@@ -348,7 +348,7 @@ struct traits<TranspositionsWrapper<_IndicesType> >
 
 template<typename _IndicesType>
 class TranspositionsWrapper
-    : public TranspositionsBase<TranspositionsWrapper<_IndicesType> >
+    : public TranspositionsBase<TranspositionsWrapper<_IndicesType>>
 {
 typedef internal::traits<TranspositionsWrapper> Traits;
 public:
@@ -424,14 +424,14 @@ operator*(const TranspositionsBase<TranspositionDerived> &transpositions,
 namespace internal
 {
 template<typename TranspositionType, typename MatrixType, int Side, bool Transposed>
-struct traits<transposition_matrix_product_retval<TranspositionType, MatrixType, Side, Transposed> >
+struct traits<transposition_matrix_product_retval<TranspositionType, MatrixType, Side, Transposed>>
 {
     typedef typename MatrixType::PlainObject ReturnType;
 };
 
 template<typename TranspositionType, typename MatrixType, int Side, bool Transposed>
 struct transposition_matrix_product_retval
-    : public ReturnByValue<transposition_matrix_product_retval<TranspositionType, MatrixType, Side, Transposed> >
+    : public ReturnByValue<transposition_matrix_product_retval<TranspositionType, MatrixType, Side, Transposed>>
 {
     typedef typename remove_all<typename MatrixType::Nested>::type MatrixTypeNestedCleaned;
     typedef typename TranspositionType::Index Index;
@@ -476,7 +476,7 @@ protected:
 /* Template partial specialization for transposed/inverse transpositions */
 
 template<typename TranspositionsDerived>
-class Transpose<TranspositionsBase<TranspositionsDerived> >
+class Transpose<TranspositionsBase<TranspositionsDerived>>
 {
 typedef TranspositionsDerived TranspositionType;
 typedef typename TranspositionType::IndicesType IndicesType;

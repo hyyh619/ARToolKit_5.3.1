@@ -46,7 +46,7 @@
 namespace internal
 {
 template<typename _Scalar, int _Options>
-struct traits<SkylineMatrix<_Scalar, _Options> >
+struct traits<SkylineMatrix<_Scalar, _Options>>
 {
     typedef _Scalar Scalar;
     typedef Sparse StorageKind;
@@ -65,7 +65,7 @@ struct traits<SkylineMatrix<_Scalar, _Options> >
 
 template<typename _Scalar, int _Options>
 class SkylineMatrix
-    : public SkylineMatrixBase<SkylineMatrix<_Scalar, _Options> >
+    : public SkylineMatrixBase<SkylineMatrix<_Scalar, _Options>>
 {
 public:
 EIGEN_SKYLINE_GENERIC_PUBLIC_INTERFACE(SkylineMatrix)

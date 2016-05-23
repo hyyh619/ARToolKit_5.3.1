@@ -238,7 +238,7 @@ struct partial_lu_impl
     // warp any Map, Matrix, and Block expressions as a unique type, but since that's exactly
     // a Map + stride, why not adding a stride to Map, and convenient ctors from a Matrix,
     // and Block.
-    typedef Map<Matrix<Scalar, Dynamic, Dynamic, StorageOrder> > MapLU;
+    typedef Map<Matrix<Scalar, Dynamic, Dynamic, StorageOrder>> MapLU;
     typedef Block<MapLU, Dynamic, Dynamic> MatrixType;
     typedef Block<MatrixType, Dynamic, Dynamic> BlockType;
     typedef typename MatrixType::RealScalar RealScalar;

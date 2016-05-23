@@ -446,10 +446,10 @@ protected:
     typedef kiss_cpx_fft<Scalar> PlanData;
     typedef std::map<int, PlanData> PlanMap;
 
-    PlanMap                              m_plans;
-    std::map<int, std::vector<Complex> > m_realTwiddles;
-    std::vector<Complex>                 m_tmpBuf1;
-    std::vector<Complex>                 m_tmpBuf2;
+    PlanMap                             m_plans;
+    std::map<int, std::vector<Complex>> m_realTwiddles;
+    std::vector<Complex>                m_tmpBuf1;
+    std::vector<Complex>                m_tmpBuf2;
 
     inline
     int PlanKey(int nfft, bool isinverse) const

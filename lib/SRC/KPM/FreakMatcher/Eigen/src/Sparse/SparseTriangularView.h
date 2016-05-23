@@ -28,13 +28,13 @@
 namespace internal
 {
 template<typename MatrixType, int Mode>
-struct traits<SparseTriangularView<MatrixType, Mode> >
+struct traits<SparseTriangularView<MatrixType, Mode>>
     : public traits<MatrixType>
 {};
 } // namespace internal
 
 template<typename MatrixType, int Mode> class SparseTriangularView
-    : public SparseMatrixBase<SparseTriangularView<MatrixType, Mode> >
+    : public SparseMatrixBase<SparseTriangularView<MatrixType, Mode>>
 {
 enum { SkipFirst = (Mode == Lower && !(MatrixType::Flags & RowMajorBit))
                    || (Mode == Upper && (MatrixType::Flags & RowMajorBit)) };

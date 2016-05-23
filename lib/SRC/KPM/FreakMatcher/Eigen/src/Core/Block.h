@@ -62,7 +62,7 @@
 namespace internal
 {
 template<typename XprType, int BlockRows, int BlockCols, bool InnerPanel, bool HasDirectAccess>
-struct traits<Block<XprType, BlockRows, BlockCols, InnerPanel, HasDirectAccess> > : traits<XprType>
+struct traits<Block<XprType, BlockRows, BlockCols, InnerPanel, HasDirectAccess>> : traits<XprType>
 {
     typedef typename traits<XprType>::Scalar Scalar;
     typedef typename traits<XprType>::StorageKind StorageKind;
@@ -110,7 +110,7 @@ struct traits<Block<XprType, BlockRows, BlockCols, InnerPanel, HasDirectAccess> 
 }
 
 template<typename XprType, int BlockRows, int BlockCols, bool InnerPanel, bool HasDirectAccess> class Block
-    : public internal::dense_xpr_base<Block<XprType, BlockRows, BlockCols, InnerPanel, HasDirectAccess> >::type
+    : public internal::dense_xpr_base<Block<XprType, BlockRows, BlockCols, InnerPanel, HasDirectAccess>>::type
 {
 public:
 
@@ -262,7 +262,7 @@ const internal::variable_if_dynamic<Index, ColsAtCompileTime>                   
 /** \internal */
 template<typename XprType, int BlockRows, int BlockCols, bool InnerPanel>
 class Block<XprType, BlockRows, BlockCols, InnerPanel, true>
-    : public MapBase<Block<XprType, BlockRows, BlockCols, InnerPanel, true> >
+    : public MapBase<Block<XprType, BlockRows, BlockCols, InnerPanel, true>>
 {
 public:
 

@@ -48,7 +48,7 @@
 namespace internal
 {
 template<typename _Scalar, int _Options, typename _Index>
-struct traits<SparseMatrix<_Scalar, _Options, _Index> >
+struct traits<SparseMatrix<_Scalar, _Options, _Index>>
 {
     typedef _Scalar Scalar;
     typedef _Index Index;
@@ -69,7 +69,7 @@ struct traits<SparseMatrix<_Scalar, _Options, _Index> >
 
 template<typename _Scalar, int _Options, typename _Index>
 class SparseMatrix
-    : public SparseMatrixBase<SparseMatrix<_Scalar, _Options, _Index> >
+    : public SparseMatrixBase<SparseMatrix<_Scalar, _Options, _Index>>
 {
 public:
 EIGEN_SPARSE_PUBLIC_INTERFACE(SparseMatrix)
@@ -554,7 +554,7 @@ EIGEN_DONT_INLINE SparseMatrix&operator=(const SparseMatrixBase<OtherDerived> &o
         OtherCopy otherCopy(other.derived());
 
         resize(other.rows(), other.cols());
-        Eigen::Map<Matrix<Index, Dynamic, 1> > (m_outerIndex, outerSize()).setZero();
+        Eigen::Map<Matrix<Index, Dynamic, 1>> (m_outerIndex, outerSize()).setZero();
 
         // pass 1
         // FIXME the above copy could be merged with that pass

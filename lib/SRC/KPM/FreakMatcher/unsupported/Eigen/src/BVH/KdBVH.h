@@ -84,10 +84,10 @@ template<typename _Scalar, int _Dim, typename _Object> class KdBVH
 public:
 enum { Dim = _Dim };
 typedef _Object Object;
-typedef std::vector<Object, aligned_allocator<Object> > ObjectList;
+typedef std::vector<Object, aligned_allocator<Object>> ObjectList;
 typedef _Scalar Scalar;
 typedef AlignedBox<Scalar, Dim> Volume;
-typedef std::vector<Volume, aligned_allocator<Volume> > VolumeList;
+typedef std::vector<Volume, aligned_allocator<Volume>> VolumeList;
 typedef int Index;
 typedef const int*VolumeIterator;    // the iterators are just pointers into the tree's vectors
 typedef const Object*ObjectIterator;
@@ -202,7 +202,7 @@ inline const Volume&getVolume(Index index) const
 
 private:
 typedef internal::vector_int_pair<Scalar, Dim> VIPair;
-typedef std::vector<VIPair, aligned_allocator<VIPair> > VIPairList;
+typedef std::vector<VIPair, aligned_allocator<VIPair>> VIPairList;
 typedef Matrix<Scalar, Dim, 1> VectorType;
 struct VectorComparator   // compares vectors, or, more specificall, VIPairs along a particular dimension
 {

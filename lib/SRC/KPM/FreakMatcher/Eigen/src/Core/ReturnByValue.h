@@ -34,7 +34,7 @@
 namespace internal
 {
 template<typename Derived>
-struct traits<ReturnByValue<Derived> >
+struct traits<ReturnByValue<Derived>>
     : public traits<typename traits<Derived>::ReturnType>
 {
     enum
@@ -61,7 +61,7 @@ struct nested<ReturnByValue<Derived>, n, PlainObject>
 } // end namespace internal
 
 template<typename Derived> class ReturnByValue
-    : public internal::dense_xpr_base<ReturnByValue<Derived> >::type
+    : public internal::dense_xpr_base<ReturnByValue<Derived>>::type
 {
 public:
 typedef typename internal::traits<Derived>::ReturnType ReturnType;

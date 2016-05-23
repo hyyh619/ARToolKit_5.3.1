@@ -33,7 +33,7 @@
 namespace internal
 {
 template<typename Derived, typename _Lhs, typename _Rhs>
-struct traits<ProductBase<Derived, _Lhs, _Rhs> >
+struct traits<ProductBase<Derived, _Lhs, _Rhs>>
 {
     typedef MatrixXpr XprKind;
     typedef typename remove_all<_Lhs>::type Lhs;
@@ -248,7 +248,7 @@ operator*(const ProductBase<Derived, Lhs, Rhs> &prod, typename Derived::Scalar x
 
 template<typename Derived, typename Lhs, typename Rhs>
 typename internal::enable_if<!internal::is_same<typename Derived::Scalar, typename Derived::RealScalar>::value,
-                             const ScaledProduct<Derived> >::type
+                             const ScaledProduct<Derived>>::type
 operator*(const ProductBase<Derived, Lhs, Rhs> &prod, typename Derived::RealScalar x)
 {
     return ScaledProduct<Derived>(prod.derived(), x);
@@ -264,7 +264,7 @@ operator*(typename Derived::Scalar x, const ProductBase<Derived, Lhs, Rhs> &prod
 
 template<typename Derived, typename Lhs, typename Rhs>
 typename internal::enable_if<!internal::is_same<typename Derived::Scalar, typename Derived::RealScalar>::value,
-                             const ScaledProduct<Derived> >::type
+                             const ScaledProduct<Derived>>::type
 operator*(typename Derived::RealScalar x, const ProductBase<Derived, Lhs, Rhs> &prod)
 {
     return ScaledProduct<Derived>(prod.derived(), x);
@@ -273,10 +273,10 @@ operator*(typename Derived::RealScalar x, const ProductBase<Derived, Lhs, Rhs> &
 namespace internal
 {
 template<typename NestedProduct>
-struct traits<ScaledProduct<NestedProduct> >
+struct traits<ScaledProduct<NestedProduct>>
     : traits<ProductBase<ScaledProduct<NestedProduct>,
                          typename NestedProduct::_LhsNested,
-                         typename NestedProduct::_RhsNested> >
+                         typename NestedProduct::_RhsNested>>
 {
     typedef typename traits<NestedProduct>::StorageKind StorageKind;
 };

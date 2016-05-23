@@ -40,7 +40,7 @@
 namespace internal
 {
 template<typename _Scalar, int _Options, typename _Index>
-struct traits<SparseVector<_Scalar, _Options, _Index> >
+struct traits<SparseVector<_Scalar, _Options, _Index>>
 {
     typedef _Scalar Scalar;
     typedef _Index Index;
@@ -63,7 +63,7 @@ struct traits<SparseVector<_Scalar, _Options, _Index> >
 
 template<typename _Scalar, int _Options, typename _Index>
 class SparseVector
-    : public SparseMatrixBase<SparseVector<_Scalar, _Options, _Index> >
+    : public SparseMatrixBase<SparseVector<_Scalar, _Options, _Index>>
 {
 public:
 EIGEN_SPARSE_PUBLIC_INTERFACE(SparseVector)

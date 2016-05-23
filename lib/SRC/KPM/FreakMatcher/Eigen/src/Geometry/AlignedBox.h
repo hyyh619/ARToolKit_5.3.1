@@ -138,7 +138,7 @@ inline VectorType& (max)() { return m_max; }
 
 /** \returns the center of the box */
 inline const CwiseUnaryOp<internal::scalar_quotient1_op<Scalar>,
-                          const CwiseBinaryOp<internal::scalar_sum_op<Scalar>, const VectorType, const VectorType> >
+                          const CwiseBinaryOp<internal::scalar_sum_op<Scalar>, const VectorType, const VectorType>>
 center() const
 {
     return (m_min + m_max) / 2;
@@ -319,10 +319,10 @@ inline NonInteger exteriorDistance(const AlignedBox &b) const
  */
 template<typename NewScalarType>
 inline typename internal::cast_return_type<AlignedBox,
-                                           AlignedBox<NewScalarType, AmbientDimAtCompileTime> >::type cast() const
+                                           AlignedBox<NewScalarType, AmbientDimAtCompileTime>>::type cast() const
 {
     return typename internal::cast_return_type<AlignedBox,
-                                               AlignedBox<NewScalarType, AmbientDimAtCompileTime> >::type(*this);
+                                               AlignedBox<NewScalarType, AmbientDimAtCompileTime>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

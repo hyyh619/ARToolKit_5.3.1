@@ -67,7 +67,7 @@ FREAKExtractor::FREAKExtractor()
 }
 
 void FREAKExtractor::layout84(std::vector<receptor> &receptors,
-                              std::vector<std::vector<int> > &tests)
+                              std::vector<std::vector<int>> &tests)
 {
     const int ring_size = 6;
     const int num_rings = 6;

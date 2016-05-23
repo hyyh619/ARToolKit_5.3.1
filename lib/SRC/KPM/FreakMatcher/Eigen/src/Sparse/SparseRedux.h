@@ -40,7 +40,7 @@ SparseMatrixBase<Derived>::sum() const
 }
 
 template<typename _Scalar, int _Options, typename _Index>
-typename internal::traits<SparseMatrix<_Scalar, _Options, _Index> >::Scalar
+typename internal::traits<SparseMatrix<_Scalar, _Options, _Index>>::Scalar
 SparseMatrix<_Scalar, _Options, _Index>::sum() const
 {
     eigen_assert(rows() > 0 && cols() > 0 && "you are using a non initialized matrix");
@@ -48,7 +48,7 @@ SparseMatrix<_Scalar, _Options, _Index>::sum() const
 }
 
 template<typename _Scalar, int _Options, typename _Index>
-typename internal::traits<SparseVector<_Scalar, _Options, _Index> >::Scalar
+typename internal::traits<SparseVector<_Scalar, _Options, _Index>>::Scalar
 SparseVector<_Scalar, _Options, _Index>::sum() const
 {
     eigen_assert(rows() > 0 && cols() > 0 && "you are using a non initialized matrix");

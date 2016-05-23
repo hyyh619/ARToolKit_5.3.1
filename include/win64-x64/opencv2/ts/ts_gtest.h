@@ -7650,7 +7650,7 @@ template<typename T1, typename T2, typename T3, typename T4, typename T5,
 struct TypeList<Types<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13,
                       T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28,
                       T29, T30, T31, T32, T33, T34, T35, T36, T37, T38, T39, T40, T41, T42, T43,
-                      T44, T45, T46, T47, T48, T49, T50> >
+                      T44, T45, T46, T47, T48, T49, T50>>
 {
     typedef typename Types<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
                            T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26,
@@ -11075,7 +11075,7 @@ bool operator!=(const ParamIterator &other) const
 private:
 friend class ParamGenerator<T>;
 explicit ParamIterator(ParamIteratorInterface<T> *impl) : impl_(impl) {}
-scoped_ptr<ParamIteratorInterface<T> > impl_;
+scoped_ptr<ParamIteratorInterface<T>> impl_;
 };
 
 // ParamGeneratorInterface<T> is the binary interface to access generators
@@ -11123,7 +11123,7 @@ iterator end() const
 }
 
 private:
-linked_ptr<const ParamGeneratorInterface<T> > impl_;
+linked_ptr<const ParamGeneratorInterface<T>> impl_;
 };
 
 // Generates values from a range of two comparable values. Can be used to
@@ -11531,12 +11531,12 @@ struct TestInfo
 
     const string test_case_base_name;
     const string test_base_name;
-    const scoped_ptr<TestMetaFactoryBase<ParamType> > test_meta_factory;
+    const scoped_ptr<TestMetaFactoryBase<ParamType>> test_meta_factory;
 };
-typedef ::std::vector<linked_ptr<TestInfo> > TestInfoContainer;
+typedef ::std::vector<linked_ptr<TestInfo>> TestInfoContainer;
 // Keeps pairs of <Instantiation name, Sequence generator creation function>
 // received from INSTANTIATE_TEST_CASE_P macros.
-typedef ::std::vector<std::pair<string, GeneratorCreationFunc*> >
+typedef ::std::vector<std::pair<string, GeneratorCreationFunc*>>
     InstantiationContainer;
 
 const string test_case_name_;
@@ -11594,7 +11594,7 @@ ParameterizedTestCaseInfo<TestCase>* GetTestCasePatternHolder(
                 // type we are looking for, so we downcast it to that type
                 // without further checks.
                 typed_test_info = CheckedDowncastToActualType<
-                    ParameterizedTestCaseInfo<TestCase> >(*it);
+                    ParameterizedTestCaseInfo<TestCase>>(*it);
             }
 
             break;
@@ -14836,7 +14836,7 @@ const T50 v50_;
 //
 template<typename T1, typename T2>
 class CartesianProductGenerator2
-    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2> >
+    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2> ParamType;
@@ -14968,7 +14968,7 @@ const ParamGenerator<T2> g2_;
 
 template<typename T1, typename T2, typename T3>
 class CartesianProductGenerator3
-    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3> >
+    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3> ParamType;
@@ -15119,7 +15119,7 @@ const ParamGenerator<T3> g3_;
 
 template<typename T1, typename T2, typename T3, typename T4>
 class CartesianProductGenerator4
-    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4> >
+    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4> ParamType;
@@ -15291,7 +15291,7 @@ const ParamGenerator<T4> g4_;
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5>
 class CartesianProductGenerator5
-    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5> >
+    : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5> ParamType;
@@ -15483,7 +15483,7 @@ template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6>
 class CartesianProductGenerator6
     : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5,
-                                                       T6> >
+                                                       T6>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6> ParamType;
@@ -15694,7 +15694,7 @@ template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7>
 class CartesianProductGenerator7
     : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5, T6,
-                                                       T7> >
+                                                       T7>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7> ParamType;
@@ -15924,7 +15924,7 @@ template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8>
 class CartesianProductGenerator8
     : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5, T6,
-                                                       T7, T8> >
+                                                       T7, T8>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8> ParamType;
@@ -16175,7 +16175,7 @@ template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8, typename T9>
 class CartesianProductGenerator9
     : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5, T6,
-                                                       T7, T8, T9> >
+                                                       T7, T8, T9>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> ParamType;
@@ -16445,7 +16445,7 @@ template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8, typename T9, typename T10>
 class CartesianProductGenerator10
     : public ParamGeneratorInterface<::std::tr1::tuple<T1, T2, T3, T4, T5, T6,
-                                                       T7, T8, T9, T10> >
+                                                       T7, T8, T9, T10>>
 {
 public:
 typedef ::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> ParamType;
@@ -16743,11 +16743,11 @@ public:
 CartesianProductHolder2(const Generator1 &g1, const Generator2 &g2)
     : g1_(g1), g2_(g2) {}
 template<typename T1, typename T2>
-operator ParamGenerator<::std::tr1::tuple<T1, T2> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2> >(
+operator ParamGenerator<::std::tr1::tuple<T1, T2>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2>>(
         new CartesianProductGenerator2<T1, T2>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_)));
 }
 
 private:
@@ -16766,12 +16766,12 @@ CartesianProductHolder3(const Generator1 &g1, const Generator2 &g2,
                         const Generator3 &g3)
     : g1_(g1), g2_(g2), g3_(g3) {}
 template<typename T1, typename T2, typename T3>
-operator ParamGenerator<::std::tr1::tuple<T1, T2, T3> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2, T3> >(
+operator ParamGenerator<::std::tr1::tuple<T1, T2, T3>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2, T3>>(
         new CartesianProductGenerator3<T1, T2, T3>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_)));
 }
 
 private:
@@ -16792,13 +16792,13 @@ CartesianProductHolder4(const Generator1 &g1, const Generator2 &g2,
                         const Generator3 &g3, const Generator4 &g4)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4) {}
 template<typename T1, typename T2, typename T3, typename T4>
-operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4> >(
+operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4>>(
         new CartesianProductGenerator4<T1, T2, T3, T4>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_)));
 }
 
 private:
@@ -16820,14 +16820,14 @@ CartesianProductHolder5(const Generator1 &g1, const Generator2 &g2,
                         const Generator3 &g3, const Generator4 &g4, const Generator5 &g5)
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5>
-operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5> >(
+operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5>>(
         new CartesianProductGenerator5<T1, T2, T3, T4, T5>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_),
-            static_cast<ParamGenerator<T5> >(g5_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_),
+            static_cast<ParamGenerator<T5>>(g5_)));
 }
 
 private:
@@ -16852,15 +16852,15 @@ CartesianProductHolder6(const Generator1 &g1, const Generator2 &g2,
     : g1_(g1), g2_(g2), g3_(g3), g4_(g4), g5_(g5), g6_(g6) {}
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6>
-operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6> >(
+operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6>>(
         new CartesianProductGenerator6<T1, T2, T3, T4, T5, T6>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_),
-            static_cast<ParamGenerator<T5> >(g5_),
-            static_cast<ParamGenerator<T6> >(g6_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_),
+            static_cast<ParamGenerator<T5>>(g5_),
+            static_cast<ParamGenerator<T6>>(g6_)));
 }
 
 private:
@@ -16887,16 +16887,16 @@ CartesianProductHolder7(const Generator1 &g1, const Generator2 &g2,
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6,
-                                          T7> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7> >(
+                                          T7>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7>>(
         new CartesianProductGenerator7<T1, T2, T3, T4, T5, T6, T7>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_),
-            static_cast<ParamGenerator<T5> >(g5_),
-            static_cast<ParamGenerator<T6> >(g6_),
-            static_cast<ParamGenerator<T7> >(g7_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_),
+            static_cast<ParamGenerator<T5>>(g5_),
+            static_cast<ParamGenerator<T6>>(g6_),
+            static_cast<ParamGenerator<T7>>(g7_)));
 }
 
 private:
@@ -16926,17 +16926,17 @@ CartesianProductHolder8(const Generator1 &g1, const Generator2 &g2,
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7,
-                                          T8> >() const {
-    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >(
+                                          T8>>() const {
+    return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8>>(
         new CartesianProductGenerator8<T1, T2, T3, T4, T5, T6, T7, T8>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_),
-            static_cast<ParamGenerator<T5> >(g5_),
-            static_cast<ParamGenerator<T6> >(g6_),
-            static_cast<ParamGenerator<T7> >(g7_),
-            static_cast<ParamGenerator<T8> >(g8_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_),
+            static_cast<ParamGenerator<T5>>(g5_),
+            static_cast<ParamGenerator<T6>>(g6_),
+            static_cast<ParamGenerator<T7>>(g7_),
+            static_cast<ParamGenerator<T8>>(g8_)));
 }
 
 private:
@@ -16968,19 +16968,19 @@ CartesianProductHolder9(const Generator1 &g1, const Generator2 &g2,
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8, typename T9>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8,
-                                          T9> >() const {
+                                          T9>>() const {
     return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8,
-                                            T9> >(
+                                            T9>>(
         new CartesianProductGenerator9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_),
-            static_cast<ParamGenerator<T5> >(g5_),
-            static_cast<ParamGenerator<T6> >(g6_),
-            static_cast<ParamGenerator<T7> >(g7_),
-            static_cast<ParamGenerator<T8> >(g8_),
-            static_cast<ParamGenerator<T9> >(g9_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_),
+            static_cast<ParamGenerator<T5>>(g5_),
+            static_cast<ParamGenerator<T6>>(g6_),
+            static_cast<ParamGenerator<T7>>(g7_),
+            static_cast<ParamGenerator<T8>>(g8_),
+            static_cast<ParamGenerator<T9>>(g9_)));
 }
 
 private:
@@ -17013,21 +17013,21 @@ CartesianProductHolder10(const Generator1 &g1, const Generator2 &g2,
 template<typename T1, typename T2, typename T3, typename T4, typename T5,
          typename T6, typename T7, typename T8, typename T9, typename T10>
 operator ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8,
-                                          T9, T10> >() const {
+                                          T9, T10>>() const {
     return ParamGenerator<::std::tr1::tuple<T1, T2, T3, T4, T5, T6, T7, T8,
-                                            T9, T10> >(
+                                            T9, T10>>(
         new CartesianProductGenerator10<T1, T2, T3, T4, T5, T6, T7, T8, T9,
                                         T10>(
-            static_cast<ParamGenerator<T1> >(g1_),
-            static_cast<ParamGenerator<T2> >(g2_),
-            static_cast<ParamGenerator<T3> >(g3_),
-            static_cast<ParamGenerator<T4> >(g4_),
-            static_cast<ParamGenerator<T5> >(g5_),
-            static_cast<ParamGenerator<T6> >(g6_),
-            static_cast<ParamGenerator<T7> >(g7_),
-            static_cast<ParamGenerator<T8> >(g8_),
-            static_cast<ParamGenerator<T9> >(g9_),
-            static_cast<ParamGenerator<T10> >(g10_)));
+            static_cast<ParamGenerator<T1>>(g1_),
+            static_cast<ParamGenerator<T2>>(g2_),
+            static_cast<ParamGenerator<T3>>(g3_),
+            static_cast<ParamGenerator<T4>>(g4_),
+            static_cast<ParamGenerator<T5>>(g5_),
+            static_cast<ParamGenerator<T6>>(g6_),
+            static_cast<ParamGenerator<T7>>(g7_),
+            static_cast<ParamGenerator<T8>>(g8_),
+            static_cast<ParamGenerator<T9>>(g9_),
+            static_cast<ParamGenerator<T10>>(g10_)));
 }
 
 private:

@@ -43,14 +43,14 @@
 namespace internal
 {
 template<typename BinaryOp, typename Lhs, typename Rhs>
-struct traits<SelfCwiseBinaryOp<BinaryOp, Lhs, Rhs> >
-    : traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >
+struct traits<SelfCwiseBinaryOp<BinaryOp, Lhs, Rhs>>
+    : traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs>>
 {
     enum
     {
         // Note that it is still a good idea to preserve the DirectAccessBit
         // so that assign can correctly align the data.
-        Flags                    = traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >::Flags | (Lhs::Flags&DirectAccessBit) | (Lhs::Flags & LvalueBit),
+        Flags                    = traits<CwiseBinaryOp<BinaryOp, Lhs, Rhs>>::Flags | (Lhs::Flags&DirectAccessBit) | (Lhs::Flags & LvalueBit),
         OuterStrideAtCompileTime = Lhs::OuterStrideAtCompileTime,
         InnerStrideAtCompileTime = Lhs::InnerStrideAtCompileTime
     };
@@ -58,7 +58,7 @@ struct traits<SelfCwiseBinaryOp<BinaryOp, Lhs, Rhs> >
 }
 
 template<typename BinaryOp, typename Lhs, typename Rhs> class SelfCwiseBinaryOp
-    : public internal::dense_xpr_base<SelfCwiseBinaryOp<BinaryOp, Lhs, Rhs> >::type
+    : public internal::dense_xpr_base<SelfCwiseBinaryOp<BinaryOp, Lhs, Rhs>>::type
 {
 public:
 
@@ -206,7 +206,7 @@ inline Derived&DenseBase<Derived>::operator/=(const Scalar &other)
 {
     typedef typename internal::conditional<NumTraits<Scalar>::IsInteger,
                                            internal::scalar_quotient_op<Scalar>,
-                                           internal::scalar_product_op<Scalar> >::type BinOp;
+                                           internal::scalar_product_op<Scalar>>::type BinOp;
     typedef typename Derived::PlainObject PlainObject;
     SelfCwiseBinaryOp<BinOp, Derived, typename PlainObject::ConstantReturnType> tmp(derived());
     tmp = PlainObject::Constant(rows(), cols(), NumTraits<Scalar>::IsInteger ? other : Scalar(1) / other);

@@ -670,7 +670,7 @@ void DoGScaleInvariantDetector::findFeatureOrientations(const GaussianScaleSpace
 
 namespace vision
 {
-void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
+void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t>>>> &buckets,
                       std::vector<DoGScaleInvariantDetector::FeaturePoint> &outPoints,
                       const std::vector<DoGScaleInvariantDetector::FeaturePoint> &inPoints,
                       int num_buckets_X,
@@ -716,8 +716,8 @@ void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_
     {
         for (size_t j = 0; j < buckets[i].size(); j++)
         {
-            std::vector<std::pair<float, size_t> > &bucket = buckets[i][j];
-            size_t n                                       = std::min<size_t>(bucket.size(), num_points_per_bucket);
+            std::vector<std::pair<float, size_t>> &bucket = buckets[i][j];
+            size_t n                                      = std::min<size_t>(bucket.size(), num_points_per_bucket);
             if (n == 0)
             {
                 continue;
@@ -725,7 +725,7 @@ void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_
 
             std::nth_element(bucket.begin(),
                              bucket.begin() + n,
-                             bucket.end(), std::greater<std::pair<float, size_t> >());
+                             bucket.end(), std::greater<std::pair<float, size_t>>());
 
             DEBUG_BLOCK(
                 if (n > bucket.size())

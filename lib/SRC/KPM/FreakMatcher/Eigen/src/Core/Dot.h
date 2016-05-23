@@ -44,7 +44,7 @@ struct dot_nocheck
     typedef typename scalar_product_traits<typename traits<T>::Scalar, typename traits<U>::Scalar>::ReturnType ResScalar;
     static inline ResScalar run(const MatrixBase<T> &a, const MatrixBase<U> &b)
     {
-        return a.template binaryExpr<scalar_conj_product_op<typename traits<T>::Scalar, typename traits<U>::Scalar> >(b).sum();
+        return a.template binaryExpr<scalar_conj_product_op<typename traits<T>::Scalar, typename traits<U>::Scalar>>(b).sum();
     }
 };
 
@@ -54,7 +54,7 @@ struct dot_nocheck<T, U, true>
     typedef typename scalar_product_traits<typename traits<T>::Scalar, typename traits<U>::Scalar>::ReturnType ResScalar;
     static inline ResScalar run(const MatrixBase<T> &a, const MatrixBase<U> &b)
     {
-        return a.transpose().template binaryExpr<scalar_conj_product_op<typename traits<T>::Scalar, typename traits<U>::Scalar> >(b).sum();
+        return a.transpose().template binaryExpr<scalar_conj_product_op<typename traits<T>::Scalar, typename traits<U>::Scalar>>(b).sum();
     }
 };
 } // end namespace internal

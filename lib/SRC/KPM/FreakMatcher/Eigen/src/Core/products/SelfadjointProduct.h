@@ -41,12 +41,12 @@ struct selfadjoint_rank1_update<Scalar, Index, ColMajor, UpLo, ConjLhs, ConjRhs>
     {
         internal::conj_if<ConjRhs> cj;
 
-        typedef Map<const Matrix<Scalar, Dynamic, 1> > OtherMap;
+        typedef Map<const Matrix<Scalar, Dynamic, 1>> OtherMap;
         typedef typename internal::conditional<ConjLhs, typename OtherMap::ConjugateReturnType, const OtherMap&>::type ConjRhsType;
 
         for (Index i = 0; i < size; ++i)
         {
-            Map<Matrix<Scalar, Dynamic, 1> >(mat + stride * i + (UpLo == Lower ? i : 0), (UpLo == Lower ? size - i : (i + 1)))
+            Map<Matrix<Scalar, Dynamic, 1>>(mat + stride * i + (UpLo == Lower ? i : 0), (UpLo == Lower ? size - i : (i + 1)))
                 += (alpha * cj(vec[i])) * ConjRhsType(OtherMap(vec + (UpLo == Lower ? i : 0), UpLo == Lower ? size - i : (i + 1)));
         }
     }

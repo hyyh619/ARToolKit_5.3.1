@@ -37,13 +37,13 @@
 namespace internal
 {
 template<typename _Scalar, int _Flags, typename _Index>
-struct traits<MappedSparseMatrix<_Scalar, _Flags, _Index> > : traits<SparseMatrix<_Scalar, _Flags, _Index> >
+struct traits<MappedSparseMatrix<_Scalar, _Flags, _Index>> : traits<SparseMatrix<_Scalar, _Flags, _Index>>
 {};
 }
 
 template<typename _Scalar, int _Flags, typename _Index>
 class MappedSparseMatrix
-    : public SparseMatrixBase<MappedSparseMatrix<_Scalar, _Flags, _Index> >
+    : public SparseMatrixBase<MappedSparseMatrix<_Scalar, _Flags, _Index>>
 {
 public:
 EIGEN_SPARSE_PUBLIC_INTERFACE(MappedSparseMatrix)

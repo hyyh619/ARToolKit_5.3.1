@@ -128,10 +128,10 @@ Scalar intersection(const Hyperplane<_Scalar, _AmbientDim> &hyperplane);
  */
 template<typename NewScalarType>
 inline typename internal::cast_return_type<ParametrizedLine,
-                                           ParametrizedLine<NewScalarType, AmbientDimAtCompileTime> >::type cast() const
+                                           ParametrizedLine<NewScalarType, AmbientDimAtCompileTime>>::type cast() const
 {
     return typename internal::cast_return_type<ParametrizedLine,
-                                               ParametrizedLine<NewScalarType, AmbientDimAtCompileTime> >::type(*this);
+                                               ParametrizedLine<NewScalarType, AmbientDimAtCompileTime>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

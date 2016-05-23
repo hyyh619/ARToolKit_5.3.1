@@ -98,7 +98,7 @@ template<typename MatrixDerived>
 const DiagonalProduct<MatrixDerived, Derived, OnTheLeft>
 operator*(const MatrixBase<MatrixDerived> &matrix) const;
 
-inline const DiagonalWrapper<CwiseUnaryOp<internal::scalar_inverse_op<Scalar>, const DiagonalVectorType> >
+inline const DiagonalWrapper<CwiseUnaryOp<internal::scalar_inverse_op<Scalar>, const DiagonalVectorType>>
 inverse() const
 {
     return diagonal().cwiseInverse();
@@ -143,8 +143,8 @@ void DiagonalBase<Derived>::evalTo(MatrixBase<DenseDerived> &other) const
 namespace internal
 {
 template<typename _Scalar, int SizeAtCompileTime, int MaxSizeAtCompileTime>
-struct traits<DiagonalMatrix<_Scalar, SizeAtCompileTime, MaxSizeAtCompileTime> >
-    : traits<Matrix<_Scalar, SizeAtCompileTime, SizeAtCompileTime, 0, MaxSizeAtCompileTime, MaxSizeAtCompileTime> >
+struct traits<DiagonalMatrix<_Scalar, SizeAtCompileTime, MaxSizeAtCompileTime>>
+    : traits<Matrix<_Scalar, SizeAtCompileTime, SizeAtCompileTime, 0, MaxSizeAtCompileTime, MaxSizeAtCompileTime>>
 {
     typedef Matrix<_Scalar, SizeAtCompileTime, 1, 0, MaxSizeAtCompileTime, 1> DiagonalVectorType;
     typedef Dense StorageKind;
@@ -157,7 +157,7 @@ struct traits<DiagonalMatrix<_Scalar, SizeAtCompileTime, MaxSizeAtCompileTime> >
 }
 template<typename _Scalar, int SizeAtCompileTime, int MaxSizeAtCompileTime>
 class DiagonalMatrix
-    : public DiagonalBase<DiagonalMatrix<_Scalar, SizeAtCompileTime, MaxSizeAtCompileTime> >
+    : public DiagonalBase<DiagonalMatrix<_Scalar, SizeAtCompileTime, MaxSizeAtCompileTime>>
 {
 public:
     #ifndef EIGEN_PARSED_BY_DOXYGEN
@@ -274,7 +274,7 @@ inline void setIdentity(Index size)
 namespace internal
 {
 template<typename _DiagonalVectorType>
-struct traits<DiagonalWrapper<_DiagonalVectorType> >
+struct traits<DiagonalWrapper<_DiagonalVectorType>>
 {
     typedef _DiagonalVectorType DiagonalVectorType;
     typedef typename DiagonalVectorType::Scalar Scalar;
@@ -293,7 +293,7 @@ struct traits<DiagonalWrapper<_DiagonalVectorType> >
 
 template<typename _DiagonalVectorType>
 class DiagonalWrapper
-    : public DiagonalBase<DiagonalWrapper<_DiagonalVectorType> >, internal::no_assignment_operator
+    : public DiagonalBase<DiagonalWrapper<_DiagonalVectorType>>, internal::no_assignment_operator
 {
 public:
     #ifndef EIGEN_PARSED_BY_DOXYGEN

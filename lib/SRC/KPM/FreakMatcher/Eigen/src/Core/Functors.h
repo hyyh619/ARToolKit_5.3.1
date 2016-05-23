@@ -53,7 +53,7 @@ template<typename Scalar> struct scalar_sum_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_sum_op<Scalar> >
+struct functor_traits<scalar_sum_op<Scalar>>
 {
     enum
     {
@@ -92,7 +92,7 @@ template<typename LhsScalar, typename RhsScalar> struct scalar_product_op
     }
 };
 template<typename LhsScalar, typename RhsScalar>
-struct functor_traits<scalar_product_op<LhsScalar, RhsScalar> >
+struct functor_traits<scalar_product_op<LhsScalar, RhsScalar>>
 {
     enum
     {
@@ -128,7 +128,7 @@ template<typename LhsScalar, typename RhsScalar> struct scalar_conj_product_op
     }
 };
 template<typename LhsScalar, typename RhsScalar>
-struct functor_traits<scalar_conj_product_op<LhsScalar, RhsScalar> >
+struct functor_traits<scalar_conj_product_op<LhsScalar, RhsScalar>>
 {
     enum
     {
@@ -161,7 +161,7 @@ template<typename Scalar> struct scalar_min_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_min_op<Scalar> >
+struct functor_traits<scalar_min_op<Scalar>>
 {
     enum
     {
@@ -194,7 +194,7 @@ template<typename Scalar> struct scalar_max_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_max_op<Scalar> >
+struct functor_traits<scalar_max_op<Scalar>>
 {
     enum
     {
@@ -223,7 +223,7 @@ template<typename Scalar> struct scalar_hypot_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_hypot_op<Scalar> >
+struct functor_traits<scalar_hypot_op<Scalar>>
 {
     enum { Cost = 5 * NumTraits<Scalar>::MulCost, PacketAccess = 0 };
 };
@@ -249,7 +249,7 @@ template<typename Scalar> struct scalar_difference_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_difference_op<Scalar> >
+struct functor_traits<scalar_difference_op<Scalar>>
 {
     enum
     {
@@ -277,7 +277,7 @@ template<typename Scalar> struct scalar_quotient_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_quotient_op<Scalar> >
+struct functor_traits<scalar_quotient_op<Scalar>>
 {
     enum
     {
@@ -307,7 +307,7 @@ template<typename Scalar> struct scalar_opposite_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_opposite_op<Scalar> >
+struct functor_traits<scalar_opposite_op<Scalar>>
 { enum
   {
       Cost         = NumTraits<Scalar>::AddCost,
@@ -334,7 +334,7 @@ template<typename Scalar> struct scalar_abs_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_abs_op<Scalar> >
+struct functor_traits<scalar_abs_op<Scalar>>
 {
     enum
     {
@@ -363,7 +363,7 @@ template<typename Scalar> struct scalar_abs2_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_abs2_op<Scalar> >
+struct functor_traits<scalar_abs2_op<Scalar>>
 { enum { Cost = NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasAbs2 }; };
 
 /** \internal
@@ -385,7 +385,7 @@ template<typename Scalar> struct scalar_conjugate_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_conjugate_op<Scalar> >
+struct functor_traits<scalar_conjugate_op<Scalar>>
 {
     enum
     {
@@ -410,7 +410,7 @@ struct scalar_cast_op
     }
 };
 template<typename Scalar, typename NewType>
-struct functor_traits<scalar_cast_op<Scalar, NewType> >
+struct functor_traits<scalar_cast_op<Scalar, NewType>>
 { enum { Cost = is_same<Scalar, NewType>::value ? 0 : NumTraits<NewType>::AddCost, PacketAccess = false }; };
 
 /** \internal
@@ -429,7 +429,7 @@ struct scalar_real_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_real_op<Scalar> >
+struct functor_traits<scalar_real_op<Scalar>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 /** \internal
@@ -448,7 +448,7 @@ struct scalar_imag_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_imag_op<Scalar> >
+struct functor_traits<scalar_imag_op<Scalar>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 /** \internal
@@ -467,7 +467,7 @@ struct scalar_real_ref_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_real_ref_op<Scalar> >
+struct functor_traits<scalar_real_ref_op<Scalar>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 /** \internal
@@ -486,7 +486,7 @@ struct scalar_imag_ref_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_imag_ref_op<Scalar> >
+struct functor_traits<scalar_imag_ref_op<Scalar>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 /** \internal
@@ -509,7 +509,7 @@ template<typename Scalar> struct scalar_exp_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_exp_op<Scalar> >
+struct functor_traits<scalar_exp_op<Scalar>>
 { enum { Cost = 5 * NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasExp }; };
 
 /** \internal
@@ -532,7 +532,7 @@ template<typename Scalar> struct scalar_log_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_log_op<Scalar> >
+struct functor_traits<scalar_log_op<Scalar>>
 { enum { Cost = 5 * NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasLog }; };
 
 /** \internal
@@ -566,7 +566,7 @@ struct scalar_multiple_op
     typename add_const_on_value_type<typename NumTraits<Scalar>::Nested>::type m_other;
 };
 template<typename Scalar>
-struct functor_traits<scalar_multiple_op<Scalar> >
+struct functor_traits<scalar_multiple_op<Scalar>>
 { enum { Cost = NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasMul }; };
 
 template<typename Scalar1, typename Scalar2>
@@ -582,7 +582,7 @@ struct scalar_multiple2_op
     typename add_const_on_value_type<typename NumTraits<Scalar2>::Nested>::type m_other;
 };
 template<typename Scalar1, typename Scalar2>
-struct functor_traits<scalar_multiple2_op<Scalar1, Scalar2> >
+struct functor_traits<scalar_multiple2_op<Scalar1, Scalar2>>
 { enum { Cost = NumTraits<Scalar1>::MulCost, PacketAccess = false }; };
 
 template<typename Scalar, bool IsInteger>
@@ -603,7 +603,7 @@ struct scalar_quotient1_impl
     const Scalar m_other;
 };
 template<typename Scalar>
-struct functor_traits<scalar_quotient1_impl<Scalar, false> >
+struct functor_traits<scalar_quotient1_impl<Scalar, false>>
 { enum { Cost = NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasMul }; };
 
 template<typename Scalar>
@@ -619,7 +619,7 @@ struct scalar_quotient1_impl<Scalar, true>
     typename add_const_on_value_type<typename NumTraits<Scalar>::Nested>::type m_other;
 };
 template<typename Scalar>
-struct functor_traits<scalar_quotient1_impl<Scalar, true> >
+struct functor_traits<scalar_quotient1_impl<Scalar, true>>
 { enum { Cost = 2 * NumTraits<Scalar>::MulCost, PacketAccess = false }; };
 
 /** \internal
@@ -637,8 +637,8 @@ struct scalar_quotient1_op : scalar_quotient1_impl<Scalar, NumTraits<Scalar>::Is
         : scalar_quotient1_impl<Scalar, NumTraits<Scalar>::IsInteger>(other) {}
 };
 template<typename Scalar>
-struct functor_traits<scalar_quotient1_op<Scalar> >
-    : functor_traits<scalar_quotient1_impl<Scalar, NumTraits<Scalar>::IsInteger> >
+struct functor_traits<scalar_quotient1_op<Scalar>>
+    : functor_traits<scalar_quotient1_impl<Scalar, NumTraits<Scalar>::IsInteger>>
 {};
 
 // nullary functors
@@ -662,7 +662,7 @@ struct scalar_constant_op
     const Scalar m_other;
 };
 template<typename Scalar>
-struct functor_traits<scalar_constant_op<Scalar> >
+struct functor_traits<scalar_constant_op<Scalar>>
 // FIXME replace this packet test by a safe one
 { enum { Cost = 1, PacketAccess = packet_traits<Scalar>::Vectorizable, IsRepeatable = true }; };
 
@@ -676,7 +676,7 @@ template<typename Scalar> struct scalar_identity_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_identity_op<Scalar> >
+struct functor_traits<scalar_identity_op<Scalar>>
 { enum { Cost = NumTraits<Scalar>::AddCost, PacketAccess = false, IsRepeatable = true }; };
 
 template<typename Scalar, bool RandomAccess> struct linspaced_op_impl;
@@ -750,7 +750,7 @@ struct linspaced_op_impl<Scalar, true>
 // us a speed gain when using packet access but it allows to use the functor in
 // nested expressions).
 template<typename Scalar, bool RandomAccess = true> struct linspaced_op;
-template<typename Scalar, bool RandomAccess> struct functor_traits<linspaced_op<Scalar, RandomAccess> >
+template<typename Scalar, bool RandomAccess> struct functor_traits<linspaced_op<Scalar, RandomAccess>>
 { enum { Cost = 1, PacketAccess = packet_traits<Scalar>::HasSetLinear, IsRepeatable = true }; };
 template<typename Scalar, bool RandomAccess> struct linspaced_op
 {
@@ -798,14 +798,14 @@ template<typename Scalar, bool RandomAccess> struct linspaced_op
 // scalar_identity_op.
 // FIXME move this to functor_traits adding a functor_default
 template<typename Functor> struct functor_has_linear_access { enum { ret = 1 }; };
-template<typename Scalar> struct functor_has_linear_access<scalar_identity_op<Scalar> > { enum { ret = 0 }; };
+template<typename Scalar> struct functor_has_linear_access<scalar_identity_op<Scalar>> { enum { ret = 0 }; };
 
 // in CwiseBinaryOp, we require the Lhs and Rhs to have the same scalar type, except for multiplication
 // where we only require them to have the same _real_ scalar type so one may multiply, say, float by complex<float>.
 // FIXME move this to functor_traits adding a functor_default
 template<typename Functor> struct functor_allows_mixing_real_and_complex { enum { ret = 0 }; };
-template<typename LhsScalar, typename RhsScalar> struct functor_allows_mixing_real_and_complex<scalar_product_op<LhsScalar, RhsScalar> > { enum { ret = 1 }; };
-template<typename LhsScalar, typename RhsScalar> struct functor_allows_mixing_real_and_complex<scalar_conj_product_op<LhsScalar, RhsScalar> > { enum { ret = 1 }; };
+template<typename LhsScalar, typename RhsScalar> struct functor_allows_mixing_real_and_complex<scalar_product_op<LhsScalar, RhsScalar>> { enum { ret = 1 }; };
+template<typename LhsScalar, typename RhsScalar> struct functor_allows_mixing_real_and_complex<scalar_conj_product_op<LhsScalar, RhsScalar>> { enum { ret = 1 }; };
 
 
 /** \internal
@@ -831,7 +831,7 @@ struct scalar_add_op
     const Scalar m_other;
 };
 template<typename Scalar>
-struct functor_traits<scalar_add_op<Scalar> >
+struct functor_traits<scalar_add_op<Scalar>>
 { enum { Cost = NumTraits<Scalar>::AddCost, PacketAccess = packet_traits<Scalar>::HasAdd }; };
 
 /** \internal
@@ -852,7 +852,7 @@ template<typename Scalar> struct scalar_sqrt_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_sqrt_op<Scalar> >
+struct functor_traits<scalar_sqrt_op<Scalar>>
 { enum
   {
       Cost         = 5 * NumTraits<Scalar>::MulCost,
@@ -877,7 +877,7 @@ template<typename Scalar> struct scalar_cos_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_cos_op<Scalar> >
+struct functor_traits<scalar_cos_op<Scalar>>
 {
     enum
     {
@@ -904,7 +904,7 @@ template<typename Scalar> struct scalar_sin_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_sin_op<Scalar> >
+struct functor_traits<scalar_sin_op<Scalar>>
 {
     enum
     {
@@ -932,7 +932,7 @@ template<typename Scalar> struct scalar_tan_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_tan_op<Scalar> >
+struct functor_traits<scalar_tan_op<Scalar>>
 {
     enum
     {
@@ -959,7 +959,7 @@ template<typename Scalar> struct scalar_acos_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_acos_op<Scalar> >
+struct functor_traits<scalar_acos_op<Scalar>>
 {
     enum
     {
@@ -986,7 +986,7 @@ template<typename Scalar> struct scalar_asin_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_asin_op<Scalar> >
+struct functor_traits<scalar_asin_op<Scalar>>
 {
     enum
     {
@@ -1012,7 +1012,7 @@ struct scalar_pow_op
     const Scalar m_exponent;
 };
 template<typename Scalar>
-struct functor_traits<scalar_pow_op<Scalar> >
+struct functor_traits<scalar_pow_op<Scalar>>
 { enum { Cost = 5 * NumTraits<Scalar>::MulCost, PacketAccess = false }; };
 
 /** \internal
@@ -1034,7 +1034,7 @@ struct scalar_inverse_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_inverse_op<Scalar> >
+struct functor_traits<scalar_inverse_op<Scalar>>
 { enum { Cost = NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasDiv }; };
 
 /** \internal
@@ -1056,7 +1056,7 @@ struct scalar_square_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_square_op<Scalar> >
+struct functor_traits<scalar_square_op<Scalar>>
 { enum { Cost = NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasMul }; };
 
 /** \internal
@@ -1078,106 +1078,106 @@ struct scalar_cube_op
     }
 };
 template<typename Scalar>
-struct functor_traits<scalar_cube_op<Scalar> >
+struct functor_traits<scalar_cube_op<Scalar>>
 { enum { Cost = 2 * NumTraits<Scalar>::MulCost, PacketAccess = packet_traits<Scalar>::HasMul }; };
 
 // default functor traits for STL functors:
 
 template<typename T>
-struct functor_traits<std::multiplies<T> >
+struct functor_traits<std::multiplies<T>>
 { enum { Cost = NumTraits<T>::MulCost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::divides<T> >
+struct functor_traits<std::divides<T>>
 { enum { Cost = NumTraits<T>::MulCost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::plus<T> >
+struct functor_traits<std::plus<T>>
 { enum { Cost = NumTraits<T>::AddCost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::minus<T> >
+struct functor_traits<std::minus<T>>
 { enum { Cost = NumTraits<T>::AddCost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::negate<T> >
+struct functor_traits<std::negate<T>>
 { enum { Cost = NumTraits<T>::AddCost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::logical_or<T> >
+struct functor_traits<std::logical_or<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::logical_and<T> >
+struct functor_traits<std::logical_and<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::logical_not<T> >
+struct functor_traits<std::logical_not<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::greater<T> >
+struct functor_traits<std::greater<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::less<T> >
+struct functor_traits<std::less<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::greater_equal<T> >
+struct functor_traits<std::greater_equal<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::less_equal<T> >
+struct functor_traits<std::less_equal<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::equal_to<T> >
+struct functor_traits<std::equal_to<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::not_equal_to<T> >
+struct functor_traits<std::not_equal_to<T>>
 { enum { Cost = 1, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::binder2nd<T> >
+struct functor_traits<std::binder2nd<T>>
 { enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::binder1st<T> >
+struct functor_traits<std::binder1st<T>>
 { enum { Cost = functor_traits<T>::Cost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::unary_negate<T> >
+struct functor_traits<std::unary_negate<T>>
 { enum { Cost = 1 + functor_traits<T>::Cost, PacketAccess = false }; };
 
 template<typename T>
-struct functor_traits<std::binary_negate<T> >
+struct functor_traits<std::binary_negate<T>>
 { enum { Cost = 1 + functor_traits<T>::Cost, PacketAccess = false }; };
 
 #ifdef EIGEN_STDEXT_SUPPORT
 template<typename T0, typename T1>
-struct functor_traits<std::project1st<T0, T1> >
+struct functor_traits<std::project1st<T0, T1>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 template<typename T0, typename T1>
-struct functor_traits<std::project2nd<T0, T1> >
+struct functor_traits<std::project2nd<T0, T1>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 template<typename T0, typename T1>
-struct functor_traits<std::select2nd<std::pair<T0, T1> > >
+struct functor_traits<std::select2nd<std::pair<T0, T1>>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 template<typename T0, typename T1>
-struct functor_traits<std::select1st<std::pair<T0, T1> > >
+struct functor_traits<std::select1st<std::pair<T0, T1>>>
 { enum { Cost = 0, PacketAccess = false }; };
 
 template<typename T0, typename T1>
-struct functor_traits<std::unary_compose<T0, T1> >
+struct functor_traits<std::unary_compose<T0, T1>>
 { enum { Cost = functor_traits<T0>::Cost + functor_traits<T1>::Cost, PacketAccess = false }; };
 
 template<typename T0, typename T1, typename T2>
-struct functor_traits<std::binary_compose<T0, T1, T2> >
+struct functor_traits<std::binary_compose<T0, T1, T2>>
 { enum { Cost = functor_traits<T0>::Cost + functor_traits<T1>::Cost + functor_traits<T2>::Cost, PacketAccess = false }; };
 #endif // EIGEN_STDEXT_SUPPORT
 

@@ -2071,9 +2071,9 @@ class CV_EXPORTS FernClassifier
 public:
 FernClassifier();
 FernClassifier(const FileNode &node);
-FernClassifier(const vector<vector<Point2f> > &points,
+FernClassifier(const vector<vector<Point2f>> &points,
                const vector<Mat> &refimgs,
-               const vector<vector<int> > &labels = vector<vector<int> >(),
+               const vector<vector<int>> &labels = vector<vector<int>>(),
                int _nclasses = 0, int _patchSize = PATCH_SIZE,
                int _signatureSize = DEFAULT_SIGNATURE_SIZE,
                int _nstructs = DEFAULT_STRUCTS,
@@ -2093,9 +2093,9 @@ virtual void trainFromSingleView(const Mat &image,
                                  int _nviews = DEFAULT_VIEWS,
                                  int _compressionMethod = COMPRESSION_NONE,
                                  const PatchGenerator &patchGenerator = PatchGenerator());
-virtual void train(const vector<vector<Point2f> > &points,
+virtual void train(const vector<vector<Point2f>> &points,
                    const vector<Mat> &refimgs,
-                   const vector<vector<int> > &labels = vector<vector<int> >(),
+                   const vector<vector<int>> &labels = vector<vector<int>>(),
                    int _nclasses = 0, int _patchSize = PATCH_SIZE,
                    int _signatureSize = DEFAULT_SIGNATURE_SIZE,
                    int _nstructs = DEFAULT_STRUCTS,
@@ -2924,10 +2924,10 @@ protected:
 // The class ID of a match is returned for each keypoint. The distance is calculated over PCA components
 // loaded with DescriptorOneWay::Initialize, kd tree is used for finding minimum distances.
 virtual void knnMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                          vector<vector<DMatch> > &matches, int k,
+                          vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks, bool compactResult);
 virtual void radiusMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                             vector<vector<DMatch> > &matches, float maxDistance,
+                             vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks, bool compactResult);
 
 Ptr<OneWayDescriptorBase> base;
@@ -2987,10 +2987,10 @@ virtual Ptr<GenericDescriptorMatcher> clone(bool emptyTrainData = false) const;
 
 protected:
 virtual void knnMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                          vector<vector<DMatch> > &matches, int k,
+                          vector<vector<DMatch>> &matches, int k,
                           const vector<Mat> &masks, bool compactResult);
 virtual void radiusMatchImpl(const Mat &queryImage, vector<KeyPoint> &queryKeypoints,
-                             vector<vector<DMatch> > &matches, float maxDistance,
+                             vector<vector<DMatch>> &matches, float maxDistance,
                              const vector<Mat> &masks, bool compactResult);
 
 void trainFernClassifier();

@@ -177,7 +177,7 @@ namespace cv
                                                const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &data,
                                                unsigned int tid)
     {
-        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::loadToSmem(smem, data, tid);
+        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>>::value>::loadToSmem(smem, data, tid);
     }
     template<typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9>
@@ -185,7 +185,7 @@ namespace cv
                                                  const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &data,
                                                  unsigned int tid)
     {
-        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::loadFromSmem(smem, data, tid);
+        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>>::value>::loadFromSmem(smem, data, tid);
     }
 
     //////////////////////////////////////////////////////
@@ -206,7 +206,7 @@ namespace cv
                                                  unsigned int delta,
                                                  int width)
     {
-        For<0, thrust::tuple_size<thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> >::value>::copyShfl(val, delta, width);
+        For<0, thrust::tuple_size<thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9>>::value>::copyShfl(val, delta, width);
     }
     template<typename VP0, typename VP1, typename VP2, typename VP3, typename VP4, typename VP5, typename VP6, typename VP7, typename VP8, typename VP9,
              typename VR0, typename VR1, typename VR2, typename VR3, typename VR4, typename VR5, typename VR6, typename VR7, typename VR8, typename VR9>
@@ -214,7 +214,7 @@ namespace cv
                                              const thrust::tuple<VR0, VR1, VR2, VR3, VR4, VR5, VR6, VR7, VR8, VR9> &val,
                                              unsigned int tid, unsigned int delta)
     {
-        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::copy(svals, val, tid, delta);
+        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>>::value>::copy(svals, val, tid, delta);
     }
 
     //////////////////////////////////////////////////////
@@ -283,7 +283,7 @@ namespace cv
                                               const thrust::tuple<Cmp0, Cmp1, Cmp2, Cmp3, Cmp4, Cmp5, Cmp6, Cmp7, Cmp8, Cmp9> &cmp,
                                               unsigned int delta, int width)
     {
-        For<0, thrust::tuple_size<thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9> >::value>::mergeShfl(key, val, cmp, delta, width);
+        For<0, thrust::tuple_size<thrust::tuple<KR0, KR1, KR2, KR3, KR4, KR5, KR6, KR7, KR8, KR9>>::value>::mergeShfl(key, val, cmp, delta, width);
     }
     template<typename KP0, typename KP1, typename KP2, typename KP3, typename KP4, typename KP5, typename KP6, typename KP7, typename KP8, typename KP9,
              typename KR0, typename KR1, typename KR2, typename KR3, typename KR4, typename KR5, typename KR6, typename KR7, typename KR8, typename KR9,
@@ -297,7 +297,7 @@ namespace cv
                                           const thrust::tuple<Cmp0, Cmp1, Cmp2, Cmp3, Cmp4, Cmp5, Cmp6, Cmp7, Cmp8, Cmp9> &cmp,
                                           unsigned int tid, unsigned int delta)
     {
-        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9> >::value>::merge(skeys, key, svals, val, cmp, tid, delta);
+        For<0, thrust::tuple_size<thrust::tuple<VP0, VP1, VP2, VP3, VP4, VP5, VP6, VP7, VP8, VP9>>::value>::merge(skeys, key, svals, val, cmp, tid, delta);
     }
 
     //////////////////////////////////////////////////////

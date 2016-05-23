@@ -211,8 +211,8 @@ struct general_matrix_matrix_product<Index, LhsScalar, LhsStorageOrder, Conjugat
  **********************************************************************************/
 
 template<typename Lhs, typename Rhs>
-struct traits<GeneralProduct<Lhs, Rhs, GemmProduct> >
-    : traits<ProductBase<GeneralProduct<Lhs, Rhs, GemmProduct>, Lhs, Rhs> >
+struct traits<GeneralProduct<Lhs, Rhs, GemmProduct>>
+    : traits<ProductBase<GeneralProduct<Lhs, Rhs, GemmProduct>, Lhs, Rhs>>
 {};
 
 template<typename Scalar, typename Index, typename Gemm, typename Lhs, typename Rhs, typename Dest, typename BlockingType>

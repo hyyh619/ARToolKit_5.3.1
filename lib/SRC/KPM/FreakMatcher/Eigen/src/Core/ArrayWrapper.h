@@ -39,7 +39,7 @@
 namespace internal
 {
 template<typename ExpressionType>
-struct traits<ArrayWrapper<ExpressionType> >
+struct traits<ArrayWrapper<ExpressionType>>
     : public traits<typename remove_all<typename ExpressionType::Nested>::type>
 {
     typedef ArrayXpr XprKind;
@@ -47,7 +47,7 @@ struct traits<ArrayWrapper<ExpressionType> >
 }
 
 template<typename ExpressionType>
-class ArrayWrapper : public ArrayBase<ArrayWrapper<ExpressionType> >
+class ArrayWrapper : public ArrayBase<ArrayWrapper<ExpressionType>>
 {
 public:
 typedef ArrayBase<ArrayWrapper> Base;
@@ -168,7 +168,7 @@ const NestedExpressionType m_expression;
 namespace internal
 {
 template<typename ExpressionType>
-struct traits<MatrixWrapper<ExpressionType> >
+struct traits<MatrixWrapper<ExpressionType>>
     : public traits<typename remove_all<typename ExpressionType::Nested>::type>
 {
     typedef MatrixXpr XprKind;
@@ -176,10 +176,10 @@ struct traits<MatrixWrapper<ExpressionType> >
 }
 
 template<typename ExpressionType>
-class MatrixWrapper : public MatrixBase<MatrixWrapper<ExpressionType> >
+class MatrixWrapper : public MatrixBase<MatrixWrapper<ExpressionType>>
 {
 public:
-typedef MatrixBase<MatrixWrapper<ExpressionType> > Base;
+typedef MatrixBase<MatrixWrapper<ExpressionType>> Base;
 EIGEN_DENSE_PUBLIC_INTERFACE(MatrixWrapper)
 EIGEN_INHERIT_ASSIGNMENT_OPERATORS(MatrixWrapper)
 

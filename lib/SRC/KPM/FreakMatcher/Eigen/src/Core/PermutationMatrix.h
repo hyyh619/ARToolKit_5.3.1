@@ -282,7 +282,7 @@ inline PlainPermutationType operator*(const PermutationBase<Other> &other) const
  * \note \note_try_to_help_rvo
  */
 template<typename Other>
-inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> > &other) const
+inline PlainPermutationType operator*(const Transpose<PermutationBase<Other>> &other) const
 {
     return PlainPermutationType(internal::PermPermProduct, *this, other.eval());
 }
@@ -292,7 +292,7 @@ inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> > &
  * \note \note_try_to_help_rvo
  */
 template<typename Other> friend
-inline PlainPermutationType operator*(const Transpose<PermutationBase<Other> > &other, const PermutationBase &perm)
+inline PlainPermutationType operator*(const Transpose<PermutationBase<Other>> &other, const PermutationBase &perm)
 {
     return PlainPermutationType(internal::PermPermProduct, other.eval(), perm);
 }
@@ -317,8 +317,8 @@ protected:
 namespace internal
 {
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType>
-struct traits<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType> >
-    : traits<Matrix<IndexType, SizeAtCompileTime, SizeAtCompileTime, 0, MaxSizeAtCompileTime, MaxSizeAtCompileTime> >
+struct traits<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>>
+    : traits<Matrix<IndexType, SizeAtCompileTime, SizeAtCompileTime, 0, MaxSizeAtCompileTime, MaxSizeAtCompileTime>>
 {
     typedef IndexType Index;
     typedef Matrix<IndexType, SizeAtCompileTime, 1, 0, MaxSizeAtCompileTime, 1> IndicesType;
@@ -326,7 +326,7 @@ struct traits<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexTy
 }
 
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType>
-class PermutationMatrix : public PermutationBase<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType> >
+class PermutationMatrix : public PermutationBase<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>>
 {
 typedef PermutationBase<PermutationMatrix> Base;
 typedef internal::traits<PermutationMatrix> Traits;
@@ -416,7 +416,7 @@ IndicesType&indices()
 
 #ifndef EIGEN_PARSED_BY_DOXYGEN
 template<typename Other>
-PermutationMatrix(const Transpose<PermutationBase<Other> > &other)
+PermutationMatrix(const Transpose<PermutationBase<Other>> &other)
     : m_indices(other.nestedPermutation().size())
 {
     for (int i = 0; i < m_indices.size(); ++i)
@@ -439,8 +439,8 @@ IndicesType m_indices;
 namespace internal
 {
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType, int _PacketAccess>
-struct traits<Map<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess> >
-    : traits<Matrix<IndexType, SizeAtCompileTime, SizeAtCompileTime, 0, MaxSizeAtCompileTime, MaxSizeAtCompileTime> >
+struct traits<Map<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess>>
+    : traits<Matrix<IndexType, SizeAtCompileTime, SizeAtCompileTime, 0, MaxSizeAtCompileTime, MaxSizeAtCompileTime>>
 {
     typedef IndexType Index;
     typedef Map<const Matrix<IndexType, SizeAtCompileTime, 1, 0, MaxSizeAtCompileTime, 1>, _PacketAccess> IndicesType;
@@ -449,7 +449,7 @@ struct traits<Map<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, Ind
 
 template<int SizeAtCompileTime, int MaxSizeAtCompileTime, typename IndexType, int _PacketAccess>
 class Map<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess>
-    : public PermutationBase<Map<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess> >
+    : public PermutationBase<Map<PermutationMatrix<SizeAtCompileTime, MaxSizeAtCompileTime, IndexType>, _PacketAccess>>
 {
 typedef PermutationBase<Map> Base;
 typedef internal::traits<Map> Traits;
@@ -527,7 +527,7 @@ template<typename _IndicesType> class TranspositionsWrapper;
 namespace internal
 {
 template<typename _IndicesType>
-struct traits<PermutationWrapper<_IndicesType> >
+struct traits<PermutationWrapper<_IndicesType>>
 {
     typedef PermutationStorage StorageKind;
     typedef typename _IndicesType::Scalar Scalar;
@@ -546,7 +546,7 @@ struct traits<PermutationWrapper<_IndicesType> >
 }
 
 template<typename _IndicesType>
-class PermutationWrapper : public PermutationBase<PermutationWrapper<_IndicesType> >
+class PermutationWrapper : public PermutationBase<PermutationWrapper<_IndicesType>>
 {
 typedef PermutationBase<PermutationWrapper> Base;
 typedef internal::traits<PermutationWrapper> Traits;
@@ -597,14 +597,14 @@ operator*(const PermutationBase<PermutationDerived> &permutation,
 namespace internal
 {
 template<typename PermutationType, typename MatrixType, int Side, bool Transposed>
-struct traits<permut_matrix_product_retval<PermutationType, MatrixType, Side, Transposed> >
+struct traits<permut_matrix_product_retval<PermutationType, MatrixType, Side, Transposed>>
 {
     typedef typename MatrixType::PlainObject ReturnType;
 };
 
 template<typename PermutationType, typename MatrixType, int Side, bool Transposed>
 struct permut_matrix_product_retval
-    : public ReturnByValue<permut_matrix_product_retval<PermutationType, MatrixType, Side, Transposed> >
+    : public ReturnByValue<permut_matrix_product_retval<PermutationType, MatrixType, Side, Transposed>>
 {
     typedef typename remove_all<typename MatrixType::Nested>::type MatrixTypeNestedCleaned;
 
@@ -680,14 +680,14 @@ protected:
 /* Template partial specialization for transposed/inverse permutations */
 
 template<typename Derived>
-struct traits<Transpose<PermutationBase<Derived> > >
+struct traits<Transpose<PermutationBase<Derived>>>
     : traits<Derived>
 {};
 } // end namespace internal
 
 template<typename Derived>
-class Transpose<PermutationBase<Derived> >
-    : public EigenBase<Transpose<PermutationBase<Derived> > >
+class Transpose<PermutationBase<Derived>>
+    : public EigenBase<Transpose<PermutationBase<Derived>>>
 {
 typedef Derived PermutationType;
 typedef typename PermutationType::IndicesType IndicesType;

@@ -41,12 +41,12 @@
 namespace internal
 {
 template<typename ExpressionType>
-struct traits<ForceAlignedAccess<ExpressionType> > : public traits<ExpressionType>
+struct traits<ForceAlignedAccess<ExpressionType>> : public traits<ExpressionType>
 {};
 }
 
 template<typename ExpressionType> class ForceAlignedAccess
-    : public internal::dense_xpr_base<ForceAlignedAccess<ExpressionType> >::type
+    : public internal::dense_xpr_base<ForceAlignedAccess<ExpressionType>>::type
 {
 public:
 

@@ -58,7 +58,7 @@ class sparse_cwise_binary_op_inner_iterator_selector;
 
 template<typename BinaryOp, typename Lhs, typename Rhs>
 class CwiseBinaryOpImpl<BinaryOp, Lhs, Rhs, Sparse>
-    : public SparseMatrixBase<CwiseBinaryOp<BinaryOp, Lhs, Rhs> >
+    : public SparseMatrixBase<CwiseBinaryOp<BinaryOp, Lhs, Rhs>>
 {
 public:
 class InnerIterator;

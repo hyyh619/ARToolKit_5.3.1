@@ -279,7 +279,7 @@ template<class T> inline oclMat::operator DevMem2D_<T>() const
 }
 template<class T> inline oclMat::operator PtrStep_<T>() const
 {
-    return PtrStep_<T>(static_cast<DevMem2D_<T> >(*this));
+    return PtrStep_<T>(static_cast<DevMem2D_<T>>(*this));
 }
 #endif
 

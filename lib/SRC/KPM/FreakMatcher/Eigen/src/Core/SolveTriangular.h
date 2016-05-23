@@ -236,13 +236,13 @@ TriangularView<Derived, Mode>::solve(const MatrixBase<Other> &other) const
 namespace internal
 {
 template<int Side, typename TriangularType, typename Rhs>
-struct traits<triangular_solve_retval<Side, TriangularType, Rhs> >
+struct traits<triangular_solve_retval<Side, TriangularType, Rhs>>
 {
     typedef typename internal::plain_matrix_type_column_major<Rhs>::type ReturnType;
 };
 
 template<int Side, typename TriangularType, typename Rhs> struct triangular_solve_retval
-    : public ReturnByValue<triangular_solve_retval<Side, TriangularType, Rhs> >
+    : public ReturnByValue<triangular_solve_retval<Side, TriangularType, Rhs>>
 {
     typedef typename remove_all<typename Rhs::Nested>::type RhsNestedCleaned;
     typedef ReturnByValue<triangular_solve_retval> Base;

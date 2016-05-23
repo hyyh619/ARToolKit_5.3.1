@@ -567,8 +567,8 @@ MatrixType FullPivLU<MatrixType>::reconstructedMatrix() const
 namespace internal
 {
 template<typename _MatrixType>
-struct kernel_retval<FullPivLU<_MatrixType> >
-    : kernel_retval_base<FullPivLU<_MatrixType> >
+struct kernel_retval<FullPivLU<_MatrixType>>
+    : kernel_retval_base<FullPivLU<_MatrixType>>
 {
     EIGEN_MAKE_KERNEL_HELPERS(FullPivLU<_MatrixType>)
 
@@ -664,8 +664,8 @@ struct kernel_retval<FullPivLU<_MatrixType> >
 /***** Implementation of image() *****************************************************/
 
 template<typename _MatrixType>
-struct image_retval<FullPivLU<_MatrixType> >
-    : image_retval_base<FullPivLU<_MatrixType> >
+struct image_retval<FullPivLU<_MatrixType>>
+    : image_retval_base<FullPivLU<_MatrixType>>
 {
     EIGEN_MAKE_IMAGE_HELPERS(FullPivLU<_MatrixType>)
 

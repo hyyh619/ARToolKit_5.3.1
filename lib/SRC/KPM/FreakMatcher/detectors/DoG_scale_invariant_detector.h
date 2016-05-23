@@ -266,7 +266,7 @@ size_t mNumBucketsX;
 size_t mNumBucketsY;
 
 // Buckets for pruning points
-std::vector<std::vector<std::vector<std::pair<float, size_t> > > > mBuckets;
+std::vector<std::vector<std::vector<std::pair<float, size_t>>>> mBuckets;
 
 // True if the orientation should be assigned
 bool mFindOrientation;
@@ -560,7 +560,7 @@ inline bool ComputeEdgeScore(float &score, const float H[9])
     return true;
 }
 
-void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t> > > > &buckets,
+void PruneDoGFeatures(std::vector<std::vector<std::vector<std::pair<float, size_t>>>> &buckets,
                       std::vector<DoGScaleInvariantDetector::FeaturePoint> &outPoints,
                       const std::vector<DoGScaleInvariantDetector::FeaturePoint> &inPoints,
                       int num_buckets_X,

@@ -43,7 +43,7 @@
 namespace internal
 {
 template<typename ConditionMatrixType, typename ThenMatrixType, typename ElseMatrixType>
-struct traits<Select<ConditionMatrixType, ThenMatrixType, ElseMatrixType> >
+struct traits<Select<ConditionMatrixType, ThenMatrixType, ElseMatrixType>>
     : traits<ThenMatrixType>
 {
     typedef typename traits<ThenMatrixType>::Scalar Scalar;
@@ -68,7 +68,7 @@ struct traits<Select<ConditionMatrixType, ThenMatrixType, ElseMatrixType> >
 
 template<typename ConditionMatrixType, typename ThenMatrixType, typename ElseMatrixType>
 class Select : internal::no_assignment_operator,
-    public internal::dense_xpr_base<Select<ConditionMatrixType, ThenMatrixType, ElseMatrixType> >::type
+    public internal::dense_xpr_base<Select<ConditionMatrixType, ThenMatrixType, ElseMatrixType>>::type
 {
 public:
 

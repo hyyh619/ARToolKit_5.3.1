@@ -60,10 +60,10 @@
 namespace internal
 {
 template<typename VectorType, int Size>
-struct traits<VectorBlock<VectorType, Size> >
+struct traits<VectorBlock<VectorType, Size>>
     : public traits<Block<VectorType,
                           traits<VectorType>::Flags&RowMajorBit ? 1 : Size,
-                              traits<VectorType>::Flags&RowMajorBit ? Size : 1> >
+                              traits<VectorType>::Flags&RowMajorBit ? Size : 1>>
 {};
 }
 

@@ -42,12 +42,12 @@
 namespace internal
 {
 template<typename ExpressionType>
-struct traits<NestByValue<ExpressionType> > : public traits<ExpressionType>
+struct traits<NestByValue<ExpressionType>> : public traits<ExpressionType>
 {};
 }
 
 template<typename ExpressionType> class NestByValue
-    : public internal::dense_xpr_base<NestByValue<ExpressionType> >::type
+    : public internal::dense_xpr_base<NestByValue<ExpressionType>>::type
 {
 public:
 

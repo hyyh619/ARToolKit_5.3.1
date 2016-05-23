@@ -40,7 +40,7 @@
 namespace internal
 {
 template<typename Lhs, typename Rhs>
-struct traits<SparseDiagonalProduct<Lhs, Rhs> >
+struct traits<SparseDiagonalProduct<Lhs, Rhs>>
 {
     typedef typename remove_all<Lhs>::type _Lhs;
     typedef typename remove_all<Rhs>::type _Rhs;
@@ -70,7 +70,7 @@ class sparse_diagonal_product_inner_iterator_selector;
 
 template<typename Lhs, typename Rhs>
 class SparseDiagonalProduct
-    : public SparseMatrixBase<SparseDiagonalProduct<Lhs, Rhs> >,
+    : public SparseMatrixBase<SparseDiagonalProduct<Lhs, Rhs>>,
     internal::no_assignment_operator
 {
 typedef typename Lhs::Nested LhsNested;
@@ -179,12 +179,12 @@ class sparse_diagonal_product_inner_iterator_selector
     : public CwiseBinaryOp<
         scalar_product_op<typename Rhs::Scalar>,
         SparseInnerVectorSet<Lhs, 1>,
-        Transpose<const typename Rhs::DiagonalVectorType> >::InnerIterator
+        Transpose<const typename Rhs::DiagonalVectorType>>::InnerIterator
 {
 typedef typename CwiseBinaryOp<
         scalar_product_op<typename Rhs::Scalar>,
         SparseInnerVectorSet<Lhs, 1>,
-        Transpose<const typename Rhs::DiagonalVectorType> >::InnerIterator Base;
+        Transpose<const typename Rhs::DiagonalVectorType>>::InnerIterator Base;
 typedef typename Lhs::Index Index;
 public:
 inline sparse_diagonal_product_inner_iterator_selector(

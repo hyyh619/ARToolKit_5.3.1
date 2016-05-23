@@ -156,7 +156,7 @@ CvTermCriteria term_criteria_;
 Mat cam_params_;
 
 // Connected images pairs
-std::vector<std::pair<int, int> > edges_;
+std::vector<std::pair<int, int>> edges_;
 };
 
 

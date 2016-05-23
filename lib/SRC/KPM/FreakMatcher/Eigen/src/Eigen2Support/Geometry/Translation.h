@@ -151,9 +151,9 @@ Translation&operator=(const Translation &other)
  * then this function smartly returns a const reference to \c *this.
  */
 template<typename NewScalarType>
-inline typename internal::cast_return_type<Translation, Translation<NewScalarType, Dim> >::type cast() const
+inline typename internal::cast_return_type<Translation, Translation<NewScalarType, Dim>>::type cast() const
 {
-    return typename internal::cast_return_type<Translation, Translation<NewScalarType, Dim> >::type(*this);
+    return typename internal::cast_return_type<Translation, Translation<NewScalarType, Dim>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

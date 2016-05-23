@@ -167,7 +167,7 @@ void* oclCommandQueue();
 CV_EXPORTS double openCLExecuteKernelInterop(Context * clCxt,
                                              const char **source, string kernelName,
                                              size_t globalThreads[3], size_t localThreads[3],
-                                             std::vector<std::pair<size_t, const void*> > &args,
+                                             std::vector<std::pair<size_t, const void*>> &args,
                                              int channels, int depth, const char *build_options,
                                              bool finish = true, bool measureKernelTime = false,
                                              bool cleanUp = true);
@@ -176,7 +176,7 @@ CV_EXPORTS double openCLExecuteKernelInterop(Context * clCxt,
 CV_EXPORTS double openCLExecuteKernelInterop(Context * clCxt,
                                              const char **fileName, const int numFiles, string kernelName,
                                              size_t globalThreads[3], size_t localThreads[3],
-                                             std::vector<std::pair<size_t, const void*> > &args,
+                                             std::vector<std::pair<size_t, const void*>> &args,
                                              int channels, int depth, const char *build_options,
                                              bool finish = true, bool measureKernelTime = false,
                                              bool cleanUp = true);
@@ -1180,18 +1180,18 @@ void knnMatchSingle(const oclMat &query, const oclMat &train,
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
 static void knnMatchDownload(const oclMat &trainIdx, const oclMat &distance,
-                             std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                             std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
 // Convert trainIdx and distance to vector with DMatch
 static void knnMatchConvert(const Mat &trainIdx, const Mat &distance,
-                            std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                            std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
 // Find k best matches for each query descriptor (in increasing order of distances).
 // compactResult is used when mask is not empty. If compactResult is false matches
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
 void knnMatch(const oclMat &query, const oclMat &train,
-              std::vector<std::vector<DMatch> > &matches, int k, const oclMat &mask = oclMat(),
+              std::vector<std::vector<DMatch>> &matches, int k, const oclMat &mask = oclMat(),
               bool compactResult = false);
 
 // Find k best matches from train collection for each query descriptor (in increasing order of distances)
@@ -1204,17 +1204,17 @@ void knnMatch2Collection(const oclMat &query, const oclMat &trainCollection,
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
 static void knnMatch2Download(const oclMat &trainIdx, const oclMat &imgIdx, const oclMat &distance,
-                              std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                              std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
 // Convert trainIdx and distance to vector with DMatch
 static void knnMatch2Convert(const Mat &trainIdx, const Mat &imgIdx, const Mat &distance,
-                             std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                             std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 
 // Find k best matches  for each query descriptor (in increasing order of distances).
 // compactResult is used when mask is not empty. If compactResult is false matches
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
-void knnMatch(const oclMat &query, std::vector<std::vector<DMatch> > &matches, int k,
+void knnMatch(const oclMat &query, std::vector<std::vector<DMatch>> &matches, int k,
               const std::vector<oclMat> &masks = std::vector<oclMat>(), bool compactResult = false);
 
 // Find best matches for each query descriptor which have distance less than maxDistance.
@@ -1234,14 +1234,14 @@ void radiusMatchSingle(const oclMat &query, const oclMat &train,
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
 static void radiusMatchDownload(const oclMat &trainIdx, const oclMat &distance, const oclMat &nMatches,
-                                std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 // Convert trainIdx, nMatches and distance to vector with DMatch.
 static void radiusMatchConvert(const Mat &trainIdx, const Mat &distance, const Mat &nMatches,
-                               std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                               std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 // Find best matches for each query descriptor which have distance less than maxDistance
 // in increasing order of distances).
 void radiusMatch(const oclMat &query, const oclMat &train,
-                 std::vector<std::vector<DMatch> > &matches, float maxDistance,
+                 std::vector<std::vector<DMatch>> &matches, float maxDistance,
                  const oclMat &mask = oclMat(), bool compactResult = false);
 // Find best matches for each query descriptor which have distance less than maxDistance.
 // If trainIdx is empty, then trainIdx and distance will be created with size nQuery x max((nQuery / 100), 10),
@@ -1255,13 +1255,13 @@ void radiusMatchCollection(const oclMat &query, oclMat &trainIdx, oclMat &imgIdx
 // vector will have the same size as queryDescriptors rows. If compactResult is true
 // matches vector will not contain matches for fully masked out query descriptors.
 static void radiusMatchDownload(const oclMat &trainIdx, const oclMat &imgIdx, const oclMat &distance, const oclMat &nMatches,
-                                std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                                std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 // Convert trainIdx, nMatches and distance to vector with DMatch.
 static void radiusMatchConvert(const Mat &trainIdx, const Mat &imgIdx, const Mat &distance, const Mat &nMatches,
-                               std::vector<std::vector<DMatch> > &matches, bool compactResult = false);
+                               std::vector<std::vector<DMatch>> &matches, bool compactResult = false);
 // Find best matches from train collection for each query descriptor which have distance less than
 // maxDistance (in increasing order of distances).
-void radiusMatch(const oclMat &query, std::vector<std::vector<DMatch> > &matches, float maxDistance,
+void radiusMatch(const oclMat &query, std::vector<std::vector<DMatch>> &matches, float maxDistance,
                  const std::vector<oclMat> &masks = std::vector<oclMat>(), bool compactResult = false);
 DistType distType;
 private:
@@ -1272,7 +1272,7 @@ template<class Distance>
 class CV_EXPORTS BruteForceMatcher_OCL;
 
 template<typename T>
-class CV_EXPORTS BruteForceMatcher_OCL<L1<T> > : public BruteForceMatcher_OCL_base
+class CV_EXPORTS BruteForceMatcher_OCL<L1<T>> : public BruteForceMatcher_OCL_base
 {
 public:
 explicit BruteForceMatcher_OCL() : BruteForceMatcher_OCL_base(L1Dist) {}
@@ -1280,7 +1280,7 @@ explicit BruteForceMatcher_OCL(L1<T> /*d*/) : BruteForceMatcher_OCL_base(L1Dist)
 };
 
 template<typename T>
-class CV_EXPORTS BruteForceMatcher_OCL<L2<T> > : public BruteForceMatcher_OCL_base
+class CV_EXPORTS BruteForceMatcher_OCL<L2<T>> : public BruteForceMatcher_OCL_base
 {
 public:
 explicit BruteForceMatcher_OCL() : BruteForceMatcher_OCL_base(L2Dist) {}

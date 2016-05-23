@@ -160,9 +160,9 @@ template<int Dim>
 struct TreeTest
 {
     typedef Matrix<double, Dim, 1> VectorType;
-    typedef std::vector<VectorType, aligned_allocator<VectorType> > VectorTypeList;
+    typedef std::vector<VectorType, aligned_allocator<VectorType>> VectorTypeList;
     typedef Ball<Dim> BallType;
-    typedef std::vector<BallType, aligned_allocator<BallType> > BallTypeList;
+    typedef std::vector<BallType, aligned_allocator<BallType>> BallTypeList;
     typedef AlignedBox<double, Dim> BoxType;
 
     void testIntersect1()

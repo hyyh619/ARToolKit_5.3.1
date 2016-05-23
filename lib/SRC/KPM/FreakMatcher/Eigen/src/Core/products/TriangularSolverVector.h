@@ -49,7 +49,7 @@ struct triangular_solve_vector<LhsScalar, RhsScalar, Index, OnTheLeft, Mode, Con
     };
     static void run(Index size, const LhsScalar *_lhs, Index lhsStride, RhsScalar *rhs)
     {
-        typedef Map<const Matrix<LhsScalar, Dynamic, Dynamic, RowMajor>, 0, OuterStride<> > LhsMap;
+        typedef Map<const Matrix<LhsScalar, Dynamic, Dynamic, RowMajor>, 0, OuterStride<>> LhsMap;
         const LhsMap lhs(_lhs, size, size, OuterStride<>(lhsStride));
         typename internal::conditional<
             Conjugate,
@@ -86,7 +86,7 @@ struct triangular_solve_vector<LhsScalar, RhsScalar, Index, OnTheLeft, Mode, Con
                 Index i = IsLower ? pi + k : pi - k - 1;
                 Index s = IsLower ? pi   : i + 1;
                 if (k > 0)
-                    rhs[i] -= (cjLhs.row(i).segment(s, k).transpose().cwiseProduct(Map<const Matrix<RhsScalar, Dynamic, 1> >(rhs + s, k))).sum();
+                    rhs[i] -= (cjLhs.row(i).segment(s, k).transpose().cwiseProduct(Map<const Matrix<RhsScalar, Dynamic, 1>>(rhs + s, k))).sum();
 
                 if (!(Mode & UnitDiag))
                     rhs[i] /= cjLhs(i, i);
@@ -105,7 +105,7 @@ struct triangular_solve_vector<LhsScalar, RhsScalar, Index, OnTheLeft, Mode, Con
     };
     static void run(Index size, const LhsScalar *_lhs, Index lhsStride, RhsScalar *rhs)
     {
-        typedef Map<const Matrix<LhsScalar, Dynamic, Dynamic, ColMajor>, 0, OuterStride<> > LhsMap;
+        typedef Map<const Matrix<LhsScalar, Dynamic, Dynamic, ColMajor>, 0, OuterStride<>> LhsMap;
         const LhsMap lhs(_lhs, size, size, OuterStride<>(lhsStride));
         typename internal::conditional<Conjugate,
                                        const CwiseUnaryOp<typename internal::scalar_conjugate_op<LhsScalar>, LhsMap>,
@@ -130,7 +130,7 @@ struct triangular_solve_vector<LhsScalar, RhsScalar, Index, OnTheLeft, Mode, Con
                 Index r = actualPanelWidth - k - 1; // remaining size
                 Index s = IsLower ? i + 1 : i - r;
                 if (r > 0)
-                    Map<Matrix<RhsScalar, Dynamic, 1> >(rhs + s, r) -= rhs[i] * cjLhs.col(i).segment(s, r);
+                    Map<Matrix<RhsScalar, Dynamic, 1>>(rhs + s, r) -= rhs[i] * cjLhs.col(i).segment(s, r);
             }
 
             Index r = IsLower ? size - endBlock : startBlock; // remaining size

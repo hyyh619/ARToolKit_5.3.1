@@ -48,7 +48,7 @@ template<int StorageOrder, int UnrollingIndex, typename Lhs, typename Rhs, typen
 struct product_packet_impl;
 
 template<typename LhsNested, typename RhsNested, int NestingFlags>
-struct traits<CoeffBasedProduct<LhsNested, RhsNested, NestingFlags> >
+struct traits<CoeffBasedProduct<LhsNested, RhsNested, NestingFlags>>
 {
     typedef MatrixXpr XprKind;
     typedef typename remove_all<LhsNested>::type _LhsNested;
@@ -125,7 +125,7 @@ struct traits<CoeffBasedProduct<LhsNested, RhsNested, NestingFlags> >
 template<typename LhsNested, typename RhsNested, int NestingFlags>
 class CoeffBasedProduct
     : internal::no_assignment_operator,
-    public MatrixBase<CoeffBasedProduct<LhsNested, RhsNested, NestingFlags> >
+    public MatrixBase<CoeffBasedProduct<LhsNested, RhsNested, NestingFlags>>
 {
 public:
 

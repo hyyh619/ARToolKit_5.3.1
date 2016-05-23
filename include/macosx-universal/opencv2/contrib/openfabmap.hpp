@@ -315,23 +315,23 @@ double getNewPlaceLikelihood(const Mat &queryImgDescriptor);
 
 // the likelihood function using the inverted index
 void getIndexLikelihoods(const Mat &queryImgDescriptor, vector<
-                             double> &defaults, map<int, vector<int> > &invertedMap,
+                             double> &defaults, map<int, vector<int>> &invertedMap,
                          vector<IMatch> &matches);
 void addToIndex(const Mat &queryImgDescriptor,
                 vector<double> &defaults,
-                map<int, vector<int> > &invertedMap);
+                map<int, vector<int>> &invertedMap);
 
 // data
-vector<double>       d1, d2, d3, d4;
-vector<vector<int> > children;
+vector<double>      d1, d2, d3, d4;
+vector<vector<int>> children;
 
 // TODO: inverted map a vector?
 
-vector<double>         trainingDefaults;
-map<int, vector<int> > trainingInvertedMap;
+vector<double>        trainingDefaults;
+map<int, vector<int>> trainingInvertedMap;
 
-vector<double>         testDefaults;
-map<int, vector<int> > testInvertedMap;
+vector<double>        testDefaults;
+map<int, vector<int>> testInvertedMap;
 };
 /*
     A Chow-Liu tree is required by FAB-MAP. The Chow-Liu tree provides an

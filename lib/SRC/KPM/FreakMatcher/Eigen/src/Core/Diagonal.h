@@ -47,7 +47,7 @@
 namespace internal
 {
 template<typename MatrixType, int DiagIndex>
-struct traits<Diagonal<MatrixType, DiagIndex> >
+struct traits<Diagonal<MatrixType, DiagIndex>>
     : traits<MatrixType>
 {
     typedef typename nested<MatrixType>::type MatrixTypeNested;
@@ -77,7 +77,7 @@ struct traits<Diagonal<MatrixType, DiagIndex> >
 }
 
 template<typename MatrixType, int DiagIndex> class Diagonal
-    : public internal::dense_xpr_base<Diagonal<MatrixType, DiagIndex> >::type
+    : public internal::dense_xpr_base<Diagonal<MatrixType, DiagIndex>>::type
 {
 public:
 

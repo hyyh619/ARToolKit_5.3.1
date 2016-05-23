@@ -4629,13 +4629,13 @@ static inline Formatted format(const Mat &mtx, const char *fmt,
     return Formatted(mtx, Formatter::get(fmt), params);
 }
 
-template<typename _Tp> static inline Formatted format(const vector<Point_<_Tp> > &vec,
+template<typename _Tp> static inline Formatted format(const vector<Point_<_Tp>> &vec,
                                                       const char *fmt, const vector<int> &params = vector<int>())
 {
     return Formatted(Mat(vec), Formatter::get(fmt), params);
 }
 
-template<typename _Tp> static inline Formatted format(const vector<Point3_<_Tp> > &vec,
+template<typename _Tp> static inline Formatted format(const vector<Point3_<_Tp>> &vec,
                                                       const char *fmt, const vector<int> &params = vector<int>())
 {
     return Formatted(Mat(vec), Formatter::get(fmt), params);
@@ -4670,7 +4670,7 @@ static inline std::ostream&operator <<(std::ostream &out, const Formatted &fmtd)
 
 
 template<typename _Tp> static inline std::ostream&operator <<(std::ostream &out,
-                                                              const vector<Point_<_Tp> > &vec)
+                                                              const vector<Point_<_Tp>> &vec)
 {
     Formatter::get()->write(out, Mat(vec));
 
@@ -4679,7 +4679,7 @@ template<typename _Tp> static inline std::ostream&operator <<(std::ostream &out,
 
 
 template<typename _Tp> static inline std::ostream&operator <<(std::ostream &out,
-                                                              const vector<Point3_<_Tp> > &vec)
+                                                              const vector<Point3_<_Tp>> &vec)
 {
     Formatter::get()->write(out, Mat(vec));
 

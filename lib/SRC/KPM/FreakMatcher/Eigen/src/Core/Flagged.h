@@ -44,14 +44,14 @@
 namespace internal
 {
 template<typename ExpressionType, unsigned int Added, unsigned int Removed>
-struct traits<Flagged<ExpressionType, Added, Removed> > : traits<ExpressionType>
+struct traits<Flagged<ExpressionType, Added, Removed>> : traits<ExpressionType>
 {
     enum { Flags = (ExpressionType::Flags | Added) & ~Removed };
 };
 }
 
 template<typename ExpressionType, unsigned int Added, unsigned int Removed> class Flagged
-    : public MatrixBase<Flagged<ExpressionType, Added, Removed> >
+    : public MatrixBase<Flagged<ExpressionType, Added, Removed>>
 {
 public:
 

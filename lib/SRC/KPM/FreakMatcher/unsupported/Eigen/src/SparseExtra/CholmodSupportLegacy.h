@@ -40,12 +40,12 @@ void cholmod_configure_matrix_legacy(CholmodType &mat)
         mat.xtype = CHOLMOD_REAL;
         mat.dtype = CHOLMOD_DOUBLE;
     }
-    else if (internal::is_same<Scalar, std::complex<float> >::value)
+    else if (internal::is_same<Scalar, std::complex<float>>::value)
     {
         mat.xtype = CHOLMOD_COMPLEX;
         mat.dtype = CHOLMOD_SINGLE;
     }
-    else if (internal::is_same<Scalar, std::complex<double> >::value)
+    else if (internal::is_same<Scalar, std::complex<double>>::value)
     {
         mat.xtype = CHOLMOD_COMPLEX;
         mat.dtype = CHOLMOD_DOUBLE;

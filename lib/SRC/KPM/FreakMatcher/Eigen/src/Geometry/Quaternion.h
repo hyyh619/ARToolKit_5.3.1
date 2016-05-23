@@ -238,9 +238,9 @@ EIGEN_STRONG_INLINE Vector3 _transformVector(Vector3 v) const;
  * then this function smartly returns a const reference to \c *this.
  */
 template<typename NewScalarType>
-inline typename internal::cast_return_type<Derived, Quaternion<NewScalarType> >::type cast() const
+inline typename internal::cast_return_type<Derived, Quaternion<NewScalarType>>::type cast() const
 {
-    return typename internal::cast_return_type<Derived, Quaternion<NewScalarType> >::type(derived());
+    return typename internal::cast_return_type<Derived, Quaternion<NewScalarType>>::type(derived());
 }
 
 #ifdef EIGEN_QUATERNIONBASE_PLUGIN
@@ -278,7 +278,7 @@ inline typename internal::cast_return_type<Derived, Quaternion<NewScalarType> >:
 namespace internal
 {
 template<typename _Scalar, int _Options>
-struct traits<Quaternion<_Scalar, _Options> >
+struct traits<Quaternion<_Scalar, _Options>>
 {
     typedef Quaternion<_Scalar, _Options> PlainObject;
     typedef _Scalar Scalar;
@@ -292,9 +292,9 @@ struct traits<Quaternion<_Scalar, _Options> >
 }
 
 template<typename _Scalar, int _Options>
-class Quaternion : public QuaternionBase<Quaternion<_Scalar, _Options> >
+class Quaternion : public QuaternionBase<Quaternion<_Scalar, _Options>>
 {
-typedef QuaternionBase<Quaternion<_Scalar, _Options> > Base;
+typedef QuaternionBase<Quaternion<_Scalar, _Options>> Base;
 enum { IsAligned = internal::traits<Quaternion>::IsAligned };
 
 public:
@@ -387,7 +387,7 @@ typedef Quaternion<double> Quaterniond;
 namespace internal
 {
 template<typename _Scalar, int _Options>
-struct traits<Map<Quaternion<_Scalar>, _Options> > : traits<Quaternion<_Scalar, (int(_Options)&Aligned) == Aligned ? AutoAlign : DontAlign> >
+struct traits<Map<Quaternion<_Scalar>, _Options>> : traits<Quaternion<_Scalar, (int(_Options)&Aligned) == Aligned ? AutoAlign : DontAlign>>
 {
     typedef Map<Matrix<_Scalar, 4, 1>, _Options> Coefficients;
 };
@@ -396,10 +396,10 @@ struct traits<Map<Quaternion<_Scalar>, _Options> > : traits<Quaternion<_Scalar, 
 namespace internal
 {
 template<typename _Scalar, int _Options>
-struct traits<Map<const Quaternion<_Scalar>, _Options> > : traits<Quaternion<_Scalar, (int(_Options)&Aligned) == Aligned ? AutoAlign : DontAlign> >
+struct traits<Map<const Quaternion<_Scalar>, _Options>> : traits<Quaternion<_Scalar, (int(_Options)&Aligned) == Aligned ? AutoAlign : DontAlign>>
 {
     typedef Map<const Matrix<_Scalar, 4, 1>, _Options> Coefficients;
-    typedef traits<Quaternion<_Scalar, (int (_Options)&Aligned) == Aligned ? AutoAlign : DontAlign> > TraitsBase;
+    typedef traits<Quaternion<_Scalar, (int (_Options)&Aligned) == Aligned ? AutoAlign : DontAlign>> TraitsBase;
     enum
     {
         Flags = TraitsBase::Flags & ~LvalueBit
@@ -420,9 +420,9 @@ struct traits<Map<const Quaternion<_Scalar>, _Options> > : traits<Quaternion<_Sc
  */
 template<typename _Scalar, int _Options>
 class Map<const Quaternion<_Scalar>, _Options>
-    : public QuaternionBase<Map<const Quaternion<_Scalar>, _Options> >
+    : public QuaternionBase<Map<const Quaternion<_Scalar>, _Options>>
 {
-typedef QuaternionBase<Map<const Quaternion<_Scalar>, _Options> > Base;
+typedef QuaternionBase<Map<const Quaternion<_Scalar>, _Options>> Base;
 
 public:
 typedef _Scalar Scalar;
@@ -460,9 +460,9 @@ const Coefficients m_coeffs;
  */
 template<typename _Scalar, int _Options>
 class Map<Quaternion<_Scalar>, _Options>
-    : public QuaternionBase<Map<Quaternion<_Scalar>, _Options> >
+    : public QuaternionBase<Map<Quaternion<_Scalar>, _Options>>
 {
-typedef QuaternionBase<Map<Quaternion<_Scalar>, _Options> > Base;
+typedef QuaternionBase<Map<Quaternion<_Scalar>, _Options>> Base;
 
 public:
 typedef _Scalar Scalar;
@@ -683,9 +683,9 @@ inline Derived&QuaternionBase<Derived>::setFromTwoVectors(const MatrixBase<Deriv
     if (c < Scalar(-1) + NumTraits<Scalar>::dummy_precision())
     {
         c = max<Scalar>(c, -1);
-        Matrix<Scalar, 2, 3>             m; m << v0.transpose(), v1.transpose();
-        JacobiSVD<Matrix<Scalar, 2, 3> > svd(m, ComputeFullV);
-        Vector3                          axis = svd.matrixV().col(2);
+        Matrix<Scalar, 2, 3>            m; m << v0.transpose(), v1.transpose();
+        JacobiSVD<Matrix<Scalar, 2, 3>> svd(m, ComputeFullV);
+        Vector3                         axis = svd.matrixV().col(2);
 
         Scalar w2 = (Scalar(1) + c) * Scalar(0.5);
         this->w()   = internal::sqrt(w2);

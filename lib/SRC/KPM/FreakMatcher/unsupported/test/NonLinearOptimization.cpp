@@ -633,9 +633,9 @@ void testLmdif()
     x.setConstant(n, 1.);
 
     // do the computation
-    lmdif_functor                                     functor;
-    NumericalDiff<lmdif_functor>                      numDiff(functor);
-    LevenbergMarquardt<NumericalDiff<lmdif_functor> > lm(numDiff);
+    lmdif_functor                                    functor;
+    NumericalDiff<lmdif_functor>                     numDiff(functor);
+    LevenbergMarquardt<NumericalDiff<lmdif_functor>> lm(numDiff);
     info = lm.minimize(x);
 
     // check return values

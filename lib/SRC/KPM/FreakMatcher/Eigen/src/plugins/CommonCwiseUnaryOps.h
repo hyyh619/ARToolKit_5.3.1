@@ -82,11 +82,11 @@ operator/(const Scalar &scalar) const
 }
 
 /** Overloaded for efficient real matrix times complex scalar value */
-inline const CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >, const Derived>
+inline const CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar>>, const Derived>
 operator*(const std::complex<Scalar> &scalar) const
 {
-    return CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >, const Derived>
-               (*static_cast<const Derived*>(this), internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >(scalar));
+    return CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar>>, const Derived>
+               (*static_cast<const Derived*>(this), internal::scalar_multiple2_op<Scalar, std::complex<Scalar>>(scalar));
 }
 
 inline friend const ScalarMultipleReturnType
@@ -95,7 +95,7 @@ operator*(const Scalar &scalar, const StorageBaseType &matrix)
     return matrix * scalar;
 }
 
-inline friend const CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar> >, const Derived>
+inline friend const CwiseUnaryOp<internal::scalar_multiple2_op<Scalar, std::complex<Scalar>>, const Derived>
 operator*(const std::complex<Scalar> &scalar, const StorageBaseType &matrix)
 {
     return matrix * scalar;
@@ -109,7 +109,7 @@ operator*(const std::complex<Scalar> &scalar, const StorageBaseType &matrix)
  * \sa class CwiseUnaryOp
  */
 template<typename NewType>
-typename internal::cast_return_type<Derived, const CwiseUnaryOp<internal::scalar_cast_op<typename internal::traits<Derived>::Scalar, NewType>, const Derived> >::type
+typename internal::cast_return_type<Derived, const CwiseUnaryOp<internal::scalar_cast_op<typename internal::traits<Derived>::Scalar, NewType>, const Derived>>::type
 cast() const
 {
     return derived();

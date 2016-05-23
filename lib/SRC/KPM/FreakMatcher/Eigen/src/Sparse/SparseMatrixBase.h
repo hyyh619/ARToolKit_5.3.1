@@ -118,7 +118,7 @@ enum
 //     typedef SparseCwiseUnaryOp<internal::scalar_imag_op<Scalar>, Derived> ImagReturnType;
 /** \internal the return type of MatrixBase::adjoint() */
 typedef typename internal::conditional<NumTraits<Scalar>::IsComplex,
-                                       CwiseUnaryOp<internal::scalar_conjugate_op<Scalar>, Eigen::Transpose<const Derived> >,
+                                       CwiseUnaryOp<internal::scalar_conjugate_op<Scalar>, Eigen::Transpose<const Derived>>,
                                        Transpose<const Derived>
                                        >::type AdjointReturnType;
 
@@ -150,7 +150,7 @@ typedef typename NumTraits<Scalar>::Real RealScalar;
 typedef typename internal::conditional<_HasDirectAccess, const Scalar&, Scalar>::type CoeffReturnType;
 
 /** \internal Represents a matrix with all coefficients equal to one another*/
-typedef CwiseNullaryOp<internal::scalar_constant_op<Scalar>, Matrix<Scalar, Dynamic, Dynamic> > ConstantReturnType;
+typedef CwiseNullaryOp<internal::scalar_constant_op<Scalar>, Matrix<Scalar, Dynamic, Dynamic>> ConstantReturnType;
 
 /** type of the equivalent square matrix */
 typedef Matrix<Scalar, EIGEN_SIZE_MAX(RowsAtCompileTime, ColsAtCompileTime),

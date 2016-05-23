@@ -551,7 +551,7 @@ public:
 
   template<class T> inline GpuMat::operator PtrStep_<T>() const
   {
-      return PtrStep_<T>(static_cast<DevMem2D_<T> >(*this));
+      return PtrStep_<T>(static_cast<DevMem2D_<T>>(*this));
   }
 
   inline GpuMat createContinuous(int rows, int cols, int type)

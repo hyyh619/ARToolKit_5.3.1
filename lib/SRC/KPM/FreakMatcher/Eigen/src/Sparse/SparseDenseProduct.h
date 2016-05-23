@@ -48,7 +48,7 @@ template<typename Lhs, typename Rhs> struct DenseSparseProductReturnType<Lhs, Rh
 namespace internal
 {
 template<typename Lhs, typename Rhs, bool Tr>
-struct traits<SparseDenseOuterProduct<Lhs, Rhs, Tr> >
+struct traits<SparseDenseOuterProduct<Lhs, Rhs, Tr>>
 {
     typedef Sparse StorageKind;
     typedef typename scalar_product_traits<typename traits<Lhs>::Scalar,
@@ -78,7 +78,7 @@ struct traits<SparseDenseOuterProduct<Lhs, Rhs, Tr> >
 
 template<typename Lhs, typename Rhs, bool Tr>
 class SparseDenseOuterProduct
-    : public SparseMatrixBase<SparseDenseOuterProduct<Lhs, Rhs, Tr> >
+    : public SparseMatrixBase<SparseDenseOuterProduct<Lhs, Rhs, Tr>>
 {
 public:
 
@@ -167,8 +167,8 @@ Scalar m_factor;
 namespace internal
 {
 template<typename Lhs, typename Rhs>
-struct traits<SparseTimeDenseProduct<Lhs, Rhs> >
-    : traits<ProductBase<SparseTimeDenseProduct<Lhs, Rhs>, Lhs, Rhs> >
+struct traits<SparseTimeDenseProduct<Lhs, Rhs>>
+    : traits<ProductBase<SparseTimeDenseProduct<Lhs, Rhs>, Lhs, Rhs>>
 {
     typedef Dense StorageKind;
     typedef MatrixXpr XprKind;
@@ -218,8 +218,8 @@ SparseTimeDenseProduct&operator=(const SparseTimeDenseProduct&);
 namespace internal
 {
 template<typename Lhs, typename Rhs>
-struct traits<DenseTimeSparseProduct<Lhs, Rhs> >
-    : traits<ProductBase<DenseTimeSparseProduct<Lhs, Rhs>, Lhs, Rhs> >
+struct traits<DenseTimeSparseProduct<Lhs, Rhs>>
+    : traits<ProductBase<DenseTimeSparseProduct<Lhs, Rhs>, Lhs, Rhs>>
 {
     typedef Dense StorageKind;
 };

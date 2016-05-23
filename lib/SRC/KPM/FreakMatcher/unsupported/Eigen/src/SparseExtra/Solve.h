@@ -31,14 +31,14 @@ template<typename _DecompositionType, typename Rhs> struct sparse_solve_retval_b
 template<typename _DecompositionType, typename Rhs> struct sparse_solve_retval;
 
 template<typename DecompositionType, typename Rhs>
-struct traits<sparse_solve_retval_base<DecompositionType, Rhs> >
+struct traits<sparse_solve_retval_base<DecompositionType, Rhs>>
 {
     typedef typename DecompositionType::MatrixType MatrixType;
     typedef SparseMatrix<typename Rhs::Scalar, Rhs::Options, typename Rhs::Index> ReturnType;
 };
 
 template<typename _DecompositionType, typename Rhs> struct sparse_solve_retval_base
-    : public ReturnByValue<sparse_solve_retval_base<_DecompositionType, Rhs> >
+    : public ReturnByValue<sparse_solve_retval_base<_DecompositionType, Rhs>>
 {
     typedef typename remove_all<typename Rhs::Nested>::type RhsNestedCleaned;
     typedef _DecompositionType DecompositionType;

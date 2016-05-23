@@ -132,7 +132,7 @@ double getAnimationTime(void)
     return (_selectedCallbacks[0]->getAnimationTime());     // Hard-coded [0] = gets the time on only the first callback found.
 }
 
-typedef std::vector<osg::ref_ptr<osg::AnimationPathCallback> > SelectedCallbacks;
+typedef std::vector<osg::ref_ptr<osg::AnimationPathCallback>> SelectedCallbacks;
 SelectedCallbacks _selectedCallbacks;
 }; // class ManageAnimationNodesVisitor.
 

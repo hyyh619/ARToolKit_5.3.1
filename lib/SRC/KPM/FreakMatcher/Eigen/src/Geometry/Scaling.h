@@ -152,9 +152,9 @@ static inline UniformScaling<double> Scaling(double s)
 }
 /** Constructs a uniform scaling from scale factor \a s */
 template<typename RealScalar>
-static inline UniformScaling<std::complex<RealScalar> > Scaling(const std::complex<RealScalar> &s)
+static inline UniformScaling<std::complex<RealScalar>> Scaling(const std::complex<RealScalar> &s)
 {
-    return UniformScaling<std::complex<RealScalar> >(s);
+    return UniformScaling<std::complex<RealScalar>>(s);
 }
 
 /** Constructs a 2D axis aligned scaling */

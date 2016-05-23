@@ -46,7 +46,7 @@
 namespace internal
 {
 template<typename _Scalar, int _Options, typename _Index>
-struct traits<DynamicSparseMatrix<_Scalar, _Options, _Index> >
+struct traits<DynamicSparseMatrix<_Scalar, _Options, _Index>>
 {
     typedef _Scalar Scalar;
     typedef _Index Index;
@@ -67,7 +67,7 @@ struct traits<DynamicSparseMatrix<_Scalar, _Options, _Index> >
 
 template<typename _Scalar, int _Options, typename _Index>
 class DynamicSparseMatrix
-    : public SparseMatrixBase<DynamicSparseMatrix<_Scalar, _Options, _Index> >
+    : public SparseMatrixBase<DynamicSparseMatrix<_Scalar, _Options, _Index>>
 {
 public:
 EIGEN_SPARSE_PUBLIC_INTERFACE(DynamicSparseMatrix)
@@ -86,8 +86,8 @@ protected:
 
 typedef DynamicSparseMatrix<Scalar, (Flags& ~RowMajorBit) | (IsRowMajor ? RowMajorBit : 0)> TransposedSparseMatrix;
 
-Index                                          m_innerSize;
-std::vector<CompressedStorage<Scalar, Index> > m_data;
+Index                                         m_innerSize;
+std::vector<CompressedStorage<Scalar, Index>> m_data;
 
 public:
 
@@ -112,11 +112,11 @@ inline Index innerNonZeros(Index j) const
     return m_data[j].size();
 }
 
-std::vector<CompressedStorage<Scalar, Index> >&_data()
+std::vector<CompressedStorage<Scalar, Index>>&_data()
 {
     return m_data;
 }
-const std::vector<CompressedStorage<Scalar, Index> >&_data() const
+const std::vector<CompressedStorage<Scalar, Index>>&_data() const
 {
     return m_data;
 }

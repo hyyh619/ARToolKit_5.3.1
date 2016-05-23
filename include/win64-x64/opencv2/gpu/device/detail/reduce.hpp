@@ -136,7 +136,7 @@ namespace cv
                                                const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> &val,
                                                unsigned int tid)
     {
-        For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> >::value>::loadToSmem(smem, val, tid);
+        For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>>::value>::loadToSmem(smem, val, tid);
     }
     template<typename P0, typename P1, typename P2, typename P3, typename P4, typename P5, typename P6, typename P7, typename P8, typename P9,
              typename R0, typename R1, typename R2, typename R3, typename R4, typename R5, typename R6, typename R7, typename R8, typename R9>
@@ -144,7 +144,7 @@ namespace cv
                                                  const thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> &val,
                                                  unsigned int tid)
     {
-        For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> >::value>::loadFromSmem(smem, val, tid);
+        For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>>::value>::loadFromSmem(smem, val, tid);
     }
 
     template<typename T, class Op>
@@ -170,7 +170,7 @@ namespace cv
                                           unsigned int delta,
                                           const thrust::tuple<Op0, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8, Op9> &op)
     {
-        For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9> >::value>::merge(smem, val, tid, delta, op);
+        For<0, thrust::tuple_size<thrust::tuple<P0, P1, P2, P3, P4, P5, P6, P7, P8, P9>>::value>::merge(smem, val, tid, delta, op);
     }
     template<typename R0, typename R1, typename R2, typename R3, typename R4, typename R5, typename R6, typename R7, typename R8, typename R9,
              class Op0, class Op1, class Op2, class Op3, class Op4, class Op5, class Op6, class Op7, class Op8, class Op9>
@@ -179,7 +179,7 @@ namespace cv
                                               unsigned int width,
                                               const thrust::tuple<Op0, Op1, Op2, Op3, Op4, Op5, Op6, Op7, Op8, Op9> &op)
     {
-        For<0, thrust::tuple_size<thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9> >::value>::mergeShfl(val, delta, width, op);
+        For<0, thrust::tuple_size<thrust::tuple<R0, R1, R2, R3, R4, R5, R6, R7, R8, R9>>::value>::mergeShfl(val, delta, width, op);
     }
 
     template<unsigned int N> struct Generic

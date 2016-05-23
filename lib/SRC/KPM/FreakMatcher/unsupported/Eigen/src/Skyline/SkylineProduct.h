@@ -35,7 +35,7 @@ struct SkylineProductReturnType
 };
 
 template<typename LhsNested, typename RhsNested, int ProductMode>
-struct internal::traits<SkylineProduct<LhsNested, RhsNested, ProductMode> >
+struct internal::traits<SkylineProduct<LhsNested, RhsNested, ProductMode>>
 {
     // clean the nested types:
     typedef typename internal::remove_all<LhsNested>::type _LhsNested;
@@ -69,15 +69,15 @@ struct internal::traits<SkylineProduct<LhsNested, RhsNested, ProductMode> >
     };
 
     typedef typename internal::conditional<ResultIsSkyline,
-                                           SkylineMatrixBase<SkylineProduct<LhsNested, RhsNested, ProductMode> >,
-                                           MatrixBase<SkylineProduct<LhsNested, RhsNested, ProductMode> > >::type Base;
+                                           SkylineMatrixBase<SkylineProduct<LhsNested, RhsNested, ProductMode>>,
+                                           MatrixBase<SkylineProduct<LhsNested, RhsNested, ProductMode>>>::type Base;
 };
 
 namespace internal
 {
 template<typename LhsNested, typename RhsNested, int ProductMode>
 class SkylineProduct : no_assignment_operator,
-    public traits<SkylineProduct<LhsNested, RhsNested, ProductMode> >::Base
+    public traits<SkylineProduct<LhsNested, RhsNested, ProductMode>>::Base
 {
 public:
 

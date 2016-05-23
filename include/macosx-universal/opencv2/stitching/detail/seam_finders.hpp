@@ -201,12 +201,12 @@ Mat_<float> gradx1_, grady1_;
 Mat_<float> gradx2_, grady2_;
 
 // components data
-int                              ncomps_;
-Mat_<int>                        labels_;
-std::vector<ComponentState>      states_;
-std::vector<Point>               tls_, brs_;
-std::vector<std::vector<Point> > contours_;
-std::set<std::pair<int, int> >   edges_;
+int                             ncomps_;
+Mat_<int>                       labels_;
+std::vector<ComponentState>     states_;
+std::vector<Point>              tls_, brs_;
+std::vector<std::vector<Point>> contours_;
+std::set<std::pair<int, int>>   edges_;
 };
 
 

@@ -213,11 +213,11 @@ typedef const Block<ConstMatrixType, Dim, Dim> ConstLinearPart;
 /** type of read/write reference to the affine part of the transformation */
 typedef typename internal::conditional<int (Mode) == int (AffineCompact),
                                        MatrixType&,
-                                       Block<MatrixType, Dim, HDim> >::type AffinePart;
+                                       Block<MatrixType, Dim, HDim>>::type AffinePart;
 /** type of read reference to the affine part of the transformation */
 typedef typename internal::conditional<int (Mode) == int (AffineCompact),
                                        const MatrixType&,
-                                       const Block<const MatrixType, Dim, HDim> >::type ConstAffinePart;
+                                       const Block<const MatrixType, Dim, HDim>>::type ConstAffinePart;
 /** type of a vector */
 typedef Matrix<Scalar, Dim, 1> VectorType;
 /** type of a read/write reference to the translation part of the rotation */
@@ -506,10 +506,10 @@ inline const Transform operator *(const Transform &other) const
 /** Concatenates two different transformations */
 template<int OtherMode, int OtherOptions>
 inline const typename internal::transform_transform_product_impl<
-    Transform, Transform<Scalar, Dim, OtherMode, OtherOptions> >::ResultType
+    Transform, Transform<Scalar, Dim, OtherMode, OtherOptions>>::ResultType
 operator *(const Transform<Scalar, Dim, OtherMode, OtherOptions> &other) const
 {
-    return internal::transform_transform_product_impl<Transform, Transform<Scalar, Dim, OtherMode, OtherOptions> >::run(*this, other);
+    return internal::transform_transform_product_impl<Transform, Transform<Scalar, Dim, OtherMode, OtherOptions>>::run(*this, other);
 }
 
 /** \sa MatrixBase::setIdentity() */
@@ -609,9 +609,9 @@ Scalar* data()
  * then this function smartly returns a const reference to \c *this.
  */
 template<typename NewScalarType>
-inline typename internal::cast_return_type<Transform, Transform<NewScalarType, Dim, Mode, Options> >::type cast() const
+inline typename internal::cast_return_type<Transform, Transform<NewScalarType, Dim, Mode, Options>>::type cast() const
 {
-    return typename internal::cast_return_type<Transform, Transform<NewScalarType, Dim, Mode, Options> >::type(*this);
+    return typename internal::cast_return_type<Transform, Transform<NewScalarType, Dim, Mode, Options>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */
@@ -1243,7 +1243,7 @@ template<typename TransformType> struct transform_take_affine_part
 };
 
 template<typename Scalar, int Dim, int Options>
-struct transform_take_affine_part<Transform<Scalar, Dim, AffineCompact, Options> >
+struct transform_take_affine_part<Transform<Scalar, Dim, AffineCompact, Options>>
 {
     typedef typename Transform<Scalar, Dim, AffineCompact, Options>::MatrixType MatrixType;
     static inline MatrixType&run(MatrixType &m)

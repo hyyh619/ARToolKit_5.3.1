@@ -51,7 +51,7 @@
  * \sa class Quaternion, class Transform, MatrixBase::UnitX()
  */
 
-template<typename _Scalar> struct ei_traits<AngleAxis<_Scalar> >
+template<typename _Scalar> struct ei_traits<AngleAxis<_Scalar>>
 {
     typedef _Scalar Scalar;
 };
@@ -171,9 +171,9 @@ Matrix3 toRotationMatrix(void) const;
  * then this function smartly returns a const reference to \c *this.
  */
 template<typename NewScalarType>
-inline typename internal::cast_return_type<AngleAxis, AngleAxis<NewScalarType> >::type cast() const
+inline typename internal::cast_return_type<AngleAxis, AngleAxis<NewScalarType>>::type cast() const
 {
-    return typename internal::cast_return_type<AngleAxis, AngleAxis<NewScalarType> >::type(*this);
+    return typename internal::cast_return_type<AngleAxis, AngleAxis<NewScalarType>>::type(*this);
 }
 
 /** Copy constructor with scalar type conversion */

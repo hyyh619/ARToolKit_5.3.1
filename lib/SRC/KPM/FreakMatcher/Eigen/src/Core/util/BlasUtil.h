@@ -234,7 +234,7 @@ template<typename XprType> struct blas_traits
 
 // pop conjugate
 template<typename Scalar, typename NestedXpr>
-struct blas_traits<CwiseUnaryOp<scalar_conjugate_op<Scalar>, NestedXpr> >
+struct blas_traits<CwiseUnaryOp<scalar_conjugate_op<Scalar>, NestedXpr>>
     : blas_traits<NestedXpr>
 {
     typedef blas_traits<NestedXpr> Base;
@@ -258,7 +258,7 @@ struct blas_traits<CwiseUnaryOp<scalar_conjugate_op<Scalar>, NestedXpr> >
 
 // pop scalar multiple
 template<typename Scalar, typename NestedXpr>
-struct blas_traits<CwiseUnaryOp<scalar_multiple_op<Scalar>, NestedXpr> >
+struct blas_traits<CwiseUnaryOp<scalar_multiple_op<Scalar>, NestedXpr>>
     : blas_traits<NestedXpr>
 {
     typedef blas_traits<NestedXpr> Base;
@@ -276,7 +276,7 @@ struct blas_traits<CwiseUnaryOp<scalar_multiple_op<Scalar>, NestedXpr> >
 
 // pop opposite
 template<typename Scalar, typename NestedXpr>
-struct blas_traits<CwiseUnaryOp<scalar_opposite_op<Scalar>, NestedXpr> >
+struct blas_traits<CwiseUnaryOp<scalar_opposite_op<Scalar>, NestedXpr>>
     : blas_traits<NestedXpr>
 {
     typedef blas_traits<NestedXpr> Base;
@@ -294,7 +294,7 @@ struct blas_traits<CwiseUnaryOp<scalar_opposite_op<Scalar>, NestedXpr> >
 
 // pop/push transpose
 template<typename NestedXpr>
-struct blas_traits<Transpose<NestedXpr> >
+struct blas_traits<Transpose<NestedXpr>>
     : blas_traits<NestedXpr>
 {
     typedef typename NestedXpr::Scalar Scalar;

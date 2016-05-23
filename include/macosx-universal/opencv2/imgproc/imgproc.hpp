@@ -1239,7 +1239,7 @@ CV_WRAP int locate(Point2f pt, CV_OUT int &edge, CV_OUT int &vertex);
 CV_WRAP int findNearest(Point2f pt, CV_OUT Point2f *nearestPt = 0);
 CV_WRAP void getEdgeList(CV_OUT vector<Vec4f> &edgeList) const;
 CV_WRAP void getTriangleList(CV_OUT vector<Vec6f> &triangleList) const;
-CV_WRAP void getVoronoiFacetList(const vector<int> &idx, CV_OUT vector<vector<Point2f> > &facetList,
+CV_WRAP void getVoronoiFacetList(const vector<int> &idx, CV_OUT vector<vector<Point2f>> &facetList,
                                  CV_OUT vector<Point2f> &facetCenters);
 
 CV_WRAP Point2f getVertex(int vertex, CV_OUT int *firstEdge = 0) const;

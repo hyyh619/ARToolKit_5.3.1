@@ -26,7 +26,7 @@
 #define EIGEN_SPARSETRANSPOSE_H
 
 template<typename MatrixType> class TransposeImpl<MatrixType, Sparse>
-    : public SparseMatrixBase<Transpose<MatrixType> >
+    : public SparseMatrixBase<Transpose<MatrixType>>
 {
 typedef typename internal::remove_all<typename MatrixType::Nested>::type _MatrixTypeNested;
 public:

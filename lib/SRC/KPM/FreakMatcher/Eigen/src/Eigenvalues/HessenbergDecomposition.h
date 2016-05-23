@@ -30,7 +30,7 @@ namespace internal
 {
 template<typename MatrixType> struct HessenbergDecompositionMatrixHReturnType;
 template<typename MatrixType>
-struct traits<HessenbergDecompositionMatrixHReturnType<MatrixType> >
+struct traits<HessenbergDecompositionMatrixHReturnType<MatrixType>>
 {
     typedef MatrixType ReturnType;
 };
@@ -351,7 +351,7 @@ namespace internal
  * class.
  */
 template<typename MatrixType> struct HessenbergDecompositionMatrixHReturnType
-    : public ReturnByValue<HessenbergDecompositionMatrixHReturnType<MatrixType> >
+    : public ReturnByValue<HessenbergDecompositionMatrixHReturnType<MatrixType>>
 {
     typedef typename MatrixType::Index Index;
 public:

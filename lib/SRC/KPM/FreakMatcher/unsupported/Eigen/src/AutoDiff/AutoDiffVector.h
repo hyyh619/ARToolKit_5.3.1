@@ -50,7 +50,7 @@ class AutoDiffVector
 public:
 // typedef typename internal::traits<ValueType>::Scalar Scalar;
 typedef typename internal::traits<ValueType>::Scalar BaseScalar;
-typedef AutoDiffScalar<Matrix<BaseScalar, JacobianType::RowsAtCompileTime, 1> > ActiveScalar;
+typedef AutoDiffScalar<Matrix<BaseScalar, JacobianType::RowsAtCompileTime, 1>> ActiveScalar;
 typedef ActiveScalar Scalar;
 typedef AutoDiffScalar<typename JacobianType::ColXpr> CoeffType;
 typedef typename JacobianType::Index Index;
